@@ -12,7 +12,10 @@ return array(
   'language' => "sl",
 
 	// preloading 'log' component
-	'preload'=>array('log'),
+	'preload'=>array(
+      'log',
+      'foundation',
+  ),
 
 	// autoloading model and component classes
 	'import'=>array(
@@ -38,6 +41,7 @@ return array(
 
 	// application components
 	'components'=>array(
+    'foundation' => array("class" => "ext.foundation.components.Foundation"),
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
@@ -53,11 +57,11 @@ return array(
 			),
 		),
 		*/
-		'db'=>array(
+		/*'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-		),
+		),*/
 		// uncomment the following to use a MySQL database
-		/*
+		
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=testdrive',
 			'emulatePrepare' => true,
@@ -65,7 +69,7 @@ return array(
 			'password' => '',
 			'charset' => 'utf8',
 		),
-		*/
+		
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
