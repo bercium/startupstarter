@@ -1,0 +1,15 @@
+#Netbeans project
+/nbproject/private/
+
+#VIM swap files
+*.swp
+
+#Eclipse
+.buildpath
+.project
+.settings
+
+#ignore folders
+assets/
+protected/runtime/
+protected/tests/report/
