@@ -22,6 +22,7 @@ return array(
 		'application.models.*',
 		'application.components.*',
     'ext.giix-components.*', // giix components
+    'application.extensions.auditTrail.models.AuditTrail',
 	),
 
 	'modules'=>array(
@@ -36,7 +37,7 @@ return array(
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
-		
+    /*'auditTrail'=>array(),*/
 	),
 
 	// application components
