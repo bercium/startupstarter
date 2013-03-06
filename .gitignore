@@ -10,6 +10,6 @@
 .settings
 
 #ignore folders
-assets/
-protected/runtime/
+#assets/
+#protected/runtime/
 protected/tests/report/
