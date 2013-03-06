@@ -32,7 +32,7 @@ class AuditTrail extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'tbl_audit_trail';
+		return 'audit_trail';
 	}
 
 	/**
