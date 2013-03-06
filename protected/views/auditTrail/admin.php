@@ -39,21 +39,25 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'audit-trail-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$model->search(array('sort'=> array('defaultOrder'=>'id DESC'))),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
-		'old_value',
-		'new_value',
+//		'id',
 		'action',
 		'model',
 		'field',
-		'stamp',
+		'old_value',
+		'new_value',
+    array(
+        'name' => 'stamp',
+        'value' => 'Yii::app()->dateFormatter->formatDateTime(strtotime($data->stamp),"medium","medium")'
+    ),      
 		'user_id',
 		'model_id',
 //		array(
 //			'class'=>'CButtonColumn',
 //		),
 	),
-)); ?>
+));
+?>
 
