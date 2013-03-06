@@ -63,7 +63,7 @@ return array(
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host= 	jaroberc.dot5hostingmysql.com;dbname=ss_db',
+			'connectionString' => 'mysql:host=localhost;dbname=slocoworking',
 			'emulatePrepare' => true,
 			'username' => 'startupstarter',
 			'password' => 'ss1DBzbj',
