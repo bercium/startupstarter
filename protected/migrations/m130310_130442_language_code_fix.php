@@ -19,7 +19,7 @@ class m130310_130442_language_code_fix extends CDbMigration
 
 		$this->execute("UPDATE  `slocoworking`.`translations` SET  `language_code` =  '1' ;");
 		$this->execute("ALTER TABLE  `translations` CHANGE  `language_code`  `language_id` SMALLINT( 2 ) UNSIGNED NOT NULL ;");
-		$this->execute("ALTER TABLE  `translations` ADD FOREIGN KEY (  `language_id` ) REFERENCES  `slocoworking`.`languages` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT ;")
+		$this->execute("ALTER TABLE  `translations` ADD FOREIGN KEY (  `language_id` ) REFERENCES  `slocoworking`.`languages` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT ;");
 
 		$this->execute("UPDATE  `slocoworking`.`users` SET  `language_code` =  '1' ;");
 		$this->execute("ALTER TABLE  `users` CHANGE  `language_code`  `language_id` SMALLINT( 2 ) UNSIGNED NOT NULL ;");
