@@ -16,7 +16,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('users-links-grid', {
+	$.fn.yiiGridView.update('links-grid', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -38,21 +38,13 @@ You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&g
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id' => 'users-links-grid',
+	'id' => 'links-grid',
 	'dataProvider' => $model->search(),
 	'filter' => $model,
 	'columns' => array(
 		'ID',
-		array(
-				'name'=>'user_id',
-				'value'=>'GxHtml::valueEx($data->user)',
-				'filter'=>GxHtml::listDataEx(Users::model()->findAllAttributes(null, true)),
-				),
-		array(
-				'name'=>'link_id',
-				'value'=>'GxHtml::valueEx($data->link)',
-				'filter'=>GxHtml::listDataEx(Links::model()->findAllAttributes(null, true)),
-				),
+		'name',
+		'url',
 		array(
 			'class' => 'CButtonColumn',
 		),

@@ -54,7 +54,6 @@ You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&g
 				'filter'=>GxHtml::listDataEx(Users::model()->findAllAttributes(null, true)),
 				),
 		'type',
-		'deleted',
 		array(
 			'class' => 'CButtonColumn',
 		),

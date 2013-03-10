@@ -14,14 +14,19 @@
 	<?php echo $form->errorSummary($model); ?>
 
 		<div class="row">
-		<?php echo $form->labelEx($model,'language_code'); ?>
-		<?php echo $form->dropDownList($model, 'language_code', GxHtml::listDataEx(Languages::model()->findAllAttributes(null, true))); ?>
-		<?php echo $form->error($model,'language_code'); ?>
+		<?php echo $form->labelEx($model,'language_id'); ?>
+		<?php echo $form->dropDownList($model, 'language_id', GxHtml::listDataEx(Languages::model()->findAllAttributes(null, true))); ?>
+		<?php echo $form->error($model,'language_id'); ?>
 		</div><!-- row -->
 		<div class="row">
 		<?php echo $form->labelEx($model,'idea_id'); ?>
 		<?php echo $form->dropDownList($model, 'idea_id', GxHtml::listDataEx(Ideas::model()->findAllAttributes(null, true))); ?>
 		<?php echo $form->error($model,'idea_id'); ?>
+		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'title'); ?>
+		<?php echo $form->textField($model, 'title', array('maxlength' => 64)); ?>
+		<?php echo $form->error($model,'title'); ?>
 		</div><!-- row -->
 		<div class="row">
 		<?php echo $form->labelEx($model,'pitch'); ?>

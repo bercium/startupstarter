@@ -22,15 +22,4 @@ $this->menu=array(
 'ID',
 'name',
 	),
-)); ?>
-
-<h2><?php echo GxHtml::encode($model->getRelationLabel('ideases')); ?></h2>
-<?php
-	echo GxHtml::openTag('ul');
-	foreach($model->ideases as $relatedModel) {
-		echo GxHtml::openTag('li');
-		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('ideas/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
-		echo GxHtml::closeTag('li');
-	}
-	echo GxHtml::closeTag('ul');
-?>
+));

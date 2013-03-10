@@ -2,7 +2,7 @@
 
 
 <?php $form = $this->beginWidget('GxActiveForm', array(
-	'id' => 'skills-form',
+	'id' => 'links-form',
 	'enableAjaxValidation' => false,
 ));
 ?>
@@ -17,6 +17,11 @@
 		<?php echo $form->labelEx($model,'name'); ?>
 		<?php echo $form->textField($model, 'name', array('maxlength' => 128)); ?>
 		<?php echo $form->error($model,'name'); ?>
+		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'url'); ?>
+		<?php echo $form->textField($model, 'url', array('maxlength' => 128)); ?>
+		<?php echo $form->error($model,'url'); ?>
 		</div><!-- row -->
 
 <?php

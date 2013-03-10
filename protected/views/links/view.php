@@ -20,16 +20,7 @@ $this->menu=array(
 	'data' => $model,
 	'attributes' => array(
 'ID',
-array(
-			'name' => 'user',
-			'type' => 'raw',
-			'value' => $model->user !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->user)), array('users/view', 'id' => GxActiveRecord::extractPkValue($model->user, true))) : null,
-			),
-array(
-			'name' => 'link',
-			'type' => 'raw',
-			'value' => $model->link !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->link)), array('links/view', 'id' => GxActiveRecord::extractPkValue($model->link, true))) : null,
-			),
+'name',
+'url',
 	),
-)); ?>
-
+));

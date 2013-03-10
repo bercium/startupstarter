@@ -41,12 +41,6 @@ abstract class BaseLinks extends GxActiveRecord {
 		);
 	}
 
-	public function relations() {
-		return array(
-			'usersLinks' => array(self::HAS_MANY, 'UsersLinks', 'link_id'),
-		);
-	}
-
 	public function pivotModels() {
 		return array(
 		);
@@ -57,7 +51,6 @@ abstract class BaseLinks extends GxActiveRecord {
 			'ID' => Yii::t('app', 'ID'),
 			'name' => Yii::t('app', 'Name'),
 			'url' => Yii::t('app', 'Url'),
-			'usersLinks' => null,
 		);
 	}
 

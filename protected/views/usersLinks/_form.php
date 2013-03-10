@@ -23,11 +23,6 @@
 		<?php echo $form->dropDownList($model, 'link_id', GxHtml::listDataEx(Links::model()->findAllAttributes(null, true))); ?>
 		<?php echo $form->error($model,'link_id'); ?>
 		</div><!-- row -->
-		<div class="row">
-		<?php echo $form->labelEx($model,'deleted'); ?>
-		<?php echo $form->textField($model, 'deleted'); ?>
-		<?php echo $form->error($model,'deleted'); ?>
-		</div><!-- row -->
 
 
 <?php

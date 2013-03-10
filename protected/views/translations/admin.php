@@ -44,8 +44,8 @@ You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&g
 	'columns' => array(
 		'ID',
 		array(
-				'name'=>'language_code',
-				'value'=>'GxHtml::valueEx($data->languageCode)',
+				'name'=>'language_id',
+				'value'=>'GxHtml::valueEx($data->language)',
 				'filter'=>GxHtml::listDataEx(Languages::model()->findAllAttributes(null, true)),
 				),
 		'table',

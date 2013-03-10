@@ -64,9 +64,9 @@
 		<?php echo $form->error($model,'newsletter'); ?>
 		</div><!-- row -->
 		<div class="row">
-		<?php echo $form->labelEx($model,'language_code'); ?>
-		<?php echo $form->dropDownList($model, 'language_code', GxHtml::listDataEx(Languages::model()->findAllAttributes(null, true))); ?>
-		<?php echo $form->error($model,'language_code'); ?>
+		<?php echo $form->labelEx($model,'language_id'); ?>
+		<?php echo $form->dropDownList($model, 'language_id', GxHtml::listDataEx(Languages::model()->findAllAttributes(null, true))); ?>
+		<?php echo $form->error($model,'language_id'); ?>
 		</div><!-- row -->
 		<div class="row">
 		<?php echo $form->labelEx($model,'country_id'); ?>

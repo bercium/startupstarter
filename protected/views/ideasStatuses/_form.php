@@ -19,9 +19,6 @@
 		<?php echo $form->error($model,'name'); ?>
 		</div><!-- row -->
 
-		<label><?php echo GxHtml::encode($model->getRelationLabel('ideases')); ?></label>
-		<?php echo $form->checkBoxList($model, 'ideases', GxHtml::encodeEx(GxHtml::listDataEx(Ideas::model()->findAllAttributes(null, true)), false, true)); ?>
-
 <?php
 echo GxHtml::submitButton(Yii::t('app', 'Save'));
 $this->endWidget();

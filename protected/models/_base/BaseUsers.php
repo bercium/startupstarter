@@ -20,14 +20,14 @@
  * @property string $avatar_link
  * @property string $time_per_week
  * @property integer $newsletter
- * @property string $language_code
+ * @property integer $language_id
  * @property integer $country_id
  * @property string $city_id
  * @property string $address
  * @property integer $deleted
  *
  * @property IdeasMembers[] $ideasMembers
- * @property Languages $languageCode
+ * @property Languages $language
  * @property Cities $city
  * @property Countries $country
  * @property UsersCollabprefs[] $usersCollabprefs
@@ -54,23 +54,22 @@ abstract class BaseUsers extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('VIRTUAL, time_registered, time_updated, deleted', 'required'),
-			array('VIRTUAL, newsletter, country_id, deleted', 'numerical', 'integerOnly'=>true),
+			array('VIRTUAL, time_registered, time_updated, language_id, deleted', 'required'),
+			array('VIRTUAL, newsletter, language_id, country_id, deleted', 'numerical', 'integerOnly'=>true),
 			array('name, surname, email, avatar_link, address', 'length', 'max'=>128),
 			array('md5_pass', 'length', 'max'=>32),
 			array('time_registered, time_updated', 'length', 'max'=>11),
 			array('time_per_week', 'length', 'max'=>3),
-			array('language_code', 'length', 'max'=>2),
 			array('city_id', 'length', 'max'=>10),
-			array('name, surname, email, md5_pass, avatar_link, time_per_week, newsletter, language_code, country_id, city_id, address', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('ID, VIRTUAL, name, surname, email, md5_pass, time_registered, time_updated, avatar_link, time_per_week, newsletter, language_code, country_id, city_id, address, deleted', 'safe', 'on'=>'search'),
+			array('name, surname, email, md5_pass, avatar_link, time_per_week, newsletter, country_id, city_id, address', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('ID, VIRTUAL, name, surname, email, md5_pass, time_registered, time_updated, avatar_link, time_per_week, newsletter, language_id, country_id, city_id, address, deleted', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
 			'ideasMembers' => array(self::HAS_MANY, 'IdeasMembers', 'user_id'),
-			'languageCode' => array(self::BELONGS_TO, 'Languages', 'language_code'),
+			'language' => array(self::BELONGS_TO, 'Languages', 'language_id'),
 			'city' => array(self::BELONGS_TO, 'Cities', 'city_id'),
 			'country' => array(self::BELONGS_TO, 'Countries', 'country_id'),
 			'usersCollabprefs' => array(self::HAS_MANY, 'UsersCollabprefs', 'user_id'),
@@ -97,13 +96,13 @@ abstract class BaseUsers extends GxActiveRecord {
 			'avatar_link' => Yii::t('app', 'Avatar Link'),
 			'time_per_week' => Yii::t('app', 'Time Per Week'),
 			'newsletter' => Yii::t('app', 'Newsletter'),
-			'language_code' => null,
+			'language_id' => null,
 			'country_id' => null,
 			'city_id' => null,
 			'address' => Yii::t('app', 'Address'),
 			'deleted' => Yii::t('app', 'Deleted'),
 			'ideasMembers' => null,
-			'languageCode' => null,
+			'language' => null,
 			'city' => null,
 			'country' => null,
 			'usersCollabprefs' => null,
@@ -126,7 +125,7 @@ abstract class BaseUsers extends GxActiveRecord {
 		$criteria->compare('avatar_link', $this->avatar_link, true);
 		$criteria->compare('time_per_week', $this->time_per_week, true);
 		$criteria->compare('newsletter', $this->newsletter);
-		$criteria->compare('language_code', $this->language_code);
+		$criteria->compare('language_id', $this->language_id);
 		$criteria->compare('country_id', $this->country_id);
 		$criteria->compare('city_id', $this->city_id);
 		$criteria->compare('address', $this->address, true);

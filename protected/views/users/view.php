@@ -31,9 +31,9 @@ $this->menu=array(
 'time_per_week',
 'newsletter',
 array(
-			'name' => 'languageCode',
+			'name' => 'language',
 			'type' => 'raw',
-			'value' => $model->languageCode !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->languageCode)), array('languages/view', 'id' => GxActiveRecord::extractPkValue($model->languageCode, true))) : null,
+			'value' => $model->language !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->language)), array('languages/view', 'id' => GxActiveRecord::extractPkValue($model->language, true))) : null,
 			),
 array(
 			'name' => 'country',

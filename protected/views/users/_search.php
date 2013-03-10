@@ -61,8 +61,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model, 'language_code'); ?>
-		<?php echo $form->dropDownList($model, 'language_code', GxHtml::listDataEx(Languages::model()->findAllAttributes(null, true)), array('prompt' => Yii::t('app', 'All'))); ?>
+		<?php echo $form->label($model, 'language_id'); ?>
+		<?php echo $form->dropDownList($model, 'language_id', GxHtml::listDataEx(Languages::model()->findAllAttributes(null, true)), array('prompt' => Yii::t('app', 'All'))); ?>
 	</div>
 
 	<div class="row">

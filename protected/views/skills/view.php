@@ -23,23 +23,3 @@ $this->menu=array(
 'name',
 	),
 )); ?>
-
-<h2><?php echo GxHtml::encode($model->getRelationLabel('skillsetsSkills')); ?></h2>
-<?php
-	echo GxHtml::openTag('ul');
-	foreach($model->skillsetsSkills as $relatedModel) {
-		echo GxHtml::openTag('li');
-		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('skillsetsSkills/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
-		echo GxHtml::closeTag('li');
-	}
-	echo GxHtml::closeTag('ul');
-?><h2><?php echo GxHtml::encode($model->getRelationLabel('usersSkills')); ?></h2>
-<?php
-	echo GxHtml::openTag('ul');
-	foreach($model->usersSkills as $relatedModel) {
-		echo GxHtml::openTag('li');
-		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('usersSkills/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
-		echo GxHtml::closeTag('li');
-	}
-	echo GxHtml::closeTag('ul');
-?>

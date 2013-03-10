@@ -11,13 +11,13 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model, 'user_id'); ?>
-		<?php echo $form->dropDownList($model, 'user_id', GxHtml::listDataEx(Users::model()->findAllAttributes(null, true)), array('prompt' => Yii::t('app', 'All'))); ?>
+		<?php echo $form->label($model, 'name'); ?>
+		<?php echo $form->textField($model, 'name', array('maxlength' => 128)); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model, 'link_id'); ?>
-		<?php echo $form->dropDownList($model, 'link_id', GxHtml::listDataEx(Links::model()->findAllAttributes(null, true)), array('prompt' => Yii::t('app', 'All'))); ?>
+		<?php echo $form->label($model, 'url'); ?>
+		<?php echo $form->textField($model, 'url', array('maxlength' => 128)); ?>
 	</div>
 
 	<div class="row buttons">

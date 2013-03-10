@@ -28,11 +28,6 @@
 		<?php echo $form->textField($model, 'type'); ?>
 		<?php echo $form->error($model,'type'); ?>
 		</div><!-- row -->
-		<div class="row">
-		<?php echo $form->labelEx($model,'deleted'); ?>
-		<?php echo $form->textField($model, 'deleted'); ?>
-		<?php echo $form->error($model,'deleted'); ?>
-		</div><!-- row -->
 
 
 <?php

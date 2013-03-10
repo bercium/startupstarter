@@ -25,11 +25,6 @@
 		<?php echo $form->textField($model, 'type'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model, 'deleted'); ?>
-		<?php echo $form->textField($model, 'deleted'); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo GxHtml::submitButton(Yii::t('app', 'Search')); ?>
 	</div>

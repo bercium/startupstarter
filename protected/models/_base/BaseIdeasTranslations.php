@@ -10,15 +10,16 @@
  * followed by relations of table "ideas_translations" available as properties of the model.
  *
  * @property string $ID
- * @property string $language_code
+ * @property integer $language_id
  * @property string $idea_id
+ * @property string $title
  * @property string $pitch
  * @property string $description
  * @property integer $description_public
  * @property string $tweetpitch
  * @property integer $deleted
  *
- * @property Languages $languageCode
+ * @property Languages $language
  * @property Ideas $idea
  */
 abstract class BaseIdeasTranslations extends GxActiveRecord {
@@ -36,23 +37,23 @@ abstract class BaseIdeasTranslations extends GxActiveRecord {
 	}
 
 	public static function representingColumn() {
-		return 'pitch';
+		return 'title';
 	}
 
 	public function rules() {
 		return array(
-			array('language_code, idea_id, pitch, description, description_public, tweetpitch, deleted', 'required'),
-			array('description_public, deleted', 'numerical', 'integerOnly'=>true),
-			array('language_code', 'length', 'max'=>2),
+			array('language_id, idea_id, title, pitch, description, description_public, tweetpitch, deleted', 'required'),
+			array('language_id, description_public, deleted', 'numerical', 'integerOnly'=>true),
 			array('idea_id', 'length', 'max'=>8),
+			array('title', 'length', 'max'=>64),
 			array('tweetpitch', 'length', 'max'=>140),
-			array('ID, language_code, idea_id, pitch, description, description_public, tweetpitch, deleted', 'safe', 'on'=>'search'),
+			array('ID, language_id, idea_id, title, pitch, description, description_public, tweetpitch, deleted', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
-			'languageCode' => array(self::BELONGS_TO, 'Languages', 'language_code'),
+			'language' => array(self::BELONGS_TO, 'Languages', 'language_id'),
 			'idea' => array(self::BELONGS_TO, 'Ideas', 'idea_id'),
 		);
 	}
@@ -65,14 +66,15 @@ abstract class BaseIdeasTranslations extends GxActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'ID' => Yii::t('app', 'ID'),
-			'language_code' => null,
+			'language_id' => null,
 			'idea_id' => null,
+			'title' => Yii::t('app', 'Title'),
 			'pitch' => Yii::t('app', 'Pitch'),
 			'description' => Yii::t('app', 'Description'),
 			'description_public' => Yii::t('app', 'Description Public'),
 			'tweetpitch' => Yii::t('app', 'Tweetpitch'),
 			'deleted' => Yii::t('app', 'Deleted'),
-			'languageCode' => null,
+			'language' => null,
 			'idea' => null,
 		);
 	}
@@ -81,8 +83,9 @@ abstract class BaseIdeasTranslations extends GxActiveRecord {
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('ID', $this->ID, true);
-		$criteria->compare('language_code', $this->language_code);
+		$criteria->compare('language_id', $this->language_id);
 		$criteria->compare('idea_id', $this->idea_id);
+		$criteria->compare('title', $this->title, true);
 		$criteria->compare('pitch', $this->pitch, true);
 		$criteria->compare('description', $this->description, true);
 		$criteria->compare('description_public', $this->description_public);

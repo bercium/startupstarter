@@ -35,8 +35,8 @@
 	<?php echo GxHtml::encode($data->getAttributeLabel('newsletter')); ?>:
 	<?php echo GxHtml::encode($data->newsletter); ?>
 	<br />
-	<?php echo GxHtml::encode($data->getAttributeLabel('language_code')); ?>:
-		<?php echo GxHtml::encode(GxHtml::valueEx($data->languageCode)); ?>
+	<?php echo GxHtml::encode($data->getAttributeLabel('language_id')); ?>:
+		<?php echo GxHtml::encode(GxHtml::valueEx($data->language)); ?>
 	<br />
 	<?php echo GxHtml::encode($data->getAttributeLabel('country_id')); ?>:
 		<?php echo GxHtml::encode(GxHtml::valueEx($data->country)); ?>

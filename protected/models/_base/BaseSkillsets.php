@@ -41,12 +41,6 @@ abstract class BaseSkillsets extends GxActiveRecord {
 		);
 	}
 
-	public function relations() {
-		return array(
-			'skillsetsSkills' => array(self::HAS_MANY, 'SkillsetsSkills', 'skillset_id'),
-		);
-	}
-
 	public function pivotModels() {
 		return array(
 		);
@@ -56,8 +50,6 @@ abstract class BaseSkillsets extends GxActiveRecord {
 		return array(
 			'ID' => Yii::t('app', 'ID'),
 			'name' => Yii::t('app', 'Name'),
-			'skillsetsSkills' => null,
-			'usersSkills' => null,
 		);
 	}
 

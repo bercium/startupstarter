@@ -35,14 +35,8 @@ abstract class BaseIdeasStatuses extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('name', 'required'),
-			array('name', 'numerical', 'integerOnly'=>true),
+			array('name', 'length', 'max'=>32),
 			array('ID, name', 'safe', 'on'=>'search'),
-		);
-	}
-
-	public function relations() {
-		return array(
-			'ideases' => array(self::HAS_MANY, 'Ideas', 'status_id'),
 		);
 	}
 

@@ -44,8 +44,8 @@ You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&g
 	'columns' => array(
 		'ID',
 		array(
-				'name'=>'language_code',
-				'value'=>'GxHtml::valueEx($data->languageCode)',
+				'name'=>'language_id',
+				'value'=>'GxHtml::valueEx($data->language)',
 				'filter'=>GxHtml::listDataEx(Languages::model()->findAllAttributes(null, true)),
 				),
 		array(
@@ -53,14 +53,15 @@ You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&g
 				'value'=>'GxHtml::valueEx($data->idea)',
 				'filter'=>GxHtml::listDataEx(Ideas::model()->findAllAttributes(null, true)),
 				),
+		'title',
 		'pitch',
 		'description',
+		/*
 		array(
 					'name' => 'description_public',
 					'value' => '($data->description_public === 0) ? Yii::t(\'app\', \'No\') : Yii::t(\'app\', \'Yes\')',
 					'filter' => array('0' => Yii::t('app', 'No'), '1' => Yii::t('app', 'Yes')),
 					),
-		/*
 		'tweetpitch',
 		'deleted',
 		*/

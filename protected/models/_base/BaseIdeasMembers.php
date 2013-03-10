@@ -13,10 +13,9 @@
  * @property string $idea_id
  * @property string $user_id
  * @property integer $type
- * @property integer $deleted
  *
- * @property Users $user
  * @property Ideas $idea
+ * @property Users $user
  */
 abstract class BaseIdeasMembers extends GxActiveRecord {
 
@@ -38,18 +37,18 @@ abstract class BaseIdeasMembers extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('idea_id, user_id, type, deleted', 'required'),
-			array('type, deleted', 'numerical', 'integerOnly'=>true),
+			array('idea_id, user_id, type', 'required'),
+			array('type', 'numerical', 'integerOnly'=>true),
 			array('idea_id', 'length', 'max'=>9),
 			array('user_id', 'length', 'max'=>8),
-			array('ID, idea_id, user_id, type, deleted', 'safe', 'on'=>'search'),
+			array('ID, idea_id, user_id, type', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
-			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
 			'idea' => array(self::BELONGS_TO, 'Ideas', 'idea_id'),
+			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
 		);
 	}
 
@@ -64,9 +63,8 @@ abstract class BaseIdeasMembers extends GxActiveRecord {
 			'idea_id' => null,
 			'user_id' => null,
 			'type' => Yii::t('app', 'Type'),
-			'deleted' => Yii::t('app', 'Deleted'),
-			'user' => null,
 			'idea' => null,
+			'user' => null,
 		);
 	}
 
@@ -77,7 +75,6 @@ abstract class BaseIdeasMembers extends GxActiveRecord {
 		$criteria->compare('idea_id', $this->idea_id);
 		$criteria->compare('user_id', $this->user_id);
 		$criteria->compare('type', $this->type);
-		$criteria->compare('deleted', $this->deleted);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

@@ -19,9 +19,6 @@
 		<?php echo $form->error($model,'name'); ?>
 		</div><!-- row -->
 
-		<label><?php echo GxHtml::encode($model->getRelationLabel('skillsetsSkills')); ?></label>
-		<?php echo $form->checkBoxList($model, 'skillsetsSkills', GxHtml::encodeEx(GxHtml::listDataEx(SkillsetsSkills::model()->findAllAttributes(null, true)), false, true)); ?>
-
 <?php
 echo GxHtml::submitButton(Yii::t('app', 'Save'));
 $this->endWidget();

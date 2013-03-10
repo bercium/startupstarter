@@ -10,12 +10,12 @@
  * followed by relations of table "translations" available as properties of the model.
  *
  * @property string $ID
- * @property string $language_code
+ * @property integer $language_id
  * @property string $table
  * @property string $row_id
  * @property string $translation
  *
- * @property Languages $languageCode
+ * @property Languages $language
  */
 abstract class BaseTranslations extends GxActiveRecord {
 
@@ -37,18 +37,18 @@ abstract class BaseTranslations extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('language_code, table, row_id, translation', 'required'),
-			array('language_code', 'length', 'max'=>2),
+			array('language_id, table, row_id, translation', 'required'),
+			array('language_id', 'numerical', 'integerOnly'=>true),
 			array('table', 'length', 'max'=>64),
 			array('row_id', 'length', 'max'=>10),
 			array('translation', 'length', 'max'=>128),
-			array('ID, language_code, table, row_id, translation', 'safe', 'on'=>'search'),
+			array('ID, language_id, table, row_id, translation', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
-			'languageCode' => array(self::BELONGS_TO, 'Languages', 'language_code'),
+			'language' => array(self::BELONGS_TO, 'Languages', 'language_id'),
 		);
 	}
 
@@ -60,11 +60,11 @@ abstract class BaseTranslations extends GxActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'ID' => Yii::t('app', 'ID'),
-			'language_code' => null,
+			'language_id' => null,
 			'table' => Yii::t('app', 'Table'),
 			'row_id' => Yii::t('app', 'Row'),
 			'translation' => Yii::t('app', 'Translation'),
-			'languageCode' => null,
+			'language' => null,
 		);
 	}
 
@@ -72,7 +72,7 @@ abstract class BaseTranslations extends GxActiveRecord {
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('ID', $this->ID, true);
-		$criteria->compare('language_code', $this->language_code);
+		$criteria->compare('language_id', $this->language_id);
 		$criteria->compare('table', $this->table, true);
 		$criteria->compare('row_id', $this->row_id, true);
 		$criteria->compare('translation', $this->translation, true);
