@@ -51,11 +51,6 @@ class SiteController extends Controller
 		}
 	}
   
-	public function actionAbout()
-	{
-    $this->render('contact');
-  }
-  
   
 	public function actionList()
 	{
