@@ -22,7 +22,9 @@ return array(
 		'application.models.*',
 		'application.components.*',
     'ext.giix-components.*', // giix components
-    'application.extensions.auditTrail.models.AuditTrail',
+    'application.extensions.auditTrail.models.AuditTrail', // system for loging models
+    'application.modules.user.models.*',  // yii-user login system
+    'application.modules.user.components.*', // yii-user login system
 	),
 
 	'modules'=>array(
@@ -37,6 +39,33 @@ return array(
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
+      
+		'user'=>array(
+      'tableUsers' => 'users',
+      'tableProfiles' => 'profiles',
+      'tableProfileFields' => 'profiles_fields',        
+      # encrypting method (php hash function)
+      'hash' => 'md5',
+      # send activation email
+      'sendActivationMail' => true,
+      # allow access for non-activated users
+      'loginNotActiv' => false,
+      # activate user on registration (only sendActivationMail = false)
+      'activeAfterRegister' => false,
+      # automatically login from registration
+      'autoLogin' => true,
+      # registration path
+      'registrationUrl' => array('/user/registration'),
+      # recovery password path
+      'recoveryUrl' => array('/user/recovery'),
+      # login form path
+      'loginUrl' => array('/user/login'),
+      # page after login
+      'returnUrl' => array('/user/profile'),
+      # page after logout
+      'returnLogoutUrl' => array('/user/login'),        
+		),      
+      
     /*'auditTrail'=>array(),*/
 	),
 
@@ -46,6 +75,8 @@ return array(
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
+      # encrypting method (php hash function)
+      'class'=>"webUser",
 		),
 		// uncomment the following to enable URLs in path-format
 		
