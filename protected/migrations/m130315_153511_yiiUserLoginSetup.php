@@ -55,28 +55,6 @@ class m130315_153511_yiiUserLoginSetup extends CDbMigration
                 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
                 ");
   
-  $this->execute("CREATE TABLE `profiles_fields` (
-                  `id` int(10) NOT NULL AUTO_INCREMENT,
-                  `varname` varchar(50) NOT NULL,
-                  `title` varchar(255) NOT NULL,
-                  `field_type` varchar(50) NOT NULL,
-                  `field_size` varchar(15) NOT NULL DEFAULT '0',
-                  `field_size_min` varchar(15) NOT NULL DEFAULT '0',
-                  `required` int(1) NOT NULL DEFAULT '0',
-                  `match` varchar(255) NOT NULL DEFAULT '',
-                  `range` varchar(255) NOT NULL DEFAULT '',
-                  `error_message` varchar(255) NOT NULL DEFAULT '',
-                  `other_validator` varchar(5000) NOT NULL DEFAULT '',
-                  `default` varchar(255) NOT NULL DEFAULT '',
-                  `widget` varchar(255) NOT NULL DEFAULT '',
-                  `widgetparams` varchar(5000) NOT NULL DEFAULT '',
-                  `position` int(3) NOT NULL DEFAULT '0',
-                  `visible` int(1) NOT NULL DEFAULT '0',
-                  PRIMARY KEY (`id`),
-                  KEY `varname` (`varname`,`widget`,`visible`)
-                ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-                ");
-  
   // insert test users
   $this->execute("INSERT INTO `users` (`id`, `username`, `password`, `email`, `activkey`, `superuser`, `status`) VALUES
                     (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'webmaster@example.com', '9a24eff8c15a6a141ece27eb6947da0f', 1, 1),
