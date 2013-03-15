@@ -18,3 +18,11 @@ $this->pageTitle=Yii::app()->name;
 the <a href="http://www.yiiframework.com/doc/">documentation</a>.
 Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
 should you have any questions.</p>
+
+<h2>Huhu, first array built</h2><br/>
+
+<h3>Recent ideas (looking for candidates)</h3>
+<?php print_r($data['idea']); ?>
+
+<h3>Recently registered users</h3>
+<?php print_r($data['user']); ?>

@@ -33,7 +33,7 @@ Uporabniki:<br/>
 
 Ideje:<br/>
 <a href="<?php echo Yii::app()->createUrl("ideas"); ?>">Ideas</a><br />
-<a href="<?php echo Yii::app()->createUrl("ideasmembers"); ?>">IdeasTranslations</a><br />
+<a href="<?php echo Yii::app()->createUrl("ideastranslations"); ?>">IdeasTranslations</a><br />
 <a href="<?php echo Yii::app()->createUrl("ideasmembers"); ?>">IdeasMembers</a><br />
 
 <br/>

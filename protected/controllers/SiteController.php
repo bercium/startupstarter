@@ -27,14 +27,23 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-		// renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+		$sqlbuilder = new SqlBuilder;
+		$idea = $sqlbuilder->idea("recent");
+		$user = $sqlbuilder->user("recent");
+		$data['idea'] = $idea;
+		$data['user'] = $user;
+
+		$this->render('index', array('data' => $data));
 	}
 
 	public function actionAbout()
 	{
 		$this->render('about');
+	}
+
+	public function actionTeam()
+	{
+		$this->render('team');
 	}
 
 	/**

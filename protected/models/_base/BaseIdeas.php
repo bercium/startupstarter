@@ -36,7 +36,7 @@ abstract class BaseIdeas extends GxActiveRecord {
 	}
 
 	public static function representingColumn() {
-		return 'website';
+		return 'ID';
 	}
 
 	public function rules() {
