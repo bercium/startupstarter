@@ -76,7 +76,7 @@ return array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
       # encrypting method (php hash function)
-      'class'=>"webUser",
+      'class'=>"WebUser",
 		),
 		// uncomment the following to enable URLs in path-format
 		

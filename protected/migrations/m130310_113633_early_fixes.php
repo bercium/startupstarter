@@ -10,8 +10,8 @@ class m130310_113633_early_fixes extends CDbMigration
 		//Ideas need their titles
 		$this->execute("ALTER TABLE `ideas_translations` CHANGE `title` `title` VARCHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL");
 
-		$this->execute("`users_links` DROP `deleted` ;");
-    $this->execute("`ideas_members` DROP `deleted` ;");
+		$this->execute("ALTER TABLE `users_links` DROP `deleted` ;");
+    $this->execute("ALTER TABLE `ideas_members` DROP `deleted` ;");
 	}
 
 	public function down()

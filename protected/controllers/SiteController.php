@@ -23,6 +23,10 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+        'actions'=>array("index"),
+				'users'=>array('*'),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'users'=>array('@'),
 			),
 			/*array('allow', // allow authenticated user to perform 'create' and 'update' actions
