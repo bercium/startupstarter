@@ -209,7 +209,7 @@ class UserModule extends CWebModule
 			$admins = User::model()->active()->superuser()->findAll();
 			$return_name = array();
 			foreach ($admins as $admin)
-				array_push($return_name,$admin->username);
+				array_push($return_name,$admin->email);
 			self::$_admins = ($return_name)?$return_name:array('');
 		}
 		return self::$_admins;
@@ -258,7 +258,7 @@ class UserModule extends CWebModule
 	 */
 	public static function getUserByName($username) {
 		if (!isset(self::$_userByName[$username])) {
-			$_userByName[$username] = User::model()->findByAttributes(array('username'=>$username));
+			$_userByName[$username] = User::model()->findByAttributes(array('email'=>$username));
 		}
 		return $_userByName[$username];
 	}

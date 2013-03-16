@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
 	(UserModule::t('Users'))=>array('admin'),
-	$model->username=>array('view','id'=>$model->id),
+	$model->email=>array('view','id'=>$model->id),
 	(UserModule::t('Update')),
 );
 $this->menu=array(

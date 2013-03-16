@@ -25,8 +25,8 @@ $this->breadcrumbs=array(
 	<?php echo CHtml::errorSummary($model); ?>
 	
 	<div class="row">
-		<?php echo CHtml::activeLabelEx($model,'username'); ?>
-		<?php echo CHtml::activeTextField($model,'username') ?>
+		<?php echo CHtml::activeLabelEx($model,'email'); ?>
+		<?php echo CHtml::activeTextField($model,'email') ?>
 	</div>
 	
 	<div class="row">
@@ -56,9 +56,9 @@ $this->breadcrumbs=array(
 <?php
 $form = new CForm(array(
     'elements'=>array(
-        'username'=>array(
+        'email'=>array(
             'type'=>'text',
-            'maxlength'=>32,
+            /*'maxlength'=>32,*/
         ),
         'password'=>array(
             'type'=>'password',

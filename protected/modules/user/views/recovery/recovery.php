@@ -21,7 +21,7 @@ $this->breadcrumbs=array(
 	<div class="row">
 		<?php echo CHtml::activeLabel($form,'login_or_email'); ?>
 		<?php echo CHtml::activeTextField($form,'login_or_email') ?>
-		<p class="hint"><?php echo UserModule::t("Please enter your login or email addres."); ?></p>
+		<p class="hint"><?php echo UserModule::t("Please enter your email address."); ?></p>
 	</div>
 	
 	<div class="row submit">

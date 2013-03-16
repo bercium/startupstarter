@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
 	UserModule::t('Users')=>array('admin'),
-	$model->username,
+	$model->email,
 );
 
 
@@ -14,13 +14,13 @@ $this->menu=array(
     array('label'=>UserModule::t('List User'), 'url'=>array('/user')),
 );
 ?>
-<h1><?php echo UserModule::t('View User').' "'.$model->username.'"'; ?></h1>
+<h1><?php echo UserModule::t('View User').' "'.$model->email.'"'; ?></h1>
 
 <?php
  
 	$attributes = array(
 		'id',
-		'username',
+		'email',
 	);
 	
 	$profileFields=ProfileField::model()->forOwner()->sort()->findAll();

@@ -10,10 +10,6 @@
         <?php echo $form->textField($model,'id'); ?>
     </div>
 
-    <div class="row">
-        <?php echo $form->label($model,'username'); ?>
-        <?php echo $form->textField($model,'username',array('size'=>20,'maxlength'=>20)); ?>
-    </div>
 
     <div class="row">
         <?php echo $form->label($model,'email'); ?>

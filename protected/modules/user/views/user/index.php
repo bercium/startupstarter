@@ -17,9 +17,9 @@ if(UserModule::isAdmin()) {
 	'dataProvider'=>$dataProvider,
 	'columns'=>array(
 		array(
-			'name' => 'username',
+			'name' => 'email',
 			'type'=>'raw',
-			'value' => 'CHtml::link(CHtml::encode($data->username),array("user/view","id"=>$data->id))',
+			'value' => 'CHtml::link(CHtml::encode($data->email),array("user/view","id"=>$data->id))',
 		),
 		'create_at',
 		'lastvisit_at',

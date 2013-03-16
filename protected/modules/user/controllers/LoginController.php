@@ -17,7 +17,7 @@ class LoginController extends Controller
 				$model->attributes=$_POST['UserLogin'];
 				// validate user input and redirect to previous page if valid
 				if($model->validate()) {
-					$this->lastViset();
+					$this->lastVisit();
 					if (Yii::app()->getBaseUrl()."/index.php" === Yii::app()->user->returnUrl)
 						$this->redirect(Yii::app()->controller->module->returnUrl);
 					else
@@ -30,7 +30,7 @@ class LoginController extends Controller
 			$this->redirect(Yii::app()->controller->module->returnUrl);
 	}
 	
-	private function lastViset() {
+	private function lastVisit() {
 		$lastVisit = User::model()->notsafe()->findByPk(Yii::app()->user->id);
 		$lastVisit->lastvisit_at = date('Y-m-d H:i:s');
 		$lastVisit->save();

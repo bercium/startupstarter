@@ -8,12 +8,13 @@
 class UserIdentity extends CUserIdentity
 {
 	private $_id;
-	const ERROR_EMAIL_INVALID=3;
+  private $email;
+  const ERROR_EMAIL_INVALID=3;
 	const ERROR_STATUS_NOTACTIV=4;
 	const ERROR_STATUS_BAN=5;
 	/**
 	 * Authenticates a user.
-	 * The example implementation makes sure if the username and password
+	 * The example implementation makes sure if the email and password
 	 * are both 'demo'.
 	 * In practical applications, this should be changed to authenticate
 	 * against some persistent user identity storage (e.g. database).
@@ -21,17 +22,13 @@ class UserIdentity extends CUserIdentity
 	 */
 	public function authenticate()
 	{
-		if (strpos($this->username,"@")) {
+    /*throw new ErrorException("test|".$this->username."|");*/
+      
 			$user=User::model()->notsafe()->findByAttributes(array('email'=>$this->username));
-		} else {
-			$user=User::model()->notsafe()->findByAttributes(array('username'=>$this->username));
-		}
-		if($user===null)
-			if (strpos($this->username,"@")) {
+
+      if($user===null)
 				$this->errorCode=self::ERROR_EMAIL_INVALID;
-			} else {
-				$this->errorCode=self::ERROR_USERNAME_INVALID;
-			}
+      
 		else if(Yii::app()->getModule('user')->encrypting($this->password)!==$user->password)
 			$this->errorCode=self::ERROR_PASSWORD_INVALID;
 		else if($user->status==0&&Yii::app()->getModule('user')->loginNotActiv==false)
@@ -40,7 +37,7 @@ class UserIdentity extends CUserIdentity
 			$this->errorCode=self::ERROR_STATUS_BAN;
 		else {
 			$this->_id=$user->id;
-			$this->username=$user->username;
+			$this->email=$user->email;
 			$this->errorCode=self::ERROR_NONE;
 		}
 		return !$this->errorCode;

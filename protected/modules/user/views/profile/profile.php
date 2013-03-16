@@ -20,8 +20,8 @@ $this->menu=array(
 <?php endif; ?>
 <table class="dataGrid">
 	<tr>
-		<th class="label"><?php echo CHtml::encode($model->getAttributeLabel('username')); ?></th>
-	    <td><?php echo CHtml::encode($model->username); ?></td>
+		<th class="label"><?php echo CHtml::encode($model->getAttributeLabel('email')); ?></th>
+	    <td><?php echo CHtml::encode($model->email); ?></td>
 	</tr>
 	<?php 
 		$profileFields=ProfileField::model()->forOwner()->sort()->findAll();

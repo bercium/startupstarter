@@ -47,11 +47,6 @@ $('.search-form form').submit(function(){
 			'value' => 'CHtml::link(CHtml::encode($data->id),array("admin/update","id"=>$data->id))',
 		),
 		array(
-			'name' => 'username',
-			'type'=>'raw',
-			'value' => 'CHtml::link(UHtml::markSearch($data,"username"),array("admin/view","id"=>$data->id))',
-		),
-		array(
 			'name'=>'email',
 			'type'=>'raw',
 			'value'=>'CHtml::link(UHtml::markSearch($data,"email"), "mailto:".$data->email)',
