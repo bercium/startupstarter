@@ -10,7 +10,7 @@ class User extends CActiveRecord
 	const STATUS_BANED=-1;
 	
 	/**
-	 * The followings are the available columns in table 'users':
+	 * The followings are the available columns in table 'user':
 	 * @var integer $id
 	 * @var string $username
 	 * @var string $password
@@ -63,8 +63,8 @@ class User extends CActiveRecord
 			array('email, superuser, status', 'required'),
 			array('superuser, status', 'numerical', 'integerOnly'=>true),
 			//array('id, username, password, email, activkey, create_at, lastvisit_at, superuser, status', 'safe', 'on'=>'search'),
-			array('id, password, email, activkey, create_at, lastvisit_at, superuser, status', 'safe', 'on'=>'search'),
-		):((Yii::app()->user->id==$this->id)?array(
+			array('ID, password, email, activkey, create_at, lastvisit_at, superuser, status', 'safe', 'on'=>'search'),
+		):((Yii::app()->user->ID==$this->ID)?array(
 			//array('username, email', 'required'),
 			array('email', 'required'),
 			//array('username', 'length', 'max'=>20, 'min' => 3,'message' => UserModule::t("Incorrect username (length between 3 and 20 characters).")),
@@ -92,7 +92,7 @@ class User extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => UserModule::t("Id"),
+			'ID' => UserModule::t("Id"),
 			//'username'=>UserModule::t("username"),
 			'password'=>UserModule::t("password"),
 			'verifyPassword'=>UserModule::t("Retype Password"),
@@ -124,7 +124,7 @@ class User extends CActiveRecord
                 'condition'=>'superuser=1',
             ),
             'notsafe'=>array(
-            	'select' => 'id, password, email, activkey, create_at, lastvisit_at, superuser, status',
+            	'select' => 'ID, password, email, activkey, create_at, lastvisit_at, superuser, status',
             ),
         );
     }
@@ -133,7 +133,7 @@ class User extends CActiveRecord
     {
         return CMap::mergeArray(Yii::app()->getModule('user')->defaultScope,array(
             'alias'=>'user',
-            'select' => 'user.id, user.email, user.create_at, user.lastvisit_at, user.superuser, user.status',
+            'select' => 'user.ID, user.email, user.create_at, user.lastvisit_at, user.superuser, user.status',
         ));
     }
 	
@@ -166,7 +166,7 @@ class User extends CActiveRecord
 
         $criteria=new CDbCriteria;
         
-        $criteria->compare('id',$this->id);
+        $criteria->compare('ID',$this->ID);
         //$criteria->compare('username',$this->username,true);
         $criteria->compare('password',$this->password);
         $criteria->compare('email',$this->email,true);

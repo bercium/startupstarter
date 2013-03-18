@@ -41,7 +41,7 @@ return array(
 		),
       
 		'user'=>array(
-      'tableUsers' => 'users',
+      'tableUsers' => 'user',
       'tableProfiles' => 'profiles',
       'tableProfileFields' => 'profiles_fields',        
       # encrypting method (php hash function)

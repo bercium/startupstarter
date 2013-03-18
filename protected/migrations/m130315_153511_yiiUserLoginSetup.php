@@ -57,7 +57,7 @@ class m130315_153511_yiiUserLoginSetup extends CDbMigration
   
   // insert test users
   $this->execute("INSERT INTO `users` (`id`, `username`, `password`, `email`, `activkey`, `superuser`, `status`) VALUES
-                    (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'webmaster@example.com', '9a24eff8c15a6a141ece27eb6947da0f', 1, 1),
+                    (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@example.com', '9a24eff8c15a6a141ece27eb6947da0f', 1, 1),
                     (2, 'demo', 'fe01ce2a7fbac8fafaed7c982a04e229', 'demo@example.com', '099f825543f7850cc038b90aaff39fac', 0, 1);
                  ");
   

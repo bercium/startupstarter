@@ -6,6 +6,7 @@
 class SqlBuilder {
 
 	public function idea($type, $filter = 0){
+    return ;
 		/*
 		type
 		recent (GET RECENT idea)
@@ -93,6 +94,7 @@ class SqlBuilder {
 	}
 
 	public function user($type, $filter = 0){
+    return;
 		/*
 		type
 			recent

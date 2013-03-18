@@ -11,19 +11,19 @@ class m130310_130442_language_code_fix extends CDbMigration
 
 		$this->execute("ALTER TABLE  `languages` CHANGE  `ID`  `ID` SMALLINT( 2 ) UNSIGNED NOT NULL AUTO_INCREMENT ;");
 		$this->execute("TRUNCATE TABLE `languages` ;");
-		$this->execute("INSERT INTO `slocoworking`.`languages` (`ID`, `language_code`, `name`) VALUES (NULL, 'sl', 'Slovenscina');");
+		$this->execute("INSERT INTO `languages` (`ID`, `language_code`, `name`) VALUES (NULL, 'sl', 'Slovenscina');");
 
-		$this->execute("UPDATE  `slocoworking`.`ideas_translations` SET  `language_code` =  '1' ;");
+		$this->execute("UPDATE  `ideas_translations` SET  `language_code` =  '1' ;");
 		$this->execute("ALTER TABLE  `ideas_translations` CHANGE  `language_code`  `language_id` SMALLINT( 2 ) UNSIGNED NOT NULL ;");
-		$this->execute("ALTER TABLE  `ideas_translations` ADD FOREIGN KEY (  `language_id` ) REFERENCES  `slocoworking`.`languages` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT ;");
+		$this->execute("ALTER TABLE  `ideas_translations` ADD FOREIGN KEY (  `language_id` ) REFERENCES  `languages` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT ;");
 
-		$this->execute("UPDATE  `slocoworking`.`translations` SET  `language_code` =  '1' ;");
+		$this->execute("UPDATE  `translations` SET  `language_code` =  '1' ;");
 		$this->execute("ALTER TABLE  `translations` CHANGE  `language_code`  `language_id` SMALLINT( 2 ) UNSIGNED NOT NULL ;");
-		$this->execute("ALTER TABLE  `translations` ADD FOREIGN KEY (  `language_id` ) REFERENCES  `slocoworking`.`languages` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT ;");
+		$this->execute("ALTER TABLE  `translations` ADD FOREIGN KEY (  `language_id` ) REFERENCES  `languages` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT ;");
 
-		$this->execute("UPDATE  `slocoworking`.`users` SET  `language_code` =  '1' ;");
+		$this->execute("UPDATE  `users` SET  `language_code` =  '1' ;");
 		$this->execute("ALTER TABLE  `users` CHANGE  `language_code`  `language_id` SMALLINT( 2 ) UNSIGNED NOT NULL ;");
-		$this->execute("ALTER TABLE  `users` ADD FOREIGN KEY (  `language_id` ) REFERENCES  `slocoworking`.`languages` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT ;");
+		$this->execute("ALTER TABLE  `users` ADD FOREIGN KEY (  `language_id` ) REFERENCES  `languages` (`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT ;");
 	}
 
 	public function down()
