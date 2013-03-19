@@ -44,13 +44,6 @@
 		<?php echo $form->error($model,'deleted'); ?>
 		</div><!-- row -->
 
-		<label><?php echo GxHtml::encode($model->getRelationLabel('clickIdeas')); ?></label>
-		<?php echo $form->checkBoxList($model, 'clickIdeas', GxHtml::encodeEx(GxHtml::listDataEx(ClickIdea::model()->findAllAttributes(null, true)), false, true)); ?>
-		<label><?php echo GxHtml::encode($model->getRelationLabel('ideaMembers')); ?></label>
-		<?php echo $form->checkBoxList($model, 'ideaMembers', GxHtml::encodeEx(GxHtml::listDataEx(IdeaMember::model()->findAllAttributes(null, true)), false, true)); ?>
-		<label><?php echo GxHtml::encode($model->getRelationLabel('ideaTranslations')); ?></label>
-		<?php echo $form->checkBoxList($model, 'ideaTranslations', GxHtml::encodeEx(GxHtml::listDataEx(IdeaTranslation::model()->findAllAttributes(null, true)), false, true)); ?>
-
 <?php
 echo GxHtml::submitButton(Yii::t('app', 'Save'));
 $this->endWidget();

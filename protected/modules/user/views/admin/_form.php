@@ -1,67 +1,87 @@
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'user-form',
-	'enableAjaxValidation'=>true,
-	'htmlOptions' => array('enctype'=>'multipart/form-data'),
+
+<?php $form = $this->beginWidget('GxActiveForm', array(
+	'id' => 'user-form',
+	'enableAjaxValidation' => false,
 ));
 ?>
 
-	<p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p>
+	<p class="note">
+		<?php echo Yii::t('app', 'Fields with'); ?> <span class="required">*</span> <?php echo Yii::t('app', 'are required'); ?>.
+	</p>
 
-	<?php echo $form->errorSummary(array($model,$profile)); ?>
+	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
+		<div class="row">
 		<?php echo $form->labelEx($model,'email'); ?>
-		<?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>128)); ?>
+		<?php echo $form->textField($model, 'email', array('maxlength' => 128)); ?>
 		<?php echo $form->error($model,'email'); ?>
-	</div>
-
-	<div class="row">
+		</div><!-- row -->
+		<div class="row">
 		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->passwordField($model,'password',array('size'=>60,'maxlength'=>128)); ?>
+		<?php echo $form->passwordField($model, 'password', array('maxlength' => 128)); ?>
 		<?php echo $form->error($model,'password'); ?>
-	</div>
-
-	<div class="row">
+		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'activkey'); ?>
+		<?php echo $form->textField($model, 'activkey', array('maxlength' => 128)); ?>
+		<?php echo $form->error($model,'activkey'); ?>
+		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'create_at'); ?>
+		<?php echo $form->textField($model, 'create_at'); ?>
+		<?php echo $form->error($model,'create_at'); ?>
+		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'lastvisit_at'); ?>
+		<?php echo $form->textField($model, 'lastvisit_at'); ?>
+		<?php echo $form->error($model,'lastvisit_at'); ?>
+		</div><!-- row -->
+		<div class="row">
 		<?php echo $form->labelEx($model,'superuser'); ?>
-		<?php echo $form->dropDownList($model,'superuser',User::itemAlias('AdminStatus')); ?>
+		<?php echo $form->textField($model, 'superuser'); ?>
 		<?php echo $form->error($model,'superuser'); ?>
-	</div>
-
-	<div class="row">
+		</div><!-- row -->
+		<div class="row">
 		<?php echo $form->labelEx($model,'status'); ?>
-		<?php echo $form->dropDownList($model,'status',User::itemAlias('UserStatus')); ?>
+		<?php echo $form->textField($model, 'status'); ?>
 		<?php echo $form->error($model,'status'); ?>
-	</div>
-<?php 
-		$profileFields=Profile::getFields();
-		if ($profileFields) {
-			foreach($profileFields as $field) {
-			?>
-	<div class="row">
-		<?php echo $form->labelEx($profile,$field->varname); ?>
-		<?php 
-		if ($widgetEdit = $field->widgetEdit($profile)) {
-			echo $widgetEdit;
-		} elseif ($field->range) {
-			echo $form->dropDownList($profile,$field->varname,Profile::range($field->range));
-		} elseif ($field->field_type=="TEXT") {
-			echo CHtml::activeTextArea($profile,$field->varname,array('rows'=>6, 'cols'=>50));
-		} else {
-			echo $form->textField($profile,$field->varname,array('size'=>60,'maxlength'=>(($field->field_size)?$field->field_size:255)));
-		}
-		 ?>
-		<?php echo $form->error($profile,$field->varname); ?>
-	</div>
-			<?php
-			}
-		}
+		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'name'); ?>
+		<?php echo $form->textField($model, 'name', array('maxlength' => 128)); ?>
+		<?php echo $form->error($model,'name'); ?>
+		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'surname'); ?>
+		<?php echo $form->textField($model, 'surname', array('maxlength' => 128)); ?>
+		<?php echo $form->error($model,'surname'); ?>
+		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'address'); ?>
+		<?php echo $form->textField($model, 'address', array('maxlength' => 128)); ?>
+		<?php echo $form->error($model,'address'); ?>
+		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'avatar_link'); ?>
+		<?php echo $form->textField($model, 'avatar_link', array('maxlength' => 128)); ?>
+		<?php echo $form->error($model,'avatar_link'); ?>
+		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'language_id'); ?>
+		<?php echo $form->textField($model, 'language_id'); ?>
+		<?php echo $form->error($model,'language_id'); ?>
+		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'newsletter'); ?>
+		<?php echo $form->checkBox($model, 'newsletter'); ?>
+		<?php echo $form->error($model,'newsletter'); ?>
+		</div><!-- row -->
+
+
+<?php
+echo GxHtml::submitButton(Yii::t('app', 'Save'));
+$this->endWidget();
 ?>
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? UserModule::t('Create') : UserModule::t('Save')); ?>
-	</div>
-
-<?php $this->endWidget(); ?>
-
 </div><!-- form -->
