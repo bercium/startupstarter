@@ -3,6 +3,9 @@
 class m130319_112303_fixTableIDs extends CDbMigration
 {
 	public function up(){
+    $this->execute("ALTER TABLE `idea` CHANGE `time_registered` `time_registered` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+                    CHANGE `time_updated` `time_updated` TIMESTAMP NOT NULL ");
+    
     // change all ID to id for allaround compatibility
     $this->execute("ALTER TABLE `user` CHANGE `ID` `id` INT( 11 ) UNSIGNED NOT NULL AUTO_INCREMENT ");
     $this->execute("ALTER TABLE `city` CHANGE `ID` `id` INT( 10 ) UNSIGNED NOT NULL AUTO_INCREMENT ");

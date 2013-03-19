@@ -22,35 +22,28 @@ $this->pageTitle=Yii::app()->name . ' - CRUD List';
 <a href="<?php echo Yii::app()->createUrl("skill"); ?>">Skills</a><br />
 <a href="<?php echo Yii::app()->createUrl("skillset"); ?>">Skillsets</a><br />
 
-<br /><br />
+<br />
 
-Idea
-IdeaMember
-IdeaTranslation
-skillset_skill
-translation
-user*
+<a href="<?php echo Yii::app()->createUrl("skillsetskill"); ?>">Skillset Skills</a><br />
+<a href="<?php echo Yii::app()->createUrl("translation"); ?>">Translations</a><br />
+
+<br />
+Users:<br />
+<a href="<?php echo Yii::app()->createUrl("userlink"); ?>">User Links</a><br />
+<a href="<?php echo Yii::app()->createUrl("userskill"); ?>">Users Skills</a><br />
+<a href="<?php echo Yii::app()->createUrl("usercollabpref"); ?>">Users Collabprefs</a><br />
+<a href="<?php echo Yii::app()->createUrl("usershare"); ?>">Users Skills</a><br />
+
+<br />
+Ideje:<br/>
+<a href="<?php echo Yii::app()->createUrl("idea"); ?>">Ideas</a><br />
+<a href="<?php echo Yii::app()->createUrl("ideatranslation"); ?>">Ideas Translations</a><br />
+<a href="<?php echo Yii::app()->createUrl("ideamember"); ?>">Ideas Members</a><br />
 
 <br /><br /><br />
 
-<a href="<?php echo Yii::app()->createUrl("languages"); ?>">Languages</a><br />
-<a href="<?php echo Yii::app()->createUrl("translations"); ?>">Translations</a><br /><br />
-
-<a href="<?php echo Yii::app()->createUrl("skillsetsskills"); ?>">SkillsetsSkills</a><br />
-<a href="<?php echo Yii::app()->createUrl("collabprefs"); ?>">Collabprefs</a><br /><br />
-
-
-<a href="<?php echo Yii::app()->createUrl("ideasstatuses"); ?>">IdeasStatuses</a><br /><br />
-
 Uporabniki:<br/>
 <a href="<?php echo Yii::app()->createUrl("users"); ?>">Users</a><br />
-<a href="<?php echo Yii::app()->createUrl("usersskills"); ?>">UsersSkills</a><br />
-<a href="<?php echo Yii::app()->createUrl("userscollabprefs"); ?>">usersCollabprefs</a><br />
-<a href="<?php echo Yii::app()->createUrl("userslinks"); ?>">usersLinks</a><br /><br />
 
-Ideje:<br/>
-<a href="<?php echo Yii::app()->createUrl("ideas"); ?>">Ideas</a><br />
-<a href="<?php echo Yii::app()->createUrl("ideastranslations"); ?>">IdeasTranslations</a><br />
-<a href="<?php echo Yii::app()->createUrl("ideasmembers"); ?>">IdeasMembers</a><br />
 
 <br/>
