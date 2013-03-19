@@ -16,7 +16,7 @@ $this->menu=array(
 			'email',
 	);
 	
-	$profileFields=ProfileField::model()->forAll()->sort()->findAll();
+	/*$profileFields=ProfileField::model()->forAll()->sort()->findAll();
 	if ($profileFields) {
 		foreach($profileFields as $field) {
 			array_push($attributes,array(
@@ -26,7 +26,7 @@ $this->menu=array(
 
 				));
 		}
-	}
+	}*/
 	array_push($attributes,
 		'create_at',
 		array(

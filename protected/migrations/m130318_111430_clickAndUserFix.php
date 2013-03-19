@@ -86,7 +86,7 @@ class m130318_111430_clickAndUserFix extends CDbMigration
     $this->execute("ALTER TABLE `click_idea` ADD FOREIGN KEY ( `user_id` ) REFERENCES `user` (`ID`) ON DELETE CASCADE ON UPDATE RESTRICT ;");
     $this->execute("ALTER TABLE `click_idea` ADD FOREIGN KEY ( `idea_click_id` ) REFERENCES `idea` (`ID`) ON DELETE CASCADE ON UPDATE RESTRICT ;");
     
-
+    $this->execute("DROP TABLE user_tmp");
 	}
 
 	public function down()

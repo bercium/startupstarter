@@ -11,17 +11,34 @@ $this->pageTitle=Yii::app()->name . ' - CRUD List';
 <a href="<?php echo Yii::app()->createUrl("site/contact", array("q"=>"test")); ?>">Contact</a><br /><br />
 
 Šifranti:<br/>
-<a href="<?php echo Yii::app()->createUrl("countries"); ?>">Countries</a><br />
-<a href="<?php echo Yii::app()->createUrl("cities"); ?>">Cities</a><br />
+<a href="<?php echo Yii::app()->createUrl("city"); ?>">Cities</a><br />
+<a href="<?php echo Yii::app()->createUrl("clickIdea"); ?>">Idea clicks</a><br />
+<a href="<?php echo Yii::app()->createUrl("clickUser"); ?>">Idea clicks</a><br />
+<a href="<?php echo Yii::app()->createUrl("collabpref"); ?>">Collab prefs</a><br />
+<a href="<?php echo Yii::app()->createUrl("country"); ?>">Countries</a><br />
+<a href="<?php echo Yii::app()->createUrl("ideastatus"); ?>">IdeasStatuses</a><br />
+<a href="<?php echo Yii::app()->createUrl("language"); ?>">Languages</a><br />
+<a href="<?php echo Yii::app()->createUrl("link"); ?>">Links</a><br />
+<a href="<?php echo Yii::app()->createUrl("skill"); ?>">Skills</a><br />
+<a href="<?php echo Yii::app()->createUrl("skillset"); ?>">Skillsets</a><br />
+
+<br /><br />
+
+Idea
+IdeaMember
+IdeaTranslation
+skillset_skill
+translation
+user*
+
+<br /><br /><br />
+
 <a href="<?php echo Yii::app()->createUrl("languages"); ?>">Languages</a><br />
 <a href="<?php echo Yii::app()->createUrl("translations"); ?>">Translations</a><br /><br />
 
-<a href="<?php echo Yii::app()->createUrl("skillsets"); ?>">Skillsets</a><br />
 <a href="<?php echo Yii::app()->createUrl("skillsetsskills"); ?>">SkillsetsSkills</a><br />
-<a href="<?php echo Yii::app()->createUrl("skills"); ?>">Skills</a><br />
 <a href="<?php echo Yii::app()->createUrl("collabprefs"); ?>">Collabprefs</a><br /><br />
 
-<a href="<?php echo Yii::app()->createUrl("links"); ?>">Links</a><br /><br />
 
 <a href="<?php echo Yii::app()->createUrl("ideasstatuses"); ?>">IdeasStatuses</a><br /><br />
 

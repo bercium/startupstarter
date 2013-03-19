@@ -63,8 +63,8 @@ class User extends CActiveRecord
 			array('email, superuser, status', 'required'),
 			array('superuser, status', 'numerical', 'integerOnly'=>true),
 			//array('id, username, password, email, activkey, create_at, lastvisit_at, superuser, status', 'safe', 'on'=>'search'),
-			array('ID, password, email, activkey, create_at, lastvisit_at, superuser, status', 'safe', 'on'=>'search'),
-		):((Yii::app()->user->ID==$this->ID)?array(
+			array('id, password, email, activkey, create_at, lastvisit_at, superuser, status', 'safe', 'on'=>'search'),
+		):((Yii::app()->user->id==$this->id)?array(
 			//array('username, email', 'required'),
 			array('email', 'required'),
 			//array('username', 'length', 'max'=>20, 'min' => 3,'message' => UserModule::t("Incorrect username (length between 3 and 20 characters).")),
@@ -78,13 +78,13 @@ class User extends CActiveRecord
 	/**
 	 * @return array relational rules.
 	 */
-	public function relations()
+	/*public function relations()
 	{
-        $relations = Yii::app()->getModule('user')->relations;
+        /*$relations = Yii::app()->getModule('user')->relations;
         if (!isset($relations['profile']))
             $relations['profile'] = array(self::HAS_ONE, 'Profile', 'user_id');
         return $relations;
-	}
+	}*/
 
 	/**
 	 * @return array customized attribute labels (name=>label)
@@ -92,7 +92,7 @@ class User extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => UserModule::t("Id"),
+			'id' => UserModule::t("Id"),
 			//'username'=>UserModule::t("username"),
 			'password'=>UserModule::t("password"),
 			'verifyPassword'=>UserModule::t("Retype Password"),
@@ -124,7 +124,7 @@ class User extends CActiveRecord
                 'condition'=>'superuser=1',
             ),
             'notsafe'=>array(
-            	'select' => 'ID, password, email, activkey, create_at, lastvisit_at, superuser, status',
+            	'select' => 'id, password, email, activkey, create_at, lastvisit_at, superuser, status',
             ),
         );
     }
@@ -133,7 +133,7 @@ class User extends CActiveRecord
     {
         return CMap::mergeArray(Yii::app()->getModule('user')->defaultScope,array(
             'alias'=>'user',
-            'select' => 'user.ID, user.email, user.create_at, user.lastvisit_at, user.superuser, user.status',
+            'select' => 'user.id, user.email, user.create_at, user.lastvisit_at, user.superuser, user.status',
         ));
     }
 	
@@ -166,7 +166,7 @@ class User extends CActiveRecord
 
         $criteria=new CDbCriteria;
         
-        $criteria->compare('ID',$this->ID);
+        $criteria->compare('id',$this->id);
         //$criteria->compare('username',$this->username,true);
         $criteria->compare('password',$this->password);
         $criteria->compare('email',$this->email,true);

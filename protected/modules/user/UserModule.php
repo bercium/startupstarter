@@ -97,7 +97,7 @@ class UserModule extends CWebModule
 	public $tableProfileFields = '{{profiles_fields}}';
 
     public $defaultScope = array(
-            'with'=>array('profile'),
+            /*'with'=>array('profile'),*/
     );
 	
 	static private $_user;
@@ -246,7 +246,7 @@ class UserModule extends CWebModule
             $id = Yii::app()->user->id;
 		if ($id) {
             if (!isset(self::$_users[$id])||$clearCache)
-                self::$_users[$id] = User::model()->with(array('profile'))->findbyPk($id);
+                self::$_users[$id] = User::model()->findbyPk($id);
 			return self::$_users[$id];
         } else return false;
 	}
