@@ -41,6 +41,7 @@
           
 			),
 		)); ?>
+    <?php $this->widget('ext.LanguagePicker.ELangPick', array('pickerType' => 'links','buttonsColor' => 'primary',)); ?>
 	</div><!-- mainmenu -->
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
