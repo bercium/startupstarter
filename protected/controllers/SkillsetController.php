@@ -1,6 +1,6 @@
 <?php
 
-class ClickIdeaController extends GxController {
+class SkillsetController extends GxController {
 
 	/**
 	 * @return array action filters
@@ -32,16 +32,16 @@ class ClickIdeaController extends GxController {
 
 	public function actionView($id) {
 		$this->render('view', array(
-			'model' => $this->loadModel($id, 'ClickIdea'),
+			'model' => $this->loadModel($id, 'Skillset'),
 		));
 	}
 
 	public function actionCreate() {
-		$model = new ClickIdea;
+		$model = new Skillset;
 
 
-		if (isset($_POST['ClickIdea'])) {
-			$model->setAttributes($_POST['ClickIdea']);
+		if (isset($_POST['Skillset'])) {
+			$model->setAttributes($_POST['Skillset']);
 
 			if ($model->save()) {
 				if (Yii::app()->getRequest()->getIsAjaxRequest())
@@ -55,11 +55,11 @@ class ClickIdeaController extends GxController {
 	}
 
 	public function actionUpdate($id) {
-		$model = $this->loadModel($id, 'ClickIdea');
+		$model = $this->loadModel($id, 'Skillset');
 
 
-		if (isset($_POST['ClickIdea'])) {
-			$model->setAttributes($_POST['ClickIdea']);
+		if (isset($_POST['Skillset'])) {
+			$model->setAttributes($_POST['Skillset']);
 
 			if ($model->save()) {
 				$this->redirect(array('view', 'id' => $model->id));
@@ -73,7 +73,7 @@ class ClickIdeaController extends GxController {
 
 	public function actionDelete($id) {
 		if (Yii::app()->getRequest()->getIsPostRequest()) {
-			$this->loadModel($id, 'ClickIdea')->delete();
+			$this->loadModel($id, 'Skillset')->delete();
 
 			if (!Yii::app()->getRequest()->getIsAjaxRequest())
 				$this->redirect(array('admin'));
@@ -82,18 +82,18 @@ class ClickIdeaController extends GxController {
 	}
 
 	public function actionIndex() {
-		$dataProvider = new CActiveDataProvider('ClickIdea');
+		$dataProvider = new CActiveDataProvider('Skillset');
 		$this->render('index', array(
 			'dataProvider' => $dataProvider,
 		));
 	}
 
 	public function actionAdmin() {
-		$model = new ClickIdea('search');
+		$model = new Skillset('search');
 		$model->unsetAttributes();
 
-		if (isset($_GET['ClickIdea']))
-			$model->setAttributes($_GET['ClickIdea']);
+		if (isset($_GET['Skillset']))
+			$model->setAttributes($_GET['Skillset']);
 
 		$this->render('admin', array(
 			'model' => $model,

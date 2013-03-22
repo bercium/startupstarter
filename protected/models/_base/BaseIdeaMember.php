@@ -37,17 +37,17 @@ abstract class BaseIdeaMember extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('idea_id, user_id, type', 'required'),
+			array('idea_id, match_id, type', 'required'),
 			array('type', 'numerical', 'integerOnly'=>true),
 			array('idea_id', 'length', 'max'=>9),
-			array('user_id', 'length', 'max'=>8),
-			array('id, idea_id, user_id, type', 'safe', 'on'=>'search'),
+			array('match_id', 'length', 'max'=>8),
+			array('id, idea_id, match_id, type', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
-			'user' => array(self::BELONGS_TO, 'UserShare', 'user_id'),
+			'match' => array(self::BELONGS_TO, 'UserMatch', 'match_id'),
 			'idea' => array(self::BELONGS_TO, 'Idea', 'idea_id'),
 		);
 	}
@@ -61,9 +61,9 @@ abstract class BaseIdeaMember extends GxActiveRecord {
 		return array(
 			'id' => Yii::t('app', 'ID'),
 			'idea_id' => null,
-			'user_id' => null,
+			'match_id' => null,
 			'type' => Yii::t('app', 'Type'),
-			'user' => null,
+			'match' => null,
 			'idea' => null,
 		);
 	}
@@ -73,7 +73,7 @@ abstract class BaseIdeaMember extends GxActiveRecord {
 
 		$criteria->compare('id', $this->id, true);
 		$criteria->compare('idea_id', $this->idea_id);
-		$criteria->compare('user_id', $this->user_id);
+		$criteria->compare('match_id', $this->match_id);
 		$criteria->compare('type', $this->type);
 
 		return new CActiveDataProvider($this, array(

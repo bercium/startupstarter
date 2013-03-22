@@ -67,7 +67,7 @@ abstract class BaseUser extends GxActiveRecord {
 			'clickUsers' => array(self::HAS_MANY, 'ClickUser', 'user_click_id'),
 			'clickUsers1' => array(self::HAS_MANY, 'ClickUser', 'user_id'),
 			'userLinks' => array(self::HAS_MANY, 'UserLink', 'user_id'),
-			'userShares' => array(self::HAS_MANY, 'UserShare', 'user_id'),
+			'userMatches' => array(self::HAS_MANY, 'UserMatch', 'match_id'),
 		);
 	}
 
@@ -96,7 +96,7 @@ abstract class BaseUser extends GxActiveRecord {
 			'clickUsers' => null,
 			'clickUsers1' => null,
 			'userLinks' => null,
-			'userShares' => null,
+			'userMatches' => null,
 		);
 	}
 

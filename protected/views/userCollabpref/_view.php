@@ -4,8 +4,8 @@
 	<?php echo GxHtml::link(GxHtml::encode($data->id), array('view', 'id' => $data->id)); ?>
 	<br />
 
-	<?php echo GxHtml::encode($data->getAttributeLabel('user_id')); ?>:
-		<?php echo GxHtml::encode(GxHtml::valueEx($data->user)); ?>
+	<?php echo GxHtml::encode($data->getAttributeLabel('match_id')); ?>:
+		<?php echo GxHtml::encode(GxHtml::valueEx($data->match)); ?>
 	<br />
 	<?php echo GxHtml::encode($data->getAttributeLabel('collab_id')); ?>:
 		<?php echo GxHtml::encode(GxHtml::valueEx($data->collab)); ?>

@@ -26,9 +26,9 @@ array(
 			'value' => $model->idea !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->idea)), array('idea/view', 'id' => GxActiveRecord::extractPkValue($model->idea, true))) : null,
 			),
 array(
-			'name' => 'user',
+			'name' => 'match',
 			'type' => 'raw',
-			'value' => $model->user !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->user)), array('userShare/view', 'id' => GxActiveRecord::extractPkValue($model->user, true))) : null,
+			'value' => $model->match !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->match)), array('userMatch/view', 'id' => GxActiveRecord::extractPkValue($model->match, true))) : null,
 			),
 'type',
 	),

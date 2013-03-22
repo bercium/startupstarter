@@ -2,7 +2,7 @@
 
 
 <?php $form = $this->beginWidget('GxActiveForm', array(
-	'id' => 'user-share-form',
+	'id' => 'user-match-form',
 	'enableAjaxValidation' => false,
 ));
 ?>

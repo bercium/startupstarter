@@ -11,8 +11,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model, 'user_id'); ?>
-		<?php echo $form->dropDownList($model, 'user_id', GxHtml::listDataEx(UserShare::model()->findAllAttributes(null, true)), array('prompt' => Yii::t('app', 'All'))); ?>
+		<?php echo $form->label($model, 'match_id'); ?>
+		<?php echo $form->dropDownList($model, 'match_id', GxHtml::listDataEx(UserMatch::model()->findAllAttributes(null, true)), array('prompt' => Yii::t('app', 'All'))); ?>
 	</div>
 
 	<div class="row">

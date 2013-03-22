@@ -1,8 +1,8 @@
 <?php
 
-Yii::import('application.models._base.BaseUserShare');
+Yii::import('application.models._base.BaseUserMatch');
 
-class UserShare extends BaseUserShare
+class UserMatch extends BaseUserMatch
 {
 	public static function model($className=__CLASS__) {
 		return parent::model($className);

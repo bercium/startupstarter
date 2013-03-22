@@ -45,6 +45,16 @@ You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&g
 		'id',
 		'time',
 		array(
+				'name'=>'user_id',
+				'value'=>'GxHtml::valueEx($data->user)',
+				'filter'=>GxHtml::listDataEx(User::model()->findAllAttributes(null, true)),
+				),
+		array(
+				'name'=>'user_click_id',
+				'value'=>'GxHtml::valueEx($data->userClick)',
+				'filter'=>GxHtml::listDataEx(User::model()->findAllAttributes(null, true)),
+				),
+		array(
 			'class' => 'CButtonColumn',
 		),
 	),

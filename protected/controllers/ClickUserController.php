@@ -1,6 +1,7 @@
 <?php
 
 class ClickUserController extends GxController {
+
 	/**
 	 * @return array action filters
 	 */
@@ -28,7 +29,6 @@ class ClickUserController extends GxController {
 			),
 		);
 	}
-
 
 	public function actionView($id) {
 		$this->render('view', array(

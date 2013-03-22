@@ -18,6 +18,16 @@
 		<?php echo $form->textField($model, 'time'); ?>
 		<?php echo $form->error($model,'time'); ?>
 		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'user_id'); ?>
+		<?php echo $form->dropDownList($model, 'user_id', GxHtml::listDataEx(User::model()->findAllAttributes(null, true))); ?>
+		<?php echo $form->error($model,'user_id'); ?>
+		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'idea_click_id'); ?>
+		<?php echo $form->dropDownList($model, 'idea_click_id', GxHtml::listDataEx(Idea::model()->findAllAttributes(null, true))); ?>
+		<?php echo $form->error($model,'idea_click_id'); ?>
+		</div><!-- row -->
 
 
 <?php

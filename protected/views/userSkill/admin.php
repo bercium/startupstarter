@@ -44,9 +44,9 @@ You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&g
 	'columns' => array(
 		'id',
 		array(
-				'name'=>'user_id',
-				'value'=>'GxHtml::valueEx($data->user)',
-				'filter'=>GxHtml::listDataEx(UserShare::model()->findAllAttributes(null, true)),
+				'name'=>'match_id',
+				'value'=>'GxHtml::valueEx($data->match)',
+				'filter'=>GxHtml::listDataEx(UserMatch::model()->findAllAttributes(null, true)),
 				),
 		array(
 				'name'=>'skillset_id',

@@ -16,7 +16,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('user-share-grid', {
+	$.fn.yiiGridView.update('user-match-grid', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -38,7 +38,7 @@ You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&g
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id' => 'user-share-grid',
+	'id' => 'user-match-grid',
 	'dataProvider' => $model->search(),
 	'filter' => $model,
 	'columns' => array(

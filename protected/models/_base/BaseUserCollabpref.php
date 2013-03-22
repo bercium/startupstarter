@@ -36,16 +36,16 @@ abstract class BaseUserCollabpref extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('user_id, collab_id', 'required'),
-			array('collab_id', 'numerical', 'integerOnly'=>true),
-			array('user_id', 'length', 'max'=>8),
-			array('id, user_id, collab_id', 'safe', 'on'=>'search'),
+			array('match_id, collab_id', 'required'),
+			array('match_id', 'numerical', 'integerOnly'=>true),
+			array('match_id', 'length', 'max'=>8),
+			array('id, match_id, collab_id', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
-			'user' => array(self::BELONGS_TO, 'UserShare', 'user_id'),
+			'match' => array(self::BELONGS_TO, 'UserMatch', 'match_id'),
 			'collab' => array(self::BELONGS_TO, 'Collabpref', 'collab_id'),
 		);
 	}
@@ -58,9 +58,9 @@ abstract class BaseUserCollabpref extends GxActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => Yii::t('app', 'ID'),
-			'user_id' => null,
+			'match_id' => null,
 			'collab_id' => null,
-			'user' => null,
+			'match' => null,
 			'collab' => null,
 		);
 	}
@@ -69,7 +69,7 @@ abstract class BaseUserCollabpref extends GxActiveRecord {
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id, true);
-		$criteria->compare('user_id', $this->user_id);
+		$criteria->compare('match_id', $this->match_id);
 		$criteria->compare('collab_id', $this->collab_id);
 
 		return new CActiveDataProvider($this, array(

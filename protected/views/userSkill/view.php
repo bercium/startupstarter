@@ -21,9 +21,9 @@ $this->menu=array(
 	'attributes' => array(
 'id',
 array(
-			'name' => 'user',
+			'name' => 'match',
 			'type' => 'raw',
-			'value' => $model->user !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->user)), array('userShare/view', 'id' => GxActiveRecord::extractPkValue($model->user, true))) : null,
+			'value' => $model->match !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->match)), array('userMatch/view', 'id' => GxActiveRecord::extractPkValue($model->match, true))) : null,
 			),
 array(
 			'name' => 'skillset',

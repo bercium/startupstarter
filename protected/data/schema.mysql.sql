@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Gostitelj: 127.0.0.1
--- Čas nastanka: 04. mar 2013 ob 16.18
+-- Čas nastanka: 22. mar 2013 ob 12.19
 -- Različica strežnika: 5.5.27
 -- Različica PHP: 5.4.7
 
@@ -19,440 +19,439 @@ SET time_zone = "+00:00";
 --
 -- Zbirka podatkov: `slocoworking`
 --
-CREATE DATABASE `slocoworking` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `slocoworking`;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabele `cities`
+-- Struktura tabele `audit_trail`
 --
 
-CREATE TABLE IF NOT EXISTS `cities` (
-  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `audit_trail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `old_value` text,
+  `new_value` text,
+  `action` varchar(20) NOT NULL,
+  `model` varchar(255) NOT NULL,
+  `field` varchar(100) NOT NULL,
+  `stamp` datetime NOT NULL,
+  `user_id` varchar(100) DEFAULT NULL,
+  `model_id` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_audit_trail_user_id` (`user_id`),
+  KEY `idx_audit_trail_model_id` (`model_id`),
+  KEY `idx_audit_trail_model` (`model`),
+  KEY `idx_audit_trail_field` (`field`),
+  KEY `idx_audit_trail_action` (`action`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabele `city`
+--
+
+CREATE TABLE IF NOT EXISTS `city` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabele `collabprefs`
+-- Struktura tabele `click_idea`
 --
 
-CREATE TABLE IF NOT EXISTS `collabprefs` (
-  `ID` smallint(2) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `click_idea` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `user_id` int(11) unsigned NOT NULL,
+  `idea_click_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `idea_click_id` (`idea_click_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabele `click_user`
+--
+
+CREATE TABLE IF NOT EXISTS `click_user` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `user_id` int(11) unsigned NOT NULL,
+  `user_click_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `user_click_id` (`user_click_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabele `collabpref`
+--
+
+CREATE TABLE IF NOT EXISTS `collabpref` (
+  `id` smallint(2) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabele `countries`
+-- Struktura tabele `country`
 --
 
-CREATE TABLE IF NOT EXISTS `countries` (
-  `ID` smallint(3) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `country` (
+  `id` smallint(3) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabele `ideas`
+-- Struktura tabele `idea`
 --
 
-CREATE TABLE IF NOT EXISTS `ideas` (
-  `ID` int(9) unsigned NOT NULL AUTO_INCREMENT,
-  `time_registered` int(11) unsigned NOT NULL,
-  `time_updated` int(11) unsigned NOT NULL,
+CREATE TABLE IF NOT EXISTS `idea` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `time_registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_updated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `status_id` smallint(2) unsigned NOT NULL,
-  `progress` smallint(3) unsigned NOT NULL,
-  `website` varchar(128) NOT NULL,
-  `video_link` varchar(128) NOT NULL,
+  `website` varchar(128) DEFAULT NULL,
+  `video_link` varchar(128) DEFAULT NULL,
   `deleted` tinyint(1) unsigned NOT NULL,
-  PRIMARY KEY (`ID`),
+  PRIMARY KEY (`id`),
   KEY `status_id` (`status_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- RELACIJE ZA TABELO `ideas`:
---   `status_id`
---       `ideas_statuses` -> `ID`
---
-
 -- --------------------------------------------------------
 
 --
--- Struktura tabele `ideas_members`
+-- Struktura tabele `idea_member`
 --
 
-CREATE TABLE IF NOT EXISTS `ideas_members` (
-  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `idea_member` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `idea_id` int(9) unsigned NOT NULL,
-  `user_id` int(8) unsigned NOT NULL,
+  `match_id` int(8) unsigned NOT NULL,
   `type` tinyint(2) unsigned NOT NULL COMMENT '3 types for now: 1 = member, 2 = owner, 3 = candidate profile',
-  `deleted` tinyint(1) unsigned NOT NULL,
-  PRIMARY KEY (`ID`),
+  PRIMARY KEY (`id`),
   KEY `idea_id` (`idea_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- RELACIJE ZA TABELO `ideas_members`:
---   `idea_id`
---       `ideas` -> `ID`
---   `user_id`
---       `users` -> `ID`
---
-
--- --------------------------------------------------------
-
---
--- Struktura tabele `ideas_statuses`
---
-
-CREATE TABLE IF NOT EXISTS `ideas_statuses` (
-  `ID` smallint(2) unsigned NOT NULL AUTO_INCREMENT,
-  `name` int(11) NOT NULL,
-  PRIMARY KEY (`ID`)
+  KEY `match_id` (`match_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabele `ideas_translations`
+-- Struktura tabele `idea_status`
 --
 
-CREATE TABLE IF NOT EXISTS `ideas_translations` (
-  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `language_code` varchar(2) NOT NULL,
+CREATE TABLE IF NOT EXISTS `idea_status` (
+  `id` smallint(2) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabele `idea_translation`
+--
+
+CREATE TABLE IF NOT EXISTS `idea_translation` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `language_id` smallint(2) unsigned NOT NULL,
   `idea_id` int(8) unsigned NOT NULL,
+  `title` varchar(128) NOT NULL,
   `pitch` text NOT NULL,
   `description` text NOT NULL,
   `description_public` tinyint(1) NOT NULL,
   `tweetpitch` varchar(140) NOT NULL,
   `deleted` tinyint(1) unsigned NOT NULL,
-  PRIMARY KEY (`ID`),
+  PRIMARY KEY (`id`),
   KEY `idea_id` (`idea_id`),
-  KEY `language_code` (`language_code`)
+  KEY `language_code` (`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- RELACIJE ZA TABELO `ideas_translations`:
---   `idea_id`
---       `ideas` -> `ID`
---   `language_code`
---       `languages` -> `language_code`
---
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabele `languages`
+-- Struktura tabele `language`
 --
 
-CREATE TABLE IF NOT EXISTS `languages` (
-  `ID` smallint(2) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `language` (
+  `id` smallint(2) unsigned NOT NULL AUTO_INCREMENT,
   `language_code` varchar(2) NOT NULL,
   `name` varchar(32) NOT NULL,
-  PRIMARY KEY (`ID`),
-  UNIQUE KEY `language_code` (`language_code`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabele `links`
+-- Struktura tabele `link`
 --
 
-CREATE TABLE IF NOT EXISTS `links` (
-  `ID` int(9) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `link` (
+  `id` int(9) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   `url` varchar(128) NOT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabele `logs`
+-- Struktura tabele `skill`
 --
 
-CREATE TABLE IF NOT EXISTS `logs` (
-  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `time` int(11) unsigned NOT NULL,
-  `user_id` int(8) unsigned NOT NULL,
-  `request` varchar(64) NOT NULL COMMENT 'Type of request',
-  `table` varchar(64) NOT NULL COMMENT 'Which table was affected? (optional)',
-  `row_id` int(10) unsigned NOT NULL COMMENT 'Which row was affected? (optional)',
-  PRIMARY KEY (`ID`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- RELACIJE ZA TABELO `logs`:
---   `user_id`
---       `users` -> `ID`
---
-
--- --------------------------------------------------------
-
---
--- Struktura tabele `skills`
---
-
-CREATE TABLE IF NOT EXISTS `skills` (
-  `ID` mediumint(3) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `skill` (
+  `id` mediumint(3) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabele `skillsets`
+-- Struktura tabele `skillset`
 --
 
-CREATE TABLE IF NOT EXISTS `skillsets` (
-  `ID` smallint(2) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `skillset` (
+  `id` smallint(2) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabele `skillsets_skills`
+-- Struktura tabele `skillset_skill`
 --
 
-CREATE TABLE IF NOT EXISTS `skillsets_skills` (
-  `ID` mediumint(5) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `skillset_skill` (
+  `id` mediumint(5) unsigned NOT NULL AUTO_INCREMENT,
   `skillset_id` smallint(2) unsigned NOT NULL,
   `skill_id` mediumint(3) unsigned NOT NULL,
-  PRIMARY KEY (`ID`),
+  PRIMARY KEY (`id`),
   KEY `skillset_id` (`skillset_id`),
   KEY `skill_id` (`skill_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
+
 --
--- RELACIJE ZA TABELO `skillsets_skills`:
---   `skill_id`
---       `skills` -> `ID`
---   `skillset_id`
---       `skillsets` -> `ID`
+-- Struktura tabele `tbl_migration`
 --
+
+CREATE TABLE IF NOT EXISTS `tbl_migration` (
+  `version` varchar(255) NOT NULL,
+  `apply_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`version`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabele `translations`
+-- Struktura tabele `translation`
 --
 
-CREATE TABLE IF NOT EXISTS `translations` (
-  `ID` int(8) unsigned NOT NULL AUTO_INCREMENT,
-  `language_code` varchar(2) NOT NULL,
+CREATE TABLE IF NOT EXISTS `translation` (
+  `id` int(8) unsigned NOT NULL AUTO_INCREMENT,
+  `language_id` smallint(2) unsigned NOT NULL,
   `table` varchar(64) NOT NULL COMMENT 'Table containing the message to be translated',
   `row_id` int(10) unsigned NOT NULL COMMENT 'The exact message to be translated (row of the table)',
   `translation` varchar(128) NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `language_code` (`language_code`)
+  PRIMARY KEY (`id`),
+  KEY `language_code` (`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- RELACIJE ZA TABELO `translations`:
---   `language_code`
---       `languages` -> `language_code`
---
-
 -- --------------------------------------------------------
 
 --
--- Struktura tabele `users`
+-- Struktura tabele `user`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
-  `ID` int(8) unsigned NOT NULL AUTO_INCREMENT,
-  `VIRTUAL` tinyint(1) unsigned NOT NULL,
-  `name` varchar(128) DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `email` varchar(128) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  `activkey` varchar(128) NOT NULL DEFAULT '',
+  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `lastvisit_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `superuser` int(1) NOT NULL DEFAULT '0',
+  `status` int(1) NOT NULL DEFAULT '0',
+  `name` varchar(128) NOT NULL,
   `surname` varchar(128) DEFAULT NULL,
-  `email` varchar(128) DEFAULT NULL,
-  `md5_pass` varchar(32) DEFAULT NULL,
-  `time_registered` int(11) unsigned NOT NULL,
-  `time_updated` int(11) unsigned NOT NULL,
-  `avatar_link` varchar(128) DEFAULT NULL,
-  `progress` smallint(3) unsigned DEFAULT NULL COMMENT 'Percentage of profile completeness',
-  `time_per_week` int(3) unsigned DEFAULT NULL,
-  `newsletter` tinyint(1) unsigned DEFAULT NULL,
-  `language_code` varchar(2) DEFAULT NULL,
-  `country_id` smallint(3) unsigned DEFAULT NULL,
-  `city_id` int(10) unsigned DEFAULT NULL,
   `address` varchar(128) DEFAULT NULL,
-  `deleted` tinyint(1) unsigned NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `language_code` (`language_code`),
-  KEY `country_id` (`country_id`),
-  KEY `city_id` (`city_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  `avatar_link` varchar(128) DEFAULT NULL,
+  `language_id` smallint(2) unsigned DEFAULT NULL,
+  `newsletter` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`),
+  KEY `status` (`status`),
+  KEY `superuser` (`superuser`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- RELACIJE ZA TABELO `users`:
---   `city_id`
---       `cities` -> `ID`
---   `country_id`
---       `countries` -> `ID`
---   `language_code`
---       `languages` -> `language_code`
+-- Odloži podatke za tabelo `user`
 --
+
+INSERT INTO `user` (`id`, `email`, `password`, `activkey`, `create_at`, `lastvisit_at`, `superuser`, `status`, `name`, `surname`, `address`, `avatar_link`, `language_id`, `newsletter`) VALUES
+(1, 'admin@example.com', '21232f297a57a5a743894a0e4a801fc3', '9a24eff8c15a6a141ece27eb6947da0f', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 1, 1, '', NULL, NULL, NULL, NULL, 1),
+(2, 'demo@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, '', NULL, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabele `users_collabprefs`
+-- Struktura tabele `user_collabpref`
 --
 
-CREATE TABLE IF NOT EXISTS `users_collabprefs` (
-  `ID` int(9) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(8) unsigned NOT NULL,
+CREATE TABLE IF NOT EXISTS `user_collabpref` (
+  `id` int(9) unsigned NOT NULL AUTO_INCREMENT,
+  `match_id` int(8) unsigned NOT NULL,
   `collab_id` smallint(2) unsigned NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `user_id` (`user_id`),
+  PRIMARY KEY (`id`),
+  KEY `match_id` (`match_id`),
   KEY `collab_id` (`collab_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- RELACIJE ZA TABELO `users_collabprefs`:
---   `collab_id`
---       `collabprefs` -> `ID`
---   `user_id`
---       `users` -> `ID`
---
-
 -- --------------------------------------------------------
 
 --
--- Struktura tabele `users_links`
+-- Struktura tabele `user_link`
 --
 
-CREATE TABLE IF NOT EXISTS `users_links` (
-  `ID` int(9) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `user_link` (
+  `id` int(9) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(8) unsigned NOT NULL,
   `link_id` int(9) unsigned NOT NULL,
-  `deleted` tinyint(1) unsigned NOT NULL,
-  PRIMARY KEY (`ID`),
+  PRIMARY KEY (`id`),
   KEY `link_id` (`link_id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
+
 --
--- RELACIJE ZA TABELO `users_links`:
---   `link_id`
---       `links` -> `ID`
---   `user_id`
---       `users` -> `ID`
+-- Struktura tabele `user_match`
 --
+
+CREATE TABLE IF NOT EXISTS `user_match` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned DEFAULT NULL,
+  `available` int(2) unsigned DEFAULT NULL,
+  `country_id` smallint(3) unsigned DEFAULT NULL,
+  `city_id` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `city_id` (`city_id`),
+  KEY `country_id` (`country_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Extra data for users or virtual (searchable) users' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabele `users_skills`
+-- Struktura tabele `user_skill`
 --
 
-CREATE TABLE IF NOT EXISTS `users_skills` (
-  `ID` int(9) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(8) unsigned NOT NULL,
+CREATE TABLE IF NOT EXISTS `user_skill` (
+  `id` int(9) unsigned NOT NULL AUTO_INCREMENT,
+  `match_id` int(8) unsigned NOT NULL,
   `skillset_id` smallint(2) unsigned NOT NULL,
   `skill_id` mediumint(3) unsigned NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `user_id` (`user_id`),
+  PRIMARY KEY (`id`),
+  KEY `match_id` (`match_id`),
   KEY `skillset_id` (`skillset_id`),
   KEY `skill_id` (`skill_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- RELACIJE ZA TABELO `users_skills`:
---   `skill_id`
---       `skills` -> `ID`
---   `skillset_id`
---       `skillsets` -> `ID`
---   `user_id`
---       `users` -> `ID`
---
 
 --
 -- Omejitve tabel za povzetek stanja
 --
 
 --
--- Omejitve za tabelo `ideas`
+-- Omejitve za tabelo `click_idea`
 --
-ALTER TABLE `ideas`
-  ADD CONSTRAINT `ideas_ibfk_1` FOREIGN KEY (`status_id`) REFERENCES `ideas_statuses` (`ID`);
+ALTER TABLE `click_idea`
+  ADD CONSTRAINT `click_idea_ibfk_5` FOREIGN KEY (`idea_click_id`) REFERENCES `idea` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `click_idea_ibfk_4` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
--- Omejitve za tabelo `ideas_members`
+-- Omejitve za tabelo `click_user`
 --
-ALTER TABLE `ideas_members`
-  ADD CONSTRAINT `ideas_members_ibfk_4` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `ideas_members_ibfk_3` FOREIGN KEY (`idea_id`) REFERENCES `ideas` (`ID`) ON DELETE CASCADE;
+ALTER TABLE `click_user`
+  ADD CONSTRAINT `click_user_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `click_user_ibfk_2` FOREIGN KEY (`user_click_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
--- Omejitve za tabelo `ideas_translations`
+-- Omejitve za tabelo `idea`
 --
-ALTER TABLE `ideas_translations`
-  ADD CONSTRAINT `ideas_translations_ibfk_2` FOREIGN KEY (`language_code`) REFERENCES `languages` (`language_code`),
-  ADD CONSTRAINT `ideas_translations_ibfk_1` FOREIGN KEY (`idea_id`) REFERENCES `ideas` (`ID`);
+ALTER TABLE `idea`
+  ADD CONSTRAINT `idea_ibfk_1` FOREIGN KEY (`status_id`) REFERENCES `idea_status` (`id`);
 
 --
--- Omejitve za tabelo `logs`
+-- Omejitve za tabelo `idea_member`
 --
-ALTER TABLE `logs`
-  ADD CONSTRAINT `logs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`);
+ALTER TABLE `idea_member`
+  ADD CONSTRAINT `idea_member_ibfk_3` FOREIGN KEY (`idea_id`) REFERENCES `idea` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `idea_member_ibfk_5` FOREIGN KEY (`match_id`) REFERENCES `user_match` (`id`) ON DELETE CASCADE;
 
 --
--- Omejitve za tabelo `skillsets_skills`
+-- Omejitve za tabelo `idea_translation`
 --
-ALTER TABLE `skillsets_skills`
-  ADD CONSTRAINT `skillsets_skills_ibfk_2` FOREIGN KEY (`skill_id`) REFERENCES `skills` (`ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `skillsets_skills_ibfk_1` FOREIGN KEY (`skillset_id`) REFERENCES `skillsets` (`ID`) ON DELETE CASCADE;
+ALTER TABLE `idea_translation`
+  ADD CONSTRAINT `idea_translation_ibfk_1` FOREIGN KEY (`idea_id`) REFERENCES `idea` (`id`),
+  ADD CONSTRAINT `idea_translation_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`);
 
 --
--- Omejitve za tabelo `translations`
+-- Omejitve za tabelo `skillset_skill`
 --
-ALTER TABLE `translations`
-  ADD CONSTRAINT `translations_ibfk_1` FOREIGN KEY (`language_code`) REFERENCES `languages` (`language_code`);
+ALTER TABLE `skillset_skill`
+  ADD CONSTRAINT `skillset_skill_ibfk_1` FOREIGN KEY (`skillset_id`) REFERENCES `skillset` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `skillset_skill_ibfk_2` FOREIGN KEY (`skill_id`) REFERENCES `skill` (`id`) ON DELETE CASCADE;
 
 --
--- Omejitve za tabelo `users`
+-- Omejitve za tabelo `translation`
 --
-ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_3` FOREIGN KEY (`country_id`) REFERENCES `countries` (`ID`),
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`language_code`) REFERENCES `languages` (`language_code`),
-  ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`city_id`) REFERENCES `cities` (`ID`);
+ALTER TABLE `translation`
+  ADD CONSTRAINT `translation_ibfk_1` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`);
 
 --
--- Omejitve za tabelo `users_collabprefs`
+-- Omejitve za tabelo `user_collabpref`
 --
-ALTER TABLE `users_collabprefs`
-  ADD CONSTRAINT `users_collabprefs_ibfk_2` FOREIGN KEY (`collab_id`) REFERENCES `collabprefs` (`ID`),
-  ADD CONSTRAINT `users_collabprefs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE;
+ALTER TABLE `user_collabpref`
+  ADD CONSTRAINT `user_collabpref_ibfk_2` FOREIGN KEY (`collab_id`) REFERENCES `collabpref` (`id`),
+  ADD CONSTRAINT `user_collabpref_ibfk_3` FOREIGN KEY (`match_id`) REFERENCES `user_match` (`id`) ON DELETE CASCADE;
 
 --
--- Omejitve za tabelo `users_links`
+-- Omejitve za tabelo `user_link`
 --
-ALTER TABLE `users_links`
-  ADD CONSTRAINT `users_links_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `users_links_ibfk_1` FOREIGN KEY (`link_id`) REFERENCES `links` (`ID`);
+ALTER TABLE `user_link`
+  ADD CONSTRAINT `user_link_ibfk_4` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_link_ibfk_1` FOREIGN KEY (`link_id`) REFERENCES `link` (`id`);
 
 --
--- Omejitve za tabelo `users_skills`
+-- Omejitve za tabelo `user_match`
 --
-ALTER TABLE `users_skills`
-  ADD CONSTRAINT `users_skills_ibfk_3` FOREIGN KEY (`skill_id`) REFERENCES `skills` (`ID`),
-  ADD CONSTRAINT `users_skills_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `users_skills_ibfk_2` FOREIGN KEY (`skillset_id`) REFERENCES `skillsets` (`ID`);
+ALTER TABLE `user_match`
+  ADD CONSTRAINT `user_match_ibfk_1` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`),
+  ADD CONSTRAINT `user_match_ibfk_2` FOREIGN KEY (`country_id`) REFERENCES `country` (`id`),
+  ADD CONSTRAINT `user_match_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+
+--
+-- Omejitve za tabelo `user_skill`
+--
+ALTER TABLE `user_skill`
+  ADD CONSTRAINT `user_skill_ibfk_2` FOREIGN KEY (`skillset_id`) REFERENCES `skillset` (`id`),
+  ADD CONSTRAINT `user_skill_ibfk_3` FOREIGN KEY (`skill_id`) REFERENCES `skill` (`id`),
+  ADD CONSTRAINT `user_skill_ibfk_4` FOREIGN KEY (`match_id`) REFERENCES `user_match` (`id`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

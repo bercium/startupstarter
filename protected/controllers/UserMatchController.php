@@ -1,7 +1,6 @@
 <?php
 
-class UserShareController extends GxController {
-
+class UserMatchController extends GxController {
 
 	/**
 	 * @return array action filters
@@ -30,19 +29,19 @@ class UserShareController extends GxController {
 			),
 		);
 	}
-  
+
 	public function actionView($id) {
 		$this->render('view', array(
-			'model' => $this->loadModel($id, 'UserShare'),
+			'model' => $this->loadModel($id, 'UserMatch'),
 		));
 	}
 
 	public function actionCreate() {
-		$model = new UserShare;
+		$model = new UserMatch;
 
 
-		if (isset($_POST['UserShare'])) {
-			$model->setAttributes($_POST['UserShare']);
+		if (isset($_POST['UserMatch'])) {
+			$model->setAttributes($_POST['UserMatch']);
 
 			if ($model->save()) {
 				if (Yii::app()->getRequest()->getIsAjaxRequest())
@@ -56,11 +55,11 @@ class UserShareController extends GxController {
 	}
 
 	public function actionUpdate($id) {
-		$model = $this->loadModel($id, 'UserShare');
+		$model = $this->loadModel($id, 'UserMatch');
 
 
-		if (isset($_POST['UserShare'])) {
-			$model->setAttributes($_POST['UserShare']);
+		if (isset($_POST['UserMatch'])) {
+			$model->setAttributes($_POST['UserMatch']);
 
 			if ($model->save()) {
 				$this->redirect(array('view', 'id' => $model->id));
@@ -74,7 +73,7 @@ class UserShareController extends GxController {
 
 	public function actionDelete($id) {
 		if (Yii::app()->getRequest()->getIsPostRequest()) {
-			$this->loadModel($id, 'UserShare')->delete();
+			$this->loadModel($id, 'UserMatch')->delete();
 
 			if (!Yii::app()->getRequest()->getIsAjaxRequest())
 				$this->redirect(array('admin'));
@@ -83,18 +82,18 @@ class UserShareController extends GxController {
 	}
 
 	public function actionIndex() {
-		$dataProvider = new CActiveDataProvider('UserShare');
+		$dataProvider = new CActiveDataProvider('UserMatch');
 		$this->render('index', array(
 			'dataProvider' => $dataProvider,
 		));
 	}
 
 	public function actionAdmin() {
-		$model = new UserShare('search');
+		$model = new UserMatch('search');
 		$model->unsetAttributes();
 
-		if (isset($_GET['UserShare']))
-			$model->setAttributes($_GET['UserShare']);
+		if (isset($_GET['UserMatch']))
+			$model->setAttributes($_GET['UserMatch']);
 
 		$this->render('admin', array(
 			'model' => $model,

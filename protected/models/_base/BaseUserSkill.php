@@ -38,16 +38,16 @@ abstract class BaseUserSkill extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('user_id, skillset_id, skill_id', 'required'),
+			array('match_id, skillset_id, skill_id', 'required'),
 			array('skillset_id, skill_id', 'numerical', 'integerOnly'=>true),
-			array('user_id', 'length', 'max'=>8),
-			array('id, user_id, skillset_id, skill_id', 'safe', 'on'=>'search'),
+			array('match_id', 'length', 'max'=>8),
+			array('id, match_id, skillset_id, skill_id', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
-			'user' => array(self::BELONGS_TO, 'UserShare', 'user_id'),
+			'match' => array(self::BELONGS_TO, 'UserMatch', 'match_id'),
 			'skillset' => array(self::BELONGS_TO, 'Skillset', 'skillset_id'),
 			'skill' => array(self::BELONGS_TO, 'Skill', 'skill_id'),
 		);
@@ -61,10 +61,10 @@ abstract class BaseUserSkill extends GxActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => Yii::t('app', 'ID'),
-			'user_id' => null,
+			'match_id' => null,
 			'skillset_id' => null,
 			'skill_id' => null,
-			'user' => null,
+			'match' => null,
 			'skillset' => null,
 			'skill' => null,
 		);
@@ -74,7 +74,7 @@ abstract class BaseUserSkill extends GxActiveRecord {
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id, true);
-		$criteria->compare('user_id', $this->user_id);
+		$criteria->compare('match_id', $this->match_id);
 		$criteria->compare('skillset_id', $this->skillset_id);
 		$criteria->compare('skill_id', $this->skill_id);
 

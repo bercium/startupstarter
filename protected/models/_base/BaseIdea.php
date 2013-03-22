@@ -37,7 +37,7 @@ abstract class BaseIdea extends GxActiveRecord {
 	}
 
 	public static function representingColumn() {
-		return 'time_registered';
+		return 'id';
 	}
 
 	public function rules() {

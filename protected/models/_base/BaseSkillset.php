@@ -12,6 +12,8 @@
  * @property integer $id
  * @property string $name
  *
+ * @property SkillsetSkill[] $skillsetSkills
+ * @property UserSkill[] $userSkills
  */
 abstract class BaseSkillset extends GxActiveRecord {
 
@@ -39,12 +41,12 @@ abstract class BaseSkillset extends GxActiveRecord {
 		);
 	}
 
-	/*public function relations() {
+	public function relations() {
 		return array(
 			'skillsetSkills' => array(self::HAS_MANY, 'SkillsetSkill', 'skillset_id'),
 			'userSkills' => array(self::HAS_MANY, 'UserSkill', 'skillset_id'),
 		);
-	}*/
+	}
 
 	public function pivotModels() {
 		return array(
@@ -55,6 +57,8 @@ abstract class BaseSkillset extends GxActiveRecord {
 		return array(
 			'id' => Yii::t('app', 'ID'),
 			'name' => Yii::t('app', 'Name'),
+			'skillsetSkills' => null,
+			'userSkills' => null,
 		);
 	}
 

@@ -49,9 +49,9 @@ You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&g
 				'filter'=>GxHtml::listDataEx(Idea::model()->findAllAttributes(null, true)),
 				),
 		array(
-				'name'=>'user_id',
+				'name'=>'match_id',
 				'value'=>'GxHtml::valueEx($data->user)',
-				'filter'=>GxHtml::listDataEx(UserShare::model()->findAllAttributes(null, true)),
+				'filter'=>GxHtml::listDataEx(UserMatch::model()->findAllAttributes(null, true)),
 				),
 		'type',
 		array(

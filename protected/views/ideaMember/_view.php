@@ -7,8 +7,8 @@
 	<?php echo GxHtml::encode($data->getAttributeLabel('idea_id')); ?>:
 		<?php echo GxHtml::encode(GxHtml::valueEx($data->idea)); ?>
 	<br />
-	<?php echo GxHtml::encode($data->getAttributeLabel('user_id')); ?>:
-		<?php echo GxHtml::encode(GxHtml::valueEx($data->user)); ?>
+	<?php echo GxHtml::encode($data->getAttributeLabel('match_id')); ?>:
+		<?php echo GxHtml::encode(GxHtml::valueEx($data->match)); ?>
 	<br />
 	<?php echo GxHtml::encode($data->getAttributeLabel('type')); ?>:
 	<?php echo GxHtml::encode($data->type); ?>

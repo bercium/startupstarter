@@ -11,6 +11,8 @@
  *
  * @property string $id
  * @property string $time
+ * @property string $user_id
+ * @property string $idea_click_id
  *
  * @property Idea $ideaClick
  * @property User $user
@@ -30,22 +32,23 @@ abstract class BaseClickIdea extends GxActiveRecord {
 	}
 
 	public static function representingColumn() {
-		return 'time';
+		return 'ideaClick';
 	}
 
 	public function rules() {
 		return array(
-			array('time', 'required'),
-			array('id, time', 'safe', 'on'=>'search'),
+			array('time, user_id, idea_click_id', 'required'),
+			array('user_id, idea_click_id', 'length', 'max'=>11),
+			array('id, time, user_id, idea_click_id', 'safe', 'on'=>'search'),
 		);
 	}
 
-/*	public function relations() {
+	public function relations() {
 		return array(
 			'ideaClick' => array(self::BELONGS_TO, 'Idea', 'idea_click_id'),
-			'user' => array(self::BELONGS_TO, 'User'),
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
-	}*/
+	}
 
 	public function pivotModels() {
 		return array(
@@ -56,6 +59,10 @@ abstract class BaseClickIdea extends GxActiveRecord {
 		return array(
 			'id' => Yii::t('app', 'ID'),
 			'time' => Yii::t('app', 'Time'),
+			'user_id' => null,
+			'idea_click_id' => null,
+			'ideaClick' => null,
+			'user' => null,
 		);
 	}
 
@@ -64,6 +71,8 @@ abstract class BaseClickIdea extends GxActiveRecord {
 
 		$criteria->compare('id', $this->id, true);
 		$criteria->compare('time', $this->time, true);
+		$criteria->compare('user_id', $this->user_id);
+		$criteria->compare('idea_click_id', $this->idea_click_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

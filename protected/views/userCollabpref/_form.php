@@ -14,9 +14,9 @@
 	<?php echo $form->errorSummary($model); ?>
 
 		<div class="row">
-		<?php echo $form->labelEx($model,'user_id'); ?>
-		<?php echo $form->dropDownList($model, 'user_id', GxHtml::listDataEx(UserShare::model()->findAllAttributes(null, true))); ?>
-		<?php echo $form->error($model,'user_id'); ?>
+		<?php echo $form->labelEx($model,'match_id'); ?>
+		<?php echo $form->dropDownList($model, 'match_id', GxHtml::listDataEx(UserMatch::model()->findAllAttributes(null, true))); ?>
+		<?php echo $form->error($model,'match_id'); ?>
 		</div><!-- row -->
 		<div class="row">
 		<?php echo $form->labelEx($model,'collab_id'); ?>

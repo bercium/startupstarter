@@ -21,6 +21,16 @@ $this->menu=array(
 	'attributes' => array(
 'id',
 'time',
+array(
+			'name' => 'user',
+			'type' => 'raw',
+			'value' => $model->user !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->user)), array('user/view', 'id' => GxActiveRecord::extractPkValue($model->user, true))) : null,
+			),
+array(
+			'name' => 'ideaClick',
+			'type' => 'raw',
+			'value' => $model->ideaClick !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->ideaClick)), array('idea/view', 'id' => GxActiveRecord::extractPkValue($model->ideaClick, true))) : null,
+			),
 	),
 )); ?>
 

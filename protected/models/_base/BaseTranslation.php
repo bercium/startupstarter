@@ -32,7 +32,7 @@ abstract class BaseTranslation extends GxActiveRecord {
 	}
 
 	public static function representingColumn() {
-		return 'table';
+		return 'translation';
 	}
 
 	public function rules() {

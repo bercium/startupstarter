@@ -37,7 +37,7 @@ abstract class BaseIdeaTranslation extends GxActiveRecord {
 	}
 
 	public static function representingColumn() {
-		return 'pitch';
+		return 'title';
 	}
 
 	public function rules() {

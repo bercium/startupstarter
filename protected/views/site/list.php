@@ -12,8 +12,8 @@ $this->pageTitle=Yii::app()->name . ' - CRUD List';
 
 Šifranti:<br/>
 <a href="<?php echo Yii::app()->createUrl("city"); ?>">Cities</a><br />
-<a href="<?php echo Yii::app()->createUrl("clickIdea"); ?>">Idea clicks</a><br />
-<a href="<?php echo Yii::app()->createUrl("clickUser"); ?>">Idea clicks</a><br />
+<a href="<?php echo Yii::app()->createUrl("clickIdea"); ?>">Clicked Ideas</a><br />
+<a href="<?php echo Yii::app()->createUrl("clickUser"); ?>">Clicked Users</a><br />
 <a href="<?php echo Yii::app()->createUrl("collabpref"); ?>">Collab prefs</a><br />
 <a href="<?php echo Yii::app()->createUrl("country"); ?>">Countries</a><br />
 <a href="<?php echo Yii::app()->createUrl("ideaStatus"); ?>">IdeasStatuses</a><br />
@@ -31,9 +31,9 @@ $this->pageTitle=Yii::app()->name . ' - CRUD List';
 Users:<br />
 <a href="<?php echo Yii::app()->createUrl("user"); ?>">Users</a><br />
 <a href="<?php echo Yii::app()->createUrl("userLink"); ?>">User Links</a><br />
+<a href="<?php echo Yii::app()->createUrl("userMatch"); ?>">User Matches</a><br />
 <a href="<?php echo Yii::app()->createUrl("userSkill"); ?>">Users Skills</a><br />
 <a href="<?php echo Yii::app()->createUrl("userCollabpref"); ?>">Users Collabprefs</a><br />
-<a href="<?php echo Yii::app()->createUrl("userShare"); ?>">User Share</a><br />
 
 <br />
 Ideje:<br/>
