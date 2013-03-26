@@ -25,6 +25,7 @@ return array(
     'application.extensions.auditTrail.models.AuditTrail', // system for loging models
     'application.modules.user.models.*',  // yii-user login system
     'application.modules.user.components.*', // yii-user login system
+    'ext.mail.YiiMailMessage',
 	),
 
 	'modules'=>array(
@@ -123,6 +124,31 @@ return array(
 				*/
 			),
 		),
+
+    /*
+    'cache' => array (
+    'class' => 'CMemCache',
+    'servers'=>array(
+        array(
+            'host'=>'localhost',
+            'port'=>11211,
+            ),
+        ),
+    ),*/
+    'mail' => array(
+        'class' => 'ext.mail.YiiMail',
+        'transportType' => 'smtp',
+        'transportOptions' => array(
+            'host' => 'smtp.gmail.com',
+            'username' => 'bercium@gmail.com',
+            'password' => 'tuki1oplelismo',
+            'port' => '465',
+            'encryption'=>'tls',
+        ),
+        'viewPath' => 'application.views.mailTemplates',
+        'logging' => true,
+        'dryRun' => false
+    ),      
 	),
 
 	// application-level parameters that can be accessed

@@ -40,13 +40,7 @@ return array(
 		),*/
 		// uncomment the following to use a MySQL database
 		
-		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=slocoworking',
-			'emulatePrepare' => true,
-			'username' => 'startupstarter',
-			'password' => 'ss1DBzbj',
-			'charset' => 'utf8',
-		),
+    'db' => require(dirname(__FILE__) . '/local-db.php'),
 		
 		'log'=>array(
 			'class'=>'CLogRouter',
@@ -57,5 +51,20 @@ return array(
 				),
 			),
 		),
+
+    'mail' => array(
+        'class' => 'ext.mail.YiiMail',
+        'transportType' => 'smtp',
+        'transportOptions' => array(
+            'host' => 'smtp.gmail.com',
+            'username' => 'bercium@gmail.com',
+            'password' => 'tuki1oplelismo',
+            'port' => '465',
+            'encryption'=>'tls',
+        ),
+        'viewPath' => 'application.views.mailTemplates',
+        'logging' => true,
+        'dryRun' => false
+    ),      
 	),
 );
