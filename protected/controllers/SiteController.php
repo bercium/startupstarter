@@ -66,12 +66,12 @@ class SiteController extends Controller
 	public function actionIndex()
 	{
 		$sqlbuilder = new SqlBuilder;
-		$idea = $sqlbuilder->idea("recent");
-		$user = $sqlbuilder->user("recent");
-		$data['idea'] = $idea;
-		$data['user'] = $user;
+		$filter = Yii::app()->request->getQuery('filter', array());
 
-		$this->render('index', array('data' => $data));
+		$data_array['ideas'] = $sqlbuilder->load_array("recent_candidates", $filter);
+		$data_array['users'] = $sqlbuilder->load_array("recent_users");
+
+		$this->render('index', array('data_array' => $data_array));
 	}
 
 	public function actionAbout()
