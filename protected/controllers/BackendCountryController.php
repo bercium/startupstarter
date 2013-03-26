@@ -1,8 +1,6 @@
 <?php
 
-class IdeaTranslationController extends GxController {
-
-
+class BackendCountryController extends GxController {
 	/**
 	 * @return array action filters
 	 */
@@ -30,19 +28,20 @@ class IdeaTranslationController extends GxController {
 			),
 		);
 	}
-  
+
+
 	public function actionView($id) {
 		$this->render('view', array(
-			'model' => $this->loadModel($id, 'IdeaTranslation'),
+			'model' => $this->loadModel($id, 'Country'),
 		));
 	}
 
 	public function actionCreate() {
-		$model = new IdeaTranslation;
+		$model = new Country;
 
 
-		if (isset($_POST['IdeaTranslation'])) {
-			$model->setAttributes($_POST['IdeaTranslation']);
+		if (isset($_POST['Country'])) {
+			$model->setAttributes($_POST['Country']);
 
 			if ($model->save()) {
 				if (Yii::app()->getRequest()->getIsAjaxRequest())
@@ -56,11 +55,11 @@ class IdeaTranslationController extends GxController {
 	}
 
 	public function actionUpdate($id) {
-		$model = $this->loadModel($id, 'IdeaTranslation');
+		$model = $this->loadModel($id, 'Country');
 
 
-		if (isset($_POST['IdeaTranslation'])) {
-			$model->setAttributes($_POST['IdeaTranslation']);
+		if (isset($_POST['Country'])) {
+			$model->setAttributes($_POST['Country']);
 
 			if ($model->save()) {
 				$this->redirect(array('view', 'id' => $model->id));
@@ -74,7 +73,7 @@ class IdeaTranslationController extends GxController {
 
 	public function actionDelete($id) {
 		if (Yii::app()->getRequest()->getIsPostRequest()) {
-			$this->loadModel($id, 'IdeaTranslation')->delete();
+			$this->loadModel($id, 'Country')->delete();
 
 			if (!Yii::app()->getRequest()->getIsAjaxRequest())
 				$this->redirect(array('admin'));
@@ -83,18 +82,18 @@ class IdeaTranslationController extends GxController {
 	}
 
 	public function actionIndex() {
-		$dataProvider = new CActiveDataProvider('IdeaTranslation');
+		$dataProvider = new CActiveDataProvider('Country');
 		$this->render('index', array(
 			'dataProvider' => $dataProvider,
 		));
 	}
 
 	public function actionAdmin() {
-		$model = new IdeaTranslation('search');
+		$model = new Country('search');
 		$model->unsetAttributes();
 
-		if (isset($_GET['IdeaTranslation']))
-			$model->setAttributes($_GET['IdeaTranslation']);
+		if (isset($_GET['Country']))
+			$model->setAttributes($_GET['Country']);
 
 		$this->render('admin', array(
 			'model' => $model,

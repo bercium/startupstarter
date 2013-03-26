@@ -1,6 +1,6 @@
 <?php
 
-class CityController extends GxController {
+class BackendUserMatchController extends GxController {
 
 	/**
 	 * @return array action filters
@@ -32,16 +32,16 @@ class CityController extends GxController {
 
 	public function actionView($id) {
 		$this->render('view', array(
-			'model' => $this->loadModel($id, 'City'),
+			'model' => $this->loadModel($id, 'UserMatch'),
 		));
 	}
 
 	public function actionCreate() {
-		$model = new City;
+		$model = new UserMatch;
 
 
-		if (isset($_POST['City'])) {
-			$model->setAttributes($_POST['City']);
+		if (isset($_POST['UserMatch'])) {
+			$model->setAttributes($_POST['UserMatch']);
 
 			if ($model->save()) {
 				if (Yii::app()->getRequest()->getIsAjaxRequest())
@@ -55,11 +55,11 @@ class CityController extends GxController {
 	}
 
 	public function actionUpdate($id) {
-		$model = $this->loadModel($id, 'City');
+		$model = $this->loadModel($id, 'UserMatch');
 
 
-		if (isset($_POST['City'])) {
-			$model->setAttributes($_POST['City']);
+		if (isset($_POST['UserMatch'])) {
+			$model->setAttributes($_POST['UserMatch']);
 
 			if ($model->save()) {
 				$this->redirect(array('view', 'id' => $model->id));
@@ -73,7 +73,7 @@ class CityController extends GxController {
 
 	public function actionDelete($id) {
 		if (Yii::app()->getRequest()->getIsPostRequest()) {
-			$this->loadModel($id, 'City')->delete();
+			$this->loadModel($id, 'UserMatch')->delete();
 
 			if (!Yii::app()->getRequest()->getIsAjaxRequest())
 				$this->redirect(array('admin'));
@@ -82,18 +82,18 @@ class CityController extends GxController {
 	}
 
 	public function actionIndex() {
-		$dataProvider = new CActiveDataProvider('City');
+		$dataProvider = new CActiveDataProvider('UserMatch');
 		$this->render('index', array(
 			'dataProvider' => $dataProvider,
 		));
 	}
 
 	public function actionAdmin() {
-		$model = new City('search');
+		$model = new UserMatch('search');
 		$model->unsetAttributes();
 
-		if (isset($_GET['City']))
-			$model->setAttributes($_GET['City']);
+		if (isset($_GET['UserMatch']))
+			$model->setAttributes($_GET['UserMatch']);
 
 		$this->render('admin', array(
 			'model' => $model,

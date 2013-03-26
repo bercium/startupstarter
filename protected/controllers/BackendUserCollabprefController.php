@@ -1,8 +1,8 @@
 <?php
 
-class UserSkillController extends GxController {
+class BackendUserCollabprefController extends GxController {
 
-  
+ 
 	/**
 	 * @return array action filters
 	 */
@@ -30,19 +30,19 @@ class UserSkillController extends GxController {
 			),
 		);
 	}
-
+  
 	public function actionView($id) {
 		$this->render('view', array(
-			'model' => $this->loadModel($id, 'UserSkill'),
+			'model' => $this->loadModel($id, 'UserCollabpref'),
 		));
 	}
 
 	public function actionCreate() {
-		$model = new UserSkill;
+		$model = new UserCollabpref;
 
 
-		if (isset($_POST['UserSkill'])) {
-			$model->setAttributes($_POST['UserSkill']);
+		if (isset($_POST['UserCollabpref'])) {
+			$model->setAttributes($_POST['UserCollabpref']);
 
 			if ($model->save()) {
 				if (Yii::app()->getRequest()->getIsAjaxRequest())
@@ -56,11 +56,11 @@ class UserSkillController extends GxController {
 	}
 
 	public function actionUpdate($id) {
-		$model = $this->loadModel($id, 'UserSkill');
+		$model = $this->loadModel($id, 'UserCollabpref');
 
 
-		if (isset($_POST['UserSkill'])) {
-			$model->setAttributes($_POST['UserSkill']);
+		if (isset($_POST['UserCollabpref'])) {
+			$model->setAttributes($_POST['UserCollabpref']);
 
 			if ($model->save()) {
 				$this->redirect(array('view', 'id' => $model->id));
@@ -74,7 +74,7 @@ class UserSkillController extends GxController {
 
 	public function actionDelete($id) {
 		if (Yii::app()->getRequest()->getIsPostRequest()) {
-			$this->loadModel($id, 'UserSkill')->delete();
+			$this->loadModel($id, 'UserCollabpref')->delete();
 
 			if (!Yii::app()->getRequest()->getIsAjaxRequest())
 				$this->redirect(array('admin'));
@@ -83,18 +83,18 @@ class UserSkillController extends GxController {
 	}
 
 	public function actionIndex() {
-		$dataProvider = new CActiveDataProvider('UserSkill');
+		$dataProvider = new CActiveDataProvider('UserCollabpref');
 		$this->render('index', array(
 			'dataProvider' => $dataProvider,
 		));
 	}
 
 	public function actionAdmin() {
-		$model = new UserSkill('search');
+		$model = new UserCollabpref('search');
 		$model->unsetAttributes();
 
-		if (isset($_GET['UserSkill']))
-			$model->setAttributes($_GET['UserSkill']);
+		if (isset($_GET['UserCollabpref']))
+			$model->setAttributes($_GET['UserCollabpref']);
 
 		$this->render('admin', array(
 			'model' => $model,

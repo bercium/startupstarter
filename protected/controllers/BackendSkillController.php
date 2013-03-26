@@ -1,6 +1,7 @@
 <?php
 
-class CountryController extends GxController {
+class BackendSkillController extends GxController {
+
 	/**
 	 * @return array action filters
 	 */
@@ -29,19 +30,18 @@ class CountryController extends GxController {
 		);
 	}
 
-
 	public function actionView($id) {
 		$this->render('view', array(
-			'model' => $this->loadModel($id, 'Country'),
+			'model' => $this->loadModel($id, 'Skill'),
 		));
 	}
 
 	public function actionCreate() {
-		$model = new Country;
+		$model = new Skill;
 
 
-		if (isset($_POST['Country'])) {
-			$model->setAttributes($_POST['Country']);
+		if (isset($_POST['Skill'])) {
+			$model->setAttributes($_POST['Skill']);
 
 			if ($model->save()) {
 				if (Yii::app()->getRequest()->getIsAjaxRequest())
@@ -55,11 +55,11 @@ class CountryController extends GxController {
 	}
 
 	public function actionUpdate($id) {
-		$model = $this->loadModel($id, 'Country');
+		$model = $this->loadModel($id, 'Skill');
 
 
-		if (isset($_POST['Country'])) {
-			$model->setAttributes($_POST['Country']);
+		if (isset($_POST['Skill'])) {
+			$model->setAttributes($_POST['Skill']);
 
 			if ($model->save()) {
 				$this->redirect(array('view', 'id' => $model->id));
@@ -73,7 +73,7 @@ class CountryController extends GxController {
 
 	public function actionDelete($id) {
 		if (Yii::app()->getRequest()->getIsPostRequest()) {
-			$this->loadModel($id, 'Country')->delete();
+			$this->loadModel($id, 'Skill')->delete();
 
 			if (!Yii::app()->getRequest()->getIsAjaxRequest())
 				$this->redirect(array('admin'));
@@ -82,18 +82,18 @@ class CountryController extends GxController {
 	}
 
 	public function actionIndex() {
-		$dataProvider = new CActiveDataProvider('Country');
+		$dataProvider = new CActiveDataProvider('Skill');
 		$this->render('index', array(
 			'dataProvider' => $dataProvider,
 		));
 	}
 
 	public function actionAdmin() {
-		$model = new Country('search');
+		$model = new Skill('search');
 		$model->unsetAttributes();
 
-		if (isset($_GET['Country']))
-			$model->setAttributes($_GET['Country']);
+		if (isset($_GET['Skill']))
+			$model->setAttributes($_GET['Skill']);
 
 		$this->render('admin', array(
 			'model' => $model,
