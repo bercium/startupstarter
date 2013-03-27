@@ -44,12 +44,12 @@ class NewsletterController extends GxController {
         $message->setBody('En testni mail', 'text/html');
         $message->subject = $model->newsletterTitle;
         
+        // get all users
         $criteria = new CDbCriteria();
         $criteria->condition = 'newsletter=1';
         $users = User::model()->findAll($criteria);
         foreach ($users as $user){
           $message->addBcc($user->email);
-          echo $user->email."<br />";
         }
         
         $message->from = Yii::app()->params['adminEmail'];
