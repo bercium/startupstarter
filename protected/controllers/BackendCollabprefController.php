@@ -1,8 +1,7 @@
 <?php
 
-class TranslationController extends GxController {
-
-
+class BackendCollabprefController extends GxController {
+  
 	/**
 	 * @return array action filters
 	 */
@@ -30,19 +29,20 @@ class TranslationController extends GxController {
 			),
 		);
 	}
-  
+
+
 	public function actionView($id) {
 		$this->render('view', array(
-			'model' => $this->loadModel($id, 'Translation'),
+			'model' => $this->loadModel($id, 'Collabpref'),
 		));
 	}
 
 	public function actionCreate() {
-		$model = new Translation;
+		$model = new Collabpref;
 
 
-		if (isset($_POST['Translation'])) {
-			$model->setAttributes($_POST['Translation']);
+		if (isset($_POST['Collabpref'])) {
+			$model->setAttributes($_POST['Collabpref']);
 
 			if ($model->save()) {
 				if (Yii::app()->getRequest()->getIsAjaxRequest())
@@ -56,11 +56,11 @@ class TranslationController extends GxController {
 	}
 
 	public function actionUpdate($id) {
-		$model = $this->loadModel($id, 'Translation');
+		$model = $this->loadModel($id, 'Collabpref');
 
 
-		if (isset($_POST['Translation'])) {
-			$model->setAttributes($_POST['Translation']);
+		if (isset($_POST['Collabpref'])) {
+			$model->setAttributes($_POST['Collabpref']);
 
 			if ($model->save()) {
 				$this->redirect(array('view', 'id' => $model->id));
@@ -74,7 +74,7 @@ class TranslationController extends GxController {
 
 	public function actionDelete($id) {
 		if (Yii::app()->getRequest()->getIsPostRequest()) {
-			$this->loadModel($id, 'Translation')->delete();
+			$this->loadModel($id, 'Collabpref')->delete();
 
 			if (!Yii::app()->getRequest()->getIsAjaxRequest())
 				$this->redirect(array('admin'));
@@ -83,18 +83,18 @@ class TranslationController extends GxController {
 	}
 
 	public function actionIndex() {
-		$dataProvider = new CActiveDataProvider('Translation');
+		$dataProvider = new CActiveDataProvider('Collabpref');
 		$this->render('index', array(
 			'dataProvider' => $dataProvider,
 		));
 	}
 
 	public function actionAdmin() {
-		$model = new Translation('search');
+		$model = new Collabpref('search');
 		$model->unsetAttributes();
 
-		if (isset($_GET['Translation']))
-			$model->setAttributes($_GET['Translation']);
+		if (isset($_GET['Collabpref']))
+			$model->setAttributes($_GET['Collabpref']);
 
 		$this->render('admin', array(
 			'model' => $model,

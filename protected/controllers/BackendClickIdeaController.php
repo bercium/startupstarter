@@ -1,6 +1,6 @@
 <?php
 
-class LanguageController extends GxController {
+class BackendClickIdeaController extends GxController {
 
 	/**
 	 * @return array action filters
@@ -32,16 +32,16 @@ class LanguageController extends GxController {
 
 	public function actionView($id) {
 		$this->render('view', array(
-			'model' => $this->loadModel($id, 'Language'),
+			'model' => $this->loadModel($id, 'ClickIdea'),
 		));
 	}
 
 	public function actionCreate() {
-		$model = new Language;
+		$model = new ClickIdea;
 
 
-		if (isset($_POST['Language'])) {
-			$model->setAttributes($_POST['Language']);
+		if (isset($_POST['ClickIdea'])) {
+			$model->setAttributes($_POST['ClickIdea']);
 
 			if ($model->save()) {
 				if (Yii::app()->getRequest()->getIsAjaxRequest())
@@ -55,11 +55,11 @@ class LanguageController extends GxController {
 	}
 
 	public function actionUpdate($id) {
-		$model = $this->loadModel($id, 'Language');
+		$model = $this->loadModel($id, 'ClickIdea');
 
 
-		if (isset($_POST['Language'])) {
-			$model->setAttributes($_POST['Language']);
+		if (isset($_POST['ClickIdea'])) {
+			$model->setAttributes($_POST['ClickIdea']);
 
 			if ($model->save()) {
 				$this->redirect(array('view', 'id' => $model->id));
@@ -73,7 +73,7 @@ class LanguageController extends GxController {
 
 	public function actionDelete($id) {
 		if (Yii::app()->getRequest()->getIsPostRequest()) {
-			$this->loadModel($id, 'Language')->delete();
+			$this->loadModel($id, 'ClickIdea')->delete();
 
 			if (!Yii::app()->getRequest()->getIsAjaxRequest())
 				$this->redirect(array('admin'));
@@ -82,18 +82,18 @@ class LanguageController extends GxController {
 	}
 
 	public function actionIndex() {
-		$dataProvider = new CActiveDataProvider('Language');
+		$dataProvider = new CActiveDataProvider('ClickIdea');
 		$this->render('index', array(
 			'dataProvider' => $dataProvider,
 		));
 	}
 
 	public function actionAdmin() {
-		$model = new Language('search');
+		$model = new ClickIdea('search');
 		$model->unsetAttributes();
 
-		if (isset($_GET['Language']))
-			$model->setAttributes($_GET['Language']);
+		if (isset($_GET['ClickIdea']))
+			$model->setAttributes($_GET['ClickIdea']);
 
 		$this->render('admin', array(
 			'model' => $model,

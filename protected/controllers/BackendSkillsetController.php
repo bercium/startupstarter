@@ -1,9 +1,7 @@
 <?php
 
-class IdeaMemberController extends GxController {
+class BackendSkillsetController extends GxController {
 
-  
-  
 	/**
 	 * @return array action filters
 	 */
@@ -34,16 +32,16 @@ class IdeaMemberController extends GxController {
 
 	public function actionView($id) {
 		$this->render('view', array(
-			'model' => $this->loadModel($id, 'IdeaMember'),
+			'model' => $this->loadModel($id, 'Skillset'),
 		));
 	}
 
 	public function actionCreate() {
-		$model = new IdeaMember;
+		$model = new Skillset;
 
 
-		if (isset($_POST['IdeaMember'])) {
-			$model->setAttributes($_POST['IdeaMember']);
+		if (isset($_POST['Skillset'])) {
+			$model->setAttributes($_POST['Skillset']);
 
 			if ($model->save()) {
 				if (Yii::app()->getRequest()->getIsAjaxRequest())
@@ -57,11 +55,11 @@ class IdeaMemberController extends GxController {
 	}
 
 	public function actionUpdate($id) {
-		$model = $this->loadModel($id, 'IdeaMember');
+		$model = $this->loadModel($id, 'Skillset');
 
 
-		if (isset($_POST['IdeaMember'])) {
-			$model->setAttributes($_POST['IdeaMember']);
+		if (isset($_POST['Skillset'])) {
+			$model->setAttributes($_POST['Skillset']);
 
 			if ($model->save()) {
 				$this->redirect(array('view', 'id' => $model->id));
@@ -75,7 +73,7 @@ class IdeaMemberController extends GxController {
 
 	public function actionDelete($id) {
 		if (Yii::app()->getRequest()->getIsPostRequest()) {
-			$this->loadModel($id, 'IdeaMember')->delete();
+			$this->loadModel($id, 'Skillset')->delete();
 
 			if (!Yii::app()->getRequest()->getIsAjaxRequest())
 				$this->redirect(array('admin'));
@@ -84,18 +82,18 @@ class IdeaMemberController extends GxController {
 	}
 
 	public function actionIndex() {
-		$dataProvider = new CActiveDataProvider('IdeaMember');
+		$dataProvider = new CActiveDataProvider('Skillset');
 		$this->render('index', array(
 			'dataProvider' => $dataProvider,
 		));
 	}
 
 	public function actionAdmin() {
-		$model = new IdeaMember('search');
+		$model = new Skillset('search');
 		$model->unsetAttributes();
 
-		if (isset($_GET['IdeaMember']))
-			$model->setAttributes($_GET['IdeaMember']);
+		if (isset($_GET['Skillset']))
+			$model->setAttributes($_GET['Skillset']);
 
 		$this->render('admin', array(
 			'model' => $model,

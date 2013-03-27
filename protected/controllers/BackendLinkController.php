@@ -1,6 +1,6 @@
 <?php
 
-class ClickUserController extends GxController {
+class BackendLinkController extends GxController {
 
 	/**
 	 * @return array action filters
@@ -32,16 +32,16 @@ class ClickUserController extends GxController {
 
 	public function actionView($id) {
 		$this->render('view', array(
-			'model' => $this->loadModel($id, 'ClickUser'),
+			'model' => $this->loadModel($id, 'Link'),
 		));
 	}
 
 	public function actionCreate() {
-		$model = new ClickUser;
+		$model = new Link;
 
 
-		if (isset($_POST['ClickUser'])) {
-			$model->setAttributes($_POST['ClickUser']);
+		if (isset($_POST['Link'])) {
+			$model->setAttributes($_POST['Link']);
 
 			if ($model->save()) {
 				if (Yii::app()->getRequest()->getIsAjaxRequest())
@@ -55,11 +55,11 @@ class ClickUserController extends GxController {
 	}
 
 	public function actionUpdate($id) {
-		$model = $this->loadModel($id, 'ClickUser');
+		$model = $this->loadModel($id, 'Link');
 
 
-		if (isset($_POST['ClickUser'])) {
-			$model->setAttributes($_POST['ClickUser']);
+		if (isset($_POST['Link'])) {
+			$model->setAttributes($_POST['Link']);
 
 			if ($model->save()) {
 				$this->redirect(array('view', 'id' => $model->id));
@@ -73,7 +73,7 @@ class ClickUserController extends GxController {
 
 	public function actionDelete($id) {
 		if (Yii::app()->getRequest()->getIsPostRequest()) {
-			$this->loadModel($id, 'ClickUser')->delete();
+			$this->loadModel($id, 'Link')->delete();
 
 			if (!Yii::app()->getRequest()->getIsAjaxRequest())
 				$this->redirect(array('admin'));
@@ -82,18 +82,18 @@ class ClickUserController extends GxController {
 	}
 
 	public function actionIndex() {
-		$dataProvider = new CActiveDataProvider('ClickUser');
+		$dataProvider = new CActiveDataProvider('Link');
 		$this->render('index', array(
 			'dataProvider' => $dataProvider,
 		));
 	}
 
 	public function actionAdmin() {
-		$model = new ClickUser('search');
+		$model = new Link('search');
 		$model->unsetAttributes();
 
-		if (isset($_GET['ClickUser']))
-			$model->setAttributes($_GET['ClickUser']);
+		if (isset($_GET['Link']))
+			$model->setAttributes($_GET['Link']);
 
 		$this->render('admin', array(
 			'model' => $model,

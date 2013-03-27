@@ -1,7 +1,6 @@
 <?php
 
-class UserMatchController extends GxController {
-
+class BackendIdeaStatusController extends GxController {
 	/**
 	 * @return array action filters
 	 */
@@ -30,18 +29,19 @@ class UserMatchController extends GxController {
 		);
 	}
 
+
 	public function actionView($id) {
 		$this->render('view', array(
-			'model' => $this->loadModel($id, 'UserMatch'),
+			'model' => $this->loadModel($id, 'IdeaStatus'),
 		));
 	}
 
 	public function actionCreate() {
-		$model = new UserMatch;
+		$model = new IdeaStatus;
 
 
-		if (isset($_POST['UserMatch'])) {
-			$model->setAttributes($_POST['UserMatch']);
+		if (isset($_POST['IdeaStatus'])) {
+			$model->setAttributes($_POST['IdeaStatus']);
 
 			if ($model->save()) {
 				if (Yii::app()->getRequest()->getIsAjaxRequest())
@@ -55,11 +55,11 @@ class UserMatchController extends GxController {
 	}
 
 	public function actionUpdate($id) {
-		$model = $this->loadModel($id, 'UserMatch');
+		$model = $this->loadModel($id, 'IdeaStatus');
 
 
-		if (isset($_POST['UserMatch'])) {
-			$model->setAttributes($_POST['UserMatch']);
+		if (isset($_POST['IdeaStatus'])) {
+			$model->setAttributes($_POST['IdeaStatus']);
 
 			if ($model->save()) {
 				$this->redirect(array('view', 'id' => $model->id));
@@ -73,7 +73,7 @@ class UserMatchController extends GxController {
 
 	public function actionDelete($id) {
 		if (Yii::app()->getRequest()->getIsPostRequest()) {
-			$this->loadModel($id, 'UserMatch')->delete();
+			$this->loadModel($id, 'IdeaStatus')->delete();
 
 			if (!Yii::app()->getRequest()->getIsAjaxRequest())
 				$this->redirect(array('admin'));
@@ -82,18 +82,18 @@ class UserMatchController extends GxController {
 	}
 
 	public function actionIndex() {
-		$dataProvider = new CActiveDataProvider('UserMatch');
+		$dataProvider = new CActiveDataProvider('IdeaStatus');
 		$this->render('index', array(
 			'dataProvider' => $dataProvider,
 		));
 	}
 
 	public function actionAdmin() {
-		$model = new UserMatch('search');
+		$model = new IdeaStatus('search');
 		$model->unsetAttributes();
 
-		if (isset($_GET['UserMatch']))
-			$model->setAttributes($_GET['UserMatch']);
+		if (isset($_GET['IdeaStatus']))
+			$model->setAttributes($_GET['IdeaStatus']);
 
 		$this->render('admin', array(
 			'model' => $model,

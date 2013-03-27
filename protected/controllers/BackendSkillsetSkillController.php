@@ -1,7 +1,6 @@
 <?php
 
-class UserLinkController extends GxController {
-
+class BackendSkillsetSkillController extends GxController {
 
   
 	/**
@@ -31,19 +30,19 @@ class UserLinkController extends GxController {
 			),
 		);
 	}
-  
+
 	public function actionView($id) {
 		$this->render('view', array(
-			'model' => $this->loadModel($id, 'UserLink'),
+			'model' => $this->loadModel($id, 'SkillsetSkill'),
 		));
 	}
 
 	public function actionCreate() {
-		$model = new UserLink;
+		$model = new SkillsetSkill;
 
 
-		if (isset($_POST['UserLink'])) {
-			$model->setAttributes($_POST['UserLink']);
+		if (isset($_POST['SkillsetSkill'])) {
+			$model->setAttributes($_POST['SkillsetSkill']);
 
 			if ($model->save()) {
 				if (Yii::app()->getRequest()->getIsAjaxRequest())
@@ -57,11 +56,11 @@ class UserLinkController extends GxController {
 	}
 
 	public function actionUpdate($id) {
-		$model = $this->loadModel($id, 'UserLink');
+		$model = $this->loadModel($id, 'SkillsetSkill');
 
 
-		if (isset($_POST['UserLink'])) {
-			$model->setAttributes($_POST['UserLink']);
+		if (isset($_POST['SkillsetSkill'])) {
+			$model->setAttributes($_POST['SkillsetSkill']);
 
 			if ($model->save()) {
 				$this->redirect(array('view', 'id' => $model->id));
@@ -75,7 +74,7 @@ class UserLinkController extends GxController {
 
 	public function actionDelete($id) {
 		if (Yii::app()->getRequest()->getIsPostRequest()) {
-			$this->loadModel($id, 'UserLink')->delete();
+			$this->loadModel($id, 'SkillsetSkill')->delete();
 
 			if (!Yii::app()->getRequest()->getIsAjaxRequest())
 				$this->redirect(array('admin'));
@@ -84,18 +83,18 @@ class UserLinkController extends GxController {
 	}
 
 	public function actionIndex() {
-		$dataProvider = new CActiveDataProvider('UserLink');
+		$dataProvider = new CActiveDataProvider('SkillsetSkill');
 		$this->render('index', array(
 			'dataProvider' => $dataProvider,
 		));
 	}
 
 	public function actionAdmin() {
-		$model = new UserLink('search');
+		$model = new SkillsetSkill('search');
 		$model->unsetAttributes();
 
-		if (isset($_GET['UserLink']))
-			$model->setAttributes($_GET['UserLink']);
+		if (isset($_GET['SkillsetSkill']))
+			$model->setAttributes($_GET['SkillsetSkill']);
 
 		$this->render('admin', array(
 			'model' => $model,

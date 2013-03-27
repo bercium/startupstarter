@@ -1,6 +1,8 @@
 <?php
 
-class IdeaStatusController extends GxController {
+class BackendIdeaController extends GxController {
+
+
 	/**
 	 * @return array action filters
 	 */
@@ -28,20 +30,19 @@ class IdeaStatusController extends GxController {
 			),
 		);
 	}
-
-
+  
 	public function actionView($id) {
 		$this->render('view', array(
-			'model' => $this->loadModel($id, 'IdeaStatus'),
+			'model' => $this->loadModel($id, 'Idea'),
 		));
 	}
 
 	public function actionCreate() {
-		$model = new IdeaStatus;
+		$model = new Idea;
 
 
-		if (isset($_POST['IdeaStatus'])) {
-			$model->setAttributes($_POST['IdeaStatus']);
+		if (isset($_POST['Idea'])) {
+			$model->setAttributes($_POST['Idea']);
 
 			if ($model->save()) {
 				if (Yii::app()->getRequest()->getIsAjaxRequest())
@@ -55,11 +56,11 @@ class IdeaStatusController extends GxController {
 	}
 
 	public function actionUpdate($id) {
-		$model = $this->loadModel($id, 'IdeaStatus');
+		$model = $this->loadModel($id, 'Idea');
 
 
-		if (isset($_POST['IdeaStatus'])) {
-			$model->setAttributes($_POST['IdeaStatus']);
+		if (isset($_POST['Idea'])) {
+			$model->setAttributes($_POST['Idea']);
 
 			if ($model->save()) {
 				$this->redirect(array('view', 'id' => $model->id));
@@ -73,7 +74,7 @@ class IdeaStatusController extends GxController {
 
 	public function actionDelete($id) {
 		if (Yii::app()->getRequest()->getIsPostRequest()) {
-			$this->loadModel($id, 'IdeaStatus')->delete();
+			$this->loadModel($id, 'Idea')->delete();
 
 			if (!Yii::app()->getRequest()->getIsAjaxRequest())
 				$this->redirect(array('admin'));
@@ -82,18 +83,18 @@ class IdeaStatusController extends GxController {
 	}
 
 	public function actionIndex() {
-		$dataProvider = new CActiveDataProvider('IdeaStatus');
+		$dataProvider = new CActiveDataProvider('Idea');
 		$this->render('index', array(
 			'dataProvider' => $dataProvider,
 		));
 	}
 
 	public function actionAdmin() {
-		$model = new IdeaStatus('search');
+		$model = new Idea('search');
 		$model->unsetAttributes();
 
-		if (isset($_GET['IdeaStatus']))
-			$model->setAttributes($_GET['IdeaStatus']);
+		if (isset($_GET['Idea']))
+			$model->setAttributes($_GET['Idea']);
 
 		$this->render('admin', array(
 			'model' => $model,

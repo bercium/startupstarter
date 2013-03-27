@@ -1,8 +1,8 @@
 <?php
 
-class SkillsetSkillController extends GxController {
+class BackendIdeaTranslationController extends GxController {
 
-  
+
 	/**
 	 * @return array action filters
 	 */
@@ -30,19 +30,19 @@ class SkillsetSkillController extends GxController {
 			),
 		);
 	}
-
+  
 	public function actionView($id) {
 		$this->render('view', array(
-			'model' => $this->loadModel($id, 'SkillsetSkill'),
+			'model' => $this->loadModel($id, 'IdeaTranslation'),
 		));
 	}
 
 	public function actionCreate() {
-		$model = new SkillsetSkill;
+		$model = new IdeaTranslation;
 
 
-		if (isset($_POST['SkillsetSkill'])) {
-			$model->setAttributes($_POST['SkillsetSkill']);
+		if (isset($_POST['IdeaTranslation'])) {
+			$model->setAttributes($_POST['IdeaTranslation']);
 
 			if ($model->save()) {
 				if (Yii::app()->getRequest()->getIsAjaxRequest())
@@ -56,11 +56,11 @@ class SkillsetSkillController extends GxController {
 	}
 
 	public function actionUpdate($id) {
-		$model = $this->loadModel($id, 'SkillsetSkill');
+		$model = $this->loadModel($id, 'IdeaTranslation');
 
 
-		if (isset($_POST['SkillsetSkill'])) {
-			$model->setAttributes($_POST['SkillsetSkill']);
+		if (isset($_POST['IdeaTranslation'])) {
+			$model->setAttributes($_POST['IdeaTranslation']);
 
 			if ($model->save()) {
 				$this->redirect(array('view', 'id' => $model->id));
@@ -74,7 +74,7 @@ class SkillsetSkillController extends GxController {
 
 	public function actionDelete($id) {
 		if (Yii::app()->getRequest()->getIsPostRequest()) {
-			$this->loadModel($id, 'SkillsetSkill')->delete();
+			$this->loadModel($id, 'IdeaTranslation')->delete();
 
 			if (!Yii::app()->getRequest()->getIsAjaxRequest())
 				$this->redirect(array('admin'));
@@ -83,18 +83,18 @@ class SkillsetSkillController extends GxController {
 	}
 
 	public function actionIndex() {
-		$dataProvider = new CActiveDataProvider('SkillsetSkill');
+		$dataProvider = new CActiveDataProvider('IdeaTranslation');
 		$this->render('index', array(
 			'dataProvider' => $dataProvider,
 		));
 	}
 
 	public function actionAdmin() {
-		$model = new SkillsetSkill('search');
+		$model = new IdeaTranslation('search');
 		$model->unsetAttributes();
 
-		if (isset($_GET['SkillsetSkill']))
-			$model->setAttributes($_GET['SkillsetSkill']);
+		if (isset($_GET['IdeaTranslation']))
+			$model->setAttributes($_GET['IdeaTranslation']);
 
 		$this->render('admin', array(
 			'model' => $model,

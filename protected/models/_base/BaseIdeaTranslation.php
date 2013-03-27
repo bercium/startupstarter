@@ -42,7 +42,7 @@ abstract class BaseIdeaTranslation extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('language_id, idea_id, pitch, description, description_public, tweetpitch, deleted', 'required'),
+			array('language_id, title, pitch, description_public', 'required'),
 			array('language_id, description_public, deleted', 'numerical', 'integerOnly'=>true),
 			array('idea_id', 'length', 'max'=>8),
 			array('tweetpitch', 'length', 'max'=>140),

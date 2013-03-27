@@ -1,6 +1,6 @@
 <?php
 
-class AuditTrailController extends Controller
+class BackendAuditTrailController extends Controller
 {
 	public $defaultAction = "admin";
 	public $layout='//layouts/column1';
