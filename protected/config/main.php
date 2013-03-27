@@ -1,5 +1,5 @@
 <?php
-
+require(dirname(__FILE__).DIRECTORY_SEPARATOR.'../helpers/global.php');
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 
