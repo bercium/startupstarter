@@ -25,7 +25,8 @@ return array(
     'application.extensions.auditTrail.models.AuditTrail', // system for loging models
     'application.modules.user.models.*',  // yii-user login system
     'application.modules.user.components.*', // yii-user login system
-    'ext.mail.YiiMailMessage',
+    'ext.mail.YiiMailMessage', // mail system
+    'ext.tinymce.*', //tiny mce
 	),
 
 	'modules'=>array(
@@ -147,8 +148,8 @@ return array(
         ),
         'viewPath' => 'application.views.mailTemplates',
         'logging' => true,
-        'dryRun' => false
-    ),      
+        'dryRun' => true
+    ),
 	),
 
 	// application-level parameters that can be accessed
@@ -156,5 +157,6 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
+    'noreplyMail'=>'no-reply@example.com',
 	),
 );

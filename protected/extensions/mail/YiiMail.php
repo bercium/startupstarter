@@ -186,10 +186,12 @@ class YiiMail extends CApplicationComponent
 	* @return string log message
 	*/
 	public static function log(YiiMailMessage $message) {
-		$msg = 'Sending email to '.implode(', ', array_keys($message->to))."\n".
-			implode('', $message->headers->getAll())."\n".
-			$message->body
-		;
+    $msg = '';
+    if ($message->to) $msg .= 'Sending email to '.implode(', ', array_keys($message->to))."\n";
+    if ($message->cc) $msg .= 'Sending cc email to '.implode(', ', array_keys($message->cc))."\n";
+    if ($message->bcc) $msg .= 'Sending bcc email to '.implode(', ', array_keys($message->bcc))."\n";
+    
+		$msg .= implode('', $message->headers->getAll())."\n". $message->body;
 		Yii::log($msg, CLogger::LEVEL_INFO, 'ext.yii-mail.YiiMail'); // TODO: attempt to determine alias/category at runtime
 		return $msg;
 	}

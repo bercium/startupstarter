@@ -29,6 +29,47 @@ class NewsletterController extends GxController {
 			),
 		);
 	}
+  
+  /**
+   * Show form for writing a newsletter and sending it to all subscribers
+   */
+  public function actionIndex(){
+		$model=new NewsletterForm;
+		if(isset($_POST['NewsletterForm'])){
+			$model->attributes=$_POST['NewsletterForm'];
+			if($model->validate()){
+        
+        $message = new YiiMailMessage;
+        $message->view = 'newsletter';
+        $message->setBody('En testni mail', 'text/html');
+        $message->subject = $model->newsletterTitle;
+        
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'newsletter=1';
+        $users = User::model()->findAll($criteria);
+        foreach ($users as $user){
+          $message->addBcc($user->email);
+          echo $user->email."<br />";
+        }
+        
+        $message->from = Yii::app()->params['adminEmail'];
+        Yii::app()->mail->send($message);
+        
+				Yii::app()->user->setFlash('newsletter','Newsletter sended succersfuly.'.$model->newsletter);
+			}
+		}
+		$this->render('index',array('model'=>$model));
+    
+    //print_r($_POST);
+    /*if(isset($_POST['IndexForm'])) {
+        // collects user input data
+        $model->attributes=$_POST['LoginForm'];
+        // validates user input and redirect to previous page if validated
+        if($model->validate())
+            $this->redirect(Yii::app()->user->returnUrl);
+    }*/
+    //$this->render('index', array(		));
+  }
 
 	public function actionSend() {
     
