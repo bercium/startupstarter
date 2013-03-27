@@ -3,5 +3,6 @@
 <?php
 $this->renderPartial('_formidea', array(
 		'idea' => $idea,
+		'data_array' => $data_array,
 		'translation' => $translation));
 ?>

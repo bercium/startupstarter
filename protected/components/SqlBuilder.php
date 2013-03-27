@@ -59,6 +59,7 @@ class SqlBuilder {
 						"AND m.user_id IS NULL ".
 						"AND it.idea_id = i.id ".
 						"AND it.language_id = '{$filter['lang']}' ".
+						"AND it.deleted = 0 ".
 						"ORDER BY m.id DESC";
 		} elseif( $type == 'user' ) {
 			$sql=	"SELECT i.*, ist.name AS status FROM ".
@@ -87,7 +88,7 @@ class SqlBuilder {
 		$array = NULL;
 		while(($row=$dataReader->read())!==false) {
 			$array[$row['id']] = $row;
-			$array[$row['id']]['translation'] = $this->translation( 'match', array('idea_id' => $row['id'], 'lang' => $filter['lang'] ));
+			$array[$row['id']]['translation'] = $this->translation( 'userlang', array('idea_id' => $row['id'], 'lang' => $filter['lang'] ));
 			$array[$row['id']]['translations_other'] = $this->translation( 'other', array('idea_id' => $row['id'], 'lang' => $filter['lang'] ));
 			$array[$row['id']]['members'] = $this->user( 'members', array('idea_id' => $row['id']));
 			$array[$row['id']]['candidates'] = $this->user( 'candidates', array('idea_id' => $row['id']));
@@ -98,11 +99,12 @@ class SqlBuilder {
 
 	public function translation($type, $filter){
 
-		if($type == 'match'){
+		if($type == 'userlang'){
 			$sql=		"SELECT l.name AS language, l.language_code, it.* FROM ".
 						"`idea` AS i,`idea_translation` AS it,`language` AS l ".
 						"WHERE i.id = it.idea_id ".
 						"AND l.id = it.language_id ".
+						"AND it.deleted = 0 ".
 						"AND it.idea_id = {$filter['idea_id']} ".
 						"AND it.language_id = {$filter['lang']}";
 
@@ -156,7 +158,8 @@ class SqlBuilder {
 					"AND m.user_id > 0 ".
 					"ORDER BY u.create_at DESC";
 		} elseif( $type == 'members' ) {
-			$sql=	"SELECT u.*, m.country_id, m.available, m.city_id, m.user_id, m.id as match_id FROM ".
+			$sql=	"SELECT im.id, im.type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
+					"m.country_id, m.available, m.city_id, m.user_id, m.id as match_id FROM ".
 					"`idea_member` AS im, ".
 					"`user` AS u, `user_match` AS m ".
 					"WHERE im.match_id = m.id ".
@@ -165,9 +168,8 @@ class SqlBuilder {
 					"AND im.idea_id = '{$filter['idea_id']}' ".
 					"ORDER BY im.type DESC";
 		} elseif( $type == 'candidates' ) {
-			$sql=	"SELECT im.idea_id AS id, m.id as match_id, m.country_id, m.available, m.city_id FROM ".
-					"`idea_member` AS im, ".
-					"`user` AS u, `user_match` AS m ".
+			$sql=	"SELECT m.id as id, m.id as match_id, m.country_id, m.available, m.city_id FROM ".
+					"`idea_member` AS im, `user_match` AS m ".
 					"WHERE im.match_id = m.id ".
 					"AND m.user_id IS NULL ".
 					"AND im.idea_id = '{$filter['idea_id']}' ".
