@@ -42,6 +42,7 @@ abstract class BaseUserMatch extends GxActiveRecord {
 
 	public function rules() {
 		return array(
+			array('available', 'required'),
 			array('country_id', 'numerical', 'integerOnly'=>true),
 			array('user_id', 'length', 'max'=>11),
 			array('available', 'length', 'max'=>2),
