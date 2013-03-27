@@ -25,6 +25,8 @@ return array(
     'application.extensions.auditTrail.models.AuditTrail', // system for loging models
     'application.modules.user.models.*',  // yii-user login system
     'application.modules.user.components.*', // yii-user login system
+    'ext.mail.YiiMailMessage', // mail system
+    'ext.tinymce.*', //tiny mce
 	),
 
 	'modules'=>array(
@@ -64,7 +66,7 @@ return array(
       'returnUrl' => array('/user/profile'),
       # page after logout
       'returnLogoutUrl' => array('/user/login'),        
-		),      
+		),
       
     /*'auditTrail'=>array(),*/
 	),
@@ -123,6 +125,31 @@ return array(
 				*/
 			),
 		),
+
+    /*
+    'cache' => array (
+    'class' => 'CMemCache',
+    'servers'=>array(
+        array(
+            'host'=>'localhost',
+            'port'=>11211,
+            ),
+        ),
+    ),*/
+    'mail' => array(
+        'class' => 'ext.mail.YiiMail',
+        'transportType' => 'smtp',
+        'transportOptions' => array(
+            'host' => 'smtp.gmail.com',
+            'username' => 'bercium@gmail.com',
+            'password' => 'tuki1oplelismo',
+            'port' => '465',
+            'encryption'=>'tls',
+        ),
+        'viewPath' => 'application.views.mailTemplates',
+        'logging' => true,
+        'dryRun' => true
+    ),
 	),
 
 	// application-level parameters that can be accessed
@@ -130,5 +157,6 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
+    'noreplyMail'=>'no-reply@example.com',
 	),
 );

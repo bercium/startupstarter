@@ -9,7 +9,9 @@ $this->pageTitle=Yii::app()->name . ' - CRUD List';
 
 <a href="<?php echo Yii::app()->createUrl("backendAuditTrail"); ?>">Action Trail</a><br />
 <a href="<?php echo Yii::app()->createUrl("site/contact", array("q"=>"test")); ?>">Contact</a><br /><br />
+<a href="<?php echo Yii::app()->createUrl("newsletter"); ?>">Newsletter</a><br />
 
+<br />
 Šifranti:<br/>
 <a href="<?php echo Yii::app()->createUrl("backendCity"); ?>">Cities</a><br />
 <a href="<?php echo Yii::app()->createUrl("backendClickIdea"); ?>">Clicked Ideas</a><br />

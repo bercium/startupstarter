@@ -9,29 +9,43 @@ return array(
 	// preloading 'log' component
 	'preload'=>array('log'),
     
+	'import'=>array(
+		'application.models.*',
+		'application.components.*',
+    'ext.giix-components.*', // giix components
+    'application.extensions.auditTrail.models.AuditTrail', // system for loging models
+    'application.modules.user.models.*',  // yii-user login system
+    'application.modules.user.components.*', // yii-user login system
+    'ext.mail.YiiMailMessage', // mail system
+    'ext.tinymce.*', //tiny mce
+	),    
+    
   'modules'=>array(
       'user'=>array(
-          # encrypting method (php hash function)
-          'hash' => 'md5',
-          # send activation email
-          'sendActivationMail' => true,
-          # allow access for non-activated users
-          'loginNotActiv' => false,
-          # activate user on registration (only sendActivationMail = false)
-          'activeAfterRegister' => false,
-          # automatically login from registration
-          'autoLogin' => true,
-          # registration path
-          'registrationUrl' => array('/user/registration'),
-          # recovery password path
-          'recoveryUrl' => array('/user/recovery'),
-          # login form path
-          'loginUrl' => array('/user/login'),
-          # page after login
-          'returnUrl' => array('/user/profile'),
-          # page after logout
-          'returnLogoutUrl' => array('/user/login'),
-      ),
+      'tableUsers' => 'user',
+      'tableProfiles' => 'profiles',
+      'tableProfileFields' => 'profiles_fields',        
+      # encrypting method (php hash function)
+      'hash' => 'md5',
+      # send activation email
+      'sendActivationMail' => true,
+      # allow access for non-activated users
+      'loginNotActiv' => false,
+      # activate user on registration (only sendActivationMail = false)
+      'activeAfterRegister' => false,
+      # automatically login from registration
+      'autoLogin' => true,
+      # registration path
+      'registrationUrl' => array('/user/registration'),
+      # recovery password path
+      'recoveryUrl' => array('/user/recovery'),
+      # login form path
+      'loginUrl' => array('/user/login'),
+      # page after login
+      'returnUrl' => array('/user/profile'),
+      # page after logout
+      'returnLogoutUrl' => array('/user/login'),        
+		), 
   ),
 	// application components
 	'components'=>array(
@@ -40,13 +54,7 @@ return array(
 		),*/
 		// uncomment the following to use a MySQL database
 		
-		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=slocoworking',
-			'emulatePrepare' => true,
-			'username' => 'startupstarter',
-			'password' => 'ss1DBzbj',
-			'charset' => 'utf8',
-		),
+    'db' => require(dirname(__FILE__) . '/local-db.php'),
 		
 		'log'=>array(
 			'class'=>'CLogRouter',
@@ -57,5 +65,25 @@ return array(
 				),
 			),
 		),
+
+    'mail' => array(
+        'class' => 'ext.mail.YiiMail',
+        'transportType' => 'smtp',
+        'transportOptions' => array(
+            'host' => 'smtp.gmail.com',
+            'username' => 'bercium@gmail.com',
+            'password' => 'tuki1oplelismo',
+            'port' => '465',
+            'encryption'=>'tls',
+        ),
+        'viewPath' => 'application.views.mailTemplates',
+        'logging' => true,
+        'dryRun' => true
+    ),   
 	),
+	'params'=>array(
+		// this is used in contact page
+		'adminEmail'=>'webmaster@example.com',
+    'noreplyMail'=>'no-reply@example.com',
+	),    
 );

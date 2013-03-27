@@ -219,21 +219,39 @@ class UserModule extends CWebModule
 	 * Send to user mail
 	 */
 	public static function sendMail($email,$subject,$message) {
-    	$adminEmail = Yii::app()->params['adminEmail'];
+    	/*$adminEmail = Yii::app()->params['adminEmail'];
 	    $headers = "MIME-Version: 1.0\r\nFrom: $adminEmail\r\nReply-To: $adminEmail\r\nContent-Type: text/html; charset=utf-8";
 	    $message = wordwrap($message, 70);
 	    $message = str_replace("\n.", "\n..", $message);
-	    return mail($email,'=?UTF-8?B?'.base64_encode($subject).'?=',$message,$headers);
+	    return mail($email,'=?UTF-8?B?'.base64_encode($subject).'?=',$message,$headers);*/
+      $mail = new YiiMailMessage;
+      $mail->from = Yii::app()->params['adminEmail'];
+      $mail->addTo($email);
+      $mail->view = 'register';
+      $mail->subject = '=?UTF-8?B?'.base64_encode($subject).'?=';
+      $mail->setBody(str_replace("\n.", "\n..", wordwrap($message, 70)), 'text/html', 'utf-8');
+      return Yii::app()->mail->send($mail);      
 	}
 
     /**
      * Send to user mail
      */
     public function sendMailToUser($user_id,$subject,$message,$from='') {
-        $user = User::model()->findbyPk($user_id);
+        /*$user = User::model()->findbyPk($user_id);
         if (!$from) $from = Yii::app()->params['adminEmail'];
         $headers="From: ".$from."\r\nReply-To: ".Yii::app()->params['adminEmail'];
-        return mail($user->email,'=?UTF-8?B?'.base64_encode($subject).'?=',$message,$headers);
+        return mail($user->email,'=?UTF-8?B?'.base64_encode($subject).'?=',$message,$headers);*/
+      
+        $user = User::model()->findbyPk($user_id);
+        if (!$from) $from = Yii::app()->params['adminEmail'];
+        
+        $mail = new YiiMailMessage;
+        $mail->from = $from;
+        $mail->addTo($user->email);
+        $mail->view = 'register';
+        $mail->subject = '=?UTF-8?B?'.base64_encode($subject).'?=';
+        $mail->setBody(str_replace("\n.", "\n..", wordwrap($message, 70)), 'text/html', 'utf-8');
+        return Yii::app()->mail->send($mail);      
     }
 	
 	/**
