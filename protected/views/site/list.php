@@ -8,7 +8,7 @@ $this->pageTitle=Yii::app()->name . ' - CRUD List';
 <p>Tukaj naj bo seznam vseh povezav do avto zgeneriranih CRUDov:</p><br />
 
 <a href="<?php echo Yii::app()->createUrl("backendAuditTrail"); ?>">Action Trail</a><br />
-<a href="<?php echo Yii::app()->createUrl("site/contact", array("q"=>"test")); ?>">Contact</a><br /><br />
+<a href="<?php echo Yii::app()->createUrl("site/contact", array("q"=>"test")); ?>">Contact</a><br />
 <a href="<?php echo Yii::app()->createUrl("newsletter"); ?>">Newsletter</a><br />
 
 <br />

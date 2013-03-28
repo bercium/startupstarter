@@ -71,8 +71,8 @@ return array(
         'transportType' => 'smtp',
         'transportOptions' => array(
             'host' => 'smtp.gmail.com',
-            'username' => 'bercium@gmail.com',
-            'password' => 'tuki1oplelismo',
+            'username' => 'MAIL',
+            'password' => 'PASS',
             'port' => '465',
             'encryption'=>'tls',
         ),
