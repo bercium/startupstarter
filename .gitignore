@@ -16,3 +16,4 @@ protected/tests/report/
 
 protected/config/local-db.php
 protected/config/local-path.php
+protected/config/local-mail.php
