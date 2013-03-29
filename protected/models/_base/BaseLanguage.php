@@ -37,7 +37,8 @@ abstract class BaseLanguage extends GxActiveRecord {
 			array('language_code, name', 'required'),
 			array('language_code', 'length', 'max'=>2),
 			array('name', 'length', 'max'=>32),
-			array('id, language_code, name', 'safe', 'on'=>'search'),
+			array('native_name', 'length', 'max'=>32),
+			array('id, language_code, name, native_name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,6 +60,7 @@ abstract class BaseLanguage extends GxActiveRecord {
 			'id' => Yii::t('app', 'ID'),
 			'language_code' => Yii::t('app', 'Language Code'),
 			'name' => Yii::t('app', 'Name'),
+      'native_name' => Yii::t('app', 'Native name'),
 		);
 	}
 
@@ -68,6 +70,7 @@ abstract class BaseLanguage extends GxActiveRecord {
 		$criteria->compare('id', $this->id);
 		$criteria->compare('language_code', $this->language_code, true);
 		$criteria->compare('name', $this->name, true);
+		$criteria->compare('native_name', $this->native_name, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

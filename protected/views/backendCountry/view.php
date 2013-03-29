@@ -21,6 +21,7 @@ $this->menu=array(
 	'attributes' => array(
 'id',
 'name',
+'country_code',
 	),
 )); ?>
 

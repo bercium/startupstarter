@@ -45,6 +45,7 @@ You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&g
 		'id',
 		'language_code',
 		'name',
+    'native_name',
 		array(
 			'class' => 'CButtonColumn',
 		),

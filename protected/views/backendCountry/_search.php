@@ -15,6 +15,12 @@
 		<?php echo $form->textField($model, 'name', array('maxlength' => 32)); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->label($model, 'country_code'); ?>
+		<?php echo $form->textField($model, 'country_code', array('maxlength' => 2)); ?>
+  </div>
+  
+
 	<div class="row buttons">
 		<?php echo GxHtml::submitButton(Yii::t('app', 'Search')); ?>
 	</div>

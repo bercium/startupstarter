@@ -22,5 +22,6 @@ $this->menu=array(
 'id',
 'language_code',
 'name',
+'native_name',      
 	),
 )); ?>

@@ -35,7 +35,9 @@ abstract class BaseCountry extends GxActiveRecord {
 		return array(
 			array('name', 'required'),
 			array('name', 'length', 'max'=>32),
-			array('id, name', 'safe', 'on'=>'search'),
+			array('country_code', 'required'),
+			array('country_code', 'length', 'max'=>2),
+			array('id, name, country_code', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,6 +57,7 @@ abstract class BaseCountry extends GxActiveRecord {
 		return array(
 			'id' => Yii::t('app', 'ID'),
 			'name' => Yii::t('app', 'Name'),
+      'country_code' => Yii::t('app', 'Country code'),
 		);
 	}
 
@@ -63,6 +66,7 @@ abstract class BaseCountry extends GxActiveRecord {
 
 		$criteria->compare('id', $this->id);
 		$criteria->compare('name', $this->name, true);
+		$criteria->compare('country_code', $this->country_code, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

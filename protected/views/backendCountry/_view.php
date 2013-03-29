@@ -6,6 +6,9 @@
 
 	<?php echo GxHtml::encode($data->getAttributeLabel('name')); ?>:
 	<?php echo GxHtml::encode($data->name); ?>
+  <br />
+	<?php echo GxHtml::encode($data->getAttributeLabel('country_code')); ?>:
+	<?php echo GxHtml::encode($data->country_code); ?>
 	<br />
 
 </div>

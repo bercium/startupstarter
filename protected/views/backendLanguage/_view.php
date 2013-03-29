@@ -10,5 +10,8 @@
 	<?php echo GxHtml::encode($data->getAttributeLabel('name')); ?>:
 	<?php echo GxHtml::encode($data->name); ?>
 	<br />
-
+  <?php echo GxHtml::encode($data->getAttributeLabel('native_name')); ?>:
+	<?php echo GxHtml::encode($data->native_name); ?>
+	<br />
+  
 </div>
