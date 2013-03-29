@@ -49,5 +49,5 @@ class MailerCommand extends CConsoleCommand{
 
     $message->from = Yii::app()->params['adminEmail'];
     Yii::app()->mail->send($message);
-	}
+	}  
 }
