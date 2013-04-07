@@ -37,7 +37,7 @@
 <div class="container" id="page">
 
   
-  <nav class="top-bar">
+  <nav class="top-bar" style="margin-bottom: 0px; z-index: 10">
   <ul class="title-area" style="margin-right: 50px;">
     <!-- Title Area -->
     <li class="name">
@@ -107,7 +107,7 @@
       
     </ul>
   </section>
-</nav>    
+</nav>
 
 <div id="drop-login" class="f-dropdown content" data-dropdown-content>
   <a href="<?php echo Yii::app()->createUrl(Yii::app()->getModule('user')->loginUrl[0]); ?>"><?php echo CHtml::encode(Yii::t('app','Login')); ?></a>
@@ -115,21 +115,28 @@
   <a href="<?php echo Yii::app()->createUrl(Yii::app()->getModule('user')->registrationUrl[0]); ?>"><?php echo CHtml::encode(Yii::t('app','Register')); ?></a>
 </div>
 
-  
-  <div class="row">
-    <div class="small-12 large-12">
-  	<?php echo $content; ?>
-  </div>
-  </div>
+
+	<?php echo $content; ?>
 
   
-  <div class="row">
+
+  
+  
+<div id="outro" style="background-position: 60% 0px; padding:1px;">
+
+  <div class="row" style="margin-bottom:50px; margin-top:40px;">
     <div class="small-12 large-12">
+      <br /><br /><br /><br />
       Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
       All Rights Reserved.<br/>
-      <?php echo Yii::powered(); ?>
+      <?php echo Yii::powered(); ?><br /><br /><br />
     </div>
   </div>
+
+</div>
+  
+  
+
   
 
 </div><!-- page -->

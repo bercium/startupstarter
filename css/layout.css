@@ -1,3 +1,18 @@
+#intro{
+	background:url(../images/intro-bg.jpg) 50% 0  fixed;
+	margin: 0 auto;
+	padding: 0;
+}
+
+#outro{
+	background:url(../images/outro-bg.jpg) 50% 0  fixed;
+	margin: 0 auto;
+	padding: 0;
+}
+
+
+
+
 /* #Special Styles
 ================================================== */
 .hide-text {
@@ -351,10 +366,4 @@ padding-rigth: 220px;
 
 
  }
-
-
-
-
-
-
 
