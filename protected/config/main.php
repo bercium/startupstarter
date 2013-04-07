@@ -7,14 +7,14 @@ require(dirname(__FILE__).DIRECTORY_SEPARATOR.'../helpers/global.php');
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'My Web Application',
+	'name'=>'Startup starter',
   'sourceLanguage'=>'en',
   /*'language' => "sl",*/
 
 	// preloading 'log' component
 	'preload'=>array(
       'log',
-      'foundation',
+      //'foundation',
   ),
 
 	// autoloading model and component classes
@@ -73,7 +73,7 @@ return array(
 
 	// application components
 	'components'=>array(
-    'foundation' => array("class" => "ext.foundation.components.Foundation"),
+    //'foundation' => array("class" => "ext.foundation.components.Foundation"),
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,

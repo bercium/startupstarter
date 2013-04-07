@@ -304,8 +304,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `password`, `activkey`, `create_at`, `lastvisit_at`, `superuser`, `status`, `name`, `surname`, `address`, `avatar_link`, `language_id`, `newsletter`) VALUES
-(1, 'admin@example.com', '21232f297a57a5a743894a0e4a801fc3', '9a24eff8c15a6a141ece27eb6947da0f', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 1, 1, '', NULL, NULL, NULL, NULL, 1),
-(2, 'demo@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, '', NULL, NULL, NULL, NULL, 1);
+(1, 'admin@example.com', '21232f297a57a5a743894a0e4a801fc3', '9a24eff8c15a6a141ece27eb6947da0f', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 1, 1, 'Administrator', 'User', NULL, NULL, NULL, 1),
+(2, 'demo@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, 'Demo', 'User', NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 

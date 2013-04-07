@@ -51,7 +51,10 @@ class WebUser extends CWebUser
         $this->name = $user->email;
         $userAttributes = /*CMap::mergeArray(*/array(
                                                 'email'=>$user->email,
-                                                //'name'=>$user->firstName,
+                                                'fullname'=>$user->name." ".$user->surname,
+                                                'avatar'=>$user->avatar_link,
+                                                'percentage'=>rand(1,100),
+                                                //'firstname'=>$user->firstName,
                                                 'create_at'=>$user->create_at,
                                                 'lastvisit_at'=>$user->lastvisit_at,
                                            )/*,$user->profile->getAttributes())*/;

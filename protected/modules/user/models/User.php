@@ -150,7 +150,7 @@ class User extends BaseUser
     {
         return CMap::mergeArray(Yii::app()->getModule('user')->defaultScope,array(
             'alias'=>'user',
-            'select' => 'user.id, user.email, user.create_at, user.lastvisit_at, user.superuser, user.status',
+            'select' => '*',
         ));
     }
 	
