@@ -30,119 +30,11 @@ class IdeaController extends GxController {
 			),
 		);
 	}
-	/*
-  IdeaController (idea page)
-	Index  (display page)
-		Input (get)
-			! idea_id
-			language_code (read from user config otherwise)
-		Output
-			idea(A)
-			members(A)
-			candidates(A)
 
-	Contact (contact page)
-		Input (get)
-			! idea_id
-		Input (post)
-			subject
-			message
-		Output
-			(form) || redirect->Index/idea_id
-
-	Edit (edit idea page)
-		Input (get)
-			! idea_id
-			language_code
-		Input (post)
-			idea(A)
-			translation(A)
-		Output
-			idea(A)(form)
-			members(A)
-			candidates(A)
-
-	Translate (add a new translation to the idea page)
-		Input (get)
-			! idea_id
-			! language_code
-		Input (post)
-			translation
-		Output
-			translation(A)(form) || redirect->Edit/idea_id,language_code
-
-	AddCandidate (add a new candidate action)
-		Input (get)
-			! idea_id
-		Input (post)
-			skillsets(A),skills(A)
-			collabprefs(A)
-			time_per_week
-			country_id
-			location_id
-		Output
-			form || redirect->Edit/idea_id
-
-	AddSkill
-		Input (get)
-			idea_id
-			user_id
-			skill(A)
-		Output
-			redirect->Edit/idea_id
-
-	RemoveSkill
-		Input (get)
-			idea_id
-			user_id
-			skill_id
-		Output
-			redirect->Edit/idea_id
-
-	AddCollabpref
-		Input (get)
-			idea_id
-		Input (post)
-			user_id
-			collabpref_id(A)
-		Output
-			redirect->Edit/idea_id
-
-	RemoveCollabpref
-		Input (get)
-			idea_id
-		Input (post)
-			user_id
-			collabpref_id(A)
-		Output
-			redirect->Edit/idea_id
-
-	AddMember (add a new member to the team action)
-		Input (get)
-			! idea_id
-			! user_id
-		Output
-			redirect->Edit/idea_id
-
-	RemoveMember (remove a member from a team action)
-		Input (get)
-			! idea_id
-			! user_id
-			redirect
-		Output
-			redirect->Edit/idea_id
-
-	Create (create a new idea page)
-		Input (post)
-			idea(A)
-			translation(A)
-		Output
-			(form) || redirect->Edit/idea_id
-			*/
-
-	public function actionIndex() { //create new idea
+	public function actionIndex($lang = NULL) {
 		echo 'Links: <br/><br/>
-		/ -> create new idea <br/>
+		/ -> list ideas
+		/create -> create new idea <br/>
 		/$id -> view idea by id <br/>
 		/$id?lang=$language_code -> view idea by id and language code (2 letter code, sl/en/..) <br/>
 		/edit/$id -> edit idea by id <br/>
@@ -163,6 +55,19 @@ class IdeaController extends GxController {
 		/deleteSkill/$id&candidate_id=$match_id&skill_id=$userskill_id -> delete skill by idea id, candidate_id (actually match_id), skill_id<br/>
 		<br/>';
 
+		$filter = Yii::app()->request->getQuery('filter', array());
+		
+		$sqlbuilder = new SqlBuilder;
+		if($lang){
+			$filter['lang'] = $lang;
+		}
+
+		$data['idea'] = $sqlbuilder->load_array("idea", $filter);
+
+		$this->render('index', array('data' => $data));
+	}
+
+	public function actionCreate() {
 		$idea = new Idea;
 		$translation = new IdeaTranslation;
 
@@ -194,9 +99,9 @@ class IdeaController extends GxController {
 			$filter['lang'] = $lang;
 		}
 
-		$data_array['idea'] = $sqlbuilder->load_array("idea", $filter);
+		$data['idea'] = $sqlbuilder->load_array("idea", $filter);
 
-		$this->render('index', array('data_array' => $data_array));
+		$this->render('view', array('data' => $data));
 	}
 
 	public function actionEdit($id, $lang = NULL) { //can take different languages to edit
@@ -233,9 +138,9 @@ class IdeaController extends GxController {
 				}
 			}
 
-			$data_array['idea'] = $sqlbuilder->load_array("idea", $filter);
+			$data['idea'] = $sqlbuilder->load_array("idea", $filter);
 
-			$this->render('editidea', array( 'idea' => $idea, 'translation' => $translation, 'data_array' => $data_array ));
+			$this->render('editidea', array( 'idea' => $idea, 'translation' => $translation, 'data' => $data ));
 		} else {
 			$this->redirect(array('index'));
 		}
@@ -298,7 +203,6 @@ class IdeaController extends GxController {
 		} else {
 			$this->redirect(array('index'));
 		}
-
 
 	}
 

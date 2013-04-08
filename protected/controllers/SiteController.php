@@ -70,7 +70,7 @@ class SiteController extends Controller
 		$filter['skillset_mode'] = 1;
 
 		$data['idea'] = $sqlbuilder->load_array("recent_candidate", $filter);
-		$data['user'] = $sqlbuilder->load_array("recent_user");
+		$data['user'] = $sqlbuilder->load_array("recent_user", $filter);
 
 		$this->render('index', array('data' => $data));
 	}

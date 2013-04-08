@@ -29,7 +29,7 @@ class SqlBuilder {
 		        break;
 		    //user related controllers
 		    case "user":
-		        return $this->idea("user", $filter);
+		        return $this->user("user", $filter);
 		        break;
 		}
 
@@ -184,9 +184,10 @@ class SqlBuilder {
 					"m.country_id, m.city_id, m.available FROM ".
 					"`idea_member` AS im, ".
 					"`user` AS u, `user_match` AS m ".
-					"AND m.user_id = u.id ".
+					"WHERE m.user_id = u.id ".
+					"AND im.match_id = m.id ".
 					"AND m.user_id > 0 ".
-					"AND u.user_id = '{$filter['user_id']}'";
+					"AND u.id = '{$filter['user_id']}'";
 		}
 
 		$connection=Yii::app()->db;
@@ -207,7 +208,7 @@ class SqlBuilder {
 			}
 			
 			if($type == 'user'){
-				$array[$row['id']]['idea'] = $this->idea( $filter );
+				$array[$row['id']]['idea'] = $this->idea( "user", $filter );
 			}
 			if($type != 'candidate'){
 				$filter['user_id'] = $row['user_id'];
