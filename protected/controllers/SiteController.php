@@ -65,6 +65,8 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+    $this->layout="//layouts/first_page";
+    
 		$sqlbuilder = new SqlBuilder;
 		$filter = Yii::app()->request->getQuery('filter', array());
 
@@ -77,6 +79,11 @@ class SiteController extends Controller
 	public function actionAbout()
 	{
 		$this->render('about');
+	}
+  
+	public function actionAbout_Project()
+	{
+		$this->render('about-project');
 	}
 
 	public function actionTeam()

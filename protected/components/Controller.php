@@ -32,6 +32,7 @@ class Controller extends CController
     $cs->registerCssFile($baseUrl.'/css/normalize.css');
     $cs->registerCssFile($baseUrl.'/css/layout.css');
     
+    $cs->registerCoreScript('jquery',CClientScript::POS_END);
     $cs->registerScriptFile($baseUrl.'/js/foundation.min.js',CClientScript::POS_END);
     $cs->registerScriptFile($baseUrl.'/js/vendor/custom.modernizr.js');
     

@@ -4,4 +4,4 @@
 $this->pageTitle=Yii::app()->name;
 ?>
 
-<h1>About the US page</h1>
+<h1>About the project page</h1>

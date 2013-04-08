@@ -1,44 +1,23 @@
   
 <?php /* ?><div id="intro1" style="background-position: 40% 0px; padding-bottom: 1px; padding-top: 30px;"><?php */ ?>
-<div id="intro1" style="background-image: url(../images/intro-bg1.jpg); background-repeat: no-repeat; background-size: 100% 100%;">
+<div class="intro">
+  <div  class="row" >
+    <div class="large-12 small-12 columns" style="text-align: center;" >
 
-<div  class="row " style="margin-bottom: 30px; background-color: transparent;" >
-	<div class="large-12 small-12 columns" style="background-color: transparent; text-align: center;" >
-    
-		<h1 style="color:#DDD; text-shadow: 0px 5px 3px #111">"With the <span style="color:#83B25B;">right team</span> any <span style="color:#83B25B;">idea</span> can change your life"</h1>
-    
-		<div class="row">
-  	  <div class="large-6 large-offset-3 small-12 columns">
-	  		<p style="font-weight: bold; color:#333; text-shadow: 0px 1px 2px #777, -1px -1px 1px #111;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed diam odio, ornare vitae aliquam ut, consectetur sit amet orci. Sed rutrum laoreet nunc, a dapibus mi commodo id. Quisque convallis, lorem quis bibendum pulvinar, felis eros molestie eros, nec vulputate diam sapien in elit.</p>
-		  </div>
-	  </div>
-    
-    <a href="#" class="close" style="position:absolute; right:11px; top:8px;" onclick="$('#intro1').slideUp('slow');"> &#215; </a>
+      <h1>With the <span>right team</span> any <span>idea</span> can change your life</h1>
 
+      <div class="row">
+        <div class="large-6 large-centered small-12 columns">
+          <p>
+            We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.
+          </p>
+        </div>
+      </div>
+
+      <a href="#" class="close" data-tooltip title="<?php echo CHtml::encode(Yii::t('app','Hide intro')); ?>" onclick="$('.intro').slideUp('slow');"> &#x25B2; </a>
+
+    </div>
   </div>
-</div>
-  
-  <?php /* ?>
-<div  class="row panel fancy-box" style="margin-bottom: 30px; " >
-	<div class="large-12 small-12 columns" >
-    
-		<h2 >Featured project</h2>
-    
-		<div class="row">
-  	  <div class="large-6 small-12 columns">
-	  		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed diam odio, ornare vitae aliquam ut, consectetur sit amet orci. Sed rutrum laoreet nunc, a dapibus mi commodo id. Quisque convallis, lorem quis bibendum pulvinar, felis eros molestie eros, nec vulputate diam sapien in elit.</p>
-		  </div>
-  	  <div class="large-6 small-12 columns">
-			  		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed diam odio, ornare vitae aliquam ut, consectetur sit amet orci. Sed rutrum laoreet nunc, a dapibus mi commodo id. Quisque convallis, lorem quis bibendum pulvinar, felis eros molestie eros, nec vulputate diam sapien in elit.</p>
-			  		<a href="#" class="button">button 1</a><a href="#" class="button">button 1</a>
-		  </div>
-	  </div>
-    
-    <a href="#" class="close" style="position:absolute; right:11px; top:8px;" onclick="$('#intro').slideUp('slow');"> &#215; </a>
-
-  </div>
-</div>  <?php */ ?>
-
 </div>
 
 
@@ -47,10 +26,10 @@
     <form class="custom">
       
 		 <div class="row">
-		  <div class="large-4 small-12 columns">
-    		<h4 class="meta-title"><?php echo CHtml::encode(Yii::t('app','Narrow your search')); ?>: </h4>
+		  <div class="large-5 small-12 columns">
+    		<h4 class="meta-title"><?php echo CHtml::encode(Yii::t('app','Narow your search')); ?>: </h4>
       </div>
-		  <div class="large-8 small-12 columns">
+		  <div class="large-7 small-12 columns">
     		
       <div class="row collapse">
         <div class="small-9 large-10 columns">
