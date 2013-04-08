@@ -19,9 +19,14 @@
 		<?php echo $form->error($model,'user_id'); ?>
 		</div><!-- row -->
 		<div class="row">
-		<?php echo $form->labelEx($model,'link_id'); ?>
-		<?php echo $form->dropDownList($model, 'link_id', GxHtml::listDataEx(Link::model()->findAllAttributes(null, true))); ?>
-		<?php echo $form->error($model,'link_id'); ?>
+		<?php echo $form->labelEx($model,'title'); ?>
+		<?php echo $form->textField($model, 'title', array('maxlength' => 128)); ?>
+		<?php echo $form->error($model,'title'); ?>
+		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'url'); ?>
+		<?php echo $form->textField($model, 'url', array('maxlength' => 128)); ?>
+		<?php echo $form->error($model,'url'); ?>
 		</div><!-- row -->
 
 

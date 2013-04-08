@@ -48,11 +48,8 @@ You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&g
 				'value'=>'GxHtml::valueEx($data->user)',
 				'filter'=>GxHtml::listDataEx(User::model()->findAllAttributes(null, true)),
 				),
-		array(
-				'name'=>'link_id',
-				'value'=>'GxHtml::valueEx($data->link)',
-				'filter'=>GxHtml::listDataEx(Link::model()->findAllAttributes(null, true)),
-				),
+		'title',
+		'url',
 		array(
 			'class' => 'CButtonColumn',
 		),

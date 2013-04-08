@@ -20,7 +20,6 @@ $this->pageTitle=Yii::app()->name . ' - CRUD List';
 <a href="<?php echo Yii::app()->createUrl("backendCountry"); ?>">Countries</a><br />
 <a href="<?php echo Yii::app()->createUrl("backendIdeaStatus"); ?>">IdeasStatuses</a><br />
 <a href="<?php echo Yii::app()->createUrl("backendLanguage"); ?>">Languages</a><br />
-<a href="<?php echo Yii::app()->createUrl("backendLink"); ?>">Links</a><br />
 <a href="<?php echo Yii::app()->createUrl("backendSkill"); ?>">Skills</a><br />
 <a href="<?php echo Yii::app()->createUrl("backendSkillset"); ?>">Skillsets</a><br />
 

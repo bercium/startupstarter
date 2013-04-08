@@ -13,8 +13,8 @@
  * @property string $user_id
  * @property string $link_id
  *
- * @property User $user
  * @property Link $link
+ * @property User $user
  */
 abstract class BaseUserLink extends GxActiveRecord {
 
@@ -45,8 +45,8 @@ abstract class BaseUserLink extends GxActiveRecord {
 
 	public function relations() {
 		return array(
-			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 			'link' => array(self::BELONGS_TO, 'Link', 'link_id'),
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
 
@@ -60,8 +60,8 @@ abstract class BaseUserLink extends GxActiveRecord {
 			'id' => Yii::t('app', 'ID'),
 			'user_id' => null,
 			'link_id' => null,
-			'user' => null,
 			'link' => null,
+			'user' => null,
 		);
 	}
 

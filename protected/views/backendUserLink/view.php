@@ -25,11 +25,8 @@ array(
 			'type' => 'raw',
 			'value' => $model->user !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->user)), array('user/view', 'id' => GxActiveRecord::extractPkValue($model->user, true))) : null,
 			),
-array(
-			'name' => 'link',
-			'type' => 'raw',
-			'value' => $model->link !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->link)), array('link/view', 'id' => GxActiveRecord::extractPkValue($model->link, true))) : null,
-			),
+'title',
+'url',
 	),
 )); ?>
 
