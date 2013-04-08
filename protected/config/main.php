@@ -1,5 +1,5 @@
 <?php
-
+require(dirname(__FILE__).DIRECTORY_SEPARATOR.'../helpers/global.php');
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 
@@ -7,14 +7,14 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'My Web Application',
+	'name'=>'Startup starter',
   'sourceLanguage'=>'en',
   /*'language' => "sl",*/
 
 	// preloading 'log' component
 	'preload'=>array(
       'log',
-      'foundation',
+      //'foundation',
   ),
 
 	// autoloading model and component classes
@@ -73,7 +73,7 @@ return array(
 
 	// application components
 	'components'=>array(
-    'foundation' => array("class" => "ext.foundation.components.Foundation"),
+    //'foundation' => array("class" => "ext.foundation.components.Foundation"),
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
@@ -139,12 +139,11 @@ return array(
     'mail' => array(
         'class' => 'ext.mail.YiiMail',
         'transportType' => 'smtp',
-        'transportOptions' => array(
+        'transportOptions' => array_merge(array(
             'host' => 'smtp.gmail.com',
-            'username' => 'bercium@gmail.com',
-            'password' => 'tuki1oplelismo',
             'port' => '465',
             'encryption'=>'tls',
+          ),require(dirname(__FILE__) . '/local-mail.php')
         ),
         'viewPath' => 'application.views.mailTemplates',
         'logging' => true,

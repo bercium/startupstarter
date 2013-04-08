@@ -54,11 +54,12 @@ $this->breadcrumbs=array(
 
 
 <?php
+/*
 $form = new CForm(array(
     'elements'=>array(
         'email'=>array(
-            'type'=>'text',
-            /*'maxlength'=>32,*/
+            'type'=>'text', 
+            /*'maxlength'=>32,* /
         ),
         'password'=>array(
             'type'=>'password',
@@ -75,5 +76,5 @@ $form = new CForm(array(
             'label'=>'Login',
         ),
     ),
-), $model);
+), $model);*/
 ?>

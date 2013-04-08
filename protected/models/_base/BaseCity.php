@@ -22,7 +22,7 @@ abstract class BaseCity extends GxActiveRecord {
 	}
 
 	public function tableName() {
-		return 'City';
+		return 'city';
 	}
 
 	public static function label($n = 1) {

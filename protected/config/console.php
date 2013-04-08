@@ -69,12 +69,11 @@ return array(
     'mail' => array(
         'class' => 'ext.mail.YiiMail',
         'transportType' => 'smtp',
-        'transportOptions' => array(
+        'transportOptions' => array_merge(array(
             'host' => 'smtp.gmail.com',
-            'username' => 'bercium@gmail.com',
-            'password' => 'tuki1oplelismo',
             'port' => '465',
             'encryption'=>'tls',
+          ),require(dirname(__FILE__) . '/local-mail.php')
         ),
         'viewPath' => 'application.views.mailTemplates',
         'logging' => true,

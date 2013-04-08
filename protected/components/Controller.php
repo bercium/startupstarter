@@ -24,6 +24,22 @@ class Controller extends CController
   public function init(){
     Yii::import('ext.LangPick.ELangPick'); 
     ELangPick::setLanguage();
+    
+    $baseUrl = Yii::app()->baseUrl; 
+    $cs = Yii::app()->getClientScript();
+  
+    $cs->registerCssFile($baseUrl.'/css/foundation.css');
+    $cs->registerCssFile($baseUrl.'/css/normalize.css');
+    $cs->registerCssFile($baseUrl.'/css/layout.css');
+    
+    $cs->registerScriptFile($baseUrl.'/js/foundation.min.js',CClientScript::POS_END);
+    $cs->registerScriptFile($baseUrl.'/js/vendor/custom.modernizr.js');
+    
+    $cs->registerScriptFile($baseUrl.'/js/jquery.parallax-1.1.3.js',CClientScript::POS_END);
+    
+  
+    // start foundation
+    $cs->registerScriptFile($baseUrl.'/js/app.js',CClientScript::POS_END);
     parent::init();
   }
 }
