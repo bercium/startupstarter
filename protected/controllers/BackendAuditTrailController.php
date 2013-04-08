@@ -3,7 +3,7 @@
 class BackendAuditTrailController extends Controller
 {
 	public $defaultAction = "admin";
-	public $layout='//layouts/column1';
+	public $layout='//layouts/static';
 
   	/**
 	 * @return array action filters

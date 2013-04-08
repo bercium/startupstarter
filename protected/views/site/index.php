@@ -1,18 +1,19 @@
   
-<div id="intro" style="background-position: 40% 0px; padding-bottom: 1px; padding-top: 30px;">
+<?php /* ?><div id="intro1" style="background-position: 40% 0px; padding-bottom: 1px; padding-top: 30px;"><?php */ ?>
+<div id="intro1" style="background-image: url(../images/intro-bg1.jpg); background-repeat: no-repeat; background-size: 100% 100%;">
 
 <div  class="row " style="margin-bottom: 30px; background-color: transparent;" >
-	<div class="large-12 small-12 columns" style="background-color: transparent;" >
+	<div class="large-12 small-12 columns" style="background-color: transparent; text-align: center;" >
     
-		<h1>"With the <span>right team</span> any <span>idea</span> can change your life"</h1>
+		<h1 style="color:#DDD; text-shadow: 0px 5px 3px #111">"With the <span style="color:#83B25B;">right team</span> any <span style="color:#83B25B;">idea</span> can change your life"</h1>
     
 		<div class="row">
-  	  <div class="large-6 small-12 columns">
-	  		<p style="color:#ddd">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed diam odio, ornare vitae aliquam ut, consectetur sit amet orci. Sed rutrum laoreet nunc, a dapibus mi commodo id. Quisque convallis, lorem quis bibendum pulvinar, felis eros molestie eros, nec vulputate diam sapien in elit.</p>
+  	  <div class="large-6 large-offset-3 small-12 columns">
+	  		<p style="font-weight: bold; color:#333; text-shadow: 0px 1px 2px #777, -1px -1px 1px #111;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed diam odio, ornare vitae aliquam ut, consectetur sit amet orci. Sed rutrum laoreet nunc, a dapibus mi commodo id. Quisque convallis, lorem quis bibendum pulvinar, felis eros molestie eros, nec vulputate diam sapien in elit.</p>
 		  </div>
 	  </div>
     
-    <a href="#" class="close" style="position:absolute; right:11px; top:8px;" onclick="$('#intro').slideUp('slow');"> &#215; </a>
+    <a href="#" class="close" style="position:absolute; right:11px; top:8px;" onclick="$('#intro1').slideUp('slow');"> &#215; </a>
 
   </div>
 </div>
