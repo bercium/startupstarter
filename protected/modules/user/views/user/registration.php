@@ -25,7 +25,7 @@ $this->breadcrumbs=array(
 
 	<p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p>
 	
-	<?php echo $form->errorSummary(array($model,$profile)); ?>
+	<?php //echo $form->errorSummary(array($model,$profile)); ?>
 	
 	
 	<div class="row">

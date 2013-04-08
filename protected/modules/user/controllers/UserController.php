@@ -30,7 +30,7 @@ class UserController extends Controller
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
-			),
+			),	
 		);
 	}	
 
@@ -73,7 +73,7 @@ class UserController extends Controller
 	{
 		if($this->_model===null)
 		{
-			if(isset($_GET['id']))
+			if(isset($_GET['id']))	
 				$this->_model=User::model()->findbyPk($_GET['id']);
 			if($this->_model===null)
 				throw new CHttpException(404,'The requested page does not exist.');

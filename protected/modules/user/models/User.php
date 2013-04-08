@@ -66,6 +66,7 @@ class User extends BaseUser
       array('lastvisit_at', 'default', 'value' => '0000-00-00 00:00:00', 'setOnEmpty' => true, 'on' => 'insert'),
       array('activkey, superuser, status, surname, address, avatar_link, language_id, newsletter', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('password, email, create_at, name', 'required'),
+			array('password, email, create_at, name', 'required'),
 			array('superuser, status, language_id, newsletter', 'numerical', 'integerOnly'=>true),
       array('id, password, email, activkey, create_at, lastvisit_at, superuser, status, name, surname, address, avatar_link, language_id, newsletter', 'safe', 'on'=>'search'),
       array('password, email, activkey, name, surname, address, avatar_link', 'length', 'max'=>128),
@@ -92,7 +93,7 @@ class User extends BaseUser
 			'clickUsers' => array(self::HAS_MANY, 'ClickUser', 'user_click_id'),
 			'clickUsers1' => array(self::HAS_MANY, 'ClickUser', 'user_id'),
 			'userLinks' => array(self::HAS_MANY, 'UserLink', 'user_id'),
-			'userShares' => array(self::HAS_MANY, 'UserShare', 'user_id'),
+			'userMatches' => array(self::HAS_MANY, 'UserMatch', 'user_id'),
 		);
 	}  
 

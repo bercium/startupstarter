@@ -36,16 +36,14 @@ abstract class BaseUserLink extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('user_id, link_id', 'required'),
+			array('user_id, title, url', 'required'),
 			array('user_id', 'length', 'max'=>8),
-			array('link_id', 'length', 'max'=>9),
 			array('id, user_id, link_id', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
-			'link' => array(self::BELONGS_TO, 'Link', 'link_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
@@ -59,8 +57,6 @@ abstract class BaseUserLink extends GxActiveRecord {
 		return array(
 			'id' => Yii::t('app', 'ID'),
 			'user_id' => null,
-			'link_id' => null,
-			'link' => null,
 			'user' => null,
 		);
 	}
@@ -70,7 +66,6 @@ abstract class BaseUserLink extends GxActiveRecord {
 
 		$criteria->compare('id', $this->id, true);
 		$criteria->compare('user_id', $this->user_id);
-		$criteria->compare('link_id', $this->link_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
