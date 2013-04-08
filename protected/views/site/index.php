@@ -22,7 +22,7 @@ should you have any questions.</p>
 <h2>Huhu, first array built</h2><br/>
 
 <h3>Recent ideas (looking for candidates)</h3>
-<?php print_r($data_array['ideas']); ?>
+<?php print_r($data['idea']); ?>
 
 <h3>Recently registered users</h3>
-<?php print_r($data_array['users']); ?>
+<?php print_r($data['user']); ?>

@@ -17,10 +17,10 @@ class SqlBuilder {
 
 		switch ($action) {
 			//frontpage controller
-		    case "recent_candidates":
+		    case "recent_candidate":
 		        return $this->idea("recent", $filter);
 		        break;
-		    case "recent_users":
+		    case "recent_user":
 		        return $this->user("recent", $filter);
 		        break;
 		    //idea related controllers
@@ -87,11 +87,13 @@ class SqlBuilder {
 		//read data, build array, call contained functions
 		$array = NULL;
 		while(($row=$dataReader->read())!==false) {
+			$filter['idea_id'] = $row['id'];
+
 			$array[$row['id']] = $row;
-			$array[$row['id']]['translation'] = $this->translation( 'userlang', array('idea_id' => $row['id'], 'lang' => $filter['lang'] ));
-			$array[$row['id']]['translations_other'] = $this->translation( 'other', array('idea_id' => $row['id'], 'lang' => $filter['lang'] ));
-			$array[$row['id']]['members'] = $this->user( 'members', array('idea_id' => $row['id']));
-			$array[$row['id']]['candidates'] = $this->user( 'candidates', array('idea_id' => $row['id']));
+			$array[$row['id']] = $this->translation( 'userlang', $filter );
+			$array[$row['id']]['translation_other'] = $this->translation( 'other', $filter );
+			$array[$row['id']]['member'] = $this->user( 'member', $filter );
+			$array[$row['id']]['candidate'] = $this->user( 'candidate', $filter );
 		}
 
 		return $array;
@@ -100,7 +102,7 @@ class SqlBuilder {
 	public function translation($type, $filter){
 
 		if($type == 'userlang'){
-			$sql=		"SELECT l.name AS language, l.language_code, it.* FROM ".
+			$sql=		"SELECT it.id AS translation_id, it.title, it.pitch, it.description, it.description_public, it.tweetpitch, it.language_id, l.name AS language, l.language_code FROM ".
 						"`idea` AS i,`idea_translation` AS it,`language` AS l ".
 						"WHERE i.id = it.idea_id ".
 						"AND l.id = it.language_id ".
@@ -117,7 +119,7 @@ class SqlBuilder {
 				$array = $row;
 			}
 		} else {
-			$sql=		"SELECT l.name AS language, l.language_code, it.* FROM ".
+			$sql=		"SELECT it.*, l.name AS language, l.language_code FROM ".
 						"`idea` AS i,`idea_translation` AS it,`language` AS l ".
 						"WHERE i.id = it.idea_id ".
 						"AND l.id = it.language_id ".
@@ -130,7 +132,7 @@ class SqlBuilder {
 			//read data, build array, call contained functions
 			$array = NULL;
 			while(($row=$dataReader->read())!==false) {
-				$array = $row;
+				$array[$row['id']] = $row;
 			}
 		}
 
@@ -152,14 +154,16 @@ class SqlBuilder {
 		*/
 
 		if( $type == 'recent' ){
-			$sql=	"SELECT u.*, m.country_id, m.available, m.city_id, m.user_id, m.id as match_id FROM ".
+			$sql=	"SELECT m.id, im.type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
+					"m.country_id, m.city_id, m.available FROM ".
+					"`idea_member` AS im, ".
 					"`user` AS u, `user_match` AS m ".
 					"WHERE m.user_id = u.id ".
 					"AND m.user_id > 0 ".
 					"ORDER BY u.create_at DESC";
-		} elseif( $type == 'members' ) {
-			$sql=	"SELECT im.id, im.type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
-					"m.country_id, m.available, m.city_id, m.user_id, m.id as match_id FROM ".
+		} elseif( $type == 'member' ) {
+			$sql=	"SELECT m.id, im.type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
+					"m.country_id, m.city_id, m.available FROM ".
 					"`idea_member` AS im, ".
 					"`user` AS u, `user_match` AS m ".
 					"WHERE im.match_id = m.id ".
@@ -167,16 +171,19 @@ class SqlBuilder {
 					"AND m.user_id > 0 ".
 					"AND im.idea_id = '{$filter['idea_id']}' ".
 					"ORDER BY im.type DESC";
-		} elseif( $type == 'candidates' ) {
-			$sql=	"SELECT m.id as id, m.id as match_id, m.country_id, m.available, m.city_id FROM ".
+		} elseif( $type == 'candidate' ) {
+			$sql=	"SELECT m.id, im.type, ".
+					"m.country_id, m.available, m.city_id FROM ".
 					"`idea_member` AS im, `user_match` AS m ".
 					"WHERE im.match_id = m.id ".
 					"AND m.user_id IS NULL ".
 					"AND im.idea_id = '{$filter['idea_id']}' ".
 					"ORDER BY m.id DESC";
 		} elseif( $type == 'user' ) {
-			$sql=	"SELECT u.*, m.country_id, m.available, m.city_id, m.user_id, m.id as match_id FROM ".
-					"`user` AS u, `user_match` AS m".
+			$sql=	"SELECT m.id, im.type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
+					"m.country_id, m.city_id, m.available FROM ".
+					"`idea_member` AS im, ".
+					"`user` AS u, `user_match` AS m ".
 					"AND m.user_id = u.id ".
 					"AND m.user_id > 0 ".
 					"AND u.user_id = '{$filter['user_id']}'";
@@ -188,20 +195,31 @@ class SqlBuilder {
 		//read data, build array, call contained functions
 		$array = NULL;
 		while(($row=$dataReader->read())!==false) {
+			$filter['match_id'] = $row['id'];
+
 			$array[$row['id']] = $row;
-			$array[$row['id']]['collabpref'] = $this->collabpref( array('match_id' => $row['match_id']) );
-			$array[$row['id']]['skillset'] = $this->skillset( array('match_id' => $row['match_id']) );
-			if($type == 'user'){
-				$array[$row['id']]['idea'] = $this->idea( array('user_id' => $filter['user_id']) );
+			$array[$row['id']]['collabpref'] = $this->collabpref( $filter );
+
+			if(isset($filter['skillset_mode'])){
+				$array[$row['id']]['skillset'] = $this->skillset( $filter );
+			} else {
+				$array[$row['id']]['skill'] = $this->skill( $filter );
 			}
-			$array[$row['id']]['link'] = $this->link( array('user_id' => $row['id']) );
+			
+			if($type == 'user'){
+				$array[$row['id']]['idea'] = $this->idea( $filter );
+			}
+			if($type != 'candidate'){
+				$filter['user_id'] = $row['user_id'];
+				$array[$row['id']]['link'] = $this->link( $filter );
+			}
 		}
 
 		return $array;
 	}
 
 	public function collabpref($filter){
-		$sql=		"SELECT c.* FROM ".
+		$sql=		"SELECT uc.id, c.id AS collab_id, c.name FROM ".
 					"`collabpref` AS c, ".
 					"`user_collabpref` AS uc ".
 					"WHERE uc.collab_id = c.id ".
@@ -219,11 +237,12 @@ class SqlBuilder {
 		return $array;
 	}
 
-	public function skillset($filter){
-		$sql=		"SELECT ss.* FROM ".
+	public function skill($filter){
+		$sql=		"SELECT us.id, us.skillset_id, ss.name AS skillset, us.skill_id, s.name AS skill FROM ".
+					"`user_skill` AS us, ".
 					"`skillset` AS ss, ".
-					"`user_skill` AS us ".
-					"WHERE ss.id = us.skillset_id ".
+					"`skill` AS s ".
+					"WHERE ss.id = us.skillset_id AND s.id = us.skill_id ".
 					"AND us.match_id = '{$filter['match_id']}'";
 
 		$connection=Yii::app()->db;
@@ -233,23 +252,37 @@ class SqlBuilder {
 		$array = NULL;
 		while(($row=$dataReader->read())!==false) {
 			$array[$row['id']] = $row;
-			$array[$row['id']]['skill'] = $this->skill( array('match_id' => $filter['match_id'], 'skillset_id' => $row['id']) );
 		}
-
 		return $array;
 	}
 
-	public function skill($filter){
-		/*
-		type
-			user_skillset ONLY THIS ONE SUPPORTED NOW
-			skillset
-		*/
-		$sql=		"SELECT s.* FROM ".
-					"`skill` AS s, ".
-					"`user_skill` AS us ".
+	public function skillset($filter){
+		$sql=		"SELECT ss.id, ss.name AS skillset FROM ".
+					"`user_skill` AS us, ".
+					"`skillset` AS ss ".
+					"WHERE ss.id = us.skillset_id ".
+					"AND us.match_id = '{$filter['match_id']}' ".
+					"GROUP BY ss.id";
+
+		$connection=Yii::app()->db;
+		$command=$connection->createCommand($sql);
+		$dataReader=$command->query();
+		//read data, build array, call contained functions
+		$array = NULL;
+		while(($row=$dataReader->read())!==false) {
+			$filter['skillset_id'] = $row['id'];
+
+			$array[$row['id']] = $row;
+			$array[$row['id']]['skill'] = $this->skillset_skill( $filter );
+		}
+		return $array;
+	}
+	public function skillset_skill($filter){
+		$sql=		"SELECT s.id, s.name AS skill FROM ".
+					"`user_skill` AS us, ".
+					"`skill` AS s ".
 					"WHERE s.id = us.skill_id ".
-					"AND us.skillset_id = '{$filter['skillset_id']}' ".
+					"AND us.skillset_id = '{$filter['skillset_id']}' ";
 					"AND us.match_id = '{$filter['match_id']}'";
 
 		$connection=Yii::app()->db;
@@ -260,16 +293,13 @@ class SqlBuilder {
 		while(($row=$dataReader->read())!==false) {
 			$array[$row['id']] = $row;
 		}
-
 		return $array;
 	}
 
 	public function link($filter){
-		$sql=		"SELECT l.* FROM ".
-					"`link` AS l, ".
+		$sql=		"SELECT ul.* FROM ".
 					"`user_link` AS ul ".
-					"WHERE ul.link_id = l.id ".
-					"AND ul.user_id = '{$filter['user_id']}'";
+					"WHERE ul.user_id = '{$filter['user_id']}'";
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);

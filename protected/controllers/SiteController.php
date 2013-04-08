@@ -67,11 +67,12 @@ class SiteController extends Controller
 	{
 		$sqlbuilder = new SqlBuilder;
 		$filter = Yii::app()->request->getQuery('filter', array());
+		$filter['skillset_mode'] = 1;
 
-		$data_array['ideas'] = $sqlbuilder->load_array("recent_candidates", $filter);
-		$data_array['users'] = $sqlbuilder->load_array("recent_users");
+		$data['idea'] = $sqlbuilder->load_array("recent_candidate", $filter);
+		$data['user'] = $sqlbuilder->load_array("recent_user");
 
-		$this->render('index', array('data_array' => $data_array));
+		$this->render('index', array('data' => $data));
 	}
 
 	public function actionAbout()
