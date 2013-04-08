@@ -45,7 +45,7 @@
         * Iterates through messages directories
         * @return array list of avaible languages
         */
-        private static function getLanguages()
+        public static function getLanguages()
         {
             $translations = array();
             $dirs = new DirectoryIterator(Yii::app()->messages->basePath);
@@ -111,6 +111,9 @@
                     echo CHtml::dropDownList('languagePicker' , Yii::app()->getLanguage(), $translationsU, array('submit'=>'', 'csrf'=>true));
                     echo CHtml::endForm();
                     break;
+                case 'custom':
+                  echo '<a href="#" style="padding:0;" data-dropdown="langselect">'.Yii::app()->getLanguage()."</a>";
+                  break;
                 case 'links':
                     foreach ($translations as $trans)
                         echo CHtml::link(strtoupper($trans), Yii::app()->homeUrl, array('class'=>(Yii::app()->getLanguage() == $trans ? 'active' : 'inactive'), 'submit'=>'', 'params'=>array('languagePicker'=>$trans))) . ($trans === end($translations) ? '' : $this->linksSeparator);
