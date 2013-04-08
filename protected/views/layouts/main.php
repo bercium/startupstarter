@@ -37,15 +37,26 @@
 <div class="container" id="page">
 
   
-  <nav class="top-bar" style="margin-bottom: 0px; z-index: 10">
-  <ul class="title-area" style="margin-right: 50px;">
-    <!-- Title Area -->
-    <li class="name">
+  
+  <div class="row" style="">
+    <div class="small-12 large-12">
       <h1><a href="<?php echo Yii::app()->createUrl("site/index"); ?>">
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" height="10" style="vertical-align: middle; height:30px; margin-right: 10px;" />
+         <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" style="vertical-align: middle;  margin-right: 10px;" />
         <?php echo CHtml::encode(Yii::app()->name); ?>
         </a>
       </h1>
+
+    </div>
+  </div>
+  
+  <div class="sticky" style="background: none repeat scroll 0 0 #111111;">
+      <div class="row">
+        <div class="small-12 large-12">
+  <nav class="top-bar contain-to-grid" style="margin-bottom: 0px; z-index: 10">
+  <ul class="title-area">
+    <!-- Title Area -->
+     <li class="name">
+      
     </li>
     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
     <li class="toggle-topbar menu-icon"><a href="#"><span><?php echo CHtml::encode(Yii::t('app','Menu')); ?></span></a></li>
@@ -82,7 +93,7 @@
               else if ($perc < 80) $percClass = '';
               else $percClass = 'success';
             ?>
-          <div class="progress small-6 <?php echo $percClass; ?> round" style="height:10px;"><span class="meter" style="width: <?php echo $perc; ?>%"></span></div>
+          <div class="progress <?php echo $percClass; ?> round" style="height:10px;"><span class="meter" style="width: <?php echo $perc; ?>%"></span></div>
             </div>
          </a>
         
@@ -99,8 +110,10 @@
           <a href="#" data-dropdown="drop-login"><?php echo CHtml::encode(Yii::t('app','Login')); ?></a>
         </li>
       <?php } ?>
+      <li class="divider"></li>
       <li class="has-form">
-        <?php $this->widget('ext.LanguagePicker.ELangPick', array('pickerType' => 'links','buttonsColor' => 'primary',)); ?>
+
+        <?php $this->widget('ext.LanguagePicker.ELangPick', array('pickerType' => 'dropdown','buttonsColor' => 'primary',)); ?>
       </li>
       <li class="has-form hide-for-small">
       </li>
@@ -108,7 +121,18 @@
     </ul>
   </section>
 </nav>
+        
+</div></div>
 
+</div>
+    
+  
+  
+  
+
+
+
+    
 <div id="drop-login" class="f-dropdown content" data-dropdown-content>
   <a href="<?php echo Yii::app()->createUrl(Yii::app()->getModule('user')->loginUrl[0]); ?>"><?php echo CHtml::encode(Yii::t('app','Login')); ?></a>
   &nbsp | &nbsp;
