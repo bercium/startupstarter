@@ -35,13 +35,13 @@ class ProfileController extends GxController {
 		echo 'Links: <br/><br/>
 		/ -> edit user profile<br/>
 		/$user_id -> edit user profile by id (admin only, duplicated actionIndex because of main.php urlmanager setup)<br/>
-		/removeIdea/$idea_id&user_id=$user_id -> remove idea by id (additional admin user_id option) <br/>
-		/addCollabpref/$user_id -> add collabpref (additional admin user_id option)<br/>
-		/deleteCollabpref/$usercollab_id&user_id=$user_id -> delete collabpref by usercollab_id (additional admin user_id ($id) option)<br/>
-		/addSkill/$user_id -> add skill (additional admin user_id option)<br/>
-		/deleteSkill/$userskill_id&user_id=$user_id -> delete skill by userskill_id (additional admin user_id option)<br/>
-		/addLink/$user_id -> add link (additional admin user_id option)<br/>
-		/deleteLink/$link_id&user_id -> delete link by link_id (additional admin user_id option)<br/>
+		/removeIdea/$match_id&idea_id=$idea_id -> remove idea by match_id and idea_id <br/>
+		/addCollabpref/$match_id -> add collabpref by match_id<br/>
+		/deleteCollabpref/$match_id&collab_id=$collab_id -> delete collabpref by match_id and usercollab_id<br/>
+		/addSkill/$match_id -> add skill by match_id<br/>
+		/deleteSkill/$match_id&skill_id=$skill_id -> delete skill by match_id and userskill_id<br/>
+		/addLink/$user_id -> add link by user_id<br/>
+		/deleteLink/$user_id?link_id=$link_id -> delete link by user_id, link_id<br/>
 		<br/>';
 
 		$user_id = Yii::app()->user->id;
