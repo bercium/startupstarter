@@ -65,7 +65,7 @@
                 $this->excludeFromList[$i] = strtolower($this->excludeFromList[$i]);
             $translations = array_diff($translations, $this->excludeFromList);
             
-            echo '<div id="languagePickerContainer">';
+            //echo '<div id="languagePickerContainer">';
             switch ($this->pickerType)
             {
                 case 'buttons':                     
@@ -107,7 +107,7 @@
                     $translationsU = array();
                     foreach ($translations as $k => $v)
                         $translationsU[$k] = strtoupper($v);
-                    echo CHtml::form('', 'post', array('style'=>$this->formStyle));
+                    echo CHtml::form('', 'post', array('style'=>$this->formStyle,));
                     echo CHtml::dropDownList('languagePicker' , Yii::app()->getLanguage(), $translationsU, array('submit'=>'', 'csrf'=>true));
                     echo CHtml::endForm();
                     break;
@@ -116,7 +116,7 @@
                         echo CHtml::link(strtoupper($trans), Yii::app()->homeUrl, array('class'=>(Yii::app()->getLanguage() == $trans ? 'active' : 'inactive'), 'submit'=>'', 'params'=>array('languagePicker'=>$trans))) . ($trans === end($translations) ? '' : $this->linksSeparator);
                     break;
             }
-            echo '</div>';
+            //echo '</div>';
         }
 
         /**

@@ -1,8 +1,25 @@
   
 <div id="intro" style="background-position: 40% 0px; padding-bottom: 1px; padding-top: 30px;">
 
-<div  class="row panel fancy-box" style="margin-bottom: 30px;" >
-	<div class="large-12 small-12 columns"  >
+<div  class="row " style="margin-bottom: 30px; background-color: transparent;" >
+	<div class="large-12 small-12 columns" style="background-color: transparent;" >
+    
+		<h1>"With the <span>right team</span> any <span>idea</span> can change your life"</h1>
+    
+		<div class="row">
+  	  <div class="large-6 small-12 columns">
+	  		<p style="color:#ddd">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed diam odio, ornare vitae aliquam ut, consectetur sit amet orci. Sed rutrum laoreet nunc, a dapibus mi commodo id. Quisque convallis, lorem quis bibendum pulvinar, felis eros molestie eros, nec vulputate diam sapien in elit.</p>
+		  </div>
+	  </div>
+    
+    <a href="#" class="close" style="position:absolute; right:11px; top:8px;" onclick="$('#intro').slideUp('slow');"> &#215; </a>
+
+  </div>
+</div>
+  
+  <?php /* ?>
+<div  class="row panel fancy-box" style="margin-bottom: 30px; " >
+	<div class="large-12 small-12 columns" >
     
 		<h2 >Featured project</h2>
     
@@ -19,7 +36,7 @@
     <a href="#" class="close" style="position:absolute; right:11px; top:8px;" onclick="$('#intro').slideUp('slow');"> &#215; </a>
 
   </div>
-</div>
+</div>  <?php */ ?>
 
 </div>
 

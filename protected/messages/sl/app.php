@@ -20,6 +20,7 @@ return array (
   '<?php echo $modelClass; ?>|<?php echo $this->pluralize($modelClass); ?>' => '',
   'Activkey' => '',
   'Address' => 'Naslov',
+  'Logout' => 'Odjava',
   'Advanced Search' => 'Napredno iskanje',
   'All' => 'Vsi',
   'Available' => 'Razpoložljivi',
