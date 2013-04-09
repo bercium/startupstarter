@@ -41,10 +41,10 @@ class WebUser extends CWebUser
 //    }
 
     protected function afterLogin($fromCookie)
-	{
+    {
         parent::afterLogin($fromCookie);
         $this->updateSession();
-	}
+    }
 
     public function updateSession() {
         $user = Yii::app()->getModule('user')->user($this->id);
@@ -53,7 +53,6 @@ class WebUser extends CWebUser
                                                 'email'=>$user->email,
                                                 'fullname'=>$user->name." ".$user->surname,
                                                 'avatar'=>$user->avatar_link,
-                                                'percentage'=>rand(1,100),
                                                 //'firstname'=>$user->firstName,
                                                 'create_at'=>$user->create_at,
                                                 'lastvisit_at'=>$user->lastvisit_at,
