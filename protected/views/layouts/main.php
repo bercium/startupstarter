@@ -82,14 +82,9 @@
                   <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" height="10" style="margin-top:8px; height:30px; margin-right: 10px;" />
                   </div>
                   <div style="float:left; line-height:26px;">
-                    <?php echo Yii::app()->user->getState('fullname'); 
-                      $perc = Yii::app()->user->getState('percentage');
-                      if ($perc < 40) $percClass = 'alert';
-                      else if ($perc < 80) $percClass = '';
-                      else $percClass = 'success';
-                    ?>
-                  <div class="progress <?php echo $percClass; ?> round" style="height:10px;"><span class="meter" style="width: <?php echo $perc; ?>%"></span></div>
-                    </div>
+                    <?php echo Yii::app()->user->getState('fullname'); ?>
+                    <?php $this->widget('ext.ProgressBar.WProgressBar',array("height"=>10)); ?>
+                  </div>
                  </a>
 
                 <ul class="dropdown">
@@ -140,6 +135,7 @@
 </div><!-- page -->
 
 <div id="langselect" class="f-dropdown content" data-dropdown-content>
+  
    <?php $this->widget('ext.LanguagePicker.ELangPick', array('pickerType' => 'links','buttonsColor' => 'primary',)); ?>
 </div>
     
