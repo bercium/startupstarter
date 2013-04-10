@@ -1,3 +1,5 @@
+<h1><?php echo Yii::t('app', 'Create') . ' ' . GxHtml::encode($collabpref->label()); ?></h1>
+
 <div class="form">
 
 <?php $form = $this->beginWidget('GxActiveForm', array(

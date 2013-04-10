@@ -1,3 +1,5 @@
+<h1><?php echo Yii::t('app', 'Update') . ' ' . GxHtml::encode($user->label()) . ' ' . GxHtml::encode(GxHtml::valueEx($user)); ?></h1>
+
 <div class="form">
 
 <?php $form = $this->beginWidget('GxActiveForm', array(

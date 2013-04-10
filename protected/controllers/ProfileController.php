@@ -2,7 +2,6 @@
 
 class ProfileController extends GxController {
 
-
 	/**
 	 * @return array action filters
 	 */
@@ -31,20 +30,33 @@ class ProfileController extends GxController {
 		);
 	}
 
-	public function actionIndex() {
+	public function actionIndex($user_id = NULL) {
 		echo 'Links: <br/><br/>
+
+		Views<br/>
 		/ -> edit user profile<br/>
-		/$user_id -> edit user profile by id (admin only, duplicated actionIndex because of main.php urlmanager setup)<br/>
+		/projects/ -> edit users projects<br/>
+		/account/ -> edit account settings<br/>
+		for admin-can-edit-anything purposes... add ?user_id=$user_id to the above 3 views<br/>
+		
+		<br/><br/>
+
+		Data manipulation actions<br/>
 		/removeIdea/$match_id&idea_id=$idea_id -> remove idea by match_id and idea_id <br/>
 		/addCollabpref/$match_id -> add collabpref by match_id<br/>
-		/deleteCollabpref/$match_id&collab_id=$collab_id -> delete collabpref by match_id and usercollab_id<br/>
+		/deleteCollabpref/$match_id&collab_id=$collab_id -> delete collabpref by match_id and collab_id from user_collabpref<br/>
 		/addSkill/$match_id -> add skill by match_id<br/>
 		/deleteSkill/$match_id&skill_id=$skill_id -> delete skill by match_id and userskill_id<br/>
 		/addLink/$user_id -> add link by user_id<br/>
 		/deleteLink/$user_id?link_id=$link_id -> delete link by user_id, link_id<br/>
 		<br/>';
 
-		$user_id = Yii::app()->user->id;
+		//check for permission
+		if($user_id && (Yii::app()->user->id == $user_id || Yii::app()->user->superuser == 1)){
+			$user_id = $user_id;
+		} else {
+			$user_id = Yii::app()->user->id;
+		}
 
 		if($user_id > 0){
 
@@ -75,7 +87,7 @@ class ProfileController extends GxController {
 				$sqlbuilder = new SqlBuilder;
 				$data['user'] = $sqlbuilder->load_array("user", $filter);
 
-				$this->render('index', array( 'user' => $user, 'match' => $match, 'data' => $data ));
+				$this->render('profile', array( 'user' => $user, 'match' => $match, 'data' => $data ));
 			} else {
 				//this would cause an infinite loop, so lets not do it
 				//in a perfect world this would redirect to the register page. not sure how to dynamically redirect outside the same controller
@@ -88,43 +100,66 @@ class ProfileController extends GxController {
 		}
 	}
 
-	public function actionView($id) { //only for admins
+	public function actionProjects($user_id = NULL) {
 
 		//check for permission
-		if(Yii::app()->user->id == $id || Yii::app()->user->superuser == 1){ //is this person, or is superuser
-			$user_id = $id;
+		if($user_id && (Yii::app()->user->id == $user_id || Yii::app()->user->superuser == 1)){
+			$user_id = $user_id;
+		} else {
+			$user_id = Yii::app()->user->id;
 		}
 
-		if($user_id){
+		if($user_id > 0){
+
+			$filter['user_id'] = $user_id;
+			$sqlbuilder = new SqlBuilder;
+			$data['user'] = $sqlbuilder->load_array("user", $filter);
+
+			$this->render('projects', array( 'data' => $data ));
+
+		} else {
+			//this would cause an infinite loop, so lets not do it
+			//in a perfect world this would redirect to the register page. not sure how to dynamically redirect outside the same controller
+			//$this->redirect(array('index'));
+		}
+	}
+
+	public function actionAccount($user_id = NULL) {
+		
+		//email
+		//password
+		//password confirm
+			//these are for later
+
+		//language
+		//newsletter
+
+		//check for permission
+		if($user_id && (Yii::app()->user->id == $user_id || Yii::app()->user->superuser == 1)){
+			$user_id = $user_id;
+		} else {
+			$user_id = Yii::app()->user->id;
+		}
+
+		if($user_id > 0){
 
 			$user = UserEdit::Model()->findByAttributes( array( 'id' => $user_id ) );
 			if($user){
-
-				$match = UserMatch::Model()->findByAttributes( array( 'user_id' => $user_id ) );
 				
-				if (isset($_POST['UserEdit']) AND isset($_POST['UserMatch'])) {
+				if (isset($_POST['UserEdit'])) {
+					$_POST['UserEdit']['name'] = $user->name;
 					$user->setAttributes($_POST['UserEdit']);
 
 					if ($user->save()) {
 
-						$_POST['UserMatch']['user_id'] = $user_id;
-						$match->setAttributes($_POST['UserMatch']);
-
-						if ($match->save()) {
-
-							if (Yii::app()->getRequest()->getIsAjaxRequest())
-								Yii::app()->end();
-							else
-								$this->redirect(array('view', 'id' => $user_id ));
-						}
+						if (Yii::app()->getRequest()->getIsAjaxRequest())
+							Yii::app()->end();
+						else
+								$this->redirect(array('profile/account/'));
 					}
 				}
 
-				$filter['user_id'] = $user_id;
-				$sqlbuilder = new SqlBuilder;
-				$data['user'] = $sqlbuilder->load_array("user", $filter);
-
-				$this->render('index', array( 'user' => $user, 'match' => $match, 'data' => $data ));
+				$this->render('account', array( 'user' => $user ));
 			} else {
 				//this would cause an infinite loop, so lets not do it
 				//in a perfect world this would redirect to the register page. not sure how to dynamically redirect outside the same controller

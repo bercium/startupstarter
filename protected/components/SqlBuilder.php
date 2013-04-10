@@ -87,13 +87,22 @@ class SqlBuilder {
 		//read data, build array, call contained functions
 		$array = NULL;
 		while(($row=$dataReader->read())!==false) {
+			
+			//prepare filter
 			$filter['idea_id'] = $row['id'];
 
-			$array[$row['id']] = $row;
-			$array[$row['id']] = $this->translation( 'userlang', $filter );
-			$array[$row['id']]['translation_other'] = $this->translation( 'other', $filter );
-			$array[$row['id']]['member'] = $this->user( 'member', $filter );
-			$array[$row['id']]['candidate'] = $this->user( 'candidate', $filter );
+			//add data to array
+			$row = array_merge($row, $this->translation( 'userlang', $filter ));
+			$row['translation_other'] = $this->translation( 'other', $filter );
+			$row['member'] = $this->user( 'member', $filter );
+			$row['candidate'] = $this->user( 'candidate', $filter );
+
+			//what kind of an
+			if($type != 'idea'){
+				$array[$row['id']] = $row;
+			} else {
+				$array = $row;
+			}
 		}
 
 		return $array;
@@ -196,24 +205,34 @@ class SqlBuilder {
 		//read data, build array, call contained functions
 		$array = NULL;
 		while(($row=$dataReader->read())!==false) {
+			
+			//set filter
 			$filter['match_id'] = $row['id'];
 
-			$array[$row['id']] = $row;
-			$array[$row['id']]['collabpref'] = $this->collabpref( $filter );
+			//add data to array
+			$row['collabpref'] = $this->collabpref( $filter );
 
 			if(isset($filter['skillset_mode'])){
-				$array[$row['id']]['skillset'] = $this->skillset( $filter );
+				$row['skillset'] = $this->skillset( $filter );
 			} else {
-				$array[$row['id']]['skill'] = $this->skill( $filter );
+				$row['skill'] = $this->skill( $filter );
 			}
-			
+				
 			if($type == 'user'){
-				$array[$row['id']]['idea'] = $this->idea( "user", $filter );
+				$row['idea'] = $this->idea( "user", $filter );
 			}
 			if($type != 'candidate'){
 				$filter['user_id'] = $row['user_id'];
-				$array[$row['id']]['link'] = $this->link( $filter );
+				$row['link'] = $this->link( $filter );
 			}
+
+			//what kind of an array?
+			if( $type != 'user' ){
+				$array[$row['id']] = $row;
+			} else {
+				$array = $row;
+			}
+
 		}
 
 		return $array;
