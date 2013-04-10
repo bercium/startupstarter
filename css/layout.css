@@ -106,6 +106,15 @@
 }
 
 
+.login-form .row{
+  margin-bottom: 5px;
+  
+}
+.login-form .row.submit{
+  margin-bottom:10px;
+  text-align: right;
+}
+
 /* #Special Styles
 ================================================== */
 .hide-text {

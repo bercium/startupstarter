@@ -143,14 +143,61 @@
  
 <!-- page -->
 <div id="langselect" class="f-dropdown content" data-dropdown-content>
-  
-   <?php $this->widget('ext.LanguagePicker.ELangPick', array('pickerType' => 'links','buttonsColor' => 'primary',)); ?>
+<ul class="side-nav" style="padding:0;">
+    <li <?php echo (Yii::app()->getLanguage() == "sl" ? 'class="active"' : '')?>>
+     <?php 
+     echo CHtml::link("Slovensko", Yii::app()->homeUrl, array('submit'=>'', 'params'=>array('languagePicker'=>"sl")));
+     ?>
+    </li>
+    <li <?php echo (Yii::app()->getLanguage() == "en" ? 'class="active"' : '')?>>
+     <?php 
+     echo CHtml::link("English", Yii::app()->homeUrl, array('submit'=>'', 'params'=>array('languagePicker'=>"en")));
+     ?>
+    </li>
+  <?php
+     //$this->widget('ext.LanguagePicker.ELangPick', array('pickerType' => 'links','buttonsColor' => 'primary',)); ?>
+  </ul>  
+  <?php //$this->widget('ext.LanguagePicker.ELangPick', array('pickerType' => 'links','buttonsColor' => 'primary',)); ?>
 </div>
     
-<div id="drop-login" class="f-dropdown content" data-dropdown-content>
+<div id="drop-login" class="f-dropdown content small" data-dropdown-content>
+
+<div class="login-form">
+<?php echo CHtml::beginForm(Yii::app()->createUrl(Yii::app()->getModule('user')->loginUrl[0]),'post',array("class"=>"custom_")); ?>
+	
+	<div class="row">
+		<?php echo CHtml::label(Yii::t('app','E-mail:'),'UserLogin_email'); ?>
+		<?php echo CHtml::textField('UserLogin[email]') ?>
+	</div>
+	
+	<div class="row">
+		<?php echo CHtml::label(Yii::t('app','Password:'),'UserLogin_password'); ?>
+		<?php echo CHtml::passwordField('UserLogin[password]') ?>
+	</div>
+	
+	<div class="row rememberMe">
+		<label for="UserLogin_rememberMe"><?php echo CHtml::checkBox('UserLogin[rememberMe]',array('')); ?>
+    <?php echo Yii::t('app','Remember me'); ?></label>
+  </div>
+
+	<div class="row submit">
+		<?php echo CHtml::submitButton(Yii::t("app","Login"),array("class"=>"button small radius")); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo CHtml::link(Yii::t("app","Register"),Yii::app()->getModule('user')->registrationUrl); ?> | 
+    <?php echo CHtml::link(Yii::t("app","Lost Password?"),Yii::app()->getModule('user')->recoveryUrl); ?>
+	</div>
+  
+<?php echo CHtml::endForm(); ?>
+  
+</div>
+<?php /* ?>  
   <a href="<?php echo Yii::app()->createUrl(Yii::app()->getModule('user')->loginUrl[0]); ?>"><?php echo CHtml::encode(Yii::t('app','Login')); ?></a>
   &nbsp | &nbsp;
   <a href="<?php echo Yii::app()->createUrl(Yii::app()->getModule('user')->registrationUrl[0]); ?>"><?php echo CHtml::encode(Yii::t('app','Register')); ?></a>
+<?php */ ?>
+
 </div>
 
 </body>
