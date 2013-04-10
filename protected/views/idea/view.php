@@ -25,7 +25,7 @@ $this->menu=array(
 array(
 			'name' => 'status',
 			'type' => 'raw',
-			'value' => $model->status !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->status)), array('ideaStatus/view', 'id' => GxActiveRecord::extractPkValue($model->status, true))) : null,
+			'value' => $model->status !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->status)), array('backendIdeaStatus/view', 'id' => GxActiveRecord::extractPkValue($model->status, true))) : null,
 			),
 'website',
 'video_link',
@@ -38,7 +38,7 @@ array(
 	echo GxHtml::openTag('ul');
 	foreach($model->clickIdeas as $relatedModel) {
 		echo GxHtml::openTag('li');
-		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('clickIdea/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
+		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('backendClickIdea/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
 		echo GxHtml::closeTag('li');
 	}
 	echo GxHtml::closeTag('ul');
@@ -47,7 +47,7 @@ array(
 	echo GxHtml::openTag('ul');
 	foreach($model->ideaMembers as $relatedModel) {
 		echo GxHtml::openTag('li');
-		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('ideaMember/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
+		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('backendIdeaMember/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
 		echo GxHtml::closeTag('li');
 	}
 	echo GxHtml::closeTag('ul');
@@ -56,7 +56,7 @@ array(
 	echo GxHtml::openTag('ul');
 	foreach($model->ideaTranslations as $relatedModel) {
 		echo GxHtml::openTag('li');
-		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('ideaTranslation/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
+		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('backendIdeaTranslation/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
 		echo GxHtml::closeTag('li');
 	}
 	echo GxHtml::closeTag('ul');

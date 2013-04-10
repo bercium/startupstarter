@@ -29,7 +29,7 @@ $this->menu=array(
 	echo GxHtml::openTag('ul');
 	foreach($model->skillsetSkills as $relatedModel) {
 		echo GxHtml::openTag('li');
-		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('skillsetSkill/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
+		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('backendSkillsetSkill/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
 		echo GxHtml::closeTag('li');
 	}
 	echo GxHtml::closeTag('ul');
@@ -38,7 +38,7 @@ $this->menu=array(
 	echo GxHtml::openTag('ul');
 	foreach($model->userSkills as $relatedModel) {
 		echo GxHtml::openTag('li');
-		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('userSkill/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
+		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('backendUserSkill/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
 		echo GxHtml::closeTag('li');
 	}
 	echo GxHtml::closeTag('ul');

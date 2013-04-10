@@ -23,18 +23,18 @@ $this->menu=array(
 array(
 			'name' => 'user',
 			'type' => 'raw',
-			'value' => $model->user !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->user)), array('user/view', 'id' => GxActiveRecord::extractPkValue($model->user, true))) : null,
+			'value' => $model->user !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->user)), array('backendUser/view', 'id' => GxActiveRecord::extractPkValue($model->user, true))) : null,
 			),
 'available',
 array(
 			'name' => 'country',
 			'type' => 'raw',
-			'value' => $model->country !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->country)), array('country/view', 'id' => GxActiveRecord::extractPkValue($model->country, true))) : null,
+			'value' => $model->country !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->country)), array('backendCountry/view', 'id' => GxActiveRecord::extractPkValue($model->country, true))) : null,
 			),
 array(
 			'name' => 'city',
 			'type' => 'raw',
-			'value' => $model->city !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->city)), array('city/view', 'id' => GxActiveRecord::extractPkValue($model->city, true))) : null,
+			'value' => $model->city !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->city)), array('backendCity/view', 'id' => GxActiveRecord::extractPkValue($model->city, true))) : null,
 			),
 	),
 )); ?>
@@ -44,7 +44,7 @@ array(
 	echo GxHtml::openTag('ul');
 	foreach($model->ideaMembers as $relatedModel) {
 		echo GxHtml::openTag('li');
-		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('ideaMember/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
+		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('backendIdeaMember/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
 		echo GxHtml::closeTag('li');
 	}
 	echo GxHtml::closeTag('ul');
@@ -53,7 +53,7 @@ array(
 	echo GxHtml::openTag('ul');
 	foreach($model->userCollabprefs as $relatedModel) {
 		echo GxHtml::openTag('li');
-		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('userCollabpref/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
+		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('backendUserCollabpref/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
 		echo GxHtml::closeTag('li');
 	}
 	echo GxHtml::closeTag('ul');
@@ -62,7 +62,7 @@ array(
 	echo GxHtml::openTag('ul');
 	foreach($model->userSkills as $relatedModel) {
 		echo GxHtml::openTag('li');
-		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('userSkill/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
+		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('backendUserSkill/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
 		echo GxHtml::closeTag('li');
 	}
 	echo GxHtml::closeTag('ul');

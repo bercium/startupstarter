@@ -23,12 +23,12 @@ $this->menu=array(
 array(
 			'name' => 'match',
 			'type' => 'raw',
-			'value' => $model->match !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->match)), array('userMatch/view', 'id' => GxActiveRecord::extractPkValue($model->match, true))) : null,
+			'value' => $model->match !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->match)), array('backendUserMatch/view', 'id' => GxActiveRecord::extractPkValue($model->match, true))) : null,
 			),
 array(
 			'name' => 'collab',
 			'type' => 'raw',
-			'value' => $model->collab !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->collab)), array('collabpref/view', 'id' => GxActiveRecord::extractPkValue($model->collab, true))) : null,
+			'value' => $model->collab !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->collab)), array('backendCollabpref/view', 'id' => GxActiveRecord::extractPkValue($model->collab, true))) : null,
 			),
 	),
 )); ?>
