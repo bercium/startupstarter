@@ -23,16 +23,17 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("index"),
+        'actions'=>array("index",'error','logout'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+        'actions'=>array('about','about_project','team'),
 				'users'=>array('@'),
 			),
-			/*array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array(''),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('list','error'),
 				'users'=>Yii::app()->getModule('user')->getAdmins(),
-			),*/
+			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),

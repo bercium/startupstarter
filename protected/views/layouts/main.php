@@ -120,20 +120,26 @@
   
 <div class="footer">
 <div class="row">
-  <div class="small-12 large-4 columns">
+  <div class="small-12 large-8 push-4 columns footer-links">
+    <ul class="inline-list">
+      <li><a href="#">About us</a></li>
+      <li><a href="#">About project</a></li>
+      <li><a href="#">CRUD List</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    
+  </div>
+  <div class="small-12 large-4 pull-8 columns last">
     Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
     All Rights Reserved.<br/>
     <?php echo Yii::powered(); ?>
   </div>
-  <div class="small-12 large-8 columns footer-links">
-    <a href="#">About us</a> | <a href="#">About us</a> | <a href="#">About us</a>
-  </div>
 </div>
 </div>
 
-
-</div><!-- page -->
-
+</div> 
+ 
+<!-- page -->
 <div id="langselect" class="f-dropdown content" data-dropdown-content>
   
    <?php $this->widget('ext.LanguagePicker.ELangPick', array('pickerType' => 'links','buttonsColor' => 'primary',)); ?>
