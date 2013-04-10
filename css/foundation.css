@@ -962,11 +962,11 @@ td {
 
 /* Default Link Styles */
 a {
-  color: #2ba6cb;
+  color: #4469a6;
   text-decoration: none;
   line-height: inherit; }
   a:hover, a:focus {
-    color: #2795b6; }
+    color: #3c76d6; }
   a img {
     border: none; }
 

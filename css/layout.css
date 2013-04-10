@@ -128,10 +128,18 @@
   text-align: right;
 }
 
+.card-idea {
+	min-height: 400px !important;
+	max-height: 400px !important;
+}
+
 .card-person, .card-idea{
   margin-right:0.9375em; 
   padding-top: 0;
   background-color: #FFF;
+  border: 1px solid #fff;
+  box-shadow: 0 0 0 1px #acacac, 0 0 0 3px #ddd;
+}
 }
 
 .card-person hr, .card-idea hr{
@@ -149,13 +157,19 @@
   padding-bottom:0.9375em; 
   margin-bottom: 0.9375em !important;
   border-bottom:1px solid #ddd; 
-  background-color:#eee;
+  background-color:#f6f6fa;
+  }
+
+
+.card-idea-title small {
+	margin-top: 5px;
 }
+
 
 .card-floater{
   float:right; 
   border-left: 1px solid #ddd; 
-  padding-left: 6px; 
+  padding-left: 12px; 
   font-size: 12px;
 }
 
@@ -200,6 +214,19 @@
 
 .panel .meta-title  {
 	text-shadow: -1px 1px #fff;
+
+}
+
+.heart {
+	font-size: 1.8em;
+	color: #e6a8ac; 
+}
+
+.heart-favorited,
+.heart:hover,
+.heart:active {
+	color: #e54d51;
+
 }
 
 /* #Page Styles
@@ -309,36 +336,20 @@ min-height: 380px;
 
 }
 
-.ticket-title
+.card-idea
  {
 	font-size: 14px;	
 	display: block;
 	line-height: 21px;
-	padding: 5px 0 0 0;
+	
 	margin: 0 0 0 10px;	
 }
-.ticket p {
-	margin: 0 0 0 10px;
-}
-
-.ticket .basic_info p {
-	padding: 10px 0;
-}
 
 
-.ticket img {
-	margin: 0 10px;
-}
 
-.ticket hr {
-	margin: 0;
-	padding: 0;
-}
-
-.ticket-description p {
-	font-size: 12px;
-	padding: 0 10px;
-	margin: 15px 0 15px 0;
+.card-summary p {
+	font-size: 0.9em;
+	
 
 }
 
@@ -432,32 +443,16 @@ min-height: 380px;
 	margin: 0 0px;
 }
 
-.ticket .tags {
-	
+.ticket .tags {	
 	text-transform: uppercase;
 
 }
-.ticket .meta_tags ul li {
+.card-idea .meta_tags ul li {
 	display: inline-block;
 	font-size: 12px;
 }
 
-.ticket .meta_tags ul li a {
-	background: 
-}
 
-/*** sidebar search ***/
-
-.sidebar_search {
-	width: 220px;
-	height: 100px;	
-margin-left: -220px;
-float: left;
-}
-
-.main {
-padding-rigth: 220px;
-}
 
 
 
@@ -475,53 +470,4 @@ padding-rigth: 220px;
 	text-decoration: underline;
 
 }
-
-
-/*******  filterbar 
--------------------------
-************************/
-
-
-
-.filterbar {
-	 position:absolute;
-  top:45px;
-  left:0;
-  width:220px;
-  overflow: hidden;
-  padding-right: 20px;
-  height:100%;
-  margin-right: 20px;
-  background: #fff;
-  margin-right: 20px;
-
-}
-
- @media screen{
-  body>div#left-sidebar{
-   position:fixed;
-  }
- }
- * html body{
-  overflow:hidden;
- } 
- * html div#content{
-  height:100%;
-  overflow:auto;
- }
-
-
-
-
-
-
-/* Styles for screens that are smaller than 768px; */
-@media only screen and (max-width: 48em) {
-	
-	.filterbar {
-		position: relative;
-	}
-
-
- }
 
