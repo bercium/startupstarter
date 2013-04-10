@@ -32,12 +32,25 @@
   box-shadow:0 2px 2px 0px rgba(0, 0, 0, .25); 
 }
 
+.top-bar-avatar{
+  float:left;
+  margin-top:8px; 
+  height:30px; 
+  margin-right: 10px;
+}
+
+.top-bar-person{
+  float:left; 
+  line-height:26px;
+}
+
 .footer{
   padding-bottom:50px; 
   margin-top:40px;
   padding-top:20px;
   /*border-top: 1px solid #999; */
-  box-shadow:0 -2px 2px 0px rgba(0, 0, 0, .25);
+  box-shadow:0 -2px 2px 0px rgba(0, 0, 0, .15);
+  background-color: #EEE;
 }
 .footer-links .inline-list{
   float:right;
@@ -114,6 +127,49 @@
   margin-bottom:10px;
   text-align: right;
 }
+
+.card-person, .card-idea{
+  margin-right:0.9375em; 
+  padding-top: 0;
+  background-color: #FFF;
+}
+
+.card-person hr, .card-idea hr{
+  margin-top:5px;
+  margin-bottom:0.9375em;
+}
+
+.card-person p, .card-idea p{
+  margin-top:5px;
+  margin-bottom:5px;
+}
+
+.card-person-title, .card-idea-title{
+  padding-top:0.9375em; 
+  padding-bottom:0.9375em; 
+  margin-bottom: 0.9375em !important;
+  border-bottom:1px solid #ddd; 
+  background-color:#eee;
+}
+
+.card-floater{
+  float:right; 
+  border-left: 1px solid #ddd; 
+  padding-left: 6px; 
+  font-size: 12px;
+}
+
+.card-avatar, .card-icons{
+  height:20px; 
+  margin-right:5px;
+}
+
+.card-icons{
+  float:right;
+}
+
+
+
 
 /* #Special Styles
 ================================================== */

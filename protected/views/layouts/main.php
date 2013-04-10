@@ -80,10 +80,8 @@
               <?php if (!Yii::app()->user->isGuest){ ?>
               <li class="has-dropdown">
                 <a href="#" >
-                  <div style="float:left">
-                  <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" height="10" style="margin-top:8px; height:30px; margin-right: 10px;" />
-                  </div>
-                  <div style="float:left; line-height:26px;">
+                  <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" class="top-bar-avatar" />
+                  <div class="top-bar-person">
                     <?php echo Yii::app()->user->getState('fullname'); ?>
                     <?php $this->widget('ext.ProgressBar.WProgressBar',array("height"=>10)); ?>
                   </div>
