@@ -132,13 +132,20 @@
 	  </div>
 
     <div  class="row">
-      <div class="large-12 small-12 columns card-summary">
-        <p>
-        	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...
-        </p>
+      <div class="large-12 small-12 columns">
+        <div class="card-summary">
+          <p>
+        	 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...
+          </p>
+        <hr>
         <small class="meta">
-          Looking for skills: <span class="button tiny secondary meta_tags" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> <span class="button tiny secondary" data-tooltip title="Sales">Economics</span>
+          Looking for skills:
+           <span class="button tiny secondary meta_tags" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> <span class="button tiny secondary meta_tags" data-tooltip title="Sales">Economics</span>
+           <span class="button tiny secondary meta_tags" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> <span class="button tiny secondary meta_tags" data-tooltip title="Sales">Economics</span>
+           <span class="button tiny secondary meta_tags" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> <span class="button tiny secondary meta_tags" data-tooltip title="Sales">Economics</span>
+
         </small>
+        </div>
         <p>
           <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Marko skače" alt="Marko Skače" class="card-avatar" />
           <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Marko skače" alt="Marko Skače" class="card-avatar" />

@@ -133,13 +133,31 @@
 	max-height: 400px !important;
 }
 
-.card-person, .card-idea{
+.card-person, .card-idea, .sidebar {
   margin-right:0.9375em; 
   padding-top: 0;
   background-color: #FFF;
   border: 1px solid #fff;
-  box-shadow: 0 0 0 1px #acacac, 0 0 0 3px #ddd;
+  box-shadow: 0 0 0 1px #bbbbbb, 0 0 0 3px #ddd;
 }
+
+sidebar .section-container section,
+sidebar .section-container .section,
+sidebar .section-container.auto section,
+sidebar .section-container.auto .section {
+	border: none;
+}
+
+.sidebar {	
+	border-radius: 3px;
+	border-top: none;
+}
+.sidebar section a,
+.sidebar .active a {
+	border-bottom: 1px solid #ddd;
+	border-top: 1px solid #fff;
+}
+
 }
 
 .card-person hr, .card-idea hr{
@@ -347,8 +365,9 @@ min-height: 380px;
 
 
 
-.card-summary p {
+.card-summary  {
 	font-size: 0.9em;
+	min-height: 210px;
 	
 
 }
@@ -443,8 +462,10 @@ min-height: 380px;
 	margin: 0 0px;
 }
 
-.ticket .tags {	
+.card-idea .meta_tags {	
 	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-family: "tahoma", "arial", sans-serif;
 
 }
 .card-idea .meta_tags ul li {
