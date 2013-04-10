@@ -9,7 +9,7 @@
       <div class="row">
         <div class="large-6 large-centered small-12 columns">
           <p>
-            We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.
+            <?php echo CHtml::encode(Yii::t('app','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.')); ?>
           </p>
         </div>
       </div>
@@ -85,26 +85,28 @@
 <div  class="row">
 <?php foreach ($data_array['users'] as $user){ ?>    
   
-	<div class="large-4 small-12 columns radius panel end" style="margin-right:10px">
-    <div class="row">
-      <div class="large-12 small-12 columns"  >
+	<div class="large-4 small-12 columns radius panel card-person">
+    <div class="row card-person-title">
+      <div class="large-12 small-12 columns" >
         <?php if ($user['avatar_link']){ ?>
         <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" style="height:60px; margin-right: 10px; float:left;" />
         <?php }else{ ?>
         <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" style="height:60px; margin-right: 10px; float:left;" />
         <?php } ?>
         <h5><?php echo $user['name']." ".$user['surname']; ?></h5>
-        Location: <a><?php echo $user['country_id']; ?></a>
+        Location: <a>Ljubljana, Slovenia</a>
 		  </div>
 	  </div>
-    <hr>
+
     <div  class="row">
       <div class="large-12 small-12 columns"  >
-        Has skills: <span class="button tiny secondary">SEO</span> <span class="button tiny secondary">SEO</span><br />
+        Has skills: <span class="button tiny secondary" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> <span class="button tiny secondary" data-tooltip title="Sales">Economics</span><br />
         Colaboration: <a>monetary, cofinder</a><br />
         Available: <a>part time</a><br />
         Involved in <a>3 projects</a>
-        
+        <div class="card-floater">
+          <a href=""><?php echo Yii::t('app','details...') ?></a>
+        </div>
 		  </div>
 	  </div>
     
@@ -113,6 +115,63 @@
 </div>
 
 <?php } ?>
+
+
+
+<div  class="row">
+  
+  <div class="large-4 small-12 columns radius panel card-idea">
+    <div class="row card-idea-title">
+      <div class="large-12 small-12 columns" >
+        <h5>Super naslov moje super ideje</h5>
+        Stage: <a>prototype</a>
+        <div class="card-floater">
+          &hearts;
+        </div>
+		  </div>
+	  </div>
+
+    <div  class="row">
+      <div class="large-12 small-12 columns"  >
+        <p>
+        	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...
+        </p>
+        <p>
+          Looking for skills: <span class="button tiny secondary" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> <span class="button tiny secondary" data-tooltip title="Sales">Economics</span>
+        </p>
+        <p>
+          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Marko skače" alt="Marko Skače" class="card-avatar" />
+          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Marko skače" alt="Marko Skače" class="card-avatar" />
+          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Marko skače" alt="Marko Skače" class="card-avatar" />
+          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Marko skače" alt="Marko Skače" class="card-avatar" />
+          +3
+          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Has image" alt="Has image" class="card-icons" />
+          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Has file" alt="Has file" class="card-icons" />
+          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="has image" alt="has image" class="card-icons" />
+        </p>
+        <hr>
+        Updated: 31.5.2012
+        <div class="card-floater">
+          <a href=""><?php echo Yii::t('app','details...') ?></a>
+        </div>
+		  </div>
+	  </div>
+    
+  </div>
+</div>
+
+
+<?php if (isset($data_array['ideas'])){ ?>
+
+<div  class="row">
+<?php foreach ($data_array['ideas'] as $user){ ?>    
+  
+	
+<?php } ?>
+</div>
+
+<?php } ?>
+
 
 <div class="row panel radius">
 	<div class="large-12 small-12 columns">
