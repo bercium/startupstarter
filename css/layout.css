@@ -147,6 +147,7 @@ sidebar  .content {
  padding: 0 !important
 }
 
+
 .sidebar {	
 	border-radius: 3px;
 	border-top: none;
@@ -154,19 +155,17 @@ sidebar  .content {
 
 
 .sidebar section  a,
-.sidebar .active a {
+.sidebar .active  a {
 	border-bottom: 1px solid #ddd;
 	border-top: 1px solid #fff;
 }
 
-.sidebar .active a {
-	border-bottom: 1px solid #cdcccc;
-}
 
 .sidebar .ideas-aside a {
 	
 	display: block;
-	padding: 10px;
+	padding: 10px 0 0 10px;
+	height: 60px;
 }
 .sidebar .ideas-aside a small {
 	display: block !important;
