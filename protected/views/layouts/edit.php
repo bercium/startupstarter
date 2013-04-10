@@ -15,10 +15,12 @@
       </section>
       <section class="section active">
         <p class="title"><a href="#"><?php echo CHtml::encode(Yii::t('app','Ideas')); ?></a></p>
-        <div class="content">
-          <a href="#"><p>Ideja 1<br /><span class="idea-detail">seen: 130 times</span></p></a>
-          <a href="#"><p>Ideja 2<br /><span>seen: 13 times</span></p></a>
-          <a href="#"><p>Ideja 3<br /><span>seen: 45 times</span></p></a>
+        <div class="content ideas-aside">
+         <a href="#"><small class="alt">Ideja 1</small><small class="meta">seen: 130 times</small></a>
+          <a href="#"><small class="alt">Ideja 1</small><small class="meta">seen: 130 times</small></a>
+           <a href="#"><small class="alt">Ideja 1</small><small class="meta">seen: 130 times</small></a>
+         <a href="#"><small class="alt">Ideja 1</small><small class="meta">seen: 130 times</small></a>
+
         </div>
       </section>
       <section class="section">

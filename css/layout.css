@@ -107,12 +107,6 @@
   margin-top: 5px;
 }
 
-.idea-detail{
-  font-size: 12px;
-  color:#888 !important;
-}
-
-
 .top-bar{
   margin-bottom: 0px; 
   z-index: 10;
@@ -148,14 +142,41 @@ sidebar .section-container.auto .section {
 	border: none;
 }
 
+sidebar  .content {
+
+ padding: 0 !important
+}
+
 .sidebar {	
 	border-radius: 3px;
 	border-top: none;
 }
-.sidebar section a,
+
+
+.sidebar section  a,
 .sidebar .active a {
 	border-bottom: 1px solid #ddd;
 	border-top: 1px solid #fff;
+}
+
+.sidebar .active a {
+	border-bottom: 1px solid #cdcccc;
+}
+
+.sidebar .ideas-aside a {
+	
+	display: block;
+	padding: 10px;
+}
+.sidebar .ideas-aside a small {
+	display: block !important;
+
+}
+
+.sidebar .ideas-aside a .meta {
+	font-size: 0.7em;
+	padding-top: 10px;
+
 }
 
 }

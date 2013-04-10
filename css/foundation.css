@@ -970,6 +970,17 @@ a {
   a img {
     border: none; }
 
+/* Default Link Styles */
+.alt {
+  color: #a23134;
+  text-decoration: none;
+  line-height: inherit; }
+  .alt:hover, a:focus {
+    color: #af3f42; }
+ 
+
+
+
 /* Default paragraph styles */
 p {
   font-family: inherit;
