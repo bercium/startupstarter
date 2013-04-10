@@ -31,7 +31,7 @@ class SiteController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('list','error'),
+				'actions'=>array('list'),
 				'users'=>Yii::app()->getModule('user')->getAdmins(),
 			),
 			array('deny',  // deny all users
@@ -108,7 +108,7 @@ class SiteController extends Controller
   
   
 	public function actionList()
-	{
+	{$this->layout="//layouts/edit";
     $this->render('list');
   }
 

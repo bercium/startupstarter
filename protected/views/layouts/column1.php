@@ -2,7 +2,7 @@
 <?php $this->beginContent('//layouts/main'); ?>
 
 <div class="row">
-  <div class="small-12 large-12">
+  <div class="small-12 large-12 columns">
     <?php echo $content; ?>
   </div>
 </div>

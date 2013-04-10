@@ -1,6 +1,6 @@
 <?php
 /* @var $this SiteController */
-echo short_url_google("www.test.com");
+//echo short_url_google("www.test.com");
 $this->pageTitle=Yii::app()->name . ' - CRUD List';
 ?>
 <h1>CRUD List</h1>
