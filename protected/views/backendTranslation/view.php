@@ -23,7 +23,7 @@ $this->menu=array(
 array(
 			'name' => 'language',
 			'type' => 'raw',
-			'value' => $model->language !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->language)), array('language/view', 'id' => GxActiveRecord::extractPkValue($model->language, true))) : null,
+			'value' => $model->language !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->language)), array('backendLanguage/view', 'id' => GxActiveRecord::extractPkValue($model->language, true))) : null,
 			),
 'table',
 'row_id',

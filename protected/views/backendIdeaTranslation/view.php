@@ -23,12 +23,12 @@ $this->menu=array(
 array(
 			'name' => 'language',
 			'type' => 'raw',
-			'value' => $model->language !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->language)), array('language/view', 'id' => GxActiveRecord::extractPkValue($model->language, true))) : null,
+			'value' => $model->language !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->language)), array('backendLanguage/view', 'id' => GxActiveRecord::extractPkValue($model->language, true))) : null,
 			),
 array(
 			'name' => 'idea',
 			'type' => 'raw',
-			'value' => $model->idea !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->idea)), array('idea/view', 'id' => GxActiveRecord::extractPkValue($model->idea, true))) : null,
+			'value' => $model->idea !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->idea)), array('backendIdea/view', 'id' => GxActiveRecord::extractPkValue($model->idea, true))) : null,
 			),
 'pitch',
 'description',

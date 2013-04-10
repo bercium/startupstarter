@@ -25,7 +25,7 @@ $this->menu=array(
 array(
 			'name' => 'status',
 			'type' => 'raw',
-			'value' => $model->status !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->status)), array('ideaStatus/view', 'id' => GxActiveRecord::extractPkValue($model->status, true))) : null,
+			'value' => $model->status !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->status)), array('backendIdeaStatus/view', 'id' => GxActiveRecord::extractPkValue($model->status, true))) : null,
 			),
 'website',
 'video_link',

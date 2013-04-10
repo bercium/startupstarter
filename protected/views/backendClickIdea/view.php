@@ -24,12 +24,12 @@ $this->menu=array(
 array(
 			'name' => 'user',
 			'type' => 'raw',
-			'value' => $model->user !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->user)), array('user/view', 'id' => GxActiveRecord::extractPkValue($model->user, true))) : null,
+			'value' => $model->user !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->user)), array('backendUser/view', 'id' => GxActiveRecord::extractPkValue($model->user, true))) : null,
 			),
 array(
 			'name' => 'ideaClick',
 			'type' => 'raw',
-			'value' => $model->ideaClick !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->ideaClick)), array('idea/view', 'id' => GxActiveRecord::extractPkValue($model->ideaClick, true))) : null,
+			'value' => $model->ideaClick !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->ideaClick)), array('backendIdea/view', 'id' => GxActiveRecord::extractPkValue($model->ideaClick, true))) : null,
 			),
 	),
 )); ?>
