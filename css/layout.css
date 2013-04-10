@@ -83,6 +83,22 @@
 }
 
 
+.profile-info{
+  margin-top:20px;
+  margin-bottom:15px;
+  color:#666;
+  font-size: 12px;
+}
+
+.profile-info .progress{
+  margin-top: 5px;
+}
+
+.idea-detail{
+  font-size: 12px;
+  color:#888 !important;
+}
+
 
 .top-bar{
   margin-bottom: 0px; 

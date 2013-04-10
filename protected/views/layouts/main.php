@@ -70,8 +70,10 @@
               <li class="divider"></li>
               <li><a href="<?php echo Yii::app()->createUrl("site/about_project"); ?>"><?php echo CHtml::encode(Yii::t('app','What is this')); ?></a></li>
               <li class="divider"></li>
-              <li><a href="<?php echo Yii::app()->createUrl("site/list"); ?>"><?php echo CHtml::encode(Yii::t('app','CRUD List')); ?></a></li>
+              <?php if (Yii::app()->user->isAdmin()){ ?>
+              <li><a href="<?php echo Yii::app()->createUrl("site/list"); ?>"><?php echo CHtml::encode(Yii::t('app','Admin')); ?></a></li>
               <li class="divider"></li>
+              <?php } ?>
             </ul>
 
             <ul class="right">
@@ -122,17 +124,17 @@
 <div class="row">
   <div class="small-12 large-8 push-4 columns footer-links">
     <ul class="inline-list">
-      <li><a href="#">About us</a></li>
-      <li><a href="#">About project</a></li>
-      <li><a href="#">CRUD List</a></li>
-      <li><a href="#">Contact</a></li>
+      <li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo CHtml::encode(Yii::t('app','About us')); ?></a></li>
+      <li><a href="<?php echo Yii::app()->createUrl("site/about_project"); ?>"><?php echo CHtml::encode(Yii::t('app','What is this')); ?></a></li>
+      <?php if (Yii::app()->user->isAdmin()){ ?>
+      <li><a href="<?php echo Yii::app()->createUrl("site/list"); ?>"><?php echo CHtml::encode(Yii::t('app','Admin')); ?></a></li>
+      <?php } ?>
+      <li><a href="#"><?php echo CHtml::encode(Yii::t('app','Contact')); ?></a></li>
     </ul>
     
   </div>
   <div class="small-12 large-4 pull-8 columns last">
-    Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-    All Rights Reserved.<br/>
-    <?php echo Yii::powered(); ?>
+    :)
   </div>
 </div>
 </div>
