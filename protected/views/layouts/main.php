@@ -65,13 +65,18 @@
             <!-- Left Nav Section -->
             <ul class="left">
               <li class="divider"></li>
-              <li class="active">
-                <a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo CHtml::encode(Yii::t('app','About us')); ?></a></li>
+              <li class="<?php echo isMenuItemActive("team"); ?>">
+                <a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo CHtml::encode(Yii::t('app','Our team')); ?></a>
+              </li>
               <li class="divider"></li>
-              <li><a href="<?php echo Yii::app()->createUrl("site/about_project"); ?>"><?php echo CHtml::encode(Yii::t('app','What is this')); ?></a></li>
+              <li class="<?php echo isMenuItemActive("about"); ?>">
+                <a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo CHtml::encode(Yii::t('app','About project')); ?></a>
+              </li>
               <li class="divider"></li>
               <?php if (Yii::app()->user->isAdmin()){ ?>
-              <li><a href="<?php echo Yii::app()->createUrl("site/list"); ?>"><?php echo CHtml::encode(Yii::t('app','Admin')); ?></a></li>
+              <li class="<?php echo isMenuItemActive("list"); ?>">
+                <a href="<?php echo Yii::app()->createUrl("site/list"); ?>"><?php echo CHtml::encode(Yii::t('app','Admin')); ?></a>
+              </li>
               <li class="divider"></li>
               <?php } ?>
             </ul>

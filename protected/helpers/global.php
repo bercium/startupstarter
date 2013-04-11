@@ -48,3 +48,10 @@ function avatar_image($filename, $userID = 0){
     return Yii::app()->request->baseUrl."/images/dummy-avatar-".$userID.".png";
   }
 }
+
+/**
+ * check if curent action is active and return apropriate CSS class
+ */
+function isMenuItemActive($action){
+  if ($action == Yii::app()->controller->action->id) return "active";
+}

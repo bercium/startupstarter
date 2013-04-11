@@ -4,9 +4,9 @@
 <div class="row">
   <div class="small-12 large-3 columns">
     <div class="profile-info">
-    Profile completness:
-    <?php $this->widget('ext.ProgressBar.WProgressBar'); ?>
-    Member since: <strong>30.11.2011</strong>
+      Profile completness:
+      <?php $this->widget('ext.ProgressBar.WProgressBar'); ?>
+      Member since: <strong>30.11.2011</strong>
     </div>
     <div class="section-container sidebar accordion" data-section>
       <section class="section">
@@ -14,10 +14,22 @@
       </section>
       <section class="section active">
         <p class="title"><a href="#"><?php echo CHtml::encode(Yii::t('app','Ideas')); ?></a></p>
-        <div class="content">
-          <a href="#"><p>Ideja 1<br /><span class="idea-detail">seen: 130 times</span></p></a>
-          <a href="#"><p>Ideja 2<br /><span>seen: 13 times</span></p></a>
-          <a href="#"><p>Ideja 3<br /><span>seen: 45 times</span></p></a>
+        <div class="content ideas-aside">
+          <a href="#" class="ideas-aside-new">
+            Create a new idea
+          </a>
+          <a href="#" >
+            <span class="alt">Ideja 1</span>
+            <small class="meta">seen: 130 times</small>
+          </a>
+          <a href="#">
+            <span class="alt">Ideja 2</span>
+            <small class="meta">seen: 25 times</small>
+          </a>
+          <a href="#">
+            <span class="alt">Ideja 3</span>
+            <small class="meta">seen: 13 times</small>
+          </a>
         </div>
       </section>
       <section class="section">
