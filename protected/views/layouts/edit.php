@@ -8,7 +8,7 @@
     <?php $this->widget('ext.ProgressBar.WProgressBar'); ?>
     Member since: <strong>30.11.2011</strong>
     </div>
-    <div class="section-container accordion" data-section>
+    <div class="section-container sidebar accordion" data-section>
       <section class="section">
         <p class="title"><a href="#"><?php echo CHtml::encode(Yii::t('app','Profile')); ?></a></p>
       </section>

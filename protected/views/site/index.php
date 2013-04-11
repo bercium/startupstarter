@@ -92,16 +92,20 @@
       <div class="large-12 small-12 columns" >
         <img src="<?php echo avatar_image(Yii::app()->user->getState('avatar_link'),Yii::app()->user->id); ?>" style="height:60px; margin-right: 10px; float:left;" />
         <h5><?php echo $user['name']." ".$user['surname']; ?></h5>
-        Location: <a>Ljubljana, Slovenia</a>
+        <small class="meta"><?php echo Yii::t('app','Location:') ?> <a>Ljubljana, Slovenia</a></small>
 		  </div>
 	  </div>
 
     <div  class="row">
       <div class="large-12 small-12 columns"  >
-        Has skills: <span class="button tiny secondary" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> <span class="button tiny secondary" data-tooltip title="Sales">Economics</span><br />
-        Colaboration: <a>monetary, cofinder</a><br />
-        Available: <a>part time</a><br />
-        Involved in <a>3 projects</a>
+        <small class="meta">
+          <?php echo Yii::t('app','Has skills:'); ?> 
+          <span class="button tiny secondary meta_tags" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> 
+          <span class="button tiny secondary meta_tags" data-tooltip title="Sales">Economics</span>
+        </small>        
+        <small class="meta"><?php echo Yii::t('app','Colaboration:') ?> <a>monetary, cofinder</a></small><br />
+        <small class="meta"><?php echo Yii::t('app','Available:') ?> <a>part time</a></small><br />
+        <small class="meta"><?php echo Yii::t('app','Involved in') ?> <a><?php echo Yii::t('app','{n} project|{n} projects',array(3)) ?></a></small>
         <div class="card-floater">
           <a href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>"><?php echo Yii::t('app','details...') ?></a>
         </div>
@@ -128,24 +132,26 @@
     <div class="row card-idea-title" onclick="location.href='<?php echo Yii::app()->createUrl("idea/".$idea['id']); ?>'">
       <div class="large-12 small-12 columns" >
         <h5><?php echo $idea['title']; ?></h5>
-        <?php echo Yii::t('app','Stage:') ?> <a><?php echo $idea['status']; ?></a>
+        <small class="meta"><?php echo Yii::t('app','Stage:') ?> <a><?php echo $idea['status']; ?></a></small>
         <div class="card-floater">
-          &hearts;
+          <a class="heart">&hearts;</a>
         </div>
 		  </div>
 	  </div>
-
+      
     <div  class="row">
       <div class="large-12 small-12 columns"  >
-        <p>
-          <?php echo $idea['pitch']; ?>
-        </p>
-        <p>
-          <?php echo Yii::t('app','Looking for skills:'); ?> 
-          <span class="button tiny secondary" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> 
-          <span class="button tiny secondary" data-tooltip title="Sales">Economics</span>
-        </p>
-        <p>
+        <div class="card-summary">
+          <p>
+            <?php echo $idea['pitch']; ?>
+          </p>
+          <small class="meta">
+            <?php echo Yii::t('app','Looking for skills:'); ?> 
+            <span class="button tiny secondary meta_tags" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> 
+            <span class="button tiny secondary meta_tags" data-tooltip title="Sales">Economics</span>
+          </small>
+        </div>
+        
           <?php 
           $i = 0;
           // show first 4 members
@@ -161,9 +167,9 @@
           ?>
           <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Has image" alt="Has image" class="card-icons" />
           <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Has file" alt="Has file" class="card-icons" />
-        </p>
+        
         <hr>
-        <?php echo Yii::t('app','Updated {n} day ago|Updated {n} days ago',array(1)); ?>
+        <small class="meta"><?php echo Yii::t('app','Updated {n} day ago|Updated {n} days ago',array(1)); ?></small>
         <div class="card-floater">
           <a href="<?php echo Yii::app()->createUrl("idea/".$idea['id']); ?>"><?php echo Yii::t('app','details...') ?></a>
         </div>
