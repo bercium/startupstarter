@@ -60,6 +60,8 @@ class WebUser extends CWebUser
         foreach ($userAttributes as $attrName=>$attrValue) {
             $this->setState($attrName,$attrValue);
         }
+        Yii::import("ext.ProgressBar.WProgressBar");
+        WProgressBar::calculatePerc();
     }
 
     public function model($id=0) {

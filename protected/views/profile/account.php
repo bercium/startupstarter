@@ -1,34 +1,39 @@
-<h1><?php echo Yii::t('app', 'Update') . ' ' . GxHtml::encode($user->label()) . ' ' . GxHtml::encode(GxHtml::valueEx($user)); ?></h1>
+<div class="row">
+  <div class="small-12 large-12 columns edit-header">
+    <h3><?php echo Yii::t('app', 'Settings'); ?></h3>
+  </div>
+  <div class="small-12 large-12 columns edit-content">
+      <?php $form = $this->beginWidget('GxActiveForm', array(
+        'id' => 'user-form',
+        'enableAjaxValidation' => false,
+      ));
+      ?>
 
-<div class="form">
+        <p class="note">
+          <?php echo Yii::t('app', 'Fields with'); ?> <span class="required">*</span> <?php echo Yii::t('app', 'are required'); ?>.
+        </p>
 
-<?php $form = $this->beginWidget('GxActiveForm', array(
-	'id' => 'user-form',
-	'enableAjaxValidation' => false,
-));
-?>
+        <?php echo $form->errorSummary($user,array("class"=>"custom")); ?>
 
-	<p class="note">
-		<?php echo Yii::t('app', 'Fields with'); ?> <span class="required">*</span> <?php echo Yii::t('app', 'are required'); ?>.
-	</p>
+          <a href="#">Change Email</a><br/>
+          <a href="#">Change Password</a><br/>
+          <?php echo $form->labelEx($user,'language_id'); ?>
+          <?php echo $form->dropDownList($user, 'language_id', GxHtml::listDataEx(Language::model()->findAllAttributes(null, true)), array('empty' => '')); ?>
+          <?php echo $form->error($user,'language_id'); ?>
+            <br />
+          <?php echo $form->labelEx($user,'newsletter'); ?>
+          <?php echo $form->textField($user, 'newsletter', array('maxlength' => 128)); ?>
+          <?php echo $form->error($user,'newsletter'); ?>
 
-	<?php echo $form->errorSummary($user); ?>
+      <?php
+      echo GxHtml::submitButton(Yii::t('app', 'Save'));
+      $this->endWidget();
+      ?>
+  </div>
+</div>
 
-		<a href="#">Change Email</a><br/>
-		<a href="#">Change Password</a><br/>
-		<div class="row">
-		<?php echo $form->labelEx($user,'language_id'); ?>
-		<?php echo $form->dropDownList($user, 'language_id', GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))); ?>
-		<?php echo $form->error($user,'language_id'); ?>
-		</div><!-- row -->
-		<div class="row">
-		<?php echo $form->labelEx($user,'newsletter'); ?>
-		<?php echo $form->textField($user, 'newsletter', array('maxlength' => 128)); ?>
-		<?php echo $form->error($user,'newsletter'); ?>
-		</div><!-- row -->
 
-<?php
-echo GxHtml::submitButton(Yii::t('app', 'Save'));
-$this->endWidget();
-?>
-</div><!-- form -->
+
+
+
+<!-- form -->

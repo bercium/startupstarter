@@ -1,7 +1,7 @@
 <?php
 
 class IdeaController extends GxController {
-
+  
 
 	/**
 	 * @return array action filters
@@ -68,6 +68,8 @@ class IdeaController extends GxController {
 	}
 
 	public function actionCreate() {
+    $this->layout="//layouts/edit";
+    
 		$idea = new Idea;
 		$translation = new IdeaTranslation;
 
@@ -105,6 +107,8 @@ class IdeaController extends GxController {
 	}
 
 	public function actionEdit($id, $lang = NULL) { //can take different languages to edit
+    $this->layout="//layouts/edit";
+    
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
 		if($idea){
 

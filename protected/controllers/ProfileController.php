@@ -1,7 +1,8 @@
 <?php
 
 class ProfileController extends GxController {
-
+  
+  
 	/**
 	 * @return array action filters
 	 */
@@ -31,6 +32,8 @@ class ProfileController extends GxController {
 	}
 
 	public function actionIndex($user_id = NULL) {
+    $this->layout="//layouts/edit";
+    
 		echo 'Links: <br/><br/>
 
 		Views<br/>
@@ -101,7 +104,8 @@ class ProfileController extends GxController {
 	}
 
 	public function actionProjects($user_id = NULL) {
-
+    $this->layout="//layouts/edit";
+    
 		//check for permission
 		if($user_id && (Yii::app()->user->id == $user_id || Yii::app()->user->superuser == 1)){
 			$user_id = $user_id;
@@ -125,7 +129,7 @@ class ProfileController extends GxController {
 	}
 
 	public function actionAccount($user_id = NULL) {
-		
+		$this->layout="//layouts/edit";
 		//email
 		//password
 		//password confirm

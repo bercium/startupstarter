@@ -109,7 +109,7 @@ class SiteController extends Controller
   
   
 	public function actionList()
-	{$this->layout="//layouts/edit";
+	{
     $this->render('list');
   }
 

@@ -18,8 +18,6 @@ class LoginController extends Controller
 				// validate user input and redirect to previous page if valid
 				if($model->validate()) {
 					$this->lastVisit();
-          Yii::import("ext.ProgressBar.WProgressBar");
-          WProgressBar::calculatePerc();
           
           //Yii::app()->setLanguage();  // set language from user settings
           

@@ -109,7 +109,7 @@ class SqlBuilder {
 	}
 
 	public function translation($type, $filter){
-
+    $array = array();
 		if($type == 'userlang'){
 			$sql=		"SELECT it.id AS translation_id, it.title, it.pitch, it.description, it.description_public, it.tweetpitch, it.language_id, l.name AS language, l.language_code FROM ".
 						"`idea` AS i,`idea_translation` AS it,`language` AS l ".
@@ -123,7 +123,6 @@ class SqlBuilder {
 			$command=$connection->createCommand($sql);
 			$dataReader=$command->query();
 			//read data, build array, call contained functions
-			$array = NULL;
 			while(($row=$dataReader->read())!==false) {
 				$array = $row;
 			}
@@ -139,7 +138,6 @@ class SqlBuilder {
 			$command=$connection->createCommand($sql);
 			$dataReader=$command->query();
 			//read data, build array, call contained functions
-			$array = NULL;
 			while(($row=$dataReader->read())!==false) {
 				$array[$row['id']] = $row;
 			}

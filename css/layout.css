@@ -97,7 +97,7 @@
 
 
 .profile-info{
-  margin-top:20px;
+  /*margin-top:20px;*/
   margin-bottom:15px;
   color:#666;
   font-size: 12px;
@@ -180,6 +180,23 @@ sidebar  .content {
 	padding-top: 10px;
 }
 
+
+.edit-header{
+  background-color: #ddd;
+  border: 1px solid #fff;
+  box-shadow: 0 0 0 1px #bbbbbb, 0 0 0 3px #ddd;
+}
+
+.edit-content{
+  border: 1px solid #fff;
+  box-shadow: 0 0 0 1px #bbbbbb, 0 0 0 3px #ddd;
+  margin-bottom: 20px;
+}
+
+.edit-floater{
+  float:right;
+  margin-top:15px;
+}
 
 .card-person hr, .card-idea hr{
   margin-top:5px;
