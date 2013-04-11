@@ -129,7 +129,8 @@
 }
 
 .card-person, .card-idea{
-  margin-right:0.9375em; 
+  /*margin-right:0.9375em; */
+  /*margin-bottom: 0;*/
   padding-top: 0;
   background-color: #FFF;
 }
@@ -150,6 +151,10 @@
   margin-bottom: 0.9375em !important;
   border-bottom:1px solid #ddd; 
   background-color:#eee;
+}
+
+div[onclick].card-person-title, div[onclick].card-idea-title{
+  cursor: pointer;
 }
 
 .card-floater{

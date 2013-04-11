@@ -83,16 +83,14 @@
 <?php if (isset($data['user'])){ ?>
 
 <div  class="row">
+  <ul class="small-block-grid-1 large-block-grid-3">
+    
 <?php foreach ($data['user'] as $user){ ?>    
-  
-	<div class="large-4 small-12 columns radius panel card-person">
-    <div class="row card-person-title">
+  <li>
+	<div class="large-12 small-12 columns radius panel card-person">
+    <div class="row card-person-title" onclick="location.href='<?php echo Yii::app()->createUrl("person/".$user['id']); ?>'">
       <div class="large-12 small-12 columns" >
-        <?php if ($user['avatar_link']){ ?>
-        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" style="height:60px; margin-right: 10px; float:left;" />
-        <?php }else{ ?>
-        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" style="height:60px; margin-right: 10px; float:left;" />
-        <?php } ?>
+        <img src="<?php echo avatar_image(Yii::app()->user->getState('avatar_link'),Yii::app()->user->id); ?>" style="height:60px; margin-right: 10px; float:left;" />
         <h5><?php echo $user['name']." ".$user['surname']; ?></h5>
         Location: <a>Ljubljana, Slovenia</a>
 		  </div>
@@ -105,26 +103,32 @@
         Available: <a>part time</a><br />
         Involved in <a>3 projects</a>
         <div class="card-floater">
-          <a href=""><?php echo Yii::t('app','details...') ?></a>
+          <a href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>"><?php echo Yii::t('app','details...') ?></a>
         </div>
 		  </div>
 	  </div>
     
   </div>
+    </li>
 <?php } ?>
+    </ul>
 </div>
 
 <?php } ?>
 
-
+  
+<?php if (isset($data['idea'])){ ?>
 
 <div  class="row">
+  <ul class="small-block-grid-1 large-block-grid-3">
+<?php foreach ($data['idea'] as $idea){ ?>    
   
-  <div class="large-4 small-12 columns radius panel card-idea">
-    <div class="row card-idea-title">
+	 <li>
+    <div class="large-12 small-12 columns radius panel card-idea">
+    <div class="row card-idea-title" onclick="location.href='<?php echo Yii::app()->createUrl("idea/".$idea['id']); ?>'">
       <div class="large-12 small-12 columns" >
-        <h5>Super naslov moje super ideje</h5>
-        Stage: <a>prototype</a>
+        <h5><?php echo $idea['title']; ?></h5>
+        <?php echo Yii::t('app','Stage:') ?> <a><?php echo $idea['status']; ?></a>
         <div class="card-floater">
           &hearts;
         </div>
@@ -134,44 +138,61 @@
     <div  class="row">
       <div class="large-12 small-12 columns"  >
         <p>
-        	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...
+          <?php echo $idea['pitch']; ?>
         </p>
         <p>
-          Looking for skills: <span class="button tiny secondary" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> <span class="button tiny secondary" data-tooltip title="Sales">Economics</span>
+          <?php echo Yii::t('app','Looking for skills:'); ?> 
+          <span class="button tiny secondary" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> 
+          <span class="button tiny secondary" data-tooltip title="Sales">Economics</span>
         </p>
         <p>
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Marko skače" alt="Marko Skače" class="card-avatar" />
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Marko skače" alt="Marko Skače" class="card-avatar" />
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Marko skače" alt="Marko Skače" class="card-avatar" />
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Marko skače" alt="Marko Skače" class="card-avatar" />
-          +3
+          <?php 
+          $i = 0;
+          // show first 4 members
+          foreach ($idea['member'] as $member){
+            $i++; if ($i > 4) break;
+          ?>
+            <a href="<?php echo Yii::app()->createUrl("person/".$member['id']); ?>">
+              <img src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" data-tooltip title="<?php echo $member['name']." ".$member['surname']; ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="card-avatar" />
+            </a>
+          <?php } 
+            // extra members
+            if (count($idea['member']) > 4) echo "+".(count($idea['member'])-4);
+          ?>
           <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Has image" alt="Has image" class="card-icons" />
           <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Has file" alt="Has file" class="card-icons" />
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="has image" alt="has image" class="card-icons" />
         </p>
         <hr>
-        Updated: 31.5.2012
+        <?php echo Yii::t('app','Updated {n} day ago|Updated {n} days ago',array(1)); ?>
         <div class="card-floater">
-          <a href=""><?php echo Yii::t('app','details...') ?></a>
+          <a href="<?php echo Yii::app()->createUrl("idea/".$idea['id']); ?>"><?php echo Yii::t('app','details...') ?></a>
         </div>
 		  </div>
 	  </div>
     
   </div>
-</div>
-
-
-<?php if (isset($data_array['ideas'])){ ?>
-
-<div  class="row">
-<?php foreach ($data_array['ideas'] as $user){ ?>    
+  </li>
   
-	
 <?php } ?>
+</ul>
 </div>
-
+  
 <?php } ?>
 
+  
+  <div class="pagination-centered">
+  <ul class="pagination">
+    <li class="arrow unavailable"><a href="">&laquo;</a></li>
+    <li class="current"><a href="">1</a></li>
+    <li><a href="">2</a></li>
+    <li><a href="">3</a></li>
+    <li><a href="">4</a></li>
+    <li class="unavailable"><a href="">&hellip;</a></li>
+    <li><a href="">12</a></li>
+    <li><a href="">13</a></li>
+    <li class="arrow"><a href="">&raquo;</a></li>
+  </ul>
+</div>
 
 <div class="row panel radius">
 	<div class="large-12 small-12 columns">
