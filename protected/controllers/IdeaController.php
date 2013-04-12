@@ -22,6 +22,10 @@ class IdeaController extends GxController {
 	public function accessRules()
 	{
 		return array(
+      array('allow',
+          'actions'=>array('view','create','edit'),
+          'users'=>array("@"),
+      ),
 			array('allow', // allow admins only
 				'users'=>Yii::app()->getModule('user')->getAdmins(),
 			),

@@ -1,5 +1,6 @@
   
 <?php /* ?><div id="intro1" style="background-position: 40% 0px; padding-bottom: 1px; padding-top: 30px;"><?php */ ?>
+<?php if (!Yii::app()->user->getState('fpi')){ ?>
 <div class="intro">
   <div  class="row" >
     <div class="large-12 small-12 columns" style="text-align: center;" >
@@ -19,6 +20,7 @@
     </div>
   </div>
 </div>
+<?php } ?>
 
 
 <div class="row panel radius" style="margin-top: 20px;">
@@ -90,7 +92,7 @@
 	<div class="large-12 small-12 columns radius panel card-person">
     <div class="row card-person-title" onclick="location.href='<?php echo Yii::app()->createUrl("person/".$user['id']); ?>'">
       <div class="large-12 small-12 columns" >
-        <img src="<?php echo avatar_image(Yii::app()->user->getState('avatar_link'),Yii::app()->user->id); ?>" style="height:60px; margin-right: 10px; float:left;" />
+        <img src="<?php echo avatar_image($user['avatar_link'],$user['id']); ?>" style="height:60px; margin-right: 10px; float:left;" />
         <h5><?php echo $user['name']." ".$user['surname']; ?></h5>
         <small class="meta"><?php echo Yii::t('app','Location:') ?> <a>Ljubljana, Slovenia</a></small>
 		  </div>

@@ -98,14 +98,6 @@ return array(
 		),*/
 		// uncomment the following to use a MySQL database
 		'db' => require(dirname(__FILE__) . '/local-db.php'),
-		/*'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=slocoworking',
-			'emulatePrepare' => true,
-			'username' => 'startupstarter',
-			'password' => 'ss1DBzbj',
-			'charset' => 'utf8',
-		),
-		*/
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
@@ -121,8 +113,8 @@ return array(
 				/*
 				array(
 					'class'=>'CWebLogRoute',
-				),
-				*/
+				),*/
+				
 			),
 		),
 

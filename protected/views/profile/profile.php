@@ -2,7 +2,7 @@
   <div class="small-12 large-12 columns edit-header">
     <h3><?php echo Yii::t('app', 'Profile'); ?></h3>
   </div>
-  <div class="small-12 large-12 columns edit-content">
+  <div class="small-12 large-12 columns panel edit-content">
       <?php $form = $this->beginWidget('GxActiveForm', array(
           'id' => 'user-form',
           'enableAjaxValidation' => false,
@@ -47,7 +47,7 @@
   <div class="small-12 large-12 columns edit-header">
     <h3><?php echo Yii::t('app', 'Profile picture'); ?></h3>
   </div>
-  <div class="small-12 large-12 columns edit-content">
+  <div class="small-12 large-12 columns panel edit-content">
     <?php echo $form->labelEx($user,'avatar_link'); ?>
     <?php echo $form->textField($user, 'avatar_link', array('maxlength' => 128)); ?>
     <?php echo $form->error($user,'avatar_link'); ?>    

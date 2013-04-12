@@ -235,7 +235,7 @@ class User extends BaseUser
     }
 
     public function afterSave() {
-        if (get_class(Yii::app())=='CWebApplication'&&Profile::$regMode==false) {
+        if (get_class(Yii::app())=='CWebApplication') {
             Yii::app()->user->updateSession();
         }
         return parent::afterSave();
