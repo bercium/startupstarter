@@ -148,20 +148,17 @@
 <!-- page -->
 <div id="langselect" class="f-dropdown content" data-dropdown-content>
 <ul class="side-nav" style="padding:0;">
-    <li <?php echo (Yii::app()->getLanguage() == "sl" ? 'class="active"' : '')?>>
+  <?php 
+  
+  $langs = ELangPick::getLanguageList();
+  foreach ($langs as $lang){ ?>
+    <li <?php echo (Yii::app()->getLanguage() == $lang['iso'] ? 'class="active"' : '')?>>
      <?php 
-     echo CHtml::link("Slovensko", Yii::app()->homeUrl, array('submit'=>'', 'params'=>array('languagePicker'=>"sl")));
+     echo CHtml::link($lang['native_name'], Yii::app()->homeUrl, array('submit'=>'', 'params'=>array('languagePicker'=>$lang['iso'])));
      ?>
     </li>
-    <li <?php echo (Yii::app()->getLanguage() == "en" ? 'class="active"' : '')?>>
-     <?php 
-     echo CHtml::link("English", Yii::app()->homeUrl, array('submit'=>'', 'params'=>array('languagePicker'=>"en")));
-     ?>
-    </li>
-  <?php
-     //$this->widget('ext.LanguagePicker.ELangPick', array('pickerType' => 'links','buttonsColor' => 'primary',)); ?>
+  <?php } ?>
   </ul>  
-  <?php //$this->widget('ext.LanguagePicker.ELangPick', array('pickerType' => 'links','buttonsColor' => 'primary',)); ?>
 </div>
     
 <div id="drop-login" class="f-dropdown content small" data-dropdown-content>

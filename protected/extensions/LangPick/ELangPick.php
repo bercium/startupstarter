@@ -45,7 +45,7 @@
         * Iterates through messages directories
         * @return array list of avaible languages
         */
-        public static function getLanguages()
+        private static function getLanguages()
         {
             $translations = array();
             $dirs = new DirectoryIterator(Yii::app()->messages->basePath);
@@ -53,6 +53,24 @@
                 if ($dir->isDir() && !$dir->isDot())
                     $translations[$dir->getFilename()] = $dir->getFilename(); 
             return in_array(Yii::app()->sourceLanguage, $translations) ? $translations : array_merge($translations, array(Yii::app()->sourceLanguage => Yii::app()->sourceLanguage));
+        }    
+        
+        /**
+         * 
+         */
+        public static function getLanguageList(){
+          $languages = self::getLanguages();
+          $systemLanguages = Language::model()->findAll();
+          
+          $result = array();
+          foreach ($systemLanguages as $sysLang){
+            if (in_array($sysLang->language_code,$languages)) 
+                $result[] = array("id"=>$sysLang->id, 
+                                  "iso"=>$sysLang->language_code, 
+                                  "native_name"=>$sysLang->native_name);
+          }
+          
+          return $result;
         }    
 
         /**
@@ -126,17 +144,20 @@
         * sets the language and saves to cookie
         * @param $daysExpires integer number of days which cookie will last
         */
-        public static function setLanguage($daysExpires = 100)
+        public static function setLanguage($lang = '', $daysExpires = 100)
         {
-            if (Yii::app()->request->getPost('languagePicker') !== null && in_array($_POST['languagePicker'], self::getLanguages(), true))
+          $langList = self::getLanguages();
+            if ( (Yii::app()->request->getPost('languagePicker') !== null && in_array($_POST['languagePicker'], $langList, true)) || 
+                  ($lang != '' && in_array($lang, $langList, true)))
             {
-                Yii::app()->setLanguage($_POST['languagePicker']);
-                $cookie = new CHttpCookie('language', $_POST['languagePicker']);
+                if ($lang == '') $lang = $_POST['languagePicker'];
+                Yii::app()->setLanguage($lang);
+                $cookie = new CHttpCookie('language', $lang);
                 $cookie->expire = time() + 60 * 60 * 24 * $daysExpires; 
                 Yii::app()->request->cookies['language'] = $cookie;
                 //Yii::app()->session['language'] = $_POST['languagePicker'];
             }
-            else if (isset(Yii::app()->request->cookies['language']) && in_array(Yii::app()->request->cookies['language']->value, self::getLanguages(), true))
+            else if (isset(Yii::app()->request->cookies['language']) && in_array(Yii::app()->request->cookies['language']->value, $langList, true))
             //else if (isset(Yii::app()->session['language']) && in_array(Yii::app()->session['language'], self::getLanguages(), true))
             {
                 Yii::app()->setLanguage(Yii::app()->request->cookies['language']->value);
@@ -151,7 +172,7 @@
             else
             {
                 $preferredLang = explode('_', Yii::app()->getRequest()->getPreferredLanguage());
-                if (in_array($preferredLang[0], self::getLanguages(), true))
+                if (in_array($preferredLang[0], $langList, true))
                     Yii::app()->setLanguage($preferredLang[0]);
             }
         }

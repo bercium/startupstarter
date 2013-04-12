@@ -88,7 +88,7 @@ abstract class BaseUserEdit extends GxActiveRecord {
 			'surname' => Yii::t('app', 'Surname'),
 			'address' => Yii::t('app', 'Address'),
 			'avatar_link' => Yii::t('app', 'Avatar Link'),
-			'language_id' => Yii::t('app', 'Language'),
+			'language_id' => Yii::t('app', 'Page language'),
 			'newsletter' => Yii::t('app', 'Newsletter'),
 			'clickIdeas' => null,
 			'clickUsers' => null,

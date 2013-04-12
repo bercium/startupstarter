@@ -62,6 +62,13 @@ class WebUser extends CWebUser
         }
         Yii::import("ext.ProgressBar.WProgressBar");
         WProgressBar::calculatePerc();
+        
+        // set user language
+        if ($user->language_id !== null){
+            $lang = Language::Model()->findByAttributes(array( 'id' => $user->language_id ) );
+            ELangPick::setLanguage($lang->language_code);
+        }
+        
     }
 
     public function model($id=0) {

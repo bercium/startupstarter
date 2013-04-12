@@ -19,7 +19,10 @@
       <?php echo CHtml::textField("email",$user->email, array("class"=>"small secondary readonly","disabled"=>true)); ?>    
       
       <?php echo CHtml::activeLabelEx($user,'language_id'); ?>
-      <?php echo CHtml::dropDownList($user, 'language_id', GxHtml::listDataEx(Language::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;',"class"=>"small-12 large-6")); ?>
+      <?php echo CHtml::dropDownList('UserEdit[language_id]', $user->language_id,
+              //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
+              CHtml::listData(ELangPick::getLanguageList(),"id","native_name")
+              , array('empty' => '&nbsp;',"class"=>"small-12 large-6")); ?>
 
       <?php echo CHtml::activeLabelEx($user,'newsletter'); ?>
       <div class="switch small round small-2">

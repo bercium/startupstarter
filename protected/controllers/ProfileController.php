@@ -164,13 +164,17 @@ class ProfileController extends GxController {
 					$user->setAttributes($_POST['UserEdit']);
 
 					if ($user->save()) {
+            if ($user->language_id !== null){
+              $lang = Language::Model()->findByAttributes(array( 'id' => $user->language_id ) );
+              ELangPick::setLanguage($lang->language_code);
+            }
 
-						if (Yii::app()->getRequest()->getIsAjaxRequest())
+						/*if (Yii::app()->getRequest()->getIsAjaxRequest())
 							Yii::app()->end();
-						else{
+						else{*/
               Yii::app()->user->setFlash('settingsMessage',UserModule::t("Settings saved."));
               //$this->redirect(array('profile/account/'));
-            }
+            //}
 					}
 				}
         
