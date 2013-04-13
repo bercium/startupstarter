@@ -6,12 +6,13 @@
     <h3><?php echo Yii::t('app', 'Edit project'); ?></h3>
   </div>
   <div class="small-12 large-12 columns panel edit-content">
-    <?php
-    $this->renderPartial('_formidea', array(
-        'idea' => $idea,
-        'translation' => $translation,
-        'buttons' => 'create'));
-    ?>
+  <?php
+  $this->renderPartial('_formidea', array(
+      'idea' => $idea,
+      'data' => $data,
+      'buttons' => 'edit',
+      'translation' => $translation));
+  ?>
   </div>
 </div>
 

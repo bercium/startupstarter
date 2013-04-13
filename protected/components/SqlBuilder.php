@@ -15,6 +15,7 @@ class SqlBuilder {
 		$language = Language::Model()->findByAttributes( array( 'language_code' => $filter['lang'] ) );
 		$filter['lang'] = $language->id;
 
+
 		switch ($action) {
 			//frontpage controller
 		    case "recent_candidate":
@@ -25,7 +26,9 @@ class SqlBuilder {
 		        break;
 		    //idea related controllers
 		    case "idea":
+		    	if(isset($filter['idea_id'])){
 		        return $this->idea("idea", $filter);
+		        }
 		        break;
 		    //user related controllers
 		    case "user":
@@ -77,8 +80,6 @@ class SqlBuilder {
 					"WHERE i.id = '{$filter['idea_id']}' ".
 					"AND i.status_id = ist.id ".
 					"AND i.deleted = 0 ";
-
-			echo $sql;
 		}
 
  		$connection=Yii::app()->db;
@@ -109,7 +110,7 @@ class SqlBuilder {
 	}
 
 	public function translation($type, $filter){
-    $array = array();
+
 		if($type == 'userlang'){
 			$sql=		"SELECT it.id AS translation_id, it.title, it.pitch, it.description, it.description_public, it.tweetpitch, it.language_id, l.name AS language, l.language_code FROM ".
 						"`idea` AS i,`idea_translation` AS it,`language` AS l ".
@@ -117,12 +118,13 @@ class SqlBuilder {
 						"AND l.id = it.language_id ".
 						"AND it.deleted = 0 ".
 						"AND it.idea_id = {$filter['idea_id']} ".
-						"AND it.language_id = {$filter['lang']}";
+						"ORDER BY FIELD(it.language_id, '{$filter['lang']}') DESC";			
 
 			$connection=Yii::app()->db;
 			$command=$connection->createCommand($sql);
 			$dataReader=$command->query();
 			//read data, build array, call contained functions
+			$array = NULL;
 			while(($row=$dataReader->read())!==false) {
 				$array = $row;
 			}
@@ -138,6 +140,7 @@ class SqlBuilder {
 			$command=$connection->createCommand($sql);
 			$dataReader=$command->query();
 			//read data, build array, call contained functions
+			$array = NULL;
 			while(($row=$dataReader->read())!==false) {
 				$array[$row['id']] = $row;
 			}

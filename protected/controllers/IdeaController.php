@@ -1,7 +1,7 @@
 <?php
 
 class IdeaController extends GxController {
-  
+
 
 	/**
 	 * @return array action filters
@@ -22,10 +22,10 @@ class IdeaController extends GxController {
 	public function accessRules()
 	{
 		return array(
-      array('allow',
-          'actions'=>array('view','create','edit'),
-          'users'=>array("@"),
-      ),
+		    array('allow',
+		        'actions'=>array('view','create','edit'),
+		        'users'=>array("@"),
+		    ),
 			array('allow', // allow admins only
 				'users'=>Yii::app()->getModule('user')->getAdmins(),
 			),
@@ -71,9 +71,21 @@ class IdeaController extends GxController {
 		$this->render('index', array('data' => $data));
 	}
 
-	public function actionCreate() {
-    $this->layout="//layouts/edit";
-    
+	public function actionView($id, $lang = NULL) {
+		$sqlbuilder = new SqlBuilder;
+		$filter = array( 'idea_id' => $id);
+		if($lang){
+			$filter['lang'] = $lang;
+		}
+
+		$data['idea'] = $sqlbuilder->load_array("idea", $filter);
+
+		$this->render('view', array('data' => $data));
+	}
+
+	public function actionCreate(){
+		$this->layout="//layouts/edit";
+
 		$idea = new Idea;
 		$translation = new IdeaTranslation;
 
@@ -98,21 +110,9 @@ class IdeaController extends GxController {
 		$this->render('createidea', array( 'idea' => $idea, 'translation' => $translation ));
 	}
 
-	public function actionView($id, $lang = NULL) {
-		$sqlbuilder = new SqlBuilder;
-		$filter = array( 'idea_id' => $id);
-		if($lang){
-			$filter['lang'] = $lang;
-		}
-
-		$data['idea'] = $sqlbuilder->load_array("idea", $filter);
-
-		$this->render('view', array('data' => $data));
-	}
-
 	public function actionEdit($id, $lang = NULL) { //can take different languages to edit
-    $this->layout="//layouts/edit";
-    
+		$this->layout="//layouts/edit";
+
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
 		if($idea){
 
@@ -196,6 +196,12 @@ class IdeaController extends GxController {
 
 			if (isset($_POST['IdeaTranslation'])) {
 				$_POST['IdeaTranslation']['idea_id'] = $id;
+
+				$exists = IdeaTranslation::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'language_id' => $_POST['IdeaTranslation']['language_id'], 'deleted' => 0 ) );
+				if($exists){
+					$language = $this->loadModel($exists->language_id, 'Language');
+					$this->redirect(Yii::app()->createUrl("idea/editTranslation", array('id' => $id, "lang"=>$language->language_code)));
+				}
 
 				$translation->setAttributes($_POST['IdeaTranslation']);
 				if ($translation->save()) {

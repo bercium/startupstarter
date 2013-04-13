@@ -3,5 +3,5 @@
 <?php
 $this->renderPartial('_formtranslation', array(
 		'translation' => $translation,
-		'buttons' => 'create'));
+		'buttons' => 'edit'));
 ?>
