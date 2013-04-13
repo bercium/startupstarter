@@ -34,13 +34,6 @@
 		<?php echo $form->error($model,'city_id'); ?>
 		</div><!-- row -->
 
-		<label><?php echo GxHtml::encode($model->getRelationLabel('ideaMembers')); ?></label>
-		<?php echo $form->checkBoxList($model, 'ideaMembers', GxHtml::encodeEx(GxHtml::listDataEx(IdeaMember::model()->findAllAttributes(null, true)), false, true)); ?>
-		<label><?php echo GxHtml::encode($model->getRelationLabel('userCollabprefs')); ?></label>
-		<?php echo $form->checkBoxList($model, 'userCollabprefs', GxHtml::encodeEx(GxHtml::listDataEx(UserCollabpref::model()->findAllAttributes(null, true)), false, true)); ?>
-		<label><?php echo GxHtml::encode($model->getRelationLabel('userSkills')); ?></label>
-		<?php echo $form->checkBoxList($model, 'userSkills', GxHtml::encodeEx(GxHtml::listDataEx(UserSkill::model()->findAllAttributes(null, true)), false, true)); ?>
-
 <?php
 echo GxHtml::submitButton(Yii::t('app', 'Save'));
 $this->endWidget();
