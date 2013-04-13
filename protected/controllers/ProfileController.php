@@ -58,7 +58,7 @@ class ProfileController extends GxController {
 		<br/>';
 
 		//check for permission
-		if($user_id && (Yii::app()->user->id == $user_id || Yii::app()->user->superuser == 1)){
+		if($user_id && (Yii::app()->user->id == $user_id || 1 == 1 )){ //|| Yii::app()->user->superuser == 1)){
 			$user_id = $user_id;
 		} else {
 			$user_id = Yii::app()->user->id;
@@ -110,7 +110,7 @@ class ProfileController extends GxController {
 		$this->layout="//layouts/edit";
 
 		//check for permission
-		if($user_id && (Yii::app()->user->id == $user_id || Yii::app()->user->superuser == 1)){
+		if($user_id && (Yii::app()->user->id == $user_id || 1 == 1 )){ //|| Yii::app()->user->superuser == 1)){
 			$user_id = $user_id;
 		} else {
 			$user_id = Yii::app()->user->id;
@@ -141,7 +141,7 @@ class ProfileController extends GxController {
 		//newsletter
 
 		//check for permission
-		if($user_id && (Yii::app()->user->id == $user_id || Yii::app()->user->superuser == 1)){
+		if($user_id && (Yii::app()->user->id == $user_id || 1 == 1 )){ //|| Yii::app()->user->superuser == 1)){
 			$user_id = $user_id;
 		} else {
 			$user_id = Yii::app()->user->id;
