@@ -216,6 +216,7 @@ sidebar  .content {
   background-color:#f6f6fa;
   }
 
+div[onclick].panel,
 div[onclick].card-person-title, div[onclick].card-idea-title{
   cursor: pointer;
 }
