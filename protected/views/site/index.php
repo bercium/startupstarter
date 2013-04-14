@@ -254,10 +254,10 @@
 </div>
 
 
-<?php if (isset($data_array['ideas'])){ ?>
+<?php if (isset($data['idea'])){ ?>
 
 <div  class="row">
-<?php foreach ($data_array['ideas'] as $user){ ?>    
+<?php foreach ($data['idea'] as $user){ ?>    
   
 	
 <?php } ?>

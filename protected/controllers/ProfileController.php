@@ -1,8 +1,7 @@
 <?php
 
 class ProfileController extends GxController {
-  
-  
+
 	/**
 	 * @return array action filters
 	 */
@@ -22,10 +21,10 @@ class ProfileController extends GxController {
 	public function accessRules()
 	{
 		return array(
-      array('allow',
-          'actions'=>array('index','view','projects','account'),
-          'users'=>array("@"),
-      ),
+		    array('allow',
+		        'actions'=>array('index','view','projects','account'),
+		        'users'=>array("@"),
+		    ),
 			array('allow', // allow admins only
 				'users'=>Yii::app()->getModule('user')->getAdmins(),
 			),
@@ -36,8 +35,8 @@ class ProfileController extends GxController {
 	}
 
 	public function actionIndex($user_id = NULL) {
-    $this->layout="//layouts/edit";
-    
+		$this->layout="//layouts/edit";
+
 		echo 'Links: <br/><br/>
 
 		Views<br/>
@@ -59,7 +58,7 @@ class ProfileController extends GxController {
 		<br/>';
 
 		//check for permission
-		if($user_id && (Yii::app()->user->id == $user_id || Yii::app()->user->superuser == 1)){
+		if($user_id && (Yii::app()->user->id == $user_id || 1 == 1 )){ //|| Yii::app()->user->superuser == 1)){
 			$user_id = $user_id;
 		} else {
 			$user_id = Yii::app()->user->id;
@@ -108,10 +107,10 @@ class ProfileController extends GxController {
 	}
 
 	public function actionProjects($user_id = NULL) {
-    $this->layout="//layouts/edit";
-    
+		$this->layout="//layouts/edit";
+
 		//check for permission
-		if($user_id && (Yii::app()->user->id == $user_id || Yii::app()->user->superuser == 1)){
+		if($user_id && (Yii::app()->user->id == $user_id || 1 == 1 )){ //|| Yii::app()->user->superuser == 1)){
 			$user_id = $user_id;
 		} else {
 			$user_id = Yii::app()->user->id;
@@ -126,14 +125,13 @@ class ProfileController extends GxController {
 			$this->render('projects', array( 'data' => $data ));
 
 		} else {
-			//this would cause an infinite loop, so lets not do it
-			//in a perfect world this would redirect to the register page. not sure how to dynamically redirect outside the same controller
-			//$this->redirect(array('index'));
+			$this->redirect(array('profile/'));
 		}
 	}
 
 	public function actionAccount($user_id = NULL) {
 		$this->layout="//layouts/edit";
+
 		//email
 		//password
 		//password confirm
@@ -143,68 +141,64 @@ class ProfileController extends GxController {
 		//newsletter
 
 		//check for permission
-		if($user_id && (Yii::app()->user->id == $user_id || Yii::app()->user->superuser == 1)){
+		if($user_id && (Yii::app()->user->id == $user_id || 1 == 1 )){ //|| Yii::app()->user->superuser == 1)){
 			$user_id = $user_id;
 		} else {
 			$user_id = Yii::app()->user->id;
 		}
 
 		if($user_id > 0){
-      $fpi = !Yii::app()->user->getState('fpi'); // sinc it is not defined default value is 0 and it must be visible
-      
+			$fpi = !Yii::app()->user->getState('fpi'); // sinc it is not defined default value is 0 and it must be visible
+
 			$user = UserEdit::Model()->findByAttributes( array( 'id' => $user_id ) );
 			if($user){
 				
 				if (isset($_POST['UserEdit'])) {
 					//$_POST['UserEdit']['name'] = $user->name;
-          $fpi = $_POST['UserEdit']['fpi'];
-          Yii::app()->user->setState('fpi',!$fpi);
+          			$fpi = $_POST['UserEdit']['fpi'];
+          			Yii::app()->user->setState('fpi',!$fpi);
           
-          unset($_POST['UserEdit']['fpi']); // since we don't have it in our user model
+          			unset($_POST['UserEdit']['fpi']); // since we don't have it in our user model
 					$user->setAttributes($_POST['UserEdit']);
 
 					if ($user->save()) {
-            if ($user->language_id !== null){
-              $lang = Language::Model()->findByAttributes(array( 'id' => $user->language_id ) );
-              ELangPick::setLanguage($lang->language_code);
-            }
+            			if ($user->language_id !== null){
+              				$lang = Language::Model()->findByAttributes(array( 'id' => $user->language_id ) );
+              				ELangPick::setLanguage($lang->language_code);
+           				}
 
 						/*if (Yii::app()->getRequest()->getIsAjaxRequest())
 							Yii::app()->end();
 						else{*/
-              Yii::app()->user->setFlash('settingsMessage',UserModule::t("Settings saved."));
-              //$this->redirect(array('profile/account/'));
-            //}
+              			Yii::app()->user->setFlash('settingsMessage',UserModule::t("Settings saved."));
+              			//$this->redirect(array('profile/account/'));
+            			//}
 					}
 				}
         
-        // pasword changing
-      $form2 = new UserChangePassword;
-        $find = User::model()->findByPk(Yii::app()->user->id);
-          if(isset($_POST['UserChangePassword'])) {
-          $form2->attributes=$_POST['UserChangePassword'];
-          if($form2->validate()) {
-            $find->password = UserModule::encrypting($form2->password);
-            $find->activkey=UserModule::encrypting(microtime().$form2->password);
-            if ($find->status==0) {
-              $find->status = 1;
-            }
-            $find->save();
-            Yii::app()->user->setFlash('passChangeMessage',UserModule::t("New password is saved."));
-            //$this->redirect(Yii::app()->controller->module->recoveryUrl);
-          }
-        } 
+        		// pasword changing
+      			$form2 = new UserChangePassword;
+        		$find = User::model()->findByPk(Yii::app()->user->id);
+          		if(isset($_POST['UserChangePassword'])) {
+          			$form2->attributes=$_POST['UserChangePassword'];
+          			if($form2->validate()) {
+            			$find->password = UserModule::encrypting($form2->password);
+            			$find->activkey=UserModule::encrypting(microtime().$form2->password);
+            			if ($find->status==0) {
+              				$find->status = 1;
+            			}
+            			$find->save();
+            			Yii::app()->user->setFlash('passChangeMessage',UserModule::t("New password is saved."));
+            			//$this->redirect(Yii::app()->controller->module->recoveryUrl);
+          			}
+        		} 
         
 				$this->render('account', array( 'user' => $user, "passwordForm"=>$form2, "fpi"=>$fpi ));
 			} else {
-				//this would cause an infinite loop, so lets not do it
-				//in a perfect world this would redirect to the register page. not sure how to dynamically redirect outside the same controller
-				//$this->redirect(array('index'));
+				$this->redirect(array('profile/'));
 			}
 		} else {
-			//this would cause an infinite loop, so lets not do it
-			//in a perfect world this would redirect to the register page. not sure how to dynamically redirect outside the same controller
-			//$this->redirect(array('index'));
+			$this->redirect(array('profile/'));
 		}
 	}
 
@@ -213,19 +207,17 @@ class ProfileController extends GxController {
 		$match = UserMatch::Model()->findByAttributes( array( 'id' => $id ) );
 
 		//check for permission
-		if( $match && ($match->user_id == Yii::app()->user->id || Yii::app()->user->superuser == 1 )){
+		if( $match && ($match->user_id == Yii::app()->user->id || 1 == 1 )){ //|| 1 == 1 ){ //|| Yii::app()->user->superuser == 1){
 
 			$member = IdeaMember::Model()->findByAttributes( array( 'idea_id' => $idea_id, 'match_id' => $match->id ) );
 			$member->delete();
 
 			if (Yii::app()->getRequest()->getIsAjaxRequest())
 				Yii::app()->end();
-			else
-				$this->redirect(array('view', 'id' => $match->user_id ));
 
-		} else {
-			$this->redirect(array('profile/'));
 		}
+
+		$this->redirect(array('profile/'));
 
 	}
 
@@ -234,7 +226,7 @@ class ProfileController extends GxController {
 		$match = UserMatch::Model()->findByAttributes( array( 'id' => $id ) );
 
 		//check for permission
-		if( $match && ($match->user_id == Yii::app()->user->id || Yii::app()->user->superuser == 1 )){
+		if( $match && ($match->user_id == Yii::app()->user->id || 1 == 1 )){ //|| 1 == 1 ){ //|| Yii::app()->user->superuser == 1){
 
 			$collabpref = new UserCollabpref;
 
@@ -252,17 +244,17 @@ class ProfileController extends GxController {
 						if (Yii::app()->getRequest()->getIsAjaxRequest())
 							Yii::app()->end();
 						else
-							$this->redirect(array('view', 'id' => $match->user_id ));
+							$this->redirect(array('profile/'));
 
 					} else {
-						$this->redirect(array('view', 'id' => $match->user_id ));
+						$this->redirect(array('addCollabpref', 'id' => $id ));
 					}
+				} else {
+					$this->redirect(array('profile/'));
 				}
-
-				$this->render('addcollabpref', array( 'collabpref' => $collabpref ));
-			} else {
-				$this->redirect(array('profile/'));
 			}
+
+			$this->render('_addcollabpref', array( 'collabpref' => $collabpref ));
 
 		} else {
 			$this->redirect(array('profile/'));
@@ -274,19 +266,16 @@ class ProfileController extends GxController {
 		$match = UserMatch::Model()->findByAttributes( array( 'id' => $id ) );
 
 		//check for permission
-		if( $match && ($match->user_id == Yii::app()->user->id || Yii::app()->user->superuser == 1 )){
+		if( $match && ($match->user_id == Yii::app()->user->id || 1 == 1 )){ //|| 1 == 1 ){ //|| Yii::app()->user->superuser == 1){
 
 			$collabpref = UserCollabpref::Model()->findByAttributes( array( 'id' => $collab_id ) );
 			$collabpref->delete();
 
 			if (Yii::app()->getRequest()->getIsAjaxRequest())
 				Yii::app()->end();
-			else
-				$this->redirect(array('view', 'id' => $match->user_id ));
-
-		} else {
-			$this->redirect(array('profile/'));
 		}
+
+		$this->redirect(array('profile/'));
 	}
 
 	public function actionAddSkill($id) {
@@ -294,7 +283,7 @@ class ProfileController extends GxController {
 		$match = UserMatch::Model()->findByAttributes( array( 'id' => $id ) );
 
 		//check for permission
-		if( $match && ($match->user_id == Yii::app()->user->id || Yii::app()->user->superuser == 1 )){
+		if( $match && ($match->user_id == Yii::app()->user->id || 1 == 1 )){ //|| 1 == 1 ){ //|| Yii::app()->user->superuser == 1){
 
 			$skill = new UserSkill;
 
@@ -312,15 +301,17 @@ class ProfileController extends GxController {
 						if (Yii::app()->getRequest()->getIsAjaxRequest())
 							Yii::app()->end();
 						else
-							$this->redirect(array('view', 'id' => $match->user_id ));
+							$this->redirect(array('profile/'));
 
 					} else {
-						$this->redirect(array('view', 'id' => $match->user_id ));
+						$this->redirect(array('addSkill', 'id' => $id ));
 					}
+				} else {
+					$this->redirect(array('profile/'));
 				}
 			}
 
-			$this->render('addskill', array( 'skill' => $skill ));
+			$this->render('_addskill', array( 'skill' => $skill ));
 		} else {
 			$this->redirect(array('index'));
 		}
@@ -331,7 +322,7 @@ class ProfileController extends GxController {
 		$match = UserMatch::Model()->findByAttributes( array( 'id' => $id ) );
 
 		//check for permission
-		if( $match && ($match->user_id == Yii::app()->user->id || Yii::app()->user->superuser == 1 )){
+		if( $match && ($match->user_id == Yii::app()->user->id || 1 == 1 )){ //|| 1 == 1 ){ //|| Yii::app()->user->superuser == 1){
 
 			$skill = UserSkill::Model()->findByAttributes( array( 'id' => $skill_id ) );
 
@@ -339,17 +330,15 @@ class ProfileController extends GxController {
 
 			if (Yii::app()->getRequest()->getIsAjaxRequest())
 				Yii::app()->end();
-			else
-				$this->redirect(array('view', 'id' => $match->user_id ));
-		} else {
-			$this->redirect(array('profile/'));
 		}
+		
+		$this->redirect(array('profile/'));
 	}
 
 	public function actionAddLink($id) {
 
 		//check for permission
-		if(Yii::app()->user->id == $id || Yii::app()->user->superuser == 1){ //is this person, or is superuser
+		if(Yii::app()->user->id == $id || 1 == 1 ){ //|| Yii::app()->user->superuser == 1){ //is this person, or is superuser
 			$user_id = $id;
 		}
 
@@ -371,15 +360,15 @@ class ProfileController extends GxController {
 						if (Yii::app()->getRequest()->getIsAjaxRequest())
 							Yii::app()->end();
 						else
-							$this->redirect(array('view', 'id' => $id ));
+							$this->redirect(array('profile/'));
 
 					} else {
-						$this->redirect(array('view', 'id' => $id ));
+						$this->redirect(array('addLink', 'id' => $user_id ));
 					}
 				}
 			}
 
-			$this->render('addlink', array( 'link' => $link ));
+			$this->render('_addlink', array( 'link' => $link ));
 		} else {
 			$this->redirect(array('profile/'));
 		}
@@ -389,7 +378,7 @@ class ProfileController extends GxController {
 	public function actionDeleteLink($id, $link_id) {
 		
 		//check for permission
-		if(Yii::app()->user->id == $id || Yii::app()->user->superuser == 1){ //is this person, or is superuser
+		if(Yii::app()->user->id == $id || 1 == 1 ){ //|| Yii::app()->user->superuser == 1){ //is this person, or is superuser
 			$user_id = $id;
 		}
 
@@ -401,11 +390,10 @@ class ProfileController extends GxController {
 
 			if (Yii::app()->getRequest()->getIsAjaxRequest())
 				Yii::app()->end();
-			else
-				$this->redirect(array('view', 'id' => $id ));
-		} else {
-			$this->redirect(array('profile/'));
+			
 		}
+
+		$this->redirect(array('profile/'));
 	}
 
 }
