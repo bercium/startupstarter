@@ -8,11 +8,20 @@
       <h1>With the <span>right team</span> any <span>idea</span> can change your life</h1>
 
       <div class="row">
-        <div class="large-6 large-centered small-12 columns">
+        <div class="large-6 small-12 columns">
           <p>
             <?php echo CHtml::encode(Yii::t('app','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.')); ?>
           </p>
         </div>
+        <div class="large-6 small-12 columns">
+          <br>
+          <br>
+          <a href="#" class="button round large success" >Register here </a> 
+          <a href="#" class="button round large secondary" >Login </a>
+
+        </div>
+
+
       </div>
 
       <a href="#" class="close" data-tooltip title="<?php echo CHtml::encode(Yii::t('app','Hide intro')); ?>" onclick="$('.intro').slideUp('slow');"> &#x25B2; </a>
@@ -245,7 +254,7 @@
         <hr>
         <small class="meta">Updated: 31.5.2012</small>
         <div class="card-floater">
-          <a href=""><?php echo Yii::t('app','details...') ?></a>
+          <a class="button small radius"  href=""><?php echo Yii::t('app','details') ?></a>
         </div>
 		  </div>
 	  </div>
