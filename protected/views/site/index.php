@@ -16,8 +16,8 @@
         <div class="large-6 small-12 columns">
           <br>
           <br>
-          <a href="#" class="button round large success" >Register here </a> 
-          <a href="#" class="button round large secondary" >Login </a>
+          <a href="#" class="button round medium success" >Register here </a> 
+          <a href="#" class="button round medium secondary" >Login </a>
 
         </div>
 
