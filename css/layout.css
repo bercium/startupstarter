@@ -225,6 +225,9 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 	margin-top: 5px;
 }
 
+.login-floater{
+  float:right;
+}
 
 .card-floater{
   float:right; 

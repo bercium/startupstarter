@@ -1,9 +1,8 @@
 <?php
 
-class WProgressBar extends CWidget
+class WProfileInfo extends CWidget
 {
-    public $height = '';
-    public $showPerc = false;
+    public $detail = false;
   
     public function init()
     {
@@ -12,14 +11,11 @@ class WProgressBar extends CWidget
       else if ($perc < 80) $percClass = '';
       else $percClass = 'success';
       
-      $class = "";
-      if ($this->height) $class = 'style="height:'.$this->height.'px;"';
-      
-      $style = '';
-      if ($this->showPerc) $style = 'line-height:'.($this->height - 4).'px;"';
-      
-                      
-      echo'<div class="progress '.$percClass.' round" '.$class.'><span class="meter" style="width:'.$perc.'%; text-align:center; font-size:10px; vertical-align:middle; '.$style.'">'.($this->showPerc?$perc."%":'').'</span></div>';
+      if ($this->detail){
+        $user = User::model()->findByPk(Yii::app()->user->id);
+        $this->render("detail",array("perc"=>$perc,"percClass"=>$percClass,"memberDate"=>$user->create_at,"hint"=>"En hint kako povečati progress bar."));
+      }
+      else $this->render("simple",array("perc"=>$perc,"percClass"=>$percClass));
     }
  
     public function run()
@@ -28,7 +24,6 @@ class WProgressBar extends CWidget
     }
     
     public static function calculatePerc(){
-
       $perc = 0; //rand(1,100);
       if (Yii::app()->user->id){
         $user = User::model()->findByPk(Yii::app()->user->id);

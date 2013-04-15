@@ -60,7 +60,7 @@ class WebUser extends CWebUser
         foreach ($userAttributes as $attrName=>$attrValue) {
             $this->setState($attrName,$attrValue);
         }
-        Yii::import("ext.ProgressBar.WProgressBar");
+        Yii::import("ext.ProfileInfo.WProfileInfo");
         WProgressBar::calculatePerc();
         
         // set user language

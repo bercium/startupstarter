@@ -3,15 +3,7 @@
 
 <div class="row" style="margin-top:20px;">
   <div class="small-12 large-3 columns">
-    <div class="profile-info">
-      Profile completeness:
-      <?php $this->widget('ext.ProgressBar.WProgressBar'); ?>
-      Member since: <strong>30.11.2011</strong>
-    </div>
-    <div data-alert class="alert-box radius">
-      Hinti o tem kako povečati progress bar
-      <a href="#" class="close">&times;</a>
-    </div>
+    <?php $this->widget('ext.ProfileInfo.WProfileInfo',array("detail"=>true)); ?>
     <?php $this->widget('ext.SidebarEditMenu.WEditSidebar'); ?>
   </div>
   <div class="small-12 large-9 columns">
