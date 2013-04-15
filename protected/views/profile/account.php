@@ -16,10 +16,10 @@
       <?php echo CHtml::errorSummary($user,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
     
       <?php echo CHtml::activeLabelEx($user,'email'); ?>
-      <?php echo CHtml::textField("email",$user->email, array("class"=>"small secondary readonly","disabled"=>true)); ?>    
+      <?php echo CHtml::activeTextField($user,"email", array("class"=>"small secondary readonly","disabled"=>true)); ?>    
       
       <?php echo CHtml::activeLabelEx($user,'language_id'); ?>
-      <?php echo CHtml::dropDownList('UserEdit[language_id]', $user->language_id,
+      <?php echo CHtml::activedropDownList($user,'language_id', 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
               CHtml::listData(ELangPick::getLanguageList(),"id","native_name")
               , array('empty' => '&nbsp;',"class"=>"small-12 large-6")); ?>
