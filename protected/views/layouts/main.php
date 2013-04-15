@@ -74,8 +74,14 @@
               </li>
               <li class="divider"></li>
               <?php if (Yii::app()->user->isAdmin()){ ?>
-              <li class="<?php echo isMenuItemActive("list"); ?>">
+              <li class="<?php echo isMenuItemActive("list"); ?> has-dropdown">
                 <a href="<?php echo Yii::app()->createUrl("site/list"); ?>"><?php echo CHtml::encode(Yii::t('app','Admin')); ?></a>
+                
+                <ul class="dropdown">
+                  <li><a href="<?php echo Yii::app()->createUrl("newsletter"); ?>"><?php echo CHtml::encode(Yii::t('app','Newsletter')); ?></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("backendAuditTrail"); ?>"><?php echo CHtml::encode(Yii::t('app','Logs')); ?></a></li>
+                </ul>
+                
               </li>
               <li class="divider"></li>
               <?php } ?>

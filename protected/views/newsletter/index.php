@@ -1,32 +1,26 @@
 
+<div class="row">
+  <div class="small-12 large-12 columns edit-header">
+    <h3><?php echo Yii::t('app', 'Newsletter'); ?></h3>
+  </div>
+  <div class="small-12 large-12 columns panel edit-content">
 
-<?php if(Yii::app()->user->hasFlash('newsletter')): ?>
+    <?php if(Yii::app()->user->hasFlash('newsletter')){ ?>
+    <div data-alert class="alert-box radius success">
+      <?php echo Yii::app()->user->getFlash('newsletter'); ?>
+      <a href="#" class="close">&times;</a>
+    </div>
+    <?php } ?>
+    
+      <?php echo CHtml::beginForm('','post',array('class'=>"custom")); ?>
 
-<div class="flash-success">
-	<?php echo Yii::app()->user->getFlash('newsletter'); ?>
-</div>
+      <?php echo CHtml::errorSummary($model,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
 
-<?php else: ?>
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'newsletter-form',
-	'clientOptions'=>array(
-		'validateOnSubmit'=>true,
-	),
-)); ?>
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+      <?php echo CHtml::activeLabelEx($model,'newsletterTitle'); ?>
+      <?php echo CHtml::activeTextField($model,'newsletterTitle'); ?>
 
-	<?php //echo $form->errorSummary($model); ?>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'newsletterTitle'); ?>
-		<?php echo $form->textField($model,'newsletterTitle'); ?>
-		<?php //echo $form->error($model,'newsletterTitle'); ?>
-	</div>
-
-  
-	<div class="row">
-    <?php echo $form->labelEx($model,'newsletter'); ?>
-		<?php $form->widget('ext.tinymce.TinyMce', array(
+      <?php echo CHtml::activeLabelEx($model,'newsletter'); ?>
+      <?php $this->widget('ext.tinymce.TinyMce', array(
            'model' => $model, 
            'attribute' => 'newsletter',
             // Optional config
@@ -49,14 +43,15 @@
             'theme_advanced_buttons4' => "",
           ),
         )); ?>
-		<?php //echo $form->error($model,'newsletter'); ?>
-	</div>
-<br />
-  	<div class="row buttons">
-		<?php echo CHtml::submitButton('Send mail'); ?>
-	</div>
+    
+      <br />
+    
+      <?php echo CHtml::submitButton(Yii::t("app","Send newsletter"),
+                  array('class'=>"button small alert radius",
+                        'confirm'=>Yii::t("app","Are you sure?") )
+              ); ?>
 
-<?php $this->endWidget(); ?>
-
-
-<?php endif; ?>
+    <?php echo CHtml::endForm(); ?>
+  
+  </div>
+</div>
