@@ -47,7 +47,7 @@
 
 <div class="container">
 
-  
+<div class="header-wrap">
 <div class="row header" >
   <div class="small-12 large-12" >
     <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
@@ -58,6 +58,7 @@
     </a>
   </div>
 </div>
+</div><!-- end header-wrap -->
   
   <div class="sticky top-bar-holder" >
       <div class="row">
@@ -134,13 +135,9 @@
         </nav>
     </div>
   </div>
-
 </div>
 
-
-<?php echo $content; ?>
-
-  
+<?php echo $content; ?>  
 <div class="footer">
 <div class="row">
   <div class="small-12 large-8 push-4 columns footer-links">
