@@ -89,9 +89,16 @@
 
 <div class="row">
   <div class="small-12 large-12 columns edit-header">
+    <div class="edit-floater">
+          <?php echo CHtml::submitButton(Yii::t("app","Open"),
+                array('class'=>"button small secondary radius",
+                      'onclick'=>"$('#deactivate').show();"
+                    )
+            ); ?>
+    </div>
     <h3><?php echo Yii::t('app', 'Deactivate account'); ?></h3>
   </div>
-  <div class="small-12 large-12 columns panel edit-content ">
+  <div class="small-12 large-12 columns panel edit-content" id="deactivate" style="display:none;">
     <p>
       <?php echo Yii::t('app', 'To deactivate your account change its status to off and click deactivate. You will then be loged out of the system.'); ?>
       <br />
@@ -107,16 +114,16 @@
     <?php echo CHtml::label(Yii::t('app', 'Account status'),'deactivate_account'); ?>
     <div class="switch small round small-2">
       <input id="deactivate_account_0" name="deactivate_account" type="radio" value="1" >
-      <label for="newsletter_0" onclick="">Off</label>
+      <label for="deactivate_account_0" onclick="">Off</label>
 
       <input id="deactivate_account_1" name="deactivate_account" type="radio" value="0" checked="checked">
-      <label for="newsletter_1" onclick="">On</label>
+      <label for="deactivate_account_1" onclick="">On</label>
       <span></span>
     </div>    
 
     <?php echo CHtml::submitButton(Yii::t("app","Deactivate account"),
                 array('class'=>"button small alert radius",
-                      'confirm'=>Yii::t("app","Are you sure?") )
+                      'confirm'=>Yii::t("app","This action will deactivate your account.\nAre you sure?") )
             ); ?>
 
     <?php echo CHtml::endForm(); ?>

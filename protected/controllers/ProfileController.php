@@ -93,8 +93,8 @@ class ProfileController extends GxController {
 			if($user){
 
 				$match = UserMatch::Model()->findByAttributes( array( 'user_id' => $user_id ) );
-				
-				if (isset($_POST['UserEdit']) && isset($_POST['UserMatch'])) {
+
+        if (isset($_POST['UserEdit']) && isset($_POST['UserMatch'])) {
 					$user->setAttributes($_POST['UserEdit']);
           
           Yii::app()->user->setFlash('avatarMessage',UserModule::t("dela"));
@@ -224,7 +224,11 @@ class ProfileController extends GxController {
               			//$this->redirect(array('profile/account/'));
             			//}
 					}
-				}
+				}else
+        if (isset($_POST['deactivate_account']) && ($_POST['deactivate_account'] == 1)) {
+          $user->status = 0;
+          if ($user->save()) $this->redirect(array('user/logout'));
+        }
         
         		// pasword changing
       			$form2 = new UserChangePassword;
