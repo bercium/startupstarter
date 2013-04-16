@@ -1,4 +1,15 @@
-<?php /* @var $this Controller */ ?>
+<?php 
+    $baseUrl = Yii::app()->baseUrl; 
+    $cs = Yii::app()->getClientScript();
+
+    // general controller JS
+    if (file_exists("js/controllers/".Yii::app()->controller->id."/controller.js"))
+      $cs->registerScriptFile($baseUrl."/js/controllers/".Yii::app()->controller->id."/controller.js",CClientScript::POS_END);
+    // specific action JS
+    if (file_exists("js/controllers/".Yii::app()->controller->id."/".$this->action->id.".js"))
+      $cs->registerScriptFile($baseUrl."/js/controllers/".Yii::app()->controller->id."/".$this->action->id.".js",CClientScript::POS_END);
+
+/* @var $this Controller */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>

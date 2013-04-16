@@ -81,10 +81,10 @@ class ProfileController extends GxController {
 
 						if ($match->save()) {
 
-							if (Yii::app()->getRequest()->getIsAjaxRequest())
+							/*if (Yii::app()->getRequest()->getIsAjaxRequest())
 								Yii::app()->end();
 							else
-									$this->redirect(array('profile/'));
+									$this->redirect(array('profile/'));*/
 						}
 					}
 				}

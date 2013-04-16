@@ -12,43 +12,32 @@
     <h3><?php echo Yii::t('app', 'Personal detail'); ?></h3>
   </div>
   <div class="small-12 large-12 columns panel edit-content">
-      <?php $form = $this->beginWidget('GxActiveForm', array(
-          'id' => 'user-form',
-          'enableAjaxValidation' => false,
-        ));
-        ?>
+     <?php echo CHtml::beginForm('','post',array('class'=>"custom")); ?>
+    
 
-          <p class="note">
-            <?php echo Yii::t('app', 'Fields with'); ?> <span class="required">*</span> <?php echo Yii::t('app', 'are required'); ?>.
-          </p>
+      <?php echo CHtml::errorSummary($user,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
+      <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
 
-          <?php echo $form->errorSummary($user); ?>
-          <?php echo $form->errorSummary($match); ?>
+      <?php echo CHtml::activeLabelEx($user,'name'); ?>
+      <?php echo CHtml::activeTextField($user,"name", array('maxlength' => 128)); ?>
 
-            <?php echo $form->labelEx($user,'name'); ?>
-            <?php echo $form->textField($user, 'name', array('maxlength' => 128)); ?>
-            <?php echo $form->error($user,'name'); ?>
+      <?php echo CHtml::activeLabelEx($user,'surname'); ?>
+      <?php echo CHtml::activeTextField($user,"surname", array('maxlength' => 128)); ?>
 
-            <?php echo $form->labelEx($user,'surname'); ?>
-            <?php echo $form->textField($user, 'surname', array('maxlength' => 128)); ?>
-            <?php echo $form->error($user,'surname'); ?>
+      <?php echo CHtml::activeLabelEx($match,'country_id'); ?>
+      <?php echo CHtml::activedropDownList($match, 'country_id', GxHtml::listDataEx(Country::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;')); ?>
 
-            <?php echo $form->labelEx($match,'country_id'); ?>
-            <?php echo $form->dropDownList($match, 'country_id', GxHtml::listDataEx(Country::model()->findAllAttributes(null, true)), array('empty' => '')); ?>
-            <?php echo $form->error($match,'country_id'); ?>
+      <?php echo CHtml::activeLabelEx($match,'city_id'); ?>
+      <?php echo CHtml::activedropDownList($match, 'city_id', GxHtml::listDataEx(City::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;')); ?>
 
-            <?php echo $form->labelEx($match,'city_id'); ?>
-            <?php echo $form->dropDownList($match, 'city_id', GxHtml::listDataEx(City::model()->findAllAttributes(null, true)), array('empty' => '')); ?>
-            <?php echo $form->error($match,'city_id'); ?>
+      <?php echo CHtml::activeLabelEx($user,'address'); ?>
+      <?php echo CHtml::activetextField($user, 'address', array('maxlength' => 128)); ?>
 
-            <?php echo $form->labelEx($user,'address'); ?>
-            <?php echo $form->textField($user, 'address', array('maxlength' => 128)); ?>
-            <?php echo $form->error($user,'address'); ?>
-
-        <?php
-        echo GxHtml::submitButton(Yii::t('app', 'Save'));
-        $this->endWidget();
-        ?>
+          
+      <?php echo CHtml::submitButton(Yii::t("app","Save"),
+            array('class'=>"button small success radius")
+        ); ?>
+      <?php echo CHtml::endForm(); ?>          
   </div>
 </div>
 
@@ -66,6 +55,34 @@
     <?php } ?>
     
     <?php echo CHtml::beginForm('','post',array('class'=>"custom")); ?>
+    
+<?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+    'name'=>'city',
+    'source'=>'function( request, response ) {
+            var term = request.term;
+
+            if ( term in cache ) {
+              response( cache[ term ] );
+              return;
+            }
+
+            lastXhr = $.getJSON( "search.php", request, function( data, status, xhr ) {
+              cache[ term ] = data;
+
+              if ( xhr === lastXhr ) {
+                response( data );
+              }
+            });
+          }',
+    // additional javascript options for the autocomplete plugin
+    'options'=>array(
+        'minLength'=>'2',
+    ),
+    'htmlOptions'=>array(
+        'style'=>'',
+    ),
+));
+ ?>    
     
     <?php //echo CHtml::errorSummary($passwordForm,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
     

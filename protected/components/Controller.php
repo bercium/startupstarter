@@ -38,8 +38,8 @@ class Controller extends CController
     $cs->registerScriptFile($baseUrl.'/js/vendor/custom.modernizr.js');
     
     $cs->registerScriptFile($baseUrl.'/js/jquery.parallax-1.1.3.js',CClientScript::POS_END);
+
     
-  
     // start foundation
     $cs->registerScriptFile($baseUrl.'/js/app.js',CClientScript::POS_END);
     parent::init();
