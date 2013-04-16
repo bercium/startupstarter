@@ -2,6 +2,7 @@
 
 class ProfileController extends GxController {
 
+	public $data = array();
 	/**
 	 * @return array action filters
 	 */
@@ -88,10 +89,11 @@ class ProfileController extends GxController {
 						}
 					}
 				}
-
+				
 				$filter['user_id'] = $user_id;
 				$sqlbuilder = new SqlBuilder;
 				$data['user'] = $sqlbuilder->load_array("user", $filter);
+				$this->data = $data;
 
 				$this->render('profile', array( 'user' => $user, 'match' => $match, 'data' => $data ));
 			} else {
@@ -121,6 +123,7 @@ class ProfileController extends GxController {
 			$filter['user_id'] = $user_id;
 			$sqlbuilder = new SqlBuilder;
 			$data['user'] = $sqlbuilder->load_array("user", $filter);
+			$this->data = $data;
 
 			$this->render('projects', array( 'data' => $data ));
 
@@ -192,6 +195,11 @@ class ProfileController extends GxController {
             			//$this->redirect(Yii::app()->controller->module->recoveryUrl);
           			}
         		} 
+
+        		$filter['user_id'] = $user_id;
+				$sqlbuilder = new SqlBuilder;
+				$data['user'] = $sqlbuilder->load_array("user", $filter);
+				$this->data = $data;
         
 				$this->render('account', array( 'user' => $user, "passwordForm"=>$form2, "fpi"=>$fpi ));
 			} else {

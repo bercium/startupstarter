@@ -15,7 +15,6 @@ class SqlBuilder {
 		$language = Language::Model()->findByAttributes( array( 'language_code' => $filter['lang'] ) );
 		$filter['lang'] = $language->id;
 
-
 		switch ($action) {
 			//frontpage controller
 		    case "recent_candidate":
@@ -35,7 +34,6 @@ class SqlBuilder {
 		        return $this->user("user", $filter);
 		        break;
 		}
-
 	}
 
 	public function idea($type, $filter = 0){
@@ -94,6 +92,7 @@ class SqlBuilder {
 
 			//add data to array
 			$row = array_merge($row, $this->translation( 'userlang', $filter ));
+				$filter['default_lang'] = $row['language_id'];
 			$row['translation_other'] = $this->translation( 'other', $filter );
 			$row['member'] = $this->user( 'member', $filter );
 			$row['candidate'] = $this->user( 'candidate', $filter );
@@ -118,7 +117,7 @@ class SqlBuilder {
 						"AND l.id = it.language_id ".
 						"AND it.deleted = 0 ".
 						"AND it.idea_id = {$filter['idea_id']} ".
-						"ORDER BY FIELD(it.language_id, '{$filter['lang']}') DESC";			
+						"ORDER BY FIELD(it.language_id, '{$filter['lang']}') DESC LIMIT 1";
 
 			$connection=Yii::app()->db;
 			$command=$connection->createCommand($sql);
@@ -134,7 +133,7 @@ class SqlBuilder {
 						"WHERE i.id = it.idea_id ".
 						"AND l.id = it.language_id ".
 						"AND it.idea_id = {$filter['idea_id']} ".
-						"AND it.language_id != {$filter['lang']}";
+						"AND it.language_id != {$filter['default_lang']}";
 
 			$connection=Yii::app()->db;
 			$command=$connection->createCommand($sql);

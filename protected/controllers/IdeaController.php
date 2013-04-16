@@ -2,7 +2,7 @@
 
 class IdeaController extends GxController {
 
-
+	public $data = array();
 	/**
 	 * @return array action filters
 	 */
@@ -107,6 +107,14 @@ class IdeaController extends GxController {
 			}
 		}
 
+		//for sidebar purposes
+		$sqlbuilder = new SqlBuilder;
+		$user_id = Yii::app()->user->id;
+		$filter['user_id'] = $user_id;
+		unset($filter['lang']);
+		$data['user'] = $sqlbuilder->load_array("user", $filter);
+		$this->data = $data;
+
 		$this->render('createidea', array( 'idea' => $idea, 'translation' => $translation ));
 	}
 
@@ -147,6 +155,13 @@ class IdeaController extends GxController {
 			}
 
 			$data['idea'] = $sqlbuilder->load_array("idea", $filter);
+			
+			//for sidebar purposes
+			$user_id = Yii::app()->user->id;
+			$filter['user_id'] = $user_id;
+			unset($filter['lang']);
+			$data['user'] = $sqlbuilder->load_array("user", $filter);
+			$this->data = $data;
 
 			$this->render('editidea', array( 'idea' => $idea, 'translation' => $translation, 'data' => $data ));
 		} else {
