@@ -133,7 +133,7 @@ INSERT INTO `language` (`id`, `language_code`, `name`, `native_name`) VALUES
 (92, 'ln', 'Lingala', 'Lingála'),
 (93, 'lo', 'Lao', 'ພາສາລາວ'),
 (94, 'lt', 'Lithuanian', 'lietuvių kalba'),
-(95, 'lu', 'Luba-Katanga', ''),
+(95, 'lu', 'Luba-Katanga', 'Luba-Katanga'),
 (96, 'lv', 'Latvian', 'latviešu valoda'),
 (97, 'gv', 'Manx', 'Gaelg, Gailck'),
 (98, 'mk', 'Macedonian', 'македонски јазик'),

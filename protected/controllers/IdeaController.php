@@ -102,7 +102,7 @@ class IdeaController extends GxController {
 					if (Yii::app()->getRequest()->getIsAjaxRequest())
 						Yii::app()->end();
 					else
-						$this->redirect(array('view', 'id' => $idea->id));
+						$this->redirect(array('idea/edit', 'id' => $idea->id));
 				}
 			}
 		}

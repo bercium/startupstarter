@@ -67,7 +67,7 @@
 
 <div class="row">
   <div class="small-12 large-12 columns edit-header">
-    <h3><?php echo Yii::t('app', 'Personal detail'); ?></h3>
+    <h3><?php echo Yii::t('app', 'Personal information'); ?></h3>
   </div>
   <div class="small-12 large-12 columns panel edit-content">
     <?php if(Yii::app()->user->hasFlash('personalMessage')){ ?>
