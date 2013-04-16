@@ -3397,7 +3397,7 @@ kbd {
     height: 100%;
     display: block; }
   .progress.alert .meter {
-    background: #cd3438;
+    background: #cd3438;    
     height: 100%;
     display: block; }
   .progress.radius {
