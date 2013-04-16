@@ -87,6 +87,42 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="small-12 large-12 columns edit-header">
+    <h3><?php echo Yii::t('app', 'Deactivate account'); ?></h3>
+  </div>
+  <div class="small-12 large-12 columns panel edit-content ">
+    <p>
+      <?php echo Yii::t('app', 'To deactivate your account change its status to off and click deactivate. You will then be loged out of the system.'); ?>
+      <br />
+      <?php echo Yii::t('app', 'We purge all deactivated accounts on first of each month. You have until then to reactivate it by clicking "Lost Password?" in login form.'); ?>
+      
+      <div data-alert class='alert-box radius alert'>
+        <?php echo Yii::t('app', 'When we purge your account all data connected to it will be removed as well.'); ?>
+      </div>
+    </p>
+    
+    <?php echo CHtml::beginForm('','post',array('class'=>"custom")); ?>
+
+    <?php echo CHtml::label(Yii::t('app', 'Account status'),'deactivate_account'); ?>
+    <div class="switch small round small-2">
+      <input id="deactivate_account_0" name="deactivate_account" type="radio" value="1" >
+      <label for="newsletter_0" onclick="">Off</label>
+
+      <input id="deactivate_account_1" name="deactivate_account" type="radio" value="0" checked="checked">
+      <label for="newsletter_1" onclick="">On</label>
+      <span></span>
+    </div>    
+
+    <?php echo CHtml::submitButton(Yii::t("app","Deactivate account"),
+                array('class'=>"button small alert radius",
+                      'confirm'=>Yii::t("app","Are you sure?") )
+            ); ?>
+
+    <?php echo CHtml::endForm(); ?>
+  
+  </div>
+</div>
 
 
 <!-- form -->

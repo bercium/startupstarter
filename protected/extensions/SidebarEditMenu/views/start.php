@@ -3,7 +3,11 @@
     <p class="title"><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><?php echo CHtml::encode(Yii::t('app','Profile')); ?></a></p>
   </section>
   <section class="section <?php echo isMenuItemActive(array("create","projects","edit")); ?>">
-    <p class="title"><a href="#"><?php echo CHtml::encode(Yii::t('app','Projects')); ?></a></p>
+    <p class="title">
+      <a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>">
+        <?php echo CHtml::encode(Yii::t('app','Projects')); ?>
+      </a>
+    </p>
     <div class="content ideas-aside">
       <a href="<?php echo Yii::app()->createUrl("idea/create"); ?>" class="ideas-aside-new <?php echo isMenuItemActive("create"); ?>">
         <?php echo CHtml::encode(Yii::t('app','Create a new project')); ?>
