@@ -25,7 +25,7 @@
 		</div><!-- row -->
 		<div class="row">
 		<?php echo $form->labelEx($model,'status_id'); ?>
-		<?php echo $form->dropDownList($model, 'status_id', GxHtml::listDataEx(IdeaStatus::model()->findAllAttributes(null, true))); ?>
+		<?php echo $form->dropDownList($model, 'status_id', GxHtml::listDataEx(IdeaStatus::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;')); ?>
 		<?php echo $form->error($model,'status_id'); ?>
 		</div><!-- row -->
 		<div class="row">

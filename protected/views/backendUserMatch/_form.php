@@ -15,7 +15,7 @@
 
 		<div class="row">
 		<?php echo $form->labelEx($model,'user_id'); ?>
-		<?php echo $form->dropDownList($model, 'user_id', GxHtml::listDataEx(User::model()->findAllAttributes(null, true))); ?>
+		<?php echo $form->dropDownList($model, 'user_id', GxHtml::listDataEx(User::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;')); ?>
 		<?php echo $form->error($model,'user_id'); ?>
 		</div><!-- row -->
 		<div class="row">
@@ -25,12 +25,12 @@
 		</div><!-- row -->
 		<div class="row">
 		<?php echo $form->labelEx($model,'country_id'); ?>
-		<?php echo $form->dropDownList($model, 'country_id', GxHtml::listDataEx(Country::model()->findAllAttributes(null, true))); ?>
+		<?php echo $form->dropDownList($model, 'country_id', GxHtml::listDataEx(Country::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;')); ?>
 		<?php echo $form->error($model,'country_id'); ?>
 		</div><!-- row -->
 		<div class="row">
 		<?php echo $form->labelEx($model,'city_id'); ?>
-		<?php echo $form->dropDownList($model, 'city_id', GxHtml::listDataEx(City::model()->findAllAttributes(null, true))); ?>
+		<?php echo $form->dropDownList($model, 'city_id', GxHtml::listDataEx(City::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;')); ?>
 		<?php echo $form->error($model,'city_id'); ?>
 		</div><!-- row -->
 
