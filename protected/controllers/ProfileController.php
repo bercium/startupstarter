@@ -38,7 +38,7 @@ class ProfileController extends GxController {
   {
       Yii::import("ext.EAjaxUpload.qqFileUploader");
 
-      $folder=Yii::app()->baseUrl.'/'.Yii::app()->params['tempFolder'];// folder for uploaded files
+      $folder=Yii::app()->basePath.'/../'.Yii::app()->params['tempFolder'];// folder for uploaded files
       
       if( !is_dir( $folder ) ) {
             mkdir( $folder );
@@ -118,10 +118,10 @@ class ProfileController extends GxController {
           
           //$user->setAttributes($_POST['UserEdit']);
           if ($_POST['UserEdit']['avatar_link']){
-            $filename = Yii::app()->baseUrl."/".Yii::app()->params['tempFolder'].$_POST['UserEdit']['avatar_link'];
+            $filename = Yii::app()->basePath."/../".Yii::app()->params['tempFolder'].$_POST['UserEdit']['avatar_link'];
             
             if( is_file( $filename ) ) {
-              $newFilePath = Yii::app()->baseUrl."/".Yii::app()->params['avatarFolder'];
+              $newFilePath = Yii::app()->basePath."/../".Yii::app()->params['avatarFolder'];
               if( !is_dir( $newFilePath) ) {
                     mkdir( $newFilePath );
                     chmod( $newFilePath, 0777 );

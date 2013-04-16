@@ -12,6 +12,7 @@
     <?php } ?>    
     
   <?php 
+  //echo Yii::app()->getBaseUrl(true)."/".Yii::app()->params['tempFolder'];
     //echo "<img class='avatar' src='".avatar_image($user->avatar_link, $user->id)."'>";
     
       $this->widget('ext.EAjaxUpload.EAjaxUpload', array(
@@ -26,7 +27,7 @@
                   <img class="avatar" src="'.avatar_image($user->avatar_link, $user->id).'" >
                   <div class="avatar-change">'.Yii::t('app','Change image').'</div>
                  </div>' .
-                '<div class="qq-upload-list" style="display:none"></div>' .
+                '<div class="qq-upload-list" style="displady:none"></div>' .
              '</div>',
             'sizeLimit'=>4*1024*1024,// maximum file size in bytes
             'onSubmit'=>"js:function(file, extension) { 
