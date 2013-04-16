@@ -33,6 +33,29 @@ class ProfileController extends GxController {
 			),
 		);
 	}
+  
+  public function actionUpload()
+  {
+      Yii::import("ext.EAjaxUpload.qqFileUploader");
+
+      $folder=Yii::app()->baseUrl.'/'.Yii::app()->params['tempFolder'];// folder for uploaded files
+      
+      if( !is_dir( $folder ) ) {
+            mkdir( $folder );
+            chmod( $folder, 0777 );
+        }
+      
+      $allowedExtensions = array("jpg","jpeg","png");//array("jpg","jpeg","gif","exe","mov" and etc...
+      $sizeLimit = 10 * 1024 * 1024;// maximum file size in bytes
+      $uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
+      $result = $uploader->handleUpload($folder);
+      $return = htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+
+      $fileSize=filesize($folder.$result['filename']);//GETTING FILE SIZE
+      $fileName=$result['filename'];//GETTING FILE NAME
+
+      echo $return;// it's array
+  }
 
 	public function actionIndex($user_id = NULL) {
 		$this->layout="//layouts/edit";
@@ -71,24 +94,51 @@ class ProfileController extends GxController {
 
 				$match = UserMatch::Model()->findByAttributes( array( 'user_id' => $user_id ) );
 				
-				if (isset($_POST['UserEdit']) AND isset($_POST['UserMatch'])) {
+				if (isset($_POST['UserEdit']) && isset($_POST['UserMatch'])) {
 					$user->setAttributes($_POST['UserEdit']);
+          
+          Yii::app()->user->setFlash('avatarMessage',UserModule::t("dela"));
 
 					if ($user->save()) {
-
+            Yii::app()->user->setFlash('personalMessage',UserModule::t("Settings saved."));;
+            
 						$_POST['UserMatch']['user_id'] = $user_id;
 						$match->setAttributes($_POST['UserMatch']);
 
 						if ($match->save()) {
-
+              Yii::app()->user->setFlash('profileMessage',UserModule::t("Settings saved."));
 							/*if (Yii::app()->getRequest()->getIsAjaxRequest())
 								Yii::app()->end();
 							else
 									$this->redirect(array('profile/'));*/
 						}
 					}
-				}
-
+				}else
+				if (isset($_POST['UserEdit']) && isset($_POST['UserEdit']['avatar_link'])) {
+          
+          //$user->setAttributes($_POST['UserEdit']);
+          if ($_POST['UserEdit']['avatar_link']){
+            $filename = Yii::app()->baseUrl."/".Yii::app()->params['tempFolder'].$_POST['UserEdit']['avatar_link'];
+            
+            if( is_file( $filename ) ) {
+              $newFilePath = Yii::app()->baseUrl."/".Yii::app()->params['avatarFolder'];
+              if( !is_dir( $newFilePath) ) {
+                    mkdir( $newFilePath );
+                    chmod( $newFilePath, 0777 );
+                }
+              $newFileName = microtime(true).".".pathinfo($filename, PATHINFO_EXTENSION);
+              
+              if( rename( $filename, $newFilePath.$newFileName ) ) {
+                
+                $user->avatar_link = $newFileName;
+                if ($user->save()) {
+                  Yii::app()->user->setFlash('avatarMessage',UserModule::t("Avatar saved."));
+                }
+              }
+            }
+          }// end post check
+        }
+        
 				$filter['user_id'] = $user_id;
 				$sqlbuilder = new SqlBuilder;
 				$data['user'] = $sqlbuilder->load_array("user", $filter);

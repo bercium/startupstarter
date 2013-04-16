@@ -52,7 +52,7 @@ class WebUser extends CWebUser
         $userAttributes = /*CMap::mergeArray(*/array(
                                                 'email'=>$user->email,
                                                 'fullname'=>$user->name." ".$user->surname,
-                                                'avatar'=>$user->avatar_link,
+                                                'avatar_link'=>$user->avatar_link,
                                                 //'firstname'=>$user->firstName,
                                                 'create_at'=>$user->create_at,
                                                 'lastvisit_at'=>$user->lastvisit_at,
@@ -61,7 +61,7 @@ class WebUser extends CWebUser
             $this->setState($attrName,$attrValue);
         }
         Yii::import("ext.ProfileInfo.WProfileInfo");
-        WProgressBar::calculatePerc();
+        WProfileInfo::calculatePerc();
         
         // set user language
         if ($user->language_id !== null){

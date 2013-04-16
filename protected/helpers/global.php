@@ -42,8 +42,12 @@ function short_url_bitly($url, $format='txt') {
  * will return your avatar or defult one
  */
 function avatar_image($filename, $userID = 0){
-  if ($filename && file_exists($filename)) return $filename;
-  else{
+  $pathFileName = Yii::app()->baseUrl."/".Yii::app()->params['avatarFolder'].$filename;
+  if ($filename){
+    if (file_exists($filename)) return $filename;
+    $pathFileName = Yii::app()->baseUrl."/".Yii::app()->params['avatarFolder'].$filename;
+    if ($pathFileName && file_exists($pathFileName)) return $pathFileName;
+  }else{
     $userID = ($userID % 3); // 3 different default avatars
     return Yii::app()->request->baseUrl."/images/dummy-avatar-".$userID.".png";
   }

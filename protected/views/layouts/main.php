@@ -1,5 +1,5 @@
 <?php 
-    $baseUrl = Yii::app()->baseUrl; 
+    $baseUrl = Yii::app()->baseUrl;
     $cs = Yii::app()->getClientScript();
 
     // general controller JS

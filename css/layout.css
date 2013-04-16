@@ -89,7 +89,7 @@
   bottom:15px;
   font-size: 20px;
   color: #383E3C;
-  text-shadow: 1px 1px rgba(0,0,0,0.3),
+  text-shadow: 1px 1px rgba(0,0,0,0.3);
 }
 
 .intro .button {
@@ -251,6 +251,31 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 }
 
 
+
+.avatar-loading{
+  display: none;
+  position: absolute;
+  right: 3px;
+  top: 5px;
+}
+
+.avatar{
+  
+}
+
+.avatar-change{
+  padding:3px 0;
+}
+
+.avatar-drop-area{
+  
+}
+
+.avatar-button{
+  width:140px !important;
+  padding: 0 !important;
+  background-color: #666 !important;
+}
 
 
 /* #Special Styles

@@ -10,7 +10,7 @@ class UserEdit extends BaseUserEdit
   
     public function afterSave() {
       if (get_class(Yii::app())=='CWebApplication') {
-          Yii::app()->user->updateSession();
+        Yii::app()->user->updateSession();
       }
       return parent::afterSave();
     }
