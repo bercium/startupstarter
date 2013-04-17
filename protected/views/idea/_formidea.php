@@ -16,6 +16,9 @@
     <?php echo CHtml::activeLabelEx($translation,'language_id'); ?>
     <?php echo CHtml::activedropDownList($translation, 'language_id', GxHtml::listDataEx(Language::model()->findAllAttributes(array("id","native_name"), true),"id","native_name"), array('empty' => '&nbsp;')); ?>
 
+    <?php echo CHtml::activeLabelEx($translation,'pitch'); ?>
+    <?php echo CHtml::activeTextArea($translation,"pitch"); ?>
+
     <?php echo CHtml::activeLabelEx($translation,'description'); ?>
     <?php echo CHtml::activeTextArea($translation,"description"); ?>
     <br />
