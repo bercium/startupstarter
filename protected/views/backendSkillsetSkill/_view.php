@@ -10,5 +10,8 @@
 	<?php echo GxHtml::encode($data->getAttributeLabel('skill_id')); ?>:
 		<?php echo GxHtml::encode(GxHtml::valueEx($data->skill)); ?>
 	<br />
+	<?php echo GxHtml::encode($data->getAttributeLabel('usage_count')); ?>:
+	<?php echo GxHtml::encode($data->usage_count); ?>
+	<br />
 
 </div>

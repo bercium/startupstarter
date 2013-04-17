@@ -21,8 +21,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model, 'type'); ?>
-		<?php echo $form->textField($model, 'type'); ?>
+		<?php echo $form->label($model, 'type_id'); ?>
+		<?php echo $form->dropDownList($model, 'type_id', GxHtml::listDataEx(Membertype::model()->findAllAttributes(null, true)), array('prompt' => Yii::t('app', 'All'))); ?>
 	</div>
 
 	<div class="row buttons">

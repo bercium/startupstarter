@@ -163,35 +163,35 @@ class SqlBuilder {
 		*/
 
 		if( $type == 'recent' ){
-			$sql=	"SELECT m.id, im.type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
+			$sql=	"SELECT m.id, im.type_id, mt.name AS type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
 					"m.country_id, m.city_id, m.available FROM ".
-					"`idea_member` AS im, ".
+					"`idea_member` AS im, `membertype` AS mt, ".
 					"`user` AS u, `user_match` AS m ".
 					"WHERE m.user_id = u.id ".
 					"AND m.user_id > 0 ".
 					"ORDER BY u.create_at DESC";
 		} elseif( $type == 'member' ) {
-			$sql=	"SELECT m.id, im.type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
+			$sql=	"SELECT m.id, im.type_id, mt.name AS type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
 					"m.country_id, m.city_id, m.available FROM ".
-					"`idea_member` AS im, ".
+					"`idea_member` AS im, `membertype` AS mt, ".
 					"`user` AS u, `user_match` AS m ".
 					"WHERE im.match_id = m.id ".
 					"AND m.user_id = u.id ".
 					"AND m.user_id > 0 ".
 					"AND im.idea_id = '{$filter['idea_id']}' ".
-					"ORDER BY im.type DESC";
+					"ORDER BY im.type_id ASC";
 		} elseif( $type == 'candidate' ) {
-			$sql=	"SELECT m.id, im.type, ".
+			$sql=	"SELECT m.id, im.type_id, mt.name AS type, ".
 					"m.country_id, m.available, m.city_id FROM ".
-					"`idea_member` AS im, `user_match` AS m ".
+					"`idea_member` AS im, `user_match` AS m, `membertype` AS mt ".
 					"WHERE im.match_id = m.id ".
 					"AND m.user_id IS NULL ".
 					"AND im.idea_id = '{$filter['idea_id']}' ".
 					"ORDER BY m.id DESC";
 		} elseif( $type == 'user' ) {
-			$sql=	"SELECT m.id, im.type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
+			$sql=	"SELECT m.id, im.type_id, mt.name AS type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
 					"m.country_id, m.city_id, m.available FROM ".
-					"`idea_member` AS im, ".
+					"`idea_member` AS im, `membertype` AS mt, ".
 					"`user` AS u, `user_match` AS m ".
 					"WHERE m.user_id = u.id ".
 					"AND im.match_id = m.id ".

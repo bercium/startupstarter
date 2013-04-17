@@ -23,14 +23,18 @@ $this->menu=array(
 array(
 			'name' => 'idea',
 			'type' => 'raw',
-			'value' => $model->idea !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->idea)), array('backendIdea/view', 'id' => GxActiveRecord::extractPkValue($model->idea, true))) : null,
+			'value' => $model->idea !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->idea)), array('idea/view', 'id' => GxActiveRecord::extractPkValue($model->idea, true))) : null,
 			),
 array(
 			'name' => 'match',
 			'type' => 'raw',
-			'value' => $model->match !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->match)), array('backendUserMatch/view', 'id' => GxActiveRecord::extractPkValue($model->match, true))) : null,
+			'value' => $model->match !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->match)), array('userMatch/view', 'id' => GxActiveRecord::extractPkValue($model->match, true))) : null,
 			),
-'type',
+array(
+			'name' => 'type',
+			'type' => 'raw',
+			'value' => $model->type !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->type)), array('membertype/view', 'id' => GxActiveRecord::extractPkValue($model->type, true))) : null,
+			),
 	),
 )); ?>
 

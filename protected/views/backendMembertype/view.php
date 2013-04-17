@@ -20,17 +20,17 @@ $this->menu=array(
 	'data' => $model,
 	'attributes' => array(
 'id',
-array(
-			'name' => 'skillset',
-			'type' => 'raw',
-			'value' => $model->skillset !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->skillset)), array('skillset/view', 'id' => GxActiveRecord::extractPkValue($model->skillset, true))) : null,
-			),
-array(
-			'name' => 'skill',
-			'type' => 'raw',
-			'value' => $model->skill !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->skill)), array('skill/view', 'id' => GxActiveRecord::extractPkValue($model->skill, true))) : null,
-			),
-'usage_count',
+'name',
 	),
 )); ?>
 
+<h2><?php echo GxHtml::encode($model->getRelationLabel('ideaMembers')); ?></h2>
+<?php
+	echo GxHtml::openTag('ul');
+	foreach($model->ideaMembers as $relatedModel) {
+		echo GxHtml::openTag('li');
+		echo GxHtml::link(GxHtml::encode(GxHtml::valueEx($relatedModel)), array('ideaMember/view', 'id' => GxActiveRecord::extractPkValue($relatedModel, true)));
+		echo GxHtml::closeTag('li');
+	}
+	echo GxHtml::closeTag('ul');
+?>

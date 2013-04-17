@@ -23,6 +23,11 @@
 		<?php echo $form->dropDownList($model, 'skill_id', GxHtml::listDataEx(Skill::model()->findAllAttributes(null, true))); ?>
 		<?php echo $form->error($model,'skill_id'); ?>
 		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'usage_count'); ?>
+		<?php echo $form->textField($model, 'usage_count', array('maxlength' => 11)); ?>
+		<?php echo $form->error($model,'usage_count'); ?>
+		</div><!-- row -->
 
 
 <?php
