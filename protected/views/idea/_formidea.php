@@ -22,10 +22,10 @@
     
     <?php echo CHtml::activeLabelEx($translation,'description_public'); ?>
     <div class="switch small round small-2">
-      <input id="description_public_0" name="UserEdit[description_public]" type="radio" value="0" <?php if (!$user->description_public) echo 'checked="checked"' ?>>
+      <input id="description_public_0" name="IdeaTranslation[description_public]" type="radio" value="0" <?php if (!$translation->description_public) echo 'checked="checked"' ?>>
       <label for="description_public_0" onclick="">Off</label>
 
-      <input id="description_public_1" name="UserEdit[description_public]" type="radio" value="1" <?php if ($user->description_public) echo 'checked="checked"' ?>>
+      <input id="description_public_1" name="IdeaTranslation[description_public]" type="radio" value="1" <?php if ($translation->description_public) echo 'checked="checked"' ?>>
       <label for="description_public_1" onclick="">On</label>
       <span></span>
     </div>
