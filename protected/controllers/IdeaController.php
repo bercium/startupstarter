@@ -81,6 +81,10 @@ class IdeaController extends GxController {
 		$data['idea'] = $sqlbuilder->load_array("idea", $filter);
 
 		$this->render('view', array('data' => $data));
+
+		//log clicks
+		$click = new Click;
+		$click->idea(Yii::app()->user->id, $id);
 	}
 
 	public function actionCreate(){
@@ -163,7 +167,11 @@ class IdeaController extends GxController {
 						if (Yii::app()->getRequest()->getIsAjaxRequest())
 							Yii::app()->end();
 						else
-							$this->redirect(array('idea/edit', 'id' => $idea->id));
+							if($lang){
+								$this->redirect(array('idea/edit', 'id' => $idea->id, 'lang'=> $lang));
+							} else {
+								$this->redirect(array('idea/edit', 'id' => $idea->id));
+							}
 					}
 				}
 			}

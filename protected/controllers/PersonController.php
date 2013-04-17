@@ -51,6 +51,9 @@ class PersonController extends GxController {
 		$data['user'] = $sqlbuilder->load_array("user", $filter);
 
 		$this->render('index', array('data' => $data));
+
+		$click = new Click;
+		$click->user(Yii::app()->user->id, $id);
 	}
 	
 }

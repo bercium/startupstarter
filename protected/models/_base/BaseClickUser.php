@@ -37,9 +37,9 @@ abstract class BaseClickUser extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('time, user_id, user_click_id', 'required'),
+			array('user_id, user_click_id', 'required'),
 			array('user_id, user_click_id', 'length', 'max'=>11),
-			array('id, time, user_id, user_click_id', 'safe', 'on'=>'search'),
+			array('id, time_registered, time_updated, user_id, user_click_id', 'safe', 'on'=>'search'),
 		);
 	}
 

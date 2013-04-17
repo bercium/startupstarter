@@ -14,9 +14,14 @@
 	<?php echo $form->errorSummary($model); ?>
 
 		<div class="row">
-		<?php echo $form->labelEx($model,'time'); ?>
-		<?php echo $form->textField($model, 'time'); ?>
-		<?php echo $form->error($model,'time'); ?>
+		<?php echo $form->labelEx($model,'time_registered'); ?>
+		<?php echo $form->textField($model, 'time_registered'); ?>
+		<?php echo $form->error($model,'time_registered'); ?>
+		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'time_updated'); ?>
+		<?php echo $form->textField($model, 'time_updated'); ?>
+		<?php echo $form->error($model,'time_updated'); ?>
 		</div><!-- row -->
 		<div class="row">
 		<?php echo $form->labelEx($model,'user_id'); ?>
