@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `translation` (
   `row_id` int(10) unsigned NOT NULL COMMENT 'The exact message to be translated (row of the table)',
   `translation` varchar(128) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `language_code` (`language_id`)
+  KEY `language_id` (`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
