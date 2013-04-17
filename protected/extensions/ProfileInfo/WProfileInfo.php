@@ -58,8 +58,8 @@ class WProfileInfo extends CWidget
             $owner = 0;
             $member = 0;
             foreach ($ideaMember as $im){
-              if ($im->type == 2) $owner = 1;
-              if ($im->type == 1) $member = 1;
+              if ($im->type->id == 2) $owner = 1;
+              if ($im->type->id == 1) $member = 1;
             }
             $perc += 6*($owner+$member); //max 12
             // add idea to percentage???

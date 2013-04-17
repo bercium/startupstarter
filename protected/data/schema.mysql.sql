@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Gostitelj: 127.0.0.1
--- Čas nastanka: 22. mar 2013 ob 12.19
+-- Čas nastanka: 17. apr 2013 ob 19.00
 -- Različica strežnika: 5.5.27
 -- Različica PHP: 5.4.7
 
@@ -22,29 +22,7 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
---
--- Struktura tabele `audit_trail`
---
 
-CREATE TABLE IF NOT EXISTS `audit_trail` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `old_value` text,
-  `new_value` text,
-  `action` varchar(20) NOT NULL,
-  `model` varchar(255) NOT NULL,
-  `field` varchar(100) NOT NULL,
-  `stamp` datetime NOT NULL,
-  `user_id` varchar(100) DEFAULT NULL,
-  `model_id` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idx_audit_trail_user_id` (`user_id`),
-  KEY `idx_audit_trail_model_id` (`model_id`),
-  KEY `idx_audit_trail_model` (`model`),
-  KEY `idx_audit_trail_field` (`field`),
-  KEY `idx_audit_trail_action` (`action`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
 
 --
 -- Struktura tabele `city`
@@ -54,41 +32,7 @@ CREATE TABLE IF NOT EXISTS `city` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Struktura tabele `click_idea`
---
-
-CREATE TABLE IF NOT EXISTS `click_idea` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `user_id` int(11) unsigned NOT NULL,
-  `idea_click_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  KEY `idea_click_id` (`idea_click_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Struktura tabele `click_user`
---
-
-CREATE TABLE IF NOT EXISTS `click_user` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `user_id` int(11) unsigned NOT NULL,
-  `user_click_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  KEY `user_click_id` (`user_click_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=501 ;
 
 --
 -- Struktura tabele `collabpref`
@@ -98,88 +42,7 @@ CREATE TABLE IF NOT EXISTS `collabpref` (
   `id` smallint(2) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Struktura tabele `country`
---
-
-CREATE TABLE IF NOT EXISTS `country` (
-  `id` smallint(3) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(32) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Struktura tabele `idea`
---
-
-CREATE TABLE IF NOT EXISTS `idea` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `time_registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `time_updated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `status_id` smallint(2) unsigned NOT NULL,
-  `website` varchar(128) DEFAULT NULL,
-  `video_link` varchar(128) DEFAULT NULL,
-  `deleted` tinyint(1) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `status_id` (`status_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Struktura tabele `idea_member`
---
-
-CREATE TABLE IF NOT EXISTS `idea_member` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `idea_id` int(9) unsigned NOT NULL,
-  `match_id` int(8) unsigned NOT NULL,
-  `type` tinyint(2) unsigned NOT NULL COMMENT '3 types for now: 1 = member, 2 = owner, 3 = candidate profile',
-  PRIMARY KEY (`id`),
-  KEY `idea_id` (`idea_id`),
-  KEY `match_id` (`match_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Struktura tabele `idea_status`
---
-
-CREATE TABLE IF NOT EXISTS `idea_status` (
-  `id` smallint(2) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(32) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Struktura tabele `idea_translation`
---
-
-CREATE TABLE IF NOT EXISTS `idea_translation` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `language_id` smallint(2) unsigned NOT NULL,
-  `idea_id` int(8) unsigned NOT NULL,
-  `title` varchar(128) NOT NULL,
-  `pitch` text NOT NULL,
-  `description` text NOT NULL,
-  `description_public` tinyint(1) NOT NULL,
-  `tweetpitch` varchar(140) NOT NULL,
-  `deleted` tinyint(1) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idea_id` (`idea_id`),
-  KEY `language_code` (`language_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Struktura tabele `language`
@@ -189,21 +52,21 @@ CREATE TABLE IF NOT EXISTS `language` (
   `id` smallint(2) unsigned NOT NULL AUTO_INCREMENT,
   `language_code` varchar(2) NOT NULL,
   `name` varchar(32) NOT NULL,
+  `native_name` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=183 ;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabele `link`
+-- Struktura tabele `membertype`
 --
 
-CREATE TABLE IF NOT EXISTS `link` (
-  `id` int(9) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(128) NOT NULL,
-  `url` varchar(128) NOT NULL,
+CREATE TABLE IF NOT EXISTS `membertype` (
+  `id` int(2) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -215,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `skill` (
   `id` mediumint(3) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -227,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `skillset` (
   `id` smallint(2) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=148 ;
 
 -- --------------------------------------------------------
 
@@ -239,12 +102,29 @@ CREATE TABLE IF NOT EXISTS `skillset_skill` (
   `id` mediumint(5) unsigned NOT NULL AUTO_INCREMENT,
   `skillset_id` smallint(2) unsigned NOT NULL,
   `skill_id` mediumint(3) unsigned NOT NULL,
+  `usage_count` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `skillset_id` (`skillset_id`),
   KEY `skill_id` (`skill_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabele `country`
+--
+
+CREATE TABLE IF NOT EXISTS `country` (
+  `id` smallint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  `country_code` varchar(2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=250 ;
+
+-- --------------------------------------------------------
+
 
 --
 -- Struktura tabele `tbl_migration`
@@ -274,6 +154,58 @@ CREATE TABLE IF NOT EXISTS `translation` (
 
 -- --------------------------------------------------------
 
+
+--
+-- Struktura tabele `idea_status`
+--
+
+CREATE TABLE IF NOT EXISTS `idea_status` (
+  `id` smallint(2) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabele `idea`
+--
+
+CREATE TABLE IF NOT EXISTS `idea` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `time_registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_updated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `status_id` smallint(2) unsigned NOT NULL,
+  `website` varchar(128) DEFAULT NULL,
+  `video_link` varchar(128) DEFAULT NULL,
+  `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `status_id` (`status_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabele `idea_translation`
+--
+
+CREATE TABLE IF NOT EXISTS `idea_translation` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `language_id` smallint(2) unsigned NOT NULL,
+  `idea_id` int(8) unsigned NOT NULL,
+  `title` varchar(128) NOT NULL,
+  `pitch` text NOT NULL,
+  `description` text,
+  `description_public` tinyint(1) NOT NULL,
+  `tweetpitch` varchar(140) DEFAULT NULL,
+  `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `idea_id` (`idea_id`),
+  KEY `language_id` (`language_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+
+-- --------------------------------------------------------
+
 --
 -- Struktura tabele `user`
 --
@@ -300,14 +232,33 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Odloži podatke za tabelo `user`
+-- Struktura tabele `user_link`
 --
 
-INSERT INTO `user` (`id`, `email`, `password`, `activkey`, `create_at`, `lastvisit_at`, `superuser`, `status`, `name`, `surname`, `address`, `avatar_link`, `language_id`, `newsletter`) VALUES
-(1, 'admin@example.com', '21232f297a57a5a743894a0e4a801fc3', '9a24eff8c15a6a141ece27eb6947da0f', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 1, 1, 'Administrator', 'User', NULL, NULL, NULL, 1),
-(2, 'demo@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, 'Demo', 'User', NULL, NULL, NULL, 1);
+CREATE TABLE IF NOT EXISTS `user_link` (
+  `id` int(9) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(8) unsigned NOT NULL,
+  `title` varchar(128) NOT NULL,
+  `url` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
+--
+-- Struktura tabele `user_match`
+--
+
+CREATE TABLE IF NOT EXISTS `user_match` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned DEFAULT NULL,
+  `country_id` smallint(3) unsigned DEFAULT NULL,
+  `city_id` int(10) unsigned DEFAULT NULL,
+  `available` int(2) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `city_id` (`city_id`),
+  KEY `country_id` (`country_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Extra data for users or virtual (searchable) users' AUTO_INCREMENT=13 ;
 
 --
 -- Struktura tabele `user_collabpref`
@@ -320,43 +271,9 @@ CREATE TABLE IF NOT EXISTS `user_collabpref` (
   PRIMARY KEY (`id`),
   KEY `match_id` (`match_id`),
   KEY `collab_id` (`collab_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
-
---
--- Struktura tabele `user_link`
---
-
-CREATE TABLE IF NOT EXISTS `user_link` (
-  `id` int(9) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(8) unsigned NOT NULL,
-  `link_id` int(9) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `link_id` (`link_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Struktura tabele `user_match`
---
-
-CREATE TABLE IF NOT EXISTS `user_match` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned DEFAULT NULL,
-  `available` int(2) unsigned DEFAULT NULL,
-  `country_id` smallint(3) unsigned DEFAULT NULL,
-  `city_id` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `city_id` (`city_id`),
-  KEY `country_id` (`country_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Extra data for users or virtual (searchable) users' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
 --
 -- Struktura tabele `user_skill`
 --
@@ -370,7 +287,79 @@ CREATE TABLE IF NOT EXISTS `user_skill` (
   KEY `match_id` (`match_id`),
   KEY `skillset_id` (`skillset_id`),
   KEY `skill_id` (`skill_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Struktura tabele `audit_trail`
+--
+
+CREATE TABLE IF NOT EXISTS `audit_trail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `old_value` text,
+  `new_value` text,
+  `action` varchar(20) NOT NULL,
+  `model` varchar(255) NOT NULL,
+  `field` varchar(100) NOT NULL,
+  `stamp` datetime NOT NULL,
+  `user_id` varchar(100) DEFAULT NULL,
+  `model_id` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_audit_trail_user_id` (`user_id`),
+  KEY `idx_audit_trail_model_id` (`model_id`),
+  KEY `idx_audit_trail_model` (`model`),
+  KEY `idx_audit_trail_field` (`field`),
+  KEY `idx_audit_trail_action` (`action`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Struktura tabele `click_idea`
+--
+
+CREATE TABLE IF NOT EXISTS `click_idea` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `user_id` int(11) unsigned DEFAULT NULL,
+  `idea_click_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `idea_click_id` (`idea_click_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabele `click_user`
+--
+
+CREATE TABLE IF NOT EXISTS `click_user` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `user_id` int(11) unsigned DEFAULT NULL,
+  `user_click_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `user_click_id` (`user_click_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabele `idea_member`
+--
+
+CREATE TABLE IF NOT EXISTS `idea_member` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `idea_id` int(9) unsigned NOT NULL,
+  `match_id` int(8) unsigned NOT NULL,
+  `type_id` int(2) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idea_id` (`idea_id`),
+  KEY `match_id` (`match_id`),
+  KEY `type_id` (`type_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+
+-- --------------------------------------------------------
+
 
 --
 -- Omejitve tabel za povzetek stanja
@@ -380,8 +369,8 @@ CREATE TABLE IF NOT EXISTS `user_skill` (
 -- Omejitve za tabelo `click_idea`
 --
 ALTER TABLE `click_idea`
-  ADD CONSTRAINT `click_idea_ibfk_5` FOREIGN KEY (`idea_click_id`) REFERENCES `idea` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `click_idea_ibfk_4` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `click_idea_ibfk_4` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `click_idea_ibfk_5` FOREIGN KEY (`idea_click_id`) REFERENCES `idea` (`id`) ON DELETE CASCADE;
 
 --
 -- Omejitve za tabelo `click_user`
@@ -401,7 +390,8 @@ ALTER TABLE `idea`
 --
 ALTER TABLE `idea_member`
   ADD CONSTRAINT `idea_member_ibfk_3` FOREIGN KEY (`idea_id`) REFERENCES `idea` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `idea_member_ibfk_5` FOREIGN KEY (`match_id`) REFERENCES `user_match` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `idea_member_ibfk_5` FOREIGN KEY (`match_id`) REFERENCES `user_match` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `idea_member_ibfk_6` FOREIGN KEY (`type_id`) REFERENCES `membertype` (`id`);
 
 --
 -- Omejitve za tabelo `idea_translation`
@@ -434,8 +424,7 @@ ALTER TABLE `user_collabpref`
 -- Omejitve za tabelo `user_link`
 --
 ALTER TABLE `user_link`
-  ADD CONSTRAINT `user_link_ibfk_4` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `user_link_ibfk_1` FOREIGN KEY (`link_id`) REFERENCES `link` (`id`);
+  ADD CONSTRAINT `user_link_ibfk_4` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
 -- Omejitve za tabelo `user_match`

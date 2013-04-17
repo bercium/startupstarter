@@ -114,8 +114,10 @@ class IdeaController extends GxController {
 		unset($filter['lang']);
 		$data['user'] = $sqlbuilder->load_array("user", $filter);
 		$this->data = $data;
+		//for idea form purposes
+		$user = UserEdit::Model()->findByAttributes( array( 'id' => $user_id ) );
 
-		$this->render('createidea', array( 'idea' => $idea, 'translation' => $translation ));
+		$this->render('createidea', array( 'idea' => $idea, 'translation' => $translation, 'user' => $user ));
 	}
 
 	public function actionEdit($id, $lang = NULL) { //can take different languages to edit
@@ -149,7 +151,7 @@ class IdeaController extends GxController {
 						if (Yii::app()->getRequest()->getIsAjaxRequest())
 							Yii::app()->end();
 						else
-							$this->redirect(array('view', 'id' => $idea->id));
+							$this->redirect(array('idea/edit', 'id' => $idea->id));
 					}
 				}
 			}
@@ -162,8 +164,10 @@ class IdeaController extends GxController {
 			unset($filter['lang']);
 			$data['user'] = $sqlbuilder->load_array("user", $filter);
 			$this->data = $data;
+			//for idea form purposes
+			$user = UserEdit::Model()->findByAttributes( array( 'id' => $user_id ) );
 
-			$this->render('editidea', array( 'idea' => $idea, 'translation' => $translation, 'data' => $data ));
+			$this->render('editidea', array( 'idea' => $idea, 'translation' => $translation, 'data' => $data, 'user' => $user ));
 		} else {
 			$this->redirect(array('index'));
 		}

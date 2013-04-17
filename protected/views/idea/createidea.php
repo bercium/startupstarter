@@ -6,6 +6,7 @@
     <?php
     $this->renderPartial('_formidea', array(
         'idea' => $idea,
+        'user' => $user,
         'translation' => $translation,
         'buttons' => 'create'));
     ?>
