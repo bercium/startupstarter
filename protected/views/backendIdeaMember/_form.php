@@ -24,9 +24,9 @@
 		<?php echo $form->error($model,'match_id'); ?>
 		</div><!-- row -->
 		<div class="row">
-		<?php echo $form->labelEx($model,'type'); ?>
-		<?php echo $form->textField($model, 'type'); ?>
-		<?php echo $form->error($model,'type'); ?>
+		<?php echo $form->labelEx($model,'type_id'); ?>
+		<?php echo $form->dropDownList($model, 'type_id', GxHtml::listDataEx(Membertype::model()->findAllAttributes(null, true))); ?>
+		<?php echo $form->error($model,'type_id'); ?>
 		</div><!-- row -->
 
 

@@ -12,9 +12,10 @@
  * @property integer $id
  * @property integer $skillset_id
  * @property integer $skill_id
+ * @property string $usage_count
  *
- * @property Skill $skill
  * @property Skillset $skillset
+ * @property Skill $skill
  */
 abstract class BaseSkillsetSkill extends GxActiveRecord {
 
@@ -38,14 +39,16 @@ abstract class BaseSkillsetSkill extends GxActiveRecord {
 		return array(
 			array('skillset_id, skill_id', 'required'),
 			array('skillset_id, skill_id', 'numerical', 'integerOnly'=>true),
-			array('id, skillset_id, skill_id', 'safe', 'on'=>'search'),
+			array('usage_count', 'length', 'max'=>11),
+			array('usage_count', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, skillset_id, skill_id, usage_count', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
-			'skill' => array(self::BELONGS_TO, 'Skill', 'skill_id'),
 			'skillset' => array(self::BELONGS_TO, 'Skillset', 'skillset_id'),
+			'skill' => array(self::BELONGS_TO, 'Skill', 'skill_id'),
 		);
 	}
 
@@ -59,8 +62,9 @@ abstract class BaseSkillsetSkill extends GxActiveRecord {
 			'id' => Yii::t('app', 'ID'),
 			'skillset_id' => null,
 			'skill_id' => null,
-			'skill' => null,
+			'usage_count' => Yii::t('app', 'Usage Count'),
 			'skillset' => null,
+			'skill' => null,
 		);
 	}
 
@@ -70,6 +74,7 @@ abstract class BaseSkillsetSkill extends GxActiveRecord {
 		$criteria->compare('id', $this->id);
 		$criteria->compare('skillset_id', $this->skillset_id);
 		$criteria->compare('skill_id', $this->skill_id);
+		$criteria->compare('usage_count', $this->usage_count, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

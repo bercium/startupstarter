@@ -10,8 +10,8 @@
 	<?php echo GxHtml::encode($data->getAttributeLabel('match_id')); ?>:
 		<?php echo GxHtml::encode(GxHtml::valueEx($data->match)); ?>
 	<br />
-	<?php echo GxHtml::encode($data->getAttributeLabel('type')); ?>:
-	<?php echo GxHtml::encode($data->type); ?>
+	<?php echo GxHtml::encode($data->getAttributeLabel('type_id')); ?>:
+		<?php echo GxHtml::encode(GxHtml::valueEx($data->type)); ?>
 	<br />
 
 </div>

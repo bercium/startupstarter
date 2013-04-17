@@ -15,7 +15,6 @@ class SqlBuilder {
 		$language = Language::Model()->findByAttributes( array( 'language_code' => $filter['lang'] ) );
 		$filter['lang'] = $language->id;
 
-
 		switch ($action) {
 			//frontpage controller
 		    case "recent_candidate":
@@ -35,7 +34,6 @@ class SqlBuilder {
 		        return $this->user("user", $filter);
 		        break;
 		}
-
 	}
 
 	public function idea($type, $filter = 0){
@@ -94,6 +92,7 @@ class SqlBuilder {
 
 			//add data to array
 			$row = array_merge($row, $this->translation( 'userlang', $filter ));
+				$filter['default_lang'] = $row['language_id'];
 			$row['translation_other'] = $this->translation( 'other', $filter );
 			$row['member'] = $this->user( 'member', $filter );
 			$row['candidate'] = $this->user( 'candidate', $filter );
@@ -118,7 +117,7 @@ class SqlBuilder {
 						"AND l.id = it.language_id ".
 						"AND it.deleted = 0 ".
 						"AND it.idea_id = {$filter['idea_id']} ".
-						"ORDER BY FIELD(it.language_id, '{$filter['lang']}') DESC";			
+						"ORDER BY FIELD(it.language_id, '{$filter['lang']}') DESC LIMIT 1";
 
 			$connection=Yii::app()->db;
 			$command=$connection->createCommand($sql);
@@ -134,7 +133,7 @@ class SqlBuilder {
 						"WHERE i.id = it.idea_id ".
 						"AND l.id = it.language_id ".
 						"AND it.idea_id = {$filter['idea_id']} ".
-						"AND it.language_id != {$filter['lang']}";
+						"AND it.language_id != {$filter['default_lang']}";
 
 			$connection=Yii::app()->db;
 			$command=$connection->createCommand($sql);
@@ -164,35 +163,35 @@ class SqlBuilder {
 		*/
 
 		if( $type == 'recent' ){
-			$sql=	"SELECT m.id, im.type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
+			$sql=	"SELECT m.id, im.type_id, mt.name AS type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
 					"m.country_id, m.city_id, m.available FROM ".
-					"`idea_member` AS im, ".
+					"`idea_member` AS im, `membertype` AS mt, ".
 					"`user` AS u, `user_match` AS m ".
 					"WHERE m.user_id = u.id ".
 					"AND m.user_id > 0 ".
 					"ORDER BY u.create_at DESC";
 		} elseif( $type == 'member' ) {
-			$sql=	"SELECT m.id, im.type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
+			$sql=	"SELECT m.id, im.type_id, mt.name AS type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
 					"m.country_id, m.city_id, m.available FROM ".
-					"`idea_member` AS im, ".
+					"`idea_member` AS im, `membertype` AS mt, ".
 					"`user` AS u, `user_match` AS m ".
 					"WHERE im.match_id = m.id ".
 					"AND m.user_id = u.id ".
 					"AND m.user_id > 0 ".
 					"AND im.idea_id = '{$filter['idea_id']}' ".
-					"ORDER BY im.type DESC";
+					"ORDER BY im.type_id ASC";
 		} elseif( $type == 'candidate' ) {
-			$sql=	"SELECT m.id, im.type, ".
+			$sql=	"SELECT m.id, im.type_id, mt.name AS type, ".
 					"m.country_id, m.available, m.city_id FROM ".
-					"`idea_member` AS im, `user_match` AS m ".
+					"`idea_member` AS im, `user_match` AS m, `membertype` AS mt ".
 					"WHERE im.match_id = m.id ".
 					"AND m.user_id IS NULL ".
 					"AND im.idea_id = '{$filter['idea_id']}' ".
 					"ORDER BY m.id DESC";
 		} elseif( $type == 'user' ) {
-			$sql=	"SELECT m.id, im.type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
+			$sql=	"SELECT m.id, im.type_id, mt.name AS type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
 					"m.country_id, m.city_id, m.available FROM ".
-					"`idea_member` AS im, ".
+					"`idea_member` AS im, `membertype` AS mt, ".
 					"`user` AS u, `user_match` AS m ".
 					"WHERE m.user_id = u.id ".
 					"AND im.match_id = m.id ".

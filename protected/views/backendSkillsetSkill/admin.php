@@ -53,6 +53,7 @@ You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&g
 				'value'=>'GxHtml::valueEx($data->skill)',
 				'filter'=>GxHtml::listDataEx(Skill::model()->findAllAttributes(null, true)),
 				),
+		'usage_count',
 		array(
 			'class' => 'CButtonColumn',
 		),

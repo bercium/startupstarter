@@ -16,7 +16,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('idea-member-grid', {
+	$.fn.yiiGridView.update('membertype-grid', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -38,26 +38,12 @@ You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&g
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id' => 'idea-member-grid',
+	'id' => 'membertype-grid',
 	'dataProvider' => $model->search(),
 	'filter' => $model,
 	'columns' => array(
 		'id',
-		array(
-				'name'=>'idea_id',
-				'value'=>'GxHtml::valueEx($data->idea)',
-				'filter'=>GxHtml::listDataEx(Idea::model()->findAllAttributes(null, true)),
-				),
-		array(
-				'name'=>'match_id',
-				'value'=>'GxHtml::valueEx($data->match)',
-				'filter'=>GxHtml::listDataEx(UserMatch::model()->findAllAttributes(null, true)),
-				),
-		array(
-				'name'=>'type_id',
-				'value'=>'GxHtml::valueEx($data->type)',
-				'filter'=>GxHtml::listDataEx(Membertype::model()->findAllAttributes(null, true)),
-				),
+		'name',
 		array(
 			'class' => 'CButtonColumn',
 		),
