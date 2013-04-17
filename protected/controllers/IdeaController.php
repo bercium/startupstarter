@@ -86,8 +86,14 @@ class IdeaController extends GxController {
 	public function actionCreate(){
 		$this->layout="//layouts/edit";
 
+		//insert data
 		$idea = new Idea;
 		$translation = new IdeaTranslation;
+		$member = new IdeaMember;
+
+		//we need this
+		$user_id = Yii::app()->user->id;
+		$match = UserMatch::Model()->findByAttributes( array( 'user_id' => $user_id ) );
 
 		if (isset($_POST['Idea']) AND isset($_POST['IdeaTranslation'])) {
 			$idea->setAttributes($_POST['Idea']);
@@ -97,7 +103,12 @@ class IdeaController extends GxController {
 				$_POST['IdeaTranslation']['idea_id'] = $idea->id;
 				$translation->setAttributes($_POST['IdeaTranslation']);
 
-				if ($translation->save()) {
+ 				$_POST['IdeaMember']['idea_id'] = $idea->id;
+ 				$_POST['IdeaMember']['match_id'] = $match->id;
+ 				$_POST['IdeaMember']['type_id'] = 1;
+				$member->setAttributes($_POST['IdeaMember']);
+
+				if ($translation->save() && $member->save()) {
 
 					if (Yii::app()->getRequest()->getIsAjaxRequest())
 						Yii::app()->end();
@@ -116,6 +127,7 @@ class IdeaController extends GxController {
 		$this->data = $data;
 		//for idea form purposes
 		$user = UserEdit::Model()->findByAttributes( array( 'id' => $user_id ) );
+
 
 		$this->render('createidea', array( 'idea' => $idea, 'translation' => $translation, 'user' => $user ));
 	}
