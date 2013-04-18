@@ -16,14 +16,6 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
-INSERT INTO `collabpref` (`id`, `name`) VALUES
-(1, 'Monetary'),
-(2, 'Sweat equity'),
-(3, 'Flexible');
-
-INSERT INTO `idea_status` (`id`, `name`) VALUES
-(1, 'Idea'),
-(2, 'Prototype');
 
 INSERT INTO `skill` (`id`, `name`) VALUES
 (1, 'HTML'),
@@ -70,6 +62,3 @@ INSERT INTO `idea_member` (`id`, `idea_id`, `match_id`, `type_id`) VALUES
 (14, 11, 1, 1),
 (16, 11, 10, 3),
 (17, 11, 12, 3);
-
-UPDATE `idea_translation` SET language_id = 40 WHERE language_id = 1;
-UPDATE `idea_translation` SET language_id = 145 WHERE language_id = 2;
