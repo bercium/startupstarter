@@ -1,14 +1,4 @@
 <?php 
-    $baseUrl = Yii::app()->baseUrl;
-    $cs = Yii::app()->getClientScript();
-
-    // general controller JS
-    if (file_exists("js/controllers/".Yii::app()->controller->id."/controller.js"))
-      $cs->registerScriptFile($baseUrl."/js/controllers/".Yii::app()->controller->id."/controller.js",CClientScript::POS_END);
-    // specific action JS
-    if (file_exists("js/controllers/".Yii::app()->controller->id."/".$this->action->id.".js"))
-      $cs->registerScriptFile($baseUrl."/js/controllers/".Yii::app()->controller->id."/".$this->action->id.".js",CClientScript::POS_END);
-
 /* @var $this Controller */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -66,9 +56,13 @@
           <nav class="top-bar contain-to-grid">
           <ul class="title-area">
             <!-- Title Area -->
-             <li class="name">
-
-            </li>
+             <li class="name ">
+               <?php if (!Yii::app()->user->isGuest){ ?>
+                <div class="show-for-small" style="color:#fff; margin-left:8px">
+                <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
+                </div>
+               <?php } ?>
+              </li>
             <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
             <li class="toggle-topbar menu-icon"><a href="#"><span><?php echo CHtml::encode(Yii::t('app','Menu')); ?></span></a></li>
           </ul>
@@ -103,7 +97,12 @@
               <?php if (!Yii::app()->user->isGuest){ ?>
               <li class="has-dropdown">
                 <a href="#" >
+                  <div class="hide-for-small">
                   <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
+                  </div>
+                  <div class="show-for-small">
+                    <?php echo Yii::t('app',"Me"); ?>
+                  </div>
                  </a>
 
                 <ul class="dropdown">
@@ -126,8 +125,8 @@
                 </li>
               <?php } ?>
               <li class="divider"></li>
-              <li class="has-form">
-                <a href="#" style="padding:0;" data-dropdown="langselect"><?php echo Yii::app()->getLanguage() ?></a>
+              <li>
+                <a href="#" style="" data-dropdown="langselect"><?php echo Yii::app()->getLanguage() ?></a>
               </li>
 
             </ul>
@@ -157,7 +156,7 @@
 </div>
 </div>
 
-</div> 
+</div>
  
 <!-- page -->
 <div id="langselect" class="f-dropdown content" data-dropdown-content>

@@ -46,11 +46,13 @@ function avatar_image($filename, $userID = 0){
   if ($filename){
     if (file_exists($filename)) return $filename;
     $pathFileName = Yii::app()->params['avatarFolder'].$filename;
-    if (file_exists($pathFileName)) return Yii::app()->getBaseUrl(true)."/".$pathFileName;
+
+    if (file_exists(Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.$pathFileName)) return Yii::app()->getBaseUrl(true)."/".$pathFileName;
   }
   
   $userID = ($userID % 3); // 3 different default avatars
-  return Yii::app()->request->baseUrl."/images/dummy-avatar-".$userID.".png";
+  return "images/dummy-avatar-".$userID.".png";
+//  return Yii::app()->request->baseUrl."/images/dummy-avatar-".$userID.".png";
 }
 
 /**

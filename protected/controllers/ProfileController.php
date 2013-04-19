@@ -39,11 +39,12 @@ class ProfileController extends GxController {
   {
       Yii::import("ext.EAjaxUpload.qqFileUploader");
 
-      $folder=Yii::app()->basePath.'/../'.Yii::app()->params['tempFolder'];// folder for uploaded files
+      $folder=Yii::app()->basePath.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.Yii::app()->params['tempFolder'];// folder for uploaded files
       
       if( !is_dir( $folder ) ) {
-            mkdir( $folder );
-            chmod( $folder, 0777 );
+            mkdir( $folder, 0777, true);
+            //mkdir( $folder );
+            //chmod( $folder, 0777 );
         }
       
       $allowedExtensions = array("jpg","jpeg","png");//array("jpg","jpeg","gif","exe","mov" and etc...
@@ -95,19 +96,39 @@ class ProfileController extends GxController {
 
 				$match = UserMatch::Model()->findByAttributes( array( 'user_id' => $user_id ) );
 
-        		if (isset($_POST['UserEdit']) && isset($_POST['UserMatch'])) {
+        if (isset($_POST['UserEdit']) && isset($_POST['UserMatch'])) {
 					$user->setAttributes($_POST['UserEdit']);
+          //$user->avatar_link = '';
           
-          			Yii::app()->user->setFlash('avatarMessage',UserModule::t("dela"));
+          if ($_POST['UserEdit']['avatar_link']){
+            $filename = Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['tempFolder'].$_POST['UserEdit']['avatar_link'];
 
+            if( is_file( $filename ) ) {
+              $newFilePath = Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['avatarFolder'];
+              //$newFilePath = Yii::app()->params['avatarFolder'];
+              if( !is_dir( $newFilePath) ) {
+                    mkdir( $newFilePath, 0777, true);
+                    //chmod( $newFilePath, 0777 );
+                }
+              $newFileName = microtime(true).".".pathinfo($filename, PATHINFO_EXTENSION);
+
+              if( rename( $filename, $newFilePath.$newFileName ) ) {
+
+                $user->avatar_link = $newFileName;
+                //if ($user->save()) {
+                //  Yii::app()->user->setFlash('avatarMessage',UserModule::t("Avatar saved."));
+                //}
+              }else $user->avatar_link = '';
+            }
+          }// end post check 
+            
 					if ($user->save()) {
-            			Yii::app()->user->setFlash('personalMessage',UserModule::t("Settings saved."));;
             
 						$_POST['UserMatch']['user_id'] = $user_id;
 						$match->setAttributes($_POST['UserMatch']);
 
 						if ($match->save()) {
-              				Yii::app()->user->setFlash('profileMessage',UserModule::t("Settings saved."));
+              				Yii::app()->user->setFlash('personalMessage',UserModule::t("Personal information saved."));
 							/*if (Yii::app()->getRequest()->getIsAjaxRequest())
 								Yii::app()->end();
 							else
@@ -115,35 +136,16 @@ class ProfileController extends GxController {
 						}
 					}
 
-				}elseif (isset($_POST['UserEdit']) && isset($_POST['UserEdit']['avatar_link'])) {
-          
-		          //$user->setAttributes($_POST['UserEdit']);
-		          if ($_POST['UserEdit']['avatar_link']){
-		            $filename = Yii::app()->basePath."/../".Yii::app()->params['tempFolder'].$_POST['UserEdit']['avatar_link'];
-		            
-		            if( is_file( $filename ) ) {
-		              $newFilePath = Yii::app()->basePath."/../".Yii::app()->params['avatarFolder'];
-		              if( !is_dir( $newFilePath) ) {
-		                    mkdir( $newFilePath );
-		                    chmod( $newFilePath, 0777 );
-		                }
-		              $newFileName = microtime(true).".".pathinfo($filename, PATHINFO_EXTENSION);
-		              
-		              if( rename( $filename, $newFilePath.$newFileName ) ) {
-		                
-		                $user->avatar_link = $newFileName;
-		                if ($user->save()) {
-		                  Yii::app()->user->setFlash('avatarMessage',UserModule::t("Avatar saved."));
-		                }
-		              }
-		            }
-		          }// end post check
-		        }
+				}
 		        
 				$filter['user_id'] = $user_id;
 				$sqlbuilder = new SqlBuilder;
 				$data['user'] = $sqlbuilder->load_array("user", $filter);
 				$this->data = $data;
+        
+        //$mod = UserCollabpref::Model()->findAllByAttributes( array( 'match_id' => $match->id) );
+        //$data = Collabpref::model()->with('user_collabpref')->findAll();
+        //$data = UserCollabpref::model()->with('collab')->findAllByAttributes( array( 'match_id' => $match->id) );
 
 				$this->render('profile', array( 'user' => $user, 'match' => $match, 'data' => $data ));
 			} else {

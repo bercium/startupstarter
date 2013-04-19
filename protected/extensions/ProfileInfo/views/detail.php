@@ -4,6 +4,9 @@
     <span class="meter" style="width:<?php echo $perc; ?>%;">
     </span>
   </div>
+    <?php echo Yii::t('app',"Profile viewed"); ?> 
+    <strong><?php echo Yii::t('app',"{n} time|{n} times",$views); ?></strong>
+    <br />
     <?php echo Yii::t('app',"Member since:"); ?> 
     <strong><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($memberDate),"long",null); ?></strong>
 </div>

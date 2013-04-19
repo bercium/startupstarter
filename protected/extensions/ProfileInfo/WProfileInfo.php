@@ -13,7 +13,10 @@ class WProfileInfo extends CWidget
       
       if ($this->detail){
         $user = User::model()->findByPk(Yii::app()->user->id);
-        $this->render("detail",array("perc"=>$perc,"percClass"=>$percClass,"memberDate"=>$user->create_at,"hint"=>"En hint kako povečati progress bar."));
+        $this->render("detail",array("perc"=>$perc,"percClass"=>$percClass,
+                                     "memberDate"=>$user->create_at,
+                                     "hint"=>"En hint kako povečati progress bar.",
+                                     "views"=>20));
       }
       else $this->render("simple",array("perc"=>$perc,"percClass"=>$percClass));
     }
@@ -31,6 +34,8 @@ class WProfileInfo extends CWidget
         if ($user->surname != '') $perc+=10;
         if ($user->address != '') $perc+=7;
         if ($user->avatar_link != '') $perc+=10;
+        
+        if ($user->newsletter != '') $perc+=6;
 
         $userMatch = UserMatch::model()->find('user_id=:userID', array(':userID'=>Yii::app()->user->id));
 
@@ -40,15 +45,15 @@ class WProfileInfo extends CWidget
         if ($userMatch){
           $perc+=1;
           $idMatch = $userMatch->id;
-          if ($userMatch->available != '') $perc+=11;
+          if ($userMatch->available != '') $perc+=10;
           if ($userMatch->country != '') $perc+=7;
           if ($userMatch->city != '') $perc+=7;
 
           $count = UserCollabpref::Model()->count("match_id=:matchID", array("matchID" => $idMatch));
-          if ($count > 0) $perc+=11;
+          if ($count > 0) $perc+=10;
 
           $count = UserSkill::Model()->count("match_id=:matchID", array("matchID" => $idMatch));
-          if ($count > 0) $perc+=14;
+          if ($count > 0) $perc+=10;
           if ($count > 2) $perc+=3;
           if ($count > 4) $perc+=3;
 

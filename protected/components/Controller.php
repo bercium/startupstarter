@@ -37,11 +37,23 @@ class Controller extends CController
     $cs->registerScriptFile($baseUrl.'/js/foundation/foundation.dropdown.js',CClientScript::POS_END); // temp untill it's fixed in minified version
     $cs->registerScriptFile($baseUrl.'/js/vendor/custom.modernizr.js');
     
-    $cs->registerScriptFile($baseUrl.'/js/jquery.parallax-1.1.3.js',CClientScript::POS_END);
-
+    //$cs->registerScriptFile($baseUrl.'/js/jquery.parallax-1.1.3.js',CClientScript::POS_END);
     
     // start foundation
-    $cs->registerScriptFile($baseUrl.'/js/app.js',CClientScript::POS_END);
+    $cs->registerScriptFile($baseUrl.'/js/app.js',CClientScript::POS_END);   
     parent::init();
+  }
+  
+  public function run($actionID){
+    $baseUrl = Yii::app()->baseUrl; 
+    $cs = Yii::app()->getClientScript();
+    // general controller JS
+    if (file_exists("js/controllers/".Yii::app()->controller->id."/controller.js"))
+      $cs->registerScriptFile($baseUrl."/js/controllers/".Yii::app()->controller->id."/controller.js",CClientScript::POS_END);
+    // specific action JS
+    if (file_exists("js/controllers/".Yii::app()->controller->id."/".$actionID.".js"))
+      $cs->registerScriptFile($baseUrl."/js/controllers/".Yii::app()->controller->id."/".$actionID.".js",CClientScript::POS_END);
+    
+    parent::run($actionID);
   }
 }
