@@ -11,7 +11,7 @@
     </div>
     <?php } ?>    
     
-      <?php echo CHtml::beginForm('','post',array('class'=>"custom")); ?>
+      <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6 small-12")); ?>
     
       <?php echo CHtml::errorSummary($user,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
     
@@ -64,7 +64,7 @@
     </div>
     <?php } ?>
     
-      <?php echo CHtml::beginForm('','post',array('class'=>"custom")); ?>
+      <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6 small-12")); ?>
 
       <?php echo CHtml::errorSummary($passwordForm,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
 
@@ -109,7 +109,7 @@
       </div>
     </p>
     
-    <?php echo CHtml::beginForm('','post',array('class'=>"custom")); ?>
+    <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6 small-12")); ?>
 
     <?php echo CHtml::label(Yii::t('app', 'Account status'),'deactivate_account'); ?>
     <div class="switch small round small-2">

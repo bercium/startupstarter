@@ -1,10 +1,10 @@
 <div class="section-container sidebar accordion" data-section>
   <section class="section <?php echo isMenuItemActive(""); ?>">
-    <p class="title"><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><?php echo CHtml::encode(Yii::t('app','Profile')); ?></a></p>
+    <p class="title"><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><span class="general foundicon-smiley"></span><?php echo CHtml::encode(Yii::t('app','Profile')); ?></a></p>
   </section>
   <section class="section <?php echo isMenuItemActive(array("create","projects","edit")); ?>">
     <p class="title">
-      <a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>">
+      <a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>"><span class="general foundicon-settings"></span>
         <?php echo CHtml::encode(Yii::t('app','Projects')); ?>
       </a>
     </p>
@@ -23,6 +23,6 @@
     </div>
   </section>
   <section class="section <?php echo isMenuItemActive("account"); ?>">
-    <p class="title"><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><?php echo CHtml::encode(Yii::t('app','Settings')); ?></a></p>
+    <p class="title"><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><span class="general foundicon-idea"></span><?php echo CHtml::encode(Yii::t('app','Settings')); ?></a></p>
   </section>
 </div>
