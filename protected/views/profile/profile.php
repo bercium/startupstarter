@@ -77,7 +77,7 @@
     </div>
     <?php } ?>    
     
-     <?php echo CHtml::beginForm('','post',array('class'=>"custom")); ?>
+     <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6 small-12")); ?>
 
       <?php echo CHtml::errorSummary($user,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
       <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
@@ -118,7 +118,7 @@
     </div>
     <?php } ?>
     
-    <?php echo CHtml::beginForm('','post',array('class'=>"custom")); ?>
+    <?php echo CHtml::beginForm('','post',array('class'=>"custom  large-6 small-12")); ?>
     
 <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
     'name'=>'city',
