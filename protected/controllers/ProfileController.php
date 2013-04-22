@@ -55,6 +55,16 @@ class ProfileController extends GxController {
 
       $fileSize=filesize($folder.$result['filename']);//GETTING FILE SIZE
       $fileName=$result['filename'];//GETTING FILE NAME
+      
+      if (true){
+        //throw new Exception(print_r($result,true));
+        Yii::import("ext.EPhpThumb.EPhpThumb");
+        $thumb=new EPhpThumb();
+        $thumb->init(); //this is needed
+        $thumb->create($folder.$fileName)
+              ->adaptiveResize(150,150)
+              ->save($folder.$fileName);
+      }
 
       echo $return;// it's array
   }
@@ -93,7 +103,7 @@ class ProfileController extends GxController {
 
 			$user = UserEdit::Model()->findByAttributes( array( 'id' => $user_id ) );
 			if($user){
-
+        $oldImg = $user->avatar_link;
 				$match = UserMatch::Model()->findByAttributes( array( 'user_id' => $user_id ) );
 
         if (isset($_POST['UserEdit']) && isset($_POST['UserMatch'])) {
@@ -103,6 +113,7 @@ class ProfileController extends GxController {
           if ($_POST['UserEdit']['avatar_link']){
             $filename = Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['tempFolder'].$_POST['UserEdit']['avatar_link'];
 
+            // if we need to create avatar image
             if( is_file( $filename ) ) {
               $newFilePath = Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['avatarFolder'];
               //$newFilePath = Yii::app()->params['avatarFolder'];
@@ -110,11 +121,26 @@ class ProfileController extends GxController {
                     mkdir( $newFilePath, 0777, true);
                     //chmod( $newFilePath, 0777 );
                 }
-              $newFileName = microtime(true).".".pathinfo($filename, PATHINFO_EXTENSION);
+              $newFileName = str_replace(".", "", microtime(true)).".".pathinfo($filename, PATHINFO_EXTENSION);
 
               if( rename( $filename, $newFilePath.$newFileName ) ) {
+                // make a thumbnail for avatar
+                Yii::import("ext.EPhpThumb.EPhpThumb");
+                $thumb=new EPhpThumb();
+                $thumb->init(); //this is needed
+                $thumb->create($newFilePath.$newFileName)
+                      ->resize(30,30)
+                      ->save($newFilePath."thumb_".$newFileName);
 
+                // save avatar link
                 $user->avatar_link = $newFileName;
+                
+                // remove old avatar
+                if ($oldImg && ($oldImg != $newFileName)){
+                  @unlink($newFilePath.$oldImg);
+                  @unlink($newFilePath."thumb_".$oldImg);
+                }
+                  
                 //if ($user->save()) {
                 //  Yii::app()->user->setFlash('avatarMessage',UserModule::t("Avatar saved."));
                 //}

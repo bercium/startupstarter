@@ -30,7 +30,7 @@
                      '<div class="qq-upload-drop-area avatar-drop-area"><span>'.Yii::t('app','Drop file here to change.').'</span></div>' .
                      '<div class="qq-upload-button avatar-button">
                        <div class="avatar-loading"><span class="qq-upload-spinner"></span></div>
-                       <img class="avatar" src="'.avatar_image($user->avatar_link, $user->id).'" >
+                       <img class="avatar" src="'.avatar_image($user->avatar_link, $user->id, false).'" >
                        <div class="avatar-change">'.Yii::t('app','Change image').'</div>
                       </div>' .
                      '<div class="qq-upload-list" style="displady:none"></div>' .
