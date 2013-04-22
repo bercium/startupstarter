@@ -101,7 +101,7 @@
 	<div class="large-12 small-12 columns radius panel card-person">
     <div class="row card-person-title" onclick="location.href='<?php echo Yii::app()->createUrl("person/".$user['id']); ?>'">
       <div class="large-12 small-12 columns" >
-        <img src="<?php echo avatar_image($user['avatar_link'],$user['id']); ?>" style="height:60px; margin-right: 10px; float:left;" />
+        <img src="<?php echo avatar_image($user['avatar_link'],$user['id'],60); ?>" style="height:60px; margin-right: 10px; float:left;" />
         <h5><?php echo $user['name']." ".$user['surname']; ?></h5>
         <small class="meta"><?php echo Yii::t('app','Location:') ?> <a>Ljubljana, Slovenia</a></small>
 		  </div>

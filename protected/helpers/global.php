@@ -41,9 +41,9 @@ function short_url_bitly($url, $format='txt') {
 /**
  * will return your avatar or defult one
  */
-function avatar_image($filename, $userID = 0, $thumb=true){
+function avatar_image($filename, $userID = 0, $thumb=30){
 
-  if ($thumb) $thumb = "thumb_";
+  if ($thumb) $thumb = "thumb_".$thumb."_";
   else $thumb = '';
   if ($filename){
     //if (file_exists($filename)) return $filename;
@@ -54,7 +54,7 @@ function avatar_image($filename, $userID = 0, $thumb=true){
   }
   
   $userID = ($userID % 3); // 3 different default avatars
-  return "images/".$thumb."dummy-avatar-".$userID.".png";
+  return Yii::app()->getBaseUrl(true)."/images/dummy-avatar-".$userID.".png";
 //  return Yii::app()->request->baseUrl."/images/dummy-avatar-".$userID.".png";
 }
 

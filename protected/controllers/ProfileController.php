@@ -130,7 +130,10 @@ class ProfileController extends GxController {
                 $thumb->init(); //this is needed
                 $thumb->create($newFilePath.$newFileName)
                       ->resize(30,30)
-                      ->save($newFilePath."thumb_".$newFileName);
+                      ->save($newFilePath."thumb_30_".$newFileName);
+                $thumb->create($newFilePath.$newFileName)
+                      ->resize(60,60)
+                      ->save($newFilePath."thumb_60_".$newFileName);
 
                 // save avatar link
                 $user->avatar_link = $newFileName;
@@ -138,7 +141,8 @@ class ProfileController extends GxController {
                 // remove old avatar
                 if ($oldImg && ($oldImg != $newFileName)){
                   @unlink($newFilePath.$oldImg);
-                  @unlink($newFilePath."thumb_".$oldImg);
+                  @unlink($newFilePath."thumb_30_".$oldImg);
+                  @unlink($newFilePath."thumb_60_".$oldImg);
                 }
                   
                 //if ($user->save()) {
