@@ -172,6 +172,7 @@ class ProfileController extends GxController {
 				$sqlbuilder = new SqlBuilder;
 				$data['user'] = $sqlbuilder->load_array("user", $filter);
 				$this->data = $data;
+				print_r($data['user']);
         
         $link = new LinkForm;
         
@@ -329,26 +330,26 @@ class ProfileController extends GxController {
 
 			if (isset($_POST['UserCollabpref'])) {
 
-				$_POST['UserCollabpref']['match_id'] = $id;
+				foreach($POST['UserCollabpref'] AS $key => $value){
+					$value['match_id'] = $id;
 
-				$exists = UserCollabpref::Model()->findByAttributes( array( 'match_id' => $id, 'collab_id' => $_POST['UserCollabpref']['collab_id'] ) );
-				if(!$exists){
+					$exists = UserCollabpref::Model()->findByAttributes( array( 'match_id' => $id, 'collab_id' => $value['collab_id'] ) );
+					if(!$exists && $value['active'] > 0){ //we want to insert
 
-					$collabpref->setAttributes($_POST['UserCollabpref']);
-
-					if ($collabpref->save()) {
-
-						if (Yii::app()->getRequest()->getIsAjaxRequest())
-							Yii::app()->end();
-						else
-							$this->redirect(array('profile/'));
-
-					} else {
-						$this->redirect(array('addCollabpref', 'id' => $id ));
+						$collabpref->setAttributes($value);
+						$collabpref->save();
 					}
-				} else {
-					$this->redirect(array('profile/'));
+					if($exists && !$_POST['UserCollabpref']['active']){ //we want to delete it
+
+						$exists->delete();
+					}
 				}
+
+				if (Yii::app()->getRequest()->getIsAjaxRequest())
+					Yii::app()->end();
+				else
+					$this->redirect(array('profile/'));
+
 			}
 
 			$this->render('_addcollabpref', array( 'collabpref' => $collabpref ));
