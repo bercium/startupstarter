@@ -1,6 +1,5 @@
-<h1><?php echo Yii::t('app', 'Create') . ' ' . GxHtml::encode($link->label()); ?></h1>
-
-<div class="form">
+<h2><?php echo Yii::t('app','Add a custom link'); ?></h2>
+  
 
 <?php $form = $this->beginWidget('GxActiveForm', array(
 	'id' => 'user-form',
@@ -29,4 +28,3 @@
 echo GxHtml::submitButton(Yii::t('app', 'Save'));
 $this->endWidget();
 ?>
-</div><!-- form -->

@@ -79,11 +79,54 @@
       <?php echo CHtml::activeLabelEx($user,'address'); ?>
       <?php echo CHtml::activetextField($user, 'address', array('maxlength' => 128)); ?>
 
-          
+    
       <?php echo CHtml::submitButton(Yii::t("app","Save"),
             array('class'=>"button small success radius")
         ); ?>
-      <?php echo CHtml::endForm(); ?>          
+      <?php echo CHtml::endForm(); ?>
+    
+      <hr>
+      <a href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My custom links"); ?> +</a>
+      <div class="addLinks" style="display:none">
+
+          <?php $form=$this->beginWidget('CActiveForm', array(
+              'id'=>'LinkForm',
+//             'enableClientValidation'=>true,
+               'htmlOptions'=>array(
+                              'onsubmit'=>"return false;",/* Disable normal form submit */
+                              'onkeypress'=>" if(event.keyCode == 13){ send(); } " /* Do ajax call when user presses enter key */
+                              ),
+          )); ?>
+
+
+              <?php echo $form->errorSummary($link); ?>
+
+              <?php echo $form->labelEx($link,'linkName'); ?>
+              <?php echo $form->textField($link,'linkName'); ?>
+
+              <?php echo $form->labelEx($link,'link'); ?>
+              <?php echo $form->textField($link,'link'); ?>
+
+              <?php echo CHtml::submitButton(Yii::t("app","Add"),
+                    array('class'=>"button small success radius",
+                        'onclick'=>'addLink();')
+                ); ?>
+
+          <?php $this->endWidget(); ?>        
+        
+      </div>
+      <div class="linkList">
+        <div data-alert class='alert-box radius secondary'>
+          Facebook: <a >facebook.com</a>
+          <a href="#" class="close" onclick="removeLink(1)">&times;</a>
+        </div>
+        <div data-alert class='alert-box radius secondary'>
+          Facebook: <a >facebook.com</a>
+          <a href="#" class="close" onclick="removeLink(1)">&times;</a>
+        </div>
+      </div>
+
+      
   </div>
 </div>
 
@@ -106,6 +149,10 @@
     
     <?php echo CHtml::activeLabelEx($match,'available'); ?>
     <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listDataEx(Available::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;')); ?>
+    
+    
+    
+    <br /><br /><br /><br /><br /><br /><br />
     
     
 <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
@@ -135,32 +182,11 @@
     ),
 ));
  ?>
-    
-    
-    <?php
-    
-    print_r($data);
-    
-    
-    
-     //echo CHtml::errorSummary($passwordForm,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
-    
-    <?php //echo CHtml::activeLabelEx($user,'language_id'); ?>
-    <?php echo CHtml::dropDownList('UserEdit[time_id]', 0,
-              //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
-              CHtml::listData(CodeList::clTimePerWeekList(),"value","name")
-              , array('empty' => '&nbsp;',"class"=>"small-12 large-6"));  ?>
-    
-    <?php //echo CHtml::activeLabelEx($user,'language_id'); ?>
-    <?php echo CHtml::dropDownList('UserEdit[colabpref_id]', 0,
-              //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
-              CHtml::listData(CodeList::clColaborationList(),"value","name")
-              , array('empty' => '&nbsp;',"class"=>"small-12 large-6"));  ?>
+ 
     
       Colaboration<br />
       Skills<br />
       Extra data<br />
-      Links<br />
 
       <?php echo CHtml::submitButton(Yii::t("app","Save"),
             array('class'=>"button small success radius")
@@ -168,3 +194,4 @@
     <?php echo CHtml::endForm(); ?>
   </div>
 </div>
+

@@ -169,11 +169,14 @@ class ProfileController extends GxController {
 				$data['user'] = $sqlbuilder->load_array("user", $filter);
 				$this->data = $data;
         
+        $link = new LinkForm;
+        
         //$mod = UserCollabpref::Model()->findAllByAttributes( array( 'match_id' => $match->id) );
-        //$data = Collabpref::model()->with('user_collabpref')->findAll();
+        /*$data = Collabpref::model()->with('userCollabprefs')
+                                   ->findAll( array( 'condition'=>'userCollabprefs.match_id = '.$match->id ) );*/
         //$data = UserCollabpref::model()->with('collab')->findAllByAttributes( array( 'match_id' => $match->id) );
 
-				$this->render('profile', array( 'user' => $user, 'match' => $match, 'data' => $data ));
+				$this->render('profile', array( 'user' => $user, 'match' => $match, 'data' => $data ,'link'=>$link));
 			} else {
 				//this would cause an infinite loop, so lets not do it
 				//in a perfect world this would redirect to the register page. not sure how to dynamically redirect outside the same controller

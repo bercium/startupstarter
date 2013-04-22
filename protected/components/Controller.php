@@ -47,16 +47,19 @@ class Controller extends CController
     parent::init();
   }
   
-  public function run($actionID){
+  public function run($in_actionID){
     $baseUrl = Yii::app()->baseUrl; 
     $cs = Yii::app()->getClientScript();
     // general controller JS
     if (file_exists("js/controllers/".Yii::app()->controller->id."/controller.js"))
       $cs->registerScriptFile($baseUrl."/js/controllers/".Yii::app()->controller->id."/controller.js",CClientScript::POS_END);
     // specific action JS
+    if (!$in_actionID) $actionID = $this->defaultAction;
+    else $actionID =  $in_actionID;
+
     if (file_exists("js/controllers/".Yii::app()->controller->id."/".$actionID.".js"))
       $cs->registerScriptFile($baseUrl."/js/controllers/".Yii::app()->controller->id."/".$actionID.".js",CClientScript::POS_END);
     
-    parent::run($actionID);
+    parent::run($in_actionID);
   }
 }
