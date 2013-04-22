@@ -117,7 +117,7 @@
         <small class="meta"><?php echo Yii::t('app','Colaboration:') ?> <a>monetary, cofinder</a></small><br />
         <small class="meta"><?php echo Yii::t('app','Available:') ?> <a>part time</a></small><br />
         <small class="meta"><?php echo Yii::t('app','Involved in') ?> <a><?php echo Yii::t('app','{n} project|{n} projects',array(3)) ?></a></small>
-        <div class="card-floater" style="border:none;">
+        <div class="card-floater">
           <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>"><?php echo Yii::t('app','details...') ?></a>
         </div>
 		  </div>
