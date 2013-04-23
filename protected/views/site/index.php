@@ -166,6 +166,7 @@
           <?php 
           $i = 0;
           // show first 4 members
+        if(isset($idea['member'])){
           foreach ($idea['member'] as $member){
             $i++; if ($i > 4) break;
           ?>
@@ -175,6 +176,7 @@
           <?php } 
             // extra members
             if (count($idea['member']) > 4) echo "+".(count($idea['member'])-4);
+         }
           ?>
           <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Has image" alt="Has image" class="card-icons" />
           <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Has file" alt="Has file" class="card-icons" />

@@ -172,7 +172,7 @@ class ProfileController extends GxController {
 				$sqlbuilder = new SqlBuilder;
 				$data['user'] = $sqlbuilder->load_array("user", $filter);
 				$this->data = $data;
-				print_r($data['user']);
+				//print_r($data['user']);
         
         $link = new LinkForm;
         

@@ -42,17 +42,17 @@ class SqlBuilder {
 		//echo "IDEA QUERIED:$type<br/>";
 		//print_r($filter);
 		if( $type == 'recent'){
-			$sql =		"SELECT i.*, ist.name AS status FROM ".
-						"`idea` AS i, `idea_translation` AS it, `idea_status` AS ist, `idea_member` AS im, `user_match` AS m ".
-						"WHERE i.id = im.idea_id ".
-						"AND i.status_id = ist.id ".
-						"AND i.deleted = 0 ".
-						"AND im.match_id = m.id ".
-						"AND m.user_id IS NULL ".
-						"AND it.idea_id = i.id ".
-						"AND it.language_id = '{$filter['lang']}' ".
-						"AND it.deleted = 0 ".
-						"ORDER BY m.id DESC";
+			$sql =	"SELECT i.*, ist.name AS status FROM ".
+					"`idea` AS i, `idea_translation` AS it, `idea_status` AS ist, `idea_member` AS im, `user_match` AS m ".
+					"WHERE i.id = im.idea_id ".
+					"AND i.status_id = ist.id ".
+					"AND i.deleted = 0 ".
+					"AND im.match_id = m.id ".
+					"AND m.user_id IS NULL ".
+					"AND it.idea_id = i.id ".
+					"AND it.language_id = '{$filter['lang']}' ".
+					"AND it.deleted = 0 ".
+					"ORDER BY m.id DESC";
 		} elseif( $type == 'user' ) {
 			$sql=	"SELECT i.*, ist.name AS status FROM ".
 					"`idea` AS i, `idea_status` AS ist, `idea_member` AS im, `user_match` AS m, `user` AS u ".
@@ -63,6 +63,13 @@ class SqlBuilder {
 					"AND m.user_id = u.id ".
 					"AND u.id = '{$filter['user_id']}' ".
 					"ORDER BY i.time_registered DESC";
+		} elseif( $type == 'usercount' ) {
+			$sql=	"SELECT count(im.idea_id) AS count FROM ".
+					"`idea_member` AS im, `idea` AS i ".
+					"WHERE i.id = im.idea_id ".
+					"AND i.deleted = 0 ".
+					"AND im.match_id = '{$filter['match_id']}' ".
+					"GROUP BY im.idea_id";
 		} elseif( $type == 'idea' ){
 			$sql=	"SELECT i.*, ist.name AS status FROM ".
 					"`idea` AS i, `idea_status` AS ist ".
@@ -79,24 +86,29 @@ class SqlBuilder {
 		$array = NULL;
 		while(($row=$dataReader->read())!==false) {
 			
-			//prepare filter
-			$filter['idea_id'] = $row['id'];
-
-			//add data to array
-			$row = array_merge($row, $this->translation( 'userlang', $filter ));
-				$filter['default_lang'] = $row['language_id'];
-			$row['translation_other'] = $this->translation( 'other', $filter );
-			$row['owner'] = $this->user( 'owner', $filter );
-			$row['member'] = $this->user( 'member', $filter );
-			$row['candidate'] = $this->user( 'candidate', $filter );
-
-			//what kind of an
-			if($type != 'idea'){
-				$array[$row['id']] = $row;
+			if($type == "usercount"){
+				$array = $row['count'];
 			} else {
-				$array = $row;
+				//prepare filter
+				$filter['idea_id'] = $row['id'];
+
+				//add data to array
+				//$row['']
+				$row = array_merge($row, $this->translation( 'userlang', $filter ));
+					$filter['default_lang'] = $row['language_id'];
+				$row['translation_other'] = $this->translation( 'other', $filter );
+				$row['member'] = $this->user( 'member', $filter );
+				$row['candidate'] = $this->user( 'candidate', $filter );
+
+				//what kind of an
+				if($type != 'idea'){
+					$array[$row['id']] = $row;
+				} else {
+					$array = $row;
+				}
+				//print_r($row);
 			}
-			//print_r($row);
+
 		}
 
 		return $array;
@@ -151,41 +163,28 @@ class SqlBuilder {
 		//echo "USER QUERIED:$type<br/>";
 		//print_r($filter);
 		if( $type == 'recent' ){
-			$sql=	"SELECT m.id, im.type_id, mt.name AS type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
-					"m.country_id, m.city_id, m.available FROM ".
-					"`idea_member` AS im, `membertype` AS mt, ".
-					"`user` AS u, `user_match` AS m ".
+			$sql=	"SELECT m.id, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
+					"m.country_id, m.city_id, m.available, a.name AS available_name FROM ".
+					"`user` AS u, `user_match` AS m, `available` AS a ".
 					"WHERE m.user_id = u.id ".
 					"AND m.user_id > 0 ".
 					"ORDER BY u.create_at DESC";
-		} elseif( $type == 'owner' ) {
-			$sql=	"SELECT m.id, im.type_id, mt.name AS type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
-					"m.country_id, m.city_id, m.available FROM ".
-					"`idea_member` AS im, `membertype` AS mt, ".
-					"`user` AS u, `user_match` AS m ".
-					"WHERE im.match_id = m.id ".
-					"AND m.user_id = u.id ".
-					"AND m.user_id > 0 ".
-					"AND im.idea_id = '{$filter['idea_id']}' ".
-					"AND im.type_id = '1' ". //HARDCODED OWNER
-					"AND im.type_id = mt.id ".
-					"ORDER BY im.type_id ASC";
 		} elseif( $type == 'member' ) {
 			$sql=	"SELECT m.id, im.type_id, mt.name AS type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
-					"m.country_id, m.city_id, m.available FROM ".
+					"m.country_id, m.city_id, m.available, a.name AS available_name FROM ".
 					"`idea_member` AS im, `membertype` AS mt, ".
-					"`user` AS u, `user_match` AS m ".
+					"`user` AS u, `user_match` AS m, `available` AS a ".
 					"WHERE im.match_id = m.id ".
 					"AND m.user_id = u.id ".
 					"AND m.user_id > 0 ".
 					"AND im.idea_id = '{$filter['idea_id']}' ".
-					"AND im.type_id = '2' ". //HARDCODED MEMBER
+					"AND (im.type_id = '2' || im.type_id = '1') ". //HARDCODED MEMBER TYPE
 					"AND im.type_id = mt.id ".
 					"ORDER BY im.type_id ASC";
 		} elseif( $type == 'candidate' ) {
 			$sql=	"SELECT m.id, im.type_id, mt.name AS type, ".
-					"m.country_id, m.available, m.city_id FROM ".
-					"`idea_member` AS im, `user_match` AS m, `membertype` AS mt ".
+					"m.country_id, m.available, m.city_id, a.name AS available_name FROM ".
+					"`idea_member` AS im, `user_match` AS m, `membertype` AS mt, `available` AS a ".
 					"WHERE im.match_id = m.id ".
 					"AND m.user_id IS NULL ".
 					"AND im.idea_id = '{$filter['idea_id']}' ".
@@ -194,8 +193,8 @@ class SqlBuilder {
 					"ORDER BY m.id DESC";
 		} elseif( $type == 'user' ) {
 			$sql=	"SELECT m.id, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
-					"m.country_id, m.city_id, m.available FROM ".
-					"`user` AS u, `user_match` AS m ".
+					"m.country_id, m.city_id, m.available, a.name AS available_name FROM ".
+					"`user` AS u, `user_match` AS m, `available` AS a ".
 					"WHERE m.user_id = u.id ".
 					"AND m.user_id > 0 ".
 					"AND u.id = '{$filter['user_id']}'";
@@ -231,6 +230,10 @@ class SqlBuilder {
 				
 			if($type == 'user'){
 				$row['idea'] = $this->idea( "user", $filter );
+				$row['num_of_ideas'] = count($row['idea']);
+			}
+			if($type == 'recent'){
+				$row['num_of_ideas'] = $this->idea( "usercount", $filter );
 			}
 			if($type != 'candidate'){
 				$filter['uid'] = $row['user_id'];

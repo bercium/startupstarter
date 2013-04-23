@@ -43,6 +43,7 @@ abstract class BaseIdea extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('status_id', 'required'),
+			array('time_updated', 'required', 'on'=>'clicks'),
 			array('status_id, deleted', 'numerical', 'integerOnly'=>true),
 			array('website, video_link', 'length', 'max'=>128),
 			array('time_updated', 'safe'),
