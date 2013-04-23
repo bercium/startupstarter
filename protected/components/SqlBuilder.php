@@ -95,7 +95,7 @@ class SqlBuilder {
 				//add data to array
 				//$row['']
 				$row = array_merge($row, $this->translation( 'userlang', $filter ));
-					$filter['default_lang'] = $row['language_id'];
+				$filter['default_lang'] = $row['language_id'];
 				$row['translation_other'] = $this->translation( 'other', $filter );
 				$row['member'] = $this->user( 'member', $filter );
 				$row['candidate'] = $this->user( 'candidate', $filter );

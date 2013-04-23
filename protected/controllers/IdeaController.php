@@ -271,19 +271,23 @@ class IdeaController extends GxController {
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
 		if($idea){
 
-			$language = Language::Model()->findByAttributes( array( 'language_code' => $lang ) );
-			$translation = IdeaTranslation::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'language_id' => $language->id, 'deleted' => 0 ) );
+			$sql = "SELECT count(id) FROM idea_translation WHERE id = $id AND deleted = 0";
+			$numTranslations = Yii::app()->db->createCommand($sql)->queryScalar();
+			if($numTranslations > 1){
+				$language = Language::Model()->findByAttributes( array( 'language_code' => $lang ) );
+				$translation = IdeaTranslation::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'language_id' => $language->id, 'deleted' => 0 ) );
 
-			$translation->setAttributes(array('deleted' => 1));
+				$translation->setAttributes(array('deleted' => 1));
 
-			if ($translation->save()) {
-				$time_updated = new TimeUpdated;
-				$time_updated->idea($id);
-				
-				if (Yii::app()->getRequest()->getIsAjaxRequest())
-					Yii::app()->end();
-				else
-					$this->redirect(array('edit', 'id' => $id));
+				if ($translation->save()) {
+					$time_updated = new TimeUpdated;
+					$time_updated->idea($id);
+					
+					if (Yii::app()->getRequest()->getIsAjaxRequest())
+						Yii::app()->end();
+					else
+						$this->redirect(array('edit', 'id' => $id));
+				}
 			}
 
 			$this->redirect(array('edit', 'id' => $id));
