@@ -16,7 +16,7 @@
 
 		<div class="row">
 		<?php echo $form->labelEx($match,'available'); ?>
-		<?php echo $form->textField($match, 'available', array('maxlength' => 2)); ?>
+		<?php echo $form->dropDownList($match, 'available', GxHtml::listDataEx(Available::model()->findAllAttributes(null, true))); ?>
 		<?php echo $form->error($match,'available'); ?>
 		</div><!-- row -->
 		<div class="row">

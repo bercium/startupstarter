@@ -100,6 +100,7 @@ class IdeaController extends GxController {
 		$match = UserMatch::Model()->findByAttributes( array( 'user_id' => $user_id ) );
 
 		if (isset($_POST['Idea']) AND isset($_POST['IdeaTranslation'])) {
+			$_POST['Idea']['time_updated'] = time();
 			$idea->setAttributes($_POST['Idea']);
 
 			if ($idea->save()) {
@@ -155,6 +156,7 @@ class IdeaController extends GxController {
 			}
 
 			if (isset($_POST['Idea']) AND isset($_POST['IdeaTranslation'])) {
+				$_POST['time_updated'] = time();
 				$idea->setAttributes($_POST['Idea']);
 
 				if ($idea->save()) {
@@ -163,6 +165,8 @@ class IdeaController extends GxController {
 					$translation->setAttributes($_POST['IdeaTranslation']);
 
 					if ($translation->save()) {
+						$time_updated = new TimeUpdated;
+						$time_updated->idea($id);
 
 						if (Yii::app()->getRequest()->getIsAjaxRequest())
 							Yii::app()->end();
@@ -211,6 +215,8 @@ class IdeaController extends GxController {
 
 				$translation->setAttributes($_POST['IdeaTranslation']);
 				if ($translation->save()) {
+					$time_updated = new TimeUpdated;
+					$time_updated->idea($id);
 
 					if (Yii::app()->getRequest()->getIsAjaxRequest())
 						Yii::app()->end();
@@ -244,6 +250,8 @@ class IdeaController extends GxController {
 
 				$translation->setAttributes($_POST['IdeaTranslation']);
 				if ($translation->save()) {
+					$time_updated = new TimeUpdated;
+					$time_updated->idea($id);
 
 					if (Yii::app()->getRequest()->getIsAjaxRequest())
 						Yii::app()->end();
@@ -269,6 +277,8 @@ class IdeaController extends GxController {
 			$translation->setAttributes(array('deleted' => 1));
 
 			if ($translation->save()) {
+				$time_updated = new TimeUpdated;
+				$time_updated->idea($id);
 				
 				if (Yii::app()->getRequest()->getIsAjaxRequest())
 					Yii::app()->end();
@@ -289,6 +299,8 @@ class IdeaController extends GxController {
 			$idea->setAttributes(array('deleted' => 1));
 
 			if ($idea->save()) {
+				$time_updated = new TimeUpdated;
+				$time_updated->idea($id);
 				
 				if (Yii::app()->getRequest()->getIsAjaxRequest())
 					Yii::app()->end();
@@ -313,6 +325,7 @@ class IdeaController extends GxController {
 				$match = UserMatch::Model()->findByAttributes( array( 'user_id' => $_POST['IdeaMember']['match_id'] ) );
 				$_POST['IdeaMember']['idea_id'] = $id;
 				$_POST['IdeaMember']['match_id'] = $match->id;
+				$_POST['IdeaMember']['type_id'] = '2'; //HARDCODED MEMBER
 
 				$exists = IdeaMember::Model()->findByAttributes( array( 'match_id' => $match->id, 'idea_id' => $id ) );
 				if(!$exists){
@@ -320,6 +333,8 @@ class IdeaController extends GxController {
 					$member->setAttributes($_POST['IdeaMember']);
 
 					if ($member->save()) {
+						$time_updated = new TimeUpdated;
+						$time_updated->idea($id);
 
 						if (Yii::app()->getRequest()->getIsAjaxRequest())
 							Yii::app()->end();
@@ -349,6 +364,8 @@ class IdeaController extends GxController {
 				$member->setAttributes($_POST['IdeaMember']);
 
 				if ($member->save()) {
+					$time_updated = new TimeUpdated;
+					$time_updated->idea($id);
 						
 					if (Yii::app()->getRequest()->getIsAjaxRequest())
 						Yii::app()->end();
@@ -395,10 +412,14 @@ class IdeaController extends GxController {
 
 					$_POST['IdeaMember']['idea_id'] = $id;
 					$_POST['IdeaMember']['match_id'] = $match->id;
-					$_POST['IdeaMember']['type'] = 3;
+					$_POST['IdeaMember']['type_id'] = 3; //HARDCODED CANDIDATE
 					$candidate->setAttributes($_POST['IdeaMember']);
 
+					print_r($_POST['IdeaMember']);
+
 					if ($candidate->save()) {
+						$time_updated = new TimeUpdated;
+						$time_updated->idea($id);
 						
 						if (Yii::app()->getRequest()->getIsAjaxRequest())
 							Yii::app()->end();
@@ -424,7 +445,9 @@ class IdeaController extends GxController {
 				$match->setAttributes($_POST['UserMatch']);
 
 				if ($match->save()) {
-						
+					$time_updated = new TimeUpdated;
+					$time_updated->idea($id);
+					
 					if (Yii::app()->getRequest()->getIsAjaxRequest())
 						Yii::app()->end();
 					else
@@ -448,6 +471,9 @@ class IdeaController extends GxController {
 
 			$match->delete();
 			$candidate->delete();
+
+			$time_updated = new TimeUpdated;
+			$time_updated->idea($id);
 
 			if (Yii::app()->getRequest()->getIsAjaxRequest())
 				Yii::app()->end();
@@ -474,6 +500,8 @@ class IdeaController extends GxController {
 					$collabpref->setAttributes($_POST['UserCollabpref']);
 
 					if ($collabpref->save()) {
+						$time_updated = new TimeUpdated;
+						$time_updated->idea($id);
 
 						if (Yii::app()->getRequest()->getIsAjaxRequest())
 							Yii::app()->end();
@@ -498,6 +526,9 @@ class IdeaController extends GxController {
 			$collabpref = UserCollabpref::Model()->findByAttributes( array( 'id' => $collab_id ) );
 
 			$collabpref->delete();
+
+			$time_updated = new TimeUpdated;
+			$time_updated->idea($id);
 
 			if (Yii::app()->getRequest()->getIsAjaxRequest())
 				Yii::app()->end();
@@ -524,6 +555,8 @@ class IdeaController extends GxController {
 					$skill->setAttributes($_POST['UserSkill']);
 
 					if ($skill->save()) {
+						$time_updated = new TimeUpdated;
+						$time_updated->idea($id);
 
 						if (Yii::app()->getRequest()->getIsAjaxRequest())
 							Yii::app()->end();
@@ -548,6 +581,9 @@ class IdeaController extends GxController {
 			$skill = UserSkill::Model()->findByAttributes( array( 'id' => $skill_id ) );
 
 			$skill->delete();
+
+			$time_updated = new TimeUpdated;
+			$time_updated->idea($id);
 
 			if (Yii::app()->getRequest()->getIsAjaxRequest())
 				Yii::app()->end();

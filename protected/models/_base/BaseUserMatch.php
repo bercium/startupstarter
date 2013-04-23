@@ -56,6 +56,7 @@ abstract class BaseUserMatch extends GxActiveRecord {
 		return array(
 			'ideaMembers' => array(self::HAS_MANY, 'IdeaMember', 'match_id'),
 			'userCollabprefs' => array(self::HAS_MANY, 'UserCollabpref', 'match_id'),
+			'available' => array(self::BELONGS_TO, 'Available', 'available'),
 			'city' => array(self::BELONGS_TO, 'City', 'city_id'),
 			'country' => array(self::BELONGS_TO, 'Country', 'country_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
@@ -72,7 +73,7 @@ abstract class BaseUserMatch extends GxActiveRecord {
 		return array(
 			'id' => Yii::t('app', 'ID'),
 			'user_id' => null,
-			'available' => Yii::t('app', 'Available'),
+			'available' => null,
 			'country_id' => null,
 			'city_id' => null,
 			'ideaMembers' => null,
@@ -89,7 +90,7 @@ abstract class BaseUserMatch extends GxActiveRecord {
 
 		$criteria->compare('id', $this->id, true);
 		$criteria->compare('user_id', $this->user_id);
-		$criteria->compare('available', $this->available, true);
+		$criteria->compare('available', $this->available);
 		$criteria->compare('country_id', $this->country_id);
 		$criteria->compare('city_id', $this->city_id);
 

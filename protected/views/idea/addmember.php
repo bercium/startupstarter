@@ -20,11 +20,6 @@
 		<?php echo $form->error($member,'match_id'); ?>
 		</div><!-- row -->
 		<div class="row">
-		<?php echo $form->labelEx($member,'type'); ?>
-		<?php echo $form->textField($member, 'type', array('maxlength' => 2)); ?>
-		<?php echo $form->error($member,'type'); ?>
-		</div><!-- row -->
-		<div class="row">
 
 <?php
 echo GxHtml::submitButton(Yii::t('app', 'Save'));

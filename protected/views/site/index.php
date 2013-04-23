@@ -1,4 +1,4 @@
-  
+
 <?php /* ?><div id="intro1" style="background-position: 40% 0px; padding-bottom: 1px; padding-top: 30px;"><?php */ ?>
 <?php if (!Yii::app()->user->getState('fpi')){ ?>
 <div class="intro">
@@ -214,7 +214,7 @@ if (isset($data['user'])){ ?>
           <?php 
           $i = 0;
           // show first 4 members
-          if (is_array($idea['member']))
+        if(isset($idea['member'])){
           foreach ($idea['member'] as $member){
             $i++; if ($i > 4) break;
           ?>
@@ -224,6 +224,7 @@ if (isset($data['user'])){ ?>
           <?php } 
             // extra members
             if (count($idea['member']) > 4) echo "+".(count($idea['member'])-4);
+         }
           ?>
           <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Has image" alt="Has image" class="card-icons" />
           <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Has file" alt="Has file" class="card-icons" />
