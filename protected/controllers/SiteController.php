@@ -74,8 +74,10 @@ class SiteController extends Controller
 
 		$data['idea'] = $sqlbuilder->load_array("recent_candidate", $filter);
 		$data['user'] = $sqlbuilder->load_array("recent_user", $filter);
+    
+    $searchForm = new SearchForm();
 
-		$this->render('index', array('data' => $data));
+		$this->render('index', array('data' => $data,"filter"=>$searchForm));
 	}
 
 	public function actionAbout()

@@ -34,7 +34,8 @@
 
 <div class="row panel radius" style="margin-top: 20px;">
 	<div class="large-12 small-12 columns">
-    <form class="custom">
+     <?php echo CHtml::beginForm('','post',array('class'=>"custom")); ?>
+
       
 		 <div class="row">
 		  <div class="large-5 small-12 columns">
@@ -44,18 +45,20 @@
     		
       <div class="row collapse">
         <div class="small-9 large-10 columns">
-          <input type="text" class="radius" placeholder="<?php echo CHtml::encode(Yii::t('app','search by keywords')); ?>">
+          <?php echo CHtml::activeTextField($filter,'generalSearch',array("placeholder"=>Yii::t('app','search by keywords'))); ?>
         </div>
         <div class="small-3 large-2 columns">
-          <a href="#" class="button postfix radius"><?php echo CHtml::encode(Yii::t('app','search')); ?></a>
+          <?php echo CHtml::submitButton(Yii::t("app","Search"),
+                      array('class'=>"button postfix radius")
+                  ); ?>
         </div>
       </div>
         
       </div>
 		</div>
       
+		 <div class="row advance">
       <hr>
-		 <div class="row">
 		  <div class="large-3 small-6 columns">
 		    <label>search by keywords:</label>
 		    <input type="text" placeholder="keywords">
@@ -80,18 +83,27 @@
 			<label for="video"><input type="checkbox" style="display: none;" id="has-video" checked=""><span class="custom checkbox checked"></span> Videos (34)</label>
 			<label for="detailed_description"><input type="checkbox" style="display: none;" checked="" id="has-description"><span class="custom checkbox checked"></span> Detailed Description (53)</label>
 			<label for="attachment"><input type="checkbox" style="display: none;" id="has-attachment" checked=""><span class="custom checkbox checked"></span> Attachments (34)</label>			
-			</div>      
+			</div>
+      
+      <?php echo CHtml::submitButton(Yii::t("app","Search"),
+                  array('class'=>"button small radius")
+              ); ?>
+      
 		</div>
       
-    </form>
+    <?php echo CHtml::endForm(); ?>
     
-		
+    <div><a href="#" onclick="$('.advance').slideToggle('slow'); return false;">Advanced search +</a></div>
+	
 	</div>
 </div>
+  
 
 
 
-<?php if (isset($data['user'])){ ?>
+<?php
+
+if (isset($data['user'])){ ?>
 
 <div  class="row">
   <ul class="small-block-grid-1 large-block-grid-3">
@@ -103,20 +115,41 @@
       <div class="large-12 small-12 columns" >
         <img src="<?php echo avatar_image($user['avatar_link'],$user['id'],60); ?>" style="height:60px; margin-right: 10px; float:left;" />
         <h5><?php echo $user['name']." ".$user['surname']; ?></h5>
-        <small class="meta"><?php echo Yii::t('app','Location:') ?> <a>Ljubljana, Slovenia</a></small>
+        <small class="meta"><?php echo Yii::t('app','Location:') ?> <a>LJUBLJANA, SLOVENIA</a></small>
 		  </div>
 	  </div>
 
     <div  class="row">
       <div class="large-12 small-12 columns"  >
         <small class="meta">
-          <?php echo Yii::t('app','Has skills:'); ?> 
-          <span class="button tiny secondary meta_tags" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> 
-          <span class="button tiny secondary meta_tags" data-tooltip title="Sales">Economics</span>
-        </small>        
-        <small class="meta"><?php echo Yii::t('app','Colaboration:') ?> <a>monetary, cofinder</a></small><br />
-        <small class="meta"><?php echo Yii::t('app','Available:') ?> <a>part time</a></small><br />
-        <small class="meta"><?php echo Yii::t('app','Involved in') ?> <a><?php echo Yii::t('app','{n} project|{n} projects',array(3)) ?></a></small>
+          <?php echo Yii::t('app','Has skills:'); 
+          
+              $skills = array();
+              foreach ($user['skillset'] as $skillset){ 
+                foreach ($skillset['skill'] as $skill)  $skills[$skillset['skillset']][] = $skill['skill'];
+              }
+              
+              foreach ($skills as $skillset=>$skill){
+                ?>
+                <span class="button tiny secondary meta_tags" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
+                <?php 
+              }
+          
+          ?> 
+        </small><br />
+        <small class="meta"><?php echo Yii::t('app','Colaboration:') ?> <a>
+            <?php 
+              $firsttime = true;
+              if (is_array($user['collabpref']))
+              foreach ($user['collabpref'] as $collab){ 
+                if (!$firsttime) echo ", ";
+                $firsttime = false;
+                echo $collab['name'];
+              }
+             ?>
+          </a></small><br />
+        <small class="meta"><?php echo Yii::t('app','Available:') ?> <a>PART TIME</a></small><br />
+        <small class="meta"><?php echo Yii::t('app','Involved in') ?> <a><?php echo Yii::t('app','{n} project|{n} projects',array(3000)) ?></a></small>
         <div class="card-floater">
           <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>"><?php echo Yii::t('app','details...') ?></a>
         </div>
@@ -157,15 +190,31 @@
             <?php echo $idea['pitch']; ?>
           </p>
           <small class="meta">
-            <?php echo Yii::t('app','Looking for skills:'); ?> 
-            <span class="button tiny secondary meta_tags" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> 
-            <span class="button tiny secondary meta_tags" data-tooltip title="Sales">Economics</span>
+            <?php echo Yii::t('app','Looking for skills:'); 
+            
+              $skills = array();
+              if (is_array($idea['candidate'])){
+                foreach ($idea['candidate'] as $candidate){
+                  if (is_array($candidate['skillset']))
+                    foreach ($candidate['skillset'] as $skillset){
+                      foreach ($skillset['skill'] as $skill)  $skills[$skillset['skillset']][] = $skill['skill'];
+                    }
+                }
+              }
+              
+              foreach ($skills as $skillset=>$skill){
+                ?>
+                <span class="button tiny secondary meta_tags" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
+                <?php 
+              }
+            ?> 
           </small>
         </div>
         
           <?php 
           $i = 0;
           // show first 4 members
+          if (is_array($idea['member']))
           foreach ($idea['member'] as $member){
             $i++; if ($i > 4) break;
           ?>
@@ -212,79 +261,18 @@
 </div>
 
 
-
-<div  class="row">
-  
-  <div class="large-4 small-12 columns radius panel card-idea">
-    <div class="row card-idea-title">
-      <div class="large-12 small-12 columns" >
-        <h5>Super naslov moje super ideje</h5>
-       <small><span class="meta">Stage: </span><a href="#">prototype</a></small>
-        <div class="card-floater">
-         <a href="#" class="heart">&hearts;</a> 
-        </div>
-		  </div>
-	  </div>
-
-    <div  class="row">
-      <div class="large-12 small-12 columns">
-        <div class="card-summary">
-          <p>
-        	 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...
-          </p>
-        <hr>
-        <small class="meta">
-          Looking for skills:
-           <span class="button tiny secondary meta_tags" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> <span class="button tiny secondary meta_tags" data-tooltip title="Sales">Economics</span>
-           <span class="button tiny secondary meta_tags" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> <span class="button tiny secondary meta_tags" data-tooltip title="Sales">Economics</span>
-           <span class="button tiny secondary meta_tags" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> <span class="button tiny secondary meta_tags" data-tooltip title="Sales">Economics</span>
-
-        </small>
-        </div>
-        <p>
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Marko skače" alt="Marko Skače" class="card-avatar" />
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Marko skače" alt="Marko Skače" class="card-avatar" />
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Marko skače" alt="Marko Skače" class="card-avatar" />
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Marko skače" alt="Marko Skače" class="card-avatar" />
-          +3
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Has image" alt="Has image" class="card-icons" />
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Has file" alt="Has file" class="card-icons" />
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="has image" alt="has image" class="card-icons" />
-        </p>
-        <hr>
-        <small class="meta">Updated: 31.5.2012</small>
-        <div class="card-floater">
-          <a class="button small radius"  href=""><?php echo Yii::t('app','details') ?></a>
-        </div>
-		  </div>
-	  </div>
-    
-  </div>
-</div>
-
-
-<?php if (isset($data['idea'])){ ?>
-
-<div  class="row">
-<?php foreach ($data['idea'] as $user){ ?>    
-  
-	
-<?php } ?>
-</div>
-
-<?php } ?>
-
-
+<?php /* ?>
 <div class="row panel radius">
 	<div class="large-12 small-12 columns">
 
 <h3>Recent ideas (looking for candidates)</h3>
-<?php print_r($data['idea']); ?>
+<?php //print_r($data['idea']); ?>
 
 <h3>Recently registered users</h3>
-<?php print_r($data['user']); ?>
+<?php //print_r($data['user']); ?>
 
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-		
+<?php  */ ?>
+
 	</div>
 </div>

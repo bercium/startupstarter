@@ -37,9 +37,9 @@ CREATE TABLE IF NOT EXISTS `available` (
 --
 
 INSERT INTO `available` (`id`, `name`) VALUES
-(1, 'Full time'),
-(2, 'Part time'),
-(3, 'Weekends');
+(40, 'Full time'),
+(20, 'Part time'),
+(8, 'Weekends');
 
 
 --
