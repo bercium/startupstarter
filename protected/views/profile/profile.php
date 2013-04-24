@@ -101,29 +101,27 @@
 
               <?php echo $form->errorSummary($link); ?>
 
-              <?php echo $form->labelEx($link,'linkName'); ?>
-              <?php echo $form->textField($link,'linkName'); ?>
+              <?php echo $form->labelEx($link,'title'); ?>
+              <?php echo $form->textField($link,'title'); ?>
 
-              <?php echo $form->labelEx($link,'link'); ?>
-              <?php echo $form->textField($link,'link'); ?>
+              <?php echo $form->labelEx($link,'url'); ?>
+              <?php echo $form->textField($link,'url'); ?>
 
               <?php echo CHtml::submitButton(Yii::t("app","Add"),
                     array('class'=>"button small success radius",
-                        'onclick'=>'addLink();')
+                        'onclick'=>'addLink(\''.Yii::app()->createUrl("profile/addLink").'\');')
                 ); ?>
 
           <?php $this->endWidget(); ?>        
         
       </div>
       <div class="linkList">
-        <div data-alert class='alert-box radius secondary'>
-          Facebook: <a >facebook.com</a>
-          <a href="#" class="close" onclick="removeLink(1)">&times;</a>
+        <?php foreach ($data['user']['link'] as $link){ ?>
+        <div data-alert class="alert-box radius secondary" id="link_div_<?php echo $link['id']; ?>">
+          <?php echo $link['title']; ?>: <a ><?php echo $link['url']; ?></a>
+          <a href="#" class="close" onclick="removeLink(<?php echo $link['id']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteLink"); ?>')">&times;</a>
         </div>
-        <div data-alert class='alert-box radius secondary'>
-          Facebook: <a >facebook.com</a>
-          <a href="#" class="close" onclick="removeLink(1)">&times;</a>
-        </div>
+        <?php } ?>
       </div>
 
       

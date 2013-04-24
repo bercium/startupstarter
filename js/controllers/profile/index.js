@@ -1,22 +1,25 @@
- function addLink()
+ function addLink(inUrl)
  {
  
    var data=$("#LinkForm").serialize();
  
   $.ajax({
    type: 'POST',
-    url: '<?php echo Yii::app()->createAbsoluteUrl("profile/addLink"); ?>',
+   url: inUrl,
    data:data,
-        success:function(data){
-                alert(data); 
-                link = '<div data-alert class="alert-box radius secondary">';
-                link += 'Facebook: <a >facebook.com</a>';
-                link += '<a href="#" class="close" onclick="removeLink(1)">&times;</a>';
-                link += '</div>';
-                $('.linkList').append(link);
-               },
-         error: function(data) { // if error occured
-           alert("Error occured.please try again");
+        success:function(indata){
+          data = JSON.parse(indata);
+          if (data.message != '') alert(data.message);
+          else {
+            link = '<div data-alert class="alert-box radius secondary" id="link_div_'+data.data.id+'">';
+            link += data.data.title+': <a>'+data.data.url+'</a>';
+            link += '<a href="#" class="close" onclick="removeLink('+data.data.id+',\''+data.data.location+'\')">&times;</a>';
+            link += '</div>';
+            $('.linkList').append(link);
+          }
+        },
+        error: function(data) { // if error occured
+           alert("Error: "+data);
            //alert(data);
         },
  
@@ -26,17 +29,20 @@
 }
 
 
-function removeLink(link_id){
+function removeLink(link_id, inUrl){
     $.ajax({
    type: 'POST',
-    url: '<?php echo Yii::app()->createAbsoluteUrl("profile/removeLink"); ?>',
+   url: inUrl,//'<?php echo Yii::app()->createAbsoluteUrl("profile/removeLink"); ?>',
    data:{ id: link_id},
         success:function(data){
-                alert(data); 
-               },
-         error: function(data) { // if error occured
-           alert("Error occured.please try again");
-           alert(data);
+          data = JSON.parse(indata);
+          if (data.message != '') alert(data.message);
+          else {
+            //$('#link_div_'+data.data.id).fadeOut('slow');
+          }
+        },
+        error: function(data) { // if error occured
+           alert("Error: "+data);
         },
  
   dataType:'html'

@@ -174,14 +174,15 @@ class ProfileController extends GxController {
 				$this->data = $data;
 				//print_r($data['user']);
         
-        $link = new LinkForm;
+        //$link = new LinkForm;
+        $link = new UserLink;
         
         //$mod = UserCollabpref::Model()->findAllByAttributes( array( 'match_id' => $match->id) );
         /*$data = Collabpref::model()->with('userCollabprefs')
                                    ->findAll( array( 'condition'=>'userCollabprefs.match_id = '.$match->id ) );*/
         //$data = UserCollabpref::model()->with('collab')->findAllByAttributes( array( 'match_id' => $match->id) );
 
-				$this->render('profile', array( 'user' => $user, 'match' => $match, 'data' => $data ,'link'=>$link));
+				$this->render('profile', array( 'user' => $user, 'match' => $match, 'data' => $data,'link'=>$link));
 			} else {
 				//this would cause an infinite loop, so lets not do it
 				//in a perfect world this would redirect to the register page. not sure how to dynamically redirect outside the same controller
@@ -433,12 +434,13 @@ class ProfileController extends GxController {
 		$this->redirect(array('profile/'));
 	}
 
-	public function actionAddLink($id) {
+	public function actionAddLink(/*$user_id = null*/) {
 
 		//check for permission
-		if(Yii::app()->user->id == $id || 1 == 1 ){ //|| Yii::app()->user->superuser == 1){ //is this person, or is superuser
-			$user_id = $id;
-		}
+		/*if(Yii::app()->user->id == $user_id || 1 == 1 ){ //|| Yii::app()->user->superuser == 1){ //is this person, or is superuser
+			$user_id = $user_id;
+		}else */
+      $user_id = Yii::app()->user->id;
 
 		if($user_id > 0){
 
@@ -446,24 +448,43 @@ class ProfileController extends GxController {
 
 			if (isset($_POST['UserLink'])) {
 
-				$_POST['UserLink']['user_id'] = $id;
+				$_POST['UserLink']['user_id'] = $user_id;
 			
-				$exists = UserLink::Model()->findByAttributes( array( 'user_id' => $id, 'url' => $_POST['UserLink']['url'] ) );
+				$exists = UserLink::Model()->findByAttributes( array( 'user_id' => $user_id, 'url' => $_POST['UserLink']['url'] ) );
 				if(!$exists){
 
 					$link->setAttributes($_POST['UserLink']);
 
 					if ($link->save()) {
+            $response = array("data"=>array("title"=>$_POST['UserLink']['title'],
+                                            "url"=>$_POST['UserLink']['url'],
+                                            "id"=>$link->id,
+                                            "location"=>Yii::app()->createUrl("profile/deleteLink")
+                                           ),
+                              "message"=>"");
+            echo json_encode($response);
+            Yii::app()->end();
 
-						if (Yii::app()->getRequest()->getIsAjaxRequest())
+						/*if (Yii::app()->getRequest()->getIsAjaxRequest())
 							Yii::app()->end();
 						else
-							$this->redirect(array('profile/'));
+							$this->redirect(array('profile/'));*/
 
 					} else {
-						$this->redirect(array('addLink', 'id' => $user_id ));
+            $response = array("data"=>null,
+                              "message"=>Yii::t('app',"Unable to save link at this time."));
+            echo json_encode($response);
+            Yii::app()->end();
+            /*if (Yii::app()->getRequest()->getIsAjaxRequest()){ 
+            }
+            else $this->redirect(array('addLink', 'id' => $user_id ));*/
 					}
-				}
+				}else{
+            $response = array("data"=>null,
+                              "message"=>Yii::t('app',"You already have this link."));
+            echo json_encode($response);
+            Yii::app()->end();
+        }
 			}
 
 			$this->render('_addlink', array( 'link' => $link ));
@@ -473,21 +494,28 @@ class ProfileController extends GxController {
 
 	}
 
-	public function actionDeleteLink($id, $link_id) {
+	public function actionDeleteLink() {
 		
 		//check for permission
-		if(Yii::app()->user->id == $id || 1 == 1 ){ //|| Yii::app()->user->superuser == 1){ //is this person, or is superuser
+		/*if(Yii::app()->user->id == $id || 1 == 1 ){ //|| Yii::app()->user->superuser == 1){ //is this person, or is superuser
 			$user_id = $id;
-		}
-
-		if($user_id > 0){
-
+		}*/
+    $user_id = Yii::app()->user->id;
+    $link_id = 0;
+    if (isset($_POST['id'])) $link_id = $_POST['id'];
+  
+		if($user_id > 0 && $link_id){
+      
 			$link = UserLink::Model()->findByAttributes( array( 'id' => $link_id ) );
 
 			$link->delete();
 
-			if (Yii::app()->getRequest()->getIsAjaxRequest())
-				Yii::app()->end();
+      $response = array("data"=>array("id"=>$link_id),
+                        "message"=>'');
+      echo json_encode($response);
+      Yii::app()->end();
+			//if (Yii::app()->getRequest()->getIsAjaxRequest())
+			//Yii::app()->end();
 			
 		}
 
