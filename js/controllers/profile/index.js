@@ -47,4 +47,5 @@ function removeLink(link_id, inUrl){
  
   dataType:'html'
   });
+
 }

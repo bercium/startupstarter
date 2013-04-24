@@ -166,7 +166,7 @@ margin-left: 10px;
 
 .card-person .card-content {
 	position: relative;
-	min-height: 150px;
+	min-height: 135px;
 }
 
 .card-content .card-floater {
@@ -367,9 +367,7 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
   cursor: pointer;
 }
 
-.card-idea-title small {
-	margin-top: 5px;
-}
+
 
 .login-floater{
   float:right;
@@ -383,7 +381,7 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 }
 
 .card-avatar, .card-icons{
-  height:20px; 
+  height:26px; 
   margin-right:5px;
 }
 
@@ -391,17 +389,11 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
   float:right;
 }
 
-
-
 .avatar-loading{
   display: none;
   position: absolute;
   right: 3px;
   top: 5px;
-}
-
-.avatar{
-  
 }
 
 .avatar-change{
@@ -548,7 +540,7 @@ min-height: 380px;
 
 .card-idea .card-abstract {
 	/*font-size: 0.9em;*/
-	height: 120px;
+	height: 220px;
   
 
 }
@@ -556,12 +548,39 @@ min-height: 380px;
 	position: relative;
 }
 
+
 .card-idea .card-content p {
 	font-size: 0.8em;
+	margin-bottom: 15px;
 }
-.idea-skills {
-min-height: 100px;
+
+.card-idea .card-content .general {
+	font-size: 1.45em;
+	color: #d6d6d6;
+	text-shadow: 0 -1px rgba(0,0,0,0.3);
+	float: right;
+	margin-right: 10px;
 }
+
+.card-idea .foundicon-graph {
+	font-size: 1.5em;
+	position: absolute;
+	margin: 0;
+	line-height: 0;
+	bottom: 8px;
+
+}
+
+.card-idea .stage {
+	padding-left: 25px;
+}
+
+.card-idea .card-idea-title small {
+	margin: 0;
+	position: relative;
+}
+
+
 .card-summary p{
   font-size: 0.9em;
   margin-bottom: 10px;

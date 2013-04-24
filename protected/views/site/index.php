@@ -128,7 +128,7 @@ if (isset($data['user'])){ ?>
       <div class="large-12 small-12 columns" >
         <img src="<?php echo avatar_image($user['avatar_link'],$user['id'],60); ?>" style="height:60px; margin-right: 10px; float:left;" />
         <h5><?php echo $user['name']." ".$user['surname']; ?></h5>
-        <small class="meta"><?php echo Yii::t('app','Location:') ?> <a>LJUBLJANA, SLOVENIA</a></small>
+        <small class="meta"><?php echo Yii::t('app','<span class="general foundicon-location" title="location:"></span>') ?> <a>LJUBLJANA, SLOVENIA</a></small>
 		  </div>
 	  </div>
 
@@ -192,7 +192,7 @@ if (isset($data['user'])){ ?>
     <div class="row card-idea-title" onclick="location.href='<?php echo Yii::app()->createUrl("idea/".$idea['id']); ?>'">
       <div class="large-12 small-12 columns" >
         <h5><?php echo $idea['title']; ?></h5>
-        <small class="meta"><?php echo Yii::t('app','Stage:') ?> <a><?php echo $idea['status']; ?></a></small>
+        <small class="meta"><?php echo Yii::t('app','<span class="general foundicon-graph" title="stage"></span>') ?> <a class="stage"><?php echo $idea['status']; ?></a></small>
         <?php /* ?><div class="card-floater">
           <a class="heart">&hearts;</a>
         </div><?php */ ?>
@@ -205,10 +205,8 @@ if (isset($data['user'])){ ?>
           <p>
             <?php echo $idea['pitch']; ?>
           </p>
-         
-        </div>
-           <small class="meta idea-skills">
-            <?php echo Yii::t('app','Looking for skills:'); 
+          <small class="meta idea-skills">
+            <?php echo Yii::t('app','Looking for:'); 
             
               $skills = array();
               if (is_array($idea['candidate'])){
@@ -222,11 +220,13 @@ if (isset($data['user'])){ ?>
               
               foreach ($skills as $skillset=>$skill){
                 ?>
-                <span class="button tiny secondary meta_tags" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
+                <span class="button tiny radius secondary meta_tags" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
                 <?php 
               }
             ?> 
           </small>
+        </div>
+           
           <?php 
           $i = 0;
           // show first 4 members
@@ -243,10 +243,15 @@ if (isset($data['user'])){ ?>
          }
           ?>
         <?php if ($idea['website']){ ?>
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/website.png" data-tooltip title="<?php echo Yii::t('app','Has website'); ?>" alt="<?php echo Yii::t('app','Has website'); ?>" class="card-icons" />
+          
+          <span class="general foundicon-globe" data-tooltip title="has website" ></span>
+          
+
         <?php } ?>
         <?php if ($idea['video_link']){ ?>
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/video.png" data-tooltip title="<?php echo Yii::t('app','Has video'); ?>" alt="<?php echo Yii::t('app','Has video'); ?>" class="card-icons" />
+         <!-- <img src="<?php //echo Yii::app()->request->baseUrl; ?>/images/video.png" data-tooltip title="<?php // echo Yii::t('app','Has video'); ?>" alt="<?php // echo Yii::t('app','Has video'); ?>" class="card-icons" /> -->
+         <span class="general foundicon-video" data-tooltip title="has video" ></span>
+
         <?php } ?>
         
         <hr>
