@@ -165,6 +165,7 @@ if (isset($data['user'])){ ?>
           </a></small><br />
         <small class="meta"><?php echo Yii::t('app','Available:') ?> <a><?php echo $user['available_name']; ?></a></small><br />
         <small class="meta"><?php echo Yii::t('app','Involved in') ?> <a><?php echo Yii::t('app','{n} project|{n} projects',array($user['num_of_ideas'])) ?></a></small>
+        </div><!-- end card-abstract -->
         <div class="card-floater">
           <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>"><?php echo Yii::t('app','details...') ?></a>
         </div>
