@@ -123,7 +123,7 @@ if (isset($data['user'])){ ?>
       <div class="large-12 small-12 columns card-content"  >
         
         <small class="meta person-skills">
-          <?php echo Yii::t('app','Has skills:'); 
+          <?php echo Yii::t('app','Skills:'); 
           
               $skills = array();
               foreach ($user['skillset'] as $skillset){ 
@@ -193,7 +193,9 @@ if (isset($data['user'])){ ?>
           <p>
             <?php echo $idea['pitch']; ?>
           </p>
-          <small class="meta idea-skills">
+         
+        </div>
+           <small class="meta idea-skills">
             <?php echo Yii::t('app','Looking for skills:'); 
             
               $skills = array();
@@ -213,8 +215,6 @@ if (isset($data['user'])){ ?>
               }
             ?> 
           </small>
-        </div>
-        
           <?php 
           $i = 0;
           // show first 4 members
