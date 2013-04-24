@@ -266,7 +266,7 @@ CREATE TABLE IF NOT EXISTS `user_match` (
   `user_id` int(11) unsigned DEFAULT NULL,
   `country_id` smallint(3) unsigned DEFAULT NULL,
   `city_id` int(10) unsigned DEFAULT NULL,
-  `available` int(2) NOT NULL,
+  `available` int(2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `city_id` (`city_id`),
   KEY `country_id` (`country_id`),
