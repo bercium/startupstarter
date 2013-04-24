@@ -8,6 +8,7 @@
 class SearchForm extends CFormModel
 {
 	public $generalSearch;
+  public $isProject = true;
 
 	/**
 	 * Declares the validation rules.

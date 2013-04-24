@@ -18,10 +18,7 @@
           <br>
           <a href="#" class="button round medium success" >Register here </a> 
           <a href="#" class="button round medium secondary" >Login </a>
-
         </div>
-
-
       </div>
 
       <a href="#" class="close" data-tooltip title="<?php echo CHtml::encode(Yii::t('app','Hide intro')); ?>" onclick="$('.intro').slideUp('slow');"> &#x25B2; </a>
@@ -56,40 +53,56 @@
         
       </div>
 		</div>
-      
-		 <div class="row advance">
+    <div class="advance">
+		 <div class="row">
       <hr>
-		  <div class="large-3 small-6 columns">
+      <div class="switch small round small-2" onclick="$('#filter_projects').toggle();$('#filter_people').toggle();">
+        <input id="project_0" name="SearchForm[isProject]" type="radio" value="0" <?php if ($filter->isProject) echo 'checked="checked"' ?>>
+        <label for="project_0" onclick=""><?php echo Yii::t('app','Projects'); ?></label>
+
+        <input id="project_1" name="SearchForm[isProject]" type="radio" value="1" <?php if (!$filter->isProject) echo 'checked="checked"' ?>>
+        <label for="project_1" onclick=""><?php echo Yii::t('app','People') ?></label>
+        <span></span>
+      </div>
+      
+      <div id="filter_projects" <?php if (!$filter->isProject) echo 'style="display:none"'; ?>>
+         <div class="large-3 small-6 columns">
 		    <label>search by keywords:</label>
 		    <input type="text" placeholder="keywords">
-		  </div>
-		  <div class="large-3 small-6 columns">
-		    <label>search by skills:</label>
-		    <input type="text" placeholder="skills">
-		  </div>
-		 <div class="large-3 small-6 columns">
-       
-      <label for="customDropdown1">Search by something</label>
-      <select id="customDropdown1" class="medium">
-        <option>This is a dropdown</option>
-        <option>This is another option</option>
-        <option>This is another option too</option>
-        <option>Look, a third option</option>
-      </select>
-       
-		</div>
-			<div class="large-3 small-6 columns">
-			<label for="photos"><input type="checkbox" style="display: none;" id="has-photos"><span class="custom checkbox"></span> Photos (44)</label>
-			<label for="video"><input type="checkbox" style="display: none;" id="has-video" checked=""><span class="custom checkbox checked"></span> Videos (34)</label>
-			<label for="detailed_description"><input type="checkbox" style="display: none;" checked="" id="has-description"><span class="custom checkbox checked"></span> Detailed Description (53)</label>
-			<label for="attachment"><input type="checkbox" style="display: none;" id="has-attachment" checked=""><span class="custom checkbox checked"></span> Attachments (34)</label>			
-			</div>
+          </div>
+          <div class="large-3 small-6 columns">
+            <label>search by skills:</label>
+            <input type="text" placeholder="skills">
+          </div>
+         <div class="large-3 small-6 columns">
+
+          <label for="customDropdown1">Search by something</label>
+          <select id="customDropdown1" class="medium">
+            <option>This is a dropdown</option>
+            <option>This is another option</option>
+            <option>This is another option too</option>
+            <option>Look, a third option</option>
+          </select>
+
+        </div>
+      </div>
       
-      <?php echo CHtml::submitButton(Yii::t("app","Search"),
+      <div id="filter_people" <?php if ($filter->isProject) echo 'style="display:none"'; ?>>
+        <div class="large-3 small-6 columns">
+        <label for="photos"><input type="checkbox" style="display: none;" id="has-photos"><span class="custom checkbox"></span> Photos (44)</label>
+        <label for="video"><input type="checkbox" style="display: none;" id="has-video" checked=""><span class="custom checkbox checked"></span> Videos (34)</label>
+        <label for="detailed_description"><input type="checkbox" style="display: none;" checked="" id="has-description"><span class="custom checkbox checked"></span> Detailed Description (53)</label>
+        <label for="attachment"><input type="checkbox" style="display: none;" id="has-attachment" checked=""><span class="custom checkbox checked"></span> Attachments (34)</label>			
+        </div>
+      </div>
+      
+		</div>
+    <div class="row">
+            <?php echo CHtml::submitButton(Yii::t("app","Search"),
                   array('class'=>"button small radius")
               ); ?>
-      
-		</div>
+    </div>
+    </div>
       
     <?php echo CHtml::endForm(); ?>
     
@@ -148,8 +161,8 @@ if (isset($data['user'])){ ?>
               }
              ?>
           </a></small><br />
-        <small class="meta"><?php echo Yii::t('app','Available:') ?> <a>PART TIME</a></small><br />
-        <small class="meta"><?php echo Yii::t('app','Involved in') ?> <a><?php echo Yii::t('app','{n} project|{n} projects',array(3000)) ?></a></small>
+        <small class="meta"><?php echo Yii::t('app','Available:') ?> <a><?php echo $user['available_name']; ?></a></small><br />
+        <small class="meta"><?php echo Yii::t('app','Involved in') ?> <a><?php echo Yii::t('app','{n} project|{n} projects',array($user['num_of_ideas'])) ?></a></small>
         <div class="card-floater">
           <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>"><?php echo Yii::t('app','details...') ?></a>
         </div>
@@ -177,9 +190,9 @@ if (isset($data['user'])){ ?>
       <div class="large-12 small-12 columns" >
         <h5><?php echo $idea['title']; ?></h5>
         <small class="meta"><?php echo Yii::t('app','Stage:') ?> <a><?php echo $idea['status']; ?></a></small>
-        <div class="card-floater">
+        <?php /* ?><div class="card-floater">
           <a class="heart">&hearts;</a>
-        </div>
+        </div><?php */ ?>
 		  </div>
 	  </div>
       
@@ -226,13 +239,17 @@ if (isset($data['user'])){ ?>
             if (count($idea['member']) > 4) echo "+".(count($idea['member'])-4);
          }
           ?>
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Has image" alt="Has image" class="card-icons" />
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Has file" alt="Has file" class="card-icons" />
+        <?php if ($idea['website']){ ?>
+          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/website.png" data-tooltip title="<?php echo Yii::t('app','Has website'); ?>" alt="<?php echo Yii::t('app','Has website'); ?>" class="card-icons" />
+        <?php } ?>
+        <?php if ($idea['video_link']){ ?>
+          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/video.png" data-tooltip title="<?php echo Yii::t('app','Has video'); ?>" alt="<?php echo Yii::t('app','Has video'); ?>" class="card-icons" />
+        <?php } ?>
         
         <hr>
         <small class="meta"><?php echo Yii::t('app','Updated {n} day ago|Updated {n} days ago',array(1)); ?></small>
         <div class="card-floater">
-          <a href="<?php echo Yii::app()->createUrl("idea/".$idea['id']); ?>"><?php echo Yii::t('app','details...') ?></a>
+          <a class="small button radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("idea/".$idea['id']); ?>"><?php echo Yii::t('app','details...') ?></a>
         </div>
 		  </div>
 	  </div>
@@ -262,18 +279,18 @@ if (isset($data['user'])){ ?>
 </div>
 
 
-<?php /* ?>
+<?php  ?>
 <div class="row panel radius">
 	<div class="large-12 small-12 columns">
 
 <h3>Recent ideas (looking for candidates)</h3>
-<?php //print_r($data['idea']); ?>
+<?php print_r($data['idea']); ?>
 
 <h3>Recently registered users</h3>
 <?php //print_r($data['user']); ?>
 
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-<?php  */ ?>
+<?php   ?>
 
 	</div>
 </div>
