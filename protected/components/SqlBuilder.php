@@ -1,5 +1,6 @@
 <?php
 class SqlBuilder {
+	public $date_format = "j. M";
 
 	//main function, calling other functions
 	//why a seperate function?
@@ -160,46 +161,75 @@ class SqlBuilder {
 	}
 
 	public function user($type, $filter = 0){
-		//echo "USER QUERIED:$type<br/>";
-		//print_r($filter);
-		if( $type == 'recent' ){
-			$sql=	"SELECT m.id, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
-					"m.country_id, m.city_id, m.available, a.name AS available_name FROM ".
-					"`user` AS u, `user_match` AS m, `available` AS a ".
-					"WHERE m.user_id = u.id ".
-					"AND m.user_id > 0 ".
+
+		if( $type == 'user' ) {
+			//return specific user's data
+			$sql=	"SELECT m.id, ".
+					"u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, ".
+					"u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
+					"l.name AS language, c.name AS country, ci.name AS city, m.country_id, m.city_id, ".
+					"m.available, a.name AS available_name FROM ".
+					"`user_match` AS m ".
+					"LEFT JOIN `user` AS u ON m.user_id = u.id ".
+					"LEFT JOIN `available` AS a ON a.id = m.available ".
+					"LEFT JOIN `country` AS c ON c.id = m.country_id ".
+					"LEFT JOIN `city` AS ci ON ci.id = m.city_id ".
+					"LEFT JOIN `language` AS l ON u.language_id = l.id ".
+					"WHERE m.user_id > 0 AND u.id = '{$filter['user_id']}'";
+
+		} elseif( $type == 'recent' ){
+			//return recently registered users' data
+			$sql=	"SELECT m.id, ".
+					"u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, ".
+					"u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
+					"l.name AS language, c.name AS country, ci.name AS city, m.country_id, m.city_id, ".
+					"m.available, a.name AS available_name FROM ".
+					"`user_match` AS m ".
+					"LEFT JOIN `user` AS u ON m.user_id = u.id ".
+					"LEFT JOIN `available` AS a ON a.id = m.available ".
+					"LEFT JOIN `country` AS c ON c.id = m.country_id ".
+					"LEFT JOIN `city` AS ci ON ci.id = m.city_id ".
+					"LEFT JOIN `language` AS l ON u.language_id = l.id ".
+					"WHERE m.user_id > 0 ".
 					"ORDER BY u.create_at DESC";
+
 		} elseif( $type == 'member' ) {
-			$sql=	"SELECT m.id, im.type_id, mt.name AS type, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
-					"m.country_id, m.city_id, m.available, a.name AS available_name FROM ".
-					"`idea_member` AS im, `membertype` AS mt, ".
-					"`user` AS u, `user_match` AS m, `available` AS a ".
-					"WHERE im.match_id = m.id ".
-					"AND m.user_id = u.id ".
-					"AND m.user_id > 0 ".
+			//return members of an idea
+			$sql=	"SELECT m.id, im.type_id, mt.name AS type, ".
+					"u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, ".
+					"u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
+					"l.name AS language, c.name AS country, ci.name AS city, m.country_id, m.city_id, ".
+					"m.available, a.name AS available_name FROM ".
+					"`idea_member` AS im ".
+					"LEFT JOIN `user_match` AS m ON im.match_id = m.id ".
+					"LEFT JOIN `user` AS u ON m.user_id = u.id ".
+					"LEFT JOIN `membertype` AS mt ON im.type_id = mt.id ".
+					"LEFT JOIN `available` AS a ON a.id = m.available ".
+					"LEFT JOIN `country` AS c ON c.id = m.country_id ".
+					"LEFT JOIN `city` AS ci ON ci.id = m.city_id ".
+					"LEFT JOIN `language` AS l ON u.language_id = l.id ".
+					"WHERE m.user_id > 0 ".
 					"AND im.idea_id = '{$filter['idea_id']}' ".
 					"AND (im.type_id = '2' || im.type_id = '1') ". //HARDCODED MEMBER TYPE
-					"AND im.type_id = mt.id ".
 					"ORDER BY im.type_id ASC";
+
 		} elseif( $type == 'candidate' ) {
+			//return candidates of an idea
 			$sql=	"SELECT m.id, im.type_id, mt.name AS type, ".
-					"m.country_id, m.available, m.city_id, a.name AS available_name FROM ".
-					"`idea_member` AS im, `user_match` AS m, `membertype` AS mt, `available` AS a ".
-					"WHERE im.match_id = m.id ".
-					"AND m.user_id IS NULL ".
+					"c.name AS country, ci.name AS city, m.country_id, m.city_id, ".
+					"m.available, a.name AS available_name FROM ".
+					"`idea_member` AS im ".
+					"LEFT JOIN `user_match` AS m ON im.match_id = m.id ".
+					"LEFT JOIN `membertype` AS mt ON im.type_id = mt.id ".
+					"LEFT JOIN `available` AS a ON a.id = m.available ".
+					"LEFT JOIN `country` AS c ON c.id = m.country_id ".
+					"LEFT JOIN `city` AS ci ON ci.id = m.city_id ".
+					"WHERE m.user_id IS NULL ".
 					"AND im.idea_id = '{$filter['idea_id']}' ".
 					"AND im.type_id = '3' ". //HARDCODED CANDIDATE
-					"AND im.type_id = mt.id ".
 					"ORDER BY m.id DESC";
-		} elseif( $type == 'user' ) {
-			$sql=	"SELECT m.id, u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
-					"m.country_id, m.city_id, m.available, a.name AS available_name FROM ".
-					"`user` AS u, `user_match` AS m, `available` AS a ".
-					"WHERE m.user_id = u.id ".
-					"AND m.user_id > 0 ".
-					"AND u.id = '{$filter['user_id']}'";
+
 		}
-		//echo $sql."\n";
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
@@ -207,8 +237,6 @@ class SqlBuilder {
 		//read data, build array, call contained functions
 		$array = NULL;
 		while(($row=$dataReader->read())!==false) {
-			
-			//print_r($row);
 			
 			//set filter
 			$filter['match_id'] = $row['id'];
@@ -230,7 +258,9 @@ class SqlBuilder {
 				
 			if($type == 'user'){
 				$row['idea'] = $this->idea( "user", $filter );
-				$row['num_of_ideas'] = count($row['idea']);
+
+				print_r($row['idea']);
+				//$row['num_of_ideas'] = 
 			}
 			if($type == 'recent'){
 				$row['num_of_ideas'] = $this->idea( "usercount", $filter );
