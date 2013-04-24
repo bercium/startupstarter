@@ -120,8 +120,9 @@ if (isset($data['user'])){ ?>
 	  </div>
 
     <div  class="row">
-      <div class="large-12 small-12 columns"  >
-        <small class="meta">
+      <div class="large-12 small-12 columns card-content"  >
+        
+        <small class="meta person-skills">
           <?php echo Yii::t('app','Has skills:'); 
           
               $skills = array();
@@ -136,8 +137,9 @@ if (isset($data['user'])){ ?>
               }
           
           ?> 
+        <div class="card-abstract">
         </small><br />
-        <small class="meta"><?php echo Yii::t('app','Colaboration:') ?> <a>
+        <small class="meta"><?php echo Yii::t('app','Collab:') ?> <a>
             <?php 
               $firsttime = true;
               if (is_array($user['collabpref']))
@@ -150,6 +152,8 @@ if (isset($data['user'])){ ?>
           </a></small><br />
         <small class="meta"><?php echo Yii::t('app','Available:') ?> <a>PART TIME</a></small><br />
         <small class="meta"><?php echo Yii::t('app','Involved in') ?> <a><?php echo Yii::t('app','{n} project|{n} projects',array(3000)) ?></a></small>
+        </div><!-- end card-abstract -->
+
         <div class="card-floater">
           <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>"><?php echo Yii::t('app','details...') ?></a>
         </div>
@@ -184,12 +188,12 @@ if (isset($data['user'])){ ?>
 	  </div>
       
     <div  class="row">
-      <div class="large-12 small-12 columns"  >
-        <div class="card-summary">
+      <div class="large-12 small-12 columns card-content"  >
+        <div class="card-abstract">
           <p>
             <?php echo $idea['pitch']; ?>
           </p>
-          <small class="meta">
+          <small class="meta idea-skills">
             <?php echo Yii::t('app','Looking for skills:'); 
             
               $skills = array();
@@ -232,7 +236,7 @@ if (isset($data['user'])){ ?>
         <hr>
         <small class="meta"><?php echo Yii::t('app','Updated {n} day ago|Updated {n} days ago',array(1)); ?></small>
         <div class="card-floater">
-          <a href="<?php echo Yii::app()->createUrl("idea/".$idea['id']); ?>"><?php echo Yii::t('app','details...') ?></a>
+          <a class="button small radius" href="<?php echo Yii::app()->createUrl("idea/".$idea['id']); ?>"><?php echo Yii::t('app','details...') ?></a>
         </div>
 		  </div>
 	  </div>
