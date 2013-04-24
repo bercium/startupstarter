@@ -149,6 +149,7 @@ class SqlBuilder {
 						"`idea` AS i,`idea_translation` AS it,`language` AS l ".
 						"WHERE i.id = it.idea_id ".
 						"AND l.id = it.language_id ".
+						"AND it.deleted = 0 ".
 						"AND it.idea_id = {$filter['idea_id']} ".
 						"AND it.language_id != {$filter['lang']}";
 
