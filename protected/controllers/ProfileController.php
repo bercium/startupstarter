@@ -3,6 +3,9 @@
 class ProfileController extends GxController {
 
 	public $data = array();
+	const status_ok = '200';
+	const status_fail = '404';
+
 	/**
 	 * @return array action filters
 	 */
@@ -103,11 +106,11 @@ class ProfileController extends GxController {
 
 			$user = UserEdit::Model()->findByAttributes( array( 'id' => $user_id ) );
 			if($user){
-        $oldImg = $user->avatar_link;
+        		$oldImg = $user->avatar_link;
 				$match = UserMatch::Model()->findByAttributes( array( 'user_id' => $user_id ) );
 
         if (isset($_POST['UserEdit']) && isset($_POST['UserMatch'])) {
-					$user->setAttributes($_POST['UserEdit']);
+			$user->setAttributes($_POST['UserEdit']);
           //$user->avatar_link = '';
           
           if ($_POST['UserEdit']['avatar_link']){
@@ -301,18 +304,46 @@ class ProfileController extends GxController {
 		}
 	}
 
+	//from here on
 	public function actionRemoveIdea($id, $idea_id) {
 
 		$match = UserMatch::Model()->findByAttributes( array( 'id' => $id ) );
+		$match_id = $match->id;
+		$isOwner = IdeaMember::Model()->findByAttributes( array( 'match_id' => $match_id, 'idea_id' => $idea_id, 'type_id' => 1 ) );
 
 		//check for permission
 		if( $match && ($match->user_id == Yii::app()->user->id || 1 == 1 )){ //|| 1 == 1 ){ //|| Yii::app()->user->superuser == 1){
 
-			$member = IdeaMember::Model()->findByAttributes( array( 'idea_id' => $idea_id, 'match_id' => $match->id ) );
-			$member->delete();
+			$allgood = false;
+			if($isOwner){
+				$idea = Idea::Model()->findByAttributes( array( 'id' => $idea_id, 'deleted' => 0 ) );
+				$idea->setAttributes(array('deleted' => 1));
+				
+				if($idea->save()){
+					$allgood = true;
+				}
+			} else {
+				$member = IdeaMember::Model()->findByAttributes( array( 'idea_id' => $idea_id, 'match_id' => $match_id ) );
+				if($member->delete()){
+					$allgood = true;
+				}
+			}
 
-			if (Yii::app()->getRequest()->getIsAjaxRequest())
+			if($allgood){
+				$return['message'] = "All good in the hood";
+				$return['status'] = self::status_ok;
+			} else {
+				$return['message'] = "Wrong";
+				$return['status'] = self::status_fail;
+			}
+			
+			if(isset($_GET['ajax'])){
+				$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+				echo $return; //return array
 				Yii::app()->end();
+			} else {
+            	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
+			}
 
 		}
 
@@ -333,23 +364,40 @@ class ProfileController extends GxController {
 
 				foreach($POST['UserCollabpref'] AS $key => $value){
 					$value['match_id'] = $id;
+					$allgood = false;
 
 					$exists = UserCollabpref::Model()->findByAttributes( array( 'match_id' => $id, 'collab_id' => $value['collab_id'] ) );
 					if(!$exists && $value['active'] > 0){ //we want to insert
 
 						$collabpref->setAttributes($value);
-						$collabpref->save();
+						if($collabpref->save()){
+							$allgood = true;
+						}
 					}
 					if($exists && !$_POST['UserCollabpref']['active']){ //we want to delete it
 
-						$exists->delete();
+						if($exists->delete()){
+							$allgood = true;
+						}
 					}
 				}
 
-				if (Yii::app()->getRequest()->getIsAjaxRequest())
+				if($allgood){
+					$return['message'] = "All good in the hood";
+					$return['status'] = self::status_ok;
+				} else {
+					$return['message'] = "Wrong";
+					$return['status'] = self::status_fail;
+				}
+				
+				if(isset($_GET['ajax'])){
+					$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+					echo $return; //return array
 					Yii::app()->end();
-				else
+				} else {
+	            	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
 					$this->redirect(array('profile/'));
+				}
 
 			}
 
@@ -368,10 +416,22 @@ class ProfileController extends GxController {
 		if( $match && ($match->user_id == Yii::app()->user->id || 1 == 1 )){ //|| 1 == 1 ){ //|| Yii::app()->user->superuser == 1){
 
 			$collabpref = UserCollabpref::Model()->findByAttributes( array( 'id' => $collab_id ) );
-			$collabpref->delete();
 
-			if (Yii::app()->getRequest()->getIsAjaxRequest())
+			if($collabpref->delete()){ //delete
+				$return['message'] = "All good in the hood";
+				$return['status'] = self::status_ok;
+			} else {
+				$return['message'] = "Wrong";
+				$return['status'] = self::status_fail;
+			}
+			
+			if(isset($_GET['ajax'])){
+				$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+				echo $return; //return array
 				Yii::app()->end();
+			} else {
+            	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
+			}
 		}
 
 		$this->redirect(array('profile/'));
@@ -394,17 +454,24 @@ class ProfileController extends GxController {
 				if(!$exists){
 
 					$skill->setAttributes($_POST['UserSkill']);
-
-					if ($skill->save()) {
-
-						if (Yii::app()->getRequest()->getIsAjaxRequest())
-							Yii::app()->end();
-						else
-							$this->redirect(array('profile/'));
-
+					
+					if($skill->save()){ //save
+						$return['message'] = "All good in the hood";
+						$return['status'] = self::status_ok;
 					} else {
-						$this->redirect(array('addSkill', 'id' => $id ));
+						$return['message'] = "Wrong";
+						$return['status'] = self::status_fail;
 					}
+					
+					if(isset($_GET['ajax'])){
+						$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+						echo $return; //return array
+						Yii::app()->end();
+					} else {
+		            	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
+					}
+
+					$this->redirect(array('profile/'));
 				} else {
 					$this->redirect(array('profile/'));
 				}
@@ -425,10 +492,21 @@ class ProfileController extends GxController {
 
 			$skill = UserSkill::Model()->findByAttributes( array( 'id' => $skill_id ) );
 
-			$skill->delete();
-
-			if (Yii::app()->getRequest()->getIsAjaxRequest())
+			if($skill->delete()){ //delete
+				$return['message'] = "All good in the hood";
+				$return['status'] = self::status_ok;
+			} else {
+				$return['message'] = "Wrong";
+				$return['status'] = self::status_fail;
+			}
+			
+			if(isset($_GET['ajax'])){
+				$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+				echo $return; //return array
 				Yii::app()->end();
+			} else {
+            	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
+			}
 		}
 		
 		$this->redirect(array('profile/'));
@@ -458,22 +536,20 @@ class ProfileController extends GxController {
           $link->url = $linkURL;
 
 					if ($link->save()) {
-            $response = array("data"=>array("title"=>$_POST['UserLink']['title'],
-                                            "url"=>$linkURL,
-                                            "id"=>$link->id,
-                                            "location"=>Yii::app()->createUrl("profile/deleteLink")
-                                           ),
-                              "message"=>"");
-            echo json_encode($response);
-            Yii::app()->end();
+			            $response = array("data"=>array("title"=>$_POST['UserLink']['title'],
+			                                            "url"=>$linkURL,
+			                                            "id"=>$link->id,
+			                                            "location"=>Yii::app()->createUrl("profile/deleteLink")
+			                                           ),
+			                              "status"=>$this->status_ok,
+			                              "message"=>"");
+			            echo json_encode($response);
+			            Yii::app()->end();
 
-						/*if (Yii::app()->getRequest()->getIsAjaxRequest())
-							Yii::app()->end();
-						else
-							$this->redirect(array('profile/'));*/
 
 					} else {
             $response = array("data"=>null,
+            				  "status"=>$this->status_fail,
                               "message"=>Yii::t('app',"Problem saving link. Please check fields for correct values."));
             echo json_encode($response);
             Yii::app()->end();
@@ -483,6 +559,7 @@ class ProfileController extends GxController {
 					}
 				}else{
             $response = array("data"=>null,
+            				  "status"=>$this->status_fail,
                               "message"=>Yii::t('app',"You already have this link."));
             echo json_encode($response);
             Yii::app()->end();
@@ -510,14 +587,19 @@ class ProfileController extends GxController {
       
 			$link = UserLink::Model()->findByAttributes( array( 'id' => $link_id ) );
 
-			$link->delete();
-
-      $response = array("data"=>array("id"=>$link_id),
-                        "message"=>'');
-      echo json_encode($response);
-      Yii::app()->end();
-			//if (Yii::app()->getRequest()->getIsAjaxRequest())
-			//Yii::app()->end();
+			if($link->delete()){
+		      $response = array("data"=>array("id"=>$link_id),
+		      					"status"=>$this->status_ok,
+		                        "message"=>'');
+		      echo json_encode($response);
+		      Yii::app()->end();
+			} else {
+		      $response = array("data"=>null,
+		      					"status"=>$this->status_fail,
+		                        "message"=>'');
+		      echo json_encode($response);
+		      Yii::app()->end();
+			}
 			
 		}
 

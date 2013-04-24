@@ -3,6 +3,8 @@
 class IdeaController extends GxController {
 
 	public $data = array();
+	const status_ok = '200';
+	const status_fail = '404';
 	/**
 	 * @return array action filters
 	 */
@@ -200,6 +202,7 @@ class IdeaController extends GxController {
 
 	public function actionTranslate($id) {
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
+
 		if($idea){
 
 			$translation = new IdeaTranslation;
@@ -280,13 +283,23 @@ class IdeaController extends GxController {
 				$translation->setAttributes(array('deleted' => 1));
 
 				if ($translation->save()) {
+					$return['message'] = "All good in the hood";
+					$return['status'] = self::status_ok;
+
 					$time_updated = new TimeUpdated;
 					$time_updated->idea($id);
-					
-					if (Yii::app()->getRequest()->getIsAjaxRequest())
-						Yii::app()->end();
-					else
-						$this->redirect(array('edit', 'id' => $id));
+				} else {
+					$return['message'] = "Wrong";
+					$return['status'] = self::status_fail;
+				}
+				
+				if(isset($_GET['ajax'])){
+					$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+					echo $return; //return array
+					Yii::app()->end();
+				} else {
+	            	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
+					$this->redirect(array('profile/'));
 				}
 			}
 
@@ -299,17 +312,30 @@ class IdeaController extends GxController {
 
 	public function actionDeleteIdea($id) {
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-		if($idea){
+		
+		$user_id = Yii::app()->user->id;
+		$match = UserMatch::Model()->findByAttributes( array( 'user_id' => $user_id ) );
+		$match_id = $match->match_id;
+		$isOwner = IdeaMember::Model()->findByAttributes( array( 'match_id' => $match_id, 'idea_id' => $id, 'type_id' => 1 ) );
+		
+		if($idea && $isOwner){
 			$idea->setAttributes(array('deleted' => 1));
-
-			if ($idea->save()) {
-				$time_updated = new TimeUpdated;
-				$time_updated->idea($id);
 				
-				if (Yii::app()->getRequest()->getIsAjaxRequest())
-					Yii::app()->end();
-				else
-					$this->redirect(array('index'));
+			if($idea->save()){
+				$return['message'] = "All good in the hood";
+				$return['status'] = self::status_ok;
+			} else {
+				$return['message'] = "Wrong";
+				$return['status'] = self::status_fail;
+			}
+				
+			if(isset($_GET['ajax'])){
+				$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+				echo $return; //return array
+				Yii::app()->end();
+			} else {
+	           	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
+				$this->redirect(array('profile/'));
 			}
 		}
 
@@ -337,14 +363,25 @@ class IdeaController extends GxController {
 					$member->setAttributes($_POST['IdeaMember']);
 
 					if ($member->save()) {
+						$return['message'] = "All good in the hood";
+						$return['status'] = self::status_ok;
+
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
-
-						if (Yii::app()->getRequest()->getIsAjaxRequest())
-							Yii::app()->end();
-						else
-							$this->redirect(array('edit', 'id' => $idea->id));
+					} else {
+						$return['message'] = "Wrong";
+						$return['status'] = self::status_fail;
 					}
+					
+					if(isset($_GET['ajax'])){
+						$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+						echo $return; //return array
+						Yii::app()->end();
+					} else {
+		            	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
+						$this->redirect(array('profile/'));
+					}
+					
 				} else {
 					$this->redirect(array('editMember', 'id' => $idea->id, 'member_id' => $exists->id ));
 				}
@@ -367,15 +404,24 @@ class IdeaController extends GxController {
 
 				$member->setAttributes($_POST['IdeaMember']);
 
-				if ($member->save()) {
+				if($member->save()){
+					$return['message'] = "All good in the hood";
+					$return['status'] = self::status_ok;
+
 					$time_updated = new TimeUpdated;
 					$time_updated->idea($id);
-						
-					if (Yii::app()->getRequest()->getIsAjaxRequest())
-						Yii::app()->end();
-					else
-						$this->redirect(array('edit', 'id' => $idea->id));
-					
+				} else {
+					$return['message'] = "Wrong";
+					$return['status'] = self::status_fail;
+				}
+				
+				if(isset($_GET['ajax'])){
+					$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+					echo $return; //return array
+					Yii::app()->end();
+				} else {
+	            	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
+					$this->redirect(array('profile/'));
 				}
 			}
 
@@ -391,12 +437,25 @@ class IdeaController extends GxController {
 
 			$member = IdeaMember::Model()->findByAttributes( array( 'id' => $member_id ) );
 
-			$member->delete();
+			if($member->delete()){
+				$return['message'] = "All good in the hood";
+				$return['status'] = self::status_ok;
 
-			if (Yii::app()->getRequest()->getIsAjaxRequest())
+				$time_updated = new TimeUpdated;
+				$time_updated->idea($id);
+			} else {
+				$return['message'] = "Wrong";
+				$return['status'] = self::status_fail;
+			}
+			
+			if(isset($_GET['ajax'])){
+				$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+				echo $return; //return array
 				Yii::app()->end();
-			else
-				$this->redirect(array('edit', 'id' => $idea->id));
+			} else {
+	           	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
+				$this->redirect(array('profile/'));
+			}
 		} else {
 			$this->redirect(array('index'));
 		}
@@ -419,16 +478,24 @@ class IdeaController extends GxController {
 					$_POST['IdeaMember']['type_id'] = 3; //HARDCODED CANDIDATE
 					$candidate->setAttributes($_POST['IdeaMember']);
 
-					print_r($_POST['IdeaMember']);
+					if($candidate->save()){
+						$return['message'] = "All good in the hood";
+						$return['status'] = self::status_ok;
 
-					if ($candidate->save()) {
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
-						
-						if (Yii::app()->getRequest()->getIsAjaxRequest())
-							Yii::app()->end();
-						else
-							$this->redirect(array('edit', 'id' => $idea->id));
+					} else {
+						$return['message'] = "Wrong";
+						$return['status'] = self::status_fail;
+					}
+					
+					if(isset($_GET['ajax'])){
+						$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+						echo $return; //return array
+						Yii::app()->end();
+					} else {
+		            	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
+						$this->redirect(array('profile/'));
 					}
 				}
 			}
@@ -448,15 +515,24 @@ class IdeaController extends GxController {
 			if (isset($_POST['UserMatch'])) {
 				$match->setAttributes($_POST['UserMatch']);
 
-				if ($match->save()) {
+				if($match->save()){
+					$return['message'] = "All good in the hood";
+					$return['status'] = self::status_ok;
+
 					$time_updated = new TimeUpdated;
 					$time_updated->idea($id);
-					
-					if (Yii::app()->getRequest()->getIsAjaxRequest())
-						Yii::app()->end();
-					else
-						$this->redirect(array('edit', 'id' => $idea->id));
-					
+				} else {
+					$return['message'] = "Wrong";
+					$return['status'] = self::status_fail;
+				}
+				
+				if(isset($_GET['ajax'])){
+					$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+					echo $return; //return array
+					Yii::app()->end();
+				} else {
+	            	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
+					$this->redirect(array('profile/'));
 				}
 			}
 
@@ -472,17 +548,32 @@ class IdeaController extends GxController {
 
 			$match = UserMatch::Model()->findByAttributes( array( 'id' => $candidate_id ) );
 			$candidate = IdeaMember::Model()->findByAttributes( array( 'match_id' => $candidate_id ) );
+			$allgood = false;
 
-			$match->delete();
-			$candidate->delete();
+			if($match->delete())
+				$allgood = true;
+			if($candidate->delete())
+				$allgood = true;
 
-			$time_updated = new TimeUpdated;
-			$time_updated->idea($id);
+			if($allgood){
+				$return['message'] = "All good in the hood";
+				$return['status'] = self::status_ok;
 
-			if (Yii::app()->getRequest()->getIsAjaxRequest())
+				$time_updated = new TimeUpdated;
+				$time_updated->idea($id);
+			} else {
+				$return['message'] = "Wrong";
+				$return['status'] = self::status_fail;
+			}
+				
+			if(isset($_GET['ajax'])){
+				$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+				echo $return; //return array
 				Yii::app()->end();
-			else
-				$this->redirect(array('edit', 'id' => $idea->id));
+			} else {
+	           	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
+				$this->redirect(array('profile/'));
+			}
 		} else {
 			$this->redirect(array('index'));
 		}
@@ -503,14 +594,24 @@ class IdeaController extends GxController {
 
 					$collabpref->setAttributes($_POST['UserCollabpref']);
 
-					if ($collabpref->save()) {
+					if($collabpref->save()){
+						$return['message'] = "All good in the hood";
+						$return['status'] = self::status_ok;
+
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
-
-						if (Yii::app()->getRequest()->getIsAjaxRequest())
-							Yii::app()->end();
-						else
-							$this->redirect(array('editCandidate', 'id' => $idea->id, 'candidate_id' => $candidate_id ));
+					} else {
+						$return['message'] = "Wrong";
+						$return['status'] = self::status_fail;
+					}
+						
+					if(isset($_GET['ajax'])){
+						$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+						echo $return; //return array
+						Yii::app()->end();
+					} else {
+			           	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
+						$this->redirect(array('profile/'));
 					}
 				} else {
 					$this->redirect(array('editCandidate', 'id' => $idea->id, 'candidate_id' => $candidate_id ));
@@ -529,15 +630,25 @@ class IdeaController extends GxController {
 
 			$collabpref = UserCollabpref::Model()->findByAttributes( array( 'id' => $collab_id ) );
 
-			$collabpref->delete();
+			if($collabpref->delete()){
+				$return['message'] = "All good in the hood";
+				$return['status'] = self::status_ok;
 
-			$time_updated = new TimeUpdated;
-			$time_updated->idea($id);
-
-			if (Yii::app()->getRequest()->getIsAjaxRequest())
+				$time_updated = new TimeUpdated;
+				$time_updated->idea($id);
+			} else {
+				$return['message'] = "Wrong";
+				$return['status'] = self::status_fail;
+			}
+						
+			if(isset($_GET['ajax'])){
+				$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+				echo $return; //return array
 				Yii::app()->end();
-			else
-				$this->redirect(array('editCandidate', 'id' => $idea->id, 'candidate_id' => $candidate_id ));
+			} else {
+		    	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
+				$this->redirect(array('profile/'));
+			}
 		} else {
 			$this->redirect(array('index'));
 		}
@@ -558,14 +669,24 @@ class IdeaController extends GxController {
 
 					$skill->setAttributes($_POST['UserSkill']);
 
-					if ($skill->save()) {
+					if($skill->save()){
+						$return['message'] = "All good in the hood";
+						$return['status'] = self::status_ok;
+
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
-
-						if (Yii::app()->getRequest()->getIsAjaxRequest())
-							Yii::app()->end();
-						else
-							$this->redirect(array('editCandidate', 'id' => $idea->id, 'candidate_id' => $candidate_id ));
+					} else {
+						$return['message'] = "Wrong";
+						$return['status'] = self::status_fail;
+					}
+								
+					if(isset($_GET['ajax'])){
+						$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+						echo $return; //return array
+						Yii::app()->end();
+					} else {
+				    	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
+						$this->redirect(array('profile/'));
 					}
 				} else {
 					$this->redirect(array('editCandidate', 'id' => $idea->id, 'candidate_id' => $candidate_id ));
@@ -584,15 +705,25 @@ class IdeaController extends GxController {
 
 			$skill = UserSkill::Model()->findByAttributes( array( 'id' => $skill_id ) );
 
-			$skill->delete();
+			if($skill->delete()){
+				$return['message'] = "All good in the hood";
+				$return['status'] = self::status_ok;
 
-			$time_updated = new TimeUpdated;
-			$time_updated->idea($id);
-
-			if (Yii::app()->getRequest()->getIsAjaxRequest())
+				$time_updated = new TimeUpdated;
+				$time_updated->idea($id);
+			} else {
+				$return['message'] = "Wrong";
+				$return['status'] = self::status_fail;
+			}
+						
+			if(isset($_GET['ajax'])){
+				$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+				echo $return; //return array
 				Yii::app()->end();
-			else
-				$this->redirect(array('editCandidate', 'id' => $idea->id, 'candidate_id' => $candidate_id ));
+			} else {
+		    	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
+				$this->redirect(array('profile/'));
+			}
 		} else {
 			$this->redirect(array('index'));
 		}
