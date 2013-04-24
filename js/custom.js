@@ -18,8 +18,9 @@ $(function() {
 
 var Skills = $('.idea-skills .button');
 var countSkills = Skills.length;
-alert("Skills.length");
 
 });
+
+
 
 
