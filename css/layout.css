@@ -50,18 +50,6 @@ body {
   line-height:26px;
 }
 
-.footer{
-  padding-bottom:50px; 
-  margin-top:40px;
-  padding-top:20px;
-  /*border-top: 1px solid #999; */
-  box-shadow:0 -2px 2px 0px rgba(0, 0, 0, .15);
-  background-color: #EEE;
-}
-.footer-links .inline-list{
-  float:right;
-}
-
 
 .intro{
   background-image: url(../images/intro-bg.jpg); 
@@ -108,6 +96,8 @@ margin-left: 10px;
 }
 
 
+
+
 .profile-info{
   /*margin-top:20px;*/
   margin-bottom:15px;
@@ -134,10 +124,7 @@ margin-left: 10px;
   text-align: right;
 }
 
-.card-idea {
-	min-height: 400px !important;
-	max-height: 400px !important;
-}
+
 
 .card-person, .card-idea, .sidebar {
   /*margin-right:0.9375em; */
@@ -145,7 +132,55 @@ margin-left: 10px;
   background-color: #FFF;
   border: 1px solid #fff;
   box-shadow: 0 0 0 1px #bbbbbb, 0 0 0 3px #ddd;
+  
 }
+
+
+
+/* $card general */
+/*****************/
+.card-content .meta_tags {
+	letter-spacing: 0px;
+	font-family: "tahoma","arial",sans-serif;
+    font-size: 0.67em;
+    letter-spacing: 0.05em;
+    line-height: 0.7em;
+    text-transform: uppercase;
+    margin: 0 2px 2px 0;
+}
+
+.card-content .card-floater .button {
+	padding-bottom: 5px;
+}
+
+
+/* $card-person */
+/*****************/
+
+
+.card-person .card-abstract {
+	position: absolute;
+	bottom: 0;
+	left: 10px;
+}
+
+.card-person .card-content {
+	position: relative;
+	min-height: 150px;
+}
+
+.card-content .card-floater {
+	position: absolute;
+	right: 15px;
+	bottom: 0;
+
+}
+.person-skills {
+	min-height: 
+}
+
+
+
 
 sidebar .section-container section,
 sidebar .section-container .section,
@@ -428,56 +463,23 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 
 }
 
-/* #Page Styles
-================================================== */
-
-body {background: #f9f5f2;}
-
-
-
-/* #Search Styles
-================================================== */
-.filter-box {
-	margin: 20px auto;
-	background: #dde6f4 !important;
-	border: 1px solid #e9e9e9
-
+.footer{
+  padding-bottom:50px; 
+  margin-top:40px;
+  padding-top:20px;
+  /*border-top: 1px solid #999; */
+  box-shadow:0 -2px 2px 0px rgba(0, 0, 0, .15);
+  background-color: #EEE;
 }
-
-.filter-toggle {
-	margin-bottom: 20px;
-	height: 10px;
-	font-size: 12px;
-
-}
-.filter-box  h3 {
-	font-size: 1.2em;
-	padding:7px 0 0 5px;
-	margin-bottom: 10px;	
-	background: #fff;
-	
-
-}
-.filter-header {
-	line-height: 30px;
-	margin-bottom: 10px !important;
-
-
-}
-
-.filter-box .search-box {
-	margin-right: 5px;
-}
-
-.filter-tickets li {
- list-style-type: none;
+.footer-links .inline-list{
+  float:right;
 }
 
 
-.filter-keywords .search-box,
-.filter-locations .search-box {
-	width: 150px !important;
-}
+
+
+
+
 
 
 /* #Pagin Styles
@@ -544,12 +546,22 @@ min-height: 380px;
 */
 
 
-.card-summary  {
+.card-idea .card-abstract {
 	/*font-size: 0.9em;*/
 	height: 200px;
-  overflow: auto;
+  overflow: au3o;
+
+}
+.card-idea .card-content {
+	position: relative;
 }
 
+.card-idea .card-content p {
+	font-size: 0.8em;
+}
+.idea-skills {
+min-height: 100px;
+}
 .card-summary p{
   font-size: 0.9em;
   margin-bottom: 10px;
@@ -645,16 +657,15 @@ min-height: 380px;
 	margin: 0 0px;
 }
 
-.card-idea .meta_tags,.card-person .meta_tags {	
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	font-family: "tahoma", "arial", sans-serif;
+
+	
 
 }
 .card-idea .meta_tags ul li, .card-person .meta_tags ul li {
 	display: inline-block;
 	font-size: 12px;
 }
+
 
 
 
