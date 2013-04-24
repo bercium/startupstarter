@@ -118,7 +118,7 @@
       <div class="linkList">
         <?php foreach ($data['user']['link'] as $link){ ?>
         <div data-alert class="alert-box radius secondary" id="link_div_<?php echo $link['id']; ?>">
-          <?php echo $link['title']; ?>: <a ><?php echo $link['url']; ?></a>
+          <?php echo $link['title']; ?>: <a href="http://<?php echo $link['url']; ?>" target="_blank"><?php echo $link['url']; ?></a>
           <a href="#" class="close" onclick="removeLink(<?php echo $link['id']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteLink"); ?>')">&times;</a>
         </div>
         <?php } ?>

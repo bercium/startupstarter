@@ -449,15 +449,17 @@ class ProfileController extends GxController {
 			if (isset($_POST['UserLink'])) {
 
 				$_POST['UserLink']['user_id'] = $user_id;
+        $linkURL = str_replace("http://","",$_POST['UserLink']['url']);
 			
-				$exists = UserLink::Model()->findByAttributes( array( 'user_id' => $user_id, 'url' => $_POST['UserLink']['url'] ) );
+				$exists = UserLink::Model()->findByAttributes( array( 'user_id' => $user_id, 'url' => $linkURL ) );
 				if(!$exists){
 
 					$link->setAttributes($_POST['UserLink']);
+          $link->url = $linkURL;
 
 					if ($link->save()) {
             $response = array("data"=>array("title"=>$_POST['UserLink']['title'],
-                                            "url"=>$_POST['UserLink']['url'],
+                                            "url"=>$linkURL,
                                             "id"=>$link->id,
                                             "location"=>Yii::app()->createUrl("profile/deleteLink")
                                            ),
@@ -472,7 +474,7 @@ class ProfileController extends GxController {
 
 					} else {
             $response = array("data"=>null,
-                              "message"=>Yii::t('app',"Unable to save link at this time."));
+                              "message"=>Yii::t('app',"Problem saving link. Please check fields for correct values."));
             echo json_encode($response);
             Yii::app()->end();
             /*if (Yii::app()->getRequest()->getIsAjaxRequest()){ 
