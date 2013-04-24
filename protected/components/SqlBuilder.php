@@ -259,8 +259,11 @@ class SqlBuilder {
 			if($type == 'user'){
 				$row['idea'] = $this->idea( "user", $filter );
 
-				print_r($row['idea']);
-				//$row['num_of_ideas'] = 
+				$i = 0;
+				foreach($row['idea'] AS $value){
+					$i++;
+				}
+				$row['num_of_ideas'] = $i;
 			}
 			if($type == 'recent'){
 				$row['num_of_ideas'] = $this->idea( "usercount", $filter );
