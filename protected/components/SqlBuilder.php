@@ -1,6 +1,6 @@
 <?php
 class SqlBuilder {
-	public $date_format = "j. M";
+	public $date_format = "j. F";
 
 	//main function, calling other functions
 	//why a seperate function?
@@ -8,15 +8,14 @@ class SqlBuilder {
 	//also, we wish to keep the main function simple
 	public function load_array($action, $filter = Array()){
 
-		//current user
+		//current user's language setup
 		$user_id = Yii::app()->user->id;
 		if(!isset($filter['lang'])){
 			$filter['lang'] = Yii::app()->language;
 		}
 		$language = Language::Model()->findByAttributes( array( 'language_code' => $filter['lang'] ) );
 		$filter['lang'] = $language->id;
-		//echo "SQLBUILDER:$action<br/>";
-		//print_r($filter);
+
 		switch ($action) {
 			//frontpage controller
 		    case "recent_candidate":
@@ -25,23 +24,24 @@ class SqlBuilder {
 		    case "recent_user":
 		        return $this->user("recent", $filter);
 		        break;
-		    //idea related controllers
+		    //idea related data
 		    case "idea":
 		    	if(isset($filter['idea_id'])){
-		        return $this->idea("idea", $filter);
+		        	return $this->idea("idea", $filter);
 		        }
 		        break;
-		    //user related controllers
+		    //user related data
 		    case "user":
-		        return $this->user("user", $filter);
+		    	if(isset($filter['user_id'])){
+		        	return $this->user("user", $filter);
+		        }
 		        break;
 		}
 
 	}
 
-	public function idea($type, $filter = 0){
-		//echo "IDEA QUERIED:$type<br/>";
-		//print_r($filter);
+	public function idea($type, $filter){
+
 		if( $type == 'recent'){
 			$sql =	"SELECT i.*, ist.name AS status FROM ".
 					"`idea` AS i, `idea_translation` AS it, `idea_status` AS ist, `idea_member` AS im, `user_match` AS m ".
@@ -65,6 +65,7 @@ class SqlBuilder {
 					"AND u.id = '{$filter['user_id']}' ".
 					"ORDER BY i.time_registered DESC";
 		} elseif( $type == 'usercount' ) {
+			//how many members an idea has
 			$sql=	"SELECT count(im.idea_id) AS count FROM ".
 					"`idea_member` AS im, `idea` AS i ".
 					"WHERE i.id = im.idea_id ".
@@ -78,7 +79,6 @@ class SqlBuilder {
 					"AND i.status_id = ist.id ".
 					"AND i.deleted = 0 ";
 		}
-//echo $sql."\n";
 
  		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
@@ -93,10 +93,19 @@ class SqlBuilder {
 				//prepare filter
 				$filter['idea_id'] = $row['id'];
 
-				//add data to array
-				//$row['']
-				$row = array_merge($row, $this->translation( 'userlang', $filter ));
-				$filter['default_lang'] = $row['language_id'];
+				//add data to array, start with days_updated
+				$row['date_updated'] = date( $this->date_format, strtotime($row['time_updated']) );
+				$row['days_updated'] = round( (strtotime($row['time_updated']) - time()) / 86400 , 0, PHP_ROUND_HALF_DOWN ) * -1;
+
+				//add translation to array
+				$merge = $this->translation( 'userlang', $filter );
+				$row = array_merge($row, $merge);
+				if(isset($merge['language_id'])){
+					$filter['default_lang'] = $merge['language_id'];
+				} else {
+					$filter['default_lang'] = $filter['lang'];
+				}
+
 				$row['translation_other'] = $this->translation( 'other', $filter );
 				$row['member'] = $this->user( 'member', $filter );
 				$row['candidate'] = $this->user( 'candidate', $filter );
@@ -131,30 +140,27 @@ class SqlBuilder {
 			$command=$connection->createCommand($sql);
 			$dataReader=$command->query();
 			//read data, build array, call contained functions
-			$array = NULL;
+			$array = array();
 			while(($row=$dataReader->read())!==false) {
 				$array = $row;
-				//print_r($row);
 			}
 		} else {
-			$sql=		"SELECT it.*, l.name AS language, l.language_code FROM ".
+			$sql=		"SELECT it.*, l.name AS language, l.id AS language_id FROM ".
 						"`idea` AS i,`idea_translation` AS it,`language` AS l ".
 						"WHERE i.id = it.idea_id ".
 						"AND l.id = it.language_id ".
 						"AND it.idea_id = {$filter['idea_id']} ".
-						"AND it.language_id != {$filter['default_lang']}";
+						"AND it.language_id != {$filter['lang']}";
 
 			$connection=Yii::app()->db;
 			$command=$connection->createCommand($sql);
 			$dataReader=$command->query();
 			//read data, build array, call contained functions
-			$array = NULL;
+			$array = array();
 			while(($row=$dataReader->read())!==false) {
 				$array[$row['id']] = $row;
-				//print_r($row);
 			}
 		}
-		//echo $sql."\n";
 
 		return $array;
 
@@ -286,8 +292,7 @@ class SqlBuilder {
 	}
 
 	public function collabpref($type, $filter){
-		//echo "COLLABPREF QUERIED:$type<br/>";
-		//print_r($filter);
+
 		if($type == 'combined'){
 			$sql=	"SELECT uc.id, collabpref.id AS collab_id, collabpref.name, uc.id AS active ".
 					"FROM collabpref LEFT JOIN ".
