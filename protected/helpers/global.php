@@ -113,11 +113,11 @@ function getGMap($country = '', $city = '', $addr = ''){
   $zoom = 0;
   $address = '';
   if ($country){
-    $zoom = 5;
+    $zoom = 3;
     $address = $country;
   }
   if ($city){
-    $zoom = 9;
+    $zoom = 8;
     if ($address) $address .= ', ';
     $address .= $city;
   }
