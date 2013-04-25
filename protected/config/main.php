@@ -158,5 +158,6 @@ return array(
     'noreplyMail'=>'no-reply@example.com',
     'tempFolder'=>'temp/',
     'avatarFolder'=>'uploads/avatars/',
+    'mapsFolder'=>'uploads/maps/',
 	),
 );

@@ -3,7 +3,7 @@
       <div class="large-12 small-12 columns" >
         <img src="<?php echo avatar_image($user['avatar_link'],$user['id'],60); ?>" style="height:60px; margin-right: 10px; float:left;" />
         <h5><?php echo $user['name']." ".$user['surname']; ?></h5>
-        <small class="meta">
+        <small class="meta" data-tooltip title="<img src='<?php echo getGMap($user['country'],$user['city'],$user['address']); ?>'>">
           <?php if ($user['city'] || $user['country']){ ?>
             <span class="general foundicon-location" title=""></span>
           <?php } ?><a><?php

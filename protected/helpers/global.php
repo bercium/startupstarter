@@ -100,3 +100,56 @@ function trim_text($input, $length, $ellipses = true, $strip_html = true) {
   
     return $trimmed_text;
 }
+
+/**
+ * 
+ */
+function getGMap($country = '', $city = '', $addr = ''){
+  include_once "httpclient.php";
+  $httpClient = new elHttpClient();
+  $httpClient->setUserAgent("ff3");
+ 
+  
+  $zoom = 0;
+  $address = '';
+  if ($country){
+    $zoom = 5;
+    $address = $country;
+  }
+  if ($city){
+    $zoom = 9;
+    if ($address) $address .= ', ';
+    $address .= $city;
+  }
+  if ($addr){
+    $zoom = 14;
+    if ($address) $address .= ', ';
+    $address .= $addr;
+  }
+  if ($zoom == 0) return '';
+  
+  $URL = "maps.googleapis.com/maps/api/staticmap?center=".$address."&zoom=".$zoom."&size=150x150&maptype=roadmap&sensor=true&markers=size:mid|color:blue|".$address;
+ 
+  $filename = $address.".png";
+  $folder = Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['mapsFolder'];
+  
+  if (file_exists($folder.$filename)){
+    return Yii::app()->getBaseUrl(true)."/".Yii::app()->params['mapsFolder'].$filename;
+  }else{
+    //$this->buildRequest($URL, 'GET');
+    //return $this->fetch($URL);
+    $httpClient->setHeaders(array("Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"));
+    //$htmlDataObject = $httpClient->get("maps.googleapis.com");
+    $URL = str_replace(" ", "%20", $URL);
+    $htmlDataObject = $httpClient->get($URL);
+    //change from XML to array
+    $htmlData = $htmlDataObject->httpBody;
+    
+ 		if (!is_dir($folder)) {
+			mkdir($folder, 0777, true);
+		}
+
+    file_put_contents($folder.$filename, $htmlData);
+    return Yii::app()->getBaseUrl(true)."/".Yii::app()->params['mapsFolder'].$filename;
+  }
+}

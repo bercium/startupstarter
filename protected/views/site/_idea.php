@@ -2,7 +2,7 @@
     <div class="row card-idea-title" onclick="location.href='<?php echo Yii::app()->createUrl("idea/".$idea['id']); ?>'">
       <div class="large-12 small-12 columns" >
         <h5><?php echo trim_text($idea['title'],60); ?></h5>
-        <small class="meta"><?php echo Yii::t('app','<span class="general foundicon-graph" title="stage"></span>') ?> <a class="stage"><?php echo $idea['status']; ?></a></small>
+        <small class="meta" data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>"><span class="general foundicon-graph" title="stage"></span><a class="stage"><?php echo $idea['status']; ?></a></small>
         <?php /* ?><div class="card-floater">
           <a class="heart">&hearts;</a>
         </div><?php */ ?>
