@@ -8,17 +8,18 @@
       <h1>With the <span>right team</span> any <span>idea</span> can change your life</h1>
 
       <div class="row">
-        <div class="large-6 small-12 columns">
+        <div class="large-6 small-12 columns <?php if (!Yii::app()->user->isGuest) echo "large-centered"; ?>">
           <p>
             <?php echo CHtml::encode(Yii::t('app','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.')); ?>
           </p>
         </div>
+				<?php if (Yii::app()->user->isGuest){ ?>
         <div class="large-6 small-12 columns">
           <br>
           <br>
-          <a href="#" class="button round medium success" >Register here </a> 
-          <a href="#" class="button round medium secondary" >Login </a>
-        </div>
+          <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" class="button round medium success" >Register here </a> 
+          <a href="#" data-dropdown="drop-login" class="button round medium secondary" >Login </a>
+        </div><?php } ?>
       </div>
 
       <a href="#" class="close" data-tooltip title="<?php echo CHtml::encode(Yii::t('app','Hide intro')); ?>" onclick="$('.intro').slideUp('slow');"> &#x25B2; </a>
@@ -128,7 +129,14 @@ if (isset($data['user'])){ ?>
       <div class="large-12 small-12 columns" >
         <img src="<?php echo avatar_image($user['avatar_link'],$user['id'],60); ?>" style="height:60px; margin-right: 10px; float:left;" />
         <h5><?php echo $user['name']." ".$user['surname']; ?></h5>
-        <small class="meta"><?php echo Yii::t('app','<span class="general foundicon-location" title="location:"></span>') ?> <a>LJUBLJANA, SLOVENIA</a></small>
+        <small class="meta">
+          <?php if ($user['city'] || $user['country']){ ?>
+            <span class="general foundicon-location" title=""></span>
+          <?php } ?><a><?php
+                   echo $user['city']; 
+                   if ($user['city'] && $user['country']) echo ', '; 
+                   echo $user['country']; 
+                   ?></a></small>
 		  </div>
 	  </div>
 
@@ -140,7 +148,13 @@ if (isset($data['user'])){ ?>
           
               $skills = array();
               foreach ($user['skillset'] as $skillset){ 
-                foreach ($skillset['skill'] as $skill)  $skills[$skillset['skillset']][] = $skill['skill'];
+                foreach ($skillset['skill'] as $skill){
+                  $tmp_skils = $skills;
+                  $tmp_skils[$skillset['skillset']][] = $skill['skill'];
+                  if (count($tmp_skils) > 3) $skills['...'][$skillset['skillset']] = $skillset['skillset'];
+                  else $skills = $tmp_skils;
+                  //$skills[$skillset['skillset']][] = $skill['skill'];
+                }
               }
               
               foreach ($skills as $skillset=>$skill){
@@ -152,7 +166,7 @@ if (isset($data['user'])){ ?>
           ?> 
         <div class="card-abstract">
         </small><br />
-        <small class="meta"><?php echo Yii::t('app','Collab:') ?> <a>
+        <small class="meta"><?php echo Yii::t('app','Collaboration:') ?> <a>
             <?php 
               $firsttime = true;
               if (is_array($user['collabpref']))
@@ -191,7 +205,7 @@ if (isset($data['user'])){ ?>
     <div class="large-12 small-12 columns radius panel card-idea">
     <div class="row card-idea-title" onclick="location.href='<?php echo Yii::app()->createUrl("idea/".$idea['id']); ?>'">
       <div class="large-12 small-12 columns" >
-        <h5><?php echo $idea['title']; ?></h5>
+        <h5><?php echo trim_text($idea['title'],60); ?></h5>
         <small class="meta"><?php echo Yii::t('app','<span class="general foundicon-graph" title="stage"></span>') ?> <a class="stage"><?php echo $idea['status']; ?></a></small>
         <?php /* ?><div class="card-floater">
           <a class="heart">&hearts;</a>
@@ -203,7 +217,7 @@ if (isset($data['user'])){ ?>
       <div class="large-12 small-12 columns card-content"  >
         <div class="card-abstract">
           <p>
-            <?php echo $idea['pitch']; ?>
+            <?php echo trim_text($idea['pitch'], 240); ?>
           </p>
           <small class="meta idea-skills">
             <?php echo Yii::t('app','Looking for:'); 
@@ -213,16 +227,21 @@ if (isset($data['user'])){ ?>
                 foreach ($idea['candidate'] as $candidate){
                   if (is_array($candidate['skillset']))
                     foreach ($candidate['skillset'] as $skillset){
-                      foreach ($skillset['skill'] as $skill)  $skills[$skillset['skillset']][] = $skill['skill'];
+                      foreach ($skillset['skill'] as $skill){
+                        $tmp_skils = $skills;
+                        $tmp_skils[$skillset['skillset']][] = $skill['skill'];
+                        if (count($tmp_skils) > 3) $skills['...'][$skillset['skillset']] = $skillset['skillset'];
+                        else $skills = $tmp_skils;
+                      }
                     }
                 }
               }
-              
               foreach ($skills as $skillset=>$skill){
                 ?>
                 <span class="button tiny radius secondary meta_tags" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
                 <?php 
               }
+              
             ?> 
           </small>
         </div>
@@ -232,14 +251,14 @@ if (isset($data['user'])){ ?>
           // show first 4 members
         if(isset($idea['member'])){
           foreach ($idea['member'] as $member){
-            $i++; if ($i > 4) break;
+            $i++; if ($i > 3) break;
           ?>
             <a href="<?php echo Yii::app()->createUrl("person/".$member['id']); ?>">
               <img src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" data-tooltip title="<?php echo $member['name']." ".$member['surname']; ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="card-avatar" />
             </a>
           <?php } 
             // extra members
-            if (count($idea['member']) > 4) echo "+".(count($idea['member'])-4);
+            if (count($idea['member']) > 3) echo '<font class="meta">+'.(count($idea['member'])-3).'</font>';
          }
           ?>
         <?php if ($idea['website']){ ?>
@@ -292,10 +311,10 @@ if (isset($data['user'])){ ?>
 	<div class="large-12 small-12 columns">
 
 <h3>Recent ideas (looking for candidates)</h3>
-<?php print_r($data['idea']); ?>
+<?php //print_r($data['idea']); ?>
 
 <h3>Recently registered users</h3>
-<?php //print_r($data['user']); ?>
+<?php print_r($data['user']); ?>
 
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 <?php   ?>

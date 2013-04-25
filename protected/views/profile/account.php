@@ -15,8 +15,13 @@
     
       <?php echo CHtml::errorSummary($user,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
     
-      <?php echo CHtml::activeLabelEx($user,'email'); ?>
-      <?php echo CHtml::activeTextField($user,"email", array("class"=>"small secondary readonly","disabled"=>true)); ?>    
+      <?php //echo CHtml::activeLabelEx($user,'email'); ?>
+      <label for="UserEdit_email"><?php echo Yii::t('app',"Email"); ?>
+        <span data-tooltip title="<?php echo Yii::t('app',"Email can't be changed at this time."); ?>">?</span>
+      </label>
+      <?php echo CHtml::activeTextField($user,"email", array("class"=>"small secondary readonly","disabled"=>true)); ?>
+      
+    
       
       <?php echo CHtml::activeLabelEx($user,'language_id'); ?>
       <?php echo CHtml::activedropDownList($user,'language_id', 
@@ -25,7 +30,7 @@
               , array('empty' => '&nbsp;',"class"=>"small-12 large-6")); ?>
 
       <?php echo CHtml::activeLabelEx($user,'newsletter'); ?>
-      <div class="switch small round small-2">
+      <div class="switch small round small-4 large-3">
         <input id="newsletter_0" name="UserEdit[newsletter]" type="radio" value="0" <?php if (!$user->newsletter) echo 'checked="checked"' ?>>
         <label for="newsletter_0" onclick="">Off</label>
 
@@ -35,7 +40,7 @@
       </div>
     
       <?php echo CHtml::label(Yii::t("app","First page intro"),"fpi"); ?>
-      <div class="switch small round small-2">
+      <div class="switch small round small-4 large-3">
         <input id="fpi_0" name="UserEdit[fpi]" type="radio" value="0" <?php if (!$fpi) echo 'checked="checked"' ?>>
         <label for="fpi_0" onclick="">Off</label>
 
