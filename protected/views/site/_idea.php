@@ -16,10 +16,11 @@
             <?php echo trim_text($idea['pitch'], 240); ?>
           </p>
           <small class="meta idea-skills">
-            <?php echo Yii::t('app','Looking for:'); 
-            
-              $skills = array();
-              if (is_array($idea['candidate'])){
+            <?php
+						  if (is_array($idea['candidate']) && count($idea['candidate']) > 0){
+                $skills = array();
+								echo Yii::t('app','Looking for <a>{n} person</a>|Looking for <a>{n} people</a>',array(count($idea['candidate'])));
+								
                 foreach ($idea['candidate'] as $candidate){
                   if (is_array($candidate['skillset']))
                     foreach ($candidate['skillset'] as $skillset){
@@ -31,13 +32,16 @@
                       }
                     }
                 }
-              }
-              foreach ($skills as $skillset=>$skill){
-                ?>
-                <span class="button tiny radius secondary meta_tags" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
-                <?php 
-              }
               
+								if (count($skills) > 0){
+									echo " ".Yii::t('app','with skill|with skills',array(count($skills))).":<br />";
+									foreach ($skills as $skillset=>$skill){
+										?>
+										<span class="button tiny radius secondary meta_tags" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
+										<?php 
+									}
+								}
+							}
             ?> 
           </small>
         </div>
