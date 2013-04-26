@@ -19,12 +19,12 @@
             <?php
 						  if (is_array($idea['candidate']) && count($idea['candidate']) > 0){
                 $skills = array();
-								echo Yii::t('app','Looking for <a>{n} person</a>|Looking for <a>{n} people</a>',array(count($idea['candidate'])));
-								
+								$c = 0;
                 foreach ($idea['candidate'] as $candidate){
                   if (is_array($candidate['skillset']))
                     foreach ($candidate['skillset'] as $skillset){
                       foreach ($skillset['skill'] as $skill){
+												$c++;
                         $tmp_skils = $skills;
                         $tmp_skils[$skillset['skillset']][] = $skill['skill'];
                         if (count($tmp_skils) > 3) $skills['...'][$skillset['skillset']] = $skillset['skillset'];
@@ -32,9 +32,12 @@
                       }
                     }
                 }
-              
+								
+								echo Yii::t('app','Looking for <a>{n} person</a>|Looking for <a>{n} people</a>',array(count($idea['candidate'])));
+								
 								if (count($skills) > 0){
-									echo " ".Yii::t('app','with skill|with skills',array(count($skills))).":<br />";
+									//echo " ".Yii::t('app','with skill|with skills in',array($c)).":<br />";
+									echo " ".Yii::t('app','skilled in').":<br />";
 									foreach ($skills as $skillset=>$skill){
 										?>
 										<span class="button tiny radius secondary meta_tags" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>

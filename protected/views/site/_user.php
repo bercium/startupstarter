@@ -23,11 +23,12 @@
       <div class="large-12 small-12 columns card-content"  >
         
         <small class="meta person-skills">
-          <?php echo Yii::t('app','Skills:'); 
-          
+          <?php 
               $skills = array();
+							$c = 0;
               foreach ($user['skillset'] as $skillset){ 
                 foreach ($skillset['skill'] as $skill){
+									$c++;
                   $tmp_skils = $skills;
                   $tmp_skils[$skillset['skillset']][] = $skill['skill'];
                   if (count($tmp_skils) > 3) $skills['...'][$skillset['skillset']] = $skillset['skillset'];
@@ -35,6 +36,9 @@
                   //$skills[$skillset['skillset']][] = $skill['skill'];
                 }
               }
+							
+							//echo Yii::t('app','Skill|Skills',array($c)).":"; 
+							echo Yii::t('app','Skilled in').":"; 
               
               foreach ($skills as $skillset=>$skill){
                 ?>
