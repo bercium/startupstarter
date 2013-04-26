@@ -104,8 +104,12 @@ function trim_text($input, $length, $ellipses = true, $strip_html = true) {
 /**
  * 
  */
+//if(!class_exists('elhttpclient'));
 function getGMap($country = '', $city = '', $addr = ''){
-  include_once "httpclient.php";
+  //include_once "httpclient.php";
+	//if(!class_exists('elhttpclient')){
+	Yii::import('application.helpers.elHttpClient');
+	//}
   $httpClient = new elHttpClient();
   $httpClient->setUserAgent("ff3");
  
@@ -113,11 +117,11 @@ function getGMap($country = '', $city = '', $addr = ''){
   $zoom = 0;
   $address = '';
   if ($country){
-    $zoom = 5;
+    $zoom = 3;
     $address = $country;
   }
   if ($city){
-    $zoom = 9;
+    $zoom = 8;
     if ($address) $address .= ', ';
     $address .= $city;
   }
