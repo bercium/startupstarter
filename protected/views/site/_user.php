@@ -51,7 +51,7 @@
         </small><br />
 				<?php if (count($user['collabpref']) > 0){ ?>
         <small class="meta">
-				<?php echo Yii::t('app','Collaboration:') ?> <a>
+				<?php echo Yii::t('app','Collaboration') ?>: <a>
             <?php 
               $firsttime = true;
               if (is_array($user['collabpref']))
@@ -65,7 +65,7 @@
 				</small><br />
 				<?php } ?>
 				<?php if ($user['available_name']) { ?>
-        <small class="meta"><?php echo Yii::t('app','Available:') ?> <a><?php echo $user['available_name']; ?></a></small><br />
+        <small class="meta"><?php echo Yii::t('app','Available') ?>: <a><?php echo $user['available_name']; ?></a></small><br />
 				<?php } ?>
 				<?php if ($user['num_of_ideas']) { ?>
         <small class="meta"><?php echo Yii::t('app','Involved in') ?> <a><?php echo Yii::t('app','{n} project|{n} projects',array($user['num_of_ideas'])) ?></a></small>

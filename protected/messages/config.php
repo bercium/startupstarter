@@ -12,11 +12,14 @@ return array(
 	'exclude'=>array(
 		'.svn',
 		'.gitignore',
+		'.git',
 		'yiilite.php',
 		'yiit.php',
 		'/i18n/data',
 		'/messages',
 		'/vendors',
 		'/web/js',
+		'/extensions/giix-core/',
+		'/extensions/giix-components/',
 	),
 );

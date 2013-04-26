@@ -36,7 +36,7 @@
 								echo Yii::t('app','Looking for <a>{n} person</a>|Looking for <a>{n} people</a>',array(count($idea['candidate'])));
 								
 								if (count($skills) > 0){
-									//echo " ".Yii::t('app','with skill|with skills in',array($c)).":<br />";
+									//echo " ".Yii::t('app','with skill|with skills',array($c)).":<br />";
 									echo " ".Yii::t('app','skilled in').":<br />";
 									foreach ($skills as $skillset=>$skill){
 										?>

@@ -182,7 +182,7 @@
  ?>
  
     
-      Colaboration<br />
+      Collaboration<br />
       Skills<br />
       Extra data<br />
 
