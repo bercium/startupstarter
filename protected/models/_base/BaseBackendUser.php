@@ -41,7 +41,7 @@ abstract class BaseBackendUser extends GxActiveRecord {
 	}
 
 	public static function label($n = 1) {
-		return Yii::t('app', 'BackendUser|BackendUsers', $n);
+		return Yii::t('app', 'Backend user|Backend users', $n);
 	}
 
 	public static function representingColumn() {

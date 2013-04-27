@@ -9,17 +9,17 @@
    data:data,
         success:function(indata){
           data = JSON.parse(indata);
-          if (data.message != '') alert(data.message);
-          else {
+					if (!data.status){
             link = '<div data-alert class="alert-box radius secondary" id="link_div_'+data.data.id+'">';
             link += data.data.title+': <a href="http://'+data.data.url+'" target="_blank">'+data.data.url+'</a>';
             link += '<a href="#" class="close" onclick="removeLink('+data.data.id+',\''+data.data.location+'\')">&times;</a>';
             link += '</div>';
             $('.linkList').append(link);
           }
+					if (data.message) alert(data.message);
         },
-        error: function(data) { // if error occured
-           alert("Error: "+data);
+        error: function(data,e,t) { // if error occured
+           alert(e+': '+t);
            //alert(data);
         },
  
@@ -41,8 +41,8 @@ function removeLink(link_id, inUrl){
             //$('#link_div_'+data.data.id).fadeOut('slow');
           }
         },
-        error: function(data) { // if error occured
-           alert("Error: "+data);
+        error: function(data,e,t) { // if error occured
+           alert(e+': '+t);
         },
  
   dataType:'html'

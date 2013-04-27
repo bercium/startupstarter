@@ -498,7 +498,7 @@ class ProfileController extends GxController {
 	}
 
 	public function actionAddLink(/* $user_id = null */) {
-
+		
 		//check for permission
 		/* if(Yii::app()->user->id == $user_id || 1 == 1 ){ //|| Yii::app()->user->superuser == 1){ //is this person, or is superuser
 		  $user_id = $user_id;
@@ -526,13 +526,13 @@ class ProfileController extends GxController {
 										"id" => $link->id,
 										"location" => Yii::app()->createUrl("profile/deleteLink")
 								),
-								"status" => $this->status_ok,
+								"status" => 0, // a damo console status kjer je 0 OK vse ostale cifre pa error????
 								"message" => "");
 						echo json_encode($response);
 						Yii::app()->end();
 					} else {
 						$response = array("data" => null,
-								"status" => $this->status_fail,
+								"status" => 1,
 								"message" => Yii::t('app', "Problem saving link. Please check fields for correct values."));
 						echo json_encode($response);
 						Yii::app()->end();
@@ -542,7 +542,7 @@ class ProfileController extends GxController {
 					}
 				} else {
 					$response = array("data" => null,
-							"status" => $this->status_fail,
+							"status" => 0,
 							"message" => Yii::t('app', "You already have this link."));
 					echo json_encode($response);
 					Yii::app()->end();
@@ -572,14 +572,14 @@ class ProfileController extends GxController {
 
 			if ($link->delete()) {
 				$response = array("data" => array("id" => $link_id),
-						"status" => $this->status_ok,
+						"status" => 0,
 						"message" => '');
 				echo json_encode($response);
 				Yii::app()->end();
 			} else {
 				$response = array("data" => null,
-						"status" => $this->status_fail,
-						"message" => '');
+						"status" => 1,
+						"message" =>  Yii::t('app', "Unable to remove link."));
 				echo json_encode($response);
 				Yii::app()->end();
 			}

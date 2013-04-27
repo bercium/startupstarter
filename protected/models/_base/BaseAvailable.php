@@ -24,7 +24,7 @@ abstract class BaseAvailable extends GxActiveRecord {
 	}
 
 	public static function label($n = 1) {
-		return Yii::t('app', 'Available|Availables', $n);
+		return Yii::t('app', 'Available|Available', $n);
 	}
 
 	public static function representingColumn() {

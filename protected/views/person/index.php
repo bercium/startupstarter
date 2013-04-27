@@ -16,7 +16,7 @@ print_r($user);
       <h5><?php echo $user['name']." ".$user['surname']; ?></h5>
       <small class="meta">Naslov 15</small><br />
       <strong><small class="meta">Ljubljana, Slovenia</small></strong><br />
-      <small class="meta"><?php echo Yii::t('app','Member since:') ?> 
+      <small class="meta"><?php echo Yii::t('app','Member since') ?>: 
         <a><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($user['create_at']),"long",null); ?></a></small>
       <div class="card-floater">
         <a class="small button success radius" style="margin-bottom:0;" href=""><?php echo Yii::t('app','Contact me') ?></a>
@@ -31,8 +31,8 @@ print_r($user);
         <span class="button tiny secondary meta_tags" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> 
         <span class="button tiny secondary meta_tags" data-tooltip title="Sales">Economics</span>
       </small>        
-      <small class="meta"><?php echo Yii::t('app','Colaboration:') ?> <a>monetary, cofinder</a></small><br />
-      <small class="meta"><?php echo Yii::t('app','Available:') ?> <a>part time</a></small><br />
+      <small class="meta"><?php echo Yii::t('app','Collaboration') ?>: <a>monetary, cofinder</a></small><br />
+      <small class="meta"><?php echo Yii::t('app','Available') ?>: <a>part time</a></small><br />
       <small class="meta"><?php echo Yii::t('app','Involved in') ?> <a><?php echo Yii::t('app','{n} project|{n} projects',array(3)) ?></a></small>
       <div class="card-floater" style="border:none;">
         <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>"><?php echo Yii::t('app','details...') ?></a>
@@ -44,8 +44,8 @@ print_r($user);
         <span class="button tiny secondary meta_tags" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> 
         <span class="button tiny secondary meta_tags" data-tooltip title="Sales">Economics</span>
       </small>        
-      <small class="meta"><?php echo Yii::t('app','Colaboration:') ?> <a>monetary, cofinder</a></small><br />
-      <small class="meta"><?php echo Yii::t('app','Available:') ?> <a>part time</a></small><br />
+      <small class="meta"><?php echo Yii::t('app','Collaboration') ?>: <a>monetary, cofinder</a></small><br />
+      <small class="meta"><?php echo Yii::t('app','Available') ?>: <a>part time</a></small><br />
       <small class="meta"><?php echo Yii::t('app','Involved in') ?> <a><?php echo Yii::t('app','{n} project|{n} projects',array(3)) ?></a></small>
       <div class="card-floater" style="border:none;"> 
         <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>"><?php echo Yii::t('app','details...') ?></a>
