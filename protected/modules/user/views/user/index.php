@@ -1,17 +1,17 @@
 <?php
 $this->breadcrumbs=array(
-	UserModule::t("Users"),
+	Yii::t('app',"Users"),
 );
 if(UserModule::isAdmin()) {
 	$this->layout='//layouts/column2';
 	$this->menu=array(
-	    array('label'=>UserModule::t('Manage Users'), 'url'=>array('/user/admin')),
-	    array('label'=>UserModule::t('Manage Profile Field'), 'url'=>array('profileField/admin')),
+	    array('label'=>Yii::t('app','Manage Users'), 'url'=>array('/user/admin')),
+	    array('label'=>Yii::t('app','Manage Profile Field'), 'url'=>array('profileField/admin')),
 	);
 }
 ?>
 
-<h1><?php echo UserModule::t("List User"); ?></h1>
+<h1><?php echo Yii::t('app',"List User"); ?></h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$dataProvider,

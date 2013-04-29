@@ -27,7 +27,7 @@
                  'action'=>Yii::app()->createUrl('/profile/upload'),
                  'allowedExtensions'=>array("jpg", "jpeg", "png"),
                  'template'=> '<div class="qq-uploader">' .
-                     '<div class="qq-upload-drop-area avatar-drop-area"><span>'.Yii::t('app','Drop file here to change.').'</span></div>' .
+                     '<div class="qq-upload-drop-area avatar-drop-area"><span>'.Yii::t('msg','Drop file here to change your profile picture.').'</span></div>' .
                      '<div class="qq-upload-button avatar-button">
                        <div class="avatar-loading"><span class="qq-upload-spinner"></span></div>
                        <img class="avatar" src="'.avatar_image($user->avatar_link, $user->id, false).'" >
@@ -48,10 +48,10 @@
                                   $('.avatar').attr('src', '".Yii::app()->baseUrl."/".Yii::app()->params['tempFolder']."'+responseJSON['filename']);
                                 }",
                  'messages'=>array(
-                    'typeError'=>Yii::t('app',"{file} has invalid extension. Only {extensions} are allowed."),
-                    'sizeError'=>Yii::t('app',"{file} is too large, maximum file size is {sizeLimit}."),
-                    'emptyError'=>Yii::t('app',"{file} is empty, please select files again without it."),
-                    'onLeave'=>Yii::t('app',"The files are being uploaded, if you leave now the upload will be cancelled."),
+                    'typeError'=>Yii::t('msg',"{file} has invalid extension. Only {extensions} are allowed."),
+                    'sizeError'=>Yii::t('msg',"{file} is too large, maximum file size is {sizeLimit}."),
+                    'emptyError'=>Yii::t('msg',"{file} is empty, please select files again without it."),
+                    'onLeave'=>Yii::t('msg',"The files are being uploaded, if you leave now the upload will be cancelled."),
                  ),
               )
          )); 

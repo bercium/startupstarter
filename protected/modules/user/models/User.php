@@ -58,8 +58,8 @@ class User extends BaseUser
 		// will receive user inputs.CConsoleApplication
 		return ((get_class(Yii::app())=='CConsoleApplication' || (get_class(Yii::app())!='CConsoleApplication' && Yii::app()->getModule('user')->isAdmin()))?array(
 			array('email', 'email'),
-			array('email', 'unique', 'message' => UserModule::t("This user's email address already exists.")),
-			array('password', 'length', 'max'=>128, 'min' => 4,'message' => UserModule::t("Incorrect password (minimal length 4 symbols).")),
+			array('email', 'unique', 'message' => Yii::t('msg',"This user's email address already exists.")),
+			array('password', 'length', 'max'=>128, 'min' => 4,'message' => Yii::t('msg',"Incorrect password (minimal length 4 symbols).")),
 			array('status', 'in', 'range'=>array(self::STATUS_NOACTIVE,self::STATUS_ACTIVE,self::STATUS_BANNED)),
 			array('superuser', 'in', 'range'=>array(0,1)),
       array('create_at', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
@@ -73,7 +73,7 @@ class User extends BaseUser
 		):((Yii::app()->user->id==$this->id)?array(
 			array('password, email, create_at, name', 'required'),
 			array('email', 'email'),
-			array('email', 'unique', 'message' => UserModule::t("This user's email address already exists.")),
+			array('email', 'unique', 'message' => Yii::t('msg',"This user's email address already exists.")),
 		):array()));
 	}
 
@@ -106,10 +106,10 @@ class User extends BaseUser
 			'id' => Yii::t('app', 'ID'),
 			'email' => Yii::t('app', 'Email'),
 			'password' => Yii::t('app', 'Password'),
-			'verifyPassword'=>UserModule::t("Retype Password"),
-			'verifyCode'=>UserModule::t("Verification Code"),
+			'verifyPassword'=>Yii::t('app',"Retype Password"),
+			'verifyCode'=>Yii::t('app',"Verification Code"),
 			'activkey' => Yii::t('app', 'Activkey'),
-			'createtime' => UserModule::t("Registration date"),
+			'createtime' => Yii::t('app',"Registration date"),
 			'create_at' => Yii::t('app', 'Create At'),
 			'lastvisit_at' => Yii::t('app', 'Lastvisit At'),
 			'superuser' => Yii::t('app', 'Superuser'),
@@ -158,13 +158,13 @@ class User extends BaseUser
 	public static function itemAlias($type,$code=NULL) {
 		$_items = array(
 			'UserStatus' => array(
-				self::STATUS_NOACTIVE => UserModule::t('Not active'),
-				self::STATUS_ACTIVE => UserModule::t('Active'),
-				self::STATUS_BANNED => UserModule::t('Banned'),
+				self::STATUS_NOACTIVE => Yii::t('app','Not active'),
+				self::STATUS_ACTIVE => Yii::t('app','Active'),
+				self::STATUS_BANNED => Yii::t('app','Banned'),
 			),
 			'AdminStatus' => array(
-				'0' => UserModule::t('No'),
-				'1' => UserModule::t('Yes'),
+				'0' => Yii::t('app','No'),
+				'1' => Yii::t('app','Yes'),
 			),
 		);
 		if (isset($code))

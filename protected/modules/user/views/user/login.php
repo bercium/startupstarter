@@ -1,11 +1,11 @@
 <?php
-$this->pageTitle=Yii::app()->name . ' - '.UserModule::t("Login");
+$this->pageTitle=Yii::app()->name . ' - '.Yii::t('app',"Login");
 $this->breadcrumbs=array(
-	UserModule::t("Login"),
+	Yii::t('app',"Login"),
 );
 ?>
 
-<h1><?php echo UserModule::t("Login"); ?></h1>
+<h1><?php echo Yii::t('app',"Login"); ?></h1>
 
 <?php if(Yii::app()->user->hasFlash('loginMessage')): ?>
 
@@ -15,12 +15,12 @@ $this->breadcrumbs=array(
 
 <?php endif; ?>
 
-<p><?php echo UserModule::t("Please fill out the following form with your login credentials:"); ?></p>
+<p><?php echo Yii::t('msg',"Please fill out the following form with your login credentials:"); ?></p>
 
 <div class="form">
 <?php echo CHtml::beginForm(); ?>
 
-	<p class="note"><?php echo UserModule::t('Fields with <span class="required">*</span> are required.'); ?></p>
+	<p class="note"><?php echo Yii::t('msg','Fields with <span class="required">*</span> are required.'); ?></p>
 	
 	<?php echo CHtml::errorSummary($model); ?>
 	
@@ -36,7 +36,7 @@ $this->breadcrumbs=array(
 	
 	<div class="row">
 		<p class="hint">
-		<?php echo CHtml::link(UserModule::t("Register"),Yii::app()->getModule('user')->registrationUrl); ?> | <?php echo CHtml::link(UserModule::t("Lost Password?"),Yii::app()->getModule('user')->recoveryUrl); ?>
+		<?php echo CHtml::link(Yii::t('app',"Register"),Yii::app()->getModule('user')->registrationUrl); ?> | <?php echo CHtml::link(Yii::t('app',"Lost Password?"),Yii::app()->getModule('user')->recoveryUrl); ?>
 		</p>
 	</div>
 	
@@ -46,7 +46,7 @@ $this->breadcrumbs=array(
 	</div>
 
 	<div class="row submit">
-		<?php echo CHtml::submitButton(UserModule::t("Login")); ?>
+		<?php echo CHtml::submitButton(Yii::t('app',"Login")); ?>
 	</div>
 	
 <?php echo CHtml::endForm(); ?>

@@ -51,7 +51,7 @@ class backendUserLinkController extends GxController {
 			if (!Yii::app()->getRequest()->getIsAjaxRequest())
 				$this->redirect(array('admin'));
 		} else
-			throw new CHttpException(400, Yii::t('app', 'Your request is invalid.'));
+			throw new CHttpException(400, Yii::t('msg', 'Your request is invalid.'));
 	}
 
 	public function actionIndex() {

@@ -533,7 +533,7 @@ class ProfileController extends GxController {
 					} else {
 						$response = array("data" => null,
 								"status" => 1,
-								"message" => Yii::t('app', "Problem saving link. Please check fields for correct values."));
+								"message" => Yii::t('msg', "Problem saving link. Please check fields for correct values."));
 						echo json_encode($response);
 						Yii::app()->end();
 						/* if (Yii::app()->getRequest()->getIsAjaxRequest()){ 
@@ -543,7 +543,7 @@ class ProfileController extends GxController {
 				} else {
 					$response = array("data" => null,
 							"status" => 0,
-							"message" => Yii::t('app', "You already have this link."));
+							"message" => Yii::t('msg', "You already have this link."));
 					echo json_encode($response);
 					Yii::app()->end();
 				}
@@ -579,7 +579,7 @@ class ProfileController extends GxController {
 			} else {
 				$response = array("data" => null,
 						"status" => 1,
-						"message" =>  Yii::t('app', "Unable to remove link."));
+						"message" =>  Yii::t('msg', "Unable to remove link."));
 				echo json_encode($response);
 				Yii::app()->end();
 			}

@@ -13,7 +13,7 @@ foreach($this->data['user']['idea'] AS $key => $idea){
           
       <?php  echo CHtml::ajaxButton(Yii::t("app","Delete"),'','',
                   array('class'=>"button tiny alert radius",
-                        'confirm'=>Yii::t("app","You are about to delete this project!\nAre you sure?"),
+                        'confirm'=>Yii::t("msg","You are about to delete this project!\nAre you sure?"),
                         'onclick'=>"$(document).stopPropagation();",
                       )
               ); ?>
@@ -49,7 +49,7 @@ foreach($this->data['user']['idea'] AS $key => $idea){
           
       <?php  echo CHtml::ajaxButton(Yii::t("app","Leave"),'','',
                   array('class'=>"button tiny alert radius",
-                        'confirm'=>Yii::t("app","You are about to leave this project!\nAre you sure?"),
+                        'confirm'=>Yii::t("msg","You are about to leave this project!\nAre you sure?"),
                         'onclick'=>"$(document).stopPropagation();",
                       )
               ); ?>

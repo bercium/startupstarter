@@ -27,7 +27,7 @@ print_r($user);
   <div  class="row">
     <div class="large-5 small-12 columns"  >
       <small class="meta">
-        <?php echo Yii::t('app','Has skills:'); ?> 
+        <?php echo Yii::t('app','Has skills').":"; ?> 
         <span class="button tiny secondary meta_tags" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> 
         <span class="button tiny secondary meta_tags" data-tooltip title="Sales">Economics</span>
       </small>        
@@ -35,12 +35,12 @@ print_r($user);
       <small class="meta"><?php echo Yii::t('app','Available') ?>: <a>part time</a></small><br />
       <small class="meta"><?php echo Yii::t('app','Involved in') ?> <a><?php echo Yii::t('app','{n} project|{n} projects',array(3)) ?></a></small>
       <div class="card-floater" style="border:none;">
-        <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>"><?php echo Yii::t('app','details...') ?></a>
+        <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>"><?php echo Yii::t('app','details').'...'; ?></a>
       </div>
     </div>
     <div class="large-7 small-12 columns"  >
       <small class="meta">
-        <?php echo Yii::t('app','Has skills:'); ?> 
+        <?php echo Yii::t('app','Has skills').":"; ?> 
         <span class="button tiny secondary meta_tags" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> 
         <span class="button tiny secondary meta_tags" data-tooltip title="Sales">Economics</span>
       </small>        
@@ -48,7 +48,7 @@ print_r($user);
       <small class="meta"><?php echo Yii::t('app','Available') ?>: <a>part time</a></small><br />
       <small class="meta"><?php echo Yii::t('app','Involved in') ?> <a><?php echo Yii::t('app','{n} project|{n} projects',array(3)) ?></a></small>
       <div class="card-floater" style="border:none;"> 
-        <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>"><?php echo Yii::t('app','details...') ?></a>
+        <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>"><?php echo Yii::t('app','details').'...'; ?></a>
       </div>
     </div>    
   </div>

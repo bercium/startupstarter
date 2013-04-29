@@ -1,14 +1,14 @@
 <?php
 $this->breadcrumbs=array(
-	UserModule::t('Users')=>array('index'),
+	Yii::t('app','Users')=>array('index'),
 	$model->email,
 );
 $this->layout='//layouts/column2';
 $this->menu=array(
-    array('label'=>UserModule::t('List User'), 'url'=>array('index')),
+    array('label'=>Yii::t('app','List User'), 'url'=>array('index')),
 );
 ?>
-<h1><?php echo UserModule::t('View User').' "'.$model->email.'"'; ?></h1>
+<h1><?php echo Yii::t('app','View User').' "'.$model->email.'"'; ?></h1>
 <?php 
 
 // For all users
@@ -20,7 +20,7 @@ $this->menu=array(
 	if ($profileFields) {
 		foreach($profileFields as $field) {
 			array_push($attributes,array(
-					'label' => UserModule::t($field->title),
+					'label' => Yii::t('app',$field->title),
 					'name' => $field->varname,
 					'value' => (($field->widgetView($model->profile))?$field->widgetView($model->profile):(($field->range)?Profile::range($field->range,$model->profile->getAttribute($field->varname)):$model->profile->getAttribute($field->varname))),
 
@@ -31,7 +31,7 @@ $this->menu=array(
 		'create_at',
 		array(
 			'name' => 'lastvisit_at',
-			'value' => (($model->lastvisit_at!='0000-00-00 00:00:00')?$model->lastvisit_at:UserModule::t('Not visited')),
+			'value' => (($model->lastvisit_at!='0000-00-00 00:00:00')?$model->lastvisit_at:Yii::t('app','Not visited')),
 		)
 	);
 			

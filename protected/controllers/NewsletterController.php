@@ -55,7 +55,7 @@ class NewsletterController extends GxController {
         $message->from = Yii::app()->params['adminEmail'];
         Yii::app()->mail->send($message);
         
-				Yii::app()->user->setFlash('newsletter',Yii::t('app',"Newsletter sended succersfuly."));
+				Yii::app()->user->setFlash('newsletter',Yii::t('msg',"Newsletter sended succersfuly."));
 			}
 		}
 		$this->render('index',array('model'=>$model));
