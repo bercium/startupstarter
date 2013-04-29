@@ -47,8 +47,8 @@
               }
           
           ?> 
+				</small><br />
         <div class="card-abstract">
-        </small><br />
 				<?php if (count($user['collabpref']) > 0){ ?>
         <small class="meta">
 				<?php echo Yii::t('app','Collaboration') ?>: <a>
