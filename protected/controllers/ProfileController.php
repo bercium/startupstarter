@@ -217,70 +217,66 @@ class ProfileController extends GxController {
 		//check for permission
 
 		$user_id = Yii::app()->user->id;
+		$user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
+		$fpi = !Yii::app()->user->getState('fpi'); // sinc it is not defined default value is 0 and it must be visible
 
-		if ($user_id > 0) {
-			$fpi = !Yii::app()->user->getState('fpi'); // sinc it is not defined default value is 0 and it must be visible
+		
+		if ($user) {
 
-			$user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
-			if ($user) {
+			if (isset($_POST['UserEdit'])) {
+				//$_POST['UserEdit']['name'] = $user->name;
+				$fpi = $_POST['UserEdit']['fpi'];
+				Yii::app()->user->setState('fpi', !$fpi);
 
-				if (isset($_POST['UserEdit'])) {
-					//$_POST['UserEdit']['name'] = $user->name;
-					$fpi = $_POST['UserEdit']['fpi'];
-					Yii::app()->user->setState('fpi', !$fpi);
+				unset($_POST['UserEdit']['fpi']); // since we don't have it in our user model
+				$_POST['UserEdit']['email'] = $user->email; // can't change email at this time!!!
+				$user->setAttributes($_POST['UserEdit']);
 
-					unset($_POST['UserEdit']['fpi']); // since we don't have it in our user model
-					$_POST['UserEdit']['email'] = $user->email; // can't change email at this time!!!
-					$user->setAttributes($_POST['UserEdit']);
-
-					if ($user->save()) {
-						if ($user->language_id !== null) {
-							$lang = Language::Model()->findByAttributes(array('id' => $user->language_id));
-							ELangPick::setLanguage($lang->language_code);
-						}
-
-						/* if (Yii::app()->getRequest()->getIsAjaxRequest())
-						  Yii::app()->end();
-						  else{ */
-						Yii::app()->user->setFlash('settingsMessage', UserModule::t("Settings saved."));
-						//$this->redirect(array('profile/account/'));
-						//}
+				if ($user->save()) {
+					if ($user->language_id !== null) {
+						$lang = Language::Model()->findByAttributes(array('id' => $user->language_id));
+						ELangPick::setLanguage($lang->language_code);
 					}
-				} else
-				if (isset($_POST['deactivate_account']) && ($_POST['deactivate_account'] == 1)) {
-					$user->status = 0;
-					if ($user->save())
-						$this->redirect(array('user/logout'));
+
+					/* if (Yii::app()->getRequest()->getIsAjaxRequest())
+					  Yii::app()->end();
+					  else{ */
+					Yii::app()->user->setFlash('settingsMessage', UserModule::t("Settings saved."));
+					//$this->redirect(array('profile/account/'));
+					//}
 				}
-
-				// pasword changing
-				$form2 = new UserChangePassword;
-				$find = User::model()->findByPk(Yii::app()->user->id);
-				if (isset($_POST['UserChangePassword'])) {
-					$form2->attributes = $_POST['UserChangePassword'];
-					if ($form2->validate()) {
-						$find->password = UserModule::encrypting($form2->password);
-						$find->activkey = UserModule::encrypting(microtime() . $form2->password);
-						if ($find->status == 0) {
-							$find->status = 1;
-						}
-						$find->save();
-						Yii::app()->user->setFlash('passChangeMessage', UserModule::t("New password is saved."));
-						//$this->redirect(Yii::app()->controller->module->recoveryUrl);
-					}
-				}
-
-				$filter['user_id'] = $user_id;
-				$sqlbuilder = new SqlBuilder;
-				$data['user'] = $sqlbuilder->load_array("user", $filter);
-				$this->data = $data;
-
-				$this->render('account', array('user' => $user, "passwordForm" => $form2, "fpi" => $fpi));
-			} else {
-				$this->redirect(array('profile/'));
+			} else
+			if (isset($_POST['deactivate_account']) && ($_POST['deactivate_account'] == 1)) {
+				$user->status = 0;
+				if ($user->save())
+					$this->redirect(array('user/logout'));
 			}
+
+			// pasword changing
+			$form2 = new UserChangePassword;
+			$find = User::model()->findByPk(Yii::app()->user->id);
+			if (isset($_POST['UserChangePassword'])) {
+				$form2->attributes = $_POST['UserChangePassword'];
+				if ($form2->validate()) {
+					$find->password = UserModule::encrypting($form2->password);
+					$find->activkey = UserModule::encrypting(microtime() . $form2->password);
+					if ($find->status == 0) {
+						$find->status = 1;
+					}
+					$find->save();
+					Yii::app()->user->setFlash('passChangeMessage', UserModule::t("New password is saved."));
+					//$this->redirect(Yii::app()->controller->module->recoveryUrl);
+				}
+			}
+
+			$filter['user_id'] = $user_id;
+			$sqlbuilder = new SqlBuilder;
+			$data['user'] = $sqlbuilder->load_array("user", $filter);
+			$this->data = $data;
+
+			$this->render('account', array('user' => $user, "passwordForm" => $form2, "fpi" => $fpi));
 		} else {
-			$this->redirect(array('profile/'));
+			//not logged in stuff
 		}
 	}
 
@@ -324,11 +320,11 @@ class ProfileController extends GxController {
 				echo $return; //return array
 				Yii::app()->end();
 			} else {
-				Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
+				//not ajax stuff
 			}
+		} else {
+			//not logged in stuff
 		}
-
-		$this->redirect(array('profile/'));
 	}
 
 	public function actionCollabpref() {
@@ -373,12 +369,11 @@ class ProfileController extends GxController {
 					echo $return; //return array
 					Yii::app()->end();
 				} else {
-					Yii::app()->user->setFlash('personalMessage', $return['message']);
-					$this->redirect(array('profile/'));
+					//not ajax stuff
 				}
 			}
-
-			$this->render('_addcollabpref', array('collabpref' => $collabpref));
+		} else {
+			//not logged in stuff
 		}
 	}
 
@@ -414,11 +409,12 @@ class ProfileController extends GxController {
 						echo $return; //return array
 						Yii::app()->end();
 					} else {
-						Yii::app()->user->setFlash('personalMessage', $return['message']);
-						$this->redirect(array('profile/'));
+						//not ajax stuff
 					}
 				}
 			}
+		} else {
+			//not logged in stuff
 		}
 	}
 
@@ -445,8 +441,10 @@ class ProfileController extends GxController {
 				echo $return; //return array
 				Yii::app()->end();
 			} else {
-				Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
+				//not ajax stuff
 			}
+		} else {
+			//not logged in stuff
 		}
 	}
 
@@ -497,10 +495,8 @@ class ProfileController extends GxController {
 					Yii::app()->end();
 				}
 			}
-
-			$this->render('_addlink', array('link' => $link));
 		} else {
-			$this->redirect(array('profile/'));
+			//not logged in stuff
 		}
 	}
 
@@ -529,8 +525,6 @@ class ProfileController extends GxController {
 				Yii::app()->end();
 			}
 		}
-
-		$this->redirect(array('profile/'));
 	}
 
 }
