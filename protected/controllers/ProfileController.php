@@ -4,9 +4,6 @@ class ProfileController extends GxController {
 
 	public $data = array();
 
-	const status_ok = '200';
-	const status_fail = '404';
-
 	/**
 	 * @return array action filters
 	 */
@@ -70,7 +67,7 @@ class ProfileController extends GxController {
 		echo $return; // it's array
 	}
 
-	public function actionIndex($user_id = NULL) {
+	public function actionIndex() {
 		$this->layout = "//layouts/edit";
 
 		echo 'Links: <br/><br/>
@@ -93,12 +90,7 @@ class ProfileController extends GxController {
 		/deleteLink/$user_id?link_id=$link_id -> delete link by user_id, link_id<br/>
 		<br/>';
 
-		//check for permission
-		if ($user_id && (Yii::app()->user->id == $user_id || 1 == 1 )) { //|| Yii::app()->user->superuser == 1)){
-			$user_id = $user_id;
-		} else {
-			$user_id = Yii::app()->user->id;
-		}
+		$user_id = Yii::app()->user->id;
 
 		if ($user_id > 0) {
 
@@ -195,15 +187,10 @@ class ProfileController extends GxController {
 		}
 	}
 
-	public function actionProjects($user_id = NULL) {
+	public function actionProjects() {
 		$this->layout = "//layouts/edit";
 
-		//check for permission
-		if ($user_id && (Yii::app()->user->id == $user_id || 1 == 1 )) { //|| Yii::app()->user->superuser == 1)){
-			$user_id = $user_id;
-		} else {
-			$user_id = Yii::app()->user->id;
-		}
+		$user_id = Yii::app()->user->id;
 
 		if ($user_id > 0) {
 
@@ -218,7 +205,7 @@ class ProfileController extends GxController {
 		}
 	}
 
-	public function actionAccount($user_id = NULL) {
+	public function actionAccount() {
 		$this->layout = "//layouts/edit";
 
 		//email
@@ -228,11 +215,8 @@ class ProfileController extends GxController {
 		//language
 		//newsletter
 		//check for permission
-		if ($user_id && (Yii::app()->user->id == $user_id || 1 == 1 )) { //|| Yii::app()->user->superuser == 1)){
-			$user_id = $user_id;
-		} else {
-			$user_id = Yii::app()->user->id;
-		}
+
+		$user_id = Yii::app()->user->id;
 
 		if ($user_id > 0) {
 			$fpi = !Yii::app()->user->getState('fpi'); // sinc it is not defined default value is 0 and it must be visible
@@ -300,36 +284,39 @@ class ProfileController extends GxController {
 		}
 	}
 
-	//from here on
-	public function actionRemoveIdea($id, $idea_id) {
+	//from here on there's only ajax actions
+	public function actionRemoveIdea($id) {
 
-		$match = UserMatch::Model()->findByAttributes(array('id' => $id));
+		$user_id = Yii::app()->user->id;
+
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
 		$match_id = $match->id;
-		$isOwner = IdeaMember::Model()->findByAttributes(array('match_id' => $match_id, 'idea_id' => $idea_id, 'type_id' => 1));
+
+		$isOwner = IdeaMember::Model()->findByAttributes(array('match_id' => $match_id, 'idea_id' => $id, 'type_id' => 1));
 
 		//check for permission
-		if ($match && ($match->user_id == Yii::app()->user->id || 1 == 1 )) { //|| 1 == 1 ){ //|| Yii::app()->user->superuser == 1){
-			$allgood = false;
+		if ($user > 0) {
+
 			if ($isOwner) {
-				$idea = Idea::Model()->findByAttributes(array('id' => $idea_id, 'deleted' => 0));
+				$idea = Idea::Model()->findByAttributes(array('id' => $id, 'deleted' => 0));
 				$idea->setAttributes(array('deleted' => 1));
 
-				if ($idea->save()) {
+				if ($idea->save())
 					$allgood = true;
-				}
+
 			} else {
-				$member = IdeaMember::Model()->findByAttributes(array('idea_id' => $idea_id, 'match_id' => $match_id));
-				if ($member->delete()) {
+				$member = IdeaMember::Model()->findByAttributes(array('idea_id' => $id, 'match_id' => $match_id));
+				
+				if ($member->delete())
 					$allgood = true;
-				}
 			}
 
 			if ($allgood) {
 				$return['message'] = "All good in the hood";
-				$return['status'] = self::status_ok;
+				$return['status'] = 1;
 			} else {
 				$return['message'] = "Wrong";
-				$return['status'] = self::status_fail;
+				$return['status'] = 0;
 			}
 
 			if (isset($_GET['ajax'])) {
@@ -344,40 +331,41 @@ class ProfileController extends GxController {
 		$this->redirect(array('profile/'));
 	}
 
-	public function actionAddCollabpref($id) {
+	public function actionCollabpref() {
 
-		$match = UserMatch::Model()->findByAttributes(array('id' => $id));
+		$user_id = Yii::app()->user->id;
+
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
+		$match_id = $match->id;
 
 		//check for permission
-		if ($match && ($match->user_id == Yii::app()->user->id || 1 == 1 )) { //|| 1 == 1 ){ //|| Yii::app()->user->superuser == 1){
+		if ($user_id > 0) {
 			$collabpref = new UserCollabpref;
 
 			if (isset($_POST['UserCollabpref'])) {
 
 				foreach ($POST['UserCollabpref'] AS $key => $value) {
-					$value['match_id'] = $id;
+					$value['match_id'] = $match_id;
 					$allgood = false;
 
-					$exists = UserCollabpref::Model()->findByAttributes(array('match_id' => $id, 'collab_id' => $value['collab_id']));
-					if (!$exists && $value['active'] > 0) { //we want to insert
+					$exists = UserCollabpref::Model()->findByAttributes(array('match_id' => $match_id, 'collab_id' => $value['collab_id']));
+					if (!$exists && $value['active'] > 0) { //then we want to insert
 						$collabpref->setAttributes($value);
-						if ($collabpref->save()) {
+						if ($collabpref->save())
 							$allgood = true;
-						}
 					}
-					if ($exists && !$_POST['UserCollabpref']['active']) { //we want to delete it
-						if ($exists->delete()) {
+					if ($exists && !$_POST['UserCollabpref']['active']) { //then we want to delete it
+						if ($exists->delete())
 							$allgood = true;
-						}
 					}
 				}
 
 				if ($allgood) {
 					$return['message'] = "All good in the hood";
-					$return['status'] = self::status_ok;
+					$return['status'] = 1;
 				} else {
 					$return['message'] = "Wrong";
-					$return['status'] = self::status_fail;
+					$return['status'] = 0;
 				}
 
 				if (isset($_GET['ajax'])) {
@@ -385,68 +373,40 @@ class ProfileController extends GxController {
 					echo $return; //return array
 					Yii::app()->end();
 				} else {
-					Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
+					Yii::app()->user->setFlash('personalMessage', $return['message']);
 					$this->redirect(array('profile/'));
 				}
 			}
 
 			$this->render('_addcollabpref', array('collabpref' => $collabpref));
-		} else {
-			$this->redirect(array('profile/'));
 		}
 	}
 
-	public function actionDeleteCollabpref($id, $collab_id) {
+	public function actionAddSkill() {
 
-		$match = UserMatch::Model()->findByAttributes(array('id' => $id));
-
-		//check for permission
-		if ($match && ($match->user_id == Yii::app()->user->id || 1 == 1 )) { //|| 1 == 1 ){ //|| Yii::app()->user->superuser == 1){
-			$collabpref = UserCollabpref::Model()->findByAttributes(array('id' => $collab_id));
-
-			if ($collabpref->delete()) { //delete
-				$return['message'] = "All good in the hood";
-				$return['status'] = self::status_ok;
-			} else {
-				$return['message'] = "Wrong";
-				$return['status'] = self::status_fail;
-			}
-
-			if (isset($_GET['ajax'])) {
-				$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
-				echo $return; //return array
-				Yii::app()->end();
-			} else {
-				Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
-			}
-		}
-
-		$this->redirect(array('profile/'));
-	}
-
-	public function actionAddSkill($id) {
-
-		$match = UserMatch::Model()->findByAttributes(array('id' => $id));
+		$user_id = Yii::app()->user->id;
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
+		$match_id = $match->id;
 
 		//check for permission
-		if ($match && ($match->user_id == Yii::app()->user->id || 1 == 1 )) { //|| 1 == 1 ){ //|| Yii::app()->user->superuser == 1){
+		if ($user_id > 0) {
 			$skill = new UserSkill;
 
 			if (isset($_POST['UserSkill'])) {
 
-				$_POST['UserSkill']['match_id'] = $id;
+				$_POST['UserSkill']['match_id'] = $match_id;
 
-				$exists = UserSkill::Model()->findByAttributes(array('match_id' => $id, 'skill_id' => $_POST['UserSkill']['skill_id'], 'skillset_id' => $_POST['UserSkill']['skillset_id']));
+				$exists = UserSkill::Model()->findByAttributes(array('match_id' => $match_id, 'skill_id' => $_POST['UserSkill']['skill_id'], 'skillset_id' => $_POST['UserSkill']['skillset_id']));
 				if (!$exists) {
 
 					$skill->setAttributes($_POST['UserSkill']);
 
 					if ($skill->save()) { //save
 						$return['message'] = "All good in the hood";
-						$return['status'] = self::status_ok;
+						$return['status'] = 1;
 					} else {
 						$return['message'] = "Wrong";
-						$return['status'] = self::status_fail;
+						$return['status'] = 0;
 					}
 
 					if (isset($_GET['ajax'])) {
@@ -454,35 +414,30 @@ class ProfileController extends GxController {
 						echo $return; //return array
 						Yii::app()->end();
 					} else {
-						Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
+						Yii::app()->user->setFlash('personalMessage', $return['message']);
+						$this->redirect(array('profile/'));
 					}
-
-					$this->redirect(array('profile/'));
-				} else {
-					$this->redirect(array('profile/'));
 				}
 			}
-
-			$this->render('_addskill', array('skill' => $skill));
-		} else {
-			$this->redirect(array('index'));
 		}
 	}
 
-	public function actionDeleteSkill($id, $skill_id) {
+	public function actionDeleteSkill($id) {
 
-		$match = UserMatch::Model()->findByAttributes(array('id' => $id));
+		$user_id = Yii::app()->user->id;
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
+		$match_id = $match_id;
 
 		//check for permission
-		if ($match && ($match->user_id == Yii::app()->user->id || 1 == 1 )) { //|| 1 == 1 ){ //|| Yii::app()->user->superuser == 1){
-			$skill = UserSkill::Model()->findByAttributes(array('id' => $skill_id));
+		if ($user_id > 0) {
+			$skill = UserSkill::Model()->findByAttributes(array('id' => $id));
 
 			if ($skill->delete()) { //delete
 				$return['message'] = "All good in the hood";
-				$return['status'] = self::status_ok;
+				$return['status'] = 1;
 			} else {
 				$return['message'] = "Wrong";
-				$return['status'] = self::status_fail;
+				$return['status'] = 0;
 			}
 
 			if (isset($_GET['ajax'])) {
@@ -493,16 +448,10 @@ class ProfileController extends GxController {
 				Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
 			}
 		}
-
-		$this->redirect(array('profile/'));
 	}
 
-	public function actionAddLink(/* $user_id = null */) {
-		
-		//check for permission
-		/* if(Yii::app()->user->id == $user_id || 1 == 1 ){ //|| Yii::app()->user->superuser == 1){ //is this person, or is superuser
-		  $user_id = $user_id;
-		  }else */
+	public function actionAddLink() {
+
 		$user_id = Yii::app()->user->id;
 
 		if ($user_id > 0) {
@@ -557,10 +506,6 @@ class ProfileController extends GxController {
 
 	public function actionDeleteLink() {
 
-		//check for permission
-		/* if(Yii::app()->user->id == $id || 1 == 1 ){ //|| Yii::app()->user->superuser == 1){ //is this person, or is superuser
-		  $user_id = $id;
-		  } */
 		$user_id = Yii::app()->user->id;
 		$link_id = 0;
 		if (isset($_POST['id']))
