@@ -139,7 +139,6 @@ class IdeaController extends GxController {
 		//for idea form purposes
 		$user = UserEdit::Model()->findByAttributes( array( 'id' => $user_id ) );
 
-
 		$this->render('createidea', array( 'idea' => $idea, 'translation' => $translation, 'user' => $user ));
 	}
 
@@ -147,7 +146,13 @@ class IdeaController extends GxController {
 		$this->layout="//layouts/edit";
 
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-		if($idea){
+
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+		$criteria=new CDbCriteria();
+		$criteria->addInCondition('type_id',array(1,2)); //members
+		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
+
+		if($idea && $hasPriviledges){
 
 			$sqlbuilder = new SqlBuilder;
 			$filter = array( 'idea_id' => $id);
@@ -174,14 +179,11 @@ class IdeaController extends GxController {
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
 
-						if (Yii::app()->getRequest()->getIsAjaxRequest())
-							Yii::app()->end();
-						else
-							if($lang){
-								$this->redirect(array('idea/edit', 'id' => $idea->id, 'lang'=> $lang));
-							} else {
-								$this->redirect(array('idea/edit', 'id' => $idea->id));
-							}
+						if($lang){
+							$this->redirect(array('idea/edit', 'id' => $idea->id, 'lang'=> $lang));
+						} else {
+							$this->redirect(array('idea/edit', 'id' => $idea->id));
+						}
 					}
 				}
 			}
@@ -198,8 +200,6 @@ class IdeaController extends GxController {
 			$user = UserEdit::Model()->findByAttributes( array( 'id' => $user_id ) );
 
 			$this->render('editidea', array( 'idea' => $idea, 'translation' => $translation, 'data' => $data, 'user' => $user ));
-		} else {
-			$this->redirect(array('index'));
 		}
 
 	}
@@ -207,7 +207,12 @@ class IdeaController extends GxController {
 	public function actionTranslate($id) {
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
 
-		if($idea){
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+		$criteria=new CDbCriteria();
+		$criteria->addInCondition('type_id',array(1,2)); //members
+		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
+
+		if($idea && $hasPriviledges){
 
 			$translation = new IdeaTranslation;
 
@@ -225,23 +230,23 @@ class IdeaController extends GxController {
 					$time_updated = new TimeUpdated;
 					$time_updated->idea($id);
 
-					if (Yii::app()->getRequest()->getIsAjaxRequest())
-						Yii::app()->end();
-					else
-						$this->redirect(array('edit', 'id' => $id));
+					$this->redirect(array('edit', 'id' => $id));
 				}
 			}
 
 			$this->render('createtranslation', array( 'idea' => $idea, 'translation' => $translation ));
-		} else {
-			$this->redirect(array('index'));
-		}
-		
+		}		
 	}
 
 	public function actionEditTranslation($id, $lang) {
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-		if($idea){
+
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+		$criteria=new CDbCriteria();
+		$criteria->addInCondition('type_id',array(1,2)); //members
+		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
+
+		if($idea && $hasPriviledges){
 
 			$language = Language::Model()->findByAttributes( array( 'language_code' => $lang ) );
 			$translation = IdeaTranslation::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'language_id' => $language->id, 'deleted' => 0 ) );
@@ -260,23 +265,23 @@ class IdeaController extends GxController {
 					$time_updated = new TimeUpdated;
 					$time_updated->idea($id);
 
-					if (Yii::app()->getRequest()->getIsAjaxRequest())
-						Yii::app()->end();
-					else
-						$this->redirect(array('edit', 'id' => $id));
+					$this->redirect(array('edit', 'id' => $id));
 				}
 			}
 
 			$this->render('edittranslation', array( 'idea' => $idea, 'translation' => $translation ));
-		} else {
-			$this->redirect(array('index'));
 		}
-
 	}
 
 	public function actionDeleteTranslation($id, $lang) {
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-		if($idea){
+
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+		$criteria=new CDbCriteria();
+		$criteria->addInCondition('type_id',array(1,2)); //members
+		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
+
+		if($idea && $hasPriviledges){
 
 			$sql = "SELECT count(id) FROM idea_translation WHERE id = $id AND deleted = 0";
 			$numTranslations = Yii::app()->db->createCommand($sql)->queryScalar();
@@ -301,28 +306,20 @@ class IdeaController extends GxController {
 					$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
 					echo $return; //return array
 					Yii::app()->end();
-				} else {
-	            	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
-					$this->redirect(array('profile/'));
 				}
 			}
-
-			$this->redirect(array('edit', 'id' => $id));
-		} else {
-			$this->redirect(array('index'));
 		}
-
 	}
 
 	public function actionDeleteIdea($id) {
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
 		
-		$user_id = Yii::app()->user->id;
-		$match = UserMatch::Model()->findByAttributes( array( 'user_id' => $user_id ) );
-		$match_id = $match->match_id;
-		$isOwner = IdeaMember::Model()->findByAttributes( array( 'match_id' => $match_id, 'idea_id' => $id, 'type_id' => 1 ) );
-		
-		if($idea && $isOwner){
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+		$criteria=new CDbCriteria();
+		$criteria->addInCondition('type_id',array(1)); //owner
+		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
+
+		if($idea && $hasPriviledges){
 			$idea->setAttributes(array('deleted' => 1));
 				
 			if($idea->save()){
@@ -338,8 +335,7 @@ class IdeaController extends GxController {
 				echo $return; //return array
 				Yii::app()->end();
 			} else {
-	           	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
-				$this->redirect(array('profile/'));
+	           	//not ajax stuff
 			}
 		}
 
@@ -348,7 +344,13 @@ class IdeaController extends GxController {
 
 	public function actionAddMember($id) {
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-		if($idea){
+
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+		$criteria=new CDbCriteria();
+		$criteria->addInCondition('type_id',array(1)); //owner
+		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
+
+		if($idea && $hasPriviledges){
 
 			$member = new IdeaMember;
 
@@ -356,7 +358,7 @@ class IdeaController extends GxController {
 
 				$_POST['IdeaMember']['idea_id'] = $id;
 
-				$match = UserMatch::Model()->findByAttributes( array( 'user_id' => $_POST['IdeaMember']['match_id'] ) );
+				$match = UserMatch::Model()->findByAttributes( array( 'user_id' => $_POST['IdeaMember']['user_id'] ) );
 				$_POST['IdeaMember']['idea_id'] = $id;
 				$_POST['IdeaMember']['match_id'] = $match->id;
 				$_POST['IdeaMember']['type_id'] = '2'; //HARDCODED MEMBER
@@ -382,74 +384,35 @@ class IdeaController extends GxController {
 						echo $return; //return array
 						Yii::app()->end();
 					} else {
-		            	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
-						$this->redirect(array('profile/'));
+		            	//not ajax stuff
 					}
 					
-				} else {
-					$this->redirect(array('editMember', 'id' => $idea->id, 'member_id' => $exists->id ));
 				}
-
 			}
-
-			$this->render('addMember', array( 'idea' => $idea, 'member' => $member ));
-		} else {
-			$this->redirect(array('index'));
 		}
 	}
 
-	public function actionEditMember($id, $member_id) {
+	public function actionDeleteMember($id, $user_id) {
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-		if($idea){
 
-			$member = IdeaMember::Model()->findByAttributes( array( 'id' => $member_id ) );
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+		$criteria=new CDbCriteria();
+		$criteria->addInCondition('type_id',array(1)); //owner
+		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
 
-			if (isset($_POST['IdeaMember'])) {
-
-				$member->setAttributes($_POST['IdeaMember']);
-
-				if($member->save()){
-					$return['message'] = "All good in the hood";
-					$return['status'] = self::status_ok;
-
-					$time_updated = new TimeUpdated;
-					$time_updated->idea($id);
-				} else {
-					$return['message'] = "Wrong";
-					$return['status'] = self::status_fail;
-				}
-				
-				if(isset($_GET['ajax'])){
-					$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
-					echo $return; //return array
-					Yii::app()->end();
-				} else {
-	            	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
-					$this->redirect(array('profile/'));
-				}
-			}
-
-			$this->render('editMember', array( 'idea' => $idea, 'member' => $member ));
-		} else {
-			$this->redirect(array('index'));
-		}
-	}
-
-	public function actionDeleteMember($id, $member_id) {
-		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-		if($idea){
-
-			$member = IdeaMember::Model()->findByAttributes( array( 'id' => $member_id ) );
+		if($idea && $hasPriviledges){
+			$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
+			$member = IdeaMember::Model()->findByAttributes( array( 'match_id' => $match->id ) );
 
 			if($member->delete()){
 				$return['message'] = "All good in the hood";
-				$return['status'] = self::status_ok;
+				$return['status'] = 1;
 
 				$time_updated = new TimeUpdated;
 				$time_updated->idea($id);
 			} else {
 				$return['message'] = "Wrong";
-				$return['status'] = self::status_fail;
+				$return['status'] = 0;
 			}
 			
 			if(isset($_GET['ajax'])){
@@ -457,17 +420,20 @@ class IdeaController extends GxController {
 				echo $return; //return array
 				Yii::app()->end();
 			} else {
-	           	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
-				$this->redirect(array('profile/'));
+	           	//not ajax stuff
 			}
-		} else {
-			$this->redirect(array('index'));
 		}
 	}
 
 	public function actionAddCandidate($id) {
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-		if($idea){
+
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+		$criteria=new CDbCriteria();
+		$criteria->addInCondition('type_id',array(1)); //owner
+		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
+
+		if($idea && $hasPriviledges){
 
 			$candidate = new IdeaMember;
 			$match = new UserMatch;
@@ -484,13 +450,13 @@ class IdeaController extends GxController {
 
 					if($candidate->save()){
 						$return['message'] = "All good in the hood";
-						$return['status'] = self::status_ok;
+						$return['status'] = 1;
 
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
 					} else {
 						$return['message'] = "Wrong";
-						$return['status'] = self::status_fail;
+						$return['status'] = 0;
 					}
 					
 					if(isset($_GET['ajax'])){
@@ -498,60 +464,25 @@ class IdeaController extends GxController {
 						echo $return; //return array
 						Yii::app()->end();
 					} else {
-		            	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
-						$this->redirect(array('profile/'));
+		            	//not ajax stuff
 					}
 				}
 			}
-
-			$this->render('addcandidate', array( 'idea' => $idea, 'match' => $match ));
-		} else {
-			$this->redirect(array('index'));
 		}
 	}
 
-	public function actionEditCandidate($id, $candidate_id) {
+	public function actionDeleteCandidate($id, $match_id) {
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-		if($idea){
 
-			$match = UserMatch::Model()->findByAttributes( array( 'id' => $candidate_id ) );
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+		$criteria=new CDbCriteria();
+		$criteria->addInCondition('type_id',array(1)); //owner
+		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
 
-			if (isset($_POST['UserMatch'])) {
-				$match->setAttributes($_POST['UserMatch']);
+		if($idea && $hasPriviledges){
 
-				if($match->save()){
-					$return['message'] = "All good in the hood";
-					$return['status'] = self::status_ok;
-
-					$time_updated = new TimeUpdated;
-					$time_updated->idea($id);
-				} else {
-					$return['message'] = "Wrong";
-					$return['status'] = self::status_fail;
-				}
-				
-				if(isset($_GET['ajax'])){
-					$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
-					echo $return; //return array
-					Yii::app()->end();
-				} else {
-	            	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
-					$this->redirect(array('profile/'));
-				}
-			}
-
-			$this->render('editcandidate', array( 'idea' => $idea, 'match' => $match ));
-		} else {
-			$this->redirect(array('index'));
-		}
-	}
-
-	public function actionDeleteCandidate($id, $candidate_id) {
-		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-		if($idea){
-
-			$match = UserMatch::Model()->findByAttributes( array( 'id' => $candidate_id ) );
-			$candidate = IdeaMember::Model()->findByAttributes( array( 'match_id' => $candidate_id ) );
+			$match = UserMatch::Model()->findByAttributes( array( 'id' => $match_id ) );
+			$candidate = IdeaMember::Model()->findByAttributes( array( 'match_id' => $match_id ) );
 			$allgood = false;
 
 			if($match->delete())
@@ -561,13 +492,13 @@ class IdeaController extends GxController {
 
 			if($allgood){
 				$return['message'] = "All good in the hood";
-				$return['status'] = self::status_ok;
+				$return['status'] = 1;
 
 				$time_updated = new TimeUpdated;
 				$time_updated->idea($id);
 			} else {
 				$return['message'] = "Wrong";
-				$return['status'] = self::status_fail;
+				$return['status'] = 0;
 			}
 				
 			if(isset($_GET['ajax'])){
@@ -575,38 +506,42 @@ class IdeaController extends GxController {
 				echo $return; //return array
 				Yii::app()->end();
 			} else {
-	           	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
-				$this->redirect(array('profile/'));
+	           	//not ajax stuff
 			}
-		} else {
-			$this->redirect(array('index'));
 		}
 	}
 
-	public function actionAddCollabpref($id, $candidate_id) {
+	public function actionAddCollabpref($id, $match_id) {
+
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-		if($idea){
+
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+		$criteria=new CDbCriteria();
+		$criteria->addInCondition('type_id',array(1)); //owner
+		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
+
+		if($idea && $hasPriviledges){
 
 			$collabpref = new UserCollabpref;
 
 			if (isset($_POST['UserCollabpref'])) {
 
-				$_POST['UserCollabpref']['match_id'] = $candidate_id;
+				$_POST['UserCollabpref']['match_id'] = $match_id;
 
-				$exists = UserCollabpref::Model()->findByAttributes( array( 'match_id' => $candidate_id, 'collab_id' => $_POST['UserCollabpref']['collab_id'] ) );
+				$exists = UserCollabpref::Model()->findByAttributes( array( 'match_id' => $match_id, 'collab_id' => $_POST['UserCollabpref']['collab_id'] ) );
 				if(!$exists){
 
 					$collabpref->setAttributes($_POST['UserCollabpref']);
 
 					if($collabpref->save()){
 						$return['message'] = "All good in the hood";
-						$return['status'] = self::status_ok;
+						$return['status'] = 1;
 
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
 					} else {
 						$return['message'] = "Wrong";
-						$return['status'] = self::status_fail;
+						$return['status'] = 0;
 					}
 						
 					if(isset($_GET['ajax'])){
@@ -614,35 +549,34 @@ class IdeaController extends GxController {
 						echo $return; //return array
 						Yii::app()->end();
 					} else {
-			           	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
-						$this->redirect(array('profile/'));
+			        	//not ajax stuff
 					}
-				} else {
-					$this->redirect(array('editCandidate', 'id' => $idea->id, 'candidate_id' => $candidate_id ));
 				}
 			}
-
-			$this->render('addcollabpref', array( 'idea' => $idea, 'collabpref' => $collabpref ));
-		} else {
-			$this->redirect(array('index'));
 		}
 	}
 
-	public function actionDeleteCollabpref($id, $candidate_id, $collab_id) {
+	public function actionDeleteCollabpref($id, $collab_id) {
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-		if($idea){
+
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+		$criteria=new CDbCriteria();
+		$criteria->addInCondition('type_id',array(1)); //owner
+		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
+
+		if($idea && $hasPriviledges){
 
 			$collabpref = UserCollabpref::Model()->findByAttributes( array( 'id' => $collab_id ) );
 
 			if($collabpref->delete()){
 				$return['message'] = "All good in the hood";
-				$return['status'] = self::status_ok;
+				$return['status'] = 1;
 
 				$time_updated = new TimeUpdated;
 				$time_updated->idea($id);
 			} else {
 				$return['message'] = "Wrong";
-				$return['status'] = self::status_fail;
+				$return['status'] = 0;
 			}
 						
 			if(isset($_GET['ajax'])){
@@ -650,38 +584,41 @@ class IdeaController extends GxController {
 				echo $return; //return array
 				Yii::app()->end();
 			} else {
-		    	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
-				$this->redirect(array('profile/'));
+		    	//not ajax stuff
 			}
-		} else {
-			$this->redirect(array('index'));
 		}
 	}
 
-	public function actionAddSkill($id, $candidate_id) {
+	public function actionAddSkill($id, $match_id) {
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-		if($idea){
+
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+		$criteria=new CDbCriteria();
+		$criteria->addInCondition('type_id',array(1)); //owner
+		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
+
+		if($idea && $hasPriviledges){
 
 			$skill = new UserSkill;
 
 			if (isset($_POST['UserSkill'])) {
 
-				$_POST['UserSkill']['match_id'] = $candidate_id;
+				$_POST['UserSkill']['match_id'] = $match_id;
 
-				$exists = UserSkill::Model()->findByAttributes( array( 'match_id' => $candidate_id, 'skill_id' => $_POST['UserSkill']['skill_id'], 'skillset_id' => $_POST['UserSkill']['skillset_id'] ) );
+				$exists = UserSkill::Model()->findByAttributes( array( 'match_id' => $match_id, 'skill_id' => $_POST['UserSkill']['skill_id'], 'skillset_id' => $_POST['UserSkill']['skillset_id'] ) );
 				if(!$exists){
 
 					$skill->setAttributes($_POST['UserSkill']);
 
 					if($skill->save()){
 						$return['message'] = "All good in the hood";
-						$return['status'] = self::status_ok;
+						$return['status'] = 1;
 
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
 					} else {
 						$return['message'] = "Wrong";
-						$return['status'] = self::status_fail;
+						$return['status'] = 0;
 					}
 								
 					if(isset($_GET['ajax'])){
@@ -689,35 +626,34 @@ class IdeaController extends GxController {
 						echo $return; //return array
 						Yii::app()->end();
 					} else {
-				    	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
-						$this->redirect(array('profile/'));
+				    	//not ajax stuff
 					}
-				} else {
-					$this->redirect(array('editCandidate', 'id' => $idea->id, 'candidate_id' => $candidate_id ));
 				}
-			}
-
-			$this->render('addskill', array( 'idea' => $idea, 'skill' => $skill ));
-		} else {
-			$this->redirect(array('index'));
+			}	
 		}
 	}
 
-	public function actionDeleteSkill($id, $candidate_id, $skill_id) {
+	public function actionDeleteSkill($id, $skill_id) {
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-		if($idea){
+
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+		$criteria=new CDbCriteria();
+		$criteria->addInCondition('type_id',array(1)); //owner
+		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
+
+		if($idea && $hasPriviledges){
 
 			$skill = UserSkill::Model()->findByAttributes( array( 'id' => $skill_id ) );
 
 			if($skill->delete()){
 				$return['message'] = "All good in the hood";
-				$return['status'] = self::status_ok;
+				$return['status'] = 1;
 
 				$time_updated = new TimeUpdated;
 				$time_updated->idea($id);
 			} else {
 				$return['message'] = "Wrong";
-				$return['status'] = self::status_fail;
+				$return['status'] = 0;
 			}
 						
 			if(isset($_GET['ajax'])){
@@ -725,11 +661,8 @@ class IdeaController extends GxController {
 				echo $return; //return array
 				Yii::app()->end();
 			} else {
-		    	Yii::app()->user->setFlash('personalMessage', $return['message']); //find by: "personal,rly?"
-				$this->redirect(array('profile/'));
+		    	//not ajax stuff
 			}
-		} else {
-			$this->redirect(array('index'));
 		}
 	}
 
