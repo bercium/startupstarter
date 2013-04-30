@@ -57,7 +57,7 @@ class PersonController extends GxController {
 		$this->render('index', array('data' => $data));
 
 		$click = new Click;
-		$click->user(Yii::app()->user->id, $id);
+		$click->user($id, Yii::app()->user->id);
 	}
 	
 }

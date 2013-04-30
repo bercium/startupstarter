@@ -90,7 +90,7 @@ class IdeaController extends GxController {
 
 		//log clicks
 		$click = new Click;
-		$click->idea(Yii::app()->user->id, $id);
+		$click->idea($id, Yii::app()->user->id);
 	}
 
 	public function actionCreate(){
