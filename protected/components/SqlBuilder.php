@@ -16,6 +16,25 @@ class SqlBuilder {
 		$language = Language::Model()->findByAttributes( array( 'language_code' => $filter['lang'] ) );
 		$filter['lang'] = $language->id;
 
+		//check for legit values
+		//NOTE: $_GET values get transmitted to this class. this section would otherwise not be needed
+		//this section needs more care
+		if(isset($filter['page'])){
+			if(!is_numeric($filter['page']))
+				$filter['page'] = 1;
+		}
+		if(isset($filter['per_page'])){
+			if(!is_numeric($filter['per_page']))
+				$filter['per_page'] = 12;
+		}
+
+		//pagination
+		if(!isset($filter['page']))
+			$filter['page'] = 1;
+		if(!isset($filter['per_page'])){
+			$filter['per_page'] = 12;
+		}
+
 		switch ($action) {
 			//frontpage controller
 		    case "recent_candidate":
@@ -53,7 +72,8 @@ class SqlBuilder {
 					"AND it.idea_id = i.id ".
 					"AND it.language_id = '{$filter['lang']}' ".
 					"AND it.deleted = 0 ".
-					"ORDER BY m.id DESC";
+					"ORDER BY m.id DESC ".
+					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". ($filter['per_page']+1);
 		} elseif( $type == 'user' ) {
 			$sql=	"SELECT i.*, ist.name AS status FROM ".
 					"`idea` AS i, `idea_status` AS ist, `idea_member` AS im, `user_match` AS m, `user` AS u ".
@@ -79,6 +99,8 @@ class SqlBuilder {
 					"AND i.status_id = ist.id ".
 					"AND i.deleted = 0 ";
 		}
+
+		print_r($sql);
 
  		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
@@ -134,7 +156,7 @@ class SqlBuilder {
 						"AND l.id = it.language_id ".
 						"AND it.deleted = 0 ".
 						"AND it.idea_id = {$filter['idea_id']} ".
-						"ORDER BY FIELD(it.language_id, '{$filter['lang']}') DESC LIMIT 1";
+						"ORDER BY FIELD(it.language_id, '{$filter['lang']}') DESC";
 
 			$connection=Yii::app()->db;
 			$command=$connection->createCommand($sql);
@@ -198,7 +220,8 @@ class SqlBuilder {
 					"LEFT JOIN `city` AS ci ON ci.id = m.city_id ".
 					"LEFT JOIN `language` AS l ON u.language_id = l.id ".
 					"WHERE m.user_id > 0 ".
-					"ORDER BY u.create_at DESC";
+					"ORDER BY u.create_at DESC ".
+					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". $filter['per_page'];
 
 		} elseif( $type == 'member' ) {
 			//return members of an idea
