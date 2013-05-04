@@ -17,7 +17,7 @@
     
       <?php //echo CHtml::activeLabelEx($user,'email'); ?>
       <label for="UserEdit_email"><?php echo Yii::t('app',"Email"); ?>
-        <span data-tooltip title="<?php echo Yii::t('app',"Email can't be changed at this time."); ?>">?</span>
+        <span data-tooltip title="<?php echo Yii::t('msg',"Email can't be changed at this time."); ?>">?</span>
       </label>
       <?php echo CHtml::activeTextField($user,"email", array("class"=>"small secondary readonly","disabled"=>true)); ?>
       
@@ -84,7 +84,7 @@
 
       <?php echo CHtml::submitButton(Yii::t("app","Save"),
                   array('class'=>"button small alert radius",
-                        'confirm'=>Yii::t("app","This action will change your password!\nAre you sure?") )
+                        'confirm'=>Yii::t("msg","This action will change your password!\nAre you sure?") )
               ); ?>
 
     <?php echo CHtml::endForm(); ?>
@@ -105,12 +105,12 @@
   </div>
   <div class="small-12 large-12 columns panel edit-content" id="deactivate" style="display:none;">
     <p>
-      <?php echo Yii::t('app', 'To deactivate your account change its status to off and click deactivate. You will then be loged out of the system.'); ?>
+      <?php echo Yii::t('msg', 'To deactivate your account change its status to off and click deactivate. You will then be loged out of the system.'); ?>
       <br />
-      <?php echo Yii::t('app', 'We purge all deactivated accounts on first of each month. You have until then to reactivate it by clicking "Lost Password?" in login form.'); ?>
+      <?php echo Yii::t('msg', 'We purge all deactivated accounts on first of each month. You have until then to reactivate it by clicking "Lost Password?" in login form.'); ?>
       
       <div data-alert class='alert-box radius alert'>
-        <?php echo Yii::t('app', 'When we purge your account all data connected to it will be removed as well.'); ?>
+        <?php echo Yii::t('msg', 'When we purge your account all data connected to it will be removed as well.'); ?>
       </div>
     </p>
     
@@ -128,7 +128,7 @@
 
     <?php echo CHtml::submitButton(Yii::t("app","Deactivate account"),
                 array('class'=>"button small alert radius",
-                      'confirm'=>Yii::t("app","This action will deactivate your account.\nAre you sure?") )
+                      'confirm'=>Yii::t("msg","This action will deactivate your account.\nAre you sure?") )
             ); ?>
 
     <?php echo CHtml::endForm(); ?>

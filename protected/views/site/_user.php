@@ -47,8 +47,8 @@
               }
           
           ?> 
+				</small><br />
         <div class="card-abstract">
-        </small><br />
 				<?php if (count($user['collabpref']) > 0){ ?>
         <small class="meta">
 				<?php echo Yii::t('app','Collaboration') ?>: <a>
@@ -72,7 +72,7 @@
 				<?php } ?>
         </div><!-- end card-abstract -->
         <div class="card-floater">
-          <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>"><?php echo Yii::t('app','details...') ?></a>
+          <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>"><?php echo Yii::t('app','details').'...'; ?></a>
         </div>
 		  </div>
 	  </div>

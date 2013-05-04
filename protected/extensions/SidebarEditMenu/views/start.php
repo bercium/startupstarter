@@ -10,7 +10,7 @@
     </p>
     <div class="content ideas-aside">
       <a class="idea-new" href="<?php echo Yii::app()->createUrl("idea/create"); ?>" class="ideas-aside-new <?php echo isMenuItemActive("create"); ?>">
-        <?php echo CHtml::encode(Yii::t('app','Create a new project +')); ?>
+        <?php echo CHtml::encode(Yii::t('app','Create a new project').' +'); ?>
       </a>
       <?php foreach ($ideas as $idea){ ?>
       <a href="<?php echo Yii::app()->createUrl("idea/edit/".$idea['id']); ?>" >

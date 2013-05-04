@@ -34,9 +34,9 @@ class UserLogin extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'rememberMe'=>UserModule::t("Remember me next time"),
-			'email'=>UserModule::t("email"),
-			'password'=>UserModule::t("password"),
+			'rememberMe'=>Yii::t('app',"Remember me next time"),
+			'email'=>Yii::t('app',"email"),
+			'password'=>Yii::t('app',"password"),
 		);
 	}
 
@@ -57,19 +57,19 @@ class UserLogin extends CFormModel
 					Yii::app()->user->login($identity,$duration);
 					break;
 				case UserIdentity::ERROR_EMAIL_INVALID:
-					$this->addError("email",UserModule::t("Email is incorrect."));
+					$this->addError("email",Yii::t('msg',"Email is incorrect."));
 					break;
 				/*case UserIdentity::ERROR_USERNAME_INVALID:
-					$this->addError("username",UserModule::t("Username is incorrect."));
+					$this->addError("username",Yii::t('app',"Username is incorrect."));
 					break;*/
 				case UserIdentity::ERROR_STATUS_NOTACTIV:
-					$this->addError("status",UserModule::t("You account is not activated."));
+					$this->addError("status",Yii::t('msg',"You account is not activated."));
 					break;
 				case UserIdentity::ERROR_STATUS_BAN:
-					$this->addError("status",UserModule::t("You account is blocked."));
+					$this->addError("status",Yii::t('msg',"You account is blocked."));
 					break;
 				case UserIdentity::ERROR_PASSWORD_INVALID:
-					$this->addError("password",UserModule::t("Password is incorrect."));
+					$this->addError("password",Yii::t('msg',"Password is incorrect."));
 					break;
 			}
 		}

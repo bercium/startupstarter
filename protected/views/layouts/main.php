@@ -177,10 +177,10 @@
   <div class="login-form">
   <?php echo CHtml::beginForm(Yii::app()->createUrl(Yii::app()->getModule('user')->loginUrl[0]),'post',array("class"=>"custom")); ?>
 
-      <?php echo CHtml::label(Yii::t('app','E-mail:'),'UserLogin_email'); ?>
+      <?php echo CHtml::label(Yii::t('app','Email').":",'UserLogin_email'); ?>
       <?php echo CHtml::textField('UserLogin[email]') ?>
 
-      <?php echo CHtml::label(Yii::t('app','Password:'),'UserLogin_password'); ?>
+      <?php echo CHtml::label(Yii::t('app','Password').":",'UserLogin_password'); ?>
       <?php echo CHtml::passwordField('UserLogin[password]') ?>
 
       <div class="login-floater">

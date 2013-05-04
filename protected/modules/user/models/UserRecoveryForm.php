@@ -18,7 +18,7 @@ class UserRecoveryForm extends CFormModel {
 		return array(
 			// username and password are required
 			array('login_or_email', 'required'),
-			array('login_or_email', 'match', 'pattern' => '/^[A-Za-z0-9@.-\s,]+$/u','message' => UserModule::t("Incorrect symbols (A-z0-9).")),
+			array('login_or_email', 'match', 'pattern' => '/^[A-Za-z0-9@.-\s,]+$/u','message' => Yii::t('msg',"Incorrect symbols (A-z0-9).")),
 			// password needs to be authenticated
 			array('login_or_email', 'checkexists'),
 		);
@@ -29,7 +29,7 @@ class UserRecoveryForm extends CFormModel {
 	public function attributeLabels()
 	{
 		return array(
-			'login_or_email'=>UserModule::t("email"),
+			'login_or_email'=>Yii::t('app',"email"),
 		);
 	}
 	
@@ -43,7 +43,7 @@ class UserRecoveryForm extends CFormModel {
 			
 			
 			if($user===null)
-					$this->addError("login_or_email",UserModule::t("Email is incorrect."));
+					$this->addError("login_or_email",Yii::t('msg',"Email is incorrect."));
 		}
 	}
 	

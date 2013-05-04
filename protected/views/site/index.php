@@ -10,7 +10,7 @@
       <div class="row">
         <div class="large-6 small-12 columns <?php if (!Yii::app()->user->isGuest) echo "large-centered"; ?>">
           <p>
-            <?php echo CHtml::encode(Yii::t('app','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.')); ?>
+            <?php echo CHtml::encode(Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.')); ?>
           </p>
         </div>
 				<?php if (Yii::app()->user->isGuest){ ?>
