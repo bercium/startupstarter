@@ -100,7 +100,7 @@ class SqlBuilder {
 					"AND i.deleted = 0 ";
 		}
 
-		print_r($sql);
+		//print_r($sql);
 
  		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);

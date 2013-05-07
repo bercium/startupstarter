@@ -44,7 +44,7 @@ class IdeaController extends GxController {
 	}
 
 	public function actionIndex($lang = NULL) {
-		echo 'Links: <br/><br/>
+		/*echo 'Links: <br/><br/>
 		/ -> list ideas
 		/create -> create new idea <br/>
 		/$id -> view idea by id <br/>
@@ -65,7 +65,7 @@ class IdeaController extends GxController {
 		/deleteCollabpref/$id&candidate_id=$match_id&collab_id=$usercollab_id -> delete collabpref by idea id, candidate_id (actually match_id), collab_id<br/>
 		/addSkill/$id -> add skill by idea id, candidate_id (actually match_id)<br/>
 		/deleteSkill/$id&candidate_id=$match_id&skill_id=$userskill_id -> delete skill by idea id, candidate_id (actually match_id), skill_id<br/>
-		<br/>';
+		<br/>';*/
 
 		$filter = Yii::app()->request->getQuery('filter', array());
 		

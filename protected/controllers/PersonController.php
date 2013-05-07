@@ -37,10 +37,10 @@ class PersonController extends GxController {
 	}
 
 	public function actionIndex() { //create new idea
-		echo 'Links: <br/><br/>
+		/*echo 'Links: <br/><br/>
 		/ -> list users <br/>
 		/$id -> view user by id <br/>
-		<br/>';
+		<br/>';*/
 
 		$filter = Yii::app()->request->getQuery('filter', array());
 		

@@ -70,7 +70,7 @@ class ProfileController extends GxController {
 	public function actionIndex() {
 		$this->layout = "//layouts/edit";
 
-		echo 'Links: <br/><br/>
+		/*echo 'Links: <br/><br/>
 
 		Views<br/>
 		/ -> edit user profile<br/>
@@ -88,7 +88,7 @@ class ProfileController extends GxController {
 		/deleteSkill/$match_id&skill_id=$skill_id -> delete skill by match_id and userskill_id<br/>
 		/addLink/$user_id -> add link by user_id<br/>
 		/deleteLink/$user_id?link_id=$link_id -> delete link by user_id, link_id<br/>
-		<br/>';
+		<br/>';*/
 
 		$user_id = Yii::app()->user->id;
 
