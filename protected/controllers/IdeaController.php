@@ -5,6 +5,8 @@ class IdeaController extends GxController {
 	public $data = array();
 	const status_ok = '200';
 	const status_fail = '404';
+	public $layout="//layouts/view";
+	
 	/**
 	 * @return array action filters
 	 */
@@ -78,6 +80,7 @@ class IdeaController extends GxController {
 	}
 
 	public function actionView($id, $lang = NULL) {
+		
 		$sqlbuilder = new SqlBuilder;
 		$filter = array( 'idea_id' => $id);
 		if($lang){

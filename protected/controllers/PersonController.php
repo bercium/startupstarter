@@ -1,7 +1,8 @@
 <?php
 
 class PersonController extends GxController {
-
+	
+	public $layout="//layouts/view";
 
 	/**
 	 * @return array action filters

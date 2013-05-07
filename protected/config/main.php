@@ -137,13 +137,13 @@ return array(
     ),*/
     'mail' => array(
         'class' => 'ext.mail.YiiMail',
-        'transportType' => 'smtp',
-        'transportOptions' => array_merge(array(
+        'transportType' => 'php', //smtp
+        /*'transportOptions' => array_merge(array(
             'host' => 'smtp.gmail.com',
             'port' => '465',
             'encryption'=>'tls',
           ),require(dirname(__FILE__) . '/local-mail.php')
-        ),
+        ),*/
         'viewPath' => 'application.views.mailTemplates',
         'logging' => true,
         'dryRun' => true
@@ -154,8 +154,8 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
-    'noreplyMail'=>'no-reply@example.com',
+		'adminEmail'=>'admin@cofinder.eu',
+    'noreplyEmail'=>'no-reply@cofinder.eu',
     'tempFolder'=>'temp/',
     'avatarFolder'=>'uploads/avatars/',
     'mapsFolder'=>'uploads/maps/',

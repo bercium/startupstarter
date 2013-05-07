@@ -86,7 +86,7 @@ $idea = $data['idea'];
         <?php if ($idea['website']){
           echo Yii::t('app',"Official web page").': <a href="http://'.$idea['website'].'" target="_blank">'.$idea['website']."</a><hr>";
         } ?>
-        <?php if ($idea['video']){
+        <?php if (isset($idea['video']) && $idea['video']){
           echo Yii::t('app',"Link to video").': <a href="http://'.$idea['video'].'" target="_blank">'.$idea['video']."</a><hr>";
         } ?>
         
@@ -160,5 +160,5 @@ $idea = $data['idea'];
 
 <?php
 
-print_r($idea); 
+Yii::log(arrayLog($idea), CLogger::LEVEL_INFO, 'custom.info.idea');
 

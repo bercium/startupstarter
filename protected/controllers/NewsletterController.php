@@ -2,6 +2,8 @@
 
 class NewsletterController extends GxController {
 
+	public $layout="//layouts/view";
+	
 	/**
 	 * @return array action filters
 	 */
@@ -49,11 +51,11 @@ class NewsletterController extends GxController {
         $criteria->condition = 'newsletter=1';
         $users = User::model()->findAll($criteria);
         foreach ($users as $user){
-          $message->addBcc($user->email);
+          $message->addTo($user->email);
         }
         
         $message->from = Yii::app()->params['adminEmail'];
-        Yii::app()->mail->send($message);
+        Yii::app()->mail->batchSend($message);
         
 				Yii::app()->user->setFlash('newsletter',Yii::t('msg',"Newsletter sended succersfuly."));
 			}

@@ -106,4 +106,4 @@ $user = $data['user'];
 </div>
 
 <?php
-print_r($user);
+Yii::log(arrayLog($idea), CLogger::LEVEL_INFO, 'custom.info.user');

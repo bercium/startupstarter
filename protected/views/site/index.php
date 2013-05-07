@@ -164,19 +164,8 @@ if (isset($data['user'])){ ?>
   </ul>
 </div>
 
+<?php 
 
-<?php  ?>
-<div class="row panel radius">
-	<div class="large-12 small-12 columns">
-
-<h3>Recent ideas (looking for candidates)</h3>
-<?php //print_r($data['idea']); ?>
-
-<h3>Recently registered users</h3>
-<?php print_r($data['user']); ?>
-
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-<?php   ?>
-
-	</div>
-</div>
+Yii::log(arrayLog($data['idea']), CLogger::LEVEL_INFO, 'custom.info.idea'); 
+Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user'); 
+?>
