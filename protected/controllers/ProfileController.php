@@ -291,7 +291,7 @@ class ProfileController extends GxController {
 		$isOwner = IdeaMember::Model()->findByAttributes(array('match_id' => $match_id, 'idea_id' => $id, 'type_id' => 1));
 
 		//check for permission
-		if ($user > 0) {
+		if ($user_id > 0) {
 
 			if ($isOwner) {
 				$idea = Idea::Model()->findByAttributes(array('id' => $id, 'deleted' => 0));
