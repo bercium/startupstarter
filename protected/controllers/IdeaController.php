@@ -294,13 +294,13 @@ class IdeaController extends GxController {
 
 				if ($translation->save()) {
 					$return['message'] = Yii::t('msg', "Success!"));
-					$return['status'] = 1;
+					$return['status'] = 0;
 
 					$time_updated = new TimeUpdated;
 					$time_updated->idea($id);
 				} else {
 					$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove translation from project."));
-					$return['status'] = 0;
+					$return['status'] = 1;
 				}
 				
 				if(isset($_GET['ajax'])){
@@ -325,10 +325,10 @@ class IdeaController extends GxController {
 				
 			if($idea->save()){
 				$return['message'] = Yii::t('msg', "Success!"));
-				$return['status'] = 1;
+				$return['status'] = 0;
 			} else {
 				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to delete project."));
-				$return['status'] = 0;
+				$return['status'] = 1;
 			}
 				
 			if(isset($_GET['ajax'])){
@@ -371,13 +371,13 @@ class IdeaController extends GxController {
 
 					if ($member->save()) {
 						$return['message'] = Yii::t('msg', "Success!"));
-						$return['status'] = 1;
+						$return['status'] = 0;
 
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
 					} else {
 						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to add new member to project."));
-						$return['status'] = 0;
+						$return['status'] = 1;
 					}
 					
 					if(isset($_GET['ajax'])){
@@ -407,13 +407,13 @@ class IdeaController extends GxController {
 
 			if($member->delete()){
 				$return['message'] = Yii::t('msg', "Success!"));
-				$return['status'] = 1;
+				$return['status'] = 0;
 
 				$time_updated = new TimeUpdated;
 				$time_updated->idea($id);
 			} else {
 				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove member from project."));
-				$return['status'] = 0;
+				$return['status'] = 1;
 			}
 			
 			if(isset($_GET['ajax'])){
@@ -451,13 +451,13 @@ class IdeaController extends GxController {
 
 					if($candidate->save()){
 						$return['message'] = Yii::t('msg', "Success!"));
-						$return['status'] = 1;
+						$return['status'] = 0;
 
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
 					} else {
 						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to add new candidate to project."));
-						$return['status'] = 0;
+						$return['status'] = 1;
 					}
 					
 					if(isset($_GET['ajax'])){
@@ -493,13 +493,13 @@ class IdeaController extends GxController {
 
 			if($allgood){
 				$return['message'] = Yii::t('msg', "Success!"));
-				$return['status'] = 1;
+				$return['status'] = 0;
 
 				$time_updated = new TimeUpdated;
 				$time_updated->idea($id);
 			} else {
 				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove candidate from project."));
-				$return['status'] = 0;
+				$return['status'] = 1;
 			}
 				
 			if(isset($_GET['ajax'])){
@@ -536,13 +536,13 @@ class IdeaController extends GxController {
 
 					if($collabpref->save()){
 						$return['message'] = Yii::t('msg', "Success!"));
-						$return['status'] = 1;
+						$return['status'] = 0;
 
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
 					} else {
 						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update collaboration preferences."));
-						$return['status'] = 0;
+						$return['status'] = 1;
 					}
 						
 					if(isset($_GET['ajax'])){
@@ -571,13 +571,13 @@ class IdeaController extends GxController {
 
 			if($collabpref->delete()){
 				$return['message'] = Yii::t('msg', "Success!"));
-				$return['status'] = 1;
+				$return['status'] = 0;
 
 				$time_updated = new TimeUpdated;
 				$time_updated->idea($id);
 			} else {
 				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update collaboration preferences."));
-				$return['status'] = 0;
+				$return['status'] = 1;
 			}
 						
 			if(isset($_GET['ajax'])){
@@ -613,13 +613,13 @@ class IdeaController extends GxController {
 
 					if($skill->save()){
 						$return['message'] = Yii::t('msg', "Success!"));
-						$return['status'] = 1;
+						$return['status'] = 0;
 
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
 					} else {
 						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills."));
-						$return['status'] = 0;
+						$return['status'] = 1;
 					}
 								
 					if(isset($_GET['ajax'])){
@@ -648,13 +648,13 @@ class IdeaController extends GxController {
 
 			if($skill->delete()){
 				$return['message'] = Yii::t('msg', "Success!"));
-				$return['status'] = 1;
+				$return['status'] = 0;
 
 				$time_updated = new TimeUpdated;
 				$time_updated->idea($id);
 			} else {
 				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills."));
-				$return['status'] = 0;
+				$return['status'] = 1;
 			}
 						
 			if(isset($_GET['ajax'])){

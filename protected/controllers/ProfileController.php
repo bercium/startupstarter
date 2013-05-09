@@ -309,10 +309,10 @@ class ProfileController extends GxController {
 
 			if ($allgood) {
 				$return['message'] = Yii::t('msg', "Success!"));
-				$return['status'] = 1;
+				$return['status'] = 0;
 			} else {
 				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove project from your account."));
-				$return['status'] = 0;
+				$return['status'] = 1;
 			}
 
 			if (isset($_GET['ajax'])) {
@@ -358,10 +358,10 @@ class ProfileController extends GxController {
 
 				if ($allgood) {
 					$return['message'] = Yii::t('msg', "Success!"));
-					$return['status'] = 1;
+					$return['status'] = 0;
 				} else {
 					$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update collaboration preferences."));
-					$return['status'] = 0;
+					$return['status'] = 1;
 				}
 
 				if (isset($_GET['ajax'])) {
@@ -398,10 +398,10 @@ class ProfileController extends GxController {
 
 					if ($skill->save()) { //save
 						$return['message'] = Yii::t('msg', "Success!"));
-						$return['status'] = 1;
+						$return['status'] = 0;
 					} else {
 						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills."));
-						$return['status'] = 0;
+						$return['status'] = 1;
 					}
 
 					if (isset($_GET['ajax'])) {
@@ -430,10 +430,10 @@ class ProfileController extends GxController {
 
 			if ($skill->delete()) { //delete
 				$return['message'] = Yii::t('msg', "Success!"));
-				$return['status'] = 1;
+				$return['status'] = 0;
 			} else {
 				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills."));
-				$return['status'] = 0;
+				$return['status'] = 1;
 			}
 
 			if (isset($_GET['ajax'])) {
