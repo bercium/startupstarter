@@ -159,19 +159,21 @@ function getGMap($country = '', $city = '', $addr = ''){
 }
 
 /**
- * will convert array data into format usefull for logging
+ * will convert array data into format useful for logging
  */
 function arrayLog($data, $space = '&nbsp;&nbsp;'){
 	
 	$string = '';
-	foreach ($data as $key => $row){
-		if (is_array($row)) $string .= $space."[<strong style='color:#B22;'>".$key."</strong>] => (<br />".arrayLog($row, $space."&nbsp;&nbsp;&nbsp;&nbsp;").$space.")<br />";
-		else {
-			if (is_numeric($row)) $string .= $space."<strong>".$key."</strong> => <font style='color:#11F'>".$row."</font><br />";
-			else $string .= $space."<strong>".$key."</strong> => '".$row."'<br />";
-		}
-	}
-	if ($space == '&nbsp;&nbsp;') $string = "Array data:\n".$string;
-	
+  if(is_array($data)){
+    foreach ($data as $key => $row){
+      if (is_array($row)) $string .= $space."[<strong style='color:#B22;'>".$key."</strong>] => (<br />".arrayLog($row, $space."&nbsp;&nbsp;&nbsp;&nbsp;").$space.")<br />";
+      else {
+        if (is_numeric($row)) $string .= $space."<strong>".$key."</strong> => <font style='color:#11F'>".$row."</font><br />";
+        else $string .= $space."<strong>".$key."</strong> => '".$row."'<br />";
+      }
+    }
+    if ($space == '&nbsp;&nbsp;') $string = "Array data:\n".$string;
+  }
+  
 	return $string;
 }
