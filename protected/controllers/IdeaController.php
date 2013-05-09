@@ -3,8 +3,6 @@
 class IdeaController extends GxController {
 
 	public $data = array();
-	const status_ok = '200';
-	const status_fail = '404';
 	public $layout="//layouts/view";
 	
 	/**
@@ -295,14 +293,14 @@ class IdeaController extends GxController {
 				$translation->setAttributes(array('deleted' => 1));
 
 				if ($translation->save()) {
-					$return['message'] = "All good in the hood";
-					$return['status'] = self::status_ok;
+					$return['message'] = Yii::t('msg', "Success!"));
+					$return['status'] = 1;
 
 					$time_updated = new TimeUpdated;
 					$time_updated->idea($id);
 				} else {
-					$return['message'] = "Wrong";
-					$return['status'] = self::status_fail;
+					$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove translation from project."));
+					$return['status'] = 0;
 				}
 				
 				if(isset($_GET['ajax'])){
@@ -326,11 +324,11 @@ class IdeaController extends GxController {
 			$idea->setAttributes(array('deleted' => 1));
 				
 			if($idea->save()){
-				$return['message'] = "All good in the hood";
-				$return['status'] = self::status_ok;
+				$return['message'] = Yii::t('msg', "Success!"));
+				$return['status'] = 1;
 			} else {
-				$return['message'] = "Wrong";
-				$return['status'] = self::status_fail;
+				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to delete project."));
+				$return['status'] = 0;
 			}
 				
 			if(isset($_GET['ajax'])){
@@ -372,14 +370,14 @@ class IdeaController extends GxController {
 					$member->setAttributes($_POST['IdeaMember']);
 
 					if ($member->save()) {
-						$return['message'] = "All good in the hood";
-						$return['status'] = self::status_ok;
+						$return['message'] = Yii::t('msg', "Success!"));
+						$return['status'] = 1;
 
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
 					} else {
-						$return['message'] = "Wrong";
-						$return['status'] = self::status_fail;
+						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to add new member to project."));
+						$return['status'] = 0;
 					}
 					
 					if(isset($_GET['ajax'])){
@@ -408,13 +406,13 @@ class IdeaController extends GxController {
 			$member = IdeaMember::Model()->findByAttributes( array( 'match_id' => $match->id ) );
 
 			if($member->delete()){
-				$return['message'] = "All good in the hood";
+				$return['message'] = Yii::t('msg', "Success!"));
 				$return['status'] = 1;
 
 				$time_updated = new TimeUpdated;
 				$time_updated->idea($id);
 			} else {
-				$return['message'] = "Wrong";
+				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove member from project."));
 				$return['status'] = 0;
 			}
 			
@@ -452,13 +450,13 @@ class IdeaController extends GxController {
 					$candidate->setAttributes($_POST['IdeaMember']);
 
 					if($candidate->save()){
-						$return['message'] = "All good in the hood";
+						$return['message'] = Yii::t('msg', "Success!"));
 						$return['status'] = 1;
 
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
 					} else {
-						$return['message'] = "Wrong";
+						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to add new candidate to project."));
 						$return['status'] = 0;
 					}
 					
@@ -494,13 +492,13 @@ class IdeaController extends GxController {
 				$allgood = true;
 
 			if($allgood){
-				$return['message'] = "All good in the hood";
+				$return['message'] = Yii::t('msg', "Success!"));
 				$return['status'] = 1;
 
 				$time_updated = new TimeUpdated;
 				$time_updated->idea($id);
 			} else {
-				$return['message'] = "Wrong";
+				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove candidate from project."));
 				$return['status'] = 0;
 			}
 				
@@ -537,13 +535,13 @@ class IdeaController extends GxController {
 					$collabpref->setAttributes($_POST['UserCollabpref']);
 
 					if($collabpref->save()){
-						$return['message'] = "All good in the hood";
+						$return['message'] = Yii::t('msg', "Success!"));
 						$return['status'] = 1;
 
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
 					} else {
-						$return['message'] = "Wrong";
+						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update collaboration preferences."));
 						$return['status'] = 0;
 					}
 						
@@ -572,13 +570,13 @@ class IdeaController extends GxController {
 			$collabpref = UserCollabpref::Model()->findByAttributes( array( 'id' => $collab_id ) );
 
 			if($collabpref->delete()){
-				$return['message'] = "All good in the hood";
+				$return['message'] = Yii::t('msg', "Success!"));
 				$return['status'] = 1;
 
 				$time_updated = new TimeUpdated;
 				$time_updated->idea($id);
 			} else {
-				$return['message'] = "Wrong";
+				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update collaboration preferences."));
 				$return['status'] = 0;
 			}
 						
@@ -614,13 +612,13 @@ class IdeaController extends GxController {
 					$skill->setAttributes($_POST['UserSkill']);
 
 					if($skill->save()){
-						$return['message'] = "All good in the hood";
+						$return['message'] = Yii::t('msg', "Success!"));
 						$return['status'] = 1;
 
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
 					} else {
-						$return['message'] = "Wrong";
+						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills."));
 						$return['status'] = 0;
 					}
 								
@@ -649,13 +647,13 @@ class IdeaController extends GxController {
 			$skill = UserSkill::Model()->findByAttributes( array( 'id' => $skill_id ) );
 
 			if($skill->delete()){
-				$return['message'] = "All good in the hood";
+				$return['message'] = Yii::t('msg', "Success!"));
 				$return['status'] = 1;
 
 				$time_updated = new TimeUpdated;
 				$time_updated->idea($id);
 			} else {
-				$return['message'] = "Wrong";
+				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills."));
 				$return['status'] = 0;
 			}
 						

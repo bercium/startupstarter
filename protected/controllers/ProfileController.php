@@ -308,10 +308,10 @@ class ProfileController extends GxController {
 			}
 
 			if ($allgood) {
-				$return['message'] = "All good in the hood";
+				$return['message'] = Yii::t('msg', "Success!"));
 				$return['status'] = 1;
 			} else {
-				$return['message'] = "Wrong";
+				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove project from your account."));
 				$return['status'] = 0;
 			}
 
@@ -357,10 +357,10 @@ class ProfileController extends GxController {
 				}
 
 				if ($allgood) {
-					$return['message'] = "All good in the hood";
+					$return['message'] = Yii::t('msg', "Success!"));
 					$return['status'] = 1;
 				} else {
-					$return['message'] = "Wrong";
+					$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update collaboration preferences."));
 					$return['status'] = 0;
 				}
 
@@ -397,10 +397,10 @@ class ProfileController extends GxController {
 					$skill->setAttributes($_POST['UserSkill']);
 
 					if ($skill->save()) { //save
-						$return['message'] = "All good in the hood";
+						$return['message'] = Yii::t('msg', "Success!"));
 						$return['status'] = 1;
 					} else {
-						$return['message'] = "Wrong";
+						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills."));
 						$return['status'] = 0;
 					}
 
@@ -429,10 +429,10 @@ class ProfileController extends GxController {
 			$skill = UserSkill::Model()->findByAttributes(array('id' => $id));
 
 			if ($skill->delete()) { //delete
-				$return['message'] = "All good in the hood";
+				$return['message'] = Yii::t('msg', "Success!"));
 				$return['status'] = 1;
 			} else {
-				$return['message'] = "Wrong";
+				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills."));
 				$return['status'] = 0;
 			}
 
