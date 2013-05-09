@@ -1,7 +1,5 @@
 <?php
 class SqlBuilder {
-	public $date_format = "j. F";
-
 	//main function, calling other functions
 	//why a seperate function?
 	//because we want to build the array in desired depth, and this is the place to do so.
@@ -116,7 +114,7 @@ class SqlBuilder {
 				$filter['idea_id'] = $row['id'];
 
 				//add data to array, start with days_updated
-				$row['date_updated'] = date( $this->date_format, strtotime($row['time_updated']) );
+				$row['date_updated'] = Yii::app()->dateFormatter->formatDateTime(strtotime($row['time_updated']));
 				$row['days_updated'] = round( (strtotime($row['time_updated']) - time()) / 86400 , 0, PHP_ROUND_HALF_DOWN ) * -1;
 
 				//add translation to array
