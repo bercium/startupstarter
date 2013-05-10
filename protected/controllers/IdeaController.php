@@ -667,4 +667,23 @@ class IdeaController extends GxController {
 		}
 	}
 
+	//AJAX
+	public function actionRecent($id) {
+
+		$filter = Yii::app()->request->getQuery('filter', array());
+		$filter['page'] = $id;
+		
+		$sqlbuilder = new SqlBuilder;
+		$data['idea'] = $sqlbuilder->load_array("recent_idea", $filter);
+
+		if(isset($_GET['ajax'])){
+			$return = htmlspecialchars(json_encode($data), ENT_NOQUOTES);
+			echo $return; //return array
+			Yii::app()->end();
+		} else {
+			$this->render('recent', array('data' => $data));
+		}
+		
+	}
+
 }
