@@ -109,7 +109,7 @@
 <?php if (isset($data['user'])){ ?>
 
 	<div class="row" id="recent_users">
-		<?php $this->renderPartial('//person/_recent', array('users' => $data['user'],"page"=>"1","maxPage"=>3)); ?>
+		<?php $this->renderPartial('//person/_recent', array('users' => $data['user'],"page"=>1,"maxPage"=>3)); ?>
 	</div>
 
 <?php } ?>
@@ -118,7 +118,7 @@
 <?php if (isset($data['idea'])){ ?>
 
 	<div class="row" id="recent_projects">
-		<?php $this->renderPartial('//idea/_recent', array('ideas' => $data['idea'],"page"=>"1","maxPage"=>3)); ?>
+		<?php $this->renderPartial('//idea/_recent', array('ideas' => $data['idea'],"page"=>1,"maxPage"=>3)); ?>
 	</div>
 
 <?php } ?>
