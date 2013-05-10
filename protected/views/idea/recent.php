@@ -5,8 +5,9 @@
 		<?php 
 		//$i = 0;
 		//$page = 1;
+		//print
 		//$maxPage = 3;
-		foreach ($data['ideas'] as $idea){ ?>
+		foreach ($data['idea'] as $idea){ ?>
 			<li>
 			<?php  $this->renderPartial('_idea', array('idea' => $idea));  ?>
 			</li>
@@ -18,7 +19,7 @@
 		
 		<ul class="pagination">
 			<?php if ($page > 1){ ?>
-			<li class="arrow"><a href="<?php echo Yii::app()->createUrl("idea/recent/".$page-1); ?>">&laquo;</a></li>
+			<li class="arrow"><a href="<?php echo Yii::app()->createUrl("idea/recent",array("id"=>$pagedata['filter']['page']-1)); ?>">&laquo;</a></li>
 			<?php }else{ ?>
 			<li class="arrow"><a>&laquo;</a></li>
 			<?php } ?>
@@ -33,7 +34,7 @@
 					 
 			
 			<?php if ($page < $maxPage){ ?>
-			<li class="arrow"><a href="<?php echo Yii::app()->createUrl("idea/recent/".$page+1); ?>">&raquo;</a></li>
+			<li class="arrow"><a href="<?php echo Yii::app()->createUrl("idea/recent",array("id"=>$pagedata['filter']['page']+1)); ?>">&raquo;</a></li>
 			<?php }else{ ?>
 			<li class="arrow"><a>&raquo;</a></li>
 			<?php } ?>

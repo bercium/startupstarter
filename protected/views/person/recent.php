@@ -18,7 +18,7 @@
 		
 		<ul class="pagination">
 			<?php if ($pagedata['filter']['page'] > 1){ ?>
-			<li class="arrow"><a href="<?php echo Yii::app()->createUrl("person/recent/".$pagedata['filter']['page']-1); ?>">&raquo;</a></li>
+			<li class="arrow"><a href="<?php echo Yii::app()->createUrl("person/recent",array("id"=>$pagedata['filter']['page']-1)); ?>">&raquo;</a></li>
 			<?php }else{ ?>
 			<li class="arrow"><a>&laquo;</a></li>
 			<?php } ?>
@@ -33,7 +33,7 @@
 					 
 			
 			<?php if ($pagedata['filter']['page'] < $maxPage){ ?>
-			<li class="arrow"><a href="<?php echo Yii::app()->createUrl("person/recent/".$pagedata['filter']['page']+1); ?>">&raquo;</a></li>
+			<li class="arrow"><a href="<?php echo Yii::app()->createUrl("person/recent",array("id"=>$pagedata['filter']['page']+1)); ?>">&raquo;</a></li>
 			<?php }else{ ?>
 			<li class="arrow"><a>&raquo;</a></li>
 			<?php } ?>

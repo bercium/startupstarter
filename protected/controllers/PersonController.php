@@ -77,7 +77,7 @@ class PersonController extends GxController {
 			$return['data'] = $this->renderPartial('_recent', array("users" => $data['user'], 'page' => $pagedata['filter']['page'], 'maxPage' => $maxPage), true);
 			$return['message'] = Yii::t('msg', "Success!");
 			$return['status'] = 0;
-			$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+			$return = json_encode($return);
 			echo $return; //return array
 			Yii::app()->end();
 		} else {
