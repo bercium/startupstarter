@@ -293,13 +293,13 @@ class IdeaController extends GxController {
 				$translation->setAttributes(array('deleted' => 1));
 
 				if ($translation->save()) {
-					$return['message'] = Yii::t('msg', "Success!"));
+					$return['message'] = Yii::t('msg', "Success!");
 					$return['status'] = 0;
 
 					$time_updated = new TimeUpdated;
 					$time_updated->idea($id);
 				} else {
-					$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove translation from project."));
+					$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove translation from project.");
 					$return['status'] = 1;
 				}
 				
@@ -324,10 +324,10 @@ class IdeaController extends GxController {
 			$idea->setAttributes(array('deleted' => 1));
 				
 			if($idea->save()){
-				$return['message'] = Yii::t('msg', "Success!"));
+				$return['message'] = Yii::t('msg', "Success!");
 				$return['status'] = 0;
 			} else {
-				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to delete project."));
+				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to delete project.");
 				$return['status'] = 1;
 			}
 				
@@ -370,13 +370,13 @@ class IdeaController extends GxController {
 					$member->setAttributes($_POST['IdeaMember']);
 
 					if ($member->save()) {
-						$return['message'] = Yii::t('msg', "Success!"));
+						$return['message'] = Yii::t('msg', "Success!");
 						$return['status'] = 0;
 
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
 					} else {
-						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to add new member to project."));
+						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to add new member to project.");
 						$return['status'] = 1;
 					}
 					
@@ -406,13 +406,13 @@ class IdeaController extends GxController {
 			$member = IdeaMember::Model()->findByAttributes( array( 'match_id' => $match->id ) );
 
 			if($member->delete()){
-				$return['message'] = Yii::t('msg', "Success!"));
+				$return['message'] = Yii::t('msg', "Success!");
 				$return['status'] = 0;
 
 				$time_updated = new TimeUpdated;
 				$time_updated->idea($id);
 			} else {
-				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove member from project."));
+				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove member from project.");
 				$return['status'] = 1;
 			}
 			
@@ -450,13 +450,13 @@ class IdeaController extends GxController {
 					$candidate->setAttributes($_POST['IdeaMember']);
 
 					if($candidate->save()){
-						$return['message'] = Yii::t('msg', "Success!"));
+						$return['message'] = Yii::t('msg', "Success!");
 						$return['status'] = 0;
 
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
 					} else {
-						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to add new candidate to project."));
+						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to add new candidate to project.");
 						$return['status'] = 1;
 					}
 					
@@ -492,13 +492,13 @@ class IdeaController extends GxController {
 				$allgood = true;
 
 			if($allgood){
-				$return['message'] = Yii::t('msg', "Success!"));
+				$return['message'] = Yii::t('msg', "Success!");
 				$return['status'] = 0;
 
 				$time_updated = new TimeUpdated;
 				$time_updated->idea($id);
 			} else {
-				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove candidate from project."));
+				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove candidate from project.");
 				$return['status'] = 1;
 			}
 				
@@ -535,13 +535,13 @@ class IdeaController extends GxController {
 					$collabpref->setAttributes($_POST['UserCollabpref']);
 
 					if($collabpref->save()){
-						$return['message'] = Yii::t('msg', "Success!"));
+						$return['message'] = Yii::t('msg', "Success!");
 						$return['status'] = 0;
 
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
 					} else {
-						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update collaboration preferences."));
+						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update collaboration preferences.");
 						$return['status'] = 1;
 					}
 						
@@ -570,13 +570,13 @@ class IdeaController extends GxController {
 			$collabpref = UserCollabpref::Model()->findByAttributes( array( 'id' => $collab_id ) );
 
 			if($collabpref->delete()){
-				$return['message'] = Yii::t('msg', "Success!"));
+				$return['message'] = Yii::t('msg', "Success!");
 				$return['status'] = 0;
 
 				$time_updated = new TimeUpdated;
 				$time_updated->idea($id);
 			} else {
-				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update collaboration preferences."));
+				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update collaboration preferences.");
 				$return['status'] = 1;
 			}
 						
@@ -612,13 +612,13 @@ class IdeaController extends GxController {
 					$skill->setAttributes($_POST['UserSkill']);
 
 					if($skill->save()){
-						$return['message'] = Yii::t('msg', "Success!"));
+						$return['message'] = Yii::t('msg', "Success!");
 						$return['status'] = 0;
 
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
 					} else {
-						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills."));
+						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills.");
 						$return['status'] = 1;
 					}
 								
@@ -647,13 +647,13 @@ class IdeaController extends GxController {
 			$skill = UserSkill::Model()->findByAttributes( array( 'id' => $skill_id ) );
 
 			if($skill->delete()){
-				$return['message'] = Yii::t('msg', "Success!"));
+				$return['message'] = Yii::t('msg', "Success!");
 				$return['status'] = 0;
 
 				$time_updated = new TimeUpdated;
 				$time_updated->idea($id);
 			} else {
-				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills."));
+				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills.");
 				$return['status'] = 1;
 			}
 						

@@ -308,10 +308,10 @@ class ProfileController extends GxController {
 			}
 
 			if ($allgood) {
-				$return['message'] = Yii::t('msg', "Success!"));
+				$return['message'] = Yii::t('msg', "Success!");
 				$return['status'] = 0;
 			} else {
-				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove project from your account."));
+				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove project from your account.");
 				$return['status'] = 1;
 			}
 
@@ -357,10 +357,10 @@ class ProfileController extends GxController {
 				}
 
 				if ($allgood) {
-					$return['message'] = Yii::t('msg', "Success!"));
+					$return['message'] = Yii::t('msg', "Success!");
 					$return['status'] = 0;
 				} else {
-					$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update collaboration preferences."));
+					$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update collaboration preferences.");
 					$return['status'] = 1;
 				}
 
@@ -397,10 +397,10 @@ class ProfileController extends GxController {
 					$skill->setAttributes($_POST['UserSkill']);
 
 					if ($skill->save()) { //save
-						$return['message'] = Yii::t('msg', "Success!"));
+						$return['message'] = Yii::t('msg', "Success!");
 						$return['status'] = 0;
 					} else {
-						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills."));
+						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills.");
 						$return['status'] = 1;
 					}
 
@@ -429,10 +429,10 @@ class ProfileController extends GxController {
 			$skill = UserSkill::Model()->findByAttributes(array('id' => $id));
 
 			if ($skill->delete()) { //delete
-				$return['message'] = Yii::t('msg', "Success!"));
+				$return['message'] = Yii::t('msg', "Success!");
 				$return['status'] = 0;
 			} else {
-				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills."));
+				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills.");
 				$return['status'] = 1;
 			}
 
