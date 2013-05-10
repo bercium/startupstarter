@@ -81,7 +81,7 @@ class PersonController extends GxController {
 			echo $return; //return array
 			Yii::app()->end();
 		} else {
-			$this->render('recent', array('data' => $data, 'pagedata' => $pagedata));
+			$this->render('recent', array('data' => $data, 'pagedata' => $pagedata, 'maxPage' => $maxPage));
 		}
 		
 	}

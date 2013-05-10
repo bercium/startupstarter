@@ -227,8 +227,8 @@ class SqlBuilder {
 
 		if( $type == 'user' ) {
 			//return specific user's data
-			$sql=	"SELECT m.id, ".
-					"u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, ".
+			$sql=	"SELECT m.id AS match_id, ".
+					"u.id AS id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, ".
 					"u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
 					"l.name AS language, c.name AS country, ci.name AS city, m.country_id, m.city_id, ".
 					"m.available, a.name AS available_name FROM ".
@@ -242,8 +242,8 @@ class SqlBuilder {
 
 		} elseif( $type == 'recent' ){
 			//return recently registered users' data
-			$sql=	"SELECT m.id, ".
-					"u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, ".
+			$sql=	"SELECT m.id AS match_id, ".
+					"u.id AS id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, ".
 					"u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
 					"l.name AS language, c.name AS country, ci.name AS city, m.country_id, m.city_id, ".
 					"m.available, a.name AS available_name FROM ".
@@ -259,8 +259,8 @@ class SqlBuilder {
 
 		} elseif( $type == 'member' ) {
 			//return members of an idea
-			$sql=	"SELECT m.id, im.type_id, mt.name AS type, ".
-					"u.id AS user_id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, ".
+			$sql=	"SELECT m.id AS match_id, im.type_id, mt.name AS type, ".
+					"u.id AS id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, ".
 					"u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
 					"l.name AS language, c.name AS country, ci.name AS city, m.country_id, m.city_id, ".
 					"m.available, a.name AS available_name FROM ".
@@ -279,7 +279,7 @@ class SqlBuilder {
 
 		} elseif( $type == 'candidate' ) {
 			//return candidates of an idea
-			$sql=	"SELECT m.id, im.type_id, mt.name AS type, ".
+			$sql=	"SELECT m.id AS match_id, im.type_id, mt.name AS type, ".
 					"c.name AS country, ci.name AS city, m.country_id, m.city_id, ".
 					"m.available, a.name AS available_name FROM ".
 					"`idea_member` AS im ".
@@ -312,7 +312,7 @@ class SqlBuilder {
 				}
 			} else {
 				//set filter
-				$filter['match_id'] = $row['id'];
+				$filter['match_id'] = $row['match_id'];
 
 				//add data to array
 				if($type == 'user'){
@@ -327,11 +327,13 @@ class SqlBuilder {
 					$row['skillset'] = $this->skillset( $filter );
 				} else {
 					$row['skill'] = $this->skill( $filter );
+					$row['skillset'] = array();
 				}
 				
 				//count
-				if($type == 'user'){
-					$row['idea'] = $this->idea( "usercount", $filter );
+				if($type == 'user' || $type == 'recent'){
+					$filter['user_id'] = $row['id'];
+					$row['idea'] = $this->idea( "user", $filter );
 
 					$i = 0;
 					foreach($row['idea'] AS $value){
@@ -340,13 +342,17 @@ class SqlBuilder {
 					$row['num_of_rows'] = $i;
 				}
 				if($type != 'candidate'){
-					$filter['uid'] = $row['user_id'];
+					$filter['uid'] = $row['id'];
 					$row['link'] = $this->link( $filter );
 				}
 
 				//is it one to one or one to many array?
 				if( $type != 'user' ){
-					$array[$row['id']] = $row;
+					if( $type == 'candidate'){
+						$array[$row['match_id']] = $row;
+					} else {
+						$array[$row['id']] = $row;
+					}
 				} else {
 					$array = $row;
 				}
@@ -401,7 +407,7 @@ class SqlBuilder {
 		$command=$connection->createCommand($sql);
 		$dataReader=$command->query();
 		//read data, build array, call contained functions
-		$array = NULL;
+		$array = array();
 		while(($row=$dataReader->read())!==false) {
 			$array[$row['id']] = $row;
 			//print_r($row);
@@ -424,7 +430,7 @@ class SqlBuilder {
 		$command=$connection->createCommand($sql);
 		$dataReader=$command->query();
 		//read data, build array, call contained functions
-		$array = NULL;
+		$array = array();
 		while(($row=$dataReader->read())!==false) {
 			$filter['skillset_id'] = $row['id'];
 
@@ -450,7 +456,7 @@ class SqlBuilder {
 		$command=$connection->createCommand($sql);
 		$dataReader=$command->query();
 		//read data, build array, call contained functions
-		$array = NULL;
+		$array = array();
 
 		while(($row=$dataReader->read())!==false) {
 			$array[$row['id']] = $row;

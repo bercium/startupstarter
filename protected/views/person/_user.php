@@ -67,8 +67,8 @@
 				<?php if ($user['available_name']) { ?>
         <small class="meta"><?php echo Yii::t('app','Available') ?>: <a><?php echo $user['available_name']; ?></a></small><br />
 				<?php } ?>
-				<?php if ($user['num_of_ideas']) { ?>
-        <small class="meta"><?php echo Yii::t('app','Involved in') ?> <a><?php echo Yii::t('app','{n} project|{n} projects',array($user['num_of_ideas'])) ?></a></small>
+				<?php if ($user['num_of_rows']) { ?>
+        <small class="meta"><?php echo Yii::t('app','Involved in') ?> <a><?php echo Yii::t('app','{n} project|{n} projects',array($user['num_of_rows'])) ?></a></small>
 				<?php } ?>
         </div><!-- end card-abstract -->
         <div class="card-floater">
