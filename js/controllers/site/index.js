@@ -1,6 +1,5 @@
  function recentUsersPage(inUrl){
-	$('#recent_users ul').fade();
-  /*$.ajax({
+  $.ajax({
    type: 'GET',
    url: inUrl,
    data:{ajax: 1},
@@ -17,7 +16,7 @@
         },
  
   dataType:'html'
-  });*/
+  });
  
 }
 
