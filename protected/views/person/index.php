@@ -89,8 +89,8 @@ $user = $data['user'];
 			</div>
 			
 			<div class="large-6 small-12 columns"  >
-				<?php if (count($user['num_of_ideas']) > 0) { ?>
-					<small class="meta"><?php echo Yii::t('app', 'Involved in') ?> <a><?php echo Yii::t('app', '{n} project|{n} projects', array($user['num_of_ideas'])) ?></a>:</small>
+				<?php if (count($user['num_of_rows']) > 0) { ?>
+					<small class="meta"><?php echo Yii::t('app', 'Involved in') ?> <a><?php echo Yii::t('app', '{n} project|{n} projects', array($user['num_of_rows'])) ?></a>:</small>
 				<br />
 				<?php
 				if (is_array($user['idea']))
