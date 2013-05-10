@@ -67,7 +67,7 @@
 				<?php if ($user['available_name']) { ?>
         <small class="meta"><?php echo Yii::t('app','Available') ?>: <a><?php echo $user['available_name']; ?></a></small><br />
 				<?php } ?>
-				<?php if ($user['num_of_ideas']) { ?>
+				<?php if( isset($user['num_of_rows']) ){ ?>
         <small class="meta"><?php echo Yii::t('app','Involved in') ?> <a><?php echo Yii::t('app','{n} project|{n} projects',array($user['num_of_ideas'])) ?></a></small>
 				<?php } ?>
         </div><!-- end card-abstract -->

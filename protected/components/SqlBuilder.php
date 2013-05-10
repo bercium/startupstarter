@@ -22,24 +22,34 @@ class SqlBuilder {
 				$filter['page'] = 1;
 		}
 		if(isset($filter['per_page'])){
-			if(!is_numeric($filter['per_page']))
-				$filter['per_page'] = 12;
+			if(!is_numeric($filter['per_page'])){
+				if(isset($_GET['ajax'])){
+					$filter['per_page'] = 3;
+				} else {
+					$filter['per_page'] = 12;
+				}
+			}
+				
 		}
 
 		//pagination
 		if(!isset($filter['page']))
 			$filter['page'] = 1;
 		if(!isset($filter['per_page'])){
-			$filter['per_page'] = 12;
+			if(isset($_GET['ajax'])){
+				$filter['per_page'] = 3;
+			} else {
+				$filter['per_page'] = 12;
+			}
 		}
 
 		switch ($action) {
 			//frontpage controller
 		    case "recent_idea":
-		        return $this->idea("recent_updated", $filter);
+		    	return $this->idea("recent_updated", $filter);
 		        break;
 		    case "recent_candidate":
-		        return $this->idea("recent_candidate", $filter);
+		    	return $this->idea("recent_candidate", $filter);
 		        break;
 		    case "recent_user":
 		        return $this->user("recent", $filter);
@@ -55,6 +65,13 @@ class SqlBuilder {
 		    	if(isset($filter['user_id'])){
 		        	return $this->user("user", $filter);
 		        }
+		        break;
+		    //pagination data
+		    case "count_idea":
+		    	return $this->idea("count_idea", $filter);
+		        break;
+		    case "count_user":
+		    	return $this->user("count_user", $filter);
 		        break;
 		}
 
@@ -77,7 +94,7 @@ class SqlBuilder {
 					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". ($filter['per_page']+1);
 		} elseif( $type == 'recent_updated' ) {
 			$sql =	"SELECT i.*, ist.name AS status FROM ".
-					"`idea` AS i, `idea_translation` AS it, `idea_status` AS ist, `idea_member` AS im, `user_match` AS m ".
+					"`idea` AS i, `idea_translation` AS it, `idea_status` AS ist ".
 					"WHERE i.deleted = 0 ".
 					"AND it.idea_id = i.id ".
 					"AND it.language_id = '{$filter['lang']}' ".
@@ -108,6 +125,10 @@ class SqlBuilder {
 					"WHERE i.id = '{$filter['idea_id']}' ".
 					"AND i.status_id = ist.id ".
 					"AND i.deleted = 0 ";
+		} elseif( $type == 'count_idea' ){
+			$sql =	"SELECT count(i.id) as count FROM ".
+					"`idea` AS i ".
+					"WHERE i.deleted = 0 ";
 		}
 
 		//print_r($sql);
@@ -119,8 +140,11 @@ class SqlBuilder {
 		$array = NULL;
 		while(($row=$dataReader->read())!==false) {
 			
-			if($type == "usercount"){
-				$array = $row['count'];
+			if($type == "count_idea" || $type == 'usercount'){
+				$array['num_of_rows'] = $row['count'];
+				if($type == "count_idea"){
+					$array['filter'] = $filter;
+				}
 			} else {
 				//prepare filter
 				$filter['idea_id'] = $row['id'];
@@ -269,6 +293,9 @@ class SqlBuilder {
 					"AND im.type_id = '3' ". //HARDCODED CANDIDATE
 					"ORDER BY m.id DESC";
 
+		} elseif($type == 'count_user'){
+			$sql=	"SELECT count(u.id) AS count FROM ".
+					"`user` AS u ";
 		}
 
 		$connection=Yii::app()->db;
@@ -278,48 +305,53 @@ class SqlBuilder {
 		$array = NULL;
 		while(($row=$dataReader->read())!==false) {
 			
-			//set filter
-			$filter['match_id'] = $row['id'];
-
-			//add data to array
-			if($type == 'user'){
-				//show complete list of available collabprefs when pulling user data
-				$row['collabpref'] = $this->collabpref( 'combined', $filter );
-			} else {
-				//show only existing collabprefs
-				$row['collabpref'] = $this->collabpref( 'existing', $filter );
-			}
-
-			if(isset($filter['skillset_mode'])){
-				$row['skillset'] = $this->skillset( $filter );
-			} else {
-				$row['skill'] = $this->skill( $filter );
-			}
-				
-			if($type == 'user'){
-				$row['idea'] = $this->idea( "user", $filter );
-
-				$i = 0;
-				foreach($row['idea'] AS $value){
-					$i++;
+			if($type == "count_user"){
+				$array['num_of_rows'] = $row['count'];
+				if($type == "count_user"){
+					$array['filter'] = $filter;
 				}
-				$row['num_of_ideas'] = $i;
-			}
-			if($type == 'recent'){
-				$row['num_of_ideas'] = $this->idea( "usercount", $filter );
-			}
-			if($type != 'candidate'){
-				$filter['uid'] = $row['user_id'];
-				$row['link'] = $this->link( $filter );
-			}
-
-			//is it one to one or one to many array?
-			if( $type != 'user' ){
-				$array[$row['id']] = $row;
 			} else {
-				$array = $row;
-			}
+				//set filter
+				$filter['match_id'] = $row['id'];
 
+				//add data to array
+				if($type == 'user'){
+					//show complete list of available collabprefs when pulling user data
+					$row['collabpref'] = $this->collabpref( 'combined', $filter );
+				} else {
+					//show only existing collabprefs
+					$row['collabpref'] = $this->collabpref( 'existing', $filter );
+				}
+
+				if(isset($filter['skillset_mode'])){
+					$row['skillset'] = $this->skillset( $filter );
+				} else {
+					$row['skill'] = $this->skill( $filter );
+				}
+				
+				//count
+				if($type == 'user'){
+					$row['idea'] = $this->idea( "usercount", $filter );
+
+					$i = 0;
+					foreach($row['idea'] AS $value){
+						$i++;
+					}
+					$row['num_of_rows'] = $i;
+				}
+				if($type != 'candidate'){
+					$filter['uid'] = $row['user_id'];
+					$row['link'] = $this->link( $filter );
+				}
+
+				//is it one to one or one to many array?
+				if( $type != 'user' ){
+					$array[$row['id']] = $row;
+				} else {
+					$array = $row;
+				}
+
+			}
 		}
 
 		return $array;

@@ -630,7 +630,7 @@ class IdeaController extends GxController {
 				    	//not ajax stuff
 					}
 				}
-			}	
+			}
 		}
 	}
 
@@ -675,13 +675,20 @@ class IdeaController extends GxController {
 		
 		$sqlbuilder = new SqlBuilder;
 		$data['idea'] = $sqlbuilder->load_array("recent_idea", $filter);
+		$pagedata = $sqlbuilder->load_array("count_idea", $filter);
+
+		$maxPage = floor($pagedata['num_of_rows'] / $pagedata['filter']['per_page']);
+
 
 		if(isset($_GET['ajax'])){
-			$return = htmlspecialchars(json_encode($data), ENT_NOQUOTES);
+			$return['data'] = $this->renderPartial('_recent', array("ideas" => $data['idea'], 'page' => $pagedata['filter']['page'], 'maxPage' => $maxPage));
+			$return['message'] = Yii::t('msg', "Success!");
+			$return['status'] = 0;
+			$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
 			echo $return; //return array
 			Yii::app()->end();
 		} else {
-			$this->render('recent', array('data' => $data));
+			$this->render('recent', array('data' => $data, 'pagedata' => $pagedata));
 		}
 		
 	}
