@@ -45,7 +45,7 @@ class SqlBuilder {
 
 		switch ($action) {
 			//frontpage controller
-		    case "recent_idea":
+		    case "recent_updated":
 		    	return $this->idea("recent_updated", $filter);
 		        break;
 		    case "recent_candidate":
@@ -81,26 +81,23 @@ class SqlBuilder {
 
 		if( $type == 'recent_candidate'){
 			$sql =	"SELECT i.*, ist.name AS status FROM ".
-					"`idea` AS i, `idea_translation` AS it, `idea_status` AS ist, `idea_member` AS im, `user_match` AS m ".
+					"`idea` AS i, `idea_status` AS ist, `idea_member` AS im, `user_match` AS m ".
 					"WHERE i.id = im.idea_id ".
 					"AND i.status_id = ist.id ".
 					"AND i.deleted = 0 ".
 					"AND im.match_id = m.id ".
 					"AND m.user_id IS NULL ".
-					"AND it.idea_id = i.id ".
-					"AND it.language_id = '{$filter['lang']}' ".
 					"AND it.deleted = 0 ".
 					"ORDER BY m.id DESC ".
-					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". ($filter['per_page']+1);
+					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". ($filter['per_page']);
 		} elseif( $type == 'recent_updated' ) {
 			$sql =	"SELECT i.*, ist.name AS status FROM ".
-					"`idea` AS i, `idea_translation` AS it, `idea_status` AS ist ".
+					"`idea` AS i, `idea_status` AS ist ".
 					"WHERE i.deleted = 0 ".
-					"AND it.idea_id = i.id ".
-					"AND it.language_id = '{$filter['lang']}' ".
-					"AND it.deleted = 0 ".
+					"AND ist.id = i.status_id ".
 					"ORDER BY i.time_updated DESC ".
-					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". ($filter['per_page']+1);
+					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". ($filter['per_page']);
+
 		} elseif( $type == 'user' ) {
 			$sql=	"SELECT i.*, ist.name AS status FROM ".
 					"`idea` AS i, `idea_status` AS ist, `idea_member` AS im, `user_match` AS m, `user` AS u ".
