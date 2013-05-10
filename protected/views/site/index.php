@@ -106,9 +106,7 @@
   
 
 
-<?php
-
-if (isset($data['user'])){ ?>
+<?php if (isset($data['user'])){ ?>
 
 	<div class="row" id="recent_users">
 		<?php $this->renderPartial('//person/_recent', array('users' => $data['user'],"page"=>"1","maxPage"=>3)); ?>
@@ -117,39 +115,14 @@ if (isset($data['user'])){ ?>
 <?php } ?>
 
 
-  
 <?php if (isset($data['idea'])){ ?>
 
-<div  class="row">
-<h6 class="meta-title"><?php echo CHtml::encode(Yii::t('app','Recent projects')); ?> </h6>
-	
-  <ul class="small-block-grid-1 large-block-grid-3">
-<?php foreach ($data['idea'] as $idea){ ?>    
-  
-  <li>
-	<?php  $this->renderPartial('_idea', array('idea' => $idea));  ?>
-  </li>
-  
-<?php } ?>
-</ul>
-</div>
-  
+	<div class="row" id="recent_projects">
+		<?php $this->renderPartial('//idea/_recent', array('ideas' => $data['idea'],"page"=>"1","maxPage"=>3)); ?>
+	</div>
+
 <?php } ?>
 
-  
-  <div class="pagination-centered">
-  <ul class="pagination">
-    <li class="arrow unavailable"><a href="">&laquo;</a></li>
-    <li class="current"><a href="">1</a></li>
-    <li><a href="">2</a></li>
-    <li><a href="">3</a></li>
-    <li><a href="">4</a></li>
-    <li class="unavailable"><a href="">&hellip;</a></li>
-    <li><a href="">12</a></li>
-    <li><a href="">13</a></li>
-    <li class="arrow"><a href="">&raquo;</a></li>
-  </ul>
-</div>
 
 <?php 
 
