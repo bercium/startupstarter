@@ -71,6 +71,7 @@ class SiteController extends Controller
 		$sqlbuilder = new SqlBuilder;
 		$filter = Yii::app()->request->getQuery('filter', array());
 		$filter['skillset_mode'] = 1;
+		$filter['per_page'] = 3;
 
 		$data['idea'] = $sqlbuilder->load_array("recent_updated", $filter);
 		$data['user'] = $sqlbuilder->load_array("recent_user", $filter);
