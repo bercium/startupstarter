@@ -1,9 +1,9 @@
  function addLink(inUrl)
  {
  
-   var data=$("#LinkForm").serialize();
- 
-  $.ajax({
+   var data=$("#LinkForm").serialize()+'&ajax=1';
+
+	$.ajax({
    type: 'POST',
    url: inUrl,
    data:data,
@@ -33,7 +33,7 @@ function removeLink(link_id, inUrl){
     $.ajax({
    type: 'POST',
    url: inUrl,//'<?php echo Yii::app()->createAbsoluteUrl("profile/removeLink"); ?>',
-   data:{ id: link_id},
+   data:{ id: link_id, ajax: 1},
         success:function(data){
           data = JSON.parse(indata);
           if (data.message != '') alert(data.message);

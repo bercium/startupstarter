@@ -40,24 +40,8 @@
     		<h4 class="meta-title"><?php echo CHtml::encode(Yii::t('app','Narow your search')); ?>: </h4>
       </div>
 		  <div class="large-7 small-12 columns">
-    		
-      <div class="row collapse">
-        <div class="small-9 large-10 columns">
-          <?php echo CHtml::activeTextField($filter,'generalSearch',array("placeholder"=>Yii::t('app','search by keywords'))); ?>
-        </div>
-        <div class="small-3 large-2 columns">
-          <?php echo CHtml::submitButton(Yii::t("app","Search"),
-                      array('class'=>"button postfix radius")
-                  ); ?>
-        </div>
-      </div>
-        
-      </div>
-		</div>
-    <div class="advance">
-		 <div class="row">
-      <hr>
-      <div class="switch small round small-2" onclick="$('#filter_projects').toggle();$('#filter_people').toggle();">
+
+			<div class="switch small round small-3" onclick="$('#filter_projects').toggle();$('#filter_people').toggle();">
         <input id="project_0" name="SearchForm[isProject]" type="radio" value="0" <?php if ($filter->isProject) echo 'checked="checked"' ?>>
         <label for="project_0" onclick=""><?php echo Yii::t('app','Projects'); ?></label>
 
@@ -65,6 +49,14 @@
         <label for="project_1" onclick=""><?php echo Yii::t('app','People') ?></label>
         <span></span>
       </div>
+
+				
+      </div>
+		</div>
+    <div class="advance">
+		 <div class="row">
+      <hr>
+
       
       <div id="filter_projects" <?php if (!$filter->isProject) echo 'style="display:none"'; ?>>
          <div class="large-3 small-6 columns">
@@ -114,28 +106,23 @@
   
 
 
-
 <?php
 
 if (isset($data['user'])){ ?>
 
-<div  class="row">
-  <ul class="small-block-grid-1 large-block-grid-3">
-    
-<?php foreach ($data['user'] as $user){ ?>
-  <li>
-	<?php  $this->renderPartial('_user', array('user' => $user));  ?>
-	</li>
-<?php } ?>
-    </ul>
-</div>
+	<div class="row" id="recent_users">
+		<?php $this->renderPartial('//person/_recent', array('users' => $data['user'],"page"=>"1","maxPage"=>3)); ?>
+	</div>
 
 <?php } ?>
+
 
   
 <?php if (isset($data['idea'])){ ?>
 
 <div  class="row">
+<h6 class="meta-title"><?php echo CHtml::encode(Yii::t('app','Recent projects')); ?> </h6>
+	
   <ul class="small-block-grid-1 large-block-grid-3">
 <?php foreach ($data['idea'] as $idea){ ?>    
   

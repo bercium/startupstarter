@@ -7,7 +7,7 @@ require(dirname(__FILE__).DIRECTORY_SEPARATOR.'../helpers/global.php');
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Startup starter',
+	'name'=>'cofinder',
   'sourceLanguage'=>'en',
   /*'language' => "sl",*/
 

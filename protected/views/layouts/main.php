@@ -43,7 +43,7 @@
     <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
       <h1>
        <img class="logo" alt="" title="" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" />
-      <?php echo CHtml::encode(Yii::app()->name); ?>
+				co<span>finder</span>
       </h1>
     </a>
   </div>

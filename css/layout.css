@@ -22,8 +22,13 @@ body {
 
 .header h1{
   margin:10px 0px !important;
-  color:#111;
+  color:#999;
+  text-shadow: 1px 1px 2px rgba(0,0,0,.3);
+  font-size:4.6em;
+}
 
+.header h1 span{
+  color:#83B25B;
 }
 
 .header .logo{
@@ -63,7 +68,7 @@ body {
 
 .intro h1{
   color:#DDD !important;
-  text-shadow: 0px 1px rgba(0,0,0,.3);
+  text-shadow: 1px 1px 1px rgba(0,0,0,.3);
   font-size:2.6em;
 }
 
