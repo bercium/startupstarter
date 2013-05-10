@@ -60,5 +60,30 @@ class PersonController extends GxController {
 		$click = new Click;
 		$click->user($id, Yii::app()->user->id);
 	}
+
+	public function actionRecent($id) {
+
+		$filter = Yii::app()->request->getQuery('filter', array());
+		$filter['page'] = $id;
+		
+		$sqlbuilder = new SqlBuilder;
+		$data['user'] = $sqlbuilder->load_array("recent_user", $filter);
+		$pagedata = $sqlbuilder->load_array("count_user", $filter);
+
+		$maxPage = floor($pagedata['num_of_rows'] / $pagedata['filter']['per_page']);
+
+
+		if(isset($_GET['ajax'])){
+			$return['data'] = $this->renderPartial('_recent', array("users" => $data['user'], 'page' => $pagedata['filter']['page'], 'maxPage' => $maxPage), true);
+			$return['message'] = Yii::t('msg', "Success!");
+			$return['status'] = 0;
+			$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+			echo $return; //return array
+			Yii::app()->end();
+		} else {
+			$this->render('recent', array('data' => $data, 'pagedata' => $pagedata));
+		}
+		
+	}
 	
 }

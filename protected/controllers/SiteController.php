@@ -72,7 +72,7 @@ class SiteController extends Controller
 		$filter = Yii::app()->request->getQuery('filter', array());
 		$filter['skillset_mode'] = 1;
 
-		$data['idea'] = $sqlbuilder->load_array("recent_candidate", $filter);
+		$data['idea'] = $sqlbuilder->load_array("recent_updated", $filter);
 		$data['user'] = $sqlbuilder->load_array("recent_user", $filter);
     
     $searchForm = new SearchForm();
