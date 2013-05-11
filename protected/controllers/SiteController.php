@@ -86,7 +86,13 @@ class SiteController extends Controller
 
 	public function actionAbout()
 	{
-		$this->render('about');
+		$sqlbuilder = new SqlBuilder;
+		$filter = array( 'idea_id' => 1); // our idea ID
+		if($lang){
+			$filter['lang'] = $lang;
+		}
+
+		$this->render('about', array('idea' => $sqlbuilder->load_array("idea", $filter)));
 	}
   
 	public function actionAbout_Project()

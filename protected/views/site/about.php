@@ -6,51 +6,18 @@ $this->pageTitle=Yii::app()->name;
 
 <h1>About the project page</h1>
 <div class="row">
-<div class="large-8 small-12 columns">
-  ha ha o tem se gre kej ane  
+  <div class="large-8 small-12 columns">
+    Naša vizija je postaviti prepoznavno platformo, ki bo predstavila start-up skupnost širši množici. V povezavi s coworking prostori pa želimo omogočiti navezovanje stikov in s tem sestavljanje uspešnih ekip, ki bodo sposobne pripeljati svoje projekte do realizacije. S tem bi radi rešili problem iskanja zanesljive ekipe v katerikoli fazi projekta ali zgolj ideje.
+  <br /><br />
+    Radi bi omogočili mladim inovativnim posameznikom ne glede na dejavnost, izobrazbo in lokacijo, ki imajo dovolj zagnanosti in prostega časa, da se pridružijo nekemu projektu ali pa realizirajo svojo idejo. Ekipam želimo omogočiti iskanje ljudi, ki bi z ustreznimi znanji prispevali k njihovi uspešnosti.
+  <br /><br />
+    Predvsem IT skupnost že upešno izkorišča lastnosti spleta za povezovanje in iskanje poslovnih priložnosti, vendar pa so takšne centralizirane platforme trenutno tudi tu šele v nastajanju. Naša platforma pa ni namenjena le IT skupnostim. Radi bi aktivno vzpodbujali ljudi iz najrazličnejših panog; od jezikoslovcev, steklarjev, kulturologov do sadjarjev. S tem bi povečali povezanost med različnimi panogami in ustvarili okolje, ki vzpodbuja inovacije.
+  <br /><br />
+    Platforma bo razdeljena na dva sklopa: projekti in uporabniki. Ti bodo medsebojno povezani na podlagi vnešenih preferenc, znanj, tipov sodelovanja, itd. Vsaka prijavljena oseba (uporabnik) se bo lahko identificirala kot iskalec ali nosilec projekta. Tako bo vsakdo imel možnost predstaviti svoj projekt in napisati, koga vse še potrebuje za realizacijo. Na drugi strani pa bo poizkusil poiskati in se priključiti projektu, ki ustreza njegovim preferencam. Končen cilj pa je mesečni bilten, ki bo uporabnike in projekte avtomatično povezal in jim tako olajšal iskanje.
+  </div>
+
+  <div class="large-4 small-12 columns">
+    <?php if ($idea)  $this->renderPartial('//idea/_idea', array('idea' => $idea));  ?>
+  </div>
+
 </div>
-<div class="large-4 small-12 columns radius panel card-idea">
-    <div class="row card-idea-title" onclick="">
-      <div class="large-12 small-12 columns"  >
-        <h5>Super naslov moje super ideje</h5>
-       <small><span class="meta">Stage: </span><a href="#">prototype</a></small>
-        <div class="card-floater">
-         <a href="#" class="heart">&hearts;</a> 
-        </div>
-		  </div>
-	  </div>
-
-    <div  class="row">
-      <div class="large-12 small-12 columns">
-        <div class="card-summary">
-          <p>
-        	 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-          </p>
-        <hr>
-        <small class="meta">
-          Looking for skills:
-           <span class="button tiny secondary meta_tags" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> <span class="button tiny secondary meta_tags" data-tooltip title="Sales">Economics</span>
-           <span class="button tiny secondary meta_tags" data-tooltip title="C++</br>JavaScrip</br>PHP">Programming</span> <span class="button tiny secondary meta_tags" data-tooltip title="Sales">Economics</span>
-
-        </small>
-        </div>
-        <p>
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Marko skače" alt="Marko Skače" class="card-avatar" />
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Marko skače" alt="Marko Skače" class="card-avatar" />
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Marko skače" alt="Marko Skače" class="card-avatar" />
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Marko skače" alt="Marko Skače" class="card-avatar" />
-          +3
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Has image" alt="Has image" class="card-icons" />
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="Has file" alt="Has file" class="card-icons" />
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/dummy-avatar-1.png" data-tooltip title="has image" alt="has image" class="card-icons" />
-        </p>
-        <hr>
-        <small class="meta">Updated: 31.5.2012</small>
-        <div class="card-floater">
-          <a class="button small radius"  href=""><?php echo Yii::t('app','details') ?></a>
-        </div>
-		  </div>
-	  </div>
-    
-  </div>
-  </div>

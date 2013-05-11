@@ -5,10 +5,10 @@
 		//$i = 0;
 		//$page = 1;
 		//$maxPage = 3;
-		foreach ($ideas as $user){
+		foreach ($ideas as $idea){
 			?>
 			<li>
-			<?php  $this->renderPartial('//idea/_idea', array('idea' => $user));  ?>
+			<?php  $this->renderPartial('//idea/_idea', array('idea' => $idea));  ?>
 			</li>
 		<?php } ?>
   </ul>

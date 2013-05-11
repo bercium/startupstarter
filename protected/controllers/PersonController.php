@@ -24,7 +24,7 @@ class PersonController extends GxController {
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("view"),
+        'actions'=>array("view","recent"),
 				'users'=>array('*'),
 			),
 			array('allow', // allow admins only
@@ -75,7 +75,7 @@ class PersonController extends GxController {
 
 		if(isset($_GET['ajax'])){
 			$return['data'] = $this->renderPartial('_recent', array("users" => $data['user'], 'page' => $pagedata['filter']['page'], 'maxPage' => $maxPage), true);
-			$return['message'] = Yii::t('msg', "Success!");
+			$return['message'] = '';//Yii::t('msg', "Success!");
 			$return['status'] = 0;
 			$return = json_encode($return);
 			echo $return; //return array
