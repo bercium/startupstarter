@@ -107,7 +107,7 @@ margin-left: 10px;
   /*margin-top:20px;*/
   margin-bottom:15px;
   color:#666;
-  font-size: 12px;
+  font-size: 0.8em;
 }
 
 .profile-info .progress{
@@ -382,7 +382,7 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
   float:right; 
   border-left: 1px solid #ddd; 
   padding-left: 12px; 
-  font-size: 12px;
+  font-size: 0.8em;
 }
 
 .card-avatar, .card-icons{
@@ -431,11 +431,11 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 	font-size: 11px;
 }
 .small-text {
-	font-size: 12px;
+	font-size: 0.8em;
 }
 
 .meta {
-		color: #87878e;
+		color: #87878e !important;
 }
 
 .meta-title {
@@ -459,6 +459,10 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 	color: #e54d51;
 
 }
+
+
+
+
 
 .footer{
   padding-bottom:50px; 
@@ -687,7 +691,7 @@ min-height: 380px;
 }
 .card-idea .meta_tags ul li, .card-person .meta_tags ul li {
 	display: inline-block;
-	font-size: 12px;
+	font-size: 0.8em;
 }
 
 
@@ -703,10 +707,110 @@ min-height: 380px;
 }
 .footer_links ul li a {
 	padding: 10px 20px;
-	font-size: 12px;
+	font-size: 0.8em;
 }
 .footer_links ul li a:hover {
 	text-decoration: underline;
 
 }
 
+
+
+
+/* #IDEA PAGE
+================================================== */
+
+.title-field {
+	margin: 30px 0;
+}
+
+.idea-details .title-field h1 {
+	font-size:1.125em;
+	font-weight: 400;
+	line-height: 1.2em;
+}
+
+.idea-sidebar .panel {
+background-color: #f9f5f2;
+
+}
+
+p.title-field
+ {
+	margin: 8px 0 25px 0;
+	font-size: 0.8em;
+	
+}
+
+h6.title-field {
+	margin: 30px 0;
+}
+
+.idea-details .meta-field {
+	margin: 10px 0 20px 0;
+	font-size: 0.8em;
+	
+
+
+}
+
+.idea-details .meta-field  p {
+	display: inline;
+	margin-right: 30px;
+
+
+}
+.idea-details .languages {
+	padding-top: 1.45em;
+	padding-bottom: 1.45em;
+	border-left: none;
+	border-right: none;	
+	background-color: #f6f6fa;
+}
+
+.idea-details .languages p {
+	font-size: 0.8em;
+}
+
+.idea-details .pitch {
+	margin: 5px 0 25px 0;
+	font-weight: 600;
+	font-size: 0.9em;
+}
+
+.idea-sidebar .person-skills {
+	display: block;
+	margin: 10px 0 0 0;
+}
+
+ .idea-sidebar .available-time {
+	display: inline;
+	position: absolute;
+	top:0;
+	right:0;
+	border-top: none;
+	border-right: none;
+	font-size: 0.5em;	
+	background: inherit;
+}
+
+.idea-sidebar .available-time:hover {
+	background: inherit;
+	cursor: inherit;
+}
+
+.idea-sidebar h6 {
+	display: block;
+	margin-top: 8px;
+	text-transform: uppercase;
+	font-weight: 400;
+}
+
+.idea-sidebar h7 {
+	line-height: 1.2em;
+}
+
+.meta-colab-field {
+	
+
+}
