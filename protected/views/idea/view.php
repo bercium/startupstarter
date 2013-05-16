@@ -140,7 +140,7 @@ $idea = $data['idea'];
                       foreach ($member['collabpref'] as $collab) {
                         //if (!$firsttime) echo ", ";
                         //$firsttime = false;
-                        echo "<h7 class='meta-title'>".$collab['name']."<h7> <br/>";
+                        echo "<h7 class='meta-title'>".$collab['name']."</h7> <br/>";
                       }
                     ?>
                 </small>

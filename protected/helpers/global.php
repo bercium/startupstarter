@@ -53,7 +53,7 @@ function avatar_image($filename, $userID = 0, $thumb=30){
             return Yii::app()->getBaseUrl(true)."/".$pathFileName;
   }
   
-  $userID = ($userID % 3); // 3 different default avatars
+  $userID = ($userID % 4); // 3 different default avatars
   return Yii::app()->getBaseUrl(true)."/images/dummy-avatar-".$userID.".png";
 //  return Yii::app()->request->baseUrl."/images/dummy-avatar-".$userID.".png";
 }

@@ -32,12 +32,12 @@
 
 <div class="row panel radius" style="margin-top: 20px;">
 	<div class="large-12 small-12 columns">
-     <?php echo CHtml::beginForm('','post',array('class'=>"custom")); ?>
+     <?php echo CHtml::beginForm('','post',array('class'=>"custom","style"=>"margin-bottom:0;")); ?>
 
       
-		 <div class="row">
+		<div class="row">
 		  <div class="large-5 small-12 columns">
-    		<h4 class="meta-title"><?php echo CHtml::encode(Yii::t('app','Narow your search')); ?>: </h4>
+    		<h4 class="meta-title"><?php echo CHtml::encode(Yii::t('app','Narow your search to')); ?> </h4>
       </div>
 		  <div class="large-7 small-12 columns">
 
@@ -49,10 +49,9 @@
         <label for="project_1" onclick=""><?php echo Yii::t('app','People') ?></label>
         <span></span>
       </div>
-
-				
       </div>
 		</div>
+    
     <div class="advance">
 		 <div class="row">
       <hr>
@@ -91,15 +90,19 @@
       
 		</div>
     <div class="row">
+      <div class="small-12 columns">
             <?php echo CHtml::submitButton(Yii::t("app","Search"),
                   array('class'=>"button small radius")
               ); ?>
+      </div>
     </div>
     </div>
       
     <?php echo CHtml::endForm(); ?>
     
-    <div><a href="#" onclick="$('.advance').slideToggle('slow'); return false;">Advanced search +</a></div>
+    <div style="position: absolute; bottom:-30px; border:1px solid #BBB; padding:4px; background-color:#FFF; ">
+      <a href="#" onclick="$('.advance').slideToggle('slow'); return false;">Advanced search +</a>
+    </div>
 	
 	</div>
 </div>
