@@ -4,7 +4,7 @@
   </section>
   <section class="section <?php echo isMenuItemActive(array("create","projects","edit")); ?>">
     <p class="title">
-      <a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>"><span class="general foundicon-settings"></span>
+      <a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>"><span class="general foundicon-idea"></span>
         <?php echo CHtml::encode(Yii::t('app','Projects')); ?>
       </a>
     </p>
@@ -23,6 +23,6 @@
     </div>
   </section>
   <section class="section <?php echo isMenuItemActive("account"); ?>">
-    <p class="title"><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><span class="general foundicon-idea"></span><?php echo CHtml::encode(Yii::t('app','Settings')); ?></a></p>
+    <p class="title"><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><span class="general foundicon-settings"></span><?php echo CHtml::encode(Yii::t('app','Settings')); ?></a></p>
   </section>
 </div>

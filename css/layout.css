@@ -41,6 +41,7 @@ body {
   background: none repeat scroll 0 0 #111111; 
   border-bottom: 1px solid #666; 
   box-shadow:0 2px 2px 0px rgba(0, 0, 0, .25); 
+  border-top: 1px solid;
 }
 
 .top-bar-avatar{
@@ -810,7 +811,33 @@ h6.title-field {
 	line-height: 1.2em;
 }
 
-.meta-colab-field {
-	
+/* #PERSON PAGE
+================================================== */
+.person-details .card-person h1{
+	font-size: 1.6875em;
+	line-height: 0.9;
+	margin: 0;
+}
+.person-details .card-person .card-person-title {
+	padding-bottom: 0.2em;
+}
+
+.person-details .card-person .meta-field {
+	display: block;
+}
+
+.person-details .card-person .card-floater {
+ margin-top:  30px;
+}
+
+.person-details .card-person span.foundicon-idea {
+	border-right: 1px solid #ddd;
+	padding-right: 10px;
+	margin-right: 10px;
+}
+
+.person-details .card-person .panel {
+background-color: #f9f5f2;
+border-right: none;
 
 }
