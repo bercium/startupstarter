@@ -25,7 +25,7 @@ $idea = $data['idea'];
 					</div>
 				<?php } ?>
 
-				<h1><?php echo $idea['title']; ?></h1>
+				<h1 class="alt"><?php echo $idea['title']; ?></h1>
 
 			</div>
 
