@@ -3,6 +3,7 @@
 class ProfileController extends GxController {
 
 	public $data = array();
+  public $layout="//layouts/edit";
 
 	/**
 	 * @return array action filters
@@ -68,7 +69,6 @@ class ProfileController extends GxController {
 	}
 
 	public function actionIndex() {
-		$this->layout = "//layouts/edit";
 
 		/*echo 'Links: <br/><br/>
 
@@ -188,7 +188,6 @@ class ProfileController extends GxController {
 	}
 
 	public function actionProjects() {
-		$this->layout = "//layouts/edit";
 
 		$user_id = Yii::app()->user->id;
 
@@ -206,7 +205,6 @@ class ProfileController extends GxController {
 	}
 
 	public function actionAccount() {
-		$this->layout = "//layouts/edit";
 
 		//email
 		//password

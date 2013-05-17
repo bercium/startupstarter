@@ -749,6 +749,7 @@ min-height: 380px;
 	font-size:1.6em;
 	font-weight: 400;
 	line-height: 1.2em;
+  margin-top:20px;
 }
 
 .idea-sidebar .panel {
@@ -833,6 +834,9 @@ h6.title-field {
 
 /* #PERSON PAGE
 ================================================== */
+.person-details{
+  margin-top:20px;
+}
 .person-details .card-person h1{
 	font-size: 1.6875em;
 	line-height: 0.9;

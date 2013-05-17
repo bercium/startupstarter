@@ -3,6 +3,35 @@
 $this->pageTitle = Yii::app()->name;
 $user = $data['user'];
 ?>
+
+
+<div id="drop-msg" class="f-dropdown content" data-dropdown-content>
+  <div class="msg-form">
+  <?php echo CHtml::beginForm(Yii::app()->createUrl(Yii::app()->getModule('user')->loginUrl[0]),'post',array("class"=>"custom")); ?>
+
+      <?php echo CHtml::label(Yii::t('app','Email').":",'UserLogin_email'); ?>
+      <?php echo CHtml::textField('UserLogin[email]') ?>
+
+      <?php echo CHtml::label(Yii::t('app','Password').":",'UserLogin_password'); ?>
+      <?php echo CHtml::passwordField('UserLogin[password]') ?>
+
+      <div class="login-floater">
+      <?php echo CHtml::submitButton(Yii::t("app","Login"),array("class"=>"button small radius")); ?>
+      </div>
+
+      <label for="UserLogin_rememberMe"><?php echo CHtml::checkBox('UserLogin[rememberMe]',true); ?>
+      <?php echo Yii::t('app','Remember me'); ?></label>
+
+      <br />
+      <?php //echo CHtml::link(Yii::t("app","Register"),Yii::app()->getModule('user')->registrationUrl); ?> 
+      <small><?php echo CHtml::link(Yii::t("app","Lost Password?"),Yii::app()->getModule('user')->recoveryUrl); ?></small>
+
+  <?php echo CHtml::endForm(); ?>
+  </div>
+</div>
+
+
+
 <div class="row person-details">
 	<div class="large-12 small-12 columns radius panel card-person">
 
@@ -41,7 +70,12 @@ $user = $data['user'];
 
 			</div>
 			<div class="large-2 small-12 columns card-floater">
-					<a class="button success radius" style="margin-bottom:0;" href=""><?php echo Yii::t('app', 'Contact me') ?></a>
+					<a class="button success radius" href="#" <?php 
+                if (Yii::app()->user->isGuest){ 
+                echo "onclick=\"alert('".Yii::t('msg','You must be loged in to contact this person.')."');\""; 
+                }else {
+                  echo 'data-dropdown="drop-msg"';
+                } ?> ><?php echo Yii::t('app', 'Contact me') ?></a>
 				</div>
 		</div>
 

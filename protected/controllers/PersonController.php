@@ -24,7 +24,7 @@ class PersonController extends GxController {
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("view","recent"),
+        'actions'=>array("view","recent", "contact"),
 				'users'=>array('*'),
 			),
 			array('allow', // allow admins only
@@ -36,26 +36,15 @@ class PersonController extends GxController {
 		);
 	}
 
-	public function actionIndex() { //create new idea
-		/*echo 'Links: <br/><br/>
-		/ -> list users <br/>
-		/$id -> view user by id <br/>
-		<br/>';*/
-
-		$filter = Yii::app()->request->getQuery('filter', array());
-		
-		$sqlbuilder = new SqlBuilder;
-		$data['user'] = $sqlbuilder->load_array("recent_user", $filter);
-
-		$this->render('index', array('data' => $data));
-	}
-
+  
 	public function actionView($id) {
+    $this->layout="//layouts/none";
+    
 		$sqlbuilder = new SqlBuilder;
 		$filter = array( 'user_id' => $id);
 		$data['user'] = $sqlbuilder->load_array("user", $filter);
 
-		$this->render('index', array('data' => $data));
+		$this->render('view', array('data' => $data));
 
 		$click = new Click;
 		$click->user($id, Yii::app()->user->id);
@@ -66,7 +55,10 @@ class PersonController extends GxController {
 		$filter = Yii::app()->request->getQuery('filter', array());
 		
 		$filter['page'] = $id;
-		$filter['page'] = 1; // !!! remove
+		//$filter['page'] = 1; // !!! remove
+    
+    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
+    else $filter['per_page'] = 12;
 		
 		$sqlbuilder = new SqlBuilder;
 		$users = $sqlbuilder->load_array("recent_user", $filter);
@@ -74,10 +66,10 @@ class PersonController extends GxController {
 
 		$maxPage = floor($pagedata['num_of_rows'] / $pagedata['filter']['per_page']);
 		
-		$maxPage = 3;  // !!! remove
+		//$maxPage = 3;  // !!! remove
 
 		if(isset($_GET['ajax'])){
-			$return['data'] = $this->renderPartial('_recent', array("users" => $data['user'], 'page' => $id, 'maxPage' => $maxPage), true);
+			$return['data'] = $this->renderPartial('_recent', array("users" => $users, 'page' => $id, 'maxPage' => $maxPage), true);
 			$return['message'] = '';//Yii::t('msg', "Success!");
 			$return['status'] = 0;
 			$return = json_encode($return);
@@ -88,5 +80,20 @@ class PersonController extends GxController {
 		}
 		
 	}
+  
+	public function actionContact() { //create new idea
+		/*echo 'Links: <br/><br/>
+		/ -> list users <br/>
+		/$id -> view user by id <br/>
+		<br/>';*/
+		if(isset($_GET['ajax'])){
+			$return['data'] = $this->renderPartial('_recent', array("users" => $users, 'page' => $id, 'maxPage' => $maxPage), true);
+			$return['message'] = '';//Yii::t('msg', "Success!");
+			$return['status'] = 0;
+			$return = json_encode($return);
+			echo $return; //return array
+			Yii::app()->end();
+    }
+	}  
 	
 }

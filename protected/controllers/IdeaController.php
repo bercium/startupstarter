@@ -78,7 +78,8 @@ class IdeaController extends GxController {
 	}
 
 	public function actionView($id, $lang = NULL) {
-		
+		$this->layout = "//layouts/none";
+    
 		$sqlbuilder = new SqlBuilder;
 		$filter = array( 'idea_id' => $id);
 		if($lang){
@@ -672,6 +673,9 @@ class IdeaController extends GxController {
 
 		$filter = Yii::app()->request->getQuery('filter', array());
 		$filter['page'] = $id;
+
+    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
+    else $filter['per_page'] = 12;
 		
 		$filter['page'] = 1; // !!! remove
 		
@@ -684,7 +688,7 @@ class IdeaController extends GxController {
 		$maxPage = 3;
 
 		if(isset($_GET['ajax'])){
-			$return['data'] = $this->renderPartial('_recent', array("ideas" => $data['idea'], 'page' => $id, 'maxPage' => $maxPage));
+			$return['data'] = $this->renderPartial('_recent', array("ideas" => $ideas, 'page' => $id, 'maxPage' => $maxPage));
 			$return['message'] = Yii::t('msg', "Success!");
 			$return['status'] = 0;
 			$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
