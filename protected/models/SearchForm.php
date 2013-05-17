@@ -7,8 +7,8 @@
  */
 class SearchForm extends CFormModel
 {
-	public $generalSearch;
   public $isProject = true;
+  
 
 	/**
 	 * Declares the validation rules.
@@ -33,7 +33,6 @@ class SearchForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'generalSearch'=>'search by keywords',
 		);
 	}
 

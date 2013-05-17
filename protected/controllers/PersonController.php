@@ -81,19 +81,30 @@ class PersonController extends GxController {
 		
 	}
   
-	public function actionContact() { //create new idea
-		/*echo 'Links: <br/><br/>
-		/ -> list users <br/>
-		/$id -> view user by id <br/>
-		<br/>';*/
-		if(isset($_GET['ajax'])){
-			$return['data'] = $this->renderPartial('_recent', array("users" => $users, 'page' => $id, 'maxPage' => $maxPage), true);
-			$return['message'] = '';//Yii::t('msg', "Success!");
-			$return['status'] = 0;
-			$return = json_encode($return);
-			echo $return; //return array
-			Yii::app()->end();
+	public function actionContact($id) { 
+    
+		if(isset($_POST['message']) && ($_POST['message']  > '')){
+      
+      $sender = User::model()->findByPk(Yii::app()->user->id);
+      
+      $message = new YiiMailMessage;
+      $message->view = 'system';
+      $message->setBody($_POST['message'], 'text/html');
+      //$message->setBody(array("content"=>$_POST['message'],"senderMail"=>$sender->email), 'text/html');
+      $message->subject = "New message from ".$sender->name." ".$sender->surname;
+      
+      // get all users
+      $user = User::model()->findByPk($id);
+      $message->addTo($user->email);
+
+      $message->from = Yii::app()->params['adminEmail'];
+      Yii::app()->mail->send($message);
+      
+      Yii::app()->user->setFlash('contactPersonMessage', Yii::t("msg","Your message was sent."));
+    }else{
+      Yii::app()->user->setFlash('contactPersonError', Yii::t("msg","Message can't be empty!"));
     }
+    $this->redirect(Yii::app()->createUrl("person/view",array("id"=>$id)));
 	}  
 	
 }

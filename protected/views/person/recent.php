@@ -1,5 +1,5 @@
 <div  class="row">
-	<h1 class="meta-title"><?php echo CHtml::encode(Yii::t('app','Recent users')); ?></h1>
+	<h1><?php echo CHtml::encode(Yii::t('app','Recent users')); ?></h1>
 	
 	<?php if ($users){ ?>
 	<div class="list-holder">

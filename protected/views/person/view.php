@@ -5,26 +5,16 @@ $user = $data['user'];
 ?>
 
 
-<div id="drop-msg" class="f-dropdown content" data-dropdown-content>
-  <div class="msg-form">
-  <?php echo CHtml::beginForm(Yii::app()->createUrl(Yii::app()->getModule('user')->loginUrl[0]),'post',array("class"=>"custom")); ?>
+<div id="drop-msg" class="f-dropdown content medium" data-dropdown-content>
+  <div class="contact-form">
+  <?php echo CHtml::beginForm(Yii::app()->createUrl("person/contact",array("id"=>$user['id'])),'post',array("class"=>"custom")); ?>
 
-      <?php echo CHtml::label(Yii::t('app','Email').":",'UserLogin_email'); ?>
-      <?php echo CHtml::textField('UserLogin[email]') ?>
-
-      <?php echo CHtml::label(Yii::t('app','Password').":",'UserLogin_password'); ?>
-      <?php echo CHtml::passwordField('UserLogin[password]') ?>
-
-      <div class="login-floater">
-      <?php echo CHtml::submitButton(Yii::t("app","Login"),array("class"=>"button small radius")); ?>
-      </div>
-
-      <label for="UserLogin_rememberMe"><?php echo CHtml::checkBox('UserLogin[rememberMe]',true); ?>
-      <?php echo Yii::t('app','Remember me'); ?></label>
-
+      <?php echo CHtml::label(Yii::t('app','Message').":",'message'); ?>
+      <?php echo CHtml::textArea('message') ?>
       <br />
-      <?php //echo CHtml::link(Yii::t("app","Register"),Yii::app()->getModule('user')->registrationUrl); ?> 
-      <small><?php echo CHtml::link(Yii::t("app","Lost Password?"),Yii::app()->getModule('user')->recoveryUrl); ?></small>
+      <div class="login-floater">
+      <?php echo CHtml::submitButton(Yii::t("app","Send"),array("class"=>"button small radius")); ?>
+      </div>
 
   <?php echo CHtml::endForm(); ?>
   </div>
@@ -34,6 +24,19 @@ $user = $data['user'];
 
 <div class="row person-details">
 	<div class="large-12 small-12 columns radius panel card-person">
+   
+   <?php if(Yii::app()->user->hasFlash('contactPersonMessage')){ ?>
+    <div data-alert class="alert-box radius success">
+      <?php echo Yii::app()->user->getFlash('contactPersonMessage'); ?>
+      <a href="#" class="close">&times;</a>
+    </div>
+    <?php } ?> 
+   <?php if(Yii::app()->user->hasFlash('contactPersonError')){ ?>
+    <div data-alert class="alert-box radius alert">
+      <?php echo Yii::app()->user->getFlash('contactPersonError'); ?>
+      <a href="#" class="close">&times;</a>
+    </div>
+    <?php } ?> 
 
 		<div class="row card-person-title">
 			<div class="large-10 small-12 columns" >
