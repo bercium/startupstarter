@@ -1,25 +1,27 @@
 <div  class="row">
-	<h6 class="meta-title"><?php echo CHtml::encode(Yii::t('app','Recent projects')); ?></h6>
+	<h1 class="meta-title"><?php echo CHtml::encode(Yii::t('app','Recent projects')); ?></h1>
 	
-  <ul class="small-block-grid-1 large-block-grid-3">
+	<?php if ($ideas){ ?>
+	<div class="list-holder">
+  <ul class="small-block-grid-1 large-block-grid-3 list-items">
 		<?php 
 		//$i = 0;
 		//$page = 1;
 		//print
 		//$maxPage = 3;
-		foreach ($data['idea'] as $idea){ ?>
+		foreach ($ideas as $idea){ ?>
 			<li>
 			<?php  $this->renderPartial('_idea', array('idea' => $idea));  ?>
 			</li>
 		<?php } ?>
   </ul>
-
+	</div>
 	
 	<div class="pagination-centered">
 		
 		<ul class="pagination">
 			<?php if ($page > 1){ ?>
-			<li class="arrow"><a href="<?php echo Yii::app()->createUrl("idea/recent",array("id"=>$pagedata['filter']['page']-1)); ?>">&laquo;</a></li>
+			<li class="arrow"><a href="<?php echo Yii::app()->createUrl("idea/recent",array("id"=>$page-1)); ?>">&laquo;</a></li>
 			<?php }else{ ?>
 			<li class="arrow unavailable"><a>&laquo;</a></li>
 			<?php } ?>
@@ -28,17 +30,18 @@
 			  for ($i=1; $i <= $maxPage; $i++){
 					if ($i == $page){ ?><li class="current"><?php }else{ ?><li><?php } ?>
 					
-					<a href="<?php echo Yii::app()->createUrl("idea/recent/".$i); ?>"><?php echo $i; ?></a>
+					<a href="<?php echo Yii::app()->createUrl("idea/recent",array("id"=>$i)); ?>"><?php echo $i; ?></a>
 					</li>
 			<?php	} ?>
 					 
 			
 			<?php if ($page < $maxPage){ ?>
-			<li class="arrow"><a href="<?php echo Yii::app()->createUrl("idea/recent",array("id"=>$pagedata['filter']['page']+1)); ?>">&raquo;</a></li>
+			<li class="arrow"><a href="<?php echo Yii::app()->createUrl("idea/recent",array("id"=>$page+1)); ?>">&raquo;</a></li>
 			<?php }else{ ?>
 			<li class="arrow unavailable"><a>&raquo;</a></li>
 			<?php } ?>
 		</ul>
 	</div>
+	<?php } ?>
 	
 </div>

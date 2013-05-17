@@ -61,27 +61,30 @@ class PersonController extends GxController {
 		$click->user($id, Yii::app()->user->id);
 	}
 
-	public function actionRecent($id) {
+	public function actionRecent($id = 1) {
 
 		$filter = Yii::app()->request->getQuery('filter', array());
+		
 		$filter['page'] = $id;
+		//$filter['page'] = 1; // !!! remove
 		
 		$sqlbuilder = new SqlBuilder;
-		$data['user'] = $sqlbuilder->load_array("recent_user", $filter);
+		$users = $sqlbuilder->load_array("recent_user", $filter);
 		$pagedata = $sqlbuilder->load_array("count_user", $filter);
 
 		$maxPage = floor($pagedata['num_of_rows'] / $pagedata['filter']['per_page']);
-
+		
+		//$maxPage = 3;  // !!! remove
 
 		if(isset($_GET['ajax'])){
-			$return['data'] = $this->renderPartial('_recent', array("users" => $data['user'], 'page' => $pagedata['filter']['page'], 'maxPage' => $maxPage), true);
+			$return['data'] = $this->renderPartial('_recent', array("users" => $data['user'], 'page' => $id, 'maxPage' => $maxPage), true);
 			$return['message'] = '';//Yii::t('msg', "Success!");
 			$return['status'] = 0;
 			$return = json_encode($return);
 			echo $return; //return array
 			Yii::app()->end();
 		} else {
-			$this->render('recent', array('data' => $data, 'pagedata' => $pagedata, 'maxPage' => $maxPage));
+			$this->render('recent', array('users' => $users, 'page' => $id, 'maxPage' => $maxPage));
 		}
 		
 	}

@@ -668,27 +668,30 @@ class IdeaController extends GxController {
 	}
 
 	//AJAX
-	public function actionRecent($id) {
+	public function actionRecent($id = 1) {
 
 		$filter = Yii::app()->request->getQuery('filter', array());
 		$filter['page'] = $id;
 		
+		$filter['page'] = 1; // !!! remove
+		
 		$sqlbuilder = new SqlBuilder;
-		$data['idea'] = $sqlbuilder->load_array("recent_idea", $filter);
+		$ideas = $sqlbuilder->load_array("recent_idea", $filter);
 		$pagedata = $sqlbuilder->load_array("count_idea", $filter);
 
 		$maxPage = floor($pagedata['num_of_rows'] / $pagedata['filter']['per_page']);
 
+		$maxPage = 3;
 
 		if(isset($_GET['ajax'])){
-			$return['data'] = $this->renderPartial('_recent', array("ideas" => $data['idea'], 'page' => $pagedata['filter']['page'], 'maxPage' => $maxPage));
+			$return['data'] = $this->renderPartial('_recent', array("ideas" => $data['idea'], 'page' => $id, 'maxPage' => $maxPage));
 			$return['message'] = Yii::t('msg', "Success!");
 			$return['status'] = 0;
 			$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
 			echo $return; //return array
 			Yii::app()->end();
 		} else {
-			$this->render('recent', array('data' => $data, 'pagedata' => $pagedata));
+			$this->render('recent', array('ideas' => $ideas, 'page' => $id, 'maxPage' => $maxPage));
 		}
 		
 	}
