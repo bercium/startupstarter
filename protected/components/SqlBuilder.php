@@ -6,17 +6,8 @@ class SqlBuilder {
 	//also, we wish to keep the main function simple
 	public function load_array($action, $filter = Array()){
 
-		//current user's language setup
-		$user_id = Yii::app()->user->id;
-		if(!isset($filter['lang'])){
-			$filter['lang'] = Yii::app()->language;
-		}
-		$language = Language::Model()->findByAttributes( array( 'language_code' => $filter['lang'] ) );
-		$filter['lang'] = $language->id;
-
-		//check for legit values
-		//NOTE: $_GET values get transmitted to this class. this section would otherwise not be needed
-		//this section needs more care
+	//INPUT VALUES VALIDATE
+	//NOTE: $_GET values get transmitted to this class. All values must be checked
 		if(isset($filter['page'])){
 			if(!is_numeric($filter['page']))
 				$filter['page'] = 1;
@@ -29,10 +20,16 @@ class SqlBuilder {
 					$filter['per_page'] = 12;
 				}
 			}
-				
 		}
 
-		//pagination
+	//SET DEFAULT VALUES
+		$user_id = Yii::app()->user->id;
+		if(!isset($filter['lang'])){
+			$filter['lang'] = Yii::app()->language;
+		}
+		$language = Language::Model()->findByAttributes( array( 'language_code' => $filter['lang'] ) );
+		$filter['lang'] = $language->id;
+
 		if(!isset($filter['page']))
 			$filter['page'] = 1;
 		if(!isset($filter['per_page'])){
@@ -43,6 +40,10 @@ class SqlBuilder {
 			}
 		}
 
+	//SEARCH SETUP
+	//	$filter['search']['setup']['collab_id'] = ''
+
+	//WHICH ACTION IS PERFORMED?
 		switch ($action) {
 			//frontpage controller
 		    case "recent_updated":
@@ -90,6 +91,7 @@ class SqlBuilder {
 					"AND it.deleted = 0 ".
 					"ORDER BY m.id DESC ".
 					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". ($filter['per_page']);
+
 		} elseif( $type == 'recent_updated' ) {
 			$sql =	"SELECT i.*, ist.name AS status FROM ".
 					"`idea` AS i, `idea_status` AS ist ".
@@ -100,86 +102,72 @@ class SqlBuilder {
 
 		} elseif( $type == 'user' ) {
 			$sql=	"SELECT i.*, ist.name AS status FROM ".
-					"`idea` AS i, `idea_status` AS ist, `idea_member` AS im, `user_match` AS m, `user` AS u ".
+					"`idea` AS i, `idea_status` AS ist, `idea_member` AS im ".
 					"WHERE i.id = im.idea_id ".
 					"AND i.status_id = ist.id ".
 					"AND i.deleted = 0 ".
-					"AND im.match_id = m.id ".
-					"AND m.user_id = u.id ".
-					"AND u.id = '{$filter['user_id']}' ".
-					"ORDER BY i.time_registered DESC";
-		} elseif( $type == 'usercount' ) {
-			//how many members an idea has
-			$sql=	"SELECT count(im.idea_id) AS count FROM ".
-					"`idea_member` AS im, `idea` AS i ".
-					"WHERE i.id = im.idea_id ".
-					"AND i.deleted = 0 ".
 					"AND im.match_id = '{$filter['match_id']}' ".
-					"GROUP BY im.idea_id";
+					"ORDER BY i.time_registered DESC";
+
 		} elseif( $type == 'idea' ){
 			$sql=	"SELECT i.*, ist.name AS status FROM ".
 					"`idea` AS i, `idea_status` AS ist ".
 					"WHERE i.id = '{$filter['idea_id']}' ".
 					"AND i.status_id = ist.id ".
 					"AND i.deleted = 0 ";
+
 		} elseif( $type == 'count_idea' ){
 			$sql =	"SELECT count(i.id) as count FROM ".
 					"`idea` AS i ".
 					"WHERE i.deleted = 0 ";
-		}
 
-		//print_r($sql);
+		}
 
  		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
 		$dataReader=$command->query();
-		//read data, build array, call contained functions
-		$array = NULL;
+		$array = array();
+
 		while(($row=$dataReader->read())!==false) {
 			
-			if($type == "count_idea" || $type == 'usercount'){
+			if($type == "count_idea"){
 				$array['num_of_rows'] = $row['count'];
-				if($type == "count_idea"){
-					$array['filter'] = $filter;
-				}
+				$array['filter'] = $filter;
 			} else {
 				//prepare filter
 				$filter['idea_id'] = $row['id'];
 
-				//add data to array, start with days_updated
-				$row['date_updated'] = Yii::app()->dateFormatter->formatDateTime(strtotime($row['time_updated']));
-				$row['days_updated'] = round( (strtotime($row['time_updated']) - time()) / 86400 , 0, PHP_ROUND_HALF_DOWN ) * -1;
-
-				//add translation to array
+				//translation..
 				$merge = $this->translation( 'userlang', $filter );
-				$row = array_merge($row, $merge);
 				if(isset($merge['language_id'])){
+					$row = array_merge($row, $merge);
 					$filter['default_lang'] = $merge['language_id'];
 				} else {
 					$filter['default_lang'] = $filter['lang'];
 				}
 
-				$row['translation_other'] = $this->translation( 'other', $filter );
-				$row['member'] = $this->user( 'member', $filter );
-				$row['candidate'] = $this->user( 'candidate', $filter );
+				if($type != 'user'){
+					$row['translation_other'] = $this->translation( 'other', $filter );
+					$row['member'] = $this->user( 'member', $filter );
+					$row['candidate'] = $this->user( 'candidate', $filter );
+					$row['date_updated'] = Yii::app()->dateFormatter->formatDateTime(strtotime($row['time_updated']));
+					$row['days_updated'] = round( (strtotime($row['time_updated']) - time()) / 86400 , 0, PHP_ROUND_HALF_DOWN ) * -1;	
+				}
 
-				//what kind of an
+				//multi record array, or not?
 				if($type != 'idea'){
 					$array[$row['id']] = $row;
 				} else {
 					$array = $row;
 				}
-				//print_r($row);
 			}
-
 		}
 
 		return $array;
 	}
 
 	public function translation($type, $filter){
-		//echo "TRANSLATION QUERIED:$type<br/>";
-		//print_r($filter);
+
 		if($type == 'userlang'){
 			$sql=		"SELECT it.id AS translation_id, it.title, it.pitch, it.description, it.description_public, it.tweetpitch, it.language_id, l.name AS language, l.language_code FROM ".
 						"`idea` AS i,`idea_translation` AS it,`language` AS l ".
@@ -189,14 +177,6 @@ class SqlBuilder {
 						"AND it.idea_id = {$filter['idea_id']} ".
 						"ORDER BY FIELD(it.language_id, '{$filter['lang']}') DESC";
 
-			$connection=Yii::app()->db;
-			$command=$connection->createCommand($sql);
-			$dataReader=$command->query();
-			//read data, build array, call contained functions
-			$array = array();
-			while(($row=$dataReader->read())!==false) {
-				$array = $row;
-			}
 		} else {
 			$sql=		"SELECT it.*, l.name AS language, l.id AS language_id FROM ".
 						"`idea` AS i,`idea_translation` AS it,`language` AS l ".
@@ -204,14 +184,19 @@ class SqlBuilder {
 						"AND l.id = it.language_id ".
 						"AND it.deleted = 0 ".
 						"AND it.idea_id = {$filter['idea_id']} ".
-						"AND it.language_id != {$filter['lang']}";
+						"AND it.language_id != {$filter['default_lang']}";
 
-			$connection=Yii::app()->db;
-			$command=$connection->createCommand($sql);
-			$dataReader=$command->query();
-			//read data, build array, call contained functions
-			$array = array();
-			while(($row=$dataReader->read())!==false) {
+		}
+
+		$connection=Yii::app()->db;
+		$command=$connection->createCommand($sql);
+		$dataReader=$command->query();
+		$array = array();
+		while(($row=$dataReader->read())!==false) {
+			//multi record array, or not?
+			if($type == 'userlang'){
+				$array = $row;
+			} else {
 				$array[$row['id']] = $row;
 			}
 		}
@@ -298,8 +283,8 @@ class SqlBuilder {
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
 		$dataReader=$command->query();
-		//read data, build array, call contained functions
-		$array = NULL;
+		$array = array();
+
 		while(($row=$dataReader->read())!==false) {
 			
 			if($type == "count_user"){
@@ -311,33 +296,28 @@ class SqlBuilder {
 				//set filter
 				$filter['match_id'] = $row['match_id'];
 
-				//add data to array
+				//collabpref data
 				if($type == 'user'){
 					//show complete list of available collabprefs when pulling user data
 					$row['collabpref'] = $this->collabpref( 'combined', $filter );
 				} else {
 					//show only existing collabprefs
-					$row['collabpref'] = $this->collabpref( 'existing', $filter );
+					$row['collabpref'] = $this->collabpref( 'normal', $filter );
 				}
 
-				if(isset($filter['skillset_mode'])){
-					$row['skillset'] = $this->skillset( $filter );
-				} else {
-					$row['skill'] = $this->skill( $filter );
-					$row['skillset'] = array();
-				}
-				
-				//count
-				if($type == 'user' || $type == 'recent'){
-					$filter['user_id'] = $row['id'];
-					$row['idea'] = $this->idea( "user", $filter );
-
-					$i = 0;
-					foreach($row['idea'] AS $value){
+				//user's ideas, add and count
+				$row['idea'] = $this->idea('user', $filter);
+				$i = 0;
+				if(count($row['idea']) > 0){
+					foreach($row['idea'] AS $key => $value)
 						$i++;
-					}
-					$row['num_of_rows'] = $i;
 				}
+				$row['num_of_rows'] = $i;
+
+				//skillset
+				$row['skillset'] = $this->skillset( $filter );
+				
+				//add link
 				if($type != 'candidate'){
 					$filter['uid'] = $row['id'];
 					$row['link'] = $this->link( $filter );
@@ -365,7 +345,7 @@ class SqlBuilder {
 		if($type == 'combined'){
 			$sql=	"SELECT uc.id, collabpref.id AS collab_id, collabpref.name, uc.id AS active ".
 					"FROM collabpref LEFT JOIN ".
-					"(SELECT * FROM user_collabpref WHERE match_id = 2) AS uc ".
+					"(SELECT * FROM user_collabpref WHERE match_id = {$filter['match_id']}) AS uc ".
 					"ON uc.collab_id = collabpref.id";
 		} else {
 			$sql=	"SELECT uc.id, c.id AS collab_id, c.name FROM ".
@@ -374,113 +354,125 @@ class SqlBuilder {
 					"WHERE uc.collab_id = c.id ".
 					"AND uc.match_id = '{$filter['match_id']}'";
 		}
-		//echo $sql."\n";
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
 		$dataReader=$command->query();
-		//read data, build array, call contained functions
-		$array = NULL;
-		while(($row=$dataReader->read())!==false) {
-			$array[$row['id']] = $row;
-			//print_r($row);
-		}
-
-		return $array;
-	}
-
-	public function skill($filter){
-		//echo "SKILL QUERIED:<br/>";
-		//print_r($filter);
-		$sql=		"SELECT us.id, us.skillset_id, ss.name AS skillset, us.skill_id, s.name AS skill FROM ".
-					"`user_skill` AS us, ".
-					"`skillset` AS ss, ".
-					"`skill` AS s ".
-					"WHERE ss.id = us.skillset_id AND s.id = us.skill_id ".
-					"AND us.match_id = '{$filter['match_id']}'";
-//echo $sql."\n";
-
-		$connection=Yii::app()->db;
-		$command=$connection->createCommand($sql);
-		$dataReader=$command->query();
-		//read data, build array, call contained functions
 		$array = array();
+
 		while(($row=$dataReader->read())!==false) {
 			$array[$row['id']] = $row;
-			//print_r($row);
 		}
+
 		return $array;
 	}
 
 	public function skillset($filter){
-		//echo "SKILLSET QUERIED:<br/>";
-		//print_r($filter);
+
 		$sql=		"SELECT ss.id, ss.name AS skillset FROM ".
 					"`user_skill` AS us, ".
 					"`skillset` AS ss ".
 					"WHERE ss.id = us.skillset_id ".
 					"AND us.match_id = '{$filter['match_id']}' ".
 					"GROUP BY ss.id";
-//echo $sql."\n";
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
 		$dataReader=$command->query();
-		//read data, build array, call contained functions
 		$array = array();
+
 		while(($row=$dataReader->read())!==false) {
 			$filter['skillset_id'] = $row['id'];
 
 			$array[$row['id']] = $row;
 			$array[$row['id']]['skill'] = $this->skillset_skill( $filter );
-			//print_r($row);
 		}
 
 		return $array;
 	}
+
 	public function skillset_skill($filter){
-		//echo "SKILLSETSKILL QUERIED:<br/>";
-		//print_r($filter);
+
 		$sql=		"SELECT s.id, s.name AS skill FROM ".
 					"`user_skill` AS us, ".
 					"`skill` AS s ".
 					"WHERE s.id = us.skill_id ".
 					"AND us.skillset_id = '{$filter['skillset_id']}' ";
 					"AND us.match_id = '{$filter['match_id']}'";
-//echo $sql."\n";
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
 		$dataReader=$command->query();
-		//read data, build array, call contained functions
 		$array = array();
 
 		while(($row=$dataReader->read())!==false) {
 			$array[$row['id']] = $row;
-			//print_r($row);
 		}
 		return $array;
 	}
 
 	public function link($filter){
-		//echo "LINK QUERIED:<br/>";
-		//print_r($filter);
+
 		$sql=		"SELECT ul.* FROM ".
 					"`user_link` AS ul ".
 					"WHERE ul.user_id = '{$filter['uid']}'";
-//echo $sql."\n";
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
 		$dataReader=$command->query();
-		//read data, build array, call contained functions
-		$array = NULL;
+		$array = array();
 
 		while(($row=$dataReader->read())!==false) {
 			$array[$row['id']] = $row;
-			//print_r($row);
 		}
 
 		return $array;
 	}
 }
+
+/*
+FILTERS:
+a) page //default(1)
+b) per_page //default(3 = ajax, 12 = noajax)
+c) lang (alias: language_id) //default(user's settings)
+d) user_id
+e) idea_id
+f) skillset_mode
+(no default means that the variable is mandatory)
+
+INSIDE FILTERS:
+g) default_lang (alias: language_id) //from user.userlang
+h) match_id
+i) uid (alias: user_id) //to avoid conflicts with user_id
+
+CALLS:
+
+//idea.
+	recent_updated, recent_candidate <- a) b)
+		+translation (translation.userlang) <- c)
+		+translation_other (user.userlang) <- f)
+		+date_updated
+		+days_updated
+		.member (user.member) <- e)
+		.candidate (user.candidate) <- e)
+			.collabpref (user.collabpref) <- g)
+
+	user <- d)
+
+		 
+	idea <- e)
+
+	count_idea
+		+num_of_rows
+		.filter
+
+//user.
+	recent_user
+	user
+		.collabpref (user.collabpref) <- g)
+	count_user
+		+num_of_rows
+		.filter
+
+//pagination.
+*/
