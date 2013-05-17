@@ -21,10 +21,13 @@ body {
 }
 
 .header h1{
-  margin:10px 0px !important;
+  margin:0px 0px !important;
   color:#999;
   text-shadow: 1px 1px 2px rgba(0,0,0,.3);
-  font-size:4.6em;
+  font-size:3.6em;
+  line-height: 0;
+  padding-top: 10px;
+
 }
 
 .header h1 span{
@@ -33,8 +36,10 @@ body {
 
 .header .logo{
   vertical-align: middle; 
-  height:93px;  
-  margin-right: 10px;
+  height:70px;  
+  margin-left: 10px;
+  margin-bottom: 15px;
+
 }
 
 .top-bar-holder{
@@ -58,18 +63,18 @@ body {
 
 
 .intro{
-  background-image: url(../images/intro-bg.jpg); 
+background: #f9f7f6;
+border-bottom: 1px solid #ddd;
   background-repeat: no-repeat; 
   background-size: 100% 100%; 
   margin-bottom: 30px;
-  border-bottom: 1px solid #999;
 
   
 }
 
 .intro h1{
-  color:#DDD !important;
-  text-shadow: 1px 1px 1px rgba(0,0,0,.3);
+  color:#666 !important;
+  
   font-size:2.6em;
 }
 
@@ -77,28 +82,33 @@ body {
   color:#83B25B;
 }
 
+
+
 .intro p{
-  text-align:justify ; 
-  font-weight: 600; 
-  color:#333; 
+  text-align:left; 
+  
+  color:#111; 
   text-shadow: 0px 1px rgba(255,255,255,0.1);
 }
 
 .intro .close{
-  position:absolute; 
-  right:40px; 
-  bottom:15px;
-  font-size: 20px;
-  color: #383E3C;
-  text-shadow: 1px 1px rgba(0,0,0,0.3);
+ 
+  color: #d0cecd;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #ddd, 0 0 0 3px #fff, 0 0 0 4px #ddd;
+  font-size: 2em;
+  position: absolute;
+  bottom: -15px;
+  background: #fff;
+  border-radius: 100px;  
+  text-shadow: 0px 1px 0 1px rgba(0,0,0,0.3);
 }
 
 .intro .button {
-margin-left: 10px;
+margin-left: 30px;
 }
 
 .intro .close:hover{
-  text-shadow: 0px 1px 2px #777, -1px -1px 1px #111;
+  text-shadow: none;
 }
 
 
@@ -368,6 +378,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7072', end
   background-color:#f6f6fa;
   }
 
+  .card-person-title {
+  	background: #f9f5f2;
+  }
+
 div[onclick].panel,
 div[onclick].card-person-title, div[onclick].card-idea-title{
   cursor: pointer;
@@ -460,6 +474,12 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 	color: #e54d51;
 
 }
+
+
+ button.custom, .button.custom {
+    background-color: #f9f7f2;
+    border-color: #dcd7c9;
+    color: #111; }
 
 
 

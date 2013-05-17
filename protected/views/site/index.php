@@ -5,7 +5,7 @@
   <div  class="row" >
     <div class="large-12 small-12 columns" style="text-align: center;" >
 
-      <h1>With the <span>right team</span> any <span>idea</span> can change your life</h1>
+      <h1>With the <span>right team</span> any <span class="isc">idea</span> can change your life</h1>
 
       <div class="row">
         <div class="large-6 small-12 columns <?php if (!Yii::app()->user->isGuest) echo "large-centered"; ?>">
@@ -14,15 +14,27 @@
           </p>
         </div>
 				<?php if (Yii::app()->user->isGuest){ ?>
-        <div class="large-6 small-12 columns">
+        <div class="large-6 small-12 columns hide-for-small">
           <br>
           <br>
-          <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" class="button round medium success" >Register here </a> 
-          <a href="#" data-dropdown="drop-login" class="button round medium secondary" >Login </a>
-        </div><?php } ?>
+          <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" class="button right round large success" >Register here </a> 
+          <a href="#" data-dropdown="drop-login" class="button right round large secondary" >Login </a>
+          
+         
+        </div>
+        <div class="large-6 small-12 columns show-for-small">
+          <br>
+          <br>
+          <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" class="button round large success" >Register here </a> 
+          <a href="#" data-dropdown="drop-login" class="button round large secondary" >Login </a>
+          
+         
+        </div>
+
+        <?php } ?>
       </div>
 
-      <a href="#" class="close" data-tooltip title="<?php echo CHtml::encode(Yii::t('app','Hide intro')); ?>" onclick="$('.intro').slideUp('slow');"> &#x25B2; </a>
+      <a  href="#" class="row close centered" data-tooltip title="<?php echo CHtml::encode(Yii::t('app','Hide intro')); ?>" onclick="$('.intro').slideUp('slow');"><span class="general foundicon-up-arrow"></span></a>
 
     </div>
   </div>
