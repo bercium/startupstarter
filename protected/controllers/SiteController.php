@@ -88,9 +88,7 @@ class SiteController extends Controller
 	{
 		$sqlbuilder = new SqlBuilder;
 		$filter = array( 'idea_id' => 1); // our idea ID
-		if($lang){
-			$filter['lang'] = $lang;
-		}
+		$filter['lang'] = Yii::app()->language;
 
 		$this->render('about', array('idea' => $sqlbuilder->load_array("idea", $filter)));
 	}
