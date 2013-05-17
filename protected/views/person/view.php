@@ -89,12 +89,21 @@ $user = $data['user'];
 					<?php
 					echo Yii::t('app', 'Skilled in') . ":";
 
-					foreach ($user['skill'] as $skill) {
+
+          foreach ($user['skillset'] as $skillset){
+            foreach ($skillset['skill'] as $skill){
+              ?>
+              <span class="button tiny secondary meta_tags" data-tooltip title="<?php echo $skillset['skillset']; ?>"><?php echo $skill['skill']; ?></span>
+              <?php
+            }
+          }
+          
+					/*foreach ($user['skill'] as $skill) {
 						?>
 					</span>
 						<span class="button tiny secondary meta_tags" data-tooltip title="<?php echo $skill['skillset']; ?>"><?php echo $skill['skill']; ?></span>
 						<?php
-					}
+					}*/
 					?>
 				</p><hr>
 					<?php if (count($user['collabpref']) > 0) { ?>

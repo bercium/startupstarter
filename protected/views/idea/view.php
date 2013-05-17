@@ -104,40 +104,50 @@ $idea = $data['idea'];
         } ?>
         </p>
         <hr>
-        <?php if (count($idea['member']) > 0){ ?>
+        <?php if (count($idea['candidate']) > 0){ ?>
         <h6 class="meta-title title-field"><?php echo Yii::t('app','Looking for'); ?>: </h6>
 
           <?php
           $cnum = 0;
-          foreach ($idea['member'] as $member){
+          foreach ($idea['candidate'] as $candidate){
             $cnum++; 
           ?>
            <div  class="idea-sidebar">
             <div class="small-12 columns panel">
-              <?php if ($member['available_name']) { ?>
-                <p class="meta available-time button small secondary"><?php echo $member['available_name']; ?></p>
+              <?php if ($candidate['available_name']) { ?>
+                <p class="meta available-time button small secondary"><?php echo $candidate['available_name']; ?></p>
               <?php } ?>
              <h6><?php echo Yii::t('app','Candidate #{n}',$cnum); ?></h6>
               
 
              <small class="meta person-skills">
                 <?php
-                foreach ($member['skill'] as $skill) {
+                
+                foreach ($candidate['skillset'] as $skillset){
+                  foreach ($skillset['skill'] as $skill){
+                    ?>
+                    <span class="button tiny secondary meta_tags" data-tooltip title="<?php echo $skillset['skillset']; ?>"><?php echo $skill['skill']; ?></span>
+                    <?php
+                  }
+                }
+                    
+                
+                /*foreach ($candidate['skill'] as $skill) {
                   ?>
                   <span class="button tiny secondary meta_tags" data-tooltip title="<?php echo $skill['skillset']; ?>"><?php echo $skill['skill']; ?></span>
                   <?php
-                }
+                }*/
                 ?>
             </small>
              
            
             
-              <?php if (count($member['collabpref']) > 0) { ?>
+              <?php if (count($candidate['collabpref']) > 0) { ?>
                 <small class="meta">
                     <?php
                     $firsttime = true;
-                    if (is_array($member['collabpref']))
-                      foreach ($member['collabpref'] as $collab) {
+                    if (is_array($candidate['collabpref']))
+                      foreach ($candidate['collabpref'] as $collab) {
                         //if (!$firsttime) echo ", ";
                         //$firsttime = false;
                         echo "<h7 class='meta-title'>".$collab['name']."</h7> <br/>";
@@ -147,16 +157,16 @@ $idea = $data['idea'];
               <?php } ?>
 
               
-              <?php	if ($member['city'] || $member['country']){ ?>
+              <?php	if ($candidate['city'] || $candidate['country']){ ?>
               <br>
-                <small class="meta" data-tooltip title="<img src='<?php echo getGMap($member['country'],$member['city'],$member['address']); ?>'>">
+                <small class="meta" data-tooltip title="<img src='<?php echo getGMap($candidate['country'],$candidate['city'],$candidate['address']); ?>'>">
                 <span class="general foundicon-location" title=""></span>
               <a><?php
-                  echo $member['city']; 
-                  if ($member['city'] && $member['country']) echo ', '; 
-                  echo $member['country']; 
+                  echo $candidate['city']; 
+                  if ($candidate['city'] && $candidate['country']) echo ', '; 
+                  echo $candidate['country']; 
                   ?></a>
-                <?php //echo $member['address']; ?>
+                <?php //echo $candidate['address']; ?>
                 </small>
               <?php } ?>              
               
