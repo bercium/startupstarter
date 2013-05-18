@@ -10,13 +10,13 @@
     </div>
     <?php } ?>    
     
-     <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6 small-12")); ?>
+     <?php echo CHtml::beginForm('','post',array('class'=>"custom large-12 small-12")); ?>
 
       <?php echo CHtml::errorSummary($user,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
       <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
     
     <div class="row">
-      <div class="small-12 large-3 columns">
+      <div class="small-12 large-4 right columns">
       <?php 
        //echo Yii::app()->getBaseUrl(true)."/".Yii::app()->params['tempFolder'];
          //echo "<img class='avatar' src='".avatar_image($user->avatar_link, $user->id)."'>";
@@ -31,7 +31,7 @@
                      '<div class="qq-upload-button avatar-button">
                        <div class="avatar-loading"><span class="qq-upload-spinner"></span></div>
                        <img class="avatar" src="'.avatar_image($user->avatar_link, $user->id, false).'" >
-                       <div class="avatar-change">'.Yii::t('app','Change image').'</div>
+                       <div class="avatar-change">'.Yii::t('app','Change image').' <span class="general foundicon-photo"></div>
                       </div>' .
                      '<div class="qq-upload-list" style="display:none"></div>' .
                   '</div>',
@@ -59,17 +59,15 @@
        ?>
       <?php echo CHtml::activeHiddenField($user,'avatar_link'); ?>
       </div>
-      <div class="small-12 large-9 columns">
+      <div class="small-12 large-7 left columns">
 
       <?php echo CHtml::activeLabelEx($user,'name'); ?>
       <?php echo CHtml::activeTextField($user,"name", array('maxlength' => 128)); ?>
       
       <?php echo CHtml::activeLabelEx($user,'surname'); ?>
       <?php echo CHtml::activeTextField($user,"surname", array('maxlength' => 128)); ?>
-      </div>
-      </div>
       
-
+         
       <?php echo CHtml::activeLabelEx($match,'country_id'); ?>
       <?php echo CHtml::activedropDownList($match, 'country_id', GxHtml::listDataEx(Country::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;')); ?>
 
@@ -84,7 +82,10 @@
             array('class'=>"button small success radius")
         ); ?>
       <?php echo CHtml::endForm(); ?>
-    
+    </div>
+      </div>
+      
+   
       <hr>
       <a href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My custom links"); ?> +</a>
       <div class="addLinks" style="display:none">

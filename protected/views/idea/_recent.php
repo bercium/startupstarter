@@ -14,7 +14,7 @@
   </ul>
 
 	<div class="pagination-centered">
-		<small class="hide-for-small" style="float:right;"><a href="<?php echo Yii::app()->createUrl("idea/recent"); ?>">show all</a></small>
+		<small class="hide-for-small"><a href="<?php echo Yii::app()->createUrl("idea/recent"); ?>" class="right">show all <span class="general-enclosed foundicon-right-arrow"></span></a></small>
 		
 		<ul class="pagination hide-for-small">
 			<?php if ($page > 1){ ?>

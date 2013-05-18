@@ -31,10 +31,11 @@ class Controller extends CController
     $cs->registerCssFile($baseUrl.'/css/foundation.css');
     $cs->registerCssFile($baseUrl.'/css/normalize.css');
     $cs->registerCssFile($baseUrl.'/css/layout.css');
-    $cs->registerCssFile($baseUrl.'/css/general_foundicons.css');
-    $cs->registerCssFile($baseUrl.'/css/general_foundicons_ie7.css');
         $cs->registerCssFile($baseUrl.'/css/general_enclosed_foundicons.css');
     $cs->registerCssFile($baseUrl.'/css/general_enclosed_foundicons_ie7.css');
+    $cs->registerCssFile($baseUrl.'/css/general_foundicons.css');
+    $cs->registerCssFile($baseUrl.'/css/general_foundicons_ie7.css');
+
 
     $cs->registerCoreScript('jquery',CClientScript::POS_END);
 

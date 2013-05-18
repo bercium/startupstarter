@@ -8,14 +8,14 @@
       <h1>With the <span>right team</span> any <span class="isc">idea</span> can change your life</h1>
 
       <div class="row">
-        <div class="large-6 small-12 columns <?php if (!Yii::app()->user->isGuest) echo "large-centered"; ?>">
+        <div class="large-7 small-12 columns <?php if (!Yii::app()->user->isGuest) echo "large-centered"; ?>">
           <p>
             <?php echo CHtml::encode(Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.')); ?>
           </p>
         </div>
 				<?php if (Yii::app()->user->isGuest){ ?>
-        <div class="large-6 small-12 columns hide-for-small">
-          <br>
+        <div class="large-5 small-12 columns hide-for-small">
+          
           <br>
           <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" class="button right round large success" >Register here </a> 
           <a href="#" data-dropdown="drop-login" class="button right round large secondary" >Login </a>
@@ -34,7 +34,7 @@
         <?php } ?>
       </div>
 
-      <a  href="#" class="row close centered" data-tooltip title="<?php echo CHtml::encode(Yii::t('app','Hide intro')); ?>" onclick="$('.intro').slideUp('slow');"><span class="general foundicon-up-arrow"></span></a>
+      <a  href="#" class="row close centered" data-tooltip title="<?php echo CHtml::encode(Yii::t('app','Hide intro')); ?>" onclick="$('.intro').slideUp('slow');"><span class="general-enclosed foundicon-up-arrow"></span></a>
 
     </div>
   </div>
@@ -42,7 +42,7 @@
 <?php } ?>
 
 
-<div class="row panel radius" style="margin-top: 20px;">
+<div class="row panel searchpanel radius" style="margin-top: 20px;">
 	<div class="large-12 small-12 columns">
      <?php echo CHtml::beginForm('','post',array('class'=>"custom","style"=>"margin-bottom:0;")); ?>
 
@@ -112,8 +112,8 @@
       
     <?php echo CHtml::endForm(); ?>
     
-    <div style="position: absolute; bottom:-30px; border:1px solid #BBB; padding:4px; background-color:#FFF; ">
-      <a href="#" onclick="$('.advance').slideToggle('slow'); return false;">Advanced search +</a>
+    <div  class="exp_srch fancy-box">
+      <a href="#" onclick="$('.advance').slideToggle('slow'); return false;">Advanced search <span class="general-enclosed foundicon-plus"></span></a>
     </div>
 	
 	</div>
