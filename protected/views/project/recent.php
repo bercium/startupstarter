@@ -11,7 +11,7 @@
 		//$maxPage = 3;
 		foreach ($ideas as $idea){ ?>
 			<li>
-			<?php  $this->renderPartial('_idea', array('idea' => $idea));  ?>
+			<?php  $this->renderPartial('_project', array('idea' => $idea));  ?>
 			</li>
 		<?php } ?>
   </ul>

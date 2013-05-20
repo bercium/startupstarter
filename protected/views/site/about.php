@@ -17,7 +17,7 @@ $this->pageTitle=Yii::app()->name;
   </div>
 
   <div class="large-4 small-12 columns">
-    <?php if ($idea)  $this->renderPartial('//project/_idea', array('idea' => $idea));  ?>
+    <?php if ($idea)  $this->renderPartial('//project/_project', array('idea' => $idea));  ?>
   </div>
 
 </div>
