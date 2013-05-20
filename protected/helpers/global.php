@@ -177,3 +177,11 @@ function arrayLog($data, $space = '&nbsp;&nbsp;'){
   
 	return $string;
 }
+
+
+/**
+ * dynamicaly translate si
+ */
+function sifTrans($value){
+  return Yii::t("app",$value);
+}

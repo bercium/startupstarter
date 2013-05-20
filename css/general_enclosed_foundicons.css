@@ -7,8 +7,14 @@
   font-style: normal;
 }
 
+
+.general-enclosed {
+ font-family: "GeneralEnclosedFoundicons";
+}
+
+
 /* global foundicon styles */
-[class*="foundicon-"] {
+[class*="general-enclosed foundicon-"] {
   display: inline;
   width: auto;
   height: auto;
@@ -19,7 +25,7 @@
   background-repeat: repeat;
 }
 
-[class*="foundicon-"]:before {
+[class*="general-enclosed foundicon-"]:before {
   font-family: "GeneralEnclosedFoundicons";
   font-weight: normal;
   font-style: normal;

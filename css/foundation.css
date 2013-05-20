@@ -972,7 +972,9 @@ a {
 
 /* Default Link Styles */
 .alt {
-  color: #a23134;
+  /*color: #a23134;*/
+  color: #4E2564;
+
   text-decoration: none;
   line-height: inherit; }
   .alt:hover, a:focus {

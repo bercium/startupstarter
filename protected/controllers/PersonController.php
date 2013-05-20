@@ -24,7 +24,7 @@ class PersonController extends GxController {
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("view","recent"),
+        'actions'=>array("view","recent", "contact"),
 				'users'=>array('*'),
 			),
 			array('allow', // allow admins only
@@ -36,26 +36,15 @@ class PersonController extends GxController {
 		);
 	}
 
-	public function actionIndex() { //create new idea
-		/*echo 'Links: <br/><br/>
-		/ -> list users <br/>
-		/$id -> view user by id <br/>
-		<br/>';*/
-
-		$filter = Yii::app()->request->getQuery('filter', array());
-		
-		$sqlbuilder = new SqlBuilder;
-		$data['user'] = $sqlbuilder->load_array("recent_user", $filter);
-
-		$this->render('index', array('data' => $data));
-	}
-
+  
 	public function actionView($id) {
+    $this->layout="//layouts/none";
+    
 		$sqlbuilder = new SqlBuilder;
 		$filter = array( 'user_id' => $id);
 		$data['user'] = $sqlbuilder->load_array("user", $filter);
 
-		$this->render('index', array('data' => $data));
+		$this->render('view', array('data' => $data));
 
 		$click = new Click;
 		$click->user($id, Yii::app()->user->id);
@@ -66,7 +55,10 @@ class PersonController extends GxController {
 		$filter = Yii::app()->request->getQuery('filter', array());
 		
 		$filter['page'] = $id;
-		$filter['page'] = 1; // !!! remove
+		//$filter['page'] = 1; // !!! remove
+    
+    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
+    else $filter['per_page'] = 12;
 		
 		$sqlbuilder = new SqlBuilder;
 		$users = $sqlbuilder->load_array("recent_user", $filter);
@@ -74,7 +66,7 @@ class PersonController extends GxController {
 
 		$maxPage = floor($pagedata['num_of_rows'] / $pagedata['filter']['per_page']);
 		
-		$maxPage = 3;  // !!! remove
+		//$maxPage = 3;  // !!! remove
 
 		if(isset($_GET['ajax'])){
 			$return['data'] = $this->renderPartial('_recent', array("users" => $users, 'page' => $id, 'maxPage' => $maxPage), true);
@@ -88,5 +80,31 @@ class PersonController extends GxController {
 		}
 		
 	}
+  
+	public function actionContact($id) { 
+    
+		if(isset($_POST['message']) && ($_POST['message']  > '')){
+      
+      $sender = User::model()->findByPk(Yii::app()->user->id);
+      
+      $message = new YiiMailMessage;
+      $message->view = 'system';
+      $message->setBody($_POST['message'], 'text/html');
+      //$message->setBody(array("content"=>$_POST['message'],"senderMail"=>$sender->email), 'text/html');
+      $message->subject = "New message from ".$sender->name." ".$sender->surname;
+      
+      // get all users
+      $user = User::model()->findByPk($id);
+      $message->addTo($user->email);
+
+      $message->from = Yii::app()->params['adminEmail'];
+      Yii::app()->mail->send($message);
+      
+      Yii::app()->user->setFlash('contactPersonMessage', Yii::t("msg","Your message was sent."));
+    }else{
+      Yii::app()->user->setFlash('contactPersonError', Yii::t("msg","Message can't be empty!"));
+    }
+    $this->redirect(Yii::app()->createUrl("person/view",array("id"=>$id)));
+	}  
 	
 }

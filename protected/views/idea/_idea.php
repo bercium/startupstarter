@@ -41,7 +41,7 @@
 									echo " ".Yii::t('app','skilled in').":<br />";
 									foreach ($skills as $skillset=>$skill){
 										?>
-										<span class="button tiny radius secondary meta_tags" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
+										<span class="label radius secondary meta_tags" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
 										<?php 
 									}
 								}

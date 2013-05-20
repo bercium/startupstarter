@@ -13,6 +13,7 @@
 
 body {
 	background: url(../images/body_bg.png) !important;
+
 }
 
 .header-wrap {
@@ -92,27 +93,70 @@ border-bottom: 1px solid #ddd;
 }
 
 .intro .close{
- 
+ transition: 0.5s;
   color: #d0cecd;
   box-shadow: 0 0 0 1px #fff, 0 0 0 2px #ddd, 0 0 0 3px #fff, 0 0 0 4px #ddd;
-  font-size: 2em;
+  font-size: 1.8em;
+  padding: 5px;
   position: absolute;
-  bottom: -15px;
+  bottom: -45px;
   background: #fff;
   border-radius: 100px;  
   text-shadow: 0px 1px 0 1px rgba(0,0,0,0.3);
 }
 
+.intro .close:hover {
+	color:#999;
+	text-shadow: 0px 1px 0 1px rgba(0,0,0,1);
+}
+
+.intro > .row {
+	margin-bottom: 30px;
+}
 .intro .button {
-margin-left: 30px;
+margin-left: 20px;
 }
 
 .intro .close:hover{
   text-shadow: none;
 }
 
+.container .searchpanel {
+	z-index: 1;
+}
 
+.exp_srch {
+	position: absolute;
+	 bottom:-43px;
+	 z-index: 0;
+	  border:1px solid #BBB;
+	  
+	    background-color:#FFF;
+	    display: block;
+	    color: #666 !important;
 
+}
+.exp_srch span { 
+position: absolute;
+right: -13px;
+color: #999;
+top:8px;
+background: #F9F7F6;
+box-shadow: 0 0 0 1px #ddd;
+padding: 4px;
+border-radius: 100px;
+
+}
+
+.exp_srch a {
+	display: block;
+	text-align: center;
+	color: inherit;
+	height: 100%;
+	
+	
+	 padding:12px 20px 10px 10px ;
+}
 
 .profile-info{
   /*margin-top:20px;*/
@@ -150,6 +194,11 @@ margin-left: 30px;
   box-shadow: 0 0 0 1px #bbbbbb, 0 0 0 3px #ddd;
   
 }
+
+.searchpanel {
+	margin:50px auto;
+}
+
 
 
 
@@ -343,8 +392,43 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7072', end
 .edit-header h3 {
 	padding: 10px 0;
 	margin: 0;
+	color: #888;
 
 }
+
+
+#image {
+	margin-bottom: 30px;
+	margin-top: 16px;
+
+
+}
+
+#image .avatar-change {
+
+}
+
+#image .qq-upload-button {
+	transition: 0.5s;
+	border: 2px solid #ddd;
+	box-shadow: none;
+}
+#image .qq-upload-button:hover {
+	border: 2px solid #999;
+}
+
+
+#image .avatar-change {
+	padding: 10px 0;
+	color: #888;
+	background: #F6F6FA;
+	border: 1px solid #fff;
+
+}
+
+
+
+
 
 
 .edit-content{	
@@ -489,10 +573,9 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
   padding-bottom:50px; 
   margin-top:40px;
   padding-top:20px;
-  /*border-top: 1px solid #999; */
-  box-shadow:0 -2px 2px 0px rgba(0, 0, 0, .15);
-  background-color: #EEE;
-}
+  /*border-top: 1px solid #999; */  
+  border-top: 1px solid #ddd;
+  background-color: #F9F7F6;}
 .footer-links .inline-list{
   float:right;
 }
@@ -742,13 +825,14 @@ min-height: 380px;
 ================================================== */
 
 .title-field {
-	margin: 30px 0;
+	margin: 15px 0;
 }
 
 .idea-details .title-field h1 {
-	font-size:1.125em;
+	font-size:1.6em;
 	font-weight: 400;
 	line-height: 1.2em;
+  margin-top:20px;
 }
 
 .idea-sidebar .panel {
@@ -833,6 +917,9 @@ h6.title-field {
 
 /* #PERSON PAGE
 ================================================== */
+.person-details{
+  margin-top:20px;
+}
 .person-details .card-person h1{
 	font-size: 1.6875em;
 	line-height: 0.9;

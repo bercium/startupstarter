@@ -2,6 +2,7 @@
 
 class SiteController extends Controller
 {
+  public $layout="//layouts/view";
   
 	/**
 	 * @return array action filters
@@ -66,7 +67,7 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-    $this->layout="//layouts/first_page";
+    $this->layout="//layouts/none";
     
 		$sqlbuilder = new SqlBuilder;
 		$filter = Yii::app()->request->getQuery('filter', array());
@@ -88,9 +89,7 @@ class SiteController extends Controller
 	{
 		$sqlbuilder = new SqlBuilder;
 		$filter = array( 'idea_id' => 1); // our idea ID
-		if($lang){
-			$filter['lang'] = $lang;
-		}
+		$filter['lang'] = Yii::app()->language;
 
 		$this->render('about', array('idea' => $sqlbuilder->load_array("idea", $filter)));
 	}

@@ -1,7 +1,8 @@
- function addLink(inUrl)
- {
+ function sendMSG(inUrl) {
  
-   var data=$("#LinkForm").serialize()+'&ajax=1';
+  $('#drop-msg').toggle();
+  return;
+  var data=$("#contact-form").serialize()+'&ajax=1';
 
 	$.ajax({
    type: 'POST',
@@ -26,27 +27,5 @@
   dataType:'html'
   });
  
-}
-
-
-function removeLink(link_id, inUrl){
-    $.ajax({
-   type: 'POST',
-   url: inUrl,//'<?php echo Yii::app()->createAbsoluteUrl("profile/removeLink"); ?>',
-   data:{ id: link_id, ajax: 1},
-        success:function(data){
-          data = JSON.parse(indata);
-          if (data.message != '') alert(data.message);
-          else {
-            //$('#link_div_'+data.data.id).fadeOut('slow');
-          }
-        },
-        error: function(data,e,t) { // if error occured
-           alert(e+': '+t);
-        },
- 
-  dataType:'html'
-  });
-
 }
 

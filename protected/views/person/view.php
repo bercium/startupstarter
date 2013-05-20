@@ -3,8 +3,40 @@
 $this->pageTitle = Yii::app()->name;
 $user = $data['user'];
 ?>
+
+
+<div id="drop-msg" class="f-dropdown content medium" data-dropdown-content>
+  <div class="contact-form">
+  <?php echo CHtml::beginForm(Yii::app()->createUrl("person/contact",array("id"=>$user['id'])),'post',array("class"=>"custom")); ?>
+
+      <?php echo CHtml::label(Yii::t('app','Message').":",'message'); ?>
+      <?php echo CHtml::textArea('message') ?>
+      <br />
+      <div class="login-floater">
+      <?php echo CHtml::submitButton(Yii::t("app","Send"),array("class"=>"button small radius")); ?>
+      </div>
+
+  <?php echo CHtml::endForm(); ?>
+  </div>
+</div>
+
+
+
 <div class="row person-details">
 	<div class="large-12 small-12 columns radius panel card-person">
+   
+   <?php if(Yii::app()->user->hasFlash('contactPersonMessage')){ ?>
+    <div data-alert class="alert-box radius success">
+      <?php echo Yii::app()->user->getFlash('contactPersonMessage'); ?>
+      <a href="#" class="close">&times;</a>
+    </div>
+    <?php } ?> 
+   <?php if(Yii::app()->user->hasFlash('contactPersonError')){ ?>
+    <div data-alert class="alert-box radius alert">
+      <?php echo Yii::app()->user->getFlash('contactPersonError'); ?>
+      <a href="#" class="close">&times;</a>
+    </div>
+    <?php } ?> 
 
 		<div class="row card-person-title">
 			<div class="large-10 small-12 columns" >
@@ -41,7 +73,12 @@ $user = $data['user'];
 
 			</div>
 			<div class="large-2 small-12 columns card-floater">
-					<a class="button success radius" style="margin-bottom:0;" href=""><?php echo Yii::t('app', 'Contact me') ?></a>
+					<a class="button success radius" href="#" <?php 
+                if (Yii::app()->user->isGuest){ 
+                echo "onclick=\"alert('".Yii::t('msg','You must be loged in to contact this person.')."');\""; 
+                }else {
+                  echo 'data-dropdown="drop-msg"';
+                } ?> ><?php echo Yii::t('app', 'Contact me') ?></a>
 				</div>
 		</div>
 
@@ -52,12 +89,21 @@ $user = $data['user'];
 					<?php
 					echo Yii::t('app', 'Skilled in') . ":";
 
-					foreach ($user['skill'] as $skill) {
+
+          foreach ($user['skillset'] as $skillset){
+            foreach ($skillset['skill'] as $skill){
+              ?>
+              <span class="button tiny secondary meta_tags" data-tooltip title="<?php echo $skillset['skillset']; ?>"><?php echo $skill['skill']; ?></span>
+              <?php
+            }
+          }
+          
+					/*foreach ($user['skill'] as $skill) {
 						?>
 					</span>
 						<span class="button tiny secondary meta_tags" data-tooltip title="<?php echo $skill['skillset']; ?>"><?php echo $skill['skill']; ?></span>
 						<?php
-					}
+					}*/
 					?>
 				</p><hr>
 					<?php if (count($user['collabpref']) > 0) { ?>
