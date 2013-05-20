@@ -8,6 +8,7 @@
 class SearchForm extends CFormModel
 {
   public $isProject = true;
+	
 	public $colabPref;
 	public $available;
 	public $country;

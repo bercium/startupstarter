@@ -679,9 +679,7 @@ class ProjectController extends GxController {
 		$filter['page'] = $id;
 
     if(isset($_GET['ajax'])) $filter['per_page'] = 3;
-    else $filter['per_page'] = 12;
-		
-		//$filter['page'] = 1; // !!! remove
+    else $filter['per_page'] = 9;
 		
 		$sqlbuilder = new SqlBuilder;
 		$ideas = $sqlbuilder->load_array("recent_updated", $filter);
@@ -689,13 +687,11 @@ class ProjectController extends GxController {
 
 		$maxPage = floor($pagedata['num_of_rows'] / $pagedata['filter']['per_page']);
 
-		//$maxPage = 3;
-
 		if(isset($_GET['ajax'])){
-			$return['data'] = $this->renderPartial('_recent', array("ideas" => $ideas, 'page' => $id, 'maxPage' => $maxPage));
-			$return['message'] = Yii::t('msg', "Success!");
+			$return['data'] = $this->renderPartial('_recent', array("ideas" => $ideas, 'page' => $id, 'maxPage' => $maxPage),true);
+			$return['message'] = '';
 			$return['status'] = 0;
-			$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+			$return = json_encode($return);
 			echo $return; //return array
 			Yii::app()->end();
 		} else {
