@@ -115,6 +115,7 @@ class SqlBuilder {
 					"AND i.deleted = 0 ";
 
 		} elseif( $type == 'count_idea' ){
+			//for pagination
 			$sql =	"SELECT count(i.id) as count FROM ".
 					"`idea` AS i ".
 					"WHERE i.deleted = 0 ";
@@ -157,6 +158,7 @@ class SqlBuilder {
 				if($type != 'user'){
 					$row['translation_other'] = $this->translation( 'other', $filter );
 					$row['member'] = $this->user( 'member', $filter );
+					$row['num_of_members'] = count($row['member']);
 					$row['candidate'] = $this->user( 'candidate', $filter );
 					$row['date_updated'] = Yii::app()->dateFormatter->formatDateTime(strtotime($row['time_updated']));
 					$row['days_updated'] = round( (strtotime($row['time_updated']) - time()) / 86400 , 0, PHP_ROUND_HALF_DOWN ) * -1;	
@@ -289,6 +291,7 @@ class SqlBuilder {
 					"ORDER BY m.id DESC";
 
 		} elseif($type == 'count_user'){
+			//for pagination
 			$sql=	"SELECT count(u.id) AS count FROM ".
 					"`user` AS u ";
 		}
