@@ -198,6 +198,15 @@
   <?php echo CHtml::endForm(); ?>
   </div>
 </div>
-
+<!-- userreport.com snippet -->
+<script type="text/javascript">
+var _urq = _urq || [];
+_urq.push(['initSite', 'ff32f930-ced3-4aca-8673-23bef9c3ecc6']);
+(function() {
+var ur = document.createElement('script'); ur.type = 'text/javascript'; ur.async = true;
+ur.src = 'http://sdscdn.userreport.com/userreport.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
+})();
+</script> 
 </body>
 </html>

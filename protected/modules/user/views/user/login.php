@@ -27,7 +27,7 @@ $this->breadcrumbs=array(
 <div class="form">
 <?php echo CHtml::beginForm(); ?>
 
-	<p class="note"><?php echo Yii::t('msg','Fields with <span class="required">*</span> are required.'); ?></p>
+	
 	
 	<?php echo CHtml::errorSummary($model); ?>
 	
