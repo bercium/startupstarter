@@ -8,17 +8,13 @@ class SqlBuilder {
 
 	//INPUT VALUES VALIDATE
 	//NOTE: $_GET values get transmitted to this class. All values must be checked
-		if(isset($filter['page'])){
-			if(!is_numeric($filter['page']))
-				$filter['page'] = 1;
-		}
-		if(isset($filter['per_page'])){
-			if(!is_numeric($filter['per_page'])){
-				if(isset($_GET['ajax'])){
-					$filter['per_page'] = 3;
-				} else {
-					$filter['per_page'] = 12;
-				}
+		if(isset($filter['page']) && !is_numeric($filter['page']))
+			$filter['page'] = 1;
+		if(isset($filter['per_page']) && !is_numeric($filter['per_page'])){
+			if(isset($_GET['ajax'])){
+				$filter['per_page'] = 3;
+			} else {
+				$filter['per_page'] = 12;
 			}
 		}
 
@@ -43,7 +39,7 @@ class SqlBuilder {
 		$filter['action'] = $action;
 
 	//SEARCH SETUP
-	//	$filter['search']['setup']['collab_id'] = ''
+		
 
 	//WHICH ACTION IS PERFORMED?
 		switch ($action) {
@@ -103,7 +99,7 @@ class SqlBuilder {
 					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". ($filter['per_page']);
 
 		} elseif( $type == 'user' ) {
-			$sql=	"SELECT i.*, ist.name AS status FROM ".
+			$sql=	"SELECT i.*, ist.name AS status, im.type_id FROM ".
 					"`idea` AS i, `idea_status` AS ist, `idea_member` AS im ".
 					"WHERE i.id = im.idea_id ".
 					"AND i.status_id = ist.id ".
@@ -119,10 +115,19 @@ class SqlBuilder {
 					"AND i.deleted = 0 ";
 
 		} elseif( $type == 'count_idea' ){
+			//for pagination
 			$sql =	"SELECT count(i.id) as count FROM ".
 					"`idea` AS i ".
 					"WHERE i.deleted = 0 ";
 
+		} elseif( $type == 'count_clicks' ){
+			$sql =	"SELECT count(ci.id) as count FROM ".
+					"`click_idea` AS ci ".
+					"WHERE ci.idea_click_id = '{$filter['idea_id']}' ".
+					"GROUP BY idea_click_id";
+
+		} elseif( $type == 'search' ){
+			
 		}
 
  		$connection=Yii::app()->db;
@@ -135,6 +140,8 @@ class SqlBuilder {
 			if($type == "count_idea"){
 				$array['num_of_rows'] = $row['count'];
 				$array['filter'] = $filter;
+			} elseif($type == "count_clicks"){
+				$array = $row['count'];
 			} else {
 				//prepare filter
 				$filter['idea_id'] = $row['id'];
@@ -151,22 +158,23 @@ class SqlBuilder {
 				if($type != 'user'){
 					$row['translation_other'] = $this->translation( 'other', $filter );
 					$row['member'] = $this->user( 'member', $filter );
+					$row['num_of_members'] = count($row['member']);
 					$row['candidate'] = $this->user( 'candidate', $filter );
 					$row['date_updated'] = Yii::app()->dateFormatter->formatDateTime(strtotime($row['time_updated']));
 					$row['days_updated'] = round( (strtotime($row['time_updated']) - time()) / 86400 , 0, PHP_ROUND_HALF_DOWN ) * -1;	
 				}
 
-				//multi record array, or not?
-				if(isset($merge['language_id'])){
-					if($type != 'idea'){
-						$array[$row['id']] = $row;
-					} else {
-						$array = $row;
-					}
-				} else {
-					//this situation is not supposed to exist, ideas always have atleast 1 translation
+				//add number of clicks
+				if($filter['action'] == ('user' || 'idea')){
+					$row['num_of_clicks'] = $this->idea('count_clicks', $filter);
 				}
 
+				//multi record array, or not?
+				if($type != 'idea'){
+					$array[$row['id']] = $row;
+				} else {
+					$array = $row;
+				}
 			}
 		}
 
@@ -283,6 +291,7 @@ class SqlBuilder {
 					"ORDER BY m.id DESC";
 
 		} elseif($type == 'count_user'){
+			//for pagination
 			$sql=	"SELECT count(u.id) AS count FROM ".
 					"`user` AS u ";
 		}
