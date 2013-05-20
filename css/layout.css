@@ -197,7 +197,7 @@ border-radius: 100px;
   padding-top: 0;
   background-color: #FFF;
   border: 1px solid #fff;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #bbbbbb, 0 0 0 3px #ddd, 0 0 0 4px #ddd;
+  
   
 }
 
@@ -210,12 +210,12 @@ border-radius: 100px;
 
 .searchpanel {
 	margin:50px auto;
-	background: url(../images/f_bg.png);
+	/*background: url(../images/f_bg.png);*/
 	color: #fff !important;
 	border-radius: 10px !important;
 	border: none;
-	border: 1px solid #fff;
-	box-shadow: 0 0 0 1px #bbbbbb;	
+	border: 1px solid #ddd;
+	
 	
 }
 
@@ -502,7 +502,7 @@ f-line {
   }
 
   .card-person-title {
-  	background: #f9f5f2;
+  	background: #F8F6F5;
   }
 
 div[onclick].panel,
