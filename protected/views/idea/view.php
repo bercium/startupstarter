@@ -19,7 +19,7 @@ $idea = $data['idea'];
           
           if ($canEdit) { ?>
 					<div class="card-floater">
-						<a style="" href="<?php echo Yii::app()->createUrl("idea/edit/".$idea['id']); ?>"><?php echo Yii::t('app', 'Edit project') ?></a>
+						<a style="" href="<?php echo Yii::app()->createUrl("project/edit/".$idea['id']); ?>"><?php echo Yii::t('app', 'Edit project') ?></a>
             <br />
              <small class="meta"><?php echo Yii::t('app','viewed {n} time|viewed {n} times',array(30)); ?></small>
 					</div>

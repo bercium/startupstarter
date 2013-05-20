@@ -14,7 +14,7 @@
   </ul>
 
 	<div class="pagination-centered">
-		<small class="hide-for-small">&nbsp;&nbsp;&nbsp;<a href="<?php echo Yii::app()->createUrl("person/recent/1"); ?>"  class="right">show all <span class="general-enclosed foundicon-right-arrow"></span></a></small>
+		<small class="hide-for-small"><a href="<?php echo Yii::app()->createUrl("person/recent/1"); ?>"  class="right">show all <span class="general-enclosed foundicon-right-arrow"></span></a></small>
 		<ul class="pagination hide-for-small">
 			<?php if ($page > 1){ ?>
 			<li class="arrow"><a class="button small success" href="#" onclick="recentUsersPage('<?php echo Yii::app()->createUrl("person/recent",array("id"=>$page-1)); ?>'); return false;">&laquo;</a></li>

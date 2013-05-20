@@ -8,8 +8,17 @@
 class SearchForm extends CFormModel
 {
   public $isProject = true;
+	public $colabPref;
+	public $available;
+	public $country;
+	public $city;
+	public $skills;
+	
+	public $stage;
+	public $keywords;
+	public $extraDetail;
+	public $content;
   
-
 	/**
 	 * Declares the validation rules.
 	 * The rules state that username and password are required,

@@ -19,7 +19,7 @@ foreach($this->data['user']['idea'] AS $key => $idea){
               ); ?>
         </div>        
 
-        <a href="<?php echo Yii::app()->createUrl("idea/edit/{$key}"); ?>"><h5><?php echo $idea['title'];?></h5></a>
+        <a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><h5><?php echo $idea['title'];?></h5></a>
         <small class="meta">
           <?php echo Yii::t('app', 'created on'); ?> <a><?php echo $idea['time_registered'];?></a> | 
           <?php echo Yii::t('app', 'has <a>{n} member</a>| has <a>{n} members</a>',3); ?> | 
@@ -55,7 +55,7 @@ foreach($this->data['user']['idea'] AS $key => $idea){
               ); ?>
         </div>
 
-        <a href="<?php echo Yii::app()->createUrl("idea/edit/{$key}"); ?>"><h5><?php echo $idea['title'];?></h5></a>
+        <a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><h5><?php echo $idea['title'];?></h5></a>
         <small class="meta">
           <?php echo Yii::t('app', 'created on'); ?> <a><?php echo $idea['time_registered'];?></a> | 
           <?php echo Yii::t('app', 'has <a>{n} member</a>| has <a>{n} members</a>',3); ?> | 

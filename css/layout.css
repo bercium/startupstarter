@@ -649,7 +649,9 @@ min-height: 380px;
 	line-height: 21px;
 }
 */
-
+.card-idea{
+	margin-top:20px;
+}
 
 .card-idea .card-abstract {
 	/*font-size: 0.9em;*/

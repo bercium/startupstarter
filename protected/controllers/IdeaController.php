@@ -224,7 +224,7 @@ class IdeaController extends GxController {
 				$exists = IdeaTranslation::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'language_id' => $_POST['IdeaTranslation']['language_id'], 'deleted' => 0 ) );
 				if($exists){
 					$language = $this->loadModel($exists->language_id, 'Language');
-					$this->redirect(Yii::app()->createUrl("idea/editTranslation", array('id' => $id, "lang"=>$language->language_code)));
+					$this->redirect(Yii::app()->createUrl("project/editTranslation", array('id' => $id, "lang"=>$language->language_code)));
 				}
 
 				$translation->setAttributes($_POST['IdeaTranslation']);
@@ -259,7 +259,7 @@ class IdeaController extends GxController {
 				$exists = IdeaTranslation::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'language_id' => $_POST['IdeaTranslation']['language_id'], 'deleted' => 0 ) );
 				if($exists){
 					$language = $this->loadModel($exists->language_id, 'Language');
-					$this->redirect(Yii::app()->createUrl("idea/editTranslation", array('id' => $id, "lang"=>$language->language_code)));
+					$this->redirect(Yii::app()->createUrl("project/editTranslation", array('id' => $id, "lang"=>$language->language_code)));
 				}
 
 				$translation->setAttributes($_POST['IdeaTranslation']);

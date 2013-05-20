@@ -150,7 +150,7 @@ $user = $data['user'];
 				<?php
 				if (is_array($user['idea']))
 					foreach ($user['idea'] as $idea) {
-						 ?><span class="general foundicon-idea alt" ></span><a class="alt" href="<?php echo Yii::app()->createUrl("idea/" . $idea['id']); ?>"><?php echo $idea['title']; ?></a><br><?php 
+						 ?><span class="general foundicon-idea alt" ></span><a class="alt" href="<?php echo Yii::app()->createUrl("project/" . $idea['id']); ?>"><?php echo $idea['title']; ?></a><br><?php 
 					}
 				?>
 				<?php } ?>
