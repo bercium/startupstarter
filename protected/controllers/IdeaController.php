@@ -673,7 +673,7 @@ class IdeaController extends GxController {
 		$filter = Yii::app()->request->getQuery('filter', array());
 		$filter['page'] = $id;
 		
-		$filter['page'] = 1; // !!! remove
+		//$filter['page'] = 1; // !!! remove
 		
 		$sqlbuilder = new SqlBuilder;
 		$ideas = $sqlbuilder->load_array("recent_idea", $filter);
@@ -681,10 +681,10 @@ class IdeaController extends GxController {
 
 		$maxPage = floor($pagedata['num_of_rows'] / $pagedata['filter']['per_page']);
 
-		$maxPage = 3;
+		//$maxPage = 3;
 
 		if(isset($_GET['ajax'])){
-			$return['data'] = $this->renderPartial('_recent', array("ideas" => $data['idea'], 'page' => $id, 'maxPage' => $maxPage));
+			$return['data'] = $this->renderPartial('_recent', array("ideas" => $ideas, 'page' => $id, 'maxPage' => $maxPage));
 			$return['message'] = Yii::t('msg', "Success!");
 			$return['status'] = 0;
 			$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);

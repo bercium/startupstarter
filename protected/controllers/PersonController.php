@@ -77,7 +77,7 @@ class PersonController extends GxController {
 		$maxPage = 3;  // !!! remove
 
 		if(isset($_GET['ajax'])){
-			$return['data'] = $this->renderPartial('_recent', array("users" => $data['user'], 'page' => $id, 'maxPage' => $maxPage), true);
+			$return['data'] = $this->renderPartial('_recent', array("users" => $users, 'page' => $id, 'maxPage' => $maxPage), true);
 			$return['message'] = '';//Yii::t('msg', "Success!");
 			$return['status'] = 0;
 			$return = json_encode($return);
