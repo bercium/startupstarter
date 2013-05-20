@@ -43,15 +43,18 @@
 
 
 <div class="row panel searchpanel radius" style="margin-top: 20px;">
-	<div class="large-12 small-12 columns">
+	<div class="large-12 small-12 columns search_content edit-header">
      <?php echo CHtml::beginForm('','post',array('class'=>"custom","style"=>"margin-bottom:0;")); ?>
 
       
 		<div class="row">
 		  <div class="large-5 small-12 columns">
-    		<h4 class="meta-title"><?php echo CHtml::encode(Yii::t('app','Narow your search to')); ?> </h4>
+    		<h4 class="meta-title"><?php echo CHtml::encode(Yii::t('app','Narrow your search to:')); ?> </h4>
       </div>
 		  <div class="large-7 small-12 columns">
+          <div  class="exp_srch fancy-box">
+      <a href="#" onclick="$('.advance').slideToggle('slow'); return false;">Advanced search <span class="general-enclosed foundicon-plus"></span></a>
+    </div>
 
 			<div class="switch small round small-3" onclick="$('#filter_projects').toggle();$('#filter_people').toggle();">
         <input id="project_0" name="SearchForm[isProject]" type="radio" value="0" <?php if ($filter->isProject) echo 'checked="checked"' ?>>
@@ -78,7 +81,7 @@
             <label>search by skills:</label>
             <input type="text" placeholder="skills">
           </div>
-         <div class="large-3 small-6 columns">
+         <div class="large-3 left small-6 columns">
 
           <label for="customDropdown1">Search by something</label>
           <select id="customDropdown1" class="medium">
@@ -102,7 +105,7 @@
       
 		</div>
     <div class="row">
-      <div class="small-12 columns">
+      <div class="small-12 large-12 columns">
             <?php echo CHtml::submitButton(Yii::t("app","Search"),
                   array('class'=>"button small radius")
               ); ?>
@@ -112,9 +115,7 @@
       
     <?php echo CHtml::endForm(); ?>
     
-    <div  class="exp_srch fancy-box">
-      <a href="#" onclick="$('.advance').slideToggle('slow'); return false;">Advanced search <span class="general-enclosed foundicon-plus"></span></a>
-    </div>
+  
 	
 	</div>
 </div>
@@ -125,7 +126,7 @@
 
 	<div class="row" id="recent_users">
 		<?php $this->renderPartial('//person/_recent', array('users' => $data['user'],"page"=>1,"maxPage"=>3)); ?>
-	</div>
+    </div>
 
 <?php } ?>
 

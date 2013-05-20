@@ -1,3 +1,5 @@
+<div class="row centered loginbox">	
+	<div class="large-centered large-6 columns">
 <?php
 $this->pageTitle=Yii::app()->name . ' - '.Yii::t('app',"Login");
 $this->breadcrumbs=array(
@@ -5,8 +7,13 @@ $this->breadcrumbs=array(
 );
 ?>
 
-<h1><?php echo Yii::t('app',"Login"); ?></h1>
+<div class="edit-header small-12 large-12 columns edit-header">
+	 
+<h1><?php echo Yii::t('app',"Login to"); ?></h1>
+<a href="<?php echo Yii::app()->createUrl("site/index"); ?>" ><img class="logo-mini" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-mini.png" /></a>
+</div>
 
+<div class="edit-content panel small-12 large12 columns">
 <?php if(Yii::app()->user->hasFlash('loginMessage')): ?>
 
 <div class="success">
@@ -24,28 +31,28 @@ $this->breadcrumbs=array(
 	
 	<?php echo CHtml::errorSummary($model); ?>
 	
-	<div class="row">
+	<div class="">
 		<?php echo CHtml::activeLabelEx($model,'email'); ?>
 		<?php echo CHtml::activeTextField($model,'email') ?>
 	</div>
 	
-	<div class="row">
+	<div class="">
 		<?php echo CHtml::activeLabelEx($model,'password'); ?>
 		<?php echo CHtml::activePasswordField($model,'password') ?>
 	</div>
 	
-	<div class="row">
-		<p class="hint">
+	<div class="">
+		<p class="hint meta-title">
 		<?php echo CHtml::link(Yii::t('app',"Register"),Yii::app()->getModule('user')->registrationUrl); ?> | <?php echo CHtml::link(Yii::t('app',"Lost Password?"),Yii::app()->getModule('user')->recoveryUrl); ?>
 		</p>
 	</div>
 	
-	<div class="row rememberMe">
+	<div class=" rememberMe">
 		<?php echo CHtml::activeCheckBox($model,'rememberMe'); ?>
 		<?php echo CHtml::activeLabelEx($model,'rememberMe'); ?>
 	</div>
 
-	<div class="row submit">
+	<div class=" submit button row">
 		<?php echo CHtml::submitButton(Yii::t('app',"Login")); ?>
 	</div>
 	
@@ -78,3 +85,6 @@ $form = new CForm(array(
     ),
 ), $model);*/
 ?>
+</div>
+</div>
+</div>

@@ -963,6 +963,7 @@ td {
 /* Default Link Styles */
 a {
   color: #4469a6;
+  transition: 0,3s;
   text-decoration: none;
   line-height: inherit; }
   a:hover, a:focus {
@@ -973,7 +974,7 @@ a {
 /* Default Link Styles */
 .alt {
   /*color: #a23134;*/
-  color: #4E2564;
+  color: #af3f42;
 
   text-decoration: none;
   line-height: inherit; }
