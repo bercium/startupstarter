@@ -42,6 +42,7 @@ return array (
   'Newsletter sent successfully.' => '',
   'No files were uploaded.' => '',
   'Old Password is incorrect.' => '',
+  'Oops! This project does not exist.',
   'Oops! Something went wrong. Unable to remove project from your account.' => '',
   'Oops! Something went wrong. Unable to update collaboration preferences.' => '',
   'Oops! Something went wrong. Unable to update skills.' => '',

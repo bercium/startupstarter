@@ -159,7 +159,7 @@ $idea = $data['idea'];
               
               <?php	if ($candidate['city'] || $candidate['country']){ ?>
               <br>
-                <small class="meta" data-tooltip title="<img src='<?php echo getGMap($candidate['country'],$candidate['city'],$candidate['address']); ?>'>">
+                <small class="meta" data-tooltip title="<img src='<?php echo getGMap($candidate['country'],$candidate['city']); ?>'>">
                 <span class="general foundicon-location" title=""></span>
               <a><?php
                   echo $candidate['city']; 

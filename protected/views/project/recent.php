@@ -11,7 +11,7 @@
 		//$maxPage = 3;
 		foreach ($ideas as $idea){ ?>
 			<li>
-			<?php  $this->renderPartial('_project', array('idea' => $idea));  ?>
+			<?php  $this->renderPartial('_idea', array('idea' => $idea));  ?>
 			</li>
 		<?php } ?>
   </ul>
@@ -19,7 +19,7 @@
 	
 	<div class="pagination-centered">
 		
-		<?php $this->widget('ext.Pagination.WPagination',array("url"=>"idea/recent","page"=>$page,"maxPage"=>$maxPage)); ?>
+		<?php $this->widget('ext.Pagination.WPagination',array("url"=>"project/recent","page"=>$page,"maxPage"=>$maxPage)); ?>
 		
 	</div>
 	<?php } ?>
