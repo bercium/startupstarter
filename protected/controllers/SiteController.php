@@ -79,7 +79,7 @@ class SiteController extends Controller
     
     $searchForm = new SearchForm();
     if (isset($_POST['SearchForm'])){
-      
+      $searchForm->setAttributes($_POST['SearchForm']);
     }
 
 		$this->render('index', array('data' => $data, "filter"=>$searchForm));

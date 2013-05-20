@@ -2,7 +2,7 @@
 
 class ProfileController extends GxController {
 
-	public $data = array();
+	public $ideas = array();
   public $layout="//layouts/edit";
 
 	/**
@@ -164,7 +164,7 @@ class ProfileController extends GxController {
 				$filter['user_id'] = $user_id;
 				$sqlbuilder = new SqlBuilder;
 				$data['user'] = $sqlbuilder->load_array("user", $filter);
-				$this->data = $data;
+				$this->ideas = $data['user']['idea'];
 				//print_r($data['user']);
 				//$link = new LinkForm;
 				$link = new UserLink;
@@ -195,10 +195,10 @@ class ProfileController extends GxController {
 
 			$filter['user_id'] = $user_id;
 			$sqlbuilder = new SqlBuilder;
-			$data['user'] = $sqlbuilder->load_array("user", $filter);
-			$this->data = $data;
+			$user = $sqlbuilder->load_array("user", $filter);
+			$this->ideas = $user['idea'];
 
-			$this->render('projects', array('data' => $data));
+			$this->render('projects', array('user' => $user));
 		} else {
 			$this->redirect(array('profile/'));
 		}
@@ -270,7 +270,7 @@ class ProfileController extends GxController {
 			$filter['user_id'] = $user_id;
 			$sqlbuilder = new SqlBuilder;
 			$data['user'] = $sqlbuilder->load_array("user", $filter);
-			$this->data = $data;
+			$this->ideas = $data['user']['idea'];
 
 			$this->render('account', array('user' => $user, "passwordForm" => $form2, "fpi" => $fpi));
 		} else {

@@ -5,7 +5,8 @@
   <div class="small-12 columns panel edit-content">
     
 <?php
-foreach($this->data['user']['idea'] AS $key => $idea){
+foreach($user['idea'] AS $key => $idea){
+	if ($idea['type_id'] != 1) continue;
 ?>
     <div class="row panel">
 
@@ -21,9 +22,9 @@ foreach($this->data['user']['idea'] AS $key => $idea){
 
         <a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><h5><?php echo $idea['title'];?></h5></a>
         <small class="meta">
-          <?php echo Yii::t('app', 'created on'); ?> <a><?php echo $idea['time_registered'];?></a> | 
-          <?php echo Yii::t('app', 'has <a>{n} member</a>| has <a>{n} members</a>',3); ?> | 
-          <?php echo Yii::t('app', 'viewed <a>{n} time</a>| viewed <a>{n} times</a>',3); ?>
+          <?php echo Yii::t('app', 'created on'); ?> <a><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($idea['time_registered']),"long",null); ?></a> | 
+          <?php echo Yii::t('app', 'has <a>{n} member</a>| has <a>{n} members</a>',3/*num_of_members*/); ?> | 
+          <?php echo Yii::t('app', 'viewed <a>{n} time</a>| viewed <a>{n} times</a>',3/*num_of_clicks*/); ?>
         </small>
 
     </div>
@@ -41,7 +42,8 @@ foreach($this->data['user']['idea'] AS $key => $idea){
   <div class="small-12 columns panel edit-content">
     
 <?php
-foreach($this->data['user']['idea'] AS $key => $idea){
+foreach($user['idea'] AS $key => $idea){
+	if ($idea['type_id'] != 2) continue;
 ?>
     <div class="row panel">
 
@@ -57,7 +59,7 @@ foreach($this->data['user']['idea'] AS $key => $idea){
 
         <a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><h5><?php echo $idea['title'];?></h5></a>
         <small class="meta">
-          <?php echo Yii::t('app', 'created on'); ?> <a><?php echo $idea['time_registered'];?></a> | 
+          <?php echo Yii::t('app', 'created on'); ?> <a><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($idea['time_registered']),"long",null); ?></a> | 
           <?php echo Yii::t('app', 'has <a>{n} member</a>| has <a>{n} members</a>',3); ?> | 
           <?php echo Yii::t('app', 'viewed <a>{n} time</a>| viewed <a>{n} times</a>',3); ?>
         </small>
@@ -70,4 +72,6 @@ foreach($this->data['user']['idea'] AS $key => $idea){
   </div>
 </div>
 
-<?php print_r($data);?>
+<?php
+
+Yii::log(arrayLog($user), CLogger::LEVEL_INFO, 'custom.info.idea');

@@ -54,10 +54,10 @@
 		  <div class="large-7 small-12 columns">
 
 			<div class="switch small round small-3" onclick="$('#filter_projects').toggle();$('#filter_people').toggle();">
-        <input id="project_0" name="SearchForm[isProject]" type="radio" value="0" <?php if ($filter->isProject) echo 'checked="checked"' ?>>
+        <input id="project_0" name="SearchForm[isProject]" type="radio" value="1" <?php if ($filter->isProject) echo 'checked="checked"' ?>>
         <label for="project_0" onclick=""><?php echo Yii::t('app','Projects'); ?></label>
 
-        <input id="project_1" name="SearchForm[isProject]" type="radio" value="1" <?php if (!$filter->isProject) echo 'checked="checked"' ?>>
+        <input id="project_1" name="SearchForm[isProject]" type="radio" value="0" <?php if (!$filter->isProject) echo 'checked="checked"' ?>>
         <label for="project_1" onclick=""><?php echo Yii::t('app','People') ?></label>
         <span></span>
       </div>

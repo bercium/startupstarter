@@ -2,7 +2,7 @@
 
 class WEditSidebar extends CWidget
 {
-    public $data = array();
+    public $ideas = array();
   
     public function init()
     {
@@ -11,7 +11,7 @@ class WEditSidebar extends CWidget
         array("id"=>1,"title"=>"Moja super ideja 2","viewCount"=>150),
       );
       
-      $this->render("start",array("ideas"=>$this->data['user']['idea']));
+      $this->render("start",array("ideas"=>$this->ideas));
     }
  
     public function run()
