@@ -159,4 +159,10 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+
+	public function actionSkill($input){
+		//data[]: type, id, skillset, skill
+		//type: skillset = 1, skill = 2
+		//id se spreminja, ni vedno ista tabela (enkrat skillset, drugič skillset_skill)
+	}
 }
