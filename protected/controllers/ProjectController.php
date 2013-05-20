@@ -1,6 +1,6 @@
 <?php
 
-class IdeaController extends GxController {
+class ProjectController extends GxController {
 
 	public $data = array();
 	public $layout="//layouts/view";
@@ -88,6 +88,10 @@ class IdeaController extends GxController {
 
 		$data['idea'] = $sqlbuilder->load_array("idea", $filter);
 
+		if(!isset($data['idea']['id'])){
+			throw new CHttpException(400, Yii::t('msg', "Oops! This project does not exist."));
+		}
+
 		$this->render('view', array('data' => $data));
 
 		//log clicks
@@ -126,7 +130,7 @@ class IdeaController extends GxController {
 					if (Yii::app()->getRequest()->getIsAjaxRequest())
 						Yii::app()->end();
 					else
-						$this->redirect(array('idea/edit', 'id' => $idea->id));
+						$this->redirect(array('project/edit', 'id' => $idea->id));
 				}
 			}
 		}
@@ -182,9 +186,9 @@ class IdeaController extends GxController {
 						$time_updated->idea($id);
 
 						if($lang){
-							$this->redirect(array('idea/edit', 'id' => $idea->id, 'lang'=> $lang));
+							$this->redirect(array('project/edit', 'id' => $idea->id, 'lang'=> $lang));
 						} else {
-							$this->redirect(array('idea/edit', 'id' => $idea->id));
+							$this->redirect(array('project/edit', 'id' => $idea->id));
 						}
 					}
 				}
@@ -224,7 +228,7 @@ class IdeaController extends GxController {
 				$exists = IdeaTranslation::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'language_id' => $_POST['IdeaTranslation']['language_id'], 'deleted' => 0 ) );
 				if($exists){
 					$language = $this->loadModel($exists->language_id, 'Language');
-					$this->redirect(Yii::app()->createUrl("idea/editTranslation", array('id' => $id, "lang"=>$language->language_code)));
+					$this->redirect(Yii::app()->createUrl("project/editTranslation", array('id' => $id, "lang"=>$language->language_code)));
 				}
 
 				$translation->setAttributes($_POST['IdeaTranslation']);
@@ -259,7 +263,7 @@ class IdeaController extends GxController {
 				$exists = IdeaTranslation::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'language_id' => $_POST['IdeaTranslation']['language_id'], 'deleted' => 0 ) );
 				if($exists){
 					$language = $this->loadModel($exists->language_id, 'Language');
-					$this->redirect(Yii::app()->createUrl("idea/editTranslation", array('id' => $id, "lang"=>$language->language_code)));
+					$this->redirect(Yii::app()->createUrl("project/editTranslation", array('id' => $id, "lang"=>$language->language_code)));
 				}
 
 				$translation->setAttributes($_POST['IdeaTranslation']);
@@ -680,7 +684,7 @@ class IdeaController extends GxController {
 		//$filter['page'] = 1; // !!! remove
 		
 		$sqlbuilder = new SqlBuilder;
-		$ideas = $sqlbuilder->load_array("recent_idea", $filter);
+		$ideas = $sqlbuilder->load_array("recent_updated", $filter);
 		$pagedata = $sqlbuilder->load_array("count_idea", $filter);
 
 		$maxPage = floor($pagedata['num_of_rows'] / $pagedata['filter']['per_page']);

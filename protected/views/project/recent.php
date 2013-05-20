@@ -19,7 +19,7 @@
 	
 	<div class="pagination-centered">
 		
-		<?php $this->widget('ext.Pagination.WPagination',array("url"=>"idea/recent","page"=>$page,"maxPage"=>$maxPage)); ?>
+		<?php $this->widget('ext.Pagination.WPagination',array("url"=>"project/recent","page"=>$page,"maxPage"=>$maxPage)); ?>
 		
 	</div>
 	<?php } ?>

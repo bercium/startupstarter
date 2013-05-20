@@ -133,7 +133,7 @@
 <?php if (isset($data['idea'])){ ?>
 
 	<div class="row" id="recent_projects">
-		<?php $this->renderPartial('//idea/_recent', array('ideas' => $data['idea'],"page"=>1,"maxPage"=>3)); ?>
+		<?php $this->renderPartial('//project/_recent', array('ideas' => $data['idea'],"page"=>1,"maxPage"=>3)); ?>
 	</div>
 
 <?php } ?>

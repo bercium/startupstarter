@@ -40,6 +40,8 @@ class SqlBuilder {
 			}
 		}
 
+		$filter['action'] = $action;
+
 	//SEARCH SETUP
 	//	$filter['search']['setup']['collab_id'] = ''
 
@@ -155,11 +157,16 @@ class SqlBuilder {
 				}
 
 				//multi record array, or not?
-				if($type != 'idea'){
-					$array[$row['id']] = $row;
+				if(isset($merge['language_id'])){
+					if($type != 'idea'){
+						$array[$row['id']] = $row;
+					} else {
+						$array = $row;
+					}
 				} else {
-					$array = $row;
+					//this situation is not supposed to exist, ideas always have atleast 1 translation
 				}
+
 			}
 		}
 
