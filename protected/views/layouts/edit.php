@@ -4,7 +4,7 @@
 <div class="row" style="margin-top:20px;">
   <div class="small-12 large-3 columns">
     <?php $this->widget('ext.ProfileInfo.WProfileInfo',array("detail"=>true)); ?>
-    <?php $this->widget('ext.SidebarEditMenu.WEditSidebar',array("ideas"=>$this->ideas)); ?>
+    <?php $this->widget('ext.SidebarEditMenu.WEditSidebar',array("ideas"=>(isset($ideas)?$ideas:array()))); ?>
   </div>
   <div class="small-12 large-9 columns">
     <?php echo $content; ?>

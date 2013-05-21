@@ -23,8 +23,8 @@ foreach($user['idea'] AS $key => $idea){
         <a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><h5><?php echo $idea['title'];?></h5></a>
         <small class="meta">
           <?php echo Yii::t('app', 'created on'); ?> <a><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($idea['time_registered']),"long",null); ?></a> | 
-          <?php echo Yii::t('app', 'has <a>{n} member</a>| has <a>{n} members</a>',3/*num_of_members*/); ?> | 
-          <?php echo Yii::t('app', 'viewed <a>{n} time</a>| viewed <a>{n} times</a>',3/*num_of_clicks*/); ?>
+          <?php echo Yii::t('app', 'has <a>{n} member</a>| has <a>{n} members</a>',0); ?> | 
+          <?php echo Yii::t('app', 'viewed <a>{n} time</a>| viewed <a>{n} times</a>',$idea['num_of_clicks']); ?>
         </small>
 
     </div>
@@ -60,8 +60,8 @@ foreach($user['idea'] AS $key => $idea){
         <a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><h5><?php echo $idea['title'];?></h5></a>
         <small class="meta">
           <?php echo Yii::t('app', 'created on'); ?> <a><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($idea['time_registered']),"long",null); ?></a> | 
-          <?php echo Yii::t('app', 'has <a>{n} member</a>| has <a>{n} members</a>',3); ?> | 
-          <?php echo Yii::t('app', 'viewed <a>{n} time</a>| viewed <a>{n} times</a>',3); ?>
+          <?php echo Yii::t('app', 'has <a>{n} member</a>| has <a>{n} members</a>',0); ?> | 
+          <?php echo Yii::t('app', 'viewed <a>{n} time</a>| viewed <a>{n} times</a>',$idea['num_of_clicks']); ?>
         </small>
 
     </div>
