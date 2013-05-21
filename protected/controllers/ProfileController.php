@@ -2,7 +2,6 @@
 
 class ProfileController extends GxController {
 
-	public $data = array();
   public $layout="//layouts/edit";
 
 	/**
@@ -164,7 +163,7 @@ class ProfileController extends GxController {
 				$filter['user_id'] = $user_id;
 				$sqlbuilder = new SqlBuilder;
 				$data['user'] = $sqlbuilder->load_array("user", $filter);
-				$this->data = $data;
+				//$this->ideas = $data['user']['idea'];
 				//print_r($data['user']);
 				//$link = new LinkForm;
 				$link = new UserLink;
@@ -174,7 +173,7 @@ class ProfileController extends GxController {
 				  ->findAll( array( 'condition'=>'userCollabprefs.match_id = '.$match->id ) ); */
 				//$data = UserCollabpref::model()->with('collab')->findAllByAttributes( array( 'match_id' => $match->id) );
 
-				$this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link));
+				$this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea']));
 			} else {
 				//this would cause an infinite loop, so lets not do it
 				//in a perfect world this would redirect to the register page. not sure how to dynamically redirect outside the same controller
@@ -195,10 +194,9 @@ class ProfileController extends GxController {
 
 			$filter['user_id'] = $user_id;
 			$sqlbuilder = new SqlBuilder;
-			$data['user'] = $sqlbuilder->load_array("user", $filter);
-			$this->data = $data;
+			$user = $sqlbuilder->load_array("user", $filter);
 
-			$this->render('projects', array('data' => $data));
+			$this->render('projects', array('user' => $user, "ideas"=>$user['idea']));
 		} else {
 			$this->redirect(array('profile/'));
 		}
@@ -270,9 +268,9 @@ class ProfileController extends GxController {
 			$filter['user_id'] = $user_id;
 			$sqlbuilder = new SqlBuilder;
 			$data['user'] = $sqlbuilder->load_array("user", $filter);
-			$this->data = $data;
+			//$this->ideas = $data['user']['idea'];
 
-			$this->render('account', array('user' => $user, "passwordForm" => $form2, "fpi" => $fpi));
+			$this->render('account', array('user' => $user, "passwordForm" => $form2, "fpi" => $fpi, 'ideas'=>$data['user']['idea']));
 		} else {
 			//not logged in stuff
 		}

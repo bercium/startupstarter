@@ -2,7 +2,7 @@
 
 class ProjectController extends GxController {
 
-	public $data = array();
+//	public $data = array();
 	public $layout="//layouts/view";
 	
 	/**
@@ -141,11 +141,11 @@ class ProjectController extends GxController {
 		$filter['user_id'] = $user_id;
 		unset($filter['lang']);
 		$data['user'] = $sqlbuilder->load_array("user", $filter);
-		$this->data = $data;
+		//$this->data = $data;
 		//for idea form purposes
 		$user = UserEdit::Model()->findByAttributes( array( 'id' => $user_id ) );
 
-		$this->render('createidea', array( 'idea' => $idea, 'translation' => $translation, 'user' => $user ));
+		$this->render('createidea', array( 'idea' => $idea, 'translation' => $translation, 'user' => $user, 'ideas'=>$data['user']['idea'] ));
 	}
 
 	public function actionEdit($id, $lang = NULL) { //can take different languages to edit
@@ -201,11 +201,11 @@ class ProjectController extends GxController {
 			$filter['user_id'] = $user_id;
 			unset($filter['lang']);
 			$data['user'] = $sqlbuilder->load_array("user", $filter);
-			$this->data = $data;
+			//$this->data = $data;
 			//for idea form purposes
 			$user = UserEdit::Model()->findByAttributes( array( 'id' => $user_id ) );
 
-			$this->render('editidea', array( 'idea' => $idea, 'translation' => $translation, 'data' => $data, 'user' => $user ));
+			$this->render('editidea', array( 'idea' => $idea, 'translation' => $translation, 'data' => $data, 'user' => $user, 'ideas'=>$data['user']['idea'] ));
 		}
 
 	}

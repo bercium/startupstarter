@@ -13,7 +13,8 @@ class SearchForm extends CFormModel
 	public $available;
 	public $country;
 	public $city;
-	public $skills;
+	public $skill;
+	public $skillSet;
 	
 	public $stage;
 	public $keywords;
@@ -34,6 +35,7 @@ class SearchForm extends CFormModel
 			//array('rememberMe', 'boolean'),
 			// password needs to be authenticated
 			//array('password', 'authenticate'),
+		  array('isProject','safe'),
 		);
 	}
 
