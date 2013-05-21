@@ -1834,7 +1834,7 @@ form.custom {
   form.custom .custom.dropdown ul {
     position: absolute;
     width: auto;
-    display: none;
+    /*display: none;*/
     margin: 0;
     left: -1px;
     top: auto;
@@ -2586,7 +2586,7 @@ form.custom {
       min-width: 100%; }
       .top-bar-section .dropdown li a {
         color: white;
-        line-height: 1;
+        line-height: 2em;        
         white-space: nowrap;
         padding: 7px 15px;
         background: #1e1e1e; }

@@ -68,6 +68,26 @@ body {
 }
 
 
+  .top-bar-section .dropdown li  a   {
+  	border-top: 1px solid #333;
+  }
+
+ 
+ .top-bar-section .dropdown li a.altli
+  {
+ 	background: #333;
+ }
+.top-bar-section .dropdown li a.altli:hover {
+	background: #000;
+}
+
+ .top-bar-section .dropdown li a .general {
+ 	position: absolute;
+ 	right: 10px;
+ }
+
+
+
 .intro{
 background: #f9f7f6;
 border-bottom: 1px solid #ddd;
@@ -250,8 +270,6 @@ border-radius: 100px;
 
 /* $card-person */
 /*****************/
-
-
 .card-person .card-abstract {
 	position: absolute;
 	bottom: 0;
@@ -260,13 +278,13 @@ border-radius: 100px;
 
 .card-person .card-content {
 	position: relative;
-	min-height: 135px;
+	min-height: 160px;
 }
 
 .card-content .card-floater {
 	position: absolute;
 	right: 15px;
-	bottom: 0;
+	bottom: -6px;
 
 }
 .person-skills {
@@ -491,10 +509,10 @@ f-line {
   margin-bottom:5px;
 }
 
-.card-person-title, .card-idea-title{
+.card-person-title {
   padding-top:0.9375em; 
   padding-bottom:0.9375em; 
-  margin-bottom: 0.9375em !important;
+  margin-bottom: 0.8em !important;
   border-bottom:1px solid #ddd; 
   background-color:#f6f6fa;
   }
@@ -740,49 +758,53 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 
 }
 
-.ticket {	
-margin: 10px 0; 
-min-height: 380px;
-	
-}
 
-.ticket .basic_info {
-	background: #f6f6fa;
-	border: 1px solid #fff;
-
-}
-
-/*.card-idea
- {
-	font-size: 14px;	
-	display: block;
-	line-height: 21px;
-}
-*/
+ .card-idea .card-idea-title {
+  
+  padding-top:0.5em; 
+  padding-bottom:0.1em; 
+  margin-bottom: 0.8em !important;
+  border-bottom:1px solid #ddd; 
+  background-color:#f6f6fa;
+  min-height: 100px;
+  height: 100px;
+  
+  }
 
 
-.card-idea .card-abstract {
+
+
+.card-idea {
 	/*font-size: 0.9em;*/
-	height: 220px;
+	min-height: 420px;
   
 
 }
+.card-idea .card-abstract {
+	min-height: 150px;
+
+}
+.card-idea .card-abstract p {
+		line-height: 1.4em;
+}
+
 .card-idea .card-content {
 	position: relative;
+	
 }
 
 
 .card-idea .card-content p {
 	font-size: 0.8em;
 	margin-bottom: 15px;
+
 }
 
-.card-idea .card-content .general {
-	font-size: 1.45em;
-	color: #794a93;
-	text-shadow: 0 -1px rgba(0,0,0,0.3);
-	float: right;
-	margin-right: 10px;
+
+.card-idea .stageinfo {
+	position: absolute;
+	top: 95px;
+
 }
 
 .card-idea .foundicon-graph {
@@ -790,7 +812,9 @@ min-height: 380px;
 	position: absolute;
 	margin: 0;
 	line-height: 0;
-	bottom: 8px;
+	top: 8px;
+	
+	color: #888;
 
 }
 
@@ -798,10 +822,49 @@ min-height: 380px;
 	padding-left: 25px;
 }
 
+.card-idea h5 {
+	display: table-cell;	
+	line-height: 1.4em;
+	vertical-align: middle;
+
+}
 .card-idea .card-idea-title small {
 	margin: 0;
-	position: relative;
+	position: absolute;
+	bottom: 0;
 }
+
+
+
+.card-idea .idea-info {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	display: block;
+}
+
+.card-idea .idea-info .general {
+	float: right;
+	margin-left: 10px;
+		font-size: 1.45em;
+	color: #999;
+	text-shadow: 0 -1px rgba(0,0,0,0.3);
+	
+}
+
+.card-idea .idea-info  .subinfo  {
+	background: #F6F6FA;
+	padding-bottom: 10px;
+	padding-top: 13px;
+	border-top: 1px solid #DDDDDD
+}
+
+
+.card-idea .idea-info hr {
+	line-height: 0;
+}
+
+
 
 
 .card-summary p{
@@ -809,16 +872,6 @@ min-height: 380px;
   margin-bottom: 10px;
 }
 
-.ticket-skills {
-	margin: 0 10px;
-	text-transform: uppercase;
-	
-}
-
-.ticket-skills li {
-	display: inline-block;
-	list-style-type: none;
-}
 
 
 .bottom-section {
@@ -1057,4 +1110,11 @@ h6.title-field {
 background-color: #f9f5f2;
 border-right: none;
 
+}
+
+/* #EDIT IDEA PAGE
+================================================== */
+
+textarea#IdeaTranslation_pitch {
+	min-height: 100px;
 }

@@ -106,12 +106,12 @@
                  </a>
 
                 <ul class="dropdown">
-                  <li><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><?php echo CHtml::encode(Yii::t('app','Profile')); ?></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>"><?php echo CHtml::encode(Yii::t('app','My projects')); ?></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo CHtml::encode(Yii::t('app','Create a new project')); ?></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><?php echo CHtml::encode(Yii::t('app','Settings')); ?></a></li>
-                  <li class="divider"></li>
-                  <li><a href="<?php echo Yii::app()->createUrl(Yii::app()->getModule('user')->logoutUrl[0]); ?>"><?php echo CHtml::encode(Yii::t('app','Logout')); ?></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><?php echo CHtml::encode(Yii::t('app','Profile')); ?><span class="general foundicon-smiley"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>"><?php echo CHtml::encode(Yii::t('app','My projects')); ?><span class="general foundicon-idea"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo CHtml::encode(Yii::t('app','Create a new project')); ?><span class="general foundicon-plus"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><?php echo CHtml::encode(Yii::t('app','Settings')); ?><span class="general foundicon-settings"></span></a></li>
+                  
+                  <li><a class="altli" href="<?php echo Yii::app()->createUrl(Yii::app()->getModule('user')->logoutUrl[0]); ?>"><?php echo CHtml::encode(Yii::t('app','Logout')); ?></a></li>
                 </ul>
 
               </li>
