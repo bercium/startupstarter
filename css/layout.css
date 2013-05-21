@@ -16,6 +16,11 @@ body {
 
 }
 
+.panel h1, .panel h2, .panel h3, .panel h4, .panel h5, .panel h6, .panel p  {
+	font-weight: 100;
+}
+
+
 .header-wrap {
 	background: url(../images/header-wrap_bg.png);
 	background-attachment: fixed;
@@ -127,13 +132,14 @@ margin-left: 20px;
 
 .exp_srch {
 	position: absolute;
-	 bottom:-43px;
+	 
 	 z-index: 0;
 	  border:1px solid #BBB;
-	  
+	  right: 30px;
 	    background-color:#FFF;
 	    display: block;
-	    color: #666 !important;
+	    
+
 
 }
 .exp_srch span { 
@@ -186,17 +192,43 @@ border-radius: 100px;
 
 
 
-.card-person, .card-idea, .sidebar {
+.card-person, .card-idea, .sidebar, .cwrap {
   /*margin-right:0.9375em; */
   padding-top: 0;
   background-color: #FFF;
   border: 1px solid #fff;
-  box-shadow: 0 0 0 1px #bbbbbb, 0 0 0 3px #ddd;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #bbbbbb, 0 0 0 3px #ddd, 0 0 0 4px #ddd;
   
 }
 
+.searchpanel .edit-header {
+	margin: 0;
+	padding: 0;
+}
+
+
+
 .searchpanel {
 	margin:50px auto;
+	/*background: url(../images/f_bg.png);*/
+	color: #fff !important;
+	border-radius: 10px !important;
+	border: none;
+	border: 1px solid #fff;
+	box-shadow: 0 0 0 1px #fff, 0 0 0 2px #bbbbbb, 0 0 0 3px #ddd, 0 0 0 4px #ddd;
+	
+	
+}
+
+.searchpanel .search_content {
+	background: #F9F7F6;
+	border: 1px solid #fff;
+	box-shadow: 0 0 0 1px #ddd;
+	padding: 30px 20px;
+	z-index: 1;
+	border-radius: 6px;
+	color: #794a93;
+	
 }
 
 
@@ -382,7 +414,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7072', end
 
 
 .edit-header{
-  background-color: #F6F6FA;
+  background-color: #f0f0f0;
   border: 1px solid #fff;
   box-shadow: 0 0 0 1px #bbbbbb, 0 0 0 3px #ddd;
   border-radius: 3px 3px 0 0;
@@ -393,6 +425,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7072', end
 	padding: 10px 0;
 	margin: 0;
 	color: #888;
+	font-weight: 100;
 
 }
 
@@ -429,6 +462,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7072', end
 
 
 
+f-line {
+	padding-left: 20px;
+	background: pink;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+}
 
 
 .edit-content{	
@@ -463,7 +503,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7072', end
   }
 
   .card-person-title {
-  	background: #f9f5f2;
+  	background: #F8F6F5;
   }
 
 div[onclick].panel,
@@ -538,7 +578,9 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 }
 
 .meta-title {
-	color: #83b25b !important;
+	/*color: #83b25b !important;*/
+	color: #555;
+	
 	text-transform: uppercase;	
 }
 
@@ -570,18 +612,89 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 
 
 .footer{
-  padding-bottom:50px; 
-  margin-top:40px;
-  padding-top:20px;
+  padding-bottom:13px; 
+  padding-top:35px;
+  margin-top:50px;
+  position: relative;
   /*border-top: 1px solid #999; */  
-  border-top: 1px solid #ddd;
-  background-color: #F9F7F6;}
-.footer-links .inline-list{
-  float:right;
+  border-top: 1px solid #b8b8b8;
+  background-color: #fff;
+  text-transform: uppercase;
+
+
+}
+
+.footer-links .inline-list {
+	float: right;
+}
+
+.footer a {
+	color: #555;
+	font-size: 0.8em;
+
+}
+
+.footer a:hover {
+	color: #111;
+}
+
+.footer img.logo-mini {
+	position: absolute;
+	transition: 0.3s;
+	opacity: 0.85;
+	top:-17px;
+
+}
+
+.footer img.logo-mini:hover {
+	opacity: 1;
 }
 
 
+/* #login PAGE
+================================================== */
+.loginbox {
+	margin-top: 50px;	
+}
 
+
+.loginbox .logo-mini {
+	float: left;
+	margin-left: 10px;
+	margin-top: 20px;
+
+}
+
+.loginbox h1 {
+	float: left;
+	text-align: center;
+	color: #46215A;
+}
+
+
+.loginbox .rememberMe input {
+	float: left;
+	margin-right: 10px;
+	
+
+}
+
+.loginbox .hint a {}
+
+.loginbox .button {
+	margin: 10px 0 0 0px;
+}
+.loginbox .button input
+ {
+ 	float: left;
+ 	background: none;
+ 	padding: 0;
+ 	margin: 0;
+ 	border: 0;
+ 	color: #fff;
+ 	text-shadow: none;
+
+ }
 
 
 
@@ -649,9 +762,7 @@ min-height: 380px;
 	line-height: 21px;
 }
 */
-.card-idea{
-	margin-top:20px;
-}
+
 
 .card-idea .card-abstract {
 	/*font-size: 0.9em;*/
@@ -671,7 +782,7 @@ min-height: 380px;
 
 .card-idea .card-content .general {
 	font-size: 1.45em;
-	color: #d6d6d6;
+	color: #794a93;
 	text-shadow: 0 -1px rgba(0,0,0,0.3);
 	float: right;
 	margin-right: 10px;

@@ -139,7 +139,10 @@
 <?php echo $content; ?>  
 <div class="footer">
 <div class="row">
-  <div class="small-12 large-8 push-4 columns footer-links">
+   <div class="small-12 large-3 columns">
+         <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" ><img class="logo-mini" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-mini.png" /></a>
+  </div>
+  <div class="small-12 large-9 columns footer-links">
     <ul class="inline-list">
       <li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo CHtml::encode(Yii::t('app','About us')); ?></a></li>
       <li><a href="<?php echo Yii::app()->createUrl("site/about_project"); ?>"><?php echo CHtml::encode(Yii::t('app','What is this')); ?></a></li>
@@ -150,9 +153,7 @@
     </ul>
     
   </div>
-  <div class="small-12 large-4 pull-8 columns last">
-    :)
-  </div>
+ 
 </div>
 </div>
 
@@ -197,6 +198,15 @@
   <?php echo CHtml::endForm(); ?>
   </div>
 </div>
-
+<!-- userreport.com snippet -->
+<script type="text/javascript">
+var _urq = _urq || [];
+_urq.push(['initSite', 'ff32f930-ced3-4aca-8673-23bef9c3ecc6']);
+(function() {
+var ur = document.createElement('script'); ur.type = 'text/javascript'; ur.async = true;
+ur.src = 'http://sdscdn.userreport.com/userreport.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
+})();
+</script> 
 </body>
 </html>
