@@ -7,8 +7,10 @@
           <a class="heart">&hearts;</a>
         </div><?php */ ?>
 		  </div>
-      <div class="stageinfo large-12 columns small-12"><small class="meta" data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>"><span class="general meta foundicon-graph" title="stage"></span><a class="stage"><?php echo $idea['status']; ?></a></small></div>
+      
 	  </div>
+    <div class="row stageinfo"><small class="meta" data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>"><span class="general meta foundicon-graph" title="stage"></span><a class="stage"><?php echo $idea['status']; ?></a></small></div>
+
       
     <div  class="row">
       <div class="large-12 small-12 columns card-content"  >
@@ -17,7 +19,7 @@
           <p>
             <?php echo trim_text($idea['pitch'], 240); ?>
           </p>
-          
+          <hr>
           <small class="meta idea-skills">
             <?php
 						  if (is_array($idea['candidate']) && count($idea['candidate']) > 0){
@@ -52,10 +54,10 @@
             ?> 
           </small>
         </div>
-
+        
 		  </div>
        <div class="idea-info">
-
+        
           <div class="large-12 columns"> 
               <?php 
               $i = 0;
