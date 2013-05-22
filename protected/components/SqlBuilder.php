@@ -137,7 +137,7 @@ class SqlBuilder {
 			-collab_id
 			-skill[type, id]*/
 
-			/*processing into table, field set #1 (candidate query):
+			/*processing data into arrays; set #1 (candidate query):
 			//there's more than one user_match row per idea... we'll group by user_match, to preserve best match
 			user_match
 				-country_id
@@ -154,7 +154,24 @@ class SqlBuilder {
 				-skillset_id
 				-skill_id*/
 
-			/*processing into sql sentence #1*/
+			/*processing data into arrays; set #2 (keywords query):
+			//there's more than one user_match row per idea... we'll group by user_match, to preserve best match
+			keywords
+				-country_id
+				-city_id
+				-available
+			idea
+				-status_id
+				-website
+				-video_link
+			user_collabpref
+				-collab_id
+			---($i rows)
+			user_skill
+				-skillset_id
+				-skill_id*/
+
+			/*processing into sql sentence #1 (idea data, grouped by candidates)*/
 			/*SELECT m.id AS match_id, i.id AS idea_id, m.country_id, m.city_id, m.available, 
 			i.status_id, i.website, i.video_link, 
 			c.collab_id,
@@ -165,13 +182,18 @@ class SqlBuilder {
 			LEFT JOIN `user_match` AS m ON im. 
 			LEFT JOIN `user_collabpref` AS c 
 			LEFT JOIN `user_skill` AS s{$i} 
-			WHERE i.status_id = {$status_id} 
+			WHERE im.type_id = 3 
+			AND (i.status_id = {$status_id} 
 			OR i.website = {$website} 
 			OR i.video_link = {$video_link} 
 			OR m.country_id = {$country_id} 
 			OR m.city_id = {$city_id} 
 			OR m.available = {$available} 
-			s{$i}.skill_id = {$skill_id} */
+			{loop} OR s{$i}.skill_id = {$skill_id} {/loop})
+			GROUP BY m.id*/
+
+			/*processing into sql sentence #2 (keywords)*/
+
 
 
 			$sql=	"SELECT m.id AS match_id, ".
