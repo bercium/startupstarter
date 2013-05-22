@@ -208,6 +208,7 @@ CREATE TABLE IF NOT EXISTS `idea_translation` (
   `idea_id` int(8) unsigned NOT NULL,
   `title` varchar(128) NOT NULL,
   `pitch` text NOT NULL,
+  `keywords` text NOT NULL,
   `description` text,
   `description_public` tinyint(1) NOT NULL,
   `tweetpitch` varchar(140) DEFAULT NULL,

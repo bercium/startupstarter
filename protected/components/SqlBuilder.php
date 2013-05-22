@@ -194,8 +194,6 @@ class SqlBuilder {
 
 			/*processing into sql sentence #2 (keywords)*/
 
-
-
 			$sql=	"SELECT m.id AS match_id, ".
 					"u.id AS id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, ".
 					"u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
