@@ -1,5 +1,0 @@
-#weekly notifications every monday at 8:00
-0 8 * * 1 sudo -u www-data ./PATH-TO-YII-APP/protected/yiic mailer weekly
-
-#monthly notifications every first day in a month at 8:00
-0 8 1 * * sudo -u www-data ./PATH-TO-YII-APP/protected/yiic mailer monthly
