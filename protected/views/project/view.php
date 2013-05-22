@@ -19,27 +19,31 @@ $idea = $data['idea'];
           
           if ($canEdit) { ?>
 					<div class="card-floater">
-						<a style="" href="<?php echo Yii::app()->createUrl("project/edit/".$idea['id']); ?>"><?php echo Yii::t('app', 'Edit project') ?></a>
+						<a style="" href="<?php echo Yii::app()->createUrl("project/edit/".$idea['id']); ?>"><span class="general foundicon-settings"></span> <?php echo Yii::t('app', 'Edit project') ?></a>
             <br />
-             <small class="meta"><?php echo Yii::t('app','viewed {n} time|viewed {n} times',array(30)); ?></small>
+            <br /><small class="meta right"><?php echo Yii::t('app','viewed {n} time|viewed {n} times',array(30)); ?></small>
 					</div>
 				<?php } ?>
 
-				<h1 class="alt"><?php echo $idea['title']; ?></h1>
+				<h1 class=""><?php echo $idea['title']; ?></h1>
 
 			</div>
 
-			<div class="large-12 small-12 columns panel languages" >
+			
         <?php if (count($idea['translation_other'])){ ?>
+      <div class="large-12 small-12 columns panel languages" >
         <p class="meta">Languages:
         <?php 
           
           foreach ($idea['translation_other'] as $trans){
             echo '<a href="#">'.$trans['language']."</a> | ";
           }
-        } ?>
-      </p>
-			</div>
+
+          ?>
+           </p>
+      </div>
+          <?php        } ?>
+     
 		</div>
 
 		<div  class="row">
@@ -115,7 +119,7 @@ $idea = $data['idea'];
            <div  class="idea-sidebar">
             <div class="small-12 columns panel">
               <?php if ($candidate['available_name']) { ?>
-                <p class="meta available-time button small secondary"><?php echo $candidate['available_name']; ?></p>
+                <p class="available-time button small secondary"><?php echo $candidate['available_name']; ?></p>
               <?php } ?>
              <h6><?php echo Yii::t('app','Candidate #{n}',$cnum); ?></h6>
               
@@ -126,7 +130,7 @@ $idea = $data['idea'];
                 foreach ($candidate['skillset'] as $skillset){
                   foreach ($skillset['skill'] as $skill){
                     ?>
-                    <span class="button tiny secondary meta_tags" data-tooltip title="<?php echo $skillset['skillset']; ?>"><?php echo $skill['skill']; ?></span>
+                    <span class="label radius default-light meta_tags" data-tooltip title="<?php echo $skillset['skillset']; ?>"><?php echo $skill['skill']; ?></span>
                     <?php
                   }
                 }
@@ -156,20 +160,20 @@ $idea = $data['idea'];
                 </small>
               <?php } ?>
 
-              
-              <?php	if ($candidate['city'] || $candidate['country']){ ?>
-              <br>
-                <small class="meta" data-tooltip title="<img src='<?php echo getGMap($candidate['country'],$candidate['city']); ?>'>">
-                <span class="general foundicon-location" title=""></span>
-              <a><?php
-                  echo $candidate['city']; 
-                  if ($candidate['city'] && $candidate['country']) echo ', '; 
-                  echo $candidate['country']; 
-                  ?></a>
-                <?php //echo $candidate['address']; ?>
-                </small>
-              <?php } ?>              
-              
+                <div class="location">
+                      <?php	if ($candidate['city'] || $candidate['country']){ ?>
+                      <br>
+                        <small class="meta" data-tooltip title="<img src='<?php echo getGMap($candidate['country'],$candidate['city']); ?>'>">
+                        
+                      <a><span class="general foundicon-location" title=""></span><?php
+                          echo $candidate['city']; 
+                          if ($candidate['city'] && $candidate['country']) echo ', '; 
+                          echo $candidate['country']; 
+                          ?></a>
+                        <?php //echo $candidate['address']; ?>
+                        </small>
+                      <?php } ?>              
+                </div>
             </div>
            </div>
           <?php } ?>

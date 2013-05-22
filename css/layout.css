@@ -153,20 +153,21 @@ margin-left: 20px;
 }
 
 .exp_srch {
-	position: absolute;
-	 
-	 z-index: 0;
-	  border:1px solid #BBB;
-	  right: 30px;
-	    background-color:#FFF;
+	border-left: 1px solid #ddd;
+	position: absolute;	 
+	 z-index: 0;	  
+	  right: 10px;
+	  top: -4px;
 	    display: block;
-	    
+	    padding:0 12px;
+
+
 
 
 }
 .exp_srch span { 
 position: absolute;
-right: -13px;
+right: 4px;
 color: #999;
 top:8px;
 background: #F9F7F6;
@@ -179,11 +180,9 @@ border-radius: 100px;
 .exp_srch a {
 	display: block;
 	text-align: center;
-	color: inherit;
-	height: 100%;
 	
-	
-	 padding:12px 20px 10px 10px ;
+	height: 100%;	
+	padding:12px 20px 10px 10px ;
 }
 
 .profile-info{
@@ -219,7 +218,8 @@ border-radius: 100px;
   padding-top: 0;
   background-color: #FFF;
   border: 1px solid #fff;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #bbbbbb, 0 0 0 3px #ddd, 0 0 0 4px #ddd;
+  /*box-shadow: 0 0 0 1px #fff, 0 0 0 2px #bbbbbb, 0 0 0 3px #ddd, 0 0 0 4px #ddd;*/
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #ccc, 0 2px 0 1px #bbb;
   
 }
 
@@ -243,7 +243,7 @@ border-radius: 100px;
 	background: #F9F7F6;
 	border: 1px solid #fff;
 	box-shadow: 0 0 0 1px #ddd;
-	padding: 30px 20px;
+	padding: 15px 20px 0 20px;
 	z-index: 1;
 	border-radius: 6px;
 	color: #794a93;
@@ -583,6 +583,27 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 
 /* #Special Styles
 ================================================== */
+.alt {
+  /*color: #a23134;*/
+  color: #af3f42;
+
+  text-decoration: none;
+  line-height: inherit; }
+  .alt:hover .alt.focus {
+    color: #af3f42; }
+
+
+
+.tooltip  {
+ box-shadow: 0 0 0 1px #fff, 0 0 2px #87878e,  0 0 3px 3px rgba(0,0,0,0.3);
+background: #f8f8fb;
+border-radius: 2px;
+ -webkit-border-radius: 2px;
+ color: #111; 
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
+  font-weight: 100;
+}
+
 .hide-text {
 	text-indent: 100%;
 	white-space: nowrap;
@@ -606,46 +627,32 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 .meta-title {
 	/*color: #83b25b !important;*/
 	color: #555;
-	
-	text-transform: uppercase;	
 }
-
-.panel .meta-title  {
-	text-shadow: -1px 1px #fff;
-
-}
-
-.heart {
-	font-size: 1.8em;
-	color: #e6a8ac; 
-}
-
-.heart-favorited,
-.heart:hover,
-.heart:active {
-	color: #e54d51;
-
-}
-
 
  button.custom, .button.custom {
     background-color: #f9f7f2;
     border-color: #dcd7c9;
-    color: #111; }
-
+    color: #111;
+}
 
 .label {
-	padding: 0.3em 0.8em 0.35em;
+	padding: 0.4em 0.8em 0.4em;
+}
+
+.label:hover {
+	cursor: help;
 }
 
 .label.default-light {
-	background-color: #E5E8EE;
-	border: 1px solid #ddd;
-	color: #333;
+	background-color: #8CA1C6;
+	/*box-shadow: 0 1px 0 0px #6d83a9;*/
+	
+	color: #fff;
 }
 
 .label.success-alt {
 	background-color: #97b27b;
+   /*	box-shadow: 0 1px 0 0px #6e8b50;*/
 }
 
 
@@ -1009,20 +1016,25 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 	margin: 15px 0;
 }
 
-.idea-details .title-field h1 {
-	font-size:1.6em;
-	font-weight: 400;
-	line-height: 1.2em;
-  margin-top:20px;
+
+.idea-details {
+	margin-top: 40px;
 }
 
-.idea-sidebar .panel {
+.idea-details .title-field h1 {
+	font-size:1.6em;
+	font-weight: 600;
+	line-height: 1.2em;
+  margin-top:5px;
+  margin-bottom: 5px;
+}
+
+.idea-sidebar .panel,
+.idea-panel {
 background-color: #e5e8ee;
 border: 1px solid #fff;
-box-shadow: 0 0 0 1px #ccc;
+box-shadow: 0 0 0 1px #ced3dc, 0 1px 0px 1px #a0abbe;
 border-radius: 2px;
-
-
 }
 
 p.title-field
@@ -1047,9 +1059,16 @@ h6.title-field {
 .idea-details .meta-field  p {
 	display: inline;
 	margin-right: 30px;
-
-
 }
+
+
+.idea-details .location {
+	position: absolute;
+	top: -10px;
+	left: 10px;
+}
+
+
 .idea-details .languages {
 	padding-top: 1.45em;
 	padding-bottom: 1.45em;
@@ -1073,6 +1092,12 @@ h6.title-field {
 	margin: 10px 0 0 0;
 }
 
+.idea-sidebar .person-skills span {
+	margin-bottom: 8px;
+}
+
+
+
  .idea-sidebar .available-time {
 	display: inline;
 	position: absolute;
@@ -1083,6 +1108,7 @@ h6.title-field {
 	font-size: 0.7em;	
 	font-weight: 600;
 	background: #fff;
+	border-radius: 0 0 0 6px;
 }
 
 .idea-sidebar .available-time:hover {
@@ -1092,8 +1118,8 @@ h6.title-field {
 
 .idea-sidebar h6 {
 	display: block;
-	margin-top: 8px;
-	text-transform: uppercase;
+	margin-top: 15px;
+	
 	font-weight: 400;
 }
 
@@ -1104,7 +1130,7 @@ h6.title-field {
 /* #PERSON PAGE
 ================================================== */
 .person-details{
-  margin-top:20px;
+  margin-top:40px;
 }
 .person-details .card-person h1{
 	font-size: 1.6875em;
@@ -1112,11 +1138,22 @@ h6.title-field {
 	margin: 0;
 }
 .person-details .card-person .card-person-title {
-	padding-bottom: 0.2em;
+	padding-bottom: 0.7em;
+	padding-top: 1em;
 }
+
+.person-details .card-person  img {
+height:100px; margin-right: 20px; float:left;
+}
+
+
 
 .person-details .card-person .meta-field {
 	display: block;
+}
+
+.person-details .card-person .meta-field span {
+	margin-bottom: 8px;
 }
 
 .person-details .card-person .card-floater {
@@ -1134,6 +1171,14 @@ background-color: #f9f5f2;
 border-right: none;
 
 }
+
+
+.idea-panel {
+	padding: 10px;
+	margin-bottom: 15px;
+}
+
+
 
 /* #EDIT IDEA PAGE
 ================================================== */

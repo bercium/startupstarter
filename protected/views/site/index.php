@@ -8,7 +8,7 @@
       <h1>With the <span>right team</span> any <span class="isc">idea</span> can change your life</h1>
 
       <div class="row">
-        <div class="large-7 small-12 columns <?php if (!Yii::app()->user->isGuest) echo "large-centered"; ?>">
+        <div class="large-7 small-12 columns <?php if (!Yii::app()->user->isGuest) echo ""; ?>">
           <p>
             <?php echo CHtml::encode(Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.')); ?>
           </p>
@@ -48,15 +48,15 @@
 
       
 		<div class="row">
-		  <div class="large-5 small-12 columns">
+		  <div class="large-4 small-12 columns">
     		<h4 class="meta-title"><?php echo CHtml::encode(Yii::t('app','Narrow your search to:')); ?> </h4>
       </div>
-		  <div class="large-7 small-12 columns">
-          <div  class="exp_srch fancy-box">
-      <a href="#" onclick="$('.advance').slideToggle('slow'); return false;">Advanced search <span class="general-enclosed foundicon-plus"></span></a>
+		  <div class="large-8 small-12 columns">
+          <div  class="exp_srch">
+      <a class="meta" href="#" onclick="$('.advance').slideToggle('slow'); return false;">Advanced search <span class="general-enclosed foundicon-down-arrow"></span></a>
     </div>
 
-			<div class="switch small round small-3" onclick="$('#filter_projects').toggle();$('#filter_people').toggle();">
+			<div class="switch large-3 left small round small-3" onclick="$('#filter_projects').toggle();$('#filter_people').toggle();">
         <input id="project_0" name="SearchForm[isProject]" type="radio" value="1" <?php if ($filter->isProject) echo 'checked="checked"' ?>>
         <label for="project_0" onclick=""><?php echo Yii::t('app','Projects'); ?></label>
 
