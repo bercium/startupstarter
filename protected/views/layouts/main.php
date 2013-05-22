@@ -8,26 +8,27 @@
   <meta name="viewport" content="width=device-width" />
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="language" content="<?php echo Yii::app()->language; ?>" />
-  <meta name="description" content="<?php echo CHtml::encode($this->pageDescription); ?>" />
+  <meta name="description" content="<?php echo CHtml::encode($this->pageDesc); ?>" />
 
   <!-- FB -->
   <meta property="og:title" content="<?php echo CHtml::encode(Yii::app()->name); ?>" />
-  <meta property="og:description" content="<?php echo CHtml::encode($this->pageDescription); ?>" />
+  <meta property="og:description" content="<?php echo CHtml::encode($this->pageDesc); ?>" />
   <meta property="og:image" content="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/fb-logo.png" />
   <meta property="og:url" content="http://www.cofinder.eu"/>
   
   <!-- M$ -->
   <meta name="application-name" content="<?php echo CHtml::encode(Yii::app()->name); ?>" />
-  <meta name="msapplication-tooltip" content="<?php echo CHtml::encode($this->pageDescription); ?>" />
+  <meta name="msapplication-tooltip" content="<?php echo CHtml::encode($this->pageDesc); ?>" />
   <meta name="msapplication-starturl" content="http://www.cofinder.eu" />
-  <meta name="msapplication-navbutton-color" content="#c00" />
+  <meta name="msapplication-navbutton-color" content="#83B25B" />
   
   <!-- Mobile icons -->
-  <link rel="apple-touch-icon" sizes="114x114" href="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/iphone-retina.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/ipad.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="<?php echo Yii::app()->request->baseUrl; ?>/images/iphone-retina.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="<?php echo Yii::app()->request->baseUrl; ?>/images/ipad.png">
   <link rel="apple-touch-icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/iphone.png">
-  <link rel="shortcut icon" type="image/x-icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/iphone.png">
-  <link rel="icon" type="image/ico" href="<?php echo Yii::app()->request->baseUrl; ?>/favicon.ico">
+		
+  <link rel="shortcut icon" type="image/x-icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/iphone.png">
+  <link rel="icon" type="image/ico" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico">
   
 
 	<title><?php echo CHtml::encode(Yii::app()->name); if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) echo " - ".$this->pageTitle; ?></title>

@@ -1,5 +1,6 @@
 <?php
-	$this->pageTitle = '';
+	$this->pageTitle = ''; // leave this empty
+	$this->pageDesc = '';
 ?>
 
 <?php /* ?><div id="intro1" style="background-position: 40% 0px; padding-bottom: 1px; padding-top: 30px;"><?php */ ?>

@@ -15,7 +15,7 @@ class Controller extends CController
 	 */
 	public $menu=array();
 	
-	public $pageDescription = '';
+	public $pageDesc = '';
 	
 	/**
 	 * @var array the breadcrumbs of the current page. The value of this property will
