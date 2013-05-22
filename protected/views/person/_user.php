@@ -42,7 +42,7 @@
               
               foreach ($skills as $skillset=>$skill){
                 ?>
-                <span class="button tiny secondary meta_tags" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
+                <span class="label radius success-alt meta_tags" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
                 <?php 
               }
           

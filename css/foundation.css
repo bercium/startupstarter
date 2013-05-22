@@ -1834,7 +1834,7 @@ form.custom {
   form.custom .custom.dropdown ul {
     position: absolute;
     width: auto;
-    /*display: none;*/
+    display: none;
     margin: 0;
     left: -1px;
     top: auto;

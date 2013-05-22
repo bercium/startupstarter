@@ -23,6 +23,8 @@ body {
 
 .header-wrap {
 	background: url(../images/header-wrap_bg.png);
+	background: #262925;
+	border-top: 3px solid #111;
 	background-attachment: fixed;
 }
 
@@ -52,7 +54,7 @@ body {
   background: none repeat scroll 0 0 #111111; 
   border-bottom: 1px solid #666; 
   box-shadow:0 2px 2px 0px rgba(0, 0, 0, .25); 
-  border-top: 1px solid;
+  border-top: 1px solid #333;
 }
 
 .top-bar-avatar{
@@ -277,6 +279,12 @@ border-radius: 100px;
 	position: absolute;
 	bottom: 0;
 	left: 10px;
+}
+
+.card-person .card-person-title img {
+	border: 1px solid #fff;
+	box-shadow: 0 0 0 1px #ddd;
+	border-radius: 2px; 
 }
 
 .card-person .card-content {
@@ -513,8 +521,8 @@ f-line {
 }
 
 .card-person-title {
-  padding-top:0.9375em; 
-  padding-bottom:0.9375em; 
+  padding-top:0.65em; 
+  padding-bottom:0.65em; 
   margin-bottom: 0.8em !important;
   border-bottom:1px solid #ddd; 
   background-color:#f6f6fa;
@@ -626,6 +634,19 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
     color: #111; }
 
 
+.label {
+	padding: 0.3em 0.8em 0.35em;
+}
+
+.label.default-light {
+	background-color: #E5E8EE;
+	border: 1px solid #ddd;
+	color: #333;
+}
+
+.label.success-alt {
+	background-color: #97b27b;
+}
 
 
 
@@ -996,7 +1017,11 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 }
 
 .idea-sidebar .panel {
-background-color: #f9f5f2;
+background-color: #e5e8ee;
+border: 1px solid #fff;
+box-shadow: 0 0 0 1px #ccc;
+border-radius: 2px;
+
 
 }
 
@@ -1055,12 +1080,13 @@ h6.title-field {
 	right:0;
 	border-top: none;
 	border-right: none;
-	font-size: 0.5em;	
-	background: inherit;
+	font-size: 0.7em;	
+	font-weight: 600;
+	background: #fff;
 }
 
 .idea-sidebar .available-time:hover {
-	background: inherit;
+	background: #fff;
 	cursor: inherit;
 }
 
