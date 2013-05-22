@@ -2,7 +2,7 @@
 
 class SiteController extends Controller
 {
-  public $layout="//layouts/view";
+  public $layout="//layouts/card";
   
 	/**
 	 * @return array action filters

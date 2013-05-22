@@ -8,18 +8,18 @@
   <meta name="viewport" content="width=device-width" />
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="language" content="<?php echo Yii::app()->language; ?>" />
-  <meta name="description" content="" />
+  <meta name="description" content="<?php echo CHtml::encode($this->pageDescription); ?>" />
 
   <!-- FB -->
-  <meta property="og:title" content="" />
-  <meta property="og:description" content="" />
+  <meta property="og:title" content="<?php echo CHtml::encode(Yii::app()->name); ?>" />
+  <meta property="og:description" content="<?php echo CHtml::encode($this->pageDescription); ?>" />
   <meta property="og:image" content="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/fb-logo.png" />
-  <meta property="og:url" content="http://"/>
+  <meta property="og:url" content="http://www.cofinder.eu"/>
   
   <!-- M$ -->
-  <meta name="application-name" content="" />
-  <meta name="msapplication-tooltip" content="" />
-  <meta name="msapplication-starturl" content="http://" />
+  <meta name="application-name" content="<?php echo CHtml::encode(Yii::app()->name); ?>" />
+  <meta name="msapplication-tooltip" content="<?php echo CHtml::encode($this->pageDescription); ?>" />
+  <meta name="msapplication-starturl" content="http://www.cofinder.eu" />
   <meta name="msapplication-navbutton-color" content="#c00" />
   
   <!-- Mobile icons -->
@@ -30,7 +30,7 @@
   <link rel="icon" type="image/ico" href="<?php echo Yii::app()->request->baseUrl; ?>/favicon.ico">
   
 
-	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+	<title><?php echo CHtml::encode(Yii::app()->name); if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) echo " - ".$this->pageTitle; ?></title>
 </head>
 
 <body>

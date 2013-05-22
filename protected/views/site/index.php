@@ -1,6 +1,11 @@
+<?php
+	$this->pageTitle = '';
+?>
 
 <?php /* ?><div id="intro1" style="background-position: 40% 0px; padding-bottom: 1px; padding-top: 30px;"><?php */ ?>
 <?php if (!Yii::app()->user->getState('fpi')){ ?>
+
+
 <div class="intro">
   <div  class="row" >
     <div class="large-12 small-12 columns" style="text-align: center;" >

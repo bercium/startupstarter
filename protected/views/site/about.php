@@ -1,10 +1,7 @@
 <?php
-/* @var $this SiteController */
-
-$this->pageTitle=Yii::app()->name;
+	$this->pageTitle = Yii::t('app','About');
 ?>
 
-<h1>About the project page</h1>
 <div class="row">
   <div class="large-8 small-12 columns">
     Naša vizija je postaviti prepoznavno platformo, ki bo predstavila start-up skupnost širši množici. V povezavi s coworking prostori pa želimo omogočiti navezovanje stikov in s tem sestavljanje uspešnih ekip, ki bodo sposobne pripeljati svoje projekte do realizacije. S tem bi radi rešili problem iskanja zanesljive ekipe v katerikoli fazi projekta ali zgolj ideje.

@@ -1,14 +1,6 @@
 <?php
-/* @var $this SiteController */
-/* @var $error array */
-
-$this->pageTitle=Yii::app()->name . ' - Error';
-$this->breadcrumbs=array(
-	'Error',
-);
+	$this->pageTitle = Yii::t('app','Error')." ".$code;
 ?>
-
-<h2>Error <?php echo $code; ?></h2>
 
 <div class="error">
 <?php echo CHtml::encode($message); ?>

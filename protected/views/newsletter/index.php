@@ -1,9 +1,7 @@
+<?php
+	$this->pageTitle = Yii::t('app','Newsletter');
+?>
 
-<div class="row">
-  <div class="small-12 large-12 columns edit-header">
-    <h3><?php echo Yii::t('app', 'Newsletter'); ?></h3>
-  </div>
-  <div class="small-12 large-12 columns panel edit-content">
 
     <?php if(Yii::app()->user->hasFlash('newsletter')){ ?>
     <div data-alert class="alert-box radius success">
@@ -53,5 +51,3 @@
 
     <?php echo CHtml::endForm(); ?>
   
-  </div>
-</div>

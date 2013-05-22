@@ -1,9 +1,6 @@
 <?php
-/* @var $this SiteController */
-//echo short_url_google("www.test.com");
-$this->pageTitle=Yii::app()->name . ' - CRUD List';
+	$this->pageTitle = Yii::t('app','Admin panel');
 ?>
-<h1>CRUD List</h1>
 
 <p>Tukaj naj bo seznam vseh povezav do avto zgeneriranih CRUDov:</p><br />
 

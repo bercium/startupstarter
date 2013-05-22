@@ -2,7 +2,7 @@
 
 class NewsletterController extends GxController {
 
-	public $layout="//layouts/view";
+	public $layout="//layouts/card";
 	
 	/**
 	 * @return array action filters
@@ -83,7 +83,7 @@ class NewsletterController extends GxController {
     $message->from = "bercium@gmail.com";
     Yii::app()->mail->send($message);
     
-    echo "OK";
+    //echo "OK";
 	}
 
 }

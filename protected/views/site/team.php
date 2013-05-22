@@ -1,7 +1,3 @@
 <?php
-/* @var $this SiteController */
-
-$this->pageTitle=Yii::app()->name;
+	$this->pageTitle = Yii::t('app','About us page');
 ?>
-
-<h1>About us page</h1>
