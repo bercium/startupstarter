@@ -137,25 +137,29 @@
 </div>
 
 <?php echo $content; ?>  
-<div class="footer">
-<div class="row">
-   <div class="small-12 large-3 columns">
-         <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" ><img class="logo-mini" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-mini.png" /></a>
-  </div>
-  <div class="small-12 large-9 columns footer-links">
-    <ul class="inline-list">
-      <li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo CHtml::encode(Yii::t('app','About us')); ?></a></li>
-      <li><a href="<?php echo Yii::app()->createUrl("site/about_project"); ?>"><?php echo CHtml::encode(Yii::t('app','What is this')); ?></a></li>
-      <?php if (Yii::app()->user->isAdmin()){ ?>
-      <li><a href="<?php echo Yii::app()->createUrl("site/list"); ?>"><?php echo CHtml::encode(Yii::t('app','Admin')); ?></a></li>
-      <?php } ?>
-      <li><a href="#"><?php echo CHtml::encode(Yii::t('app','Contact')); ?></a></li>
-    </ul>
-    
-  </div>
- 
-</div>
-</div>
+
+
+	<div class="footer">
+		<div class="row">
+			 <div class="small-12 large-3 columns">
+				 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
+					 <img class="logo-mini" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-mini.png" />
+				 </a>
+			</div>
+			<div class="small-12 large-9 columns footer-links">
+				<ul class="inline-list">
+					<li><a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo CHtml::encode(Yii::t('app','About us')); ?></a></li>
+					<li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo CHtml::encode(Yii::t('app','What is this')); ?></a></li>
+					<?php if (Yii::app()->user->isAdmin()){ ?>
+						<li><a href="<?php echo Yii::app()->createUrl("site/list"); ?>"><?php echo CHtml::encode(Yii::t('app','Admin')); ?></a></li>
+					<?php } ?>
+					<li><a href="#"><?php echo CHtml::encode(Yii::t('app','Contact')); ?></a></li>
+				</ul>
+
+			</div>
+
+		</div>
+	</div>
 
 </div>
  

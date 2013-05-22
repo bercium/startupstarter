@@ -15,6 +15,7 @@
 
 	<div class="pagination-centered">
 		<small class="hide-for-small"><a href="<?php echo Yii::app()->createUrl("person/recent/1"); ?>"  class="right">show all <span class="general-enclosed foundicon-right-arrow"></span></a></small>
+		
 		<ul class="pagination hide-for-small">
 			<?php if ($page > 1){ ?>
 			<li class="arrow"><a class="button small success" href="#" onclick="recentUsersPage('<?php echo Yii::app()->createUrl("person/recent",array("id"=>$page-1)); ?>'); return false;">&laquo;</a></li>
@@ -25,13 +26,12 @@
 			<?php if ($page < $maxPage){ ?>
 			<li class="arrow"><a class="button small success" href="#" onclick="recentUsersPage('<?php echo Yii::app()->createUrl("person/recent",array("id"=>$page+1)); ?>'); return false;">&raquo;</a></li>
 			<?php }else{ ?>
-      <li class="arrow unavailable"><a class="button small success disabled">&laquo;</a></li>
+      <li class="arrow unavailable"><a class="button small success disabled">&raquo;</a></li>
 			<?php } ?>
-			
-			
 		</ul>
-
 		
 	</div>
 
-	<small class="show-for-small">&nbsp;&nbsp;&nbsp;<a href="<?php echo Yii::app()->createUrl("person/recent/1"); ?>"  class="button large success expand success">show all</a></small>
+	<small class="show-for-small">&
+		<a href="<?php echo Yii::app()->createUrl("person/recent/1"); ?>"  class="button large success expand success">show all</a>
+	</small>

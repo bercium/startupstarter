@@ -782,6 +782,9 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 
 }
 
+ .card-idea {
+	 margin-top:20px;
+  }
 
  .card-idea .card-idea-title {
   padding-top:0.5em; 
