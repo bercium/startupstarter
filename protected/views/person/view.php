@@ -46,7 +46,7 @@ $user = $data['user'];
 					</div>
 				<?php } ?>
 
-				<img src="<?php echo avatar_image($user['avatar_link'], $user['id'], false); ?>" style="height:100px; margin-right: 10px; float:left;" />
+				<img src="<?php echo avatar_image($user['avatar_link'], $user['id'], false); ?>" />
 				<h1><?php echo $user['name'] . " " . $user['surname']; ?></h1>
 				<p>
 					<small class="meta">
@@ -93,7 +93,7 @@ $user = $data['user'];
           foreach ($user['skillset'] as $skillset){
             foreach ($skillset['skill'] as $skill){
               ?>
-              <span class="button tiny secondary meta_tags" data-tooltip title="<?php echo $skillset['skillset']; ?>"><?php echo $skill['skill']; ?></span>
+              <span class="label radius success-alt meta_tags" data-tooltip title="<?php echo $skillset['skillset']; ?>"><?php echo $skill['skill']; ?></span>
               <?php
             }
           }
@@ -105,7 +105,7 @@ $user = $data['user'];
 						<?php
 					}*/
 					?>
-				</p><hr>
+				</p>
 					<?php if (count($user['collabpref']) > 0) { ?>
 					<p class="meta">
 						<span class="meta-field">
@@ -143,14 +143,14 @@ $user = $data['user'];
 				<?php } ?>
 			</div>
 			
-			<div class="large-6 small-12 columns panel"  >
+			<div class="large-6 small-12 columns"  >
 				<?php if (count($user['num_of_rows']) > 0) { ?>
 				<p class="meta"><span class="meta-field"><?php echo Yii::t('app', 'Involved in ') ?><a><?php echo Yii::t('app', '{n} project|{n} projects', array($user['num_of_rows'])) ?></a>:</span>
 				
 				<?php
 				if (is_array($user['idea']))
 					foreach ($user['idea'] as $idea) {
-						 ?><span class="general foundicon-idea alt" ></span><a class="alt" href="<?php echo Yii::app()->createUrl("project/" . $idea['id']); ?>"><?php echo $idea['title']; ?></a><br><?php 
+						 ?><div class="idea-panel"><span class="general foundicon-idea meta" ></span><a class="" href="<?php echo Yii::app()->createUrl("project/" . $idea['id']); ?>"><?php echo $idea['title']; ?></a></div><?php 
 					}
 				?>
 				<?php } ?>

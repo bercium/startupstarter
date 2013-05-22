@@ -978,7 +978,7 @@ a {
 
   text-decoration: none;
   line-height: inherit; }
-  .alt:hover, a:focus {
+  .alt:hover .alt.focus {
     color: #af3f42; }
  
 
@@ -3704,14 +3704,8 @@ table {
   padding: 0.5em;
   max-width: 85%;
   left: 50%;
-  width: 100%;
-  color: #83b25b;
-  text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
-  font-weight: 600;
-  box-shadow: 0 0 0 1px #fff, 0 0 2px #87878e,  0 0 3px 3px rgba(0,0,0,0.3);
-  background: #f8f8fb;
-  -webkit-border-radius: 3px;
-  border-radius: 3px; }
+    width: 100%;  
+  }
  /* .tooltip > .nub {
     display: block;
     left: 5px;

@@ -18,13 +18,13 @@
 		
 		<ul class="pagination hide-for-small">
 			<?php if ($page > 1){ ?>
-			<li class="arrow"><a class="button small" href="#" onclick="recentProjectsPage('<?php echo Yii::app()->createUrl("project/recent",array("id"=>$page-1)); ?>'); return false;">&laquo;</a></li>
+			<li class="arrow"><a class="button secondary small" href="#" onclick="recentProjectsPage('<?php echo Yii::app()->createUrl("project/recent",array("id"=>$page-1)); ?>'); return false;">&laquo;</a></li>
 			<?php }else{ ?>
       <li class="arrow unavailable"><a class="button small  disabled">&laquo;</a></li>
 			<?php } ?>
 			
 			<?php if ($page < $maxPage){ ?>
-			<li class="arrow"><a class="button small" href="#" onclick="recentProjectsPage('<?php echo Yii::app()->createUrl("project/recent",array("id"=>$page+1)); ?>'); return false;">&raquo;</a></li>
+			<li class="arrow"><a class="button secondary small" href="#" onclick="recentProjectsPage('<?php echo Yii::app()->createUrl("project/recent",array("id"=>$page+1)); ?>'); return false;">&raquo;</a></li>
 			<?php }else{ ?>
       <li class="arrow unavailable"><a class="button small  disabled">&raquo;</a></li>
 			<?php } ?>
