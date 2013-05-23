@@ -33,16 +33,20 @@ class Controller extends CController
   
     $cs->registerCssFile($baseUrl.'/css/foundation.css');
     $cs->registerCssFile($baseUrl.'/css/normalize.css');
+    //$cs->registerCssFile($baseUrl.'/css/ie8-grid-foundation-4.css');
     $cs->registerCssFile($baseUrl.'/css/layout.css');
         $cs->registerCssFile($baseUrl.'/css/general_enclosed_foundicons.css');
     $cs->registerCssFile($baseUrl.'/css/general_enclosed_foundicons_ie7.css');
     $cs->registerCssFile($baseUrl.'/css/general_foundicons.css');
     $cs->registerCssFile($baseUrl.'/css/general_foundicons_ie7.css');
+    
+
 
 
     $cs->registerCoreScript('jquery',CClientScript::POS_END);
 
 		$cs->registerScriptFile($baseUrl.'/js/vendor/custom.modernizr.js');
+        $cs->registerScriptFile($baseUrl.'/js/respond.min.js');
     
     $cs->registerScriptFile($baseUrl.'/js/foundation.min.js',CClientScript::POS_END);
     //$cs->registerScriptFile($baseUrl.'/js/foundation/foundation.dropdown.js',CClientScript::POS_END); // temp untill it's fixed in minified version
