@@ -971,19 +971,6 @@ a {
   a img {
     border: none; }
 
-/* Default Link Styles */
-.alt {
-  /*color: #a23134;*/
-  color: #af3f42;
-
-  text-decoration: none;
-  line-height: inherit; }
-  .alt:hover .alt.focus {
-    color: #af3f42; }
- 
-
-
-
 /* Default paragraph styles */
 p {
   font-family: inherit;
