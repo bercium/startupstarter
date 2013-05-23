@@ -16,7 +16,7 @@
       <a href="<?php echo Yii::app()->createUrl("project/edit/".$idea['id']); ?>" >
         <div class="idea-each alpha omega" >
           <span class="alt"><?php echo $idea['title']; ?></span>
-          <small class="meta"><?php echo Yii::t("app","viewed {n} time|viewed {n} times",array(3)); ?></small>
+          <small class="meta"><?php echo Yii::t("app","viewed {n} time|viewed {n} times",array($idea['num_of_clicks'])); ?></small>
         </div>
         </a>
       <?php } ?>

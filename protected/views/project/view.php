@@ -5,7 +5,7 @@ $idea = $data['idea'];
 ?>
 <div class="row idea-details">
 	<div class="large-12 small-12 columns radius panel card-idea">
-
+		
 		<div class="row">
 			<div class="large-12 small-12 columns title-field" >
 				<?php 
@@ -19,9 +19,9 @@ $idea = $data['idea'];
           
           if ($canEdit) { ?>
 					<div class="card-floater">
-						<a style="" href="<?php echo Yii::app()->createUrl("project/edit/".$idea['id']); ?>"><span class="general foundicon-settings"></span> <?php echo Yii::t('app', 'Edit project') ?></a>
+						<a style="" href="<?php echo Yii::app()->createUrl("project/edit",array("id"=>$idea['id'])); ?>"><span class="general foundicon-settings"></span> <?php echo Yii::t('app', 'Edit project') ?></a>
             <br />
-            <br /><small class="meta right"><?php echo Yii::t('app','viewed {n} time|viewed {n} times',array(30)); ?></small>
+            <br /><small class="meta right"><?php echo Yii::t('app','viewed {n} time|viewed {n} times',array($idea['num_of_clicks'])); ?></small>
 					</div>
 				<?php } ?>
 
@@ -82,7 +82,7 @@ $idea = $data['idea'];
       </p>
       <p>
         <span class="meta">
-        <?php echo Yii::t('app','Last updated').": ".$idea['date_updated']; ?>
+        <?php echo Yii::t('app','Last updated').": ".Yii::app()->dateFormatter->formatDateTime(strtotime($idea['date_updated']),"long",null); ?>
         </span>
       </p>
       </div>
@@ -109,7 +109,7 @@ $idea = $data['idea'];
         </p>
         <hr>
         <?php if (count($idea['candidate']) > 0){ ?>
-        <h6 class="meta-title title-field"><?php echo Yii::t('app','Looking for'); ?>: </h6>
+        <h6 class="meta-title title-field"><?php echo Yii::t('app','Looking for {n} candidate|Looking for {n} candidates',array(count($idea['candidate']))); ?></h6>
 
           <?php
           $cnum = 0;
@@ -121,7 +121,7 @@ $idea = $data['idea'];
               <?php if ($candidate['available_name']) { ?>
                 <p class="available-time button small secondary"><?php echo $candidate['available_name']; ?></p>
               <?php } ?>
-             <h6><?php echo Yii::t('app','Candidate #{n}',$cnum); ?></h6>
+             <?php /* ?><h6><?php echo Yii::t('app','Candidate #{n}',$cnum); ?></h6><?php */ ?>
               
 
              <small class="meta person-skills">
