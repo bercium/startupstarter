@@ -58,19 +58,27 @@
     		<h4 class="meta-title"><?php echo CHtml::encode(Yii::t('app','Narrow your search to:')); ?> </h4>
       </div>
 		  <div class="large-8 small-12 columns">
-          <div  class="exp_srch">
-      <a class="meta" href="#" onclick="$('.advance').slideToggle('slow'); return false;">Advanced search <span class="general-enclosed foundicon-down-arrow"></span></a>
-    </div>
+				<div  class="exp_srch">
+					<a class="meta" href="#" onclick="$('.advance').slideToggle('slow'); return false;">Advanced search <span class="general-enclosed foundicon-down-arrow"></span></a>
+				</div>
 
-			<div class="switch large-3 left small round small-3" onclick="$('#filter_projects').toggle();$('#filter_people').toggle();">
-        <input id="project_0" name="SearchForm[isProject]" type="radio" value="1" <?php if ($filter->isProject) echo 'checked="checked"' ?>>
-        <label for="project_0" onclick=""><?php echo Yii::t('app','Projects'); ?></label>
+				<div class="switch large-3 left small round small-3" onclick="$('.filter_projects').toggle();$('.filter_people').toggle();">
+					<input id="project_0" name="SearchForm[isProject]" type="radio" value="1" <?php if ($filter->isProject) echo 'checked="checked"' ?>>
+					<label for="project_0" onclick=""><?php echo Yii::t('app','Projects'); ?></label>
 
-        <input id="project_1" name="SearchForm[isProject]" type="radio" value="0" <?php if (!$filter->isProject) echo 'checked="checked"' ?>>
-        <label for="project_1" onclick=""><?php echo Yii::t('app','People') ?></label>
-        <span></span>
+					<input id="project_1" name="SearchForm[isProject]" type="radio" value="0" <?php if (!$filter->isProject) echo 'checked="checked"' ?>>
+					<label for="project_1" onclick=""><?php echo Yii::t('app','People') ?></label>
+					<span></span>
+				</div>
       </div>
-      </div>
+			
+			<div class="small-12 columns filter_projects" <?php if (!$filter->isProject) echo 'style="display:none"'; ?>>
+				<?php //echo CHtml::activeTextField($translation,"title"); ?>
+			</div>
+			<div class="small-12 columns filter_people" <?php if ($filter->isProject) echo 'style="display:none"'; ?>>
+				
+			</div>
+			
 		</div>
     
     <div class="advance">
@@ -78,7 +86,7 @@
       <hr>
 
       
-      <div id="filter_projects" <?php if (!$filter->isProject) echo 'style="display:none"'; ?>>
+      <div class="filter_projects" <?php if (!$filter->isProject) echo 'style="display:none"'; ?>>
          <div class="large-3 small-6 columns">
 		    <label>search by keywords:</label>
 		    <input type="text" placeholder="keywords">
@@ -100,7 +108,7 @@
         </div>
       </div>
       
-      <div id="filter_people" <?php if ($filter->isProject) echo 'style="display:none"'; ?>>
+      <div class="filter_people" <?php if ($filter->isProject) echo 'style="display:none"'; ?>>
         <div class="large-3 small-6 columns">
         <label for="photos"><input type="checkbox" style="display: none;" id="has-photos"><span class="custom checkbox"></span> Photos (44)</label>
         <label for="video"><input type="checkbox" style="display: none;" id="has-video" checked=""><span class="custom checkbox checked"></span> Videos (34)</label>

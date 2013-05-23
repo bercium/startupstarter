@@ -45,7 +45,7 @@ class Controller extends CController
 		$cs->registerScriptFile($baseUrl.'/js/vendor/custom.modernizr.js');
     
     $cs->registerScriptFile($baseUrl.'/js/foundation.min.js',CClientScript::POS_END);
-    $cs->registerScriptFile($baseUrl.'/js/foundation/foundation.dropdown.js',CClientScript::POS_END); // temp untill it's fixed in minified version
+    //$cs->registerScriptFile($baseUrl.'/js/foundation/foundation.dropdown.js',CClientScript::POS_END); // temp untill it's fixed in minified version
     $cs->registerScriptFile($baseUrl.'/js/jquery.infinitescroll.min.js',CClientScript::POS_END);
 		
     //$cs->registerScriptFile($baseUrl.'/js/jquery.parallax-1.1.3.js',CClientScript::POS_END);
