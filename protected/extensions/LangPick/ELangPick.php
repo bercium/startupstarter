@@ -58,16 +58,18 @@
         /**
          * 
          */
-        public static function getLanguageList(){
+        public static function getLanguageList($combo = false){
           $languages = self::getLanguages();
           $systemLanguages = Language::model()->findAll();
           
           $result = array();
           foreach ($systemLanguages as $sysLang){
-            if (in_array($sysLang->language_code,$languages)) 
-                $result[] = array("id"=>$sysLang->id, 
+            if (in_array($sysLang->language_code,$languages)){ 
+              if ($combo) $result[$sysLang->id] = $sysLang->native_name;
+              else $result[] = array("id"=>$sysLang->id, 
                                   "iso"=>$sysLang->language_code, 
                                   "native_name"=>$sysLang->native_name);
+            }
           }
           
           return $result;

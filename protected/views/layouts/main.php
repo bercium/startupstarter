@@ -90,6 +90,7 @@
                 
                 <ul class="dropdown">
                   <li><a href="<?php echo Yii::app()->createUrl("newsletter"); ?>"><?php echo CHtml::encode(Yii::t('app','Newsletter')); ?></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("translation"); ?>"><?php echo CHtml::encode(Yii::t('app','Translations')); ?></a></li>
                   <li><a href="<?php echo Yii::app()->createUrl("backendAuditTrail"); ?>"><?php echo CHtml::encode(Yii::t('app','Logs')); ?></a></li>
                 </ul>
                 
