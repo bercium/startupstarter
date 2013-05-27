@@ -24,7 +24,7 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("index",'error','logout','about','team'),
+        'actions'=>array("index",'error','logout','about'/*,'team'*/),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -87,6 +87,7 @@ class SiteController extends Controller
 
 	public function actionAbout()
 	{
+    $this->layout="//layouts/none";
 		$sqlbuilder = new SqlBuilder;
 		$filter = array( 'idea_id' => 1); // our idea ID
 		$filter['lang'] = Yii::app()->language;

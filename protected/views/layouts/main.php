@@ -42,18 +42,18 @@
 
 <div class="container">
 
-<div class="header-wrap">
-<div class="row header" >
-  <div class="small-12 large-12" >
-    <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
-      <h1>
-       <img class="logo" alt="" title="" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" />
-				co<span>finder</span>
-      </h1>
-    </a>
-  </div>
-</div>
-</div><!-- end header-wrap -->
+  <div class="header-wrap show-for-small">
+    <div class="row header">
+      <div class="small-12 large-12" >
+        <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
+          <h1>
+           <img class="logo" alt="" title="" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" />
+            co<span>finder</span>
+          </h1>
+        </a>
+      </div>
+    </div>
+  </div><!-- end header-wrap -->
   
   <div class="sticky top-bar-holder" >
       <div class="row">
@@ -62,6 +62,8 @@
           <ul class="title-area">
             <!-- Title Area -->
              <li class="name ">
+               <div class="hide-for-small"><img class="logo" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png" /></div>
+               
                <?php if (!Yii::app()->user->isGuest){ ?>
                 <div class="show-for-small" style="color:#fff; margin-left:8px">
                 <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
@@ -76,10 +78,11 @@
             <!-- Left Nav Section -->
             <ul class="left">
               <li class="divider"></li>
-              <li class="<?php echo isMenuItemActive("team"); ?>">
+              <?php /* ?><li class="<?php echo isMenuItemActive("team"); ?>">
                 <a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo CHtml::encode(Yii::t('app','Our team')); ?></a>
               </li>
               <li class="divider"></li>
+              <?php */ ?>
               <li class="<?php echo isMenuItemActive("about"); ?>">
                 <a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo CHtml::encode(Yii::t('app','About project')); ?></a>
               </li>
@@ -154,8 +157,8 @@
 			</div>
 			<div class="small-12 large-9 columns footer-links">
 				<ul class="inline-list">
-					<li><a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo CHtml::encode(Yii::t('app','About us')); ?></a></li>
-					<li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo CHtml::encode(Yii::t('app','What is this')); ?></a></li>
+					<?php /* ?><li><a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo CHtml::encode(Yii::t('app','Our team')); ?></a></li> <?php */ ?>
+					<li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo CHtml::encode(Yii::t('app','About project')); ?></a></li>
 					<?php if (Yii::app()->user->isAdmin()){ ?>
 						<li><a href="<?php echo Yii::app()->createUrl("site/list"); ?>"><?php echo CHtml::encode(Yii::t('app','Admin')); ?></a></li>
 					<?php } ?>
