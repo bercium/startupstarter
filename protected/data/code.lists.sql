@@ -575,7 +575,7 @@ CREATE TABLE IF NOT EXISTS `collabpref` (
 
 INSERT INTO `collabpref` (`id`, `name`) VALUES
 (1, 'Paid work'),
-(2, 'Sweat equety'),
+(2, 'Sweat equity'),
 (3, 'Equal investors'),
 (4, 'Sole investor');
 
