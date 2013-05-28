@@ -71,16 +71,38 @@
 					<span></span>
 				</div>
       </div>
-			
-			<div class="small-12 columns filter_projects" <?php if (!$filter->isProject) echo 'style="display:none"'; ?>>
-				<?php //echo CHtml::activeTextField($translation,"title"); ?>
-			</div>
-			<div class="small-12 columns filter_people" <?php if ($filter->isProject) echo 'style="display:none"'; ?>>
+		</div>
+
+		<div class="row filter_projects" <?php if (!$filter->isProject) echo 'style="display:none"'; ?>>
+			<div class="small-12 large-3 columns">
+				<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
+				
+				<?php echo CHtml::activedropDownList($filter,'collabPref', 
+              //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
+              CHtml::listData(Collabpref::model()->findAllAttributes(null, true),"id","name")
+							, array('empty' => '&nbsp;',"class"=>"small-12 large-3")); ?>				
 				
 			</div>
-			
+			<div class="small-12 large-2 columns">
+					<?php echo CHtml::submitButton(Yii::t("app","Search"),
+								array('class'=>"button small radius")
+						); ?>
+      </div>
 		</div>
-    
+		
+		<div class="row filter_people" <?php if ($filter->isProject) echo 'style="display:none"'; ?>>
+			<div class="small-12 columns filter_projects" <?php if (!$filter->isProject) echo 'style="display:none"'; ?>>
+				<?php echo CHtml::activeTextField($filter,"collabPref"); ?>
+				
+			</div>
+				<div class="small-12 large- columns">
+					<?php echo CHtml::submitButton(Yii::t("app","Search"),
+							array('class'=>"button small radius")
+					); ?>
+	      </div>
+		</div>
+		
+		
     <div class="advance">
 		 <div class="row">
       <hr>

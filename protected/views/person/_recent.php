@@ -32,6 +32,6 @@
 		
 	</div>
 
-	<small class="show-for-small">&
+	<small class="show-for-small">
 		<a href="<?php echo Yii::app()->createUrl("person/recent/1"); ?>"  class="button large success expand success">show all</a>
 	</small>
