@@ -55,14 +55,18 @@
     </div>
   </div><!-- end header-wrap -->
   
-  <div class="sticky top-bar-holder" >
+  <div class="top-bar-holder sticky" >
       <div class="row">
         <div class="small-12 large-12">
           <nav class="top-bar contain-to-grid">
           <ul class="title-area">
             <!-- Title Area -->
              <li class="name ">
-               <div class="hide-for-small"><img class="logo" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png" /></div>
+               <div class="hide-for-small">
+								 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
+									<img class="logo" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png" />
+								 </a>
+							 </div>
                
                <?php if (!Yii::app()->user->isGuest){ ?>
                 <div class="show-for-small" style="color:#fff; margin-left:8px">
@@ -159,10 +163,11 @@
 				<ul class="inline-list">
 					<?php /* ?><li><a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo CHtml::encode(Yii::t('app','Our team')); ?></a></li> <?php */ ?>
 					<li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo CHtml::encode(Yii::t('app','About project')); ?></a></li>
-					<?php if (Yii::app()->user->isAdmin()){ ?>
+					<?php if (false && Yii::app()->user->isAdmin()){ ?>
 						<li><a href="<?php echo Yii::app()->createUrl("site/list"); ?>"><?php echo CHtml::encode(Yii::t('app','Admin')); ?></a></li>
 					<?php } ?>
-					<li><a href="#"><?php echo CHtml::encode(Yii::t('app','Contact')); ?></a></li>
+					<li><a href="<?php echo Yii::app()->createUrl("site/terms"); ?>"><?php echo CHtml::encode(Yii::t('app','Terms of service')); ?></a></li>
+					<li><a href="#" onclick="contact(this);"><?php echo CHtml::encode(Yii::t('app','Contact')); ?></a></li>
 				</ul>
 
 			</div>

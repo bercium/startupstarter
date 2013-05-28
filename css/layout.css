@@ -659,7 +659,7 @@ border-radius: 2px;
 
 .footer{
   padding-bottom:13px; 
-  padding-top:35px;
+  padding-top:30px;
   margin-top:50px;
   position: relative;
   /*border-top: 1px solid #999; */  
@@ -672,6 +672,7 @@ border-radius: 2px;
 
 .footer-links .inline-list {
 	float: right;
+	margin-top: 1em;
 }
 
 .footer a {
@@ -685,11 +686,10 @@ border-radius: 2px;
 }
 
 .footer img.logo-mini {
-	position: absolute;
+	/*position: absolute;*/
 	transition: 0.3s;
 	opacity: 0.85;
-	top:-17px;
-
+	/*top:-17px;*/
 }
 
 .footer img.logo-mini:hover {

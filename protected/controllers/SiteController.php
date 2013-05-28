@@ -24,7 +24,7 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("index",'error','logout','about'/*,'team'*/),
+        'actions'=>array("index",'error','logout','about','terms'/*,'team'*/),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -104,6 +104,11 @@ class SiteController extends Controller
 	{
 		$this->render('team');
 	}
+	
+	public function actionTerms()
+	{
+		$this->render('terms');
+	}	
 
 	/**
 	 * This is the action to handle external exceptions.

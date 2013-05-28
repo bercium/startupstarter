@@ -21,8 +21,6 @@
       </label>
       <?php echo CHtml::activeTextField($user,"email", array("class"=>"small secondary readonly","disabled"=>true)); ?>
       
-    
-      
       <?php echo CHtml::activeLabelEx($user,'language_id'); ?>
       <?php echo CHtml::activedropDownList($user,'language_id', 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
