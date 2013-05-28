@@ -69,10 +69,10 @@
       
          
       <?php echo CHtml::activeLabelEx($match,'country_id'); ?>
-      <?php echo CHtml::activedropDownList($match, 'country_id', GxHtml::listDataEx(Country::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;')); ?>
+      <?php echo CHtml::activedropDownList($match, 'country_id', GxHtml::listDataEx(Country::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
 
       <?php echo CHtml::activeLabelEx($match,'city_id'); ?>
-      <?php echo CHtml::activedropDownList($match, 'city_id', GxHtml::listDataEx(City::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;')); ?>
+      <?php echo CHtml::activedropDownList($match, 'city_id', GxHtml::listDataEx(City::model()->findAllAttributes(null, true,array('order'=>'name'))), array('empty' => '&nbsp;','style'=>'display:none')); ?>
 
       <?php echo CHtml::activeLabelEx($user,'address'); ?>
       <?php echo CHtml::activetextField($user, 'address', array('maxlength' => 128)); ?>
@@ -131,7 +131,7 @@
 
 <div class="row">
   <div class="small-12 large-12 columns edit-header">
-    <h3><?php echo Yii::t('app', 'Profile detail'); ?></h3>
+    <h3><?php echo Yii::t('app', 'Profile details'); ?></h3>
   </div>
   <div class="small-12 large-12 columns panel edit-content">
 
@@ -143,49 +143,73 @@
     <?php } ?>
     
     <?php echo CHtml::beginForm('','post',array('class'=>"custom  large-6 small-12")); ?>
-    
+    <p>
+			
     <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
     
     <?php echo CHtml::activeLabelEx($match,'available'); ?>
-    <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listDataEx(Available::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;')); ?>
+    <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listDataEx(Available::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
     
-    
-    
-    <br /><br /><br /><br /><br /><br /><br />
-    
-    
-<?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-    'name'=>'city',
-    'source'=>'function( request, response ) {
-            var term = request.term;
+    <?php 
+		echo Yii::t('app','Collaboration preferences');
+		foreach ($data['user']['collabpref'] as $colabpref){ ?>
+			<label for="CollabPref_<?php echo $colabpref['id']; ?>"><?php echo CHtml::checkBox('CollabPref['.$colabpref['id'].']',$colabpref['active'],array('style'=>'display:none')); ?>
+       <?php echo $colabpref['name'] ?></label>
+ 			 <?php
+		}
+		
+		?>
 
-            if ( term in cache ) {
-              response( cache[ term ] );
-              return;
-            }
+		<br />
+		
+    <?php echo Yii::t('app','Extra information'); ?>
+		<span class="general foundicon-flag" data-tooltip title="<?php echo Yii::t('msg',"Add some extra information like what you can offer..."); ?>"></span>
+		
+    <?php echo CHtml::textArea("extraInformation"); ?>
+		</p>
+		
+		
+		<p>
+		<?php echo Yii::t('app','Skills'); ?>	
+		<span class="general foundicon-flag" onclick="$('#skillset').val(4);" data-tooltip title="<?php echo Yii::t('msg',"Add as many relevant skills you. Bla bla blaaa"); ?>"></span>
+    
+    
+		<?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+				'name'=>'city',
+				'source'=>'function( request, response ) {
+								var term = request.term;
 
-            lastXhr = $.getJSON( "search.php", request, function( data, status, xhr ) {
-              cache[ term ] = data;
+								if ( term in cache ) {
+									response( cache[ term ] );
+									return;
+								}
 
-              if ( xhr === lastXhr ) {
-                response( data );
-              }
-            });
-          }',
-    // additional javascript options for the autocomplete plugin
-    'options'=>array(
-        'minLength'=>'2',
-    ),
-    'htmlOptions'=>array(
-        'style'=>'',
-    ),
-));
- ?>
+								lastXhr = $.getJSON( "search.php", request, function( data, status, xhr ) {
+									cache[ term ] = data;
+
+									if ( xhr === lastXhr ) {
+										response( data );
+									}
+								});
+							}',
+				// additional javascript options for the autocomplete plugin
+				'options'=>array(
+						'minLength'=>'2',
+				),
+				'htmlOptions'=>array(
+						'style'=>'',
+				),
+		));
+		 ?>
  
-    
-      Collaboration<br />
-      Skills<br />
-      Extra data<br />
+    <?php echo Yii::t('app','country_id'); ?>
+    <?php echo CHtml::dropDownList('skillset', '', Skillset::model()->findAllAttributes(null, true), array('empty' => '&nbsp;','style'=>'display:nonet')); ?>
+		
+	  </p>
+		
+		<script>
+			$("#skillset").val(3);
+		</script>
 
       <?php echo CHtml::submitButton(Yii::t("app","Save"),
             array('class'=>"button small success radius")
@@ -194,3 +218,6 @@
   </div>
 </div>
 
+<?php 
+	Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user'); 
+?>

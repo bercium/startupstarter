@@ -17,7 +17,7 @@
     
       <?php //echo CHtml::activeLabelEx($user,'email'); ?>
       <label for="UserEdit_email"><?php echo Yii::t('app',"Email"); ?>
-        <span data-tooltip title="<?php echo Yii::t('msg',"Email can't be changed at this time."); ?>">?</span>
+        <span class="general foundicon-flag" data-tooltip title="<?php echo Yii::t('msg',"Email can't be changed at this time."); ?>"></span>
       </label>
       <?php echo CHtml::activeTextField($user,"email", array("class"=>"small secondary readonly","disabled"=>true)); ?>
       
