@@ -5,7 +5,7 @@
     </div>
     <?php } ?>    
 
-   <?php echo CHtml::beginForm('','post',array('class'=>"custom")); ?>
+   <?php echo CHtml::beginForm('','post',array('class'=>"custom formidea")); ?>
 
     <?php echo CHtml::errorSummary($idea,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
     <?php echo CHtml::errorSummary($translation,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>

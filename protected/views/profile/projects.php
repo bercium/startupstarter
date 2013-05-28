@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row myprojects">
   <div class="small-12 columns edit-header">
     <div class="edit-floater">
       <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo Yii::t('app','Create new') ?></a>
@@ -6,13 +6,13 @@
 		
     <h3><?php echo Yii::t('app', 'My projects'); ?></h3>
   </div>
-  <div class="small-12 columns panel edit-content">
+  <div class="small-12 columns edit-content">
     
 <?php
 foreach($user['idea'] AS $key => $idea){
 	if ($idea['type_id'] != 1) continue;
 ?>
-    <div class="row panel">
+    <div class="row panel idea-panel">
 
         <div class="edit-floater">
           
@@ -39,17 +39,17 @@ foreach($user['idea'] AS $key => $idea){
   </div>
 </div>
 
-<div class="row">
+<div class="row myprojects">
   <div class="small-12 columns edit-header">
     <h3><?php echo Yii::t('app', 'Projects I\'m member of'); ?></h3>
   </div>
-  <div class="small-12 columns panel edit-content">
+  <div class="small-12 columns edit-content">
     
 <?php
 foreach($user['idea'] AS $key => $idea){
 	if ($idea['type_id'] != 2) continue;
 ?>
-    <div class="row panel">
+    <div class="row idea-panel">
 
         <div class="edit-floater">
           

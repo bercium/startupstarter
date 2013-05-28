@@ -155,13 +155,14 @@
 	<div class="footer">
 		<div class="row">
 			 <div class="small-12 large-3 columns">
+
 				 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
 					 <img class="logo-mini" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-mini.png" />
 				 </a>
 			</div>
 			<div class="small-12 large-9 columns footer-links">
 				<ul class="inline-list">
-					<?php /* ?><li><a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo CHtml::encode(Yii::t('app','Our team')); ?></a></li> <?php */ ?>
+          <?php /* ?><li><a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo CHtml::encode(Yii::t('app','Our team')); ?></a></li> <?php */ ?>
 					<li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo CHtml::encode(Yii::t('app','About project')); ?></a></li>
 					<?php if (false && Yii::app()->user->isAdmin()){ ?>
 						<li><a href="<?php echo Yii::app()->createUrl("site/list"); ?>"><?php echo CHtml::encode(Yii::t('app','Admin')); ?></a></li>

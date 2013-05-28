@@ -505,6 +505,9 @@ f-line {
   background: #fff;
 }
 
+
+.edit-content > .panel {}
+
 .edit-floater{
   float:right;
   margin-top:15px;
@@ -591,6 +594,18 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
   line-height: inherit; }
   .alt:hover .alt.focus {
     color: #af3f42; }
+
+.help {
+    background: none repeat scroll 0 0 #E5E8EE;
+    border-radius: 100px 100px 100px 100px;
+    box-shadow: 0 0 0 1px #FFFFFF, 0 0 0 2px #DDDDDD, 0 2px 2px rgba(0, 0, 0, 0.4);
+    color: #888888;
+    font-weight: 600;
+    line-height: 0;
+    padding: 2px 6px;
+    font-size: 12px;
+
+}
 
 
 
@@ -789,9 +804,6 @@ border-radius: 2px;
 
 }
 
- .card-idea {
-	 margin-top:20px;
-  }
 
  .card-idea .card-idea-title {
   padding-top:0.5em; 
@@ -1181,11 +1193,61 @@ border-right: none;
 	margin-bottom: 15px;
 }
 
+/* #MY PROJECT PAGE
+================================================== */
 
+.myprojects .edit-header {
+	border-radius: 4px;
+	background: #fff;
+	margin-bottom: 15px;
+}
+
+.myprojects .edit-content  {
+	background: none;
+	box-shadow: none;
+	border: none;
+}
+
+.myprojects .edit-content .idea-panel {
+
+	margin-bottom: 15px;
+	margin-top: 0;
+}
+
+.myprojects .edit-content .panel {
+	margin-top: 0 !important;
+}
+
+.myprojects .edit-content .idea-panel h5 {
+	font-weight: 100;
+	line-height: 1.2em;
+	margin-bottom: 30px;
+	color: inherit;
+}
+
+.myprojects .edit-content .edit-floater {
+	padding: 10px 10px 0 20px;
+	
+	box-shadow: -1px 0  rgba(255,255,255,0.3);
+	border-left: 1px solid #ddd; 
+}
 
 /* #EDIT IDEA PAGE
 ================================================== */
+.formidea label {
+	margin-top: 50px;
+	margin-bottom: 10px;
+}
+.formidea label:first-child {
+	margin-top: 0px;
+}
+
 
 textarea#IdeaTranslation_pitch {
 	min-height: 100px;
 }
+
+textarea#IdeaTranslation_description {
+	min-height: 400px;
+}
+
