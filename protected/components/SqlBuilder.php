@@ -53,6 +53,11 @@ class SqlBuilder {
 		    case "recent_user":
 		        return $this->user("recent", $filter);
 		        break;
+		    //search function
+		    case "search_idea":
+		    	return $this->idea("search", $filter);
+		    case "search_user":
+		    	return $this->user("search", $filter);
 		    //idea related data
 		    case "idea":
 		    	if(isset($filter['idea_id'])){
@@ -127,85 +132,200 @@ class SqlBuilder {
 					"GROUP BY idea_click_id";
 
 		} elseif( $type == 'search' ){
-			/*taking in from $filter[] and setting up variables/arrays:
-			-keywords
-			skill[type, id]:
-				if skillset
-					-type, skillset_id
-				elseif skill
-					-type, skillset_id, skill id
-			extra:
-				-website
-				-video_link
-			-country_id
-			-city_id
-			-available
-			-collab_id
-			*/
 
-			/*processing data into sql;
-			//there's more than one user_match row per idea... we'll group by user_match, to preserve best match
+			/*Taking in from $filter[] and processing data into sql;
+			There's more than one user_match row per idea... We'll group by user_match, to preserve best match
 			
-			user_match
-				-country_id
-				-city_id
-				-available
-			idea
+			Input data structure (word is table, -field is $key)
+
+			idea_keyword ---($k rows) -> $filter['keyword'][N]['key'];
+				-keyword
+
+			idea -> $filter['extra'];
 				-status_id
 				-website
 				-video_link
-			user_collabpref
+
+			user_match -> $filter['$key'];
+				-country_id
+				-city_id
+				-available
+
+			user_collabpref ---($c rows) -> $filter['collabpref'][N]['key'];
 				-collab_id
-			---($i rows)
-			user_skill
-				-skillset_id
-				-skill_id*/
+
+			user_skill  ---($ss rows) -> $filter['skill'][N]['key'];
+				-id
+				-type=1
+
+			user_skill  ---($s rows) -> $filter['skill'][N]['key'];
+				-id
+				-type=2*/
+
+			/*Data preprocessing*/
+			foreach($filter['skill'] AS $key => $value){
+				if($value['type'] == '1')
+					$filter['skillset'][] = $value['id'];
+				if($value['type'] == '2')
+					$filter['skillset_skill'][] = $value['id'];
+			}
 
 			/*processing into sql sentence #1 (idea data, grouped by candidates)*/
-			/*
-			SELECT m.id AS match_id, i.id AS idea_id, m.country_id, m.city_id, m.available, 
-			i.status_id, i.website, i.video_link, 
-			c.collab_id, 
+			
+			$sql = "SELECT m.id AS match_id, i.id AS idea_id, ";
 
-			{if type=='skillset'}
-				{loop} //skillset
-					uss{$ss}.skillset_id AS ss{$ss}_id, 
-					ss{$ss}.name AS ss{$ss}_name, 
-				{/loop}
-			{elseif type=='skill'}
-				{loop} //skill
-					us{$s}.skill_id AS s{$s}_id, 
-					ss{$s}.name AS ss{$s}_name, 
-				{/loop}
-			{/if}
-			{loop} //keyword
-				k{$k}.id AS k{$k}_id, 
-				k{$k}.keyword AS k{$k}_keyword, 
-			{/loop}
+			/*FIELDS TO PULL*/
 
-			'200' AS status 
+			//idea_keyword (skillset_skill) AS ss
+			if( isset($filter['keyword']) && count($filter['keyword']) > 0 ){
+				$k = -1;
+				foreach($filter['skillset'] AS $key => $value){
+					if(is_numeric($value)){
+						$k++;
+						$sql.= "k{$k}.id AS k{$k}_id, 
+								k{$k}.keyword AS k{$k}_keyword, ";
+					}
+				}
+			}
 
-			FROM `idea` AS i 
-			LEFT JOIN `idea_member` AS im ON 
-				i.id = im.idea_id 
-				AND im.type_id = 3 
-			LEFT JOIN `user_match` AS m ON im.id = i.match_id 
-			LEFT JOIN `user_collabpref` AS c ON c.id = i.collab_id
+			//idea AS i
+			if(isset($filter['extra']){
+				$sql.=	"i.status_id, 
+						i.website, 
+						i.video_link, ";
+			}
+
+			//user_match AS m
+			if(isset($filter['country_id']) AND is_numeric($filter['country_id'])){
+				$sql.=	"m.country_id, ";
+			}
+			if(isset($filter['city_id']) AND is_numeric($filter['city_id'])){
+				$sql.=	"m.city_id, ";
+			}
+			if(isset($filter['available']) AND is_numeric($filter['available'])){
+				$sql.=	"m.available, ";
+			}
+
+			//user_collabpref AS c
+			if( isset($filter['collabpref']) && count($filter['collabpref']) > 0 ){
+				$c = -1;
+				foreach($filter['collabpref'] AS $key => $value){
+					if(is_numeric($value)){
+						$c++;
+						$sql.= "c{$c}.id AS c{$c}_id, 
+								c{$c}.name AS c{$c}_name, ":
+					}
+				}
+			}
+
+			//user_skill (skillset) AS s
+			if( isset($filter['skillset']) && count($filter['skillset']) > 0 ){
+				$s = -1;
+				foreach($filter['skillset'] AS $key => $value){
+					if(is_numeric($value)){
+						$s++;
+						$sql.= "s{$s}.id AS s{$s}_id, 
+								s{$s}.name AS s{$s}_name, ";
+					}
+				}
+			}
+			//user_skill (skillset_skill) AS ss
+			if( isset($filter['skillset_skill']) && count($filter['skillset_skill']) > 0 ){
+				$ss = -1;
+				foreach($filter['skillset_skill'] AS $key => $value){
+					if(is_numeric($value)){
+						$ss++;
+						$sql.= "ss{$ss}.id AS ss{$ss}_id, 
+								ss{$ss}.name AS ss{$ss}_name, 
+								sss{$ss}.id AS sss{$ss}_id, 
+								sss{$ss}.name AS sss{$ss}_name, ";
+					}
+				}
+			}
+
+			$sql. = "'200' AS status 
+
+					FROM `idea` AS i 
+					LEFT JOIN `idea_member` AS im ON 
+						i.id = im.idea_id 
+						AND im.type_id = 3 
+					LEFT JOIN `user_match` AS m ON im.id = i.match_id ";
+
+			/*TABLES TO LEFT JOIN*/
+
+			//idea_keyword (skillset_skill) AS ss
+			if( isset($filter['keyword']) && count($filter['keyword']) > 0 ){
+				$k = -1;
+				foreach($filter['skillset'] AS $key => $value){
+					if(is_numeric($value)){
+						$k++;
+						$sql.= "k{$k}.id AS k{$k}_id, 
+								k{$k}.keyword AS k{$k}_keyword, ";
+					}
+				}
+			}
+
+			//idea AS i
+			if(isset($filter['extra']){
+				$sql.=	"i.status_id, 
+						i.website, 
+						i.video_link, ";
+			}
+
+			//user_match AS m
+			if(isset($filter['country_id']) AND is_numeric($filter['country_id'])){
+				$sql.=	"m.country_id, ";
+			}
+			if(isset($filter['city_id']) AND is_numeric($filter['city_id'])){
+				$sql.=	"m.city_id, ";
+			}
+			if(isset($filter['available']) AND is_numeric($filter['available'])){
+				$sql.=	"m.available, ";
+			}
+
+			//user_collabpref AS c
+			if( isset($filter['collabpref']) && count($filter['collabpref']) > 0 ){
+				$c = -1;
+				foreach($filter['collabpref'] AS $key => $value){
+					if(is_numeric($value)){
+						$c++;
+						$sql.= "LEFT JOIN `user_collabpref` AS c{$c} ON 
+								c{$c}.id = i.collab_id 
+								AND c{$c}.id = {$value}";
+					}
+				}
+			}
+
+			//user_skill (skillset) AS s
+			if( isset($filter['skillset']) && count($filter['skillset']) > 0 ){
+				for($s = 0; $ss <= count($filter['skillset']); $s++){
+					$sql.= "s{$s}.id AS s{$s}_id, 
+							s{$s}.name AS s{$s}_name, ";
+				}
+			}
+			//user_skill (skillset_skill) AS ss
+			if( isset($filter['skillset_skill']) && count($filter['skillset_skill']) > 0 ){
+				for($ss = 0; $ss <= count($filter['skillset_skill']); $ss++){
+					$sql.= "ss{$ss}.id AS ss{$ss}_id, 
+							ss{$ss}.name AS ss{$ss}_name, 
+							sss{$ss}.id AS sss{$ss}_id, 
+							sss{$ss}.name AS sss{$ss}_name, ";
+				}
+			}
 
 			{loop} //skillset
-				LEFT JOIN `user_skill` AS uss{$ss} ON 
-					uss{$ss}.match_id = m.id 
-					AND uss{$ss}.skillset_id = {$ss}{$ss_id}
-				LEFT JOIN `skillset` AS ss{$ss} ON uss{$ss}.skillset_id = ss{$ss}.id 
+				LEFT JOIN `user_skill` AS us{$s} ON 
+					us{$s}.match_id = m.id 
+					AND us{$s}.skillset_id = {$value} 
+				LEFT JOIN `skillset` AS s{$s} ON us{$s}.skillset_id = s{$s}.id 
 			{/loop}
-			{loop} //skill
-				LEFT JOIN `skillset_skill` AS us{$j} ON us{$i}.match_id = m.id 
-				LEFT JOIN `user_skill` AS us{$j} ON us{$i}.match_id = m.id 
-				LEFT JOIN `skill` AS s{$i} ON s{$i}.id = us.skill_id 
-			{/loop}
-			{loop} //keyword
-				LEFT JOIN `idea_translation` AS t{$k} ON t{$i}.idea_id = i.id 
-				LEFT JOIN `idea_keyword` AS k{$k} ON k{$k}.translation_id = t.id 
+			{loop} //skillset_skill
+				LEFT JOIN `user_skill` AS us{$j} ON us{$i}.match_id = m.id
+				LEFT JOIN `skillset_skill` AS us{$j} ON 
+					us{$i}.match_id = m.id 
+					AND 
+				LEFT JOIN `skillset` AS ss{$i} ON ss{$i}.id = us.skillset_id  
+				LEFT JOIN `skill` AS sss{$i} ON sss{$i}.id = us.skill_id 
 			{/loop}
 
 			WHERE i.status_id = {$status_id} 
@@ -216,7 +336,7 @@ class SqlBuilder {
 				OR m.available = {$available} 
 				
 			GROUP BY m.id
-			*/
+			
 			//ALI NAJ GRUPIRAM RAJE PO IDEA_ID 
 				//-> ČE PREDPOSTAVIMO, DA SE DA IZMENJEVATI ZNANJA MED RAZLIČNIMI KANDIDATI?
 
