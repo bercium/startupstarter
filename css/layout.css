@@ -522,10 +522,17 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 .top-bar,
 .top-bar-holder,
 .top-bar-section li a:not(.button) {
-	background: #221E1D;
+	background: #fff;
 	box-shadow: none;	
 }
 
+.top-bar-section > ul > .divider {
+    border-color: -moz-use-text-color #ddd -moz-use-text-color #fff; 
+ }
+
+.top-bar-holder {
+	border-bottom: 3px solid #ddd;
+}
 
 
 .section-container section, .section-container .section, .section-container.auto section, .section-container.auto .section {
@@ -535,7 +542,7 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 }
 
 .top-bar-section ul li > a {
-	color: #AEAB9D;
+	color: #221E1D;
 }
 
 .panel h1, .panel h2, .panel h3, .panel h4, .panel h5, .panel h6, .panel p {
@@ -545,7 +552,7 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
  .section-container section.active .title,
     .section-container .section.active .title, .section-container.auto section.active .title,
     .section-container.auto .section.active .title {
-      background: #fff; }
+      background: #ddd; }
 
 
 
@@ -564,12 +571,12 @@ button.small, .button.small {
 
 .alt {
   /*color: #a23134;*/
-  color: #af3f42;
+  color: #D75734;
 
   text-decoration: none;
   line-height: inherit; }
   .alt:hover .alt.focus {
-    color: #af3f42; }
+    color: #eb6f4c; }
 
 
 
@@ -601,7 +608,7 @@ border-radius: 2px;
 }
 
 .meta {
-		color: #D75734 !important;
+		color: #888 !important;
 }
 
 
@@ -620,14 +627,14 @@ border-radius: 2px;
 }
 
 .label.default-light {
-	background-color: #8CA1C6;
+	background-color: #6B87BB;
 	/*box-shadow: 0 1px 0 0px #6d83a9;*/
 	
 	color: #fff;
 }
 
 .label.success-alt {
-	background-color: #97b27b;
+	background-color: #83B25B;
    /*	box-shadow: 0 1px 0 0px #6e8b50;*/
 }
 
@@ -1009,8 +1016,8 @@ border-radius: 2px;
 .idea-sidebar .panel,
 .idea-panel {
 background-color: #e5e8ee;
-border: 1px solid #fff;
-box-shadow: 0 0 0 1px #ced3dc, 0 1px 0px 1px #a0abbe;
+border: 1px solid #ced3dc;
+
 border-radius: 2px;
 }
 

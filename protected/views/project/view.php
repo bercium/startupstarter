@@ -119,7 +119,7 @@ $idea = $data['idea'];
            <div  class="idea-sidebar">
             <div class="small-12 columns panel">
               <?php if ($candidate['available_name']) { ?>
-                <p class="available-time button small secondary"><?php echo $candidate['available_name']; ?></p>
+                <p class="available-time button small"><?php echo $candidate['available_name']; ?></p>
               <?php } ?>
              <?php /* ?><h6><?php echo Yii::t('app','Candidate #{n}',$cnum); ?></h6><?php */ ?>
               
