@@ -87,6 +87,7 @@
       
    
       <hr>
+			<p>
       <a href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My custom links"); ?> +</a>
       <div class="addLinks" style="display:none">
 
@@ -108,7 +109,7 @@
               <?php echo $form->labelEx($link,'url'); ?>
               <?php echo $form->textField($link,'url'); ?>
 
-              <?php echo CHtml::submitButton(Yii::t("app","Add"),
+              <?php echo CHtml::submitButton(Yii::t("app","Add link"),
                     array('class'=>"button small success radius",
                         'onclick'=>'addLink(\''.Yii::app()->createUrl("profile/addLink").'\');')
                 ); ?>
@@ -116,6 +117,7 @@
           <?php $this->endWidget(); ?>        
         
       </div>
+			</p>
       <div class="linkList">
         <?php foreach ($data['user']['link'] as $link){ ?>
         <div data-alert class="alert-box radius secondary" id="link_div_<?php echo $link['id']; ?>">
@@ -168,12 +170,91 @@
     <?php echo CHtml::textArea("extraInformation"); ?>
 		</p>
 		
+      <?php echo CHtml::submitButton(Yii::t("app","Save"),
+            array('class'=>"button small success radius")
+        ); ?>
+
+	<?php echo CHtml::endForm(); ?>		
 		
+		<hr>
 		<p>
-		<?php echo Yii::t('app','Skills'); ?>	
-		<span class="general foundicon-flag" onclick="$('#skillset').val(4);" data-tooltip title="<?php echo Yii::t('msg',"Add as many relevant skills you. Bla bla blaaa"); ?>"></span>
+   <a href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My skills"); ?> +</a>
+    <div class="addLinks" style="display:none">
+
     
-    
+<script>
+	var cache = {};
+  $(function() {
+    $( "#skill" ).autocomplete({
+      //minLength: 1,
+			delay:300,
+      source: function( request, response ) {
+        var term = request.term;
+        if ( term in cache ) {
+          response( cache[ term ] );
+          return;
+        }
+ 
+        $.getJSON( "<?php echo Yii::app()->createUrl("profile/sugestSkill",array("ajax"=>1)) ?>", request, function( data, status, xhr ) {
+					if (data.status == 0){
+						cache[ term ] = data.data;
+						response( data.data );
+					}else alert(data.message);
+        });
+      },
+			//source:projects,
+      focus: function( event, ui ) {
+        $( "#project" ).val( ui.item.skill );
+        return false;
+      },
+      select: function( event, ui ) {
+        $( "#skill" ).val( ui.item.skill );
+				$('#skillset').val(ui.item.skillset_id); 
+				Foundation.libs.forms.refresh_custom_select($('#skillset'),true);
+				
+        $( "#project-id" ).val( ui.item.id );
+ 
+        return false;
+      }
+    })
+    .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+      return $( "<li>" )
+        .append( "<a>" + item.skill + "<br><small>" + item.skillset + "</small></a>" )
+        .appendTo( ul );
+    };
+  });
+  </script>		
+	
+		<form class="custom">
+	
+		<?php echo Yii::t('app','Skill'); ?>	
+		<span class="general foundicon-flag" data-tooltip title="<?php echo Yii::t('msg',"Add as many relevant skills you. Bla bla blaaa"); ?>"></span>
+    <?php echo CHtml::textField("skill","", array('maxlength' => 128)); ?>
+	
+ 
+    <?php echo Yii::t('app','Skill group'); ?>
+    <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAll(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+	
+		<?php echo CHtml::submitButton(Yii::t("app","Add skill"),
+                    array('class'=>"button small success radius",
+                        'onclick'=>'addLink(\''.Yii::app()->createUrl("profile/addLink").'\');')
+                ); ?>
+		</form>
+	
+		</div>
+	
+		<?php foreach ($data['user']['skillset'] as $skillset){ ?>
+		<?php foreach ($skillset['skill'] as $skill){ ?>
+			<span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $skill['id']; ?>">
+          <?php echo $skill['skill']; ?>
+          <a href="#" class="close" onclick="removeSkill(<?php echo $skill['id']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteSkill"); ?>')">&times;</a>
+	   </span>
+		<?php }} ?>
+		
+	  </p>
+
+	
+		
 		<?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
 				'name'=>'city',
 				'source'=>'function( request, response ) {
@@ -196,25 +277,9 @@
 				'options'=>array(
 						'minLength'=>'2',
 				),
-				'htmlOptions'=>array(
-						'style'=>'',
-				),
 		));
-		 ?>
- 
-    <?php echo Yii::t('app','country_id'); ?>
-    <?php echo CHtml::dropDownList('skillset', '', Skillset::model()->findAllAttributes(null, true), array('empty' => '&nbsp;','style'=>'display:nonet')); ?>
-		
-	  </p>
-		
-		<script>
-			$("#skillset").val(3);
-		</script>
-
-      <?php echo CHtml::submitButton(Yii::t("app","Save"),
-            array('class'=>"button small success radius")
-        ); ?>
-    <?php echo CHtml::endForm(); ?>
+		?>
+    
   </div>
 </div>
 
