@@ -127,18 +127,25 @@ class SqlBuilder {
 					"GROUP BY idea_click_id";
 
 		} elseif( $type == 'search' ){
-			/*taking in from $filter[]:
-			-keywords (FOR FUTURE)
-			-status_id
-			-extra
+			/*taking in from $filter[] and setting up variables/arrays:
+			-keywords
+			skill[type, id]:
+				if skillset
+					-type, skillset_id
+				elseif skill
+					-type, skillset_id, skill id
+			extra:
+				-website
+				-video_link
 			-country_id
 			-city_id
 			-available
 			-collab_id
-			-skill[type, id]*/
+			*/
 
-			/*processing data into arrays; set #1 (candidate query):
+			/*processing data into sql;
 			//there's more than one user_match row per idea... we'll group by user_match, to preserve best match
+			
 			user_match
 				-country_id
 				-city_id
@@ -154,58 +161,72 @@ class SqlBuilder {
 				-skillset_id
 				-skill_id*/
 
-			/*processing data into arrays; set #2 (keywords query):
-			//there's more than one user_match row per idea... we'll group by user_match, to preserve best match
-			keywords
-				-country_id
-				-city_id
-				-available
-			idea
-				-status_id
-				-website
-				-video_link
-			user_collabpref
-				-collab_id
-			---($i rows)
-			user_skill
-				-skillset_id
-				-skill_id*/
-
 			/*processing into sql sentence #1 (idea data, grouped by candidates)*/
-			/*SELECT m.id AS match_id, i.id AS idea_id, m.country_id, m.city_id, m.available, 
+			/*
+			SELECT m.id AS match_id, i.id AS idea_id, m.country_id, m.city_id, m.available, 
 			i.status_id, i.website, i.video_link, 
-			c.collab_id,
-			s{$i}.skillset_id AS s{$i}skillset_id,
-			s{$i}.skill_id AS s{$i}skill_id 
+			c.collab_id, 
+
+			{if type=='skillset'}
+				{loop} //skillset
+					uss{$ss}.skillset_id AS ss{$ss}_id, 
+					ss{$ss}.name AS ss{$ss}_name, 
+				{/loop}
+			{elseif type=='skill'}
+				{loop} //skill
+					us{$s}.skill_id AS s{$s}_id, 
+					ss{$s}.name AS ss{$s}_name, 
+				{/loop}
+			{/if}
+			{loop} //keyword
+				k{$k}.id AS k{$k}_id, 
+				k{$k}.keyword AS k{$k}_keyword, 
+			{/loop}
+
+			'200' AS status 
+
 			FROM `idea` AS i 
-			LEFT JOIN `idea_member` AS im ON i.id = im.idea_id 
-			LEFT JOIN `user_match` AS m ON im. 
-			LEFT JOIN `user_collabpref` AS c 
-			LEFT JOIN `user_skill` AS s{$i} 
-			WHERE im.type_id = 3 
-			AND (i.status_id = {$status_id} 
-			OR i.website = {$website} 
-			OR i.video_link = {$video_link} 
-			OR m.country_id = {$country_id} 
-			OR m.city_id = {$city_id} 
-			OR m.available = {$available} 
-			{loop} OR s{$i}.skill_id = {$skill_id} {/loop})
-			GROUP BY m.id*/
+			LEFT JOIN `idea_member` AS im ON 
+				i.id = im.idea_id 
+				AND im.type_id = 3 
+			LEFT JOIN `user_match` AS m ON im.id = i.match_id 
+			LEFT JOIN `user_collabpref` AS c ON c.id = i.collab_id
 
-			/*processing into sql sentence #2 (keywords)*/
+			{loop} //skillset
+				LEFT JOIN `user_skill` AS uss{$ss} ON 
+					uss{$ss}.match_id = m.id 
+					AND uss{$ss}.skillset_id = {$ss}{$ss_id}
+				LEFT JOIN `skillset` AS ss{$ss} ON uss{$ss}.skillset_id = ss{$ss}.id 
+			{/loop}
+			{loop} //skill
+				LEFT JOIN `skillset_skill` AS us{$j} ON us{$i}.match_id = m.id 
+				LEFT JOIN `user_skill` AS us{$j} ON us{$i}.match_id = m.id 
+				LEFT JOIN `skill` AS s{$i} ON s{$i}.id = us.skill_id 
+			{/loop}
+			{loop} //keyword
+				LEFT JOIN `idea_translation` AS t{$k} ON t{$i}.idea_id = i.id 
+				LEFT JOIN `idea_keyword` AS k{$k} ON k{$k}.translation_id = t.id 
+			{/loop}
 
-			$sql=	"SELECT m.id AS match_id, ".
-					"u.id AS id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, ".
-					"u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
-					"l.name AS language, c.name AS country, ci.name AS city, m.country_id, m.city_id, ".
-					"m.available, a.name AS available_name FROM ".
-					"`user_match` AS m ".
-					"LEFT JOIN `user` AS u ON m.user_id = u.id ".
-					"LEFT JOIN `available` AS a ON a.id = m.available ".
-					"LEFT JOIN `country` AS c ON c.id = m.country_id ".
-					"LEFT JOIN `city` AS ci ON ci.id = m.city_id ".
-					"LEFT JOIN `language` AS l ON u.language_id = l.id ".
-					"WHERE m.user_id > 0 AND u.id = '{$filter['user_id']}'";
+			WHERE i.status_id = {$status_id} 
+				OR i.website = {$website} 
+				OR i.video_link = {$video_link} 
+				OR m.country_id = {$country_id} 
+				OR m.city_id = {$city_id} 
+				OR m.available = {$available} 
+				
+			GROUP BY m.id
+			*/
+			//ALI NAJ GRUPIRAM RAJE PO IDEA_ID 
+				//-> ČE PREDPOSTAVIMO, DA SE DA IZMENJEVATI ZNANJA MED RAZLIČNIMI KANDIDATI?
+
+			/*rank results by matching fields and a ranking system*/
+
+			/*sort results by rank*/
+
+			/*add translations to results*/
+				//this could come as a seperate function of this class
+				//to address all cases needing translation
 				
 		}
 
