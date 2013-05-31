@@ -168,12 +168,14 @@ class ProfileController extends GxController {
 				//$link = new LinkForm;
 				$link = new UserLink;
 
+        
+        $userSkills = UserSkill::Model()->findAllByAttributes(array('match_id' => $match['id']));
 				//$mod = UserCollabpref::Model()->findAllByAttributes( array( 'match_id' => $match->id) );
 				/* $data = Collabpref::model()->with('userCollabprefs')
 				  ->findAll( array( 'condition'=>'userCollabprefs.match_id = '.$match->id ) ); */
 				//$data = UserCollabpref::model()->with('collab')->findAllByAttributes( array( 'match_id' => $match->id) );
 
-				$this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea']));
+				$this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea'], 'userSkills'=>$userSkills));
 			} else {
 				//this would cause an infinite loop, so lets not do it
 				//in a perfect world this would redirect to the register page. not sure how to dynamically redirect outside the same controller
@@ -415,20 +417,22 @@ class ProfileController extends GxController {
 	}
 
 	public function actionDeleteSkill($id) {
-
+    
 		$user_id = Yii::app()->user->id;
-		$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
-		$match_id = $match_id;
+		$skill_id = 0;
+		if (isset($_POST['id']))
+			$skill_id = $_POST['id'];
 
-		//check for permission
-		if ($user_id > 0) {
-			$skill = UserSkill::Model()->findByAttributes(array('id' => $id));
+		if ($user_id > 0 && $skill_id) {
+  		$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
+
+			$skill = UserSkill::Model()->findByAttributes(array('id' => $id,'match_id'=>$match['id']));
 
 			if ($skill->delete()) { //delete
-				$return['message'] = Yii::t('msg', "Success!");
+				$return['message'] = '';
 				$return['status'] = 0;
 			} else {
-				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills.");
+				$return['message'] = Yii::t('msg', "Unable to remove skill.");
 				$return['status'] = 1;
 			}
 
@@ -439,9 +443,8 @@ class ProfileController extends GxController {
 			} else {
 				//not ajax stuff
 			}
-		} else {
-			//not logged in stuff
 		}
+    
 	}
 
 	
@@ -539,7 +542,7 @@ class ProfileController extends GxController {
 
 		if ($user_id > 0 && $link_id) {
 
-			$link = UserLink::Model()->findByAttributes(array('id' => $link_id));
+			$link = UserLink::Model()->findByAttributes(array('id' => $link_id,'user_id' => $user_id));
 
 			if ($link->delete()) {
 				$response = array("data" => array("id" => $link_id),

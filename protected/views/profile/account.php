@@ -14,7 +14,7 @@
       <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6 small-12")); ?>
     
       <?php echo CHtml::errorSummary($user,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
-    
+
       <?php //echo CHtml::activeLabelEx($user,'email'); ?>
       <label for="UserEdit_email"><?php echo Yii::t('app',"Email"); ?>
         <span class="general foundicon-flag" data-tooltip title="<?php echo Yii::t('msg',"Email can't be changed at this time."); ?>"></span>
@@ -25,7 +25,7 @@
       <?php echo CHtml::activedropDownList($user,'language_id', 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
               CHtml::listData(ELangPick::getLanguageList(),"id","native_name")
-              , array('empty' => '&nbsp;',"class"=>"small-12 large-6")); ?>
+              , array('empty' => '&nbsp;',"style"=>"display:none")); ?>
 
       <?php echo CHtml::activeLabelEx($user,'newsletter'); ?>
       <div class="switch small round small-4 large-3">
@@ -112,7 +112,7 @@
       </div>
     </p>
     
-    <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6 small-12")); ?>
+    <?php echo CHtml::beginForm('','post',array('class'=>"custom")); ?>
 
     <?php echo CHtml::label(Yii::t('app', 'Account status'),'deactivate_account'); ?>
     <div class="switch small round small-2">
@@ -122,7 +122,7 @@
       <input id="deactivate_account_1" name="deactivate_account" type="radio" value="0" checked="checked">
       <label for="deactivate_account_1" onclick="">On</label>
       <span></span>
-    </div>    
+    </div>
 
     <?php echo CHtml::submitButton(Yii::t("app","Deactivate account"),
                 array('class'=>"button small alert radius",
