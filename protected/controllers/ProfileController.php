@@ -49,7 +49,7 @@ class ProfileController extends GxController {
 		$sizeLimit = 10 * 1024 * 1024; // maximum file size in bytes
 		$uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
 		$result = $uploader->handleUpload($folder);
-		$return = htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+		$return = json_encode($result);
 
 		$fileSize = filesize($folder . $result['filename']); //GETTING FILE SIZE
 		$fileName = $result['filename']; //GETTING FILE NAME
@@ -312,7 +312,7 @@ class ProfileController extends GxController {
 			}
 
 			if (isset($_GET['ajax'])) {
-				$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+				$return = json_encode($return);
 				echo $return; //return array
 				Yii::app()->end();
 			} else {
@@ -361,7 +361,7 @@ class ProfileController extends GxController {
 				}
 
 				if (isset($_GET['ajax'])) {
-					$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+					$return = json_encode($return);
 					echo $return; //return array
 					Yii::app()->end();
 				} else {
@@ -401,7 +401,7 @@ class ProfileController extends GxController {
 					}
 
 					if (isset($_GET['ajax'])) {
-						$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+						$return = json_encode($return);
 						echo $return; //return array
 						Yii::app()->end();
 					} else {
@@ -433,7 +433,7 @@ class ProfileController extends GxController {
 			}
 
 			if (isset($_GET['ajax'])) {
-				$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
+				$return = json_encode($return);
 				echo $return; //return array
 				Yii::app()->end();
 			} else {
@@ -444,8 +444,42 @@ class ProfileController extends GxController {
 		}
 	}
 
-	public function actionAddLink() {
+	
+	public function actionSugestSkill() {
 
+		if (!isset($_GET['term'])){
+			$response = array("data" => null,
+												"status" => 1,
+												"message" => Yii::t('msg', "No search query."));
+		}else{
+			$connection=Yii::app()->db;
+			
+			// needs translation as well
+			$command=$connection->createCommand("SELECT s.name AS skill, ss.name AS skillset, s.id, ss.id AS skillset_id FROM skill s
+																					 LEFT JOIN skillset_skill sss ON sss.skill_id = s.id
+																					 LEFT JOIN skillset ss ON ss.id = sss.skillset_id
+																					 WHERE s.name LIKE '%".$_GET['term']."%'");
+			
+			$dataReader=$command->query();
+
+			$data = array();
+			foreach ($dataReader as $row){
+				$data[] = $row;
+			}
+			
+			$response = array("data" => $data,
+												"status" => 0,
+												"message" => '');
+		}
+		
+		echo json_encode($response);
+		Yii::app()->end();
+	}	
+	
+	
+	
+	public function actionAddLink() {
+				
 		$user_id = Yii::app()->user->id;
 
 		if ($user_id > 0) {
@@ -485,7 +519,7 @@ class ProfileController extends GxController {
 					}
 				} else {
 					$response = array("data" => null,
-							"status" => 0,
+							"status" => 1,
 							"message" => Yii::t('msg', "You already have this link."));
 					echo json_encode($response);
 					Yii::app()->end();

@@ -74,8 +74,8 @@ class SiteController extends Controller
 		$filter['skillset_mode'] = 1;
 		$filter['per_page'] = 3;
 
-		$data['idea'] = $sqlbuilder->load_array("recent_updated", $filter);
-		$data['user'] = $sqlbuilder->load_array("recent_user", $filter);
+		$data['idea'] = $sqlbuilder->load_array("search_idea", $filter);
+		$data['user'] = $sqlbuilder->load_array("search_user", $filter);
     
     $searchForm = new SearchForm();
     if (isset($_POST['SearchForm'])){
@@ -168,7 +168,7 @@ class SiteController extends Controller
 
 	public function actionSkill($input){
 		//data[]: type, id, skillset, skill
-		//type: skillset = 1, skill = 2
+		//type: skillset = 1, skillset_skill = 2
 		//id se spreminja, ni vedno ista tabela (enkrat skillset, drugič skillset_skill)
 	}
 }

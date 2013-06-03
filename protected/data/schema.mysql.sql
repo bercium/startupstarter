@@ -208,6 +208,7 @@ CREATE TABLE IF NOT EXISTS `idea_translation` (
   `idea_id` int(8) unsigned NOT NULL,
   `title` varchar(128) NOT NULL,
   `pitch` text NOT NULL,
+  `keywords` text NOT NULL,
   `description` text,
   `description_public` tinyint(1) NOT NULL,
   `tweetpitch` varchar(140) DEFAULT NULL,
@@ -216,6 +217,20 @@ CREATE TABLE IF NOT EXISTS `idea_translation` (
   KEY `idea_id` (`idea_id`),
   KEY `language_id` (`language_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabele `idea_keyword`
+--
+
+CREATE TABLE IF NOT EXISTS `idea_keyword` (
+      `id` int(12) unsigned NOT NULL AUTO_INCREMENT,
+      `translation_id` int(12) unsigned NOT NULL,
+      `keyword` varchar(32) NOT NULL,
+      PRIMARY KEY (`id`),
+      KEY `translation_id` (`translation_id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -425,6 +440,12 @@ ALTER TABLE `skillset_skill`
 --
 ALTER TABLE `translation`
   ADD CONSTRAINT `translation_ibfk_1` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`);
+
+--
+-- Omejitve za tabelo `idea_keyword`
+--
+ALTER TABLE  `idea_keyword` ADD FOREIGN KEY (  `translation_id` ) REFERENCES  `slocoworking`.`idea_translation` (
+    `id`) ON DELETE CASCADE ON UPDATE RESTRICT ;
 
 --
 -- Omejitve za tabelo `user_collabpref`
