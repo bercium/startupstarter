@@ -74,8 +74,8 @@ class SiteController extends Controller
 		$filter['skillset_mode'] = 1;
 		$filter['per_page'] = 3;
 
-		$data['idea'] = $sqlbuilder->load_array("recent_updated", $filter);
-		$data['user'] = $sqlbuilder->load_array("recent_user", $filter);
+		$data['idea'] = $sqlbuilder->load_array("search_idea", $filter);
+		$data['user'] = $sqlbuilder->load_array("search_user", $filter);
     
     $searchForm = new SearchForm();
     if (isset($_POST['SearchForm'])){
