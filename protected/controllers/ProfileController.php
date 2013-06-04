@@ -385,8 +385,13 @@ class ProfileController extends GxController {
 		if ($user_id > 0) {
 			$skill = new UserSkill;
 
-			if (isset($_POST['UserSkill'])) {
-
+			if (!empty($_POST['skill']) && !empty($_POST['skillset'])) {
+				
+				// check if skill exists if not add to table skill
+				// check if skill with skillset exist if not add to table skillset_skill
+				// add ID to user_skill
+				
+/*
 				$_POST['UserSkill']['match_id'] = $match_id;
 
 				$exists = UserSkill::Model()->findByAttributes(array('match_id' => $match_id, 'skill_id' => $_POST['UserSkill']['skill_id'], 'skillset_id' => $_POST['UserSkill']['skillset_id']));
@@ -395,8 +400,14 @@ class ProfileController extends GxController {
 					$skill->setAttributes($_POST['UserSkill']);
 
 					if ($skill->save()) { //save
-						$return['message'] = Yii::t('msg', "Success!");
-						$return['status'] = 0;
+						$response = array("data" => array("title" => $_POST['UserSkill']['skill'],
+																							"id" => $link->id,
+																							"location" => Yii::app()->createUrl("profile/deleteSkill")
+								),
+								"status" => 0, // a damo console status kjer je 0 OK vse ostale cifre pa error????
+								"message" => "");
+						echo json_encode($response);
+						Yii::app()->end();
 					} else {
 						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills.");
 						$return['status'] = 1;
@@ -409,14 +420,35 @@ class ProfileController extends GxController {
 					} else {
 						//not ajax stuff
 					}
+				}*/
+				$response = array("data" => array("title" => $_POST['skill'],
+																					"id" => 0,
+																					"location" => Yii::app()->createUrl("profile/deleteSkill")
+						),
+						"status" => 0,
+						"message" => "");
+				echo json_encode($response);
+				Yii::app()->end();
+
+			}else{
+				if (empty($_POST['skillset'])){
+					$response = array("data" => null,
+							"status" => 1,
+							"message" => Yii::t('msg', "Please select correct skill group."));
+				}else{
+					$response = array("data" => null,
+							"status" => 1,
+							"message" => Yii::t('msg', "Problem saving skill. Please check all fields for correct values."));
 				}
+				echo json_encode($response);
+				Yii::app()->end();
 			}
 		} else {
 			//not logged in stuff
 		}
 	}
 
-	public function actionDeleteSkill($id) {
+	public function actionDeleteSkill() {
     
 		$user_id = Yii::app()->user->id;
 		$skill_id = 0;
@@ -426,7 +458,7 @@ class ProfileController extends GxController {
 		if ($user_id > 0 && $skill_id) {
   		$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
 
-			$skill = UserSkill::Model()->findByAttributes(array('id' => $id,'match_id'=>$match['id']));
+			$skill = UserSkill::Model()->findByAttributes(array('id' => $skill_id,'match_id'=>$match['id']));
 
 			if ($skill->delete()) { //delete
 				$return['message'] = '';

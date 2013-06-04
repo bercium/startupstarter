@@ -118,12 +118,27 @@ $idea = $data['idea'];
           ?>
            <div  class="idea-sidebar">
             <div class="small-12 columns panel">
-              <?php if ($candidate['available_name']) { ?>
-                <p class="available-time button small secondary"><?php echo $candidate['available_name']; ?></p>
-              <?php } ?>
-             <?php /* ?><h6><?php echo Yii::t('app','Candidate #{n}',$cnum); ?></h6><?php */ ?>
-              
+							
+							<div class="location-s" style="position: absolute; top:10px;">
+										<?php	if ($candidate['city'] || $candidate['country']){ ?>
+										<small class="meta" data-tooltip title="<img src='<?php echo getGMap($candidate['country'],$candidate['city']); ?>'>">
 
+										<a><span class="general foundicon-location" title=""></span><?php
+												echo $candidate['city']; 
+												if ($candidate['city'] && $candidate['country']) echo ', '; 
+												echo $candidate['country']; 
+												?></a>
+											<?php //echo $candidate['address']; ?>
+											</small>
+										<?php } ?>              
+							</div>
+
+							
+              <?php if ($candidate['available_name']) { ?>
+                <div class="available-time button small secondary"><?php echo $candidate['available_name']; ?></div>
+              <?php } ?>
+								
+						 <br />
              <small class="meta person-skills">
                 <?php
                 
@@ -133,47 +148,24 @@ $idea = $data['idea'];
                     <span class="label radius default-light meta_tags" data-tooltip title="<?php echo $skillset['skillset']; ?>"><?php echo $skill['skill']; ?></span>
                     <?php
                   }
-                }
-                    
-                
-                /*foreach ($candidate['skill'] as $skill) {
-                  ?>
-                  <span class="button tiny secondary meta_tags" data-tooltip title="<?php echo $skill['skillset']; ?>"><?php echo $skill['skill']; ?></span>
-                  <?php
-                }*/
-                ?>
+                } ?>
             </small>
-             
-           
-            
-              <?php if (count($candidate['collabpref']) > 0) { ?>
-                <small class="meta">
-                    <?php
-                    $firsttime = true;
-                    if (is_array($candidate['collabpref']))
-                      foreach ($candidate['collabpref'] as $collab) {
-                        //if (!$firsttime) echo ", ";
-                        //$firsttime = false;
-                        echo "<h7 class='meta-title'>".$collab['name']."</h7> <br/>";
-                      }
-                    ?>
-                </small>
-              <?php } ?>
-
-                <div class="location">
-                      <?php	if ($candidate['city'] || $candidate['country']){ ?>
-                      <br>
-                        <small class="meta" data-tooltip title="<img src='<?php echo getGMap($candidate['country'],$candidate['city']); ?>'>">
-                        
-                      <a><span class="general foundicon-location" title=""></span><?php
-                          echo $candidate['city']; 
-                          if ($candidate['city'] && $candidate['country']) echo ', '; 
-                          echo $candidate['country']; 
-                          ?></a>
-                        <?php //echo $candidate['address']; ?>
-                        </small>
-                      <?php } ?>              
-                </div>
+						 
+            <?php if (count($candidate['collabpref']) > 0 ){ ?>
+						 <br />
+							<small class="meta">
+									<?php
+										$firsttime = true;
+										foreach ($candidate['collabpref'] as $collab) {
+											if (!$firsttime) echo ", ";
+											$firsttime = false;
+											echo $collab['name'];
+											//echo "<h7 class='meta-title'>".$collab['name']."</h7> <br/>";
+										}
+									?>
+							</small>
+						 <?php } ?>
+						 
             </div>
            </div>
           <?php } ?>

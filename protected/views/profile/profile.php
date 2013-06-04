@@ -46,8 +46,8 @@
 		
 		<hr>
 		<p>
-   <a href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My skills"); ?> +</a>
-    <div class="addLinks" style="display:none">
+   <a href="#" onclick="$('.addSkils').toggle(); return false;"><?php echo Yii::t('app',"My skills"); ?> +</a>
+    <div class="addSkils" style="display:none">
 
     
 <script>
@@ -93,7 +93,15 @@
   });
   </script>		
 	
-		<form class="custom">
+          <?php $form=$this->beginWidget('CActiveForm', array(
+              'id'=>'SkillForm',
+//             'enableClientValidation'=>true,
+               'htmlOptions'=>array(
+															'class'=>'custom',
+                              'onsubmit'=>"return false;",/* Disable normal form submit */
+                              //'onkeypress'=>" if(event.keyCode == 13){ addSkill('".Yii::app()->createUrl("profile/addSkill")."'); } " /* Do ajax call when user presses enter key */
+                              ),
+          )); ?>
 	
 		<?php echo Yii::t('app','Skill'); ?>	
 		<span class="general foundicon-flag" data-tooltip title="<?php echo Yii::t('msg',"Add as many relevant skills you. Bla bla blaaa"); ?>"></span>
@@ -107,16 +115,19 @@
                     array('class'=>"button small success radius",
                         'onclick'=>'addSkill(\''.Yii::app()->createUrl("profile/addSkill").'\');')
                 ); ?>
-		</form>
+		
+		<?php $this->endWidget(); ?>  
 	
 		</div>
 	
+		<div class="skillList">
 		<?php foreach ($userSkills as $skill){ ?>
 			<span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $skill->id; ?>">
           <?php echo $skill->skill->name; ?>
           <a href="#" class="close" onclick="removeSkill(<?php echo $skill->id; ?>,'<?php echo Yii::app()->createUrl("profile/deleteSkill"); ?>')">&times;</a>
 	   </span>
 		<?php } ?>
+		</div>
 		
 	  </p>
 		
@@ -230,7 +241,7 @@
 //             'enableClientValidation'=>true,
                'htmlOptions'=>array(
                               'onsubmit'=>"return false;",/* Disable normal form submit */
-                              'onkeypress'=>" if(event.keyCode == 13){ send(); } " /* Do ajax call when user presses enter key */
+                              //'onkeypress'=>" if(event.keyCode == 13){ addLink('".Yii::app()->createUrl("profile/addLink")."'); } " /* Do ajax call when user presses enter key */
                               ),
           )); ?>
 
