@@ -159,6 +159,28 @@ class ProfileController extends GxController {
 						}
 					}
 				}
+        
+        if (isset($_POST['CollabPref']) && isset($_POST['UserMatch'])) {
+          $match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
+          $match_id = $match->id;
+          $match->setAttributes($_POST['UserMatch']);
+
+          if (UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id))){
+            $c = count($_POST['CollabPref']);
+            foreach ($_POST['CollabPref'] as $collab => $collab_name){
+              $user_collabpref = new UserCollabpref;
+              $user_collabpref->match_id = $match_id;
+              $user_collabpref->collab_id = $collab;
+              if ($user_collabpref->save()) $c--;
+            }
+            
+            if (($c == 0) && ($match->save())) {
+              Yii::app()->user->setFlash('profileMessage', UserModule::t("Profile details saved."));
+            }else{
+              Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to save profile details."));
+            }
+          }
+        }
 
 				$filter['user_id'] = $user_id;
 				$sqlbuilder = new SqlBuilder;

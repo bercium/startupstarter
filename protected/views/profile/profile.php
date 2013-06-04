@@ -10,6 +10,12 @@
       <a href="#" class="close">&times;</a>
     </div>
     <?php } ?>
+    <?php if(Yii::app()->user->hasFlash('profileMessageError')){ ?>
+    <div data-alert class="alert-box radius alert">
+      <?php echo Yii::app()->user->getFlash('profileMessageError'); ?>
+      <a href="#" class="close">&times;</a>
+    </div>
+    <?php } ?>
     
     <?php echo CHtml::beginForm('','post',array('class'=>"custom  large-6 small-12")); ?>
     <p>
