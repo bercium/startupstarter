@@ -63,7 +63,7 @@ function removeLink(link_id, inUrl){
           data = JSON.parse(indata);
 					if (!data.status){
             skill = '<span data-alert class="label alert-box radius secondary profile-skils" id="skill_'+data.data.id+'">';
-            skill += data.data.title;
+            skill += data.data.title+"<br /><small class='meta'>"+data.data.desc+"</small>";
             skill += '<a href="#" class="close" onclick="removeSkill('+data.data.id+',\''+data.data.location+'\')">&times;</a>';
             skill += '</div>';
             $('.skillList').append(skill);

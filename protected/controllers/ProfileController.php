@@ -409,49 +409,67 @@ class ProfileController extends GxController {
 
 			if (!empty($_POST['skill']) && !empty($_POST['skillset'])) {
 				
+        
+            /*$response = array("data" => null,
+							"status" => 1,
+							"message" => print_r($_POST, true));
+          
+          echo json_encode($response);
+          Yii::app()->end();*/
+        
 				// check if skill exists if not add to table skill
 				// check if skill with skillset exist if not add to table skillset_skill
 				// add ID to user_skill
 				
-/*
-				$_POST['UserSkill']['match_id'] = $match_id;
+        $skill = Skill::model()->findByAttributes(array("name"=>$_POST['skill']));
+        // save new skill
+        if ($skill == null){
+          $skill = new Skill;
+          $skill->name = $_POST['skill'];
+          $skill->save();
+        }
+        
+        if ($skill->id){
+          $skillset_skill = SkillsetSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
+                                                                           "skillset_id"=>$_POST['skillset']));
+          // save skillset skill connection
+          if ($skillset_skill == null){
+            $skillset_skill = new SkillsetSkill;
+            $skillset_skill->skill_id = $skill->id;
+            $skillset_skill->skillset_id = $_POST['skillset'];
+            $skillset_skill->save();
+          }
+          
+          $user_skill = UserSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
+                                                                   "skillset_id"=>$_POST['skillset'],
+                                                                   "match_id"=>$match_id,));
+          if ($user_skill == null){
+            $user_skill = new UserSkill;
+            $user_skill->skill_id = $skill->id;
+            $user_skill->skillset_id = $_POST['skillset'];
+            $user_skill->match_id = $match_id;
+            if ($user_skill->save()){
+              $response = array("data" => array("title" => $_POST['skill'],
+                                                "id" => $user_skill->id,
+                                                "location" => Yii::app()->createUrl("profile/deleteSkill"),
+                                                "desc" => '', // !!! add description
+                                ),
+              "status" => 0,
+              "message" => "");
+            }else{
+              $response = array("data" => null,
+								"status" => 1,
+								"message" => Yii::t('msg', "Problem saving skill. Please check fields for correct values."));            }
+          }else{
+            $response = array("data" => null,
+							"status" => 1,
+							"message" => Yii::t('msg', "You already have this skill."));
+          }
+          echo json_encode($response);
+          Yii::app()->end();
+        }
 
-				$exists = UserSkill::Model()->findByAttributes(array('match_id' => $match_id, 'skill_id' => $_POST['UserSkill']['skill_id'], 'skillset_id' => $_POST['UserSkill']['skillset_id']));
-				if (!$exists) {
-
-					$skill->setAttributes($_POST['UserSkill']);
-
-					if ($skill->save()) { //save
-						$response = array("data" => array("title" => $_POST['UserSkill']['skill'],
-																							"id" => $link->id,
-																							"location" => Yii::app()->createUrl("profile/deleteSkill")
-								),
-								"status" => 0, // a damo console status kjer je 0 OK vse ostale cifre pa error????
-								"message" => "");
-						echo json_encode($response);
-						Yii::app()->end();
-					} else {
-						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills.");
-						$return['status'] = 1;
-					}
-
-					if (isset($_GET['ajax'])) {
-						$return = json_encode($return);
-						echo $return; //return array
-						Yii::app()->end();
-					} else {
-						//not ajax stuff
-					}
-				}*/
-				$response = array("data" => array("title" => $_POST['skill'],
-																					"id" => 0,
-																					"location" => Yii::app()->createUrl("profile/deleteSkill")
-						),
-						"status" => 0,
-						"message" => "");
-				echo json_encode($response);
-				Yii::app()->end();
-
+      // end set skill and skillset
 			}else{
 				if (empty($_POST['skillset'])){
 					$response = array("data" => null,

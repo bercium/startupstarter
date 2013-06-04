@@ -10,7 +10,7 @@
  * followed by relations of table "user_skill" available as properties of the model.
  *
  * @property string $id
- * @property string $user_id
+ * @property string $match_id
  * @property integer $skillset_id
  * @property integer $skill_id
  *

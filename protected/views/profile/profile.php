@@ -109,12 +109,13 @@
                               ),
           )); ?>
 	
-		<?php echo Yii::t('app','Skill'); ?>	
+		<?php echo '<label for="skill">'.Yii::t('app','Skill');  ?>	
 		<span class="general foundicon-flag" data-tooltip title="<?php echo Yii::t('msg',"Add as many relevant skills you. Bla bla blaaa"); ?>"></span>
+    <?php echo '</label>'; ?>
     <?php echo CHtml::textField("skill","", array('maxlength' => 128)); ?>
 	
  
-    <?php echo Yii::t('app','Skill group'); ?>
+    <?php echo CHtml::label(Yii::t('app','Skill group'),''); ?>
     <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAll(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
 	
 		<?php echo CHtml::submitButton(Yii::t("app","Add skill"),
@@ -129,7 +130,7 @@
 		<div class="skillList">
 		<?php foreach ($userSkills as $skill){ ?>
 			<span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $skill->id; ?>">
-          <?php echo $skill->skill->name; ?>
+          <?php echo $skill->skill->name."<br /><small class='meta'>".$skill->skillset->name."</small>"; ?>
           <a href="#" class="close" onclick="removeSkill(<?php echo $skill->id; ?>,'<?php echo Yii::app()->createUrl("profile/deleteSkill"); ?>')">&times;</a>
 	   </span>
 		<?php } ?>
