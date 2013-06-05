@@ -186,7 +186,7 @@
   foreach ($langs as $lang){ ?>
     <li <?php echo (Yii::app()->getLanguage() == $lang['iso'] ? 'class="active"' : '')?>>
      <?php 
-     echo CHtml::link($lang['native_name'], Yii::app()->homeUrl, array('submit'=>'', 'params'=>array('languagePicker'=>$lang['iso'])));
+     echo CHtml::link(ucfirst($lang['native_name']), Yii::app()->homeUrl, array('submit'=>'', 'params'=>array('languagePicker'=>$lang['iso'])));
      ?>
     </li>
   <?php } ?>
@@ -195,20 +195,22 @@
     
 <div id="drop-login" class="f-dropdown content small" data-dropdown-content>
   <div class="login-form">
-  <?php echo CHtml::beginForm(Yii::app()->createUrl(Yii::app()->getModule('user')->loginUrl[0]),'post',array("class"=>"custom")); ?>
+  <?php echo CHtml::beginForm(Yii::app()->createUrl(Yii::app()->getModule('user')->loginUrl[0]),'post',array("class"=>"customs")); ?>
 
-      <?php echo CHtml::label(Yii::t('app','Email').":",'UserLogin_email'); ?>
+      <?php echo CHtml::label(Yii::t('app','Email'),'UserLogin_email'); ?>
       <?php echo CHtml::textField('UserLogin[email]') ?>
 
-      <?php echo CHtml::label(Yii::t('app','Password').":",'UserLogin_password'); ?>
+      <?php echo CHtml::label(Yii::t('app','Password'),'UserLogin_password'); ?>
       <?php echo CHtml::passwordField('UserLogin[password]') ?>
 
       <div class="login-floater">
-      <?php echo CHtml::submitButton(Yii::t("app","Login"),array("class"=>"button small radius")); ?>
+				<?php echo CHtml::submitButton(Yii::t("app","Login"),array("class"=>"button small radius")); ?>
       </div>
 
-      <label for="UserLogin_rememberMe"><?php echo CHtml::checkBox('UserLogin[rememberMe]',true); ?>
-      <?php echo Yii::t('app','Remember me'); ?></label>
+     <label for="UserLogin_rememberMe">
+			 <?php echo CHtml::checkBox('UserLogin[rememberMe]',true, array("style"=>"displaty:none")); ?>
+			 <?php echo Yii::t('app','Remember me'); ?>
+		 </label>
 
       <br />
       <?php //echo CHtml::link(Yii::t("app","Register"),Yii::app()->getModule('user')->registrationUrl); ?> 
