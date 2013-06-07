@@ -588,7 +588,7 @@ class ProfileController extends GxController {
 						"message" =>  Yii::t('msg', "Unable to remove link."));
 				echo json_encode($response);
 				Yii::app()->end();
-			}
+			} 
 		}
 	}
 

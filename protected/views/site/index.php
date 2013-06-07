@@ -50,8 +50,6 @@
 
 <div class="row panel searchpanel radius" style="margin-top: 20px;">
 	<div class="large-12 small-12 columns search_content edit-header">
-     <?php echo CHtml::beginForm('','post',array('class'=>"custom","style"=>"margin-bottom:0;")); ?>
-
       
 		<div class="row">
 		  <div class="large-4 small-12 columns">
@@ -73,6 +71,9 @@
       </div>
 		</div>
 
+    <?php echo CHtml::beginForm(Yii::app()->createUrl("site/index"),'get',array('class'=>"custom","style"=>"margin-bottom:0;")); ?>
+		<?php echo CHtml::hiddenField("SearchForm[isProject]", "1");  ?>
+		
 		<div class="row filter_projects" <?php if (!$filter->isProject) echo 'style="display:none"'; ?>>
 			<div class="small-12 large-3 columns">
 				<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
@@ -80,7 +81,7 @@
 				<?php echo CHtml::label(Yii::t('app','Stage'),''); ?>
 				<?php echo CHtml::activedropDownList($filter,'collabPref', 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
-              CHtml::listData(IdeaStatus::model()->findAllAttributes(null, true),"id","name")
+              CHtml::listData(IdeaStatus::model()->findAll(),"id","name")
 							, array('empty' => '&nbsp;',"class"=>"small-12 large-3","style"=>"display:none")); ?>
 				
 				
@@ -91,7 +92,7 @@
 				<?php echo CHtml::label(Yii::t('app','Colaboration'),''); ?>
 				<?php echo CHtml::activedropDownList($filter,'collabPref', 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
-              CHtml::listData(Collabpref::model()->findAllAttributes(null, true),"id","name")
+              CHtml::listData(Collabpref::model()->findAllTranslated(),"id","name")
 							, array('empty' => '&nbsp;',"class"=>"small-12 large-3","style"=>"display:none")); ?>
 				
 				
@@ -102,7 +103,7 @@
 				<?php echo CHtml::label(Yii::t('app','Country'),''); ?>
 				<?php echo CHtml::activedropDownList($filter,'collabPref', 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
-              CHtml::listData(Country::model()->findAllAttributes(null, true),"id","name")
+              CHtml::listData(Country::model()->findAll(),"id","name")
 							, array('empty' => '&nbsp;',"class"=>"small-12 large-3","style"=>"display:none")); ?>
 				
 				
@@ -141,8 +142,11 @@
 			
 		</div>
 		
+		<?php echo CHtml::endForm(); ?>		
 		
 		
+    <?php echo CHtml::beginForm(Yii::app()->createUrl("site/index"),'get',array('class'=>"custom","style"=>"margin-bottom:0;")); ?>
+		<?php echo CHtml::hiddenField("SearchForm[isProject]", "0");  ?>
 		
 		<div class="row filter_people" <?php if ($filter->isProject) echo 'style="display:none"'; ?>>
 			<div class="small-12 large-3 columns">
