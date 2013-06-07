@@ -1,7 +1,8 @@
 <?php
 /*TODO:
 -search: keyword input validation
--bug: skills sentence fucked up? recheck sentences*/
+-bug: skills sentence fucked up? recheck sentences
+-*/
 
 class SqlBuilder {
 	//main function, calling other functions
@@ -41,9 +42,6 @@ class SqlBuilder {
 		}
 
 		$filter['action'] = $action;
-
-	//SEARCH SETUP
-		
 
 	//WHICH ACTION IS PERFORMED?
 		switch ($action) {
