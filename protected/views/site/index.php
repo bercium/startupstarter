@@ -77,15 +77,14 @@
 		<div class="row filter_projects" <?php if (!$filter->isProject) echo 'style="display:none"'; ?>>
 			<div class="small-12 large-3 columns">
 				<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
-				
-				<?php echo CHtml::label(Yii::t('app','Stage'),''); ?>
+
+				<?php echo CHtml::label(Yii::t('app','Language'),''); ?>
 				<?php echo CHtml::activedropDownList($filter,'collabPref', 
-              //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
-              CHtml::listData(IdeaStatus::model()->findAll(),"id","name")
+							//GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
+							CHtml::listData(Language::model()->findAllAttributes(null, true,array('order'=>'name')),"id","name")
 							, array('empty' => '&nbsp;',"class"=>"small-12 large-3","style"=>"display:none")); ?>
-				
-				
 			</div>
+			
 			<div class="small-12 large-3 columns">
 				<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
 				
@@ -100,10 +99,10 @@
 			<div class="small-12 large-3 columns">
 				<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
 				
-				<?php echo CHtml::label(Yii::t('app','Country'),''); ?>
+				<?php echo CHtml::label(Yii::t('app','Available'),''); ?>
 				<?php echo CHtml::activedropDownList($filter,'collabPref', 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
-              CHtml::listData(Country::model()->findAll(),"id","name")
+              CHtml::listData(Available::model()->findAllTranslated(),"id","name")
 							, array('empty' => '&nbsp;',"class"=>"small-12 large-3","style"=>"display:none")); ?>
 				
 				
@@ -115,29 +114,30 @@
       </div>
 			
 			<div class="advance">
-				<div class="row">
-		      <hr>
+		    <hr>
 					
-         <div class="large-3 small-6 columns">
-		    <label>search by keywords:</label>
-		    <input type="text" placeholder="keywords">
-          </div>
-          <div class="large-3 small-6 columns">
-            <label>search by skills:</label>
-            <input type="text" placeholder="skills">
-          </div>
-         <div class="large-3 left small-6 columns">
-
-          <label for="customDropdown1">Search by something</label>
-          <select id="customDropdown1" class="medium">
-            <option>This is a dropdown</option>
-            <option>This is another option</option>
-            <option>This is another option too</option>
-            <option>Look, a third option</option>
-          </select>
-
+        <div class="large-3 small-12 columns">
+					<label><?php echo Yii::t('app','City'); ?></label>
+					<input type="text" placeholder="keywords">
         </div>
+				
+				<div class="small-12 large-3 columns">
+					<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
+
+					<?php echo CHtml::label(Yii::t('app','Country'),''); ?>
+					<?php echo CHtml::activedropDownList($filter,'collabPref', 
+								//GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
+								CHtml::listData(Country::model()->findAll(),"id","name")
+								, array('empty' => '&nbsp;',"class"=>"small-12 large-3","style"=>"display:none")); ?>
+
+
 				</div>
+
+        <div class="large-3 small-12 columns">
+					<label><?php echo Yii::t('app','Skills'); ?></label>
+					
+        </div>
+				
 			</div>			
 			
 		</div>
