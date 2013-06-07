@@ -1,5 +1,5 @@
 /*#intro{
-	background:url(../images/intro-bg.jpg) 50% 0  fixed;
+	
 	margin: 0 auto;
 	padding: 0;
 }
@@ -8,8 +8,8 @@
 	background:url(../images/outro-bg.jpg) 50% 0  fixed;
 	margin: 0 auto;
 	padding: 0;
-}*/
-
+}
+*/
 
 body {
 	background: url(../images/body_bg.png) !important;
@@ -55,10 +55,11 @@ body {
 
 
 .intro{
-background: #f9f7f6;
+
+background:url(../images/intro-bg.jpg) center 0 no-repeat;
 border-bottom: 1px solid #ddd;
   background-repeat: no-repeat; 
-  background-size: 100% 100%; 
+  background-color: #f9f7f6;  
   margin-bottom: 30px;
 
   
@@ -342,7 +343,8 @@ sidebar  .content {
   margin-bottom: 4px;
 }
 
-.edit-header h3 {
+.edit-header h3,
+.edit-header h1 {
 	padding: 10px 0;
 	margin: 0;
 	color: #403a36;

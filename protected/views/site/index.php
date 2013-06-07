@@ -14,7 +14,7 @@
       <h1>With the <span>right team</span> any <span class="isc">idea</span> can change your life</h1>
 
       <div class="row">
-        <div class="large-7 small-12 columns <?php if (!Yii::app()->user->isGuest) echo ""; ?>">
+        <div class="large-6 small-12 columns <?php if (!Yii::app()->user->isGuest) echo ""; ?>">
           <p>
             <?php echo CHtml::encode(Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.')); ?>
           </p>
@@ -23,16 +23,16 @@
         <div class="large-5 small-12 columns hide-for-small">
           
           <br>
-          <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" class="button right round large success" >Register here </a> 
-          <a href="#" data-dropdown="drop-login" class="button right round large secondary" >Login </a>
+          <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" class="button right round medium success" >Register here </a> 
+          <a href="#" data-dropdown="drop-login" class="button right round medium secondary" >Login </a>
           
          
         </div>
         <div class="large-6 small-12 columns show-for-small">
           <br>
           <br>
-          <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" class="button round large success" >Register here </a> 
-          <a href="#" data-dropdown="drop-login" class="button round large secondary" >Login </a>
+          <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" class="button round medium success" >Register here </a> 
+          <a href="#" data-dropdown="drop-login" class="button round medium secondary" >Login </a>
           
          
         </div>
