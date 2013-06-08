@@ -145,7 +145,6 @@ $idea = $data['idea'];
             </small>
              
            
-            
               <?php if (count($candidate['collabpref']) > 0) { ?>
                 <small class="meta">
                     <?php

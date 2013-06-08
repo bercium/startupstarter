@@ -92,11 +92,11 @@ class ProjectController extends GxController {
 			throw new CHttpException(400, Yii::t('msg', "Oops! This project does not exist."));
 		}
 
-		$this->render('view', array('data' => $data));
-
 		//log clicks
 		$click = new Click;
 		$click->idea($id, Yii::app()->user->id);
+
+		$this->render('view', array('data' => $data));
 	}
 
 	public function actionCreate(){

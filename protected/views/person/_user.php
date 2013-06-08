@@ -27,22 +27,26 @@
               $skills = array();
 							$c = 0;
               foreach ($user['skillset'] as $skillset){ 
-                foreach ($skillset['skill'] as $skill){
-									$c++;
-                  $tmp_skils = $skills;
-                  $tmp_skils[$skillset['skillset']][] = $skill['skill'];
-                  if (count($tmp_skils) > 3) $skills['...'][$skillset['skillset']] = $skillset['skillset'];
-                  else $skills = $tmp_skils;
-                  //$skills[$skillset['skillset']][] = $skill['skill'];
+                if(isset($skillset['skill'])){
+                  foreach ($skillset['skill'] as $skill){
+                    $c++;
+                    $tmp_skils = $skills;
+                    $tmp_skils[$skillset['skillset']][] = $skill['skill'];
+                    if (count($tmp_skils) > 3) $skills['...'][$skillset['skillset']] = $skillset['skillset'];
+                    else $skills = $tmp_skils;
+                    //$skills[$skillset['skillset']][] = $skill['skill'];
+                  }
+                } else {
+                  $skills[$skillset['skillset']] = array();
                 }
               }
 							
 							//echo Yii::t('app','Skill|Skills',array($c)).":"; 
 							echo Yii::t('app','Skilled in').":"; 
-              
+
               foreach ($skills as $skillset=>$skill){
                 ?>
-                <span class="label radius success-alt meta_tags" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
+                <span class="label radius success-alt meta_tags"<?php if(count($skill)) echo " data-tooltip title='".implode("<br />",$skill)."'"; ?>><?php echo $skillset; ?></span>
                 <?php 
               }
           

@@ -7,7 +7,7 @@ class Keyworder {
 	public function string2array($string){
 
 		$string = $this->clean($string);
-		$array = explode(", ", $string);
+		$array = explode(" ", $string);
 		
 		return $array;
 	}

@@ -329,8 +329,6 @@ class SqlBuilder {
 					"WHERE m.user_id > 0 ".
 					"AND ( ";
 
-
-
 			$keys = array();
 			foreach( $data AS $key => $value ){
 				$condition[] =	"m.id = {$value['id']}";
@@ -338,7 +336,6 @@ class SqlBuilder {
 			}
 			$sql.= implode($condition, " OR ") . " ) ORDER BY FIELD(m.id, ".implode($keys, ', ').") ASC";
 		}
-
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
@@ -403,16 +400,22 @@ class SqlBuilder {
 	public function collabpref($type, $filter){
 
 		if($type == 'combined'){
-			$sql=	"SELECT uc.id, collabpref.id AS collab_id, collabpref.name, uc.id AS active ".
-					"FROM collabpref LEFT JOIN ".
-					"(SELECT * FROM user_collabpref WHERE match_id = {$filter['match_id']}) AS uc ".
-					"ON uc.collab_id = collabpref.id";
+			$sql=	"SELECT uc.id, collabpref.id AS collab_id, collabpref.name, t.translation, uc.id AS active FROM collabpref LEFT JOIN "-
+					"(SELECT * FROM user_collabpref WHERE match_id = {$filter['match_id']}) AS uc ON uc.collab_id = collabpref.id ".
+					"LEFT JOIN translation AS t ".
+					"ON collabpref.id = t.row_id ".
+					"AND t.table = 'collabpref'".
+					"AND t.language_id = '{$filter['lang']}'";
 		} else {
-			$sql=	"SELECT uc.id, c.id AS collab_id, c.name FROM ".
-					"`collabpref` AS c, ".
-					"`user_collabpref` AS uc ".
-					"WHERE uc.collab_id = c.id ".
-					"AND uc.match_id = '{$filter['match_id']}'";
+			$sql=	"SELECT uc.id, c.id AS collab_id, c.name, t.translation FROM ".
+					"`collabpref` AS c ".
+					"LEFT JOIN `user_collabpref` AS uc ".
+					"ON uc.collab_id = c.id ".
+					"LEFT JOIN translation AS t ".
+					"ON c.id = t.row_id ".
+					"AND t.table = 'collabpref'".
+					"AND t.language_id = '{$filter['lang']}'".
+					"WHERE uc.match_id = '{$filter['match_id']}'";
 		}
 
 		$connection=Yii::app()->db;
@@ -421,7 +424,10 @@ class SqlBuilder {
 		$array = array();
 
 		while(($row=$dataReader->read())!==false) {
-			$array[$row['id']] = $row;
+			if(strlen($row['translation']) > 0){
+				$row['name'] = $row['translation'];
+			}
+			$array[] = $row;
 		}
 
 		return $array;
@@ -429,11 +435,18 @@ class SqlBuilder {
 
 	public function skillset($filter){
 
-		$sql=		"SELECT ss.id, ss.name AS skillset FROM ".
-					"`user_skill` AS us, ".
-					"`skillset` AS ss ".
-					"WHERE ss.id = us.skillset_id ".
-					"AND us.match_id = '{$filter['match_id']}' ".
+		$sql=		"SELECT ss.id, ss.name AS skillset, t.translation, us.skill_id, sss.id AS skillset_skill_id FROM ".
+					"`user_skill` AS us ".
+					"LEFT JOIN `skillset` AS ss ".
+					"ON ss.id = us.skillset_id ".
+					"LEFT JOIN `skillset_skill` AS sss ".
+					"ON sss.skillset_id = us.skillset_id ".
+					"AND sss.skill_id = us.skill_id ".
+					"LEFT JOIN translation AS t ".
+					"ON ss.id = t.row_id ".
+					"AND t.table = 'skillset'".
+					"AND language_id = '{$filter['lang']}'".
+					"WHERE us.match_id = '{$filter['match_id']}' ".
 					"GROUP BY ss.id";
 
 		$connection=Yii::app()->db;
@@ -442,10 +455,21 @@ class SqlBuilder {
 		$array = array();
 
 		while(($row=$dataReader->read())!==false) {
+
+			if(strlen($row['translation']) > 0){
+				$row['skillset'] = $row['translation'];
+			}
+
 			$filter['skillset_id'] = $row['id'];
+			unset($filter['skill_id']);
 
 			$array[$row['id']] = $row;
-			$array[$row['id']]['skill'] = $this->skillset_skill( $filter );
+
+			if($row['skill_id'] > 0){
+				$filter['skill_id'] = $row['skill_id'];
+				unset($row['skill_id']);
+				$array[$row['id']]['skill'] = $this->skillset_skill( $filter );
+			}
 		}
 
 		return $array;
@@ -453,12 +477,21 @@ class SqlBuilder {
 
 	public function skillset_skill($filter){
 
-		$sql=		"SELECT s.id, s.name AS skill FROM ".
-					"`user_skill` AS us, ".
-					"`skill` AS s ".
-					"WHERE s.id = us.skill_id ".
-					"AND us.skillset_id = '{$filter['skillset_id']}' ";
-					"AND us.match_id = '{$filter['match_id']}'";
+		if(isset($filter['skill_id'])){
+
+			$sql=		"SELECT s.id, s.name AS skill FROM ".
+						"`user_skill` AS us ".
+						"LEFT JOIN `skill` AS s ".
+						"ON s.id = us.skill_id ".
+						"WHERE s.id = '{$filter['skill_id']}' ".
+						"AND us.skillset_id = '{$filter['skillset_id']}' ";
+		}/* else {
+			$sql=		"SELECT s.id, s.name AS skill FROM ".
+						"`user_skill` AS us, ".
+						"`skill` AS s ".
+						"WHERE s.id = us.skill_id ".
+						"AND us.skillset_id = '{$filter['skillset_id']}' ";
+		}*/
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
@@ -496,31 +529,31 @@ class SqlBuilder {
 		
 		Input data structure (word is table, -field is $key)
 
-		idea_keyword ---($k rows) -> $filter['keyword'][N]['key'];
+		idea_keyword ---($k rows) -> $filter['keyword'];
 			-keyword
 
 		idea -> $filter['extra'];
 			-website
 			-video_link
 		
-		idea_status -> $filter['status'];
+		idea_status -> $filter['status'] = $value;
 			-status_id
 
-		user_match -> $filter['$key'];
+		user_match -> $filter['$key'] = '$value';
+			Key
 			-country_id
 			-city_id
 			-available
 
-		user_collabpref ---($c rows) -> $filter['collabpref'][N]['key'];
-			-collab_id
+		user_collabpref ---($c rows) -> $filter['collabpref'][N] = '$value';
 
-		user_skill  ---($ss rows) -> $filter['skill'][N]['key'];
+		user_skill  ---($ss rows) -> $filter['skill'][N]['$key'];
 			-id
-			-type=1
+			-type = 1
 
-		user_skill  ---($s rows) -> $filter['skill'][N]['key'];
-			-id
-			-type=2*/
+		user_skill  ---($s rows) -> $filter['skill'][N]['$key'];
+			-id = $value
+			-type = 2*/
 
 		/*Data preprocessing*/
 		if( isset($filter['skill']) ){
