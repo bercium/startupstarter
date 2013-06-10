@@ -28,12 +28,14 @@
                 foreach ($idea['candidate'] as $candidate){
                   if (is_array($candidate['skillset']))
                     foreach ($candidate['skillset'] as $skillset){
-                      foreach ($skillset['skill'] as $skill){
-												$c++;
-                        $tmp_skils = $skills;
-                        $tmp_skils[$skillset['skillset']][] = $skill['skill'];
-                        if (count($tmp_skils) > 3) $skills['...'][$skillset['skillset']] = $skillset['skillset'];
-                        else $skills = $tmp_skils;
+                      if(isset($skillset['skill'])){
+                        foreach ($skillset['skill'] as $skill){
+                          $c++;
+                          $tmp_skils = $skills;
+                          $tmp_skils[$skillset['skillset']][] = $skill['skill'];
+                          if (count($tmp_skils) > 3) $skills['...'][$skillset['skillset']] = $skillset['skillset'];
+                          else $skills = $tmp_skils;
+                        }
                       }
                     }
                 }
