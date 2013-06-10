@@ -20,6 +20,7 @@ class SearchForm extends CFormModel
 	public $keywords;
 	public $extraDetail;
 	public $content;
+	public $language;
   
 	/**
 	 * Declares the validation rules.

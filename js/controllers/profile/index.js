@@ -102,3 +102,46 @@ function removeSkill(skill_id, inUrl){
 
 }
 
+
+	var cache = {};
+	//var skillSuggest_url = 'profile/sugestSkill';
+	
+  $(function() {
+    $( "#skill" ).autocomplete({
+      //minLength: 1,
+			delay:300,
+      source: function( request, response ) {
+        var term = request.term;
+        if ( term in cache ) {
+          response( cache[ term ] );
+          return;
+        }
+ 
+        $.getJSON( skillSuggest_url, request, function( data, status, xhr ) {
+					if (data.status == 0){
+						cache[ term ] = data.data;
+						response( data.data );
+					}else alert(data.message);
+        });
+      },
+			//source:projects,
+      focus: function( event, ui ) {
+        $( "#project" ).val( ui.item.skill );
+        return false;
+      },
+      select: function( event, ui ) {
+        $( "#skill" ).val( ui.item.skill );
+				$('#skillset').val(ui.item.skillset_id); 
+				Foundation.libs.forms.refresh_custom_select($('#skillset'),true);
+				
+        $( "#project-id" ).val( ui.item.id );
+ 
+        return false;
+      }
+    })
+    .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+      return $( "<li>" )
+        .append( "<a>" + item.skill + "<br><small>" + item.skillset + "</small></a>" )
+        .appendTo( ul );
+    };
+  });

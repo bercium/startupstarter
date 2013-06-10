@@ -171,4 +171,34 @@ class SiteController extends Controller
 		//type: skillset = 1, skill = 2
 		//id se spreminja, ni vedno ista tabela (enkrat skillset, drugič skillset_skill)
 	}
+	
+	public function actionSugestCity() {
+
+		if (!isset($_GET['term'])){
+			$response = array("data" => null,
+												"status" => 1,
+												"message" => Yii::t('msg', "No search query."));
+		}else{
+			$connection=Yii::app()->db;
+			
+			$criteria=new CDbCriteria();
+			$criteria->condition = " `name` LIKE :name";
+			$criteria->params = array(":name"=>"%".$_GET['term']."%");
+			$dataReader = City::model()->findAll($criteria);
+
+			$data = array();
+			foreach ($dataReader as $row){
+				$data[] = array("value"=>$row['name']);
+			}
+			
+			$response = array("data" => $data,
+												"status" => 0,
+												"message" => '');
+		}
+		
+		echo json_encode($response);
+		Yii::app()->end();
+	}	
+	
+	
 }
