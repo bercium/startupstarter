@@ -1,8 +1,11 @@
 <?php
-/*TODO:
--search: keyword input validation
--bug: skills sentence fucked up? recheck sentences
--*/
+/*
+ELSEWHERE:
+-dodajanje projektov (flow + koda)
+	-keywords dodajanje pri ideji
+-urejanje projektov (flow + koda)
+	-don't forget keywords in prevodi
+*/
 
 class SqlBuilder {
 	//main function, calling other functions
@@ -86,7 +89,8 @@ class SqlBuilder {
 	public function idea($type, $filter, $data = array()){
 
 		if( $type == 'recent_candidate'){
-			$sql =	"SELECT i.*, ist.name AS status FROM ".
+			//currently not in use
+			/*$sql =	"SELECT i.*, ist.name AS status FROM ".
 					"`idea` AS i, `idea_status` AS ist, `idea_member` AS im, `user_match` AS m ".
 					"WHERE i.id = im.idea_id ".
 					"AND i.status_id = ist.id ".
@@ -95,30 +99,56 @@ class SqlBuilder {
 					"AND m.user_id IS NULL ".
 					"AND it.deleted = 0 ".
 					"ORDER BY m.id DESC ".
-					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". ($filter['per_page']);
+					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". ($filter['per_page']);*/
 
 		} elseif( $type == 'recent_updated' ) {
-			$sql =	"SELECT i.*, ist.name AS status FROM ".
-					"`idea` AS i, `idea_status` AS ist ".
+			$sql =	"SELECT i.*, ist.name AS status, t.translation AS status_translation FROM ".
+					"`idea` AS i ".
+
+					"LEFT JOIN `idea_status` AS ist ".
+					"ON ist.id = i.status_id ".
+
+					"LEFT JOIN `translation` AS t ".
+					"ON ist.id = t.row_id ".
+					"AND t.table = 'idea_status' ".
+					"AND t.language_id = {$filter['lang']} ".
+
 					"WHERE i.deleted = 0 ".
-					"AND ist.id = i.status_id ".
 					"ORDER BY i.time_updated DESC ".
 					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". ($filter['per_page']);
 
 		} elseif( $type == 'user' ) {
-			$sql=	"SELECT i.*, ist.name AS status, im.type_id FROM ".
-					"`idea` AS i, `idea_status` AS ist, `idea_member` AS im ".
-					"WHERE i.id = im.idea_id ".
-					"AND i.status_id = ist.id ".
-					"AND i.deleted = 0 ".
+			$sql=	"SELECT i.*, ist.name AS status, t.translation AS status_translation, im.type_id FROM ".
+					"`idea` AS i ".
+
+					"INNER JOIN `idea_member` AS im ".
+					"ON i.id = im.idea_id ".
 					"AND im.match_id = '{$filter['match_id']}' ".
+
+					"LEFT JOIN `idea_status` AS ist	".
+					"ON i.status_id = ist.id ".
+
+					"LEFT JOIN `translation` AS t ".
+					"ON ist.id = t.row_id ".
+					"AND t.table = 'idea_status' ".
+					"AND t.language_id = {$filter['lang']} ".
+
+					"WHERE i.deleted = 0 ".					
 					"ORDER BY i.time_registered DESC";
 
 		} elseif( $type == 'idea' ){
-			$sql=	"SELECT i.*, ist.name AS status FROM ".
-					"`idea` AS i, `idea_status` AS ist ".
+			$sql=	"SELECT i.*, ist.name AS status, t.translation AS status_translation FROM ".
+					"`idea` AS i ".
+
+					"LEFT JOIN `idea_status` AS ist	".
+					"ON i.status_id = ist.id ".
+
+					"LEFT JOIN `translation` AS t ".
+					"ON ist.id = t.row_id ".
+					"AND t.table = 'idea_status' ".
+					"AND t.language_id = {$filter['lang']} ".
+
 					"WHERE i.id = '{$filter['idea_id']}' ".
-					"AND i.status_id = ist.id ".
 					"AND i.deleted = 0 ";
 
 		} elseif( $type == 'count_idea' ){
@@ -134,8 +164,17 @@ class SqlBuilder {
 					"GROUP BY idea_click_id";
 
 		} elseif( $type == 'search' ){
-			$sql =	"SELECT i.*, ist.name AS status FROM ".
-					"`idea` AS i, `idea_status` AS ist ".
+			$sql =	"SELECT i.*, ist.name AS status, t.translation AS status_translation FROM ".
+					"`idea` AS i ".
+
+					"LEFT JOIN `idea_status` AS ist	".
+					"ON i.status_id = ist.id ".
+
+					"LEFT JOIN `translation` AS t ".
+					"ON ist.id = t.row_id ".
+					"AND t.table = 'idea_status' ".
+					"AND t.language_id = {$filter['lang']} ".
+
 					"WHERE i.deleted = 0 ".
 					"AND ist.id = i.status_id ".
 					"AND ( ";
@@ -165,16 +204,20 @@ class SqlBuilder {
 				$filter['idea_id'] = $row['id'];
 
 				//translation..
-				$merge = $this->translation( 'userlang', $filter );
+				$merge = $this->idea_translation( 'userlang', $filter );
 				if(isset($merge['language_id'])){
 					$row = array_merge($row, $merge);
 					$filter['default_lang'] = $merge['language_id'];
 				} else {
 					$filter['default_lang'] = $filter['lang'];
 				}
+				if(strlen($row['status_translation']) > 0){
+					$row['status'] = $row['status_translation'];
+				}
+				unset($row['status_translation']);
 
 				if($type != 'user'){
-					$row['translation_other'] = $this->translation( 'other', $filter );
+					$row['translation_other'] = $this->idea_translation( 'other', $filter );
 					$row['member'] = $this->user( 'member', $filter );
 					$row['num_of_members'] = count($row['member']);
 					$row['candidate'] = $this->user( 'candidate', $filter );
@@ -199,7 +242,7 @@ class SqlBuilder {
 		return $array;
 	}
 
-	public function translation($type, $filter){
+	public function idea_translation($type, $filter){
 
 		if($type == 'userlang'){
 			$sql=		"SELECT it.id AS translation_id, it.title, it.pitch, it.description, it.description_public, it.tweetpitch, it.language_id, l.name AS language, l.language_code FROM ".
@@ -246,13 +289,20 @@ class SqlBuilder {
 					"u.id AS id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, ".
 					"u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
 					"l.name AS language, c.name AS country, ci.name AS city, m.country_id, m.city_id, ".
-					"m.available, a.name AS available_name FROM ".
+					"m.available, a.name AS available_name, t.translation AS available_translation FROM ".
 					"`user_match` AS m ".
-					"LEFT JOIN `user` AS u ON m.user_id = u.id ".
-					"LEFT JOIN `available` AS a ON a.id = m.available ".
+			
+					"INNER JOIN `user` AS u ON m.user_id = u.id ".
 					"LEFT JOIN `country` AS c ON c.id = m.country_id ".
 					"LEFT JOIN `city` AS ci ON ci.id = m.city_id ".
 					"LEFT JOIN `language` AS l ON u.language_id = l.id ".
+
+					"LEFT JOIN `available` AS a ON a.id = m.available ".
+					"LEFT JOIN `translation` AS t ".
+					"ON a.id = t.row_id ".
+					"AND t.table = 'available' ".
+					"AND t.language_id = {$filter['lang']} ".
+
 					"WHERE m.user_id > 0 AND u.id = '{$filter['user_id']}'";
 
 		} elseif( $type == 'recent' ){
@@ -261,13 +311,20 @@ class SqlBuilder {
 					"u.id AS id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, ".
 					"u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
 					"l.name AS language, c.name AS country, ci.name AS city, m.country_id, m.city_id, ".
-					"m.available, a.name AS available_name FROM ".
+					"m.available, a.name AS available_name, t.translation AS available_translation FROM ".
 					"`user_match` AS m ".
-					"LEFT JOIN `user` AS u ON m.user_id = u.id ".
-					"LEFT JOIN `available` AS a ON a.id = m.available ".
+
+					"INNER JOIN `user` AS u ON m.user_id = u.id ".
 					"LEFT JOIN `country` AS c ON c.id = m.country_id ".
 					"LEFT JOIN `city` AS ci ON ci.id = m.city_id ".
 					"LEFT JOIN `language` AS l ON u.language_id = l.id ".
+
+					"LEFT JOIN `available` AS a ON a.id = m.available ".
+					"LEFT JOIN `translation` AS t ".
+					"ON a.id = t.row_id ".
+					"AND t.table = 'available' ".
+					"AND t.language_id = {$filter['lang']} ".
+
 					"WHERE m.user_id > 0 ".
 					"ORDER BY u.create_at DESC ".
 					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". $filter['per_page'];
@@ -278,15 +335,22 @@ class SqlBuilder {
 					"u.id AS id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, ".
 					"u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
 					"l.name AS language, c.name AS country, ci.name AS city, m.country_id, m.city_id, ".
-					"m.available, a.name AS available_name FROM ".
+					"m.available, a.name AS available_name, t.translation AS available_translation FROM ".
 					"`idea_member` AS im ".
-					"LEFT JOIN `user_match` AS m ON im.match_id = m.id ".
+
+					"INNER JOIN `user_match` AS m ON im.match_id = m.id ".
 					"LEFT JOIN `user` AS u ON m.user_id = u.id ".
 					"LEFT JOIN `membertype` AS mt ON im.type_id = mt.id ".
-					"LEFT JOIN `available` AS a ON a.id = m.available ".
 					"LEFT JOIN `country` AS c ON c.id = m.country_id ".
 					"LEFT JOIN `city` AS ci ON ci.id = m.city_id ".
 					"LEFT JOIN `language` AS l ON u.language_id = l.id ".
+
+					"LEFT JOIN `available` AS a ON a.id = m.available ".
+					"LEFT JOIN `translation` AS t ".
+					"ON a.id = t.row_id ".
+					"AND t.table = 'available' ".
+					"AND t.language_id = {$filter['lang']} ".
+
 					"WHERE m.user_id > 0 ".
 					"AND im.idea_id = '{$filter['idea_id']}' ".
 					"AND (im.type_id = '2' || im.type_id = '1') ". //HARDCODED MEMBER TYPE
@@ -296,13 +360,20 @@ class SqlBuilder {
 			//return candidates of an idea
 			$sql=	"SELECT m.id AS match_id, im.type_id, mt.name AS type, ".
 					"c.name AS country, ci.name AS city, m.country_id, m.city_id, ".
-					"m.available, a.name AS available_name FROM ".
+					"m.available, a.name AS available_name, t.translation AS available_translation FROM ".
 					"`idea_member` AS im ".
-					"LEFT JOIN `user_match` AS m ON im.match_id = m.id ".
+
+					"INNER JOIN `user_match` AS m ON im.match_id = m.id ".
 					"LEFT JOIN `membertype` AS mt ON im.type_id = mt.id ".
-					"LEFT JOIN `available` AS a ON a.id = m.available ".
 					"LEFT JOIN `country` AS c ON c.id = m.country_id ".
 					"LEFT JOIN `city` AS ci ON ci.id = m.city_id ".
+
+					"LEFT JOIN `available` AS a ON a.id = m.available ".
+					"LEFT JOIN `translation` AS t ".
+					"ON a.id = t.row_id ".
+					"AND t.table = 'available' ".
+					"AND t.language_id = {$filter['lang']} ".
+
 					"WHERE m.user_id IS NULL ".
 					"AND im.idea_id = '{$filter['idea_id']}' ".
 					"AND im.type_id = '3' ". //HARDCODED CANDIDATE
@@ -319,13 +390,20 @@ class SqlBuilder {
 					"u.id AS id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, ".
 					"u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
 					"l.name AS language, c.name AS country, ci.name AS city, m.country_id, m.city_id, ".
-					"m.available, a.name AS available_name FROM ".
+					"m.available, a.name AS available_name, t.translation AS available_translation FROM ".
 					"`user_match` AS m ".
-					"LEFT JOIN `user` AS u ON m.user_id = u.id ".
-					"LEFT JOIN `available` AS a ON a.id = m.available ".
+
+					"INNER JOIN `user` AS u ON m.user_id = u.id ".
 					"LEFT JOIN `country` AS c ON c.id = m.country_id ".
 					"LEFT JOIN `city` AS ci ON ci.id = m.city_id ".
 					"LEFT JOIN `language` AS l ON u.language_id = l.id ".
+
+					"LEFT JOIN `available` AS a ON a.id = m.available ".
+					"LEFT JOIN `translation` AS t ".
+					"ON a.id = t.row_id ".
+					"AND t.table = 'available' ".
+					"AND t.language_id = {$filter['lang']} ".
+
 					"WHERE m.user_id > 0 ".
 					"AND ( ";
 
@@ -373,6 +451,12 @@ class SqlBuilder {
 
 				//skillset
 				$row['skillset'] = $this->skillset( $filter );
+
+				//translation
+				if(strlen($row['available_translation']) > 0){
+					$row['available_name'] = $row['available_translation'];
+				}
+				unset($row['available_translation']);
 				
 				//add link
 				if($type != 'candidate'){
@@ -400,11 +484,11 @@ class SqlBuilder {
 	public function collabpref($type, $filter){
 
 		if($type == 'combined'){
-			$sql=	"SELECT uc.id, collabpref.id AS collab_id, collabpref.name, t.translation, uc.id AS active FROM collabpref LEFT JOIN "-
+			$sql=	"SELECT uc.id, collabpref.id AS collab_id, collabpref.name, t.translation, uc.id AS active FROM collabpref LEFT JOIN ".
 					"(SELECT * FROM user_collabpref WHERE match_id = {$filter['match_id']}) AS uc ON uc.collab_id = collabpref.id ".
 					"LEFT JOIN translation AS t ".
 					"ON collabpref.id = t.row_id ".
-					"AND t.table = 'collabpref'".
+					"AND t.table = 'collabpref' ".
 					"AND t.language_id = '{$filter['lang']}'";
 		} else {
 			$sql=	"SELECT uc.id, c.id AS collab_id, c.name, t.translation FROM ".
