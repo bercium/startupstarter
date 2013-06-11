@@ -6,8 +6,11 @@ class Keyworder {
 	//because it is used more than one time, and we want the programmers to be aware of it
 	public function string2array($string){
 
-		$string = $this->clean($string);
-		$array = explode(" ", $string);
+		$array = explode(",", $string);
+
+		foreach($array AS $key => &$value){
+			$value = $this->clean($value);
+		}
 		
 		return $array;
 	}
