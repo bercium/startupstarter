@@ -71,18 +71,28 @@ class SiteController extends Controller
     
 		$sqlbuilder = new SqlBuilder;
 		$filter = Yii::app()->request->getQuery('filter', array());
-		$filter['skillset_mode'] = 1;
 		$filter['per_page'] = 3;
-
-		$data['idea'] = $sqlbuilder->load_array("recent_updated", $filter);
-		$data['user'] = $sqlbuilder->load_array("recent_user", $filter);
+		
     
     $searchForm = new SearchForm();
+		$data = array();
     if (isset($_GET['SearchForm'])){
       $searchForm->setAttributes($_GET['SearchForm']);
-    }
+			
+			$filter['collabpref'] = $searchForm->collabPref;
+			$filter['per_page'] = 12;
+			
+			if ($searchForm->isProject)	$searchResult = $sqlbuilder->load_array("search_idea", $filter);
+			else $searchResult = $sqlbuilder->load_array("search_user", $filter);
 
-		$this->render('index', array('data' => $data, "filter"=>$searchForm));
+			
+    }else{
+			$data['idea'] = $sqlbuilder->load_array("recent_updated", $filter);
+			$data['user'] = $sqlbuilder->load_array("recent_user", $filter);
+		}
+		
+
+		$this->render('index', array('data' => $data, "filter"=>$searchForm, "searchResult"=>$searchResult));
 	}
 
 	public function actionAbout()

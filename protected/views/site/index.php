@@ -242,26 +242,33 @@
   
 
 
-<?php if (isset($data['user'])){ ?>
+<?php if (!isset($_GET['SearchForm'])){ ?>
+	<?php if (isset($data['user'])){ ?>
 
-	<div class="row" id="recent_users">
-		<?php $this->renderPartial('//person/_recent', array('users' => $data['user'],"page"=>1,"maxPage"=>3)); ?>
-    </div>
+		<div class="row" id="recent_users">
+			<?php $this->renderPartial('//person/_recent', array('users' => $data['user'],"page"=>1,"maxPage"=>3)); ?>
+			</div>
 
-<?php } ?>
+	<?php } ?>
 
 
-<?php if (isset($data['idea'])){ ?>
+	<?php if (isset($data['idea'])){ ?>
 
-	<div class="row" id="recent_projects">
-		<?php $this->renderPartial('//project/_recent', array('ideas' => $data['idea'],"page"=>1,"maxPage"=>3)); ?>
-	</div>
+		<div class="row" id="recent_projects">
+			<?php $this->renderPartial('//project/_recent', array('ideas' => $data['idea'],"page"=>1,"maxPage"=>3)); ?>
+		</div>
 
-<?php } ?>
-
+	<?php } ?>
 
 <?php 
-
 Yii::log(arrayLog($data['idea']), CLogger::LEVEL_INFO, 'custom.info.idea'); 
 Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user'); 
-?>
+
+}else{ 
+	Yii::log(arrayLog($searchResult), CLogger::LEVEL_INFO, 'custom.info.user'); 
+	?>
+
+<?php print_r($searchResult); ?>
+
+<?php } ?>
+

@@ -601,6 +601,307 @@ class SqlBuilder {
 
 		return $array;
 	}
+
+public function search($type, $filter){
+
+		/*Taking in from $filter[] and processing data into sql;
+		There's more than one user_match row per idea... We'll group by user_match, to preserve best match
+		
+		Input data structure (word is table, -field is $key)
+
+		idea_keyword ---($k rows) -> $filter['keyword'];
+			-keyword
+
+		idea -> $filter['extra'];
+			-website
+			-video_link
+		
+		idea_status -> $filter['status'] = $value;
+			-status_id
+
+		user_match -> $filter['$key'] = '$value';
+			Key
+			-country_id
+			-city_id
+			-available
+
+		user_collabpref ---($c rows) -> $filter['collabpref'][N] = '$value';
+
+		user_skill  ---($ss rows) -> $filter['skill'][N]['$key'];
+			-id
+			-type = 1
+
+		user_skill  ---($s rows) -> $filter['skill'][N]['$key'];
+			-id = $value
+			-type = 2*/
+
+		/*Data preprocessing*/
+		if( isset($filter['skill']) ){
+			foreach($filter['skill'] AS $key => $value){
+				if($value['type'] == '1')
+					$filter['skillset'][] = $value['id']; //skillset_id
+				if($value['type'] == '2')
+					$filter['skillset_skill'][] = $value['id']; //skillset_skill's id
+			}
+		}
+		if( isset($filter['keyword']) ){
+			$keyworder = new Keyworder;
+			$filter['keyword'] = $keyworder->string2array($filter['keyword']);
+		}
+
+		/*SQL query processing (idea data, grouped by candidates)*/
+		
+		if($type == "idea"){
+			$sql = "SELECT i.id AS id, ";
+		} elseif($type == "user") {
+			$sql = "SELECT m.id AS id, ";
+		}
+
+		/*FIELDS TO PULL*/
+
+		if($type == "idea"){
+			//keyword AS k
+			if( isset($filter['keyword']) && count($filter['keyword']) > 0 ){
+				$k = -1;
+				foreach($filter['keyword'] AS $key => $value){
+					$k++;
+					$sql.= "k{$k}.id AS k{$k}_id, ";
+				}
+			}
+
+			//idea AS i
+			if(isset($filter['status_id']) AND is_numeric($filter['status_id'])){
+				$sql.=	"is.status_id, ";
+			}
+			if(isset($filter['extra'])){
+				$sql.=	"i.website, 
+						i.video_link, ";
+			}
+		}
+
+		//user_match AS m
+		if(isset($filter['country_id']) AND is_numeric($filter['country_id'])){
+			$sql.=	"m.country_id, ";
+		}
+		if(isset($filter['city_id']) AND is_numeric($filter['city_id'])){
+			$sql.=	"m.city_id, ";
+		}
+		if(isset($filter['available']) AND is_numeric($filter['available'])){
+			$sql.=	"m.available, ";
+		}
+
+		//user_collabpref AS c
+		if( isset($filter['collabpref']) && count($filter['collabpref']) > 0 ){
+			$c = -1;
+			foreach($filter['collabpref'] AS $key => $value){
+				if(is_numeric($value)){
+					$c++;
+					$sql.= "c{$c}.id AS c{$c}_id, ";
+				}
+			}
+		}
+
+		//user_skill (skillset) AS ms
+		if( isset($filter['skillset']) && count($filter['skillset']) > 0 ){
+			$ms = -1;
+			foreach($filter['skillset'] AS $key => $value){
+				if(is_numeric($value)){
+					$ms++;
+					$sql.= "ms{$s}.id AS ms{$s}_id, ";
+				}
+			}
+		}
+		//user_skill (skillset_skill) AS mss
+		if( isset($filter['skillset_skill']) && count($filter['skillset_skill']) > 0 ){
+			$mss = -1;
+			foreach($filter['skillset_skill'] AS $key => $value){
+				if(is_numeric($value)){
+					$mss++;
+					$sql.= "mss{$mss}.id AS mss{$mss}_id, ";
+				}
+			}
+		}
+
+		$sql.= "'200' AS status ";
+
+		if($type == "idea"){
+			$sql.= "FROM `idea` AS i 
+					LEFT JOIN `idea_member` AS im ON 
+						i.id = im.idea_id 
+						AND im.type_id = 3 
+					LEFT JOIN `user_match` AS m ON 
+						m.id = im.match_id ";
+		} elseif($type == "user") {
+			$sql.= "FROM `user_match` AS m ";
+		}
+
+		/*TABLES TO LEFT JOIN*/
+		//at the same time we are also preparing $cols for result ranking
+
+		$cols = array();
+
+		if($type == "idea"){
+			//idea_keyword AS k
+			if( isset($filter['keyword']) && count($filter['keyword']) > 0 ){
+				$k = -1;
+				foreach($filter['keyword'] AS $key => $value){
+					//$VALUE INPUT VALIDATION NEEDED
+					$k++;
+					$sql.= "LEFT JOIN `keyword` AS k{$k} ON 
+								k{$k}.table = 'idea' 
+								AND k{$k}.row_id = i.id 
+								AND k{$k}.keyword = :k{$k}_id ";
+					$cols["k{$k}_id"] = $value; //this key is an _id here, but it's really a string
+				}
+			}
+
+			//idea AS i
+			//the following field does not require joins, we're merely preparing variables for result ranking
+			if(isset($filter['status_id']) AND is_numeric($filter['status_id'])){
+				$cols["status_id"] = $filter['status_id'];
+			}
+			if(isset($filter['extra'])){
+				$cols["website"] = "";
+				$cols["video_link"] = "";
+			}
+		}
+
+		//user_match AS m
+		//the following fields do not require joins, we're merely preparing variables for result ranking
+		if(isset($filter['country_id']) AND is_numeric($filter['country_id'])){
+			$cols["country_id"] = $filter['country_id'];
+		}
+		if(isset($filter['city_id']) AND is_numeric($filter['city_id'])){
+			$cols["city_id"] = $filter['city_id'];
+		}
+		if(isset($filter['available']) AND is_numeric($filter['available'])){
+			$cols["available"] = $filter['available'];
+		}
+
+		//user_collabpref AS c
+		if( isset($filter['collabpref']) && count($filter['collabpref']) > 0 ){
+			$c = -1;
+			foreach($filter['collabpref'] AS $key => $value){
+				if(is_numeric($value)){
+					$c++;
+					$sql.= "LEFT JOIN `user_collabpref` AS c{$c} ON 
+								c{$c}.id = m.collab_id 
+								AND c{$c}.id = :c{$c}_id";
+					$cols["c{$c}_id"] = $value;
+				}
+			}
+		}
+
+		//user_skill (skillset) AS ms
+		if( isset($filter['skillset']) && count($filter['skillset']) > 0 ){
+			$ms = -1;
+			foreach($filter['skillset'] AS $key => $value){
+				if(is_numeric($value)){
+					$ms++;
+					$sql.= "LEFT JOIN `user_skill` AS ms{$ms} ON 
+								ms{$ms}.match_id = m.id 
+								AND ms{$ms}.skillset_id = :ms{$ms}_id ";
+					$cols["ms{$ms}_id"] = $value;
+				}
+			}
+		}
+		//user_skill (skillset_skill) AS mss
+		if( isset($filter['skillset_skill']) && count($filter['skillset_skill']) > 0 ){
+			$mss = -1;
+			foreach($filter['skillset_skill'] AS $key => $value){
+				if(is_numeric($value)){
+					$mss++;
+					$sql.= "LEFT JOIN `skillset_skill` AS ss{$mss} ON 
+								ss{$mss}.id = :mss{$mss}_id 
+							LEFT JOIN `user_skill` AS mss{$mss} ON 
+								mss{$mss}.match_id = m.id 
+								AND mss{$mss}.skillset_id = ss{$mss}.skillset_id 
+								AND mss{$mss}.skill_id = ss{$mss}.skill_id ";
+					$cols["mss{$mss}_id"] = $value;
+				}
+			}
+		}
+
+		if($type == "idea") {
+			//group by idea_id
+			//because it's highly relevant if one person has skills sought in several candidates
+			$sql.=	"GROUP BY i.id";
+		} elseif($type == "user") {
+			$sql.=	"WHERE m.user_id > 0 
+					GROUP BY m.id";
+		}
+
+		/*WE GOT SQL SENTENCE BUILT ($sql), DATA GATHERED ($cols) LETS RUN THIS STUFF*/
+		$connection=Yii::app()->db;
+		$command=$connection->createCommand($sql);
+
+		/*BIND COLUMNS TO SQL*/
+		$cols_backup = $cols;
+		foreach($cols as $col =>  &$value){ // $value can be changed by the body of foreach loop.
+			if($col != 'status_id' && $col != 'country_id' && $col != 'city_id' && $col != 'available')
+				$command->bindParam(":{$col}", $value);
+		}
+		$dataReader=$command->query();
+		$array = array();
+
+		/*rank results by matching fields and a ranking system*/
+		$total = count($cols_backup); //each field is worth 1 point right now
+
+		while(($row=$dataReader->read())!==false) {
+
+			$rank = 0;
+			if($total > 0){
+
+				foreach($cols_backup AS $key => $value){
+					//echo "ROW: ".$row[$col] . "\n";
+					//echo "COL: ".$key . "\n";
+					//echo "VAL: ".$value . "\n\n";
+					
+					if(	$key == "status_id" || 
+						$key == "country_id" || 
+						$key == "city_id" || 
+						$key == "available" ){
+
+						if($row[$key] == $value){
+							$rank++;
+						}
+					} else {
+						if($row[$key] > 0){
+							$rank++;
+						}
+					}
+				}
+
+				$rank = round($rank / $total * 100, PHP_ROUND_HALF_UP);
+			}
+
+			//$array[$row['id']] = array( $rank => $row );
+			$array[$row['id']] = $row;
+			$array[$row['id']]['rank'] = $rank;
+
+			$rank_array[$row['id']] = $rank;
+		}
+		
+		//Sort by relevance
+		array_multisort($rank_array, SORT_DESC, $array);
+
+		//Pagination
+		$array = array_slice($array, ($filter['page'] - 1) * $filter['per_page'], $filter['per_page']);
+		
+		//DEBUG
+		/*echo $type."\n";
+		echo "# of conditions: $total\n";
+		print_r($cols_backup);
+		echo $sql;
+		print_r($array);*/
+
+		//Load the array with data!
+		if($type == "idea") {
+			return $this->idea("search", $filter, $array);
+		} elseif($type == "user") {
+			return $this->user("search", $filter, $array);
+		}
+	}
 }
 
 /*
