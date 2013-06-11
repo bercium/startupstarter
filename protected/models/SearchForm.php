@@ -19,7 +19,7 @@ class SearchForm extends CFormModel
 	public $stage;
 	public $keywords;
 	public $extraDetail;
-	public $content;
+	public $language;
   
 	/**
 	 * Declares the validation rules.
@@ -35,7 +35,7 @@ class SearchForm extends CFormModel
 			//array('rememberMe', 'boolean'),
 			// password needs to be authenticated
 			//array('password', 'authenticate'),
-		  array('isProject','safe'),
+		  array('isProject, collabPref, available, country, city, skill, skillSet, stage, keywords, language, extraDetail','safe'),
 		);
 	}
 

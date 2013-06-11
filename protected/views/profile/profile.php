@@ -1,3 +1,110 @@
+<script>
+	var skillSuggest_url = '<?php echo Yii::app()->createUrl("profile/sugestSkill",array("ajax"=>1)) ?>';
+ </script>
+
+ 
+<div class="row">
+  <div class="small-12 large-12 columns edit-header">
+    <h3><?php echo Yii::t('app', 'Profile details'); ?></h3>
+  </div>
+  <div class="small-12 large-12 columns panel edit-content">
+
+    <?php if(Yii::app()->user->hasFlash('profileMessage')){ ?>
+    <div data-alert class="alert-box radius success">
+      <?php echo Yii::app()->user->getFlash('profileMessage'); ?>
+      <a href="#" class="close">&times;</a>
+    </div>
+    <?php } ?>
+    
+    <?php echo CHtml::beginForm('','post',array('class'=>"custom  large-6 small-12")); ?>
+    <p>
+			
+    <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
+    
+    <?php echo CHtml::activeLabelEx($match,'available'); ?>
+    <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listDataEx(Available::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+    
+    <?php 
+		echo Yii::t('app','Collaboration preferences');
+		foreach ($data['user']['collabpref'] as $colabpref){ ?>
+			<label for="CollabPref_<?php echo $colabpref['id']; ?>"><?php echo CHtml::checkBox('CollabPref['.$colabpref['id'].']',$colabpref['active'],array('style'=>'display:none')); ?>
+       <?php echo $colabpref['name'] ?></label>
+ 			 <?php
+		}
+		
+		?>
+
+    <?php /* extra data ?>
+    <?php echo Yii::t('app','Extra information'); ?>
+		<span class="general foundicon-flag" data-tooltip title="<?php echo Yii::t('msg',"Add some extra information like what you can offer..."); ?>"></span>
+		
+    <?php echo CHtml::textArea("extraInformation"); ?>
+    <?php //*/ ?> 
+          
+		</p>
+		
+      <?php echo CHtml::submitButton(Yii::t("app","Save"),
+            array('class'=>"button small success radius")
+        ); ?>
+
+	<?php echo CHtml::endForm(); ?>		
+		
+		<hr>
+		<p>
+   <a href="#" onclick="$('.addSkils').toggle(); return false;"><?php echo Yii::t('app',"My skills"); ?> +</a>
+    <div class="addSkils" style="display:none">
+
+	
+          <?php $form=$this->beginWidget('CActiveForm', array(
+              'id'=>'SkillForm',
+//             'enableClientValidation'=>true,
+               'htmlOptions'=>array(
+															'class'=>'custom',
+                              'onsubmit'=>"return false;",/* Disable normal form submit */
+                              //'onkeypress'=>" if(event.keyCode == 13){ addSkill('".Yii::app()->createUrl("profile/addSkill")."'); } " /* Do ajax call when user presses enter key */
+                              ),
+          )); ?>
+	
+		<?php echo Yii::t('app','Skill'); ?>	
+		<span class="general foundicon-flag" data-tooltip title="<?php echo Yii::t('msg',"Add as many relevant skills you. Bla bla blaaa"); ?>"></span>
+    <?php echo CHtml::textField("skill","", array('maxlength' => 128)); ?>
+	
+ 
+    <?php echo Yii::t('app','Skill group'); ?>
+    <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAll(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+	
+		<?php echo CHtml::submitButton(Yii::t("app","Add skill"),
+                    array('class'=>"button small success radius",
+                        'onclick'=>'addSkill(\''.Yii::app()->createUrl("profile/addSkill").'\');')
+                ); ?>
+		
+		<?php $this->endWidget(); ?>  
+	
+		</div>
+	
+		<div class="skillList">
+		<?php foreach ($userSkills as $skill){ ?>
+			<span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $skill->id; ?>">
+          <?php echo $skill->skill->name; ?>
+          <a href="#" class="close" onclick="removeSkill(<?php echo $skill->id; ?>,'<?php echo Yii::app()->createUrl("profile/deleteSkill"); ?>')">&times;</a>
+	   </span>
+		<?php } ?>
+		</div>
+		
+	  </p>
+		
+		<?php
+    //!!! remove this and import JUI js and CSS :)
+    $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+				'name'=>'city',
+				// additional javascript options for the autocomplete plugin
+        'htmlOptions'=>array("style"=>'display:none'),
+		));
+		?>
+    
+  </div>
+</div>
+
 <div class="row">
   <div class="small-12 large-12 columns edit-header">
     <h3><?php echo Yii::t('app', 'Personal information'); ?></h3>
@@ -87,6 +194,7 @@
       
    
       <hr>
+			<p>
       <a href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My custom links"); ?> +</a>
       <div class="addLinks" style="display:none">
 
@@ -95,7 +203,7 @@
 //             'enableClientValidation'=>true,
                'htmlOptions'=>array(
                               'onsubmit'=>"return false;",/* Disable normal form submit */
-                              'onkeypress'=>" if(event.keyCode == 13){ send(); } " /* Do ajax call when user presses enter key */
+                              //'onkeypress'=>" if(event.keyCode == 13){ addLink('".Yii::app()->createUrl("profile/addLink")."'); } " /* Do ajax call when user presses enter key */
                               ),
           )); ?>
 
@@ -108,7 +216,7 @@
               <?php echo $form->labelEx($link,'url'); ?>
               <?php echo $form->textField($link,'url'); ?>
 
-              <?php echo CHtml::submitButton(Yii::t("app","Add"),
+              <?php echo CHtml::submitButton(Yii::t("app","Add link"),
                     array('class'=>"button small success radius",
                         'onclick'=>'addLink(\''.Yii::app()->createUrl("profile/addLink").'\');')
                 ); ?>
@@ -116,6 +224,7 @@
           <?php $this->endWidget(); ?>        
         
       </div>
+			</p>
       <div class="linkList">
         <?php foreach ($data['user']['link'] as $link){ ?>
         <div data-alert class="alert-box radius secondary" id="link_div_<?php echo $link['id']; ?>">
@@ -129,94 +238,7 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="small-12 large-12 columns edit-header">
-    <h3><?php echo Yii::t('app', 'Profile details'); ?></h3>
-  </div>
-  <div class="small-12 large-12 columns panel edit-content">
 
-    <?php if(Yii::app()->user->hasFlash('profileMessage')){ ?>
-    <div data-alert class="alert-box radius success">
-      <?php echo Yii::app()->user->getFlash('profileMessage'); ?>
-      <a href="#" class="close">&times;</a>
-    </div>
-    <?php } ?>
-    
-    <?php echo CHtml::beginForm('','post',array('class'=>"custom  large-6 small-12")); ?>
-    <p>
-			
-    <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
-    
-    <?php echo CHtml::activeLabelEx($match,'available'); ?>
-    <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listDataEx(Available::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
-    
-    <?php 
-		echo Yii::t('app','Collaboration preferences');
-		foreach ($data['user']['collabpref'] as $colabpref){ ?>
-			<label for="CollabPref_<?php echo $colabpref['id']; ?>"><?php echo CHtml::checkBox('CollabPref['.$colabpref['id'].']',$colabpref['active'],array('style'=>'display:none')); ?>
-       <?php echo $colabpref['name'] ?></label>
- 			 <?php
-		}
-		
-		?>
-
-		<br />
-		
-    <?php echo Yii::t('app','Extra information'); ?>
-		<span class="general foundicon-flag" data-tooltip title="<?php echo Yii::t('msg',"Add some extra information like what you can offer..."); ?>"></span>
-		
-    <?php echo CHtml::textArea("extraInformation"); ?>
-		</p>
-		
-		
-		<p>
-		<?php echo Yii::t('app','Skills'); ?>	
-		<span class="general foundicon-flag" onclick="$('#skillset').val(4);" data-tooltip title="<?php echo Yii::t('msg',"Add as many relevant skills you. Bla bla blaaa"); ?>"></span>
-    
-    
-		<?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-				'name'=>'city',
-				'source'=>'function( request, response ) {
-								var term = request.term;
-
-								if ( term in cache ) {
-									response( cache[ term ] );
-									return;
-								}
-
-								lastXhr = $.getJSON( "search.php", request, function( data, status, xhr ) {
-									cache[ term ] = data;
-
-									if ( xhr === lastXhr ) {
-										response( data );
-									}
-								});
-							}',
-				// additional javascript options for the autocomplete plugin
-				'options'=>array(
-						'minLength'=>'2',
-				),
-				'htmlOptions'=>array(
-						'style'=>'',
-				),
-		));
-		 ?>
- 
-    <?php echo Yii::t('app','country_id'); ?>
-    <?php echo CHtml::dropDownList('skillset', '', Skillset::model()->findAllAttributes(null, true), array('empty' => '&nbsp;','style'=>'display:nonet')); ?>
-		
-	  </p>
-		
-		<script>
-			$("#skillset").val(3);
-		</script>
-
-      <?php echo CHtml::submitButton(Yii::t("app","Save"),
-            array('class'=>"button small success radius")
-        ); ?>
-    <?php echo CHtml::endForm(); ?>
-  </div>
-</div>
 
 <?php 
 	Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user'); 

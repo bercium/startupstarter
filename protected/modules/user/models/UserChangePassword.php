@@ -28,9 +28,9 @@ class UserChangePassword extends CFormModel {
 	public function attributeLabels()
 	{
 		return array(
-			'oldPassword'=>Yii::t('app',"Old Password"),
-			'password'=>Yii::t('app',"password"),
-			'verifyPassword'=>Yii::t('app',"Retype Password"),
+			'oldPassword'=>Yii::t('app',"Old password"),
+			'password'=>Yii::t('app',"New password"),
+			'verifyPassword'=>Yii::t('app',"Retype password"),
 		);
 	}
 	

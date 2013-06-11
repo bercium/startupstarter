@@ -61,3 +61,11 @@ function contact(e){
 	e.href = "mailto:info";
 	e.href += pri+"cofinder.eu";
 }
+
+function splitComa( val ) {
+  return val.split( /,\s*/ );
+}
+		
+function extractLast( term ) {
+	return splitComa( term ).pop();
+}

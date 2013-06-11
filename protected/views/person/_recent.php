@@ -14,19 +14,19 @@
   </ul>
 
 	<div class="pagination-centered">
-		<small class="hide-for-small"><a href="<?php echo Yii::app()->createUrl("person/recent/1"); ?>"  class="right button secondary small">show all</a></small>
+		<small class="hide-for-small"><a href="<?php echo Yii::app()->createUrl("person/recent/1"); ?>"  class="right">show all <span class="general-enclosed foundicon-right-arrow"></span></a></small>
 		
 		<ul class="pagination hide-for-small">
 			<?php if ($page > 1){ ?>
-			<li class="arrow"><a class="button small secondary" href="#" onclick="recentUsersPage('<?php echo Yii::app()->createUrl("person/recent",array("id"=>$page-1)); ?>'); return false;"><span class="general foundicon-left-arrow"></span></a></li>
+			<li class="arrow"><a class="button small secondary" href="#" onclick="recentUsersPage('<?php echo Yii::app()->createUrl("person/recent",array("id"=>$page-1)); ?>'); return false;">&laquo;</a></li>
 			<?php }else{ ?>
-      <li class="arrow unavailable"><a class="button small secondary disabled"><span class="general foundicon-left-arrow"></span></a></li>
+      <li class="arrow unavailable"><a class="button small secondary disabled">&laquo;</a></li>
 			<?php } ?>
 			
 			<?php if ($page < $maxPage){ ?>
-			<li class="arrow"><a class="button small secondary" href="#" onclick="recentUsersPage('<?php echo Yii::app()->createUrl("person/recent",array("id"=>$page+1)); ?>'); return false;"><span class="general foundicon-right-arrow"></span></a></li>
+			<li class="arrow"><a class="button small secondary" href="#" onclick="recentUsersPage('<?php echo Yii::app()->createUrl("person/recent",array("id"=>$page+1)); ?>'); return false;">&raquo;</a></li>
 			<?php }else{ ?>
-      <li class="arrow unavailable"><a class="button small secondary disabled"><span class="general foundicon-right-arrow"></span></a></li>
+      <li class="arrow unavailable"><a class="button small secondary disabled">&raquo;</a></li>
 			<?php } ?>
 		</ul>
 		
