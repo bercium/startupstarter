@@ -197,7 +197,6 @@ class ProjectController extends GxController {
 
 			$this->render('createidea', array( 'step' => $step, 'idea' => $idea, 'translation' => $translation, 'language' => $language, 'user' => $user, 'ideas'=>$data['user']['idea'] ));
 
-
 		} elseif($step == 2) {
 
 		} elseif($step == 3) {
