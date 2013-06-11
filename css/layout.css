@@ -24,7 +24,8 @@ body {
 
 .header-wrap {
 	background: url(../images/header-wrap_bg.png);
-	background: #262925;
+	/*background: #262925;*/
+	background: #FFF;
 	border-top: 3px solid #111;
 	background-attachment: fixed;
 }
