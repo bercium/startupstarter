@@ -115,7 +115,7 @@ class ProjectController extends GxController {
 		$filter['user_id'] = $user_id;
 		unset($filter['lang']);
 		$data['user'] = $sqlbuilder->load_array("user", $filter);
-		
+
 		//for idea form purposes NOT SURE IF NEEDED AT ALL
 		$user = UserEdit::Model()->findByAttributes( array( 'id' => $user_id ) );
 
@@ -195,7 +195,7 @@ class ProjectController extends GxController {
 				}
 			}
 
-					$this->render('createidea', array( 'step' => $step, 'idea' => $idea, 'translation' => $translation, 'language' => $language, 'user' => $user, 'ideas'=>$data['user']['idea'] ));
+			$this->render('createidea', array( 'step' => $step, 'idea' => $idea, 'translation' => $translation, 'language' => $language, 'user' => $user, 'ideas'=>$data['user']['idea'] ));
 
 
 		} elseif($step == 2) {
