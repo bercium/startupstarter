@@ -1,10 +1,11 @@
 <?php
 /*
-ELSEWHERE:
--dodajanje projektov (flow + koda)
-	-keywords dodajanje pri ideji
--urejanje projektov (flow + koda)
-	-don't forget keywords in prevodi
+TODO:
+-search
+		language_id (search)
+			idea_translation ---($k rows) -> $filter['language_id'][N] = $id;
+		country_id (MULTIPLE ENTRIES)
+		city_id (MULTIPLE ENTRIES)
 */
 
 class SqlBuilder {
@@ -245,7 +246,7 @@ class SqlBuilder {
 	public function idea_translation($type, $filter){
 
 		if($type == 'userlang'){
-			$sql=		"SELECT it.id AS translation_id, it.title, it.pitch, it.description, it.description_public, it.tweetpitch, it.language_id, l.name AS language, l.language_code FROM ".
+			$sql=		"SELECT it.id AS translation_id, it.title, it.keywords, it.pitch, it.description, it.description_public, it.tweetpitch, it.language_id, l.name AS language, l.language_code FROM ".
 						"`idea` AS i,`idea_translation` AS it,`language` AS l ".
 						"WHERE i.id = it.idea_id ".
 						"AND l.id = it.language_id ".
@@ -254,7 +255,7 @@ class SqlBuilder {
 						"ORDER BY FIELD(it.language_id, '{$filter['lang']}') DESC";
 
 		} else {
-			$sql=		"SELECT it.*, l.name AS language, l.id AS language_id FROM ".
+			$sql=		"SELECT it.id AS translation_id, it.title, it.keywords, it.pitch, it.description, it.description_public, it.tweetpitch, it.language_id, l.name AS language, l.language_code FROM ".
 						"`idea` AS i,`idea_translation` AS it,`language` AS l ".
 						"WHERE i.id = it.idea_id ".
 						"AND l.id = it.language_id ".
@@ -273,7 +274,7 @@ class SqlBuilder {
 			if($type == 'userlang'){
 				$array = $row;
 			} else {
-				$array[$row['id']] = $row;
+				$array[$row['translation_id']] = $row;
 			}
 		}
 
@@ -621,6 +622,9 @@ class SqlBuilder {
 			-video_link
 		
 		idea_status -> $filter['status'] = $value;
+			-status_id
+
+		idea_status -> $filter['language'] = $value;
 			-status_id
 
 		user_match -> $filter['$key'] = '$value';
