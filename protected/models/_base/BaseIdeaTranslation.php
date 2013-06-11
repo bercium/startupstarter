@@ -72,6 +72,7 @@ abstract class BaseIdeaTranslation extends GxActiveRecord {
 			'pitch' => Yii::t('app', 'Pitch'),
 			'description' => Yii::t('app', 'Description'),
 			'description_public' => Yii::t('app', 'Description Public'),
+			'keywords' => Yii::t('app', 'Keywords'),
 			'tweetpitch' => Yii::t('app', 'Tweetpitch'),
 			'deleted' => Yii::t('app', 'Deleted'),
 			'title' => Yii::t('app', 'Title'),
@@ -89,6 +90,7 @@ abstract class BaseIdeaTranslation extends GxActiveRecord {
 		$criteria->compare('pitch', $this->pitch, true);
 		$criteria->compare('description', $this->description, true);
 		$criteria->compare('description_public', $this->description_public);
+		$criteria->compare('keywords', $this->keywords);
 		$criteria->compare('tweetpitch', $this->tweetpitch, true);
 		$criteria->compare('deleted', $this->deleted);
 		$criteria->compare('title', $this->title, true);
