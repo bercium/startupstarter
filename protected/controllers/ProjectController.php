@@ -101,18 +101,25 @@ class ProjectController extends GxController {
 
 	public function actionCreate($step = NULL){
 		
-		//general layout
-			$this->layout="//layouts/edit";
-		//for sidebar purposes
-			$sqlbuilder = new SqlBuilder;
-			$user_id = Yii::app()->user->id;
-			$filter['user_id'] = $user_id;
-			unset($filter['lang']);
-			$data['user'] = $sqlbuilder->load_array("user", $filter);
-		//for idea form purposes NOT SURE IF NEEDED AT ALL
-			$user = UserEdit::Model()->findByAttributes( array( 'id' => $user_id ) );
+		if($step == NULL || !isset(Yii::app()->session['IdeaCreated'])) $step = 1;
 
-		if($step == NULL || $step == 1 || !isset(Yii::app()->session['IdeaCreated'])){
+		//set default language
+		$language = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
+
+		//general layout
+		$this->layout="//layouts/edit";
+
+		//for sidebar purposes
+		$sqlbuilder = new SqlBuilder;
+		$user_id = Yii::app()->user->id;
+		$filter['user_id'] = $user_id;
+		unset($filter['lang']);
+		$data['user'] = $sqlbuilder->load_array("user", $filter);
+
+		//for idea form purposes NOT SURE IF NEEDED AT ALL
+		$user = UserEdit::Model()->findByAttributes( array( 'id' => $user_id ) );
+
+		if($step == 1){
 
 			//Idea is not created yet
 			if(!isset(Yii::app()->session['IdeaCreated'])){
@@ -121,6 +128,9 @@ class ProjectController extends GxController {
 				$idea = new Idea;
 				$translation = new IdeaTranslation;
 				$member = new IdeaMember;
+
+				//set default language in this step
+				$translation->language_id = $language->id;
 
 				//idea owner objects
 				$user_id = Yii::app()->user->id;
@@ -155,21 +165,11 @@ class ProjectController extends GxController {
 				$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
 				$criteria=new CDbCriteria();
 				$criteria->addInCondition('type_id',array(1)); //owner
-				$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
+				$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $idea->id), $criteria);
 
 				if($idea && $hasPriviledges){
 
-					$sqlbuilder = new SqlBuilder;
-					$filter = array( 'idea_id' => $id);
-
-					if($lang){
-						$language = Language::Model()->findByAttributes( array( 'language_code' => $lang ) );
-						$translation = IdeaTranslation::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'language_id' => $language->id, 'deleted' => 0 ) );
-
-						$filter['lang'] = $lang;
-					} else {
-						$translation = IdeaTranslation::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'deleted' => 0 ) );
-					}
+					$translation = IdeaTranslation::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'deleted' => 0 ) );
 
 					if (isset($_POST['Idea']) AND isset($_POST['IdeaTranslation'])) {
 						$_POST['time_updated'] = time();
@@ -195,13 +195,15 @@ class ProjectController extends GxController {
 				}
 			}
 
-			$this->render('createidea', array( 'step' => $step, 'idea' => $idea, 'translation' => $translation, 'user' => $user, 'ideas'=>$data['user']['idea'] ));
+			$this->render('createidea', array( 'step' => $step, 'idea' => $idea, 'translation' => $translation, 'language' => $language, 'user' => $user, 'ideas'=>$data['user']['idea'] ));
 
-		} elseif(isset(Yii::app()->session['IdeaCreated']) && $step == 2) {
 
-		} elseif(isset(Yii::app()->session['IdeaCreated']) && $step == 3) {
+		} elseif($step == 2) {
+
+		} elseif($step == 3) {
 
 		}
+
 
 	}
 
