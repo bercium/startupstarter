@@ -210,12 +210,52 @@ CREATE TABLE IF NOT EXISTS `idea_translation` (
   `pitch` text NOT NULL,
   `description` text,
   `description_public` tinyint(1) NOT NULL,
+  `keywords` text,
   `tweetpitch` varchar(140) DEFAULT NULL,
   `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idea_id` (`idea_id`),
   KEY `language_id` (`language_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabele `idea_translation`
+--
+
+CREATE TABLE IF NOT EXISTS `keyword` (
+  `id` int(12) unsigned NOT NULL AUTO_INCREMENT,
+  `type` int(2) unsigned NOT NULL DEFAULT '1',
+  `table` varchar(64) NOT NULL,
+  `row_id` int(10) unsigned NOT NULL,
+  `keyword` varchar(32) NOT NULL,
+  `language_id` int(3) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `language_id` (`language_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invite`
+--
+
+CREATE TABLE IF NOT EXISTS `invite` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_sender` int(11) unsigned NOT NULL,
+  `key` varchar(50) DEFAULT NULL,
+  `email` varchar(50) NOT NULL,
+  `id_idea` int(11) unsigned DEFAULT NULL,
+  `id_receiver` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_sender` (`id_sender`),
+  KEY `id_idea` (`id_idea`),
+  KEY `id_receiver` (`id_receiver`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -454,6 +494,14 @@ ALTER TABLE `user_skill`
   ADD CONSTRAINT `user_skill_ibfk_2` FOREIGN KEY (`skillset_id`) REFERENCES `skillset` (`id`),
   ADD CONSTRAINT `user_skill_ibfk_3` FOREIGN KEY (`skill_id`) REFERENCES `skill` (`id`),
   ADD CONSTRAINT `user_skill_ibfk_4` FOREIGN KEY (`match_id`) REFERENCES `user_match` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `invite`
+--
+ALTER TABLE `invite`
+  ADD CONSTRAINT `invite_ibfk_3` FOREIGN KEY (`id_receiver`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `invite_ibfk_1` FOREIGN KEY (`id_sender`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `invite_ibfk_2` FOREIGN KEY (`id_idea`) REFERENCES `idea` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

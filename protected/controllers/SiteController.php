@@ -61,6 +61,18 @@ class SiteController extends Controller
 		);
 	}
 
+	private function checkSearchForm($formValues){
+		foreach ($formValues as $key => $value){
+			if ($key == 'isProject') continue;
+		
+			if (!empty($value)){
+				echo $key."-".$value;
+				return true; // at least one search item
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * This is the default 'index' action that is invoked
 	 * when an action is not explicitly requested by users.
@@ -76,7 +88,12 @@ class SiteController extends Controller
     
     $searchForm = new SearchForm();
 		$data = array();
+		$searchResult = array();
+		
+		if (isset($_GET['SearchForm']) && (!$this->checkSearchForm($_GET['SearchForm']))) unset($_GET['SearchForm']);
+		
     if (isset($_GET['SearchForm'])){
+			// search results
       $searchForm->setAttributes($_GET['SearchForm']);
 			
 			$filter['collabpref'] = $searchForm->collabPref;
@@ -85,8 +102,8 @@ class SiteController extends Controller
 			if ($searchForm->isProject)	$searchResult = $sqlbuilder->load_array("search_idea", $filter);
 			else $searchResult = $sqlbuilder->load_array("search_user", $filter);
 
-			
     }else{
+			// last results
 			$data['idea'] = $sqlbuilder->load_array("recent_updated", $filter);
 			$data['user'] = $sqlbuilder->load_array("recent_user", $filter);
 		}
