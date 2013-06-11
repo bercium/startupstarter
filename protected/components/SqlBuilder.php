@@ -793,7 +793,7 @@ class SqlBuilder {
 				if(is_numeric($value)){
 					$c++;
 					$sql.= "LEFT JOIN `user_collabpref` AS c{$c} ON 
-								c{$c}.id = m.collab_id 
+								c{$c}.match_id = m.id  
 								AND c{$c}.id = :c{$c}_id";
 					$cols["c{$c}_id"] = $value;
 				}
@@ -833,10 +833,10 @@ class SqlBuilder {
 		if($type == "idea") {
 			//group by idea_id
 			//because it's highly relevant if one person has skills sought in several candidates
-			$sql.=	"GROUP BY i.id";
+			$sql.=	" GROUP BY i.id";
 		} elseif($type == "user") {
-			$sql.=	"WHERE m.user_id > 0 
-					GROUP BY m.id";
+			$sql.=	" WHERE m.user_id > 0 
+					 GROUP BY m.id";
 		}
 
 		/*WE GOT SQL SENTENCE BUILT ($sql), DATA GATHERED ($cols) LETS RUN THIS STUFF*/
@@ -897,11 +897,11 @@ class SqlBuilder {
 		$array = array_slice($array, ($filter['page'] - 1) * $filter['per_page'], $filter['per_page']);
 		
 		//DEBUG
-		/*echo $type."\n";
+		echo $type."\n";
 		echo "# of conditions: $total\n";
 		print_r($cols_backup);
 		echo $sql;
-		print_r($array);*/
+		print_r($array);
 
 		//Load the array with data!
 		if($type == "idea") {
