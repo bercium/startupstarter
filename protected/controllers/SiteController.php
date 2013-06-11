@@ -61,18 +61,6 @@ class SiteController extends Controller
 		);
 	}
 
-	private function checkSearchForm($formValues){
-		foreach ($formValues as $key => $value){
-			if ($key == 'isProject') continue;
-		
-			if (!empty($value)){
-				echo $key."-".$value;
-				return true; // at least one search item
-			}
-		}
-		return false;
-	}
-	
 	/**
 	 * This is the default 'index' action that is invoked
 	 * when an action is not explicitly requested by users.
@@ -90,9 +78,9 @@ class SiteController extends Controller
 		$data = array();
 		$searchResult = array();
 		
-		if (isset($_GET['SearchForm']) && (!$this->checkSearchForm($_GET['SearchForm']))) unset($_GET['SearchForm']);
+		if (isset($_GET['SearchForm'])) $searchForm->setAttributes($_GET['SearchForm']);
 		
-    if (isset($_GET['SearchForm'])){
+    if ($searchForm->checkSearchForm()){
 			// search results
       $searchForm->setAttributes($_GET['SearchForm']);
 			

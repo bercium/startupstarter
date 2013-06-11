@@ -123,7 +123,7 @@
 						); ?>
       </div>
 			
-			<div class="advance" <?php if (!isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
+			<div class="advance" <?php if (!$filter->checkAdvanceForm()) echo "style='display:none'"; ?>>
 		    <hr>
 				
 					<div class="small-12 large-3 columns">
@@ -220,7 +220,7 @@
 					); ?>
 	    </div>
 			
-			<div class="advance" <?php if (!isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
+			<div class="advance" <?php if (!$filter->checkAdvanceForm()) echo "style='display:none'"; ?>>
 		      <hr>
 
 					<div class="small-12 large-3 columns">

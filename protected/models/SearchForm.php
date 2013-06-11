@@ -14,7 +14,6 @@ class SearchForm extends CFormModel
 	public $country;
 	public $city;
 	public $skill;
-	public $skillSet;
 	
 	public $stage;
 	public $keywords;
@@ -35,7 +34,7 @@ class SearchForm extends CFormModel
 			//array('rememberMe', 'boolean'),
 			// password needs to be authenticated
 			//array('password', 'authenticate'),
-		  array('isProject, collabPref, available, country, city, skill, skillSet, stage, keywords, language, extraDetail','safe'),
+		  array('isProject, collabPref, available, country, city, skill, stage, keywords, language, extraDetail','safe'),
 		);
 	}
 
@@ -46,6 +45,32 @@ class SearchForm extends CFormModel
 	{
 		return array(
 		);
+	}
+	
+	public function checkSearchForm(){
+		return (!empty($this->available)) ||
+					 (!empty($this->city)) ||
+					 (!empty($this->collabPref)) ||
+					 (!empty($this->country)) ||
+					 (!empty($this->extraDetail)) ||
+					 (!empty($this->keywords)) ||
+					 (!empty($this->language)) ||
+					 (!empty($this->stage)) ||
+					 (!empty($this->skill));
+	}
+
+	public function checkAdvanceForm(){
+		if ($this->isProject){
+			return (!empty($this->available)) ||
+						 (!empty($this->city)) ||
+						 (!empty($this->collabPref)) ||
+						 (!empty($this->country)) ||
+						 (!empty($this->extraDetail)) ||
+						 (!empty($this->skill));
+		}else{
+			return (!empty($this->city)) ||
+						 (!empty($this->skill));
+		}
 	}
 
 }
