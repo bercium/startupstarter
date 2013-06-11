@@ -10,6 +10,7 @@
 <script>
 	var skillSuggest_url = '<?php echo Yii::app()->createUrl("site/sugestSkill",array("ajax"=>1)) ?>';
 	var citySuggest_url = '<?php echo Yii::app()->createUrl("site/sugestCity",array("ajax"=>1)) ?>';
+	var countrySuggest_url = '<?php echo Yii::app()->createUrl("site/sugestCountry",array("ajax"=>1)) ?>';
 </script>
 
 		
@@ -22,7 +23,7 @@
 		));
 		?>
 
-<div class="intro">
+<div class="intro" <?php if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
   <div  class="row" >
     <div class="large-12 small-12 columns" style="text-align: center;" >
 
@@ -128,7 +129,7 @@
 						); ?>
       </div>
 			
-			<div class="advance">
+			<div class="advance" <?php if (!isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
 		    <hr>
 					
         <div class="large-3 small-12 columns">
@@ -168,7 +169,7 @@
 				<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
 				
 				<?php echo CHtml::label(Yii::t('app','Colaboration'),''); ?>
-				<?php echo CHtml::dropDownList('SearchForm[collabPref]','', 
+				<?php echo CHtml::dropDownList('SearchForm[collabPref]',$filter->collabPref, 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
               CHtml::listData(Collabpref::model()->findAllTranslated(),"id","name")
 							, array('empty' => '&nbsp;',"class"=>"small-12 large-3","style"=>"display:none")); ?>
@@ -179,13 +180,14 @@
 				<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
 				
 				<?php echo CHtml::label(Yii::t('app','Availability'),''); ?>
-				<?php echo CHtml::dropDownList('SearchForm[available]','', 
+				<?php echo CHtml::dropDownList('SearchForm[available]',$filter->available, 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
               CHtml::listData(Available::model()->findAllTranslated(),"id","name")
 							, array('empty' => '&nbsp;',"class"=>"small-12 large-3","style"=>"display:none")); ?>
 				
 				
 			</div>
+			<?php /* ?>
 			<div class="small-12 large-3 columns">
 				<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
 				
@@ -194,27 +196,30 @@
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
               CHtml::listData(Country::model()->findAll(),"id","name")
 							, array('empty' => '&nbsp;',"class"=>"small-12 large-3","style"=>"display:none")); ?>
-				
-				
-			</div>
+			</div><?php */ ?>
 			<div class="small-12 large-3 columns">
+				<label><?php echo Yii::t('app','Country'); ?></label>
+				<?php echo CHtml::textField('SearchForm[country]',$filter->country,array("class"=>"country")); ?>
+			</div>
+			
+			
+			<div class="small-12 large-3 columns"  style="text-align: center;">
 					<?php echo CHtml::submitButton(Yii::t("app","Search"),
 							array('class'=>"button small radius")
 					); ?>
 	    </div>
 			
-			<div class="advance">
+			<div class="advance" <?php if (!isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
 		      <hr>
 
 					<div class="small-12 large-3 columns">
 						<label><?php echo Yii::t('app','City'); ?></label>
-						<?php echo CHtml::textField('SearchForm[city]',''); ?>
-
+						<?php echo CHtml::textField('SearchForm[city]',$filter->city,array("class"=>"city")); ?>
 					</div>
 
 					<div class="small-12 large-9 columns">
-						<label><?php echo Yii::t('app','Skills'); ?></label>
-						<?php echo CHtml::textField('SearchForm[skill]',''); ?>
+						<label><?php echo Yii::t('app','Skill'); ?></label>
+						<?php echo CHtml::textField('SearchForm[skill]',$filter->skill,array("class"=>"skill")); ?>
 
 					</div>					
 			</div>

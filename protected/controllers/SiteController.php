@@ -78,8 +78,8 @@ class SiteController extends Controller
 		$data['user'] = $sqlbuilder->load_array("recent_user", $filter);
     
     $searchForm = new SearchForm();
-    if (isset($_POST['SearchForm'])){
-      $searchForm->setAttributes($_POST['SearchForm']);
+    if (isset($_GET['SearchForm'])){
+      $searchForm->setAttributes($_GET['SearchForm']);
     }
 
 		$this->render('index', array('data' => $data, "filter"=>$searchForm));
@@ -180,13 +180,16 @@ class SiteController extends Controller
 												"message" => Yii::t('msg', "No search query."));
 		}else{
 			$connection=Yii::app()->db;
+			$data = array();
 			
 			$criteria=new CDbCriteria();
 			$criteria->condition = " `name` LIKE :name";
 			$criteria->params = array(":name"=>"%".$_GET['term']."%");
+			$criteria->order = "name";//, FIELD(LOWER(SUBSTRING(name,".strlen($_GET['term']).")),'".strtolower($_GET['term'])."') DESC";
+			
 			$dataReader = City::model()->findAll($criteria);
-
-			$data = array();
+			
+			//$data[] = array("value"=>$criteria->order);
 			foreach ($dataReader as $row){
 				$data[] = array("value"=>$row['name']);
 			}
@@ -200,5 +203,85 @@ class SiteController extends Controller
 		Yii::app()->end();
 	}	
 	
+
+	public function actionSugestCountry() {
+
+		if (!isset($_GET['term'])){
+			$response = array("data" => null,
+												"status" => 1,
+												"message" => Yii::t('msg', "No search query."));
+		}else{
+			$connection=Yii::app()->db;
+			$data = array();
+
+			$criteria=new CDbCriteria();
+			$criteria->condition = " `name` LIKE :name";
+			$criteria->params = array(":name"=>"%".$_GET['term']."%");
+			$criteria->order = "name";
+			
+			$dataReader = Country::model()->findAll($criteria);
+			foreach ($dataReader as $row){
+				$data[] = array("value"=>$row['name']);
+			}
+			
+			$response = array("data" => $data,
+												"status" => 0,
+												"message" => '');
+		}
+		
+		echo json_encode($response);
+		Yii::app()->end();
+	}	
+	
+
+		public function actionSugestSkill() {
+
+		if (!isset($_GET['term'])){
+			$response = array("data" => null,
+												"status" => 1,
+												"message" => Yii::t('msg', "No search query."));
+		}else{
+			$connection=Yii::app()->db;
+			$data = array();
+			
+			$criteria=new CDbCriteria();
+			
+			// translated skill sets
+			$criteria->condition = " `translation` LIKE :name AND `table` = 'skillset'"; //AND language_id = 
+			$criteria->params = array(":name"=>"%".$_GET['term']."%");
+			$dataReader = Translation::model()->findAll($criteria);
+
+			//$data = array();
+			foreach ($dataReader as $row){
+				$data[] = array("value"=>$row['name']);
+			}
+			
+			$criteria->condition = " `name` LIKE :name";
+			$criteria->params = array(":name"=>"%".$_GET['term']."%");
+			
+			// original skill sets
+			$dataReader = Skillset::model()->findAll($criteria);
+
+			//$data = array();
+			foreach ($dataReader as $row){
+				$data[] = array("value"=>$row['name']);
+			}
+
+			// skills
+			$dataReader = Skill::model()->findAll($criteria);
+			
+			foreach ($dataReader as $row){
+				$data[] = array("value"=>$row['name']);
+			}
+			
+			
+			$response = array("data" => $data,
+												"status" => 0,
+												"message" => '');
+		}
+		
+		echo json_encode($response);
+		Yii::app()->end();
+	}	
 	
 }
