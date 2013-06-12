@@ -1204,6 +1204,16 @@ h6.title-field {
 	line-height: 1.2em;
 }
 
+.createidea .breadcrumbs li:first-child:before {
+	content: " ";	
+}
+.createidea .breadcrumbs li:before {
+    color: #AAAAAA;
+    content: ">>";    
+    position: relative;
+    top: 1px;
+}
+
 /* #PERSON PAGE
 ================================================== */
 .person-details{
