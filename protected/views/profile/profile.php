@@ -1,3 +1,8 @@
+<script>
+	var skillSuggest_url = '<?php echo Yii::app()->createUrl("profile/sugestSkill",array("ajax"=>1)) ?>';
+ </script>
+
+ 
 <div class="row">
   <div class="small-12 large-12 columns edit-header">
     <h3><?php echo Yii::t('app', 'Profile details'); ?></h3>
@@ -55,49 +60,6 @@
    <a href="#" onclick="$('.addSkils').toggle(); return false;"><?php echo Yii::t('app',"My skills"); ?> +</a>
     <div class="addSkils" style="display:none">
 
-    
-<script>
-	var cache = {};
-  $(function() {
-    $( "#skill" ).autocomplete({
-      //minLength: 1,
-			delay:300,
-      source: function( request, response ) {
-        var term = request.term;
-        if ( term in cache ) {
-          response( cache[ term ] );
-          return;
-        }
- 
-        $.getJSON( "<?php echo Yii::app()->createUrl("profile/sugestSkill",array("ajax"=>1)) ?>", request, function( data, status, xhr ) {
-					if (data.status == 0){
-						cache[ term ] = data.data;
-						response( data.data );
-					}else alert(data.message);
-        });
-      },
-			//source:projects,
-      focus: function( event, ui ) {
-        $( "#project" ).val( ui.item.skill );
-        return false;
-      },
-      select: function( event, ui ) {
-        $( "#skill" ).val( ui.item.skill );
-				$('#skillset').val(ui.item.skillset_id); 
-				Foundation.libs.forms.refresh_custom_select($('#skillset'),true);
-				
-        $( "#project-id" ).val( ui.item.id );
- 
-        return false;
-      }
-    })
-    .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-      return $( "<li>" )
-        .append( "<a>" + item.skill + "<br><small>" + item.skillset + "</small></a>" )
-        .appendTo( ul );
-    };
-  });
-  </script>		
 	
           <?php $form=$this->beginWidget('CActiveForm', array(
               'id'=>'SkillForm',

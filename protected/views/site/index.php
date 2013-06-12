@@ -7,6 +7,21 @@
 <?php if (!Yii::app()->user->getState('fpi')){ ?>
 
 
+<script>
+	var skillSuggest_url = '<?php echo Yii::app()->createUrl("site/sugestSkill",array("ajax"=>1)) ?>';
+	var citySuggest_url = '<?php echo Yii::app()->createUrl("site/sugestCity",array("ajax"=>1)) ?>';
+</script>
+
+		
+		<?php
+    //!!! remove this and import JUI js and CSS :)
+    $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+				'name'=>'xyz',
+				// additional javascript options for the autocomplete plugin
+        'htmlOptions'=>array("style"=>'display:none'),
+		));
+		?>
+
 <div class="intro">
   <div  class="row" >
     <div class="large-12 small-12 columns" style="text-align: center;" >
@@ -152,10 +167,10 @@
 			<div class="small-12 large-3 columns">
 				<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
 				
-				<?php echo CHtml::label(Yii::t('app','Stage'),''); ?>
-				<?php echo CHtml::activedropDownList($filter,'collabPref', 
+				<?php echo CHtml::label(Yii::t('app','Colaboration'),''); ?>
+				<?php echo CHtml::dropDownList('SearchForm[collabPref]','', 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
-              CHtml::listData(IdeaStatus::model()->findAllAttributes(null, true),"id","name")
+              CHtml::listData(Collabpref::model()->findAllTranslated(),"id","name")
 							, array('empty' => '&nbsp;',"class"=>"small-12 large-3","style"=>"display:none")); ?>
 				
 				
@@ -163,10 +178,10 @@
 			<div class="small-12 large-3 columns">
 				<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
 				
-				<?php echo CHtml::label(Yii::t('app','Colaboration'),''); ?>
-				<?php echo CHtml::activedropDownList($filter,'collabPref', 
+				<?php echo CHtml::label(Yii::t('app','Availability'),''); ?>
+				<?php echo CHtml::dropDownList('SearchForm[available]','', 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
-              CHtml::listData(Collabpref::model()->findAllAttributes(null, true),"id","name")
+              CHtml::listData(Available::model()->findAllTranslated(),"id","name")
 							, array('empty' => '&nbsp;',"class"=>"small-12 large-3","style"=>"display:none")); ?>
 				
 				
@@ -175,9 +190,9 @@
 				<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
 				
 				<?php echo CHtml::label(Yii::t('app','Country'),''); ?>
-				<?php echo CHtml::activedropDownList($filter,'collabPref', 
+				<?php echo CHtml::dropDownList('SearchForm[country]','', 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
-              CHtml::listData(Country::model()->findAllAttributes(null, true),"id","name")
+              CHtml::listData(Country::model()->findAll(),"id","name")
 							, array('empty' => '&nbsp;',"class"=>"small-12 large-3","style"=>"display:none")); ?>
 				
 				
@@ -189,16 +204,19 @@
 	    </div>
 			
 			<div class="advance">
-				<div class="row">
 		      <hr>
-					
-						<div class="large-3 small-6 columns">
-							<label for="photos"><input type="checkbox" style="display: none;" id="has-photos"><span class="custom checkbox"></span> Photos (44)</label>
-							<label for="video"><input type="checkbox" style="display: none;" id="has-video" checked=""><span class="custom checkbox checked"></span> Videos (34)</label>
-							<label for="detailed_description"><input type="checkbox" style="display: none;" checked="" id="has-description"><span class="custom checkbox checked"></span> Detailed Description (53)</label>
-							<label for="attachment"><input type="checkbox" style="display: none;" id="has-attachment" checked=""><span class="custom checkbox checked"></span> Attachments (34)</label>			
-						</div>
-				</div>
+
+					<div class="small-12 large-3 columns">
+						<label><?php echo Yii::t('app','City'); ?></label>
+						<?php echo CHtml::textField('SearchForm[city]',''); ?>
+
+					</div>
+
+					<div class="small-12 large-9 columns">
+						<label><?php echo Yii::t('app','Skills'); ?></label>
+						<?php echo CHtml::textField('SearchForm[skill]',''); ?>
+
+					</div>					
 			</div>
 		</div>
       
