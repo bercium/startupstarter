@@ -50,6 +50,8 @@
 	//var skillSuggest_url = 'profile/sugestSkill';
 	
   $(function() {
+		
+		
     $( ".city" )
       // don't navigate away from the field on tab when selecting an item
       .bind( "keydown", function( event ) {
@@ -182,5 +184,21 @@
           return false;
         }
       });
+		
+    $('.list-holder').infinitescroll({
+      debug:true,
+      navSelector  : ".pagination",
+      nextSelector : ".pagination li:last a",    
+      itemSelector : ".list-holder ul.list-items",
+			animate:true,
+			bufferPx:200,
+			prefill:true,
+      loading:{
+        img: "../images/ajax-loader.gif",
+        msgText: "",
+        finishedMsg: ""
+      }
+    });
+		
 		
   });

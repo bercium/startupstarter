@@ -84,11 +84,24 @@ class SiteController extends Controller
 			// search results
       $searchForm->setAttributes($_GET['SearchForm']);
 			
-			$filter['collabpref'] = $searchForm->collabPref;
 			$filter['per_page'] = 12;
 			
-			if ($searchForm->isProject)	$searchResult = $sqlbuilder->load_array("search_idea", $filter);
-			else $searchResult = $sqlbuilder->load_array("search_user", $filter);
+			$filter['available'] = $searchForm->available;
+			$filter['city'] = $searchForm->city;
+			$filter['collabpref'] = $searchForm->collabPref;
+			$filter['country'] = $searchForm->country;
+			$filter['extra'] = $searchForm->extraDetail; // like video or images
+			//$filter['collabpref'] = $searchForm->isProject;
+			$filter['keywords'] = $searchForm->keywords;
+			$filter['language'] = $searchForm->language;
+			$filter['skill'] = $searchForm->skill;
+			$filter['stage'] = $searchForm->stage;
+			
+			if ($searchForm->isProject)	$searchResult['data'] = $sqlbuilder->load_array("search_idea", $filter);
+			else $searchResult['data'] = $sqlbuilder->load_array("search_user", $filter);
+			
+			$searchResult['page'] = 1;
+			$searchResult['maxPage'] = 1;
 
     }else{
 			// last results

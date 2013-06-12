@@ -121,6 +121,8 @@
 					<?php echo CHtml::submitButton(Yii::t("app","Search"),
 								array('class'=>"button small radius")
 						); ?>
+				 &nbsp; 
+				 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" class="button small radius secondary"><?php echo Yii::t("app","Reset"); ?></a>
       </div>
 			
 			<div class="advance" <?php if (!$filter->checkAdvanceForm()) echo "style='display:none'"; ?>>
@@ -218,6 +220,9 @@
 					<?php echo CHtml::submitButton(Yii::t("app","Search"),
 							array('class'=>"button small radius")
 					); ?>
+				 &nbsp; 
+				 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" class="button small radius secondary"><?php echo Yii::t("app","Reset"); ?></a>
+				
 	    </div>
 			
 			<div class="advance" <?php if (!$filter->checkAdvanceForm()) echo "style='display:none'"; ?>>
@@ -242,7 +247,7 @@
   
 
 
-<?php if (!isset($_GET['SearchForm'])){ ?>
+<?php if (!$filter->checkSearchForm()){ ?>
 	<?php if (isset($data['user'])){ ?>
 
 		<div class="row" id="recent_users">
@@ -264,11 +269,35 @@
 Yii::log(arrayLog($data['idea']), CLogger::LEVEL_INFO, 'custom.info.idea'); 
 Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user'); 
 
-}else{ 
-	Yii::log(arrayLog($searchResult), CLogger::LEVEL_INFO, 'custom.info.user'); 
-	?>
+}else{ ?>
+<div class="row" id="recent_projects">
+	<?php
+	if (count($searchResult) && count($searchResult['data'])){
+		Yii::log(arrayLog($searchResult), CLogger::LEVEL_INFO, 'custom.info.user'); 
+		?>
 
-<?php print_r($searchResult); ?>
+		<div class="list-holder">
+		<ul class="small-block-grid-1 large-block-grid-3 list-items">
+			<?php 
+			foreach ($searchResult['data'] as $result){ ?>
+				<li>
+				<?php 
+					if ($filter->isProject) $this->renderPartial('//project/_project', array('idea' => $result));
+					else $this->renderPartial('//person/_user', array('user' => $result));
+				?>
+				</li>
+			<?php } ?>
+		</ul>
+		</div>
 
+		<div class="pagination-centered">
+			<?php $this->widget('ext.Pagination.WPagination',array("url"=>"site/index","page"=>$searchResult['page'],"maxPage"=>$searchResult['maxPage'])); ?>
+		</div>
+	<?php }else{	?>
+	
+	<h3><?php echo Yii::t('msg','No results found with this filters.') ?></h3>
+	
+	<?php } ?>
+</div>	
 <?php } ?>
 
