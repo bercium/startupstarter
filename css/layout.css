@@ -1,5 +1,5 @@
 /*#intro{
-	background:url(../images/intro-bg.jpg) 50% 0  fixed;
+	
 	margin: 0 auto;
 	padding: 0;
 }
@@ -8,12 +8,13 @@
 	background:url(../images/outro-bg.jpg) 50% 0  fixed;
 	margin: 0 auto;
 	padding: 0;
-}*/
-
+}
+*/
 
 body {
 	background: url(../images/body_bg.png) !important;
-
+	color: #221E1D;
+	height: 100%;
 }
 
 .panel h1, .panel h2, .panel h3, .panel h4, .panel h5, .panel h6, .panel p  {
@@ -23,7 +24,8 @@ body {
 
 .header-wrap {
 	background: url(../images/header-wrap_bg.png);
-	background: #262925;
+	/*background: #262925;*/
+	background: #FFF;
 	border-top: 3px solid #111;
 	background-attachment: fixed;
 }
@@ -50,51 +52,15 @@ body {
 
 }
 
-.top-bar-holder{
-  background: none repeat scroll 0 0 #111111; 
-  border-bottom: 1px solid #666; 
-  box-shadow:0 2px 2px 0px rgba(0, 0, 0, .25); 
-  border-top: 1px solid #333;
-}
-
-.top-bar-avatar{
-  float:left;
-  margin-top:8px; 
-  height:30px; 
-  margin-right: 10px;
-}
-
-.top-bar-person{
-  float:left; 
-  line-height:26px;
-}
-
-
-  .top-bar-section .dropdown li  a   {
-  	border-top: 1px solid #333;
-  }
-
- 
- .top-bar-section .dropdown li a.altli
-  {
- 	background: #333;
- }
-.top-bar-section .dropdown li a.altli:hover {
-	background: #000;
-}
-
- .top-bar-section .dropdown li a .general {
- 	position: absolute;
- 	right: 10px;
- }
 
 
 
 .intro{
-background: #f9f7f6;
+
+background:url(../images/intro-bg.jpg) center 0 no-repeat;
 border-bottom: 1px solid #ddd;
   background-repeat: no-repeat; 
-  background-size: 100% 100%; 
+  background-color: #f9f7f6;  
   margin-bottom: 30px;
 
   
@@ -123,7 +89,7 @@ border-bottom: 1px solid #ddd;
  transition: 0.5s;
   color: #d0cecd;
   box-shadow: 0 0 0 1px #fff, 0 0 0 2px #ddd, 0 0 0 3px #fff, 0 0 0 4px #ddd;
-  font-size: 1.8em;
+  font-size: 1.2em;
   padding: 5px;
   position: absolute;
   bottom: -45px;
@@ -133,7 +99,7 @@ border-bottom: 1px solid #ddd;
 }
 
 .intro .close:hover {
-	color:#999;
+	color:#83B25B;	
 	text-shadow: 0px 1px 0 1px rgba(0,0,0,1);
 }
 
@@ -366,7 +332,7 @@ sidebar  .content {
 
 
 .advance{
-  display:none;
+  /*display:none;*/
 }
 	
 
@@ -447,7 +413,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7072', end
   margin-bottom: 4px;
 }
 
-.edit-header h3 {
+.edit-header h3,
+.edit-header h1 {
 	padding: 10px 0;
 	margin: 0;
 	color: #888;
@@ -584,6 +551,92 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 }
 
 
+
+
+/* #   $foundation custom fixes
+================================================== */
+
+.top-bar-holder{
+  background: none repeat scroll 0 0 #111111; 
+  border-bottom: 1px solid #000; 
+  box-shadow:0 2px 2px 0px rgba(0, 0, 0, .25); 
+  border-top: 1px solid #333;
+}
+
+.top-bar-avatar{
+  float:left;
+  margin-top:8px; 
+  height:30px; 
+  margin-right: 10px;
+}
+
+.top-bar-person{
+  float:left; 
+  line-height:26px;
+}
+
+
+  .top-bar-section .dropdown li  a:hover     {
+
+  	background: #f0f0f0;
+
+  }
+
+ 
+ .top-bar-section .dropdown li a.altli
+  {
+ 	background: #f0f0f0;
+ }
+.top-bar-section .dropdown li a.altli:hover {
+	background: #ddd;
+}
+
+ .top-bar-section .dropdown li a .general {
+ 	position: absolute;
+ 	right: 10px;
+ }
+
+
+      .top-bar,
+.top-bar-holder,
+.top-bar-section li a:not(.button) {
+  background: #fff;
+  box-shadow: none; 
+}
+
+.top-bar-section > ul > .divider {
+    border-color: -moz-use-text-color #ddd -moz-use-text-color #fff; 
+ }
+
+.top-bar-holder {
+  border-bottom: 1px solid #bbb;
+  box-shadow: 0 -1px 0 2px #ddd;
+}
+
+
+.section-container section, .section-container .section, .section-container.auto section, .section-container.auto .section {
+    border-bottom: 1px solid #ddd;
+    border-top: none;
+    position: relative;
+}
+
+.top-bar-section ul li > a {
+	color: #221E1D;
+}
+
+.panel h1, .panel h2, .panel h3, .panel h4, .panel h5, .panel h6, .panel p {
+    color: #403a36;
+}
+
+ .section-container section.active .title,
+    .section-container .section.active .title, .section-container.auto section.active .title,
+    .section-container.auto .section.active .title {
+      background: #ddd; }
+
+
+
+
+
 /* #Special Styles
 ================================================== */
 .alt {
@@ -678,7 +731,7 @@ border-radius: 2px;
   margin-top:50px;
   position: relative;
   /*border-top: 1px solid #999; */  
-  border-top: 1px solid #b8b8b8;
+  border-top: 1px solid #b8b8b8; 
   background-color: #fff;
   text-transform: uppercase;
 
@@ -688,7 +741,13 @@ border-radius: 2px;
 .footer-links .inline-list {
 	float: right;
 	margin-top: 1em;
+
 }
+
+.footer-links .inline-list a {
+	margin-left: 20px;
+}
+
 
 .footer a {
 	color: #555;
@@ -1143,6 +1202,16 @@ h6.title-field {
 
 .idea-sidebar h7 {
 	line-height: 1.2em;
+}
+
+.createidea .breadcrumbs li:first-child:before {
+	content: " ";	
+}
+.createidea .breadcrumbs li:before {
+    color: #AAAAAA;
+    content: ">>";    
+    position: relative;
+    top: 1px;
 }
 
 /* #PERSON PAGE

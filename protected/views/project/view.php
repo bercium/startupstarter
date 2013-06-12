@@ -150,22 +150,36 @@ $idea = $data['idea'];
                   }
                 } ?>
             </small>
-						 
-            <?php if (count($candidate['collabpref']) > 0 ){ ?>
-						 <br />
-							<small class="meta">
-									<?php
-										$firsttime = true;
-										foreach ($candidate['collabpref'] as $collab) {
-											if (!$firsttime) echo ", ";
-											$firsttime = false;
-											echo $collab['name'];
-											//echo "<h7 class='meta-title'>".$collab['name']."</h7> <br/>";
-										}
-									?>
-							</small>
-						 <?php } ?>
-						 
+             
+           
+              <?php if (count($candidate['collabpref']) > 0) { ?>
+                <small class="meta">
+                    <?php
+                    $firsttime = true;
+                    if (is_array($candidate['collabpref']))
+                      foreach ($candidate['collabpref'] as $collab) {
+                        //if (!$firsttime) echo ", ";
+                        //$firsttime = false;
+                        echo "<h7 class='meta-title'>".$collab['name']."</h7> <br/>";
+                      }
+                    ?>
+                </small>
+              <?php } ?>
+
+                <div class="location">
+                      <?php	if ($candidate['city'] || $candidate['country']){ ?>
+                      <br>
+                        <small class="meta" data-tooltip title="<img src='<?php echo getGMap($candidate['country'],$candidate['city']); ?>'>">
+                        
+                      <a><span class="general foundicon-location" title=""></span><?php
+                          echo $candidate['city']; 
+                          if ($candidate['city'] && $candidate['country']) echo ', '; 
+                          echo $candidate['country']; 
+                          ?></a>
+                        <?php //echo $candidate['address']; ?>
+                        </small>
+                      <?php } ?>              
+                </div>
             </div>
            </div>
           <?php } ?>
