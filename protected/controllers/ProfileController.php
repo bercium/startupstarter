@@ -164,22 +164,22 @@ class ProfileController extends GxController {
           $match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
           $match_id = $match->id;
           $match->setAttributes($_POST['UserMatch']);
-
-          if (UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id))){
-            $c = count($_POST['CollabPref']);
-            foreach ($_POST['CollabPref'] as $collab => $collab_name){
-              $user_collabpref = new UserCollabpref;
-              $user_collabpref->match_id = $match_id;
-              $user_collabpref->collab_id = $collab;
-              if ($user_collabpref->save()) $c--;
-            }
-            
-            if (($c == 0) && ($match->save())) {
-              Yii::app()->user->setFlash('profileMessage', UserModule::t("Profile details saved."));
-            }else{
-              Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to save profile details."));
-            }
+          
+          UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
+          $c = count($_POST['CollabPref']);
+          foreach ($_POST['CollabPref'] as $collab => $collab_name){
+            $user_collabpref = new UserCollabpref;
+            $user_collabpref->match_id = $match_id;
+            $user_collabpref->collab_id = $collab;
+            if ($user_collabpref->save()) $c--;
           }
+
+          if (($c == 0) && ($match->save())) {
+            Yii::app()->user->setFlash('profileMessage', UserModule::t("Profile details saved."));
+          }else{
+            Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to save profile details."));
+          }
+          
         }
 
 				$filter['user_id'] = $user_id;
@@ -449,10 +449,12 @@ class ProfileController extends GxController {
             $user_skill->skillset_id = $_POST['skillset'];
             $user_skill->match_id = $match_id;
             if ($user_skill->save()){
+              
+              $skillset = Skillset::model()->findByPk($_POST['skillset']);
               $response = array("data" => array("title" => $_POST['skill'],
                                                 "id" => $user_skill->id,
                                                 "location" => Yii::app()->createUrl("profile/deleteSkill"),
-                                                "desc" => '', // !!! add description
+                                                "desc" => $skillset->name, // !!! add description
                                 ),
               "status" => 0,
               "message" => "");

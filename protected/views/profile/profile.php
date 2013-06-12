@@ -33,7 +33,8 @@
     <?php 
 		echo Yii::t('app','Collaboration preferences');
 		foreach ($data['user']['collabpref'] as $colabpref){ ?>
-			<label for="CollabPref_<?php echo $colabpref['id']; ?>"><?php echo CHtml::checkBox('CollabPref['.$colabpref['id'].']',$colabpref['active'],array('style'=>'display:none')); ?>
+			<label for="CollabPref_<?php echo $colabpref['collab_id']; ?>">
+        <?php echo CHtml::checkBox('CollabPref['.$colabpref['collab_id'].']',$colabpref['active'],array('style'=>'display:none')); ?>
        <?php echo $colabpref['name'] ?></label>
  			 <?php
 		}
