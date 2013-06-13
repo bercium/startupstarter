@@ -203,7 +203,7 @@ class ProjectController extends GxController {
 
 			//load idea data
 			$idea_id = Yii::app()->session['IdeaCreated'];
-			$idea_id = 11;
+			//$idea_id = 11;
 			$filter['idea_id'] = $idea_id;
 			$data['idea'] = $sqlbuilder->load_array("idea", $filter);
 
