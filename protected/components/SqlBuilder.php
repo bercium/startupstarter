@@ -157,7 +157,7 @@ class SqlBuilder {
 			$sql =	"SELECT count(ci.id) as count FROM ".
 					"`click_idea` AS ci ".
 					"WHERE ci.idea_click_id = '{$filter['idea_id']}' ".
-					"GROUP BY idea_click_id";
+					"GROUP BY ci.idea_click_id";
 
 		} elseif( $type == 'search' ){
 			$sql =	"SELECT i.*, ist.name AS status, t.translation AS status_translation FROM ".
@@ -193,8 +193,11 @@ class SqlBuilder {
 			if($type == "count_idea"){
 				$array['num_of_rows'] = $row['count'];
 				$array['filter'] = $filter;
+
 			} elseif($type == "count_clicks"){
-				$array = $row['count'];
+				unset($array);
+				$array = 4;
+
 			} else {
 				//prepare filter
 				$filter['idea_id'] = $row['id'];
@@ -223,7 +226,13 @@ class SqlBuilder {
 
 				//add number of clicks
 				if($filter['action'] == ('user' || 'idea')){
-					$row['num_of_clicks'] = $this->idea('count_clicks', $filter);
+					$num_of_clicks = $this->idea('count_clicks', $filter);
+					if(!is_array($num_of_clicks) AND is_numeric($num_of_clicks)){
+						$row['num_of_clicks'] = $num_of_clicks;
+					} else {
+						$row['num_of_clicks'] = 0;
+					}
+						
 				}
 
 				//multi record array, or not?
