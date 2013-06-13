@@ -39,6 +39,8 @@ class Controller extends CController
     $cs->registerCssFile($baseUrl.'/css/general_enclosed_foundicons_ie7.css');
     $cs->registerCssFile($baseUrl.'/css/general_foundicons.css');
     $cs->registerCssFile($baseUrl.'/css/general_foundicons_ie7.css');
+    $cs->registerCssFile($baseUrl.'/css/font-awesome.css');
+    $cs->registerCssFile($baseUrl.'/css/font-awesome-ie7.css');
 		
     $cs->registerCssFile($baseUrl.'/css/override.css'); // be the last to override any other CSS settings
 

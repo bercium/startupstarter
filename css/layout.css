@@ -1203,6 +1203,9 @@ h6.title-field {
 .idea-sidebar h7 {
 	line-height: 1.2em;
 }
+.createidea .breadcrumbs {
+	font-size: 0.85em;
+}
 
 .createidea .breadcrumbs li:first-child:before {
 	content: " ";	
@@ -1212,6 +1215,32 @@ h6.title-field {
     content: ">>";    
     position: relative;
     top: 1px;
+}
+
+.createidea label {
+	font-weight: 600;
+}
+
+.createidea p {
+	font-size: 0.85em;
+}
+
+.createidea span:first-child {
+	color: #89B561 !important;
+	font-size: 1em;
+}
+
+.createidea #tweetCount {
+	margin-top: 5px;
+	background: #f0f0f0;
+	display: inline;
+	padding: 3px 8px;
+	border: 1px solid #bbb;
+	
+	border-radius: 6px;
+	float: left;
+
+
 }
 
 /* #PERSON PAGE

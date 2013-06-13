@@ -11,15 +11,20 @@
     <?php echo CHtml::errorSummary($translation,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
 
     <?php echo CHtml::activeLabelEx($translation,'title'); ?>
+    <p>What are you calling it? One or two words please, you can always change it later.<span data-tooltip title="Lorem Ipsum je slepi tekst, ki se uporablja pri razvoju tipografij in pri pripravi za tisk. Lorem Ipsum je v uporabi že več kot petsto let saj je to kombinacijo znakov neznani tiskar združil v vzorčno knjigo že v začetku 16. stoletja. "<i  style="float:right" class="icon-question-sign"></i></span></p>
     <?php echo CHtml::activeTextField($translation,"title", array('maxlength' => 128)); ?>
 
+
     <?php echo CHtml::activeLabelEx($translation,'language_id'); ?>
+    <p>Choose your language that you want to write your idea in.<span data-tooltip title="Lorem Ipsum je slepi tekst, ki se uporablja pri razvoju tipografij in pri pripravi za tisk. Lorem Ipsum je v uporabi že več kot petsto let saj je to kombinacijo znakov neznani tiskar združil v vzorčno knjigo že v začetku 16. stoletja. "<i  style="float:right" class="icon-question-sign"></i></span></p>
     <?php echo CHtml::activedropDownList($translation, 'language_id', GxHtml::listDataEx(Language::model()->findAllAttributes(array("id","native_name"), true),"id","native_name"), array('empty' => '&nbsp;')); ?>
 
     <?php echo CHtml::activeLabelEx($translation,'pitch'); ?>
+    <p>This is your pitch. Be short.<span data-tooltip title="Lorem Ipsum je slepi tekst, ki se uporablja pri razvoju tipografij in pri pripravi za tisk. Lorem Ipsum je v uporabi že več kot petsto let saj je to kombinacijo znakov neznani tiskar združil v vzorčno knjigo že v začetku 16. stoletja. "<i  style="float:right" class="icon-question-sign"></i></span></p>
     <?php echo CHtml::activeTextArea($translation,"pitch"); ?>
 
     <?php echo CHtml::activeLabelEx($translation,'description'); ?>
+     <p>This is your pitch. Be short.<span data-tooltip title="Lorem Ipsum je slepi tekst, ki se uporablja pri razvoju tipografij in pri pripravi za tisk. Lorem Ipsum je v uporabi že več kot petsto let saj je to kombinacijo znakov neznani tiskar združil v vzorčno knjigo že v začetku 16. stoletja. "<i  style="float:right" class="icon-question-sign"></i></span></p>
     <?php echo CHtml::activeTextArea($translation,"description"); ?>
     <br />
     
@@ -35,7 +40,7 @@
 
     <?php echo CHtml::activeLabelEx($translation,'tweetpitch'); ?>
     <?php echo CHtml::activeTextArea($translation,"tweetpitch", array('maxlength' => 140,"onkeydown"=>'countTweetChars()',"onkeyup"=>'countTweetChars()',"onchange"=>'countTweetChars()')); ?>
-    <div class="meta" id="tweetCount">140</div>
+    <div class="meta" id="tweetCount" >140</div>
     <br />
     
     <?php echo CHtml::activeLabelEx($idea,'status_id'); ?>
