@@ -57,10 +57,9 @@ body {
 
 .intro{
 
-background:url(../images/intro-bg.jpg) center 0 no-repeat;
-border-bottom: 1px solid #ddd;
-  background-repeat: no-repeat; 
-  background-color: #f9f7f6;  
+background: url(../images/gridme.png);
+border-bottom: 1px solid #bbb;
+    background-color: #f9f7f6;  
   margin-bottom: 30px;
 
   
@@ -86,16 +85,13 @@ border-bottom: 1px solid #ddd;
 }
 
 .intro .close{
- transition: 0.5s;
-  color: #d0cecd;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #ddd, 0 0 0 3px #fff, 0 0 0 4px #ddd;
-  font-size: 1.2em;
-  padding: 5px;
+ 	  font-size: 0.85em;
+  right: 30px;
   position: absolute;
-  bottom: -45px;
-  background: #fff;
-  border-radius: 100px;  
-  text-shadow: 0px 1px 0 1px rgba(0,0,0,0.3);
+  bottom: 5px;
+  
+  
+  
 }
 
 .intro .close:hover {
@@ -118,19 +114,24 @@ margin-left: 20px;
 	z-index: 1;
 }
 
+.toggle_search {
+	margin-right: 25px;
+	margin-top: 6px;
+}
+
 .exp_srch {
-	border-left: 1px solid #ddd;
+	
 	position: absolute;	 
 	 z-index: 0;	  
-	  right: 10px;
-	  top: -4px;
+	  right:230px;
+	  top: 2px;
 	    display: block;
 	    padding:0 12px;
-
-
-
-
+	   font-size: 0.85em;
 }
+
+
+
 .exp_srch span { 
 position: absolute;
 right: 4px;
@@ -149,6 +150,10 @@ border-radius: 100px;
 	
 	height: 100%;	
 	padding:12px 20px 10px 10px ;
+}
+
+.extra_detail {
+	margin-top: 22px;
 }
 
 .profile-info{
@@ -707,10 +712,6 @@ border-radius: 2px;
 	padding: 0.4em 0.8em 0.4em;
 }
 
-.label:hover {
-	cursor: help;
-}
-
 .label.default-light {
 	background-color: #8CA1C6;
 	/*box-shadow: 0 1px 0 0px #6d83a9;*/
@@ -1100,7 +1101,7 @@ border-radius: 2px;
 
 .idea-details .title-field h1 {
 	font-size:1.6em;
-	font-weight: 600;
+	font-weight: 400;
 	line-height: 1.2em;
   margin-top:5px;
   margin-bottom: 5px;
@@ -1128,9 +1129,6 @@ h6.title-field {
 .idea-details .meta-field {
 	margin: 10px 0 20px 0;
 	font-size: 0.8em;
-	
-
-
 }
 
 .idea-details .meta-field  p {

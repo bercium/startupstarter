@@ -53,10 +53,30 @@
          
         </div>
 
-        <?php } ?>
+        <?php }
+        	else { ?>
+		<div class="large-5 small-12 columns hide-for-small">
+			<br>
+			<br>
+<a href="#"  class="button round medium secondary" >Learn more </a>	
+<a href="#" class="button round medium " >Explore</a>	
+                      
+        </div>
+        <div class="large-6 small-12 columns show-for-small">
+          <br>
+          <br>
+          
+          <a href="#"  class="button round medium secondary" >Learn more </a>	
+<a href="#" class="button round medium " >Explore</a>	
+          
+         
+        </div>
+
+        <?php }
+         ?>
       </div>
 
-      <a  href="#" class="row close centered" data-tooltip title="<?php echo CHtml::encode(Yii::t('app','Hide intro')); ?>" onclick="$('.intro').slideUp('slow');"><span class="general-enclosed foundicon-up-arrow"></span></a>
+      <a  href="#" class="row close centered" data-tooltip title="<?php echo CHtml::encode(Yii::t('app','Hide intro')); ?>" onclick="$('.intro').slideUp('slow');"><span class="icon-long-arrow-up button small secondary"></span></a>
 
     </div>
   </div>
@@ -73,14 +93,15 @@
       </div>
 		  <div class="large-8 small-12 columns">
 				<div  class="exp_srch">
-					<a class="meta" href="#" onclick="$('.advance').slideToggle('slow'); return false;">Advanced search <span class="general-enclosed foundicon-down-arrow"></span></a>
+					<a class="meta" href="#" onclick="$('.advance').toggle(); return false;">Advanced search <span class="general-enclosed foundicon-down-arrow"></span></a>
 				</div>
 
-				<div class="switch large-3 left small round small-3" onclick="$('.filter_projects').toggle();$('.filter_people').toggle();">
+				<div class="toggle_search switch large-3 right small round small-3" onclick="$('.filter_projects').toggle();$('.filter_people').toggle();">
 					<input id="project_0" name="SearchForm[isProject]" type="radio" value="1" <?php if ($filter->isProject) echo 'checked="checked"' ?>>
 					<label for="project_0" onclick=""><?php echo Yii::t('app','Projects'); ?></label>
 
-					<input id="project_1" name="SearchForm[isProject]" type="radio" value="0" <?php if (!$filter->isProject) echo 'checked="checked"' ?>>
+					
+					<input id="project_1" name="SearchForm[isProject]"  type="radio" value="0" <?php if (!$filter->isProject) echo 'checked="checked"' ?>>
 					<label for="project_1" onclick=""><?php echo Yii::t('app','People') ?></label>
 					<span></span>
 				</div>
@@ -117,7 +138,7 @@
 			</div>
 
 			
-			<div class="small-12 large-3 columns" style="text-align: center;">
+			<div class="small-12 large-3 columns" style="text-align: center; padding-top: 16px;">
 					<?php echo CHtml::submitButton(Yii::t("app","Search"),
 								array('class'=>"button small radius")
 						); ?>
@@ -125,22 +146,16 @@
 				 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" class="button small radius secondary"><?php echo Yii::t("app","Reset"); ?></a>
       </div>
 			
+				
 			<div class="advance" <?php if (!$filter->checkAdvanceForm()) echo "style='display:none'"; ?>>
 		    <hr>
-				
+									
 					<div class="small-12 large-3 columns">
-						<label for="SearchForm_extraDetail">
-							<?php echo CHtml::activeCheckBox($filter,'extraDetail',array("style"=>"display:none")); ?>
-							<?php echo Yii::t('app','Has extra detail'); ?>
-						</label>
-					</div>
-				
-					<div class="small-12 large-5 columns">
 						<label><?php echo Yii::t('app','Skill'); ?></label>
 						<?php echo CHtml::textField('SearchForm[skill]',$filter->skill,array("class"=>"skill")); ?>
 					</div>				
 
-					<div class="small-12 large-4 columns">
+					<div class="small-12 large-3 columns">
 						<label><?php echo Yii::t('app','Country'); ?></label>
 						<?php echo CHtml::textField('SearchForm[country]',$filter->country,array("class"=>"country")); ?>
 					</div>
@@ -160,7 +175,7 @@
 									, array('empty' => '&nbsp;',"class"=>"small-12 large-3","style"=>"display:none")); ?>
 					</div>
 				
-					<div class="small-12 large-3 columns end">
+					<div class="small-12 large-3 columns">
 						<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
 
 						<?php echo CHtml::label(Yii::t('app','Availability'),''); ?>
@@ -168,7 +183,14 @@
 									//GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
 									CHtml::listData(Available::model()->findAllTranslated(),"id","name")
 									, array('empty' => '&nbsp;',"class"=>"small-12 large-3","style"=>"display:none")); ?>
-					</div>				
+					</div>	
+
+					<div class="small-12 large-3 extra_detail columns end">
+						<label for="SearchForm_extraDetail">
+							<?php echo CHtml::activeCheckBox($filter,'extraDetail',array("style"=>"display:none")); ?>
+							<?php echo Yii::t('app','Has extra detail'); ?>
+						</label>
+					</div>			
 					
 				
 			</div>			
