@@ -27,43 +27,46 @@
   <div  class="row" >
     <div class="large-12 small-12 columns" style="text-align: center;" >
 
+<!-- Content if guest -->
+<!-- #################################################################  -->
+<?php if (Yii::app()->user->isGuest){ ?>
       <h1>With the <span>right team</span> any <span class="isc">idea</span> can change your life</h1>
-
-      <div class="row">
-        <div class="large-6 small-12 columns <?php if (!Yii::app()->user->isGuest) echo ""; ?>">
-          <p>
+      <div class="row">      	
+        <div class="large-6 small-12 columns <?php if (!Yii::app()->user->isGuest) echo ""; ?>"></div>				
+		<p>
             <?php echo CHtml::encode(Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.')); ?>
-          </p>
-        </div>
-				<?php if (Yii::app()->user->isGuest){ ?>
-        <div class="large-5 small-12 columns hide-for-small">
-          
+  		</p>
+        <div class="large-5 small-12 columns hide-for-small">          
           <br>
           <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" class="button right round medium success" >Register here </a> 
-          <a href="#" data-dropdown="drop-login" class="button right round medium secondary" >Login </a>
-          
-         
+          <a href="#" data-dropdown="drop-login" class="button right round medium secondary" >Login </a>     
         </div>
         <div class="large-6 small-12 columns show-for-small">
           <br>
           <br>
           <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" class="button round medium success" >Register here </a> 
           <a href="#" data-dropdown="drop-login" class="button round medium secondary" >Login </a>
-          
-         
         </div>
 
+<!-- Content if logged in -->
+<!-- #################################################################  -->
         <?php }
         	else { ?>
-		<div class="large-5 small-12 columns hide-for-small">
+        	<h2>Welcome to user pages John Doe!<br>
+        		Find the <span><a class="c_cofinder" href="#">right team</a></span> or post your <span class="isc"><a href="">idea</a></span>.</h2>
+        	<p style="text-align: center;">
+            <?php echo CHtml::encode(Yii::t('msg','Bi se lahko tukaj dalo pravilo da se zgornje izpiše ko se nekdo prvič prijavi? In pa: naprimer če klikne na find the right team se ga lahko pelje skozi proces izpolnitve svojega profila, kokr da bo tko lažje prišel do pravega teama.')); ?>
+          </p>
+		<div class="large-12 small-12  center  columns hide-for-small">
+			
 			<br>
-			<br>
-<a href="#"  class="button round medium secondary" >Learn more </a>	
+<a href="#"  class="button round  medium secondary" >Learn more </a>	
 <a href="#" class="button round medium " >Explore</a>	
+<a  href="#" class="right button tiny secondary radius" data-tooltip title="<?php //echo CHtml::encode(Yii::t('app','hide the INTRO above')); ?>" onclick="$('.intro').slideUp('slow');">hide this intro<span class="icon-collapse-top"></span></a>
                       
         </div>
         <div class="large-6 small-12 columns show-for-small">
-          <br>
+        
           <br>
           
           <a href="#"  class="button round medium secondary" >Learn more </a>	
@@ -74,9 +77,7 @@
 
         <?php }
          ?>
-      </div>
-
-      <a  href="#" class="row close centered" data-tooltip title="<?php echo CHtml::encode(Yii::t('app','Hide intro')); ?>" onclick="$('.intro').slideUp('slow');"><span class="icon-long-arrow-up button small secondary"></span></a>
+      </div>      
 
     </div>
   </div>
@@ -93,7 +94,7 @@
       </div>
 		  <div class="large-8 small-12 columns">
 				<div  class="exp_srch">
-					<a class="meta" href="#" onclick="$('.advance').toggle(); return false;">Advanced search <span class="general-enclosed foundicon-down-arrow"></span></a>
+					<a class="button small secondary radius" href="#" onclick="$('.advance').toggle(); return false;">Advanced search <span class="icon-collapse"></span></a>
 				</div>
 
 				<div class="toggle_search switch large-3 right small round small-3" onclick="$('.filter_projects').toggle();$('.filter_people').toggle();">

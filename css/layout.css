@@ -65,10 +65,16 @@ border-bottom: 1px solid #bbb;
   
 }
 
-.intro h1{
-  color:#666 !important;
+.intro h1,
+.intro h2
+{
+  color:#555 !important;
   
-  font-size:2.6em;
+ 
+}
+
+.intro h1 {
+	 font-size:2.6em;
 }
 
 .intro h1 span{
@@ -85,13 +91,8 @@ border-bottom: 1px solid #bbb;
 }
 
 .intro .close{
- 	  font-size: 0.85em;
-  right: 30px;
-  position: absolute;
-  bottom: 5px;
-  
-  
-  
+	margin-top: 20px;
+ 	  
 }
 
 .intro .close:hover {
@@ -126,22 +127,14 @@ margin-left: 20px;
 	  right:230px;
 	  top: 2px;
 	    display: block;
-	    padding:0 12px;
-	   font-size: 0.85em;
+	   
+	
 }
 
-
-
-.exp_srch span { 
-position: absolute;
-right: 4px;
-color: #999;
-top:8px;
-background: #F9F7F6;
-box-shadow: 0 0 0 1px #ddd;
-padding: 4px;
-border-radius: 100px;
-
+.exp_srch .icon-collapse,
+.intro .icon-collapse-top
+ {
+	margin-left: 10px;
 }
 
 .exp_srch a {
@@ -652,6 +645,10 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
   line-height: inherit; }
   .alt:hover .alt.focus {
     color: #af3f42; }
+
+ .c_cofinder { color: #88B460;
+
+ }
 
 .help {
     background: none repeat scroll 0 0 #E5E8EE;

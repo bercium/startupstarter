@@ -56,62 +56,94 @@
 
 	<?php echo CHtml::endForm(); ?>		
 		
-		<hr>
-		<p>
-   <a href="#" onclick="$('.addSkils').toggle(); return false;"><?php echo Yii::t('app',"My skills"); ?> +</a>
+		
+  </div>
+</div>
+
+
+
+<div class="row">
+  <div class="small-12 large-12 columns edit-header">
+    <div class="edit-floater">
+      <a class="button success radius small" href="#" onclick="$('.addSkils').toggle(); return false;"><?php echo Yii::t('app',"Add skills"); ?> <span class="icon-plus"></span></a>
+    </div>
+
+    <h3><?php echo Yii::t('app', 'My Skills'); ?></h3>
+
+  </div>
+  <div class="small-12 large-12 columns panel edit-content">
+
+    
+    <p>
+   
     <div class="addSkils" style="display:none">
 
-	
+
+  
           <?php $form=$this->beginWidget('CActiveForm', array(
               'id'=>'SkillForm',
 //             'enableClientValidation'=>true,
                'htmlOptions'=>array(
-															'class'=>'custom',
+                              'class'=>'custom',
                               'onsubmit'=>"return false;",/* Disable normal form submit */
                               //'onkeypress'=>" if(event.keyCode == 13){ addSkill('".Yii::app()->createUrl("profile/addSkill")."'); } " /* Do ajax call when user presses enter key */
                               ),
           )); ?>
-	
-		<?php echo '<label for="skill">'.Yii::t('app','Skill');  ?>	
-		<span class="general foundicon-flag" data-tooltip title="<?php echo Yii::t('msg',"Add as many relevant skills you. Bla bla blaaa"); ?>"></span>
+    
+    <?php echo '<label for="skill">'.Yii::t('app','Skill');  ?> 
+    <span class="icon-question-sign" data-tooltip title="<?php echo Yii::t('msg',"Add as many relevant skills you. Bla bla blaaa"); ?>"></span>
+    <p>skills will represent you.. and stuff..
     <?php echo '</label>'; ?>
     <?php echo CHtml::textField("skill","", array('maxlength' => 128)); ?>
-	
+  
  
     <?php echo CHtml::label(Yii::t('app','Skill group'),''); ?>
     <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAll(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
-	
-		<?php echo CHtml::submitButton(Yii::t("app","Add skill"),
+  
+    <?php echo CHtml::submitButton(Yii::t("app","Add"),
                     array('class'=>"button small success radius",
                         'onclick'=>'addSkill(\''.Yii::app()->createUrl("profile/addSkill").'\');')
                 ); ?>
-		
-		<?php $this->endWidget(); ?>  
-	
-		</div>
-	
-		<div class="skillList">
-		<?php foreach ($userSkills as $skill){ ?>
-			<span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $skill->id; ?>">
+    
+    <?php $this->endWidget(); ?>  
+    <hr>
+    </div>
+  
+    <div class="skillList">
+    <?php foreach ($userSkills as $skill){ ?>
+      <span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $skill->id; ?>">
           <?php echo $skill->skill->name."<br /><small class='meta'>".$skill->skillset->name."</small>"; ?>
           <a href="#" class="close" onclick="removeSkill(<?php echo $skill->id; ?>,'<?php echo Yii::app()->createUrl("profile/deleteSkill"); ?>')">&times;</a>
-	   </span>
-		<?php } ?>
-		</div>
-		
-	  </p>
-		
-		<?php
+     </span>
+    <?php } ?>
+    </div>
+    
+    </p>
+    
+    <?php
     //!!! remove this and import JUI js and CSS :)
     $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-				'name'=>'city',
-				// additional javascript options for the autocomplete plugin
+        'name'=>'city',
+        // additional javascript options for the autocomplete plugin
         'htmlOptions'=>array("style"=>'display:none'),
-		));
-		?>
+    ));
+    ?>
     
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div class="row">
   <div class="small-12 large-12 columns edit-header">
