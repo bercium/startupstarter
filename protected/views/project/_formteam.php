@@ -1,3 +1,5 @@
+<script type="text/javascript" src="/cofindr/js/controllers/profile/index.js"></script>
+
 <div class="row myprojects">
   <div class="small-12 columns edit-header">
     <div class="edit-floater">
@@ -24,10 +26,12 @@
     
     <?php 
     echo Yii::t('app','Collaboration preferences');
-    foreach ($idea['candidate'][$candidate_id]['collabpref'] as $collabpref){ ?>
-      <label for="CollabPref_<?php echo $collabpref['id']; ?>"><?php echo CHtml::checkBox('CollabPref['.$collabpref['id'].']',$collabpref['active'],array('style'=>'display:none')); ?>
-       <?php echo $collabpref['name'] ?></label>
-       <?php
+    if(isset($idea['candidate']) && is_array($idea['candidate']) && count($idea['candidate'])){
+      foreach ($idea['candidate'][$candidate_id]['collabpref'] as $collabpref){ ?>
+        <label for="CollabPref_<?php echo $collabpref['id']; ?>"><?php echo CHtml::checkBox('CollabPref['.$collabpref['id'].']',$collabpref['active'],array('style'=>'display:none')); ?>
+         <?php echo $collabpref['name'] ?></label>
+         <?php
+      }
     }
     
     ?>
@@ -81,12 +85,22 @@
     </div>
   
     <div class="skillList">
-    <?php /* foreach ($userSkills as $skill){ ?>
+    <?php foreach ($idea['candidate'][$candidate_id]['skillset'] as $key => $skillset){ 
+        if(isset($skillset['skill']) && is_array($skillset['skill'])){
+
+            foreach($skillset AS $key1 => $skill){
+              ?>
       <span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $skill->id; ?>">
-          <?php echo $skill->skill->name; ?>
-          <a href="#" class="close" onclick="removeSkill(<?php echo $skill->id; ?>,'<?php echo Yii::app()->createUrl("profile/deleteSkill"); ?>')">&times;</a>
+          <?php echo $skill['name']."<br /><small class='meta'>".$skill['name']."</small>"; ?>
+          <a href="#" class="close" onclick="removeSkill(<?php echo $skill['id']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteSkill"); ?>')">&times;</a>
      </span>
-    <?php }*/ ?>
+    <?php }
+        } else {
+          //what happens when something is not a skill, but merely a skillset?
+          //is that even possible?
+          //!!!debug
+        }
+        } ?>
     </div>
     
     </p>

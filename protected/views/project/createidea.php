@@ -31,7 +31,8 @@
           'buttons' => 'create'));
     } elseif($step == 2){
       $this->renderPartial('_formmembers', array(
-          'idea' => $idea));
+          'idea' => $idea,
+          'idea_id' => $idea_id,));
     } elseif($step == 3){
       $this->renderPartial('_formsocial', array(
           'translation' => $translation,
@@ -47,7 +48,7 @@
           'candidate' => $candidate,
           'candidate_id' => $candidate_id,
           'buttons' => 'create')); }
-      elseif($step == 3){
+      if($step == 2){
            echo CHtml::submitButton(Yii::t("app","Finish"),
                     array('class'=>"button small success radius",
                         'onclick'=>'window.location.href=(\''.$idea_id.'\');')

@@ -166,7 +166,9 @@ class ProjectController extends GxController {
 
 			} else {
 
-				$idea = Idea::Model()->findByAttributes( array( 'id' => Yii::app()->session['IdeaCreated'], 'deleted' => 0 ) );
+				$idea_id = Yii::app()->session['IdeaCreated'];
+
+				$idea = Idea::Model()->findByAttributes( array( 'id' => $idea_id, 'deleted' => 0 ) );
 
 				$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
 				$criteria=new CDbCriteria();
@@ -215,10 +217,10 @@ class ProjectController extends GxController {
 			$candidate = NULL;
 			$candidate_id = 0;
 			if(isset($_GET['candidate'])){
-				if(is_numeric($_GET['candidate']) AND isset($data['idea']['candidate'][$_GET['candidate']])){
+				if(is_numeric($_GET['candidate'])){
 					//we are editing an existing candidate
 					$candidate = UserMatch::Model()->findByAttributes(array('id' => $_GET['candidate']));
-					$candidate_id = $_GET['candidate'];
+					$candidate_id = $candidate->id;
 				} else {
 					//we are adding a new candidate and then redirecting to the same page
 					$candidate = new UserMatch;
@@ -233,13 +235,13 @@ class ProjectController extends GxController {
 
 					$member->save();
 
-					$this->redirect(array('project/create', 'step' => 2, 'candidate' => $candidate->id));
+					$this->redirect(array('project/create', 'step' => 2, 'candidate' => $candidate->id, 'candidate_id' => $candidate_id));
 				}
 
 
 			}
 
-			$this->render('createidea', array( 'step' => $step, 'idea' => $data['idea'], 'candidate' => $candidate, 'candidate_id' => $candidate_id ));
+			$this->render('createidea', array( 'step' => $step, 'idea' => $data['idea'], 'idea_id' => $idea_id, 'candidate' => $candidate, 'candidate_id' => $candidate_id ));
 
 		} elseif($step == 3) {
 			$idea_id = Yii::app()->session['IdeaCreated'];
