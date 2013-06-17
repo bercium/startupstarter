@@ -157,7 +157,7 @@ class SqlBuilder {
 			$sql =	"SELECT count(ci.id) as count FROM ".
 					"`click_idea` AS ci ".
 					"WHERE ci.idea_click_id = '{$filter['idea_id']}' ".
-					"GROUP BY idea_click_id";
+					"GROUP BY ci.idea_click_id";
 
 		} elseif( $type == 'search' ){
 			$sql =	"SELECT i.*, ist.name AS status, t.translation AS status_translation FROM ".
@@ -193,8 +193,11 @@ class SqlBuilder {
 			if($type == "count_idea"){
 				$array['num_of_rows'] = $row['count'];
 				$array['filter'] = $filter;
+
 			} elseif($type == "count_clicks"){
-				$array = $row['count'];
+				unset($array);
+				$array = 4;
+
 			} else {
 				//prepare filter
 				$filter['idea_id'] = $row['id'];
@@ -223,7 +226,13 @@ class SqlBuilder {
 
 				//add number of clicks
 				if($filter['action'] == ('user' || 'idea')){
-					$row['num_of_clicks'] = $this->idea('count_clicks', $filter);
+					$num_of_clicks = $this->idea('count_clicks', $filter);
+					if(!is_array($num_of_clicks) AND is_numeric($num_of_clicks)){
+						$row['num_of_clicks'] = $num_of_clicks;
+					} else {
+						$row['num_of_clicks'] = 0;
+					}
+						
 				}
 
 				//multi record array, or not?
@@ -785,7 +794,7 @@ public function search($type, $filter){
 				if(is_numeric($value)){
 					$c++;
 					$sql.= "LEFT JOIN `user_collabpref` AS c{$c} ON 
-								c{$c}.id = m.collab_id 
+								c{$c}.match_id = m.id  
 								AND c{$c}.id = :c{$c}_id";
 					$cols["c{$c}_id"] = $value;
 				}
@@ -825,10 +834,10 @@ public function search($type, $filter){
 		if($type == "idea") {
 			//group by idea_id
 			//because it's highly relevant if one person has skills sought in several candidates
-			$sql.=	"GROUP BY i.id";
+			$sql.=	" GROUP BY i.id";
 		} elseif($type == "user") {
-			$sql.=	"WHERE m.user_id > 0 
-					GROUP BY m.id";
+			$sql.=	" WHERE m.user_id > 0 
+					 GROUP BY m.id";
 		}
 
 		/*WE GOT SQL SENTENCE BUILT ($sql), DATA GATHERED ($cols) LETS RUN THIS STUFF*/
@@ -889,11 +898,11 @@ public function search($type, $filter){
 		$array = array_slice($array, ($filter['page'] - 1) * $filter['per_page'], $filter['per_page']);
 		
 		//DEBUG
-		/*echo $type."\n";
+		echo $type."\n";
 		echo "# of conditions: $total\n";
 		print_r($cols_backup);
 		echo $sql;
-		print_r($array);*/
+		print_r($array);
 
 		//Load the array with data!
 		if($type == "idea") {

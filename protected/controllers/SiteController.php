@@ -75,6 +75,7 @@ class SiteController extends Controller
 		
     
     $searchForm = new SearchForm();
+    $searchResult = array();
 		$data = array();
 		$searchResult = array();
 		
