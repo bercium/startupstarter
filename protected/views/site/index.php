@@ -12,7 +12,6 @@
 	var citySuggest_url = '<?php echo Yii::app()->createUrl("site/sugestCity",array("ajax"=>1)) ?>';
 	var countrySuggest_url = '<?php echo Yii::app()->createUrl("site/sugestCountry",array("ajax"=>1)) ?>';
 </script>
-
 		
 		<?php
     //!!! remove this and import JUI js and CSS :)
@@ -28,7 +27,6 @@
     <div class="large-12 small-12 columns" style="text-align: center;" >
 
 <!-- Content if guest -->
-<!-- #################################################################  -->
 <?php if (Yii::app()->user->isGuest){ ?>
       <h1>With the <span>right team</span> any <span class="isc">idea</span> can change your life</h1>
       <div class="row">      	
@@ -49,7 +47,6 @@
         </div>
 
 <!-- Content if logged in -->
-<!-- #################################################################  -->
         <?php }
         	else { ?>
         	<h2>Welcome to user pages John Doe!<br>
@@ -57,24 +54,18 @@
         	<p style="text-align: center;">
             <?php echo CHtml::encode(Yii::t('msg','Bi se lahko tukaj dalo pravilo da se zgornje izpiše ko se nekdo prvič prijavi? In pa: naprimer če klikne na find the right team se ga lahko pelje skozi proces izpolnitve svojega profila, kokr da bo tko lažje prišel do pravega teama.')); ?>
           </p>
-		<div class="large-12 small-12  center  columns hide-for-small">
-			
+		
+		<div class="large-12 small-12  center  columns hide-for-small">			
 			<br>
 <a href="#"  class="button round  medium secondary" >Learn more </a>	
-<a href="#" class="button round medium " >Explore</a>	
-<a  href="#" class="right button tiny secondary radius" data-tooltip title="<?php //echo CHtml::encode(Yii::t('app','hide the INTRO above')); ?>" onclick="$('.intro').slideUp('slow');">hide this intro<span class="icon-collapse-top"></span></a>
-                      
-        </div>
-        <div class="large-6 small-12 columns show-for-small">
-        
-          <br>
-          
-          <a href="#"  class="button round medium secondary" >Learn more </a>	
-<a href="#" class="button round medium " >Explore</a>	
-          
-         
-        </div>
+<a href="#" class="button round medium " >Explore</a>	                      
+        </div>  
 
+        <div class="large-6 small-12 columns show-for-small">        
+          <br>          
+          <a href="#"  class="button round medium secondary" >Learn more </a>	
+<a href="#" class="button round medium " >Explore</a>	          
+        </div>
         <?php }
          ?>
       </div>      
@@ -83,6 +74,21 @@
   </div>
 </div>
 <?php } ?>
+
+
+	<div class="close pagination-centered ">
+		
+			<a  href="#"  id="showhide" class="button tiny secondary">hide intro<span class='icon-angle-up'></span></a>                      
+        </div>
+        <script type="text/javascript">
+	
+$("#showhide").click(function() {
+  $(".intro").animate({ opacity: 1.0 },200).slideToggle(500, function() {
+    $("#showhide").html($(".intro").is(':visible') ? "hide intro <span class='icon-angle-up'></span>" : "show intro <span class='icon-angle-down'></span>");
+
+  });
+});
+		</script>
 
 
 <div class="row panel searchpanel radius" style="margin-top: 20px;">
@@ -94,7 +100,7 @@
       </div>
 		  <div class="large-8 small-12 columns">
 				<div  class="exp_srch">
-					<a class="button small secondary radius" href="#" onclick="$('.advance').toggle(); return false;">Advanced search <span class="icon-collapse"></span></a>
+					<a class="button small secondary radius" href="#" onclick="$('.advance').toggle(); return false;">Advanced search <span class="icon-caret-down"></span></a>
 				</div>
 
 				<div class="toggle_search switch large-3 right small round small-3" onclick="$('.filter_projects').toggle();$('.filter_people').toggle();">
