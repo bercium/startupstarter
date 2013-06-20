@@ -243,9 +243,10 @@ class ProjectController extends GxController {
 						//data['idea']['candidate'] stuff to be loaded into session array
 
 						//collabpref
-
 						/*$candidate['collabpref'] as $collabpref){ ?>
         				<label for="CollabPref_<?php echo $collabpref['id'];*/
+
+        				//skills get passed seperately (ajax)
 					}
 
 					$candidate_in_edit = true;

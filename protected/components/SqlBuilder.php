@@ -650,8 +650,8 @@ public function search($type, $filter){
 			-id = $value
 			-type = 2*/
 
-		echo "\nFilter from input\n";
-		print_r($filter);
+		//echo "\nFilter from input\n";
+		//print_r($filter);
 
 		/*Data preprocessing 1: breaking up keywords, finding matches, creating an array from IDs*/
 		if( isset($filter['country']) ){
@@ -815,8 +815,8 @@ public function search($type, $filter){
 			echo "Skillset_skill";
 			print_r($filter['skillset_skill']);
 		}*/
-		echo "\nFilter after processing input\n";
-		print_r($filter);
+		//echo "\nFilter after processing input\n";
+		//print_r($filter);
 		//	die();
 
 		/*SQL query processing (idea data, grouped by candidates)*/
@@ -855,12 +855,12 @@ public function search($type, $filter){
 		if( isset($filter['country']) && is_array($filter['country']) && count($filter['country']) > 0 ){
 			$co = -1;
 			foreach($filter['country'] AS $key => $value){
-				echo $co."\n";
+				//echo $co."\n";
 				if(is_numeric($value)){
 					$co++;
 					$sql.= "co{$co}.id AS co{$co}_id, ";
-					echo $co."\n";
-					echo "\n";
+					//echo $co."\n";
+					//echo "\n";
 				}
 
 			}
@@ -1058,7 +1058,7 @@ public function search($type, $filter){
 
 		/*BIND COLUMNS TO SQL*/
 		$cols_backup = $cols;
-		print_r($cols);
+		//print_r($cols);
 		foreach($cols as $col =>  &$value){ // $value can be changed by the body of foreach loop.
 			if($col != 'status_id' && $col != 'available' && $col != 'website' && $col != 'video_link')
 				$command->bindParam(":{$col}", $value);
@@ -1080,11 +1080,16 @@ public function search($type, $filter){
 					//echo "VAL: ".$value . "\n\n";
 					
 					if(	$key == "status_id" || 
-						$key == "available" || 
-						$key == "website" || 
-						$key == "video_link" ){
+						$key == "available" ){
 
 						if($row[$key] == $value){
+							$rank++;
+						}
+					} elseif( $key == "website" || 
+						$key == "video_link" ){
+
+						//!!!isurl regex
+						if(strlen($value) > 3){
 							$rank++;
 						}
 					} else {
@@ -1111,11 +1116,11 @@ public function search($type, $filter){
 		$array = array_slice($array, ($filter['page'] - 1) * $filter['per_page'], $filter['per_page']);
 		
 		//DEBUG
-		echo $type."\n";
+		/*echo $type."\n";
 		echo "# of conditions: $total\n";
 		print_r($cols_backup);
 		echo $sql;
-		print_r($array);
+		print_r($array);*/
 
 		//Load the array with data!
 		if($type == "idea") {
