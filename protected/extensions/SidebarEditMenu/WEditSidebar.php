@@ -6,10 +6,12 @@ class WEditSidebar extends CWidget
   
     public function init()
     {
+
 			if ($this->ideas == array()){
 				$sqlbuilder = new SqlBuilder;
 				$filter['user_id'] = Yii::app()->user->id;
-				$user = $sqlbuilder->load_array("user", $filter);
+			   $user = $sqlbuilder->load_array("user", $filter);
+
 				$this->ideas = $user['idea'];
 			}
 			

@@ -75,6 +75,7 @@ class SiteController extends Controller
 		
     
     $searchForm = new SearchForm();
+    $searchResult = array();
 		$data = array();
 		$searchResult = array();
 		
@@ -91,7 +92,6 @@ class SiteController extends Controller
 			$filter['collabpref'] = $searchForm->collabPref;
 			$filter['country'] = $searchForm->country;
 			$filter['extra'] = $searchForm->extraDetail; // like video or images
-			//$filter['collabpref'] = $searchForm->isProject;
 			$filter['keywords'] = $searchForm->keywords;
 			$filter['language'] = $searchForm->language;
 			$filter['skill'] = $searchForm->skill;
@@ -269,15 +269,22 @@ class SiteController extends Controller
 												"status" => 1,
 												"message" => Yii::t('msg', "No search query."));
 		}else{
+			$language = Yii::app()->language;
+			$language = Language::Model()->findByAttributes( array( 'language_code' => $language ) );
+			$language = $language->id;
+
 			$connection=Yii::app()->db;
 			$data = array();
 			
 			$criteria=new CDbCriteria();
 			
 			// translated skill sets
-			$criteria->condition = " `translation` LIKE :name AND `table` = 'skillset'"; //AND language_id = 
-			$criteria->params = array(":name"=>"%".$_GET['term']."%");
-			$dataReader = Translation::model()->findAll($criteria);
+			//!!!language
+			if($language != 40){
+				$criteria->condition = " `translation` LIKE :name AND `table` = 'skillset'"; //AND language_id = 
+				$criteria->params = array(":name"=>"%".$_GET['term']."%");
+				$dataReader = Translation::model()->findAll($criteria);
+			}
 
 			//$data = array();
 			foreach ($dataReader as $row){

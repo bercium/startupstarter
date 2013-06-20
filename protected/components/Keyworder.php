@@ -22,7 +22,7 @@ class Keyworder {
 		// Clean up things like &amp;
 		$clear = html_entity_decode($clear);
 		// Strip out any url-encoded stuff
-		$clear = urldecode($clear);
+		//$clear = urldecode($clear);
 		// Replace non-AlNum characters with space
 		//$clear = preg_replace('/[^A-Za-z0-9]/', '', $clear);
 		// Replace Multiple spaces with single space
