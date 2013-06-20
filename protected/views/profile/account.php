@@ -37,7 +37,7 @@
         <span></span>
       </div>
     
-      <?php echo CHtml::label(Yii::t("app","First page intro"),"fpi"); ?>
+      <?php /* echo CHtml::label(Yii::t("app","First page intro"),"fpi"); ?>
       <div class="switch small round small-4 large-3">
         <input id="fpi_0" name="UserEdit[fpi]" type="radio" value="0" <?php if (!$fpi) echo 'checked="checked"' ?>>
         <label for="fpi_0" onclick="">Off</label>
@@ -45,7 +45,7 @@
         <input id="fpi_1" name="UserEdit[fpi]" type="radio" value="1" <?php if ($fpi) echo 'checked="checked"' ?>>
         <label for="fpi_1" onclick="">On</label>
         <span></span>
-      </div>
+      </div> <?php */ ?>
     
       <?php echo CHtml::submitButton(Yii::t("app","Save"),
               array('class'=>"button small success radius")
