@@ -61,7 +61,7 @@
 </div>
 
 
-
+<a id="link_skill"></a>
 <div class="row">
   <div class="small-12 large-12 columns edit-header">
     <div class="edit-floater">
@@ -144,7 +144,7 @@
 
 
 
-
+<a id="link_personal"></a>
 <div class="row">
   <div class="small-12 large-12 columns edit-header">
     <h3><?php echo Yii::t('app', 'Personal information'); ?></h3>
