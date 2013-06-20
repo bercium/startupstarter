@@ -22,4 +22,4 @@ if(is_array($idea['member'])){
 <?php
   }
 }
-?>    
+?>

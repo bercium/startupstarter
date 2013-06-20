@@ -205,43 +205,72 @@ class ProjectController extends GxController {
 
 			//load idea data
 			$idea_id = Yii::app()->session['IdeaCreated'];
-			//$idea_id = 11;
 			$filter['idea_id'] = $idea_id;
 			$data['idea'] = $sqlbuilder->load_array("idea", $filter);
 
-			//if a new member is to be inserted
+			//if an existing user is to be inserted as a member
 
 			//if a new member is to be invited
 
-			//if a new candidate is to be inserted/edited
-			$candidate = NULL;
-			$candidate_id = 0;
-			if(isset($_GET['candidate'])){
-				if(is_numeric($_GET['candidate'])){
-					//we are editing an existing candidate
-					$candidate = UserMatch::Model()->findByAttributes(array('id' => $_GET['candidate']));
-					$candidate_id = $candidate->id;
-				} else {
-					//we are adding a new candidate and then redirecting to the same page
-					$candidate = new UserMatch;
-					$member = new IdeaMember;
+			//if candidate is to be created/edited
+			$candidate_in_edit = false;
+				//open new candidate session to start inserting process
+				if( isset($_GET['candidate']) && $_GET['candidate'] == 'new' ){
+					unset(Yii::app()->session['Candidate']);
+					Yii::app()->session['Candidate'] = array('id' => 'new');
 
-					$candidate->save();
+					$candidate_in_edit = true;
+					$match = new UserMatch();
+				}
+				//new candidate session is open
+				if( isset($_GET['candidate']) && strlen($_GET['candidate']) == 0 ){
+					//just in case
+					if( !Yii::app()->session['Candidate']['id'] == 'new'){
+						unset(Yii::app()->session['Candidate']);
+						Yii::app()->session['Candidate'] = array('id' => 'new');
+					}
 
-					$member_array['idea_id'] = $idea_id;
-					$member_array['match_id'] = $candidate->id;
-					$member_array['type_id'] = 3;	
-					$member->setAttributes($member_array);
+					$candidate_in_edit = true;
+					$match = new UserMatch();
+				}
+				//existent candidate session is open
+				if( isset($_GET['candidate']) && is_numeric($_GET['candidate']) ){
+					//load up session array if it doesn't exist yet
+					if( !Yii::app()->session['Candidate']['id'] == $_GET['candidate']){
+						unset(Yii::app()->session['Candidate']);
+						Yii::app()->session['Candidate'] = array('id' => $_GET['candidate']);
 
-					$member->save();
+						//data['idea']['candidate'] stuff to be loaded into session array
 
-					$this->redirect(array('project/create', 'step' => 2, 'candidate' => $candidate->id, 'candidate_id' => $candidate_id));
+						//collabpref
+
+						/*$candidate['collabpref'] as $collabpref){ ?>
+        				<label for="CollabPref_<?php echo $collabpref['id'];*/
+					}
+
+					$candidate_in_edit = true;
+					$match = UserMatch::Model()->findByAttributes(array('id' => $_GET['candidate']));
+				}
+				//assign changes to currently edited candidate
+				if(isset($_POST['candidate']) && $candidate_in_edit){
+					//assign changes ($_POST) to session array 
+					//goes for both, existing and new candidate
+				}
+				//save candidate
+				if(isset($_GET['save']) && $candidate_in_edit){
+					//assign changes ($_POST) to session array 
+					//goes for both, existing and new candidate
+
+					//reset
+					$candidate_in_edit = false;
+					unset(Yii::app()->session['Candidate']);
 				}
 
-
-			}
-
-			$this->render('createidea', array( 'step' => $step, 'idea' => $data['idea'], 'idea_id' => $idea_id, 'candidate' => $candidate, 'candidate_id' => $candidate_id ));
+				if(isset(Yii::app()->session['Candidate']) && $candidate_in_edit){
+					$this->render('createidea', array( 'step' => $step, 'idea' => $data['idea'], 'idea_id' => $idea_id, 'candidate' => Yii::app()->session['Candidate'], 'match' => $match ));
+				} else {
+					$this->render('createidea', array( 'step' => $step, 'idea' => $data['idea'], 'idea_id' => $idea_id ));
+				}
 
 		} elseif($step == 3) {
 			$idea_id = Yii::app()->session['IdeaCreated'];

@@ -43,14 +43,19 @@
   </div>
 </div>
 <?php if($step == 2){
+  if(isset($candidate) && isset($match)){
       $this->renderPartial('_formteam', array(
           'idea' => $idea,
           'candidate' => $candidate,
-          'candidate_id' => $candidate_id,
-          'buttons' => 'create')); }
-      if($step == 2){
-           echo CHtml::submitButton(Yii::t("app","Finish"),
-                    array('class'=>"button small success radius",
-                        'onclick'=>'window.location.href=(\''.$idea_id.'\');')
-                );
-      }
+          'match' => $match,
+          'buttons' => 'create'));
+  } else {
+      $this->renderPartial('_formteam', array(
+          'idea' => $idea,
+          'buttons' => 'create'));
+  }
+  echo CHtml::submitButton(Yii::t("app","Finish"),
+            array('class'=>"button small success radius",
+                'onclick'=>'window.location.href=(\''.$idea_id.'\');')
+        );
+}?>

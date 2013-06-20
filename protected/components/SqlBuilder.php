@@ -802,6 +802,9 @@ public function search($type, $filter){
 				}
 			}
 		}
+		if( isset($filter['stage']) && is_numeric($filter['stage']) ){
+			$filter['status_id'] = $filter['stage'];
+		}
 
 		//!!!debug
 		/*if(isset($filter['skillset'])){
@@ -838,7 +841,7 @@ public function search($type, $filter){
 
 			//idea AS i
 			if(isset($filter['status_id']) AND is_numeric($filter['status_id'])){
-				$sql.=	"is.status_id, ";
+				$sql.=	"i.status_id, ";
 			}
 			if(isset($filter['extra']) && $filter['extra'] == 1){
 				$sql.=	"i.website, 
@@ -1040,7 +1043,7 @@ public function search($type, $filter){
 		if($type == "idea") {
 			//group by idea_id
 			//because it's highly relevant if one person has skills sought in several candidates
-			$sql.=	" GROUP BY i.id";
+			$sql.=	" WHERE i.deleted = 0 GROUP BY i.id";
 		} elseif($type == "user") {
 			$sql.=	" WHERE m.user_id > 0 
 					 GROUP BY m.id";
