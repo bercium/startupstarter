@@ -47,7 +47,7 @@
       <div class="small-12 large-12" >
         <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
           <h1>
-           <img class="logo" alt="" title="" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" />
+           <img class="logo" alt="coFinder" title="coFinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" />
             co<span>finder</span>
           </h1>
         </a>
@@ -88,7 +88,7 @@
               <li class="divider"></li>
               <?php */ ?>
               <li class="<?php echo isMenuItemActive("about"); ?>">
-                <a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo CHtml::encode(Yii::t('app','About project')); ?></a>
+                <a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo CHtml::encode(Yii::t('app','About')); ?></a>
               </li>
               <li class="divider"></li>
               <?php if (Yii::app()->user->isAdmin()){ ?>
@@ -163,7 +163,7 @@
 			<div class="small-12 large-9 columns footer-links">
 				<ul class="inline-list">
           <?php /* ?><li><a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo CHtml::encode(Yii::t('app','Our team')); ?></a></li> <?php */ ?>
-					<li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo CHtml::encode(Yii::t('app','About project')); ?></a></li>
+					<li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo CHtml::encode(Yii::t('app','About')); ?></a></li>
 					<?php if (false && Yii::app()->user->isAdmin()){ ?>
 						<li><a href="<?php echo Yii::app()->createUrl("site/list"); ?>"><?php echo CHtml::encode(Yii::t('app','Admin')); ?></a></li>
 					<?php } ?>

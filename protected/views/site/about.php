@@ -43,9 +43,24 @@
 		<h1><?php echo Yii::t('app','Our team'); ?></h1>
   </div>
   <div class="small-12 large-12 columns panel edit-content">
-		Žiga Berce<br />
-		Blaž Beuermann<br />
-		Jure Ravlič<br />
+    <div class="large-6 small-12 columns">
+      <img id="team_image" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg" alt="coFinder team" title="coFinder team">
+    </div>
+    <div class="large-6 small-12 columns">
+      <h4 onmouseover="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team-zb.jpg')" onmouseout="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg')">Žiga Berce</h4>
+      <p onmouseover="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team-zb.jpg')" onmouseout="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg')">
+        
+      </p>
+    	<h4 onmouseover="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team-bb.jpg')" onmouseout="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg')">Blaž Beuermann</h4>
+      <p onmouseover="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team-bb.jpg')" onmouseout="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg')">
+      Raziskujem realnost in ideale; ljudi, sistem, tehnologijo, okolje. Živimo v posebnih časih, znanja in veščine so naša orodja in naša odgovornost. Sledite srcu ter bodite drzni, vključujte soljudi, za skupno dobro. Pri coFinder.eu skrbim za temelje spletne platforme.
+      </p>
+      <h4 onmouseover="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team-jr.jpg')" onmouseout="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg')">Jure Ravlič</h4>
+      <p onmouseover="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team-jr.jpg')" onmouseout="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg')">
+        Hi! My name is Jure Ravlič and I come from Ljubljana (Slovenia). I've been interested in building things from the very young age. After elementary I applied for design school and passed all entry tests, but in the end decided for a classic program. Nevertheless, I kept my interest in creativity trough drawing and lettering. As the popularity of internet expanded, I figured that it would be pretty awesome to apply my skills to the web, so I started learning, Photoshop, HTML, CSS, Javascript and PHP. My early websites weren't much, but ever since I got my first W3C validation badge (which i thought was the most awesome thing at the time) I never looked back.
+        When not working/learning, I usually go to Lindy hop, 6-count swing partys at Caffee Union and SEM. I also like playing basketball and occasional hiking and sport climbing.         
+      </p>
+    </div>
   </div>
 </div>
 
