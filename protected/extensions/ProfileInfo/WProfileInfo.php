@@ -18,7 +18,6 @@ class WProfileInfo extends CWidget
         $views = ClickUser::model()->count("user_id = :userID",array(":userID"=>Yii::app()->user->id));
         $this->render("detail",array("perc"=>$perc,"percClass"=>$percClass,
                                      "memberDate"=>$user->create_at,
-                                     "hint"=>$message,
                                      "views"=>$views));
       }else if ($this->style == 'hint'){
         if (!Yii::app()->user->hasFlash('WProfileInfoHint')) $this->calculatePerc();
