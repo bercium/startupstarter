@@ -1,10 +1,6 @@
-<?php $this->pageTitle=Yii::app()->name . ' - '.Yii::t('app',"Registration");
-$this->breadcrumbs=array(
-	Yii::t('app',"Registration"),
-);
+<?php
+$this->pageTitle = Yii::t('app', 'Registration');
 ?>
-
-<h1><?php echo Yii::t('app',"Registration"); ?></h1>
 
 <?php if(Yii::app()->user->hasFlash('registration')): ?>
 <div class="success">
@@ -12,15 +8,9 @@ $this->breadcrumbs=array(
 </div>
 <?php else: ?>
 
-<div class="form">
 <?php $form=$this->beginWidget('UActiveForm', array(
 	'id'=>'registration-form',
-	'enableAjaxValidation'=>true,
-	'disableAjaxValidationAttributes'=>array('RegistrationForm_verifyCode'),
-	'clientOptions'=>array(
-		'validateOnSubmit'=>true,
-	),
-	'htmlOptions' => array('enctype'=>'multipart/form-data'),
+	'htmlOptions' => array('enctype'=>'multipart/form-data',"class"=>"custom large-6 small-12"),
 )); ?>
 
 	<p class="note"><?php echo Yii::t('msg','Fields with <span class="required">*</span> are required.'); ?></p>
@@ -28,54 +18,23 @@ $this->breadcrumbs=array(
 	<?php //echo $form->errorSummary(array($model,$profile)); ?>
 	
 	
-	<div class="row">
 	<?php echo $form->labelEx($model,'email'); ?>
 	<?php echo $form->textField($model,'email'); ?>
 	<?php echo $form->error($model,'email'); ?>
-	</div>
 	
-	<div class="row">
 	<?php echo $form->labelEx($model,'password'); ?>
 	<?php echo $form->passwordField($model,'password'); ?>
 	<?php echo $form->error($model,'password'); ?>
 	<p class="hint">
 	<?php echo Yii::t('msg',"Minimal password length 4 symbols."); ?>
 	</p>
-	</div>
 	
-	<div class="row">
 	<?php echo $form->labelEx($model,'verifyPassword'); ?>
 	<?php echo $form->passwordField($model,'verifyPassword'); ?>
 	<?php echo $form->error($model,'verifyPassword'); ?>
-	</div>
 
 	
-<?php 
-		$profileFields=Profile::getFields();
-		if ($profileFields) {
-			foreach($profileFields as $field) {
-			?>
-	<div class="row">
-		<?php echo $form->labelEx($profile,$field->varname); ?>
-		<?php 
-		if ($widgetEdit = $field->widgetEdit($profile)) {
-			echo $widgetEdit;
-		} elseif ($field->range) {
-			echo $form->dropDownList($profile,$field->varname,Profile::range($field->range));
-		} elseif ($field->field_type=="TEXT") {
-			echo$form->textArea($profile,$field->varname,array('rows'=>6, 'cols'=>50));
-		} else {
-			echo $form->textField($profile,$field->varname,array('size'=>60,'maxlength'=>(($field->field_size)?$field->field_size:255)));
-		}
-		 ?>
-		<?php echo $form->error($profile,$field->varname); ?>
-	</div>	
-			<?php
-			}
-		}
-?>
 	<?php if (UserModule::doCaptcha('registration')): ?>
-	<div class="row">
 		<?php echo $form->labelEx($model,'verifyCode'); ?>
 		
 		<?php $this->widget('CCaptcha'); ?>
@@ -84,13 +43,9 @@ $this->breadcrumbs=array(
 		
 		<p class="hint"><?php echo Yii::t('msg',"Please enter the letters as they are shown in the image above."); ?>
 		<br/><?php echo Yii::t('msg',"Letters are not case-sensitive."); ?></p>
-	</div>
 	<?php endif; ?>
 	
-	<div class="row submit">
-		<?php echo CHtml::submitButton(Yii::t('app',"Register")); ?>
-	</div>
+	<?php echo CHtml::submitButton(Yii::t('app',"Register"),array("class"=>"radius small button")); ?>
 
 <?php $this->endWidget(); ?>
-</div><!-- form -->
 <?php endif; ?>

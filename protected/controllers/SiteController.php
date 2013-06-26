@@ -24,7 +24,7 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("index",'error','logout','about','terms'/*,'team'*/),
+        'actions'=>array("index",'error','logout','about','terms','notify'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -128,9 +128,9 @@ class SiteController extends Controller
 		$this->render('about-project');
 	}
 
-	public function actionTeam()
+	public function actionNotify()
 	{
-		$this->render('team');
+		$this->render('notify');
 	}
 	
 	public function actionTerms()
