@@ -1,5 +1,4 @@
  $(window).load(function() {
-	 //* // !!! uncomment
     $('.list-holder').infinitescroll({
       debug:true,
       navSelector  : ".pagination",
@@ -13,5 +12,5 @@
         msgText: "",
         finishedMsg: ""
       }
-    }); //*/
+    }); 
  });
