@@ -1,6 +1,13 @@
+<?php
+  $baseUrl = Yii::app()->baseUrl; 
+  $cs = Yii::app()->getClientScript();
+  
+  $cs->registerCssFile($baseUrl.'/css/ui/jquery-ui-1.10.3.custom.min.css');
+  $cs->registerScriptFile($baseUrl.'/js/jquery-ui-1.10.3.custom.min.js',CClientScript::POS_END);
+?>
 <script>
 	var skillSuggest_url = '<?php echo Yii::app()->createUrl("profile/sugestSkill",array("ajax"=>1)) ?>';
- </script>
+</script>
 
  
 <div class="row">
@@ -119,15 +126,6 @@
     </div>
     
     </p>
-    
-    <?php
-    //!!! remove this and import JUI js and CSS :)
-    $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-        'name'=>'city',
-        // additional javascript options for the autocomplete plugin
-        'htmlOptions'=>array("style"=>'display:none'),
-    ));
-    ?>
     
   </div>
 </div>

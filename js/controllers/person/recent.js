@@ -1,5 +1,5 @@
  $(window).load(function() {
-	 /* // !!! uncomment
+	 //* // !!! uncomment
     $('.list-holder').infinitescroll({
       debug:true,
       navSelector  : ".pagination",
