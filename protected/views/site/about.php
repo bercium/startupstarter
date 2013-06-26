@@ -49,11 +49,12 @@
     <div class="large-6 small-12 columns">
       <h4 onmouseover="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team-zb.jpg')" onmouseout="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg')">Žiga Berce</h4>
       <p onmouseover="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team-zb.jpg')" onmouseout="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg')">
-        
+      Within coFinder I take care of development while motivating the team and trying my hardest to engage others to join our project. Too much ideas and not enough time forced me to commit only to projects I really love, like making my own surfboard and bike, building websites or organizing social tournaments. Remaining time I spend on outdoor sports.
+      <br />Since the only constant in life are changes it is important not to fall asleep on past successes or to give up at the first problems. Tomorrow is a new day, even at coFinder.
       </p>
     	<h4 onmouseover="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team-bb.jpg')" onmouseout="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg')">Blaž Beuermann</h4>
       <p onmouseover="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team-bb.jpg')" onmouseout="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg')">
-      Raziskujem realnost in ideale; ljudi, sistem, tehnologijo, okolje. Živimo v posebnih časih, znanja in veščine so naša orodja in naša odgovornost. Sledite srcu ter bodite drzni, vključujte soljudi, za skupno dobro. Pri coFinder.eu skrbim za temelje spletne platforme.
+      My designation at coFinder.eu is to take care of our online foundations, otherwise I’m a creative with a wide span of expertise, given to me by curiousity. From previous startup experience I am aware of the importance of a team, but what also brought me here is the desire to solve wider societal issues. The dark skies of current economies needs hope. As a human I enjoy other people’s company, a bike ride, a cruise with my board, or a search of a new hidden place in nature.
       </p>
       <h4 onmouseover="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team-jr.jpg')" onmouseout="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg')">Jure Ravlič</h4>
       <p onmouseover="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team-jr.jpg')" onmouseout="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg')">
