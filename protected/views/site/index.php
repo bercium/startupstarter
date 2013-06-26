@@ -299,25 +299,28 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 <div class="row" id="recent_projects">
 	<?php
 	if (count($searchResult) && count($searchResult['data'])){
-		Yii::log(arrayLog($searchResult), CLogger::LEVEL_INFO, 'custom.info.user'); 
+		Yii::log(arrayLog($searchResult), CLogger::LEVEL_INFO, 'custom.info.search_result'); 
 		?>
 
 		<div class="list-holder">
-		<ul class="small-block-grid-1 large-block-grid-3 list-items">
-			<?php 
-			foreach ($searchResult['data'] as $result){ ?>
-				<li>
-				<?php 
-					if ($filter->isProject) $this->renderPartial('//project/_project', array('idea' => $result));
-					else $this->renderPartial('//person/_user', array('user' => $result));
-				?>
-				</li>
-			<?php } ?>
-		</ul>
+      <div class="list-items">
+        <h5><?php echo Yii::t("app","Page")." ".$searchResult['page']; ?></h5>
+        <ul class="small-block-grid-1 large-block-grid-3">
+          <?php 
+          foreach ($searchResult['data'] as $result){ ?>
+            <li>
+            <?php 
+              if ($filter->isProject) $this->renderPartial('//project/_project', array('idea' => $result));
+              else $this->renderPartial('//person/_user', array('user' => $result));
+            ?>
+            </li>
+          <?php } ?>
+        </ul>
+      </div>
 		</div>
 
 		<div class="pagination-centered">
-			<?php $this->widget('ext.Pagination.WPagination',array("url"=>"site/index","page"=>$searchResult['page'],"maxPage"=>$searchResult['maxPage'])); ?>
+			<?php $this->widget('ext.Pagination.WPagination',array("url"=>"site/index","page"=>$searchResult['page'],"maxPage"=>$searchResult['maxPage'],"getParams"=>$_GET)); ?>
 		</div>
 	<?php }else{	?>
 	

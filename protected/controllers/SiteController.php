@@ -65,7 +65,7 @@ class SiteController extends Controller
 	 * This is the default 'index' action that is invoked
 	 * when an action is not explicitly requested by users.
 	 */
-	public function actionIndex()
+	public function actionIndex($id = 1)
 	{
     $this->layout="//layouts/none";
     
@@ -85,7 +85,7 @@ class SiteController extends Controller
 			// search results
       $searchForm->setAttributes($_GET['SearchForm']);
 			
-			$filter['per_page'] = 12;
+			$filter['per_page'] = 9;
 			
 			$filter['available'] = $searchForm->available;
 			$filter['city'] = $searchForm->city;
@@ -100,8 +100,8 @@ class SiteController extends Controller
 			if ($searchForm->isProject)	$searchResult['data'] = $sqlbuilder->load_array("search_idea", $filter);
 			else $searchResult['data'] = $sqlbuilder->load_array("search_user", $filter);
 			
-			$searchResult['page'] = 1;
-			$searchResult['maxPage'] = 1;
+			$searchResult['page'] = $id;
+			$searchResult['maxPage'] = 2; //!!! add page count
 
     }else{
 			// last results

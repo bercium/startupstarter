@@ -189,7 +189,7 @@
       debug:true,
       navSelector  : ".pagination",
       nextSelector : ".pagination li:last a",    
-      itemSelector : ".list-holder ul.list-items",
+      itemSelector : ".list-holder div.list-items",
 			animate:true,
 			bufferPx:200,
 			prefill:true,

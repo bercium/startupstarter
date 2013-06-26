@@ -6,10 +6,15 @@ class WPagination extends CWidget
     public $maxPage = 1;
     public $pageNumbers = true;
 		public $url = '';
+		public $getParams = array();
   
     public function init()
     {
-			$this->render("view",array("url"=>$this->url,"page"=>$this->page,"maxPage"=>$this->maxPage,"pageNumbers"=>$this->pageNumbers));
+			$this->render("view",array("url"=>$this->url,
+                                 "page"=>$this->page,
+                                 "maxPage"=>$this->maxPage,
+                                 "pageNumbers"=>$this->pageNumbers,
+                                 "getParams" =>$this->getParams));
     }
  
     public function run()
