@@ -20,20 +20,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `translation`
---
-
-CREATE TABLE IF NOT EXISTS `translation` (
-  `id` int(8) unsigned NOT NULL AUTO_INCREMENT,
-  `language_id` smallint(2) unsigned NOT NULL,
-  `table` varchar(64) NOT NULL COMMENT 'Table containing the message to be translated',
-  `row_id` int(10) unsigned NOT NULL COMMENT 'The exact message to be translated (row of the table)',
-  `translation` varchar(128) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `language_id` (`language_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
-
---
 -- Dumping data for table `translation`
 --
 
@@ -53,16 +39,6 @@ INSERT INTO `translation` (`id`, `language_id`, `table`, `row_id`, `translation`
 (13, 145, 'available', 8, 'Vikendi'),
 (14, 145, 'available', 20, 'Polovični delovni čas'),
 (15, 145, 'available', 40, 'Polni delovni čas');
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `translation`
---
-ALTER TABLE `translation`
-  ADD CONSTRAINT `translation_ibfk_1` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

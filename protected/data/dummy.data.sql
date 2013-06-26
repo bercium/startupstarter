@@ -207,14 +207,14 @@ INSERT INTO `idea_member` (`id`, `idea_id`, `match_id`, `type_id`) VALUES
 (7, 7, 7, 1),
 (8, 8, 1, 1),
 (9, 9, 2, 1),
-(10, 10, 3, 1),
+/*(10, 10, 3, 1),*/
 (11, 11, 1, 1),
 (12, 12, 2, 1),
 (13, 13, 7, 1),
 (14, 14, 8, 1),
 (15, 15, 8, 1),
 (16, 16, 4, 1),
-(17, 17, 5, 1),
+/*(17, 17, 5, 1),*/
 (18, 1, 2, 2),
 (19, 2, 3, 2),
 (20, 3, 4, 2),
@@ -249,19 +249,19 @@ INSERT INTO `idea_member` (`id`, `idea_id`, `match_id`, `type_id`) VALUES
 (50, 9, 14, 3),
 (51, 4, 13, 3),
 (52, 5, 15, 3),
-(53, 10, 14, 3),
+/*(53, 10, 14, 3),*/
 (54, 11, 16, 3),
 (55, 12, 13, 3),
 (56, 13, 16, 3),
 (57, 14, 14, 3),
-(58, 17, 12, 3),
+/*(58, 17, 12, 3),*/
 (59, 15, 11, 3),
 (60, 16, 12, 3),
-(61, 16, 9, 3),
-(62, 17, 10, 3);
+(61, 16, 9, 3);
+/*(62, 17, 10, 3);*/
 
 
-INSERT INTO `slocoworking`.`click_idea` (`id` ,`time` ,`user_id` ,`idea_click_id`) VALUES 
+INSERT INTO `click_idea` (`id` ,`time` ,`user_id` ,`idea_click_id`) VALUES 
 (1 , CURRENT_TIMESTAMP , 1, 1),
 (2 , CURRENT_TIMESTAMP , 1, 2),
 (3 , CURRENT_TIMESTAMP , 2, 3),
@@ -277,7 +277,6 @@ INSERT INTO `slocoworking`.`click_idea` (`id` ,`time` ,`user_id` ,`idea_click_id
 (13 , CURRENT_TIMESTAMP , 7, 7),
 (14 , CURRENT_TIMESTAMP , 8, 8),
 (15 , CURRENT_TIMESTAMP , 5, 9),
-(16 , CURRENT_TIMESTAMP , 6, 10),
 (17 , CURRENT_TIMESTAMP , 9, 11),
 (18 , CURRENT_TIMESTAMP , 6, 11),
 (19 , CURRENT_TIMESTAMP , 4, 11),
@@ -286,10 +285,7 @@ INSERT INTO `slocoworking`.`click_idea` (`id` ,`time` ,`user_id` ,`idea_click_id
 (22 , CURRENT_TIMESTAMP , 6, 14),
 (23 , CURRENT_TIMESTAMP , 3, 15),
 (24 , CURRENT_TIMESTAMP , 1, 16),
-(25 , CURRENT_TIMESTAMP , 6, 17),
-(26 , CURRENT_TIMESTAMP , 3, 17),
 (27 , CURRENT_TIMESTAMP , 2, 11),
-(28 , CURRENT_TIMESTAMP , 7, 10),
 (29 , CURRENT_TIMESTAMP , 8, 6);
 
 INSERT INTO `click_user` (`id`, `time`, `user_id`, `user_click_id`) VALUES
