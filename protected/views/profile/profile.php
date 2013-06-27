@@ -68,9 +68,10 @@
 </div>
 
 
-<a id="link_skill"></a>
 <div class="row">
   <div class="small-12 large-12 columns edit-header">
+    <a id="link_skill" class="anchor-link"></a>
+    
     <div class="edit-floater">
       <a class="button success radius small" href="#" onclick="$('.addSkils').toggle(); return false;"><?php echo Yii::t('app',"Add skills"); ?> <span class="icon-plus"></span></a>
     </div>
@@ -137,14 +138,9 @@
 
 
 
-
-
-
-
-
-<a id="link_personal"></a>
 <div class="row">
   <div class="small-12 large-12 columns edit-header">
+    <a id="link_personal" class="anchor-link"></a>
     <h3><?php echo Yii::t('app', 'Personal information'); ?></h3>
   </div>
   <div class="small-12 large-12 columns panel edit-content">
@@ -275,7 +271,6 @@
       
   </div>
 </div>
-
 
 
 <?php 

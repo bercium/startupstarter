@@ -743,6 +743,10 @@ border-radius: 2px;
    /*	box-shadow: 0 1px 0 0px #6e8b50;*/
 }
 
+.anchor-link{
+  position: absolute; 
+  top:-60px;
+}
 
 
 .footer{
