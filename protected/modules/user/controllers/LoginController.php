@@ -22,10 +22,13 @@ class LoginController extends Controller
 
           //Yii::app()->setLanguage();  // set language from user settings
           
+          echo Yii::app()->request->urlReferrer;
+          
 					if (Yii::app()->getBaseUrl()."/index.php" === Yii::app()->user->returnUrl)
 						$this->redirect(Yii::app()->controller->module->returnUrl);
-					else
-						$this->redirect(Yii::app()->user->returnUrl);
+					else 
+            if (strpos(Yii::app()->request->urlReferrer,"user/login") === false) $this->redirect(Yii::app()->request->urlReferrer);
+            else $this->redirect(Yii::app()->user->returnUrl);
 				}
 			}
 			// display the login form
