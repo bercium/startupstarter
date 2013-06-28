@@ -1,11 +1,5 @@
-<?php $this->pageTitle=Yii::app()->name . ' - '.Yii::t('app',"Restore");
-$this->breadcrumbs=array(
-	Yii::t('app',"Login") => array('/user/login'),
-	Yii::t('app',"Restore"),
-);
+<?php $this->pageTitle=Yii::t('app',"Restore your password");
 ?>
-
-<h1><?php echo Yii::t('app',"Restore"); ?></h1>
 
 <?php if(Yii::app()->user->hasFlash('recoveryMessage')): ?>
 <div class="success">
@@ -13,21 +7,15 @@ $this->breadcrumbs=array(
 </div>
 <?php else: ?>
 
-<div class="form">
-<?php echo CHtml::beginForm(); ?>
+<?php echo CHtml::beginForm('','post',array("class"=>"custom")); ?>
 
-	<?php echo CHtml::errorSummary($form); ?>
+  <?php echo CHtml::errorSummary($form,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
+
 	
-	<div class="row">
-		<?php echo CHtml::activeLabel($form,'login_or_email'); ?>
-		<?php echo CHtml::activeTextField($form,'login_or_email') ?>
-		<p class="hint"><?php echo Yii::t('msg',"Please enter your email address."); ?></p>
-	</div>
-	
-	<div class="row submit">
-		<?php echo CHtml::submitButton(Yii::t('app',"Restore")); ?>
-	</div>
+  <?php echo CHtml::activeLabel($form,'login_or_email'); ?>
+  <?php echo CHtml::activeTextField($form,'login_or_email') ?>
+
+  <p><?php echo CHtml::submitButton(Yii::t('app',"Restore"),array("class"=>"button radius small")); ?></p>
 
 <?php echo CHtml::endForm(); ?>
-</div><!-- form -->
 <?php endif; ?>

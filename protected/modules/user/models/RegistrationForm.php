@@ -10,7 +10,8 @@ class RegistrationForm extends User {
 	
 	public function rules() {
 		$rules = array(
-			array('password, verifyPassword, email', 'required'),
+			array('password, verifyPassword, email, name', 'required'),
+			array('surname', 'safe'),
 			//array('username', 'length', 'max'=>20, 'min' => 3,'message' => Yii::t('msg',"Incorrect username (length between 3 and 20 characters).")),
 			array('password', 'length', 'max'=>128, 'min' => 4,'message' => Yii::t('msg',"Incorrect password (minimal length 4 symbols).")),
 			array('email', 'email'),

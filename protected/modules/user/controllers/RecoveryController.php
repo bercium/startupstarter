@@ -3,7 +3,8 @@
 class RecoveryController extends Controller
 {
 	public $defaultAction = 'recovery';
-	
+  public $layout = "//layouts/card";	
+  
 	/**
 	 * Recovery password
 	 */
@@ -27,7 +28,7 @@ class RecoveryController extends Controller
 									$find->status = 1;
 								}
 								$find->save();
-								Yii::app()->user->setFlash('recoveryMessage',Yii::t('msg',"New password is saved."));
+								Yii::app()->user->setFlash('recoveryMessage',Yii::t('msg',"New password is saved.".'<br /><br /><a href="#" data-dropdown="drop-login" class="button radius small" >'.Yii::t('msg','Login now').'</a>'));
 								$this->redirect(Yii::app()->controller->module->recoveryUrl);
 							}
 						} 
@@ -41,21 +42,26 @@ class RecoveryController extends Controller
 			    		$form->attributes=$_POST['UserRecoveryForm'];
 			    		if($form->validate()) {
 			    			$user = User::model()->notsafe()->findbyPk($form->user_id);
-							$activation_url = 'http://' . $_SERVER['HTTP_HOST'].$this->createUrl(implode(Yii::app()->controller->module->recoveryUrl),array("activkey" => $user->activkey, "email" => $user->email));
+							//$activation_url = 'http://' . $_SERVER['HTTP_HOST'].$this->createUrl(implode(Yii::app()->controller->module->recoveryUrl),array("activkey" => $user->activkey, "email" => $user->email));
+              
+              $activation_url = '<a href="'.$this->createAbsoluteUrl('/user/recovery',array("activkey" => $user->activkey, "email" => $user->email)).'">'.Yii::t('msg',"Activate")."</a>";
 							
-							$subject = Yii::t('msg',"You have requested the password recovery site {site_name}",
+							$subject = Yii::t('msg',"Password recovery for coFinder");
+			    		$message1 = Yii::t('msg',"You have requested the password recovery for {site_name}. To receive a new password, go to {activation_url}.",
 			    					array(
-			    						'{site_name}'=>Yii::app()->name,
-			    					));
-			    			$message = Yii::t('msg',"You have requested the password recovery site {site_name}. To receive a new password, go to {activation_url}.",
-			    					array(
-			    						'{site_name}'=>Yii::app()->name,
+			    						'{site_name}'=>'<a href="www.cofinder.eu">coFinder</a>',
 			    						'{activation_url}'=>$activation_url,
 			    					));
-							
-			    			UserModule::sendMail($user->email,$subject,$message);
-			    			
-							Yii::app()->user->setFlash('recoveryMessage',Yii::t('msg',"Please check your email. An instructions was sent to your email address."));
+              
+                $message = new YiiMailMessage;
+                $message->view = 'system';
+                $message->setBody($message1, 'text/html');
+                $message->subject = $subject;
+                $message->addTo($user->email);
+                $message->from = Yii::app()->params['noreplyEmail'];
+                Yii::app()->mail->send($message);
+			    			//UserModule::sendMail($user->email,$subject,$message);
+  							Yii::app()->user->setFlash('recoveryMessage',Yii::t('msg'," Please check your email. <br />Instructions were sent to your email address."));
 			    			$this->refresh();
 			    		}
 			    	}

@@ -236,7 +236,7 @@ class User extends BaseUser
 
     public function afterSave() {
         if (get_class(Yii::app())=='CWebApplication') {
-            Yii::app()->user->updateSession();
+          if (!Yii::app()->user->isGuest) Yii::app()->user->updateSession();
         }
         return parent::afterSave();
     }

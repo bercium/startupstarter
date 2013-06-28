@@ -80,7 +80,7 @@ class NewsletterController extends GxController {
     $message->setBody('En testni mail', 'text/html');
     $message->subject = 'Testni subjekt';
     $message->addTo('bercium@gmail.com');
-    $message->from = "bercium@gmail.com";
+    $message->from = app()->params['noreplyEmail'];
     Yii::app()->mail->send($message);
     
     //echo "OK";

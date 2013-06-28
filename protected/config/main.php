@@ -55,7 +55,7 @@ return array(
       # activate user on registration (only sendActivationMail = false)
       'activeAfterRegister' => false,
       # automatically login from registration
-      'autoLogin' => true,
+      'autoLogin' => false,
       # registration path
       'registrationUrl' => array('/user/registration'),
       # recovery password path
