@@ -36,10 +36,10 @@ class RegistrationController extends Controller
             $this->redirect(Yii::app()->createUrl('profile'));
         } else {
             $invited = null;
-            if ($id != '') $invited = Invite::model()->findByAttributes(array('key' => "a4"));
+            if ($id != '') $invited = Invite::model()->findByAttributes(array('key' => $id));
             
             if ($id == '' || $invited == null) {
-              Yii::log(CVarDumper::dumpAsString($invited));
+              //Yii::log(CVarDumper::dumpAsString($invited));
               /*print_r($invited." - ".$id);*/
               //$this->render('/user/registration',array('model'=>$model));//*/
               $this->redirect(Yii::app()->createUrl('site/notify'));
@@ -71,7 +71,13 @@ class RegistrationController extends Controller
                         $message->addTo($model->email);
                         $message->from = Yii::app()->params['noreplyEmail'];
                         Yii::app()->mail->send($message);
+                        
+                        //!!! uncomment
+                        // delete invite
+                        //$invited->delete();
 
+                        $this->render('/user/message',array('title'=>Yii::t('app','Registration'),"content"=>Yii::t('msg','Thank you for your registration. Please check your email.')));
+                        
                           /*if (Yii::app()->controller->module->sendActivationMail) {
                                $activation_url = $this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $model->activkey, "email" => $model->email));
                               UserModule::sendMail($model->email,Yii::t('msg',"You registered from {site_name}",array('{site_name}'=>Yii::app()->name)),Yii::t('msg',"Please activate you account go to {activation_url}",array('{activation_url}'=>$activation_url)));
@@ -94,6 +100,10 @@ class RegistrationController extends Controller
                               }
                               $this->refresh();
                           }*/
+                        
+                      }else{
+                        $model->password = $soucePassword;
+                        $model->verifyPassword = $soucePassword;
                       }
                   } /*else $profile->validate();*/
               }

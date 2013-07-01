@@ -130,6 +130,21 @@ class SiteController extends Controller
 
 	public function actionNotify()
 	{
+    if (isset($_POST['email']) && !empty($_POST['email'])){
+      $newFilePath = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "uploads";
+      if (!is_dir($newFilePath)) {
+        mkdir($newFilePath, 0777, true);
+        //chmod( $newFilePath, 0777 );
+      }
+      $filecont = '';
+      $newFilePath = $newFilePath.DIRECTORY_SEPARATOR."emails.txt";
+      if (file_exists($newFilePath)) $filecont = file_get_contents($newFilePath);
+      $filecont = $filecont.$_POST['email'].",\n";
+      file_put_contents($newFilePath,$filecont);
+      
+      Yii::app()->user->setFlash("interestMessage",Yii::t('msg',"Thank you for your interest. Your email was succesfully saved in our database.".$filecont));
+      $this->refresh();
+    }
 		$this->render('notify');
 	}
 	
