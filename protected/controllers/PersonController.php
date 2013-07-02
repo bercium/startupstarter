@@ -55,7 +55,6 @@ class PersonController extends GxController {
 		$filter = Yii::app()->request->getQuery('filter', array());
 		
 		$filter['page'] = $id;
-		//$filter['page'] = 1; // !!! remove
     
     if(isset($_GET['ajax'])) $filter['per_page'] = 3;
     else $filter['per_page'] = 12;
@@ -64,7 +63,7 @@ class PersonController extends GxController {
 		$users = $sqlbuilder->load_array("recent_user", $filter);
 		$pagedata = $sqlbuilder->load_array("count_user", $filter);
 
-		$maxPage = floor($pagedata['num_of_rows'] / $pagedata['filter']['per_page']);
+		$maxPage = ceil($pagedata['num_of_rows'] / $pagedata['filter']['per_page']);
 		
 		//$maxPage = 3;  // !!! remove
 

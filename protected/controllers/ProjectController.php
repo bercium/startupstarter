@@ -823,7 +823,7 @@ class ProjectController extends GxController {
 		$ideas = $sqlbuilder->load_array("recent_updated", $filter);
 		$pagedata = $sqlbuilder->load_array("count_idea", $filter);
 
-		$maxPage = floor($pagedata['num_of_rows'] / $pagedata['filter']['per_page']);
+		$maxPage = ceil($pagedata['num_of_rows'] / $pagedata['filter']['per_page']);
 
 		if(isset($_GET['ajax'])){
 			$return['data'] = $this->renderPartial('_recent', array("ideas" => $ideas, 'page' => $id, 'maxPage' => $maxPage),true);
