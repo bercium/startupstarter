@@ -23,6 +23,7 @@
  * @property string $avatar_link
  * @property integer $language_id
  * @property integer $newsletter
+ * @property integer $invitations
  *
  * @property ClickIdea[] $clickIdeas
  * @property ClickUser[] $clickUsers
@@ -53,11 +54,12 @@ abstract class BaseUser extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('email, password, create_at, name', 'required'),
-			array('superuser, status, language_id, newsletter', 'numerical', 'integerOnly'=>true),
+			array('superuser, status, language_id, newsletter, invitations', 'numerical', 'integerOnly'=>true),
 			array('email, password, activkey, name, surname, address, avatar_link', 'length', 'max'=>128),
 			array('lastvisit_at', 'safe'),
 			array('activkey, lastvisit_at, superuser, status, surname, address, avatar_link, language_id, newsletter', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, password, email, activkey, create_at, lastvisit_at, superuser, status, name, surname, address, avatar_link, language_id, newsletter', 'safe', 'on'=>'search'),
+      array('invitations', 'default', 'setOnEmpty' => true, 'value' => '0'),
+			array('id, password, email, activkey, create_at, lastvisit_at, superuser, status, name, surname, address, avatar_link, language_id, newsletter, invitations', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -97,6 +99,7 @@ abstract class BaseUser extends GxActiveRecord {
 			'clickUsers1' => null,
 			'userLinks' => null,
 			'userMatches' => null,
+      'invitations' => null,
 		);
 	}
 
@@ -117,6 +120,7 @@ abstract class BaseUser extends GxActiveRecord {
 		$criteria->compare('avatar_link', $this->avatar_link, true);
 		$criteria->compare('language_id', $this->language_id);
 		$criteria->compare('newsletter', $this->newsletter);
+		$criteria->compare('invitations', $this->invitations);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

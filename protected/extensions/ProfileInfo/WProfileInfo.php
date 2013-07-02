@@ -16,9 +16,47 @@ class WProfileInfo extends CWidget
         if (!Yii::app()->user->hasFlash('WProfileInfoHint')) $this->calculatePerc();
 
         $views = ClickUser::model()->count("user_id = :userID",array(":userID"=>Yii::app()->user->id));
+        
+        // send invitations
+        if (isset($_POST['invite-email']) && !empty($_POST['invite-email'])){
+          
+          // create invitation
+          $invitation = new Invite();
+          $invitation->email = $_POST['invite-email'];
+          $invitation->id_sender = Yii::app()->user->id;
+          $invitation->key = md5(microtime().$invitation->email);
+          if ($invitation->save()){
+            $user->invitations = $user->invitations-1;
+            $user->save();
+            
+            
+            $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.">".Yii::t('msg',"Register here")."</a>";
+            
+            // send mail
+            $message = new YiiMailMessage;
+            $message->view = 'system';
+            $message->setBody(Yii::t('msg',"We've been hard at work on our new service called coFinder.
+                                            It is a web platform through which you can share your ideas with the same-minded entrepreneurs and search for interesting projects to join. 
+                                            <br /><br /> {username} thinks you might be the right person to test our private beta.
+                                            <br /><br /> If we got your attention you can {activation_url}!",
+                                      array('{activation_url}'=>$activation_url,
+                                            '{username}'=>$user->name." ".$user->surname)
+                                    ), 'text/html');
+            $message->subject = Yii::t('msg',"You are invited to join coFinder");
+            $message->addTo($invitation->email);
+            $message->from = Yii::app()->params['noreplyEmail'];
+            Yii::app()->mail->send($message);
+            
+            Yii::app()->user->setFlash("invitationMessage",Yii::t('app','Invitation send.'));
+          }else Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','This user is already invited.'));
+          
+        }
+        
         $this->render("detail",array("perc"=>$perc,"percClass"=>$percClass,
                                      "memberDate"=>$user->create_at,
-                                     "views"=>$views));
+                                     "views"=>$views,
+                                     "invites"=>$user->invitations));
+        
       }else if ($this->style == 'hint'){
         if (!Yii::app()->user->hasFlash('WProfileInfoHint')) $this->calculatePerc();
         $this->render("hint",array());

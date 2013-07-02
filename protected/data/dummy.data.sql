@@ -37,15 +37,15 @@ INSERT INTO `skill` (`id`, `name`) VALUES
 
 
 INSERT INTO `user` (`id`, `email`, `password`, `activkey`, `create_at`, `lastvisit_at`, `superuser`, `status`, `name`, `surname`, `address`, `avatar_link`, `language_id`, `newsletter`) VALUES
-(1, 'admin@example.com', '21232f297a57a5a743894a0e4a801fc3', '9a24eff8c15a6a141ece27eb6947da0f', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 1, 1, 'Administrator', 'User', NULL, NULL, NULL, 1),
-(2, 'demo@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, 'Demo', 'User', NULL, NULL, NULL, 1),
-(3, 'malina@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, 'Malina', 'Tuk', 'Ilichova 1', NULL, NULL, 1),
-(4, 'fredo@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, 'Fredo', 'Smode', 'Parmova 63', NULL, NULL, 1),
-(5, 'bajro@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, 'Bajro', 'Milinović', 'Tavcarjeva 77', NULL, NULL, 1),
-(6, 'lucijan@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, 'Lucijan', 'Vrabac', 'Slovenčeva 45', NULL, NULL, 1),
-(7, 'janija@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, 'Janija', "", 'Parmova 19', NULL, NULL, 1),
-(8, 'vajko@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, 'Vajko', 'Finkšt', NULL, NULL, NULL, 1),
-(9, 'empty@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, 'Empty', 'Fempty', NULL, NULL, NULL, 1);
+(1, 'admin@example.com', '21232f297a57a5a743894a0e4a801fc3', '9a24eff8c15a6a141ece27eb6947da0f', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 1, 1, 'Administrator', 'User', NULL, NULL, NULL, 1, 0),
+(2, 'demo@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, 'Demo', 'User', NULL, NULL, NULL, 1, 0),
+(3, 'malina@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, 'Malina', 'Tuk', 'Ilichova 1', NULL, NULL, 1, 0),
+(4, 'fredo@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, 'Fredo', 'Smode', 'Parmova 63', NULL, NULL, 1, 0),
+(5, 'bajro@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, 'Bajro', 'Milinović', 'Tavcarjeva 77', NULL, NULL, 1, 0),
+(6, 'lucijan@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, 'Lucijan', 'Vrabac', 'Slovenčeva 45', NULL, NULL, 1, 0),
+(7, 'janija@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, 'Janija', "", 'Parmova 19', NULL, NULL, 1, 0),
+(8, 'vajko@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, 'Vajko', 'Finkšt', NULL, NULL, NULL, 1, 0),
+(9, 'empty@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, 'Empty', 'Fempty', NULL, NULL, NULL, 1, 0);
 
 INSERT INTO `user_match` (`id`, `user_id`, `available`, `country_id`, `city_id`) VALUES 
 (1, 2, 8, 203, 246),

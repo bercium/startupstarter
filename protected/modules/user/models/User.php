@@ -65,10 +65,11 @@ class User extends BaseUser
       array('create_at', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
       array('lastvisit_at', 'default', 'value' => '0000-00-00 00:00:00', 'setOnEmpty' => true, 'on' => 'insert'),
       array('activkey, superuser, status, surname, address, avatar_link, language_id, newsletter', 'default', 'setOnEmpty' => true, 'value' => null),
+      array('invitations', 'default', 'setOnEmpty' => true, 'value' => '0'),
 			array('password, email, create_at, name', 'required'),
 			array('password, email, create_at, name', 'required'),
-			array('superuser, status, language_id, newsletter', 'numerical', 'integerOnly'=>true),
-      array('id, password, email, activkey, create_at, lastvisit_at, superuser, status, name, surname, address, avatar_link, language_id, newsletter', 'safe', 'on'=>'search'),
+			array('superuser, status, language_id, newsletter, invitations', 'numerical', 'integerOnly'=>true),
+      array('id, password, email, activkey, create_at, lastvisit_at, superuser, status, name, surname, address, avatar_link, language_id, newsletter, invitations', 'safe', 'on'=>'search'),
       array('password, email, activkey, name, surname, address, avatar_link', 'length', 'max'=>128),
 		):((Yii::app()->user->id==$this->id)?array(
 			array('password, email, create_at, name', 'required'),
@@ -121,6 +122,7 @@ class User extends BaseUser
 			'avatar_link' => Yii::t('app', 'Avatar Link'),
 			'language_id' => Yii::t('app', 'Language'),
 			'newsletter' => Yii::t('app', 'Newsletter'),
+      'invitations' => Yii::t('app', 'Invitations'),
 		);
 
     
@@ -208,6 +210,7 @@ class User extends BaseUser
         $criteria->compare('avatar_link', $this->avatar_link, true);
         $criteria->compare('language_id', $this->language_id);
         $criteria->compare('newsletter', $this->newsletter);
+        $criteria->compare('invitations', $this->newsletter);
         
 
         return new CActiveDataProvider(get_class($this), array(

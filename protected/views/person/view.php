@@ -7,6 +7,11 @@ $user = $data['user'];
 
 <div id="drop-msg" class="f-dropdown content medium" data-dropdown-content>
   <div class="contact-form">
+    
+ <?php
+ if (Yii::app()->user->isGuest) echo Yii::t('msg','You must be loged in to contact this person.'); 
+ else { ?>    
+    
   <?php echo CHtml::beginForm(Yii::app()->createUrl("person/contact",array("id"=>$user['id'])),'post',array("class"=>"custom")); ?>
 
       <?php echo CHtml::label(Yii::t('app','Message').":",'message'); ?>
@@ -16,7 +21,10 @@ $user = $data['user'];
       <?php echo CHtml::submitButton(Yii::t("app","Send"),array("class"=>"button small radius")); ?>
       </div>
 
-  <?php echo CHtml::endForm(); ?>
+  <?php echo CHtml::endForm();
+    }
+  ?>
+      
   </div>
 </div>
 
@@ -25,6 +33,8 @@ $user = $data['user'];
 <div class="row person-details">
 	<div class="large-12 small-12 columns radius panel card-person">
    
+		<div class="row card-person-title">
+
    <?php if(Yii::app()->user->hasFlash('contactPersonMessage')){ ?>
     <div data-alert class="alert-box radius success">
       <?php echo Yii::app()->user->getFlash('contactPersonMessage'); ?>
@@ -36,9 +46,8 @@ $user = $data['user'];
       <?php echo Yii::app()->user->getFlash('contactPersonError'); ?>
       <a href="#" class="close">&times;</a>
     </div>
-    <?php } ?> 
-
-		<div class="row card-person-title">
+    <?php } ?>       
+      
 			<div class="large-10 small-12 columns" >
 				<?php if (Yii::app()->user->id == $user['id']) { ?>
 					<div class="card-floater">
@@ -73,12 +82,7 @@ $user = $data['user'];
 
 			</div>
 			<div class="large-2 small-12 columns card-floater">
-					<a class="button success radius" href="#" <?php 
-                if (Yii::app()->user->isGuest){ 
-                echo "onclick=\"alert('".Yii::t('msg','You must be loged in to contact this person.')."');\""; 
-                }else {
-                  echo 'data-dropdown="drop-msg"';
-                } ?> ><?php echo Yii::t('app', 'Contact me') ?></a>
+					<a class="button success radius" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact me') ?></a>
 				</div>
 		</div>
 

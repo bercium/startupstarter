@@ -278,6 +278,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `avatar_link` varchar(128) DEFAULT NULL,
   `language_id` smallint(2) unsigned DEFAULT NULL,
   `newsletter` tinyint(1) NOT NULL DEFAULT '1',
+  `invitations` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   KEY `status` (`status`),
