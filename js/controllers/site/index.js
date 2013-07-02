@@ -195,8 +195,8 @@
 			prefill:true,
       loading:{
         img: "../images/ajax-loader.gif",
-        msgText: "",
-        finishedMsg: "",
+        msgText: Yii.t('js','Loading...'),
+        finishedMsg: Yii.t('js','No more results!'),
         finished:addPageToList
       }
     });
