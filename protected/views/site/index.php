@@ -19,7 +19,7 @@
 	var countrySuggest_url = '<?php echo Yii::app()->createUrl("site/sugestCountry",array("ajax"=>1)) ?>';
 </script>
 
-<div class="intro" <?php if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
+<div class="intro" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
   <div  class="row" >
     <div class="large-12 small-12 columns" style="text-align: center;" >
 
@@ -27,7 +27,7 @@
 <?php if (Yii::app()->user->isGuest){ ?>
       <h1>With the <span>right team</span> any <span class="isc">idea</span> can change your life</h1>
       <div class="row">      	
-        <div class="large-6 small-12 columns <?php if (!Yii::app()->user->isGuest) echo ""; ?>"></div>				
+        <div class="large-6 small-12 columns"></div>				
 		<p>
             <?php echo CHtml::encode(Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.')); ?>
   		</p>
