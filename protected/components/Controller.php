@@ -44,6 +44,8 @@ class Controller extends CController
 		
     $cs->registerCssFile($baseUrl.'/css/override.css'); // be the last to override any other CSS settings
 
+    
+    new JsTrans('js',Yii::app()->language);
 
 		// JAVASCRIPTS
     $cs->registerCoreScript('jquery',CClientScript::POS_END);

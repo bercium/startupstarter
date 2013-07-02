@@ -75,6 +75,6 @@ function addPageToList(e){
   //alert('da');
   pageNavCount++;
   $(".page-navigation").fadeIn('normal');
-  $(".page-navigation ul").append('<li><a href="#page'+pageNavCount+'">'+pageNavString+' '+pageNavCount+'</a></li>');
+  $(".page-navigation ul").append('<li><a href="#page'+pageNavCount+'">'+Yii.t('js','Page')+' '+pageNavCount+'</a></li>');
   e.loading.msg.fadeOut('normal');
 }

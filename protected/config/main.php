@@ -27,6 +27,7 @@ return array(
     'application.modules.user.components.*', // yii-user login system
     'ext.mail.YiiMailMessage', // mail system
     'ext.tinymce.*', //tiny mce
+    'ext.JsTrans.*',  // js translate class
 	),
 
 	'modules'=>array(
