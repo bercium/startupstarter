@@ -196,9 +196,11 @@
       loading:{
         img: "../images/ajax-loader.gif",
         msgText: "",
-        finishedMsg: ""
+        finishedMsg: "",
+        finished:addPageToList
       }
     });
 		
 		
   });
+  

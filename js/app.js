@@ -69,3 +69,12 @@ function splitComa( val ) {
 function extractLast( term ) {
 	return splitComa( term ).pop();
 }
+
+var pageNavCount = 1;
+function addPageToList(e){
+  //alert('da');
+  pageNavCount++;
+  $(".page-navigation").fadeIn('normal');
+  $(".page-navigation ul").append('<li><a href="#page'+pageNavCount+'">'+pageNavString+' '+pageNavCount+'</a></li>');
+  e.loading.msg.fadeOut('normal');
+}

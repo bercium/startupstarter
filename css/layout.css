@@ -795,6 +795,19 @@ border-radius: 2px;
 }
 
 
+.list-holder, .list-items{  
+  position: relative;
+}
+
+.page-navigation{
+  position: fixed; 
+  left:20px; 
+  top:60px; 
+  width:100px; 
+  padding-left:20px;
+  display: none;
+}
+
 /* #login PAGE
 ================================================== */
 .loginbox {

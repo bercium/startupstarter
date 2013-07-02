@@ -301,9 +301,21 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 	if (count($searchResult) && count($searchResult['data'])){
 		Yii::log(arrayLog($searchResult), CLogger::LEVEL_INFO, 'custom.info.search_result'); 
 		?>
+  
+    <div class="hide-for-medium-down">
+      <div class="page-navigation">
+        <script>var pageNavString = '<?php echo Yii::t("app", "Page"); ?>';</script>
+        <ul>
+          <li><a href="#page1"><?php echo Yii::t("app", "Page"); ?> 1</a></li>
+        </ul>
+      </div>
+    </div>
 
 		<div class="list-holder">
+      
       <div class="list-items">
+        <a id="page<?php echo $searchResult['page']; ?>" class="anchor-link"></a>
+        
         <h5><?php echo Yii::t("app","Page")." ".$searchResult['page']; ?></h5>
         <ul class="small-block-grid-1 large-block-grid-3">
           <?php 
