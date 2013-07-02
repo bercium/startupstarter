@@ -4,7 +4,6 @@
   <?php if ($users) { ?>
     <div class="hide-for-medium-down">
       <div class="page-navigation">
-        <script>var pageNavString = '<?php echo Yii::t("app", "Page"); ?>';</script>
         <ul>
           <li><a href="#page1"><?php echo Yii::t("app", "Page"); ?> 1</a></li>
         </ul>
