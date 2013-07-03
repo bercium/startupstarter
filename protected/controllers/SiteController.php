@@ -24,7 +24,7 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("index",'error','logout','about','terms','notify'),
+        'actions'=>array("index",'error','logout','about','terms','notify','sugestCountry','sugestSkill'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -123,10 +123,6 @@ class SiteController extends Controller
 		$this->render('about', array('idea' => $sqlbuilder->load_array("idea", $filter)));
 	}
   
-	public function actionAbout_Project()
-	{
-		$this->render('about-project');
-	}
 
 	public function actionNotify()
 	{
