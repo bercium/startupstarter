@@ -56,13 +56,6 @@
       </div> 
   </div> 
 
-
-  <div class="showhide panel">
-    <?php echo CHtml::activeLabelEx($translation,'tweetpitch'); ?>
-    <?php echo CHtml::activeTextArea($translation,"tweetpitch", array('maxlength' => 140,"onkeydown"=>'countTweetChars()',"onkeyup"=>'countTweetChars()',"onchange"=>'countTweetChars()')); ?>
-    <div class="meta" id="tweetCount" >140</div>
-  </div>
-
   <div class="showhide panel">
     <?php echo CHtml::activeLabelEx($idea,'website'); ?>
     <?php echo CHtml::activeTextField($idea,"website", array('maxlength' => 128)); ?>

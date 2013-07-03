@@ -85,6 +85,13 @@ class SqlBuilder {
 		    case "count_user":
 		    	return $this->user("count_user", $filter);
 		        break;
+		    //collabpref
+		    case "collabpref":
+		    	return $this->collabpref("combined", $filter);
+		        break;
+		    case "collabpref_empty":
+		    	return $this->collabpref("empty", $filter);
+		        break;
 		}
 
 	}
@@ -497,6 +504,12 @@ class SqlBuilder {
 		if($type == 'combined'){
 			$sql=	"SELECT uc.id, collabpref.id AS collab_id, collabpref.name, t.translation, uc.id AS active FROM collabpref LEFT JOIN ".
 					"(SELECT * FROM user_collabpref WHERE match_id = {$filter['match_id']}) AS uc ON uc.collab_id = collabpref.id ".
+					"LEFT JOIN translation AS t ".
+					"ON collabpref.id = t.row_id ".
+					"AND t.table = 'collabpref' ".
+					"AND t.language_id = '{$filter['lang']}'";
+		} elseif($type == 'empty'){
+			$sql=	"SELECT collabpref.id AS collab_id, collabpref.name, t.translation, 0 AS active FROM collabpref ".
 					"LEFT JOIN translation AS t ".
 					"ON collabpref.id = t.row_id ".
 					"AND t.table = 'collabpref' ".
