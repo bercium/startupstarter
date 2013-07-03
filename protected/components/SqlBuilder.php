@@ -393,8 +393,9 @@ class SqlBuilder {
 		} elseif($type == 'count_user'){
 			//for pagination
 			$sql=	"SELECT count(u.id) AS count FROM ".
-					"`user` AS u ";
-
+					"`user` AS u 
+           INNER JOIN `user_match` AS m ON u.id = m.user_id
+           WHERE m.user_id > 0";
 		} elseif( $type == 'search' ){
 
 			$sql=	"SELECT m.id AS match_id, ".
