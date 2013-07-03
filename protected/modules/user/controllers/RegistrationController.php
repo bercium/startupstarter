@@ -45,7 +45,7 @@ class RegistrationController extends Controller
               $this->redirect(Yii::app()->createUrl('site/notify'));
             }
             else{
-              
+              $model->email = $invited->email;
               
               if(isset($_POST['RegistrationForm'])) {
                   $model->attributes=$_POST['RegistrationForm'];
@@ -60,8 +60,9 @@ class RegistrationController extends Controller
                       $model->status=((Yii::app()->controller->module->activeAfterRegister)?User::STATUS_ACTIVE:User::STATUS_NOACTIVE);
 
                       if ($model->save()) {
-                          //$profile->user_id=$model->id;
-                          //$profile->save();
+                        $user_match = new UserMatch();
+                        $user_match->user_id = $model->id;
+
                         $activation_url = '<a href="'.$this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $model->activkey, "email" => $model->email)).">".Yii::t('msg',"Activate")."</a>";
                         
                         $message = new YiiMailMessage;
@@ -72,9 +73,10 @@ class RegistrationController extends Controller
                         $message->from = Yii::app()->params['noreplyEmail'];
                         Yii::app()->mail->send($message);
                         
-                        //!!! uncomment
                         // delete invite
-                        //$invited->delete();
+                        $invited->delete();
+                        
+                        $this->redirect(Yii::app()->createUrl("profile/registrationFlow",array("key"=>substr($model->activkey,0, 10),"email"=>$model->email)));
 
                         $this->render('/user/message',array('title'=>Yii::t('app','Registration'),"content"=>Yii::t('msg','Thank you for your registration. Please check your email.')));
                         

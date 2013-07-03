@@ -22,7 +22,12 @@ class ProfileController extends GxController {
 	public function accessRules() {
 		return array(
 				array('allow',
-						'actions' => array('index', 'view', 'projects', 'account'),
+						'actions' => array('registrationFlow','addSkill','deleteSkill','sugestSkill','upload'),
+						/*'users' => array("?"),*/
+            'expression' => array($this,'isLogedInOrAfterRegister'),
+				),
+				array('allow',
+						'actions' => array('index', 'view', 'projects', 'account','upload','removeIdea','addIdea', 'addLink','deleteLink','addSkill','deleteSkill','sugestSkill'),
 						'users' => array("@"),
 				),
 				array('allow', // allow admins only
@@ -33,6 +38,17 @@ class ProfileController extends GxController {
 				),
 		);
 	}
+  
+  function isLogedInOrAfterRegister($user, $rule){
+    return true;
+    if (Yii::app()->user->isGuest && isset($_GET['key']) && isset($_GET['email']) && !empty($_GET['key']) && !empty($_GET['email'])){
+      $user_register = User::model()->notsafe()->findByAttributes(array('email'=>$_GET['email']));    
+      if (!$user_register || ((substr($user_register->activkey, 0, 10) !== $_GET['key']) || ($user_register->status != 0))){
+        return false;
+      }
+      return true;
+    }else return true;
+  }
 
 	public function actionUpload() {
 		Yii::import("ext.EAjaxUpload.qqFileUploader");
@@ -89,7 +105,17 @@ class ProfileController extends GxController {
 		/deleteLink/$user_id?link_id=$link_id -> delete link by user_id, link_id<br/>
 		<br/>';*/
 
-		$user_id = Yii::app()->user->id;
+    
+    if (Yii::app()->user->isGuest && isset($_GET['key']) && isset($_GET['email']) && !empty($_GET['key']) && !empty($_GET['email'])){
+      $user_register = User::model()->notsafe()->findByAttributes(array('email'=>$_GET['email']));    
+      if ((substr($user_register->activkey, 0, 10) !== $_GET['key']) || ($user_register->status != 0)){
+        $this->render('/site/message',array('title'=>Yii::t('app','Registration finished'),"content"=>Yii::t('msg','Thank you for your registration. Please check your email for confirmation code.')));
+        return;
+      }
+      $user_id = $user_register->id;
+    }else $user_id = Yii::app()->user->id;
+    
+    
 
 		if ($user_id > 0) {
 
@@ -197,7 +223,8 @@ class ProfileController extends GxController {
 				  ->findAll( array( 'condition'=>'userCollabprefs.match_id = '.$match->id ) ); */
 				//$data = UserCollabpref::model()->with('collab')->findAllByAttributes( array( 'match_id' => $match->id) );
 
-				$this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea'], 'userSkills'=>$userSkills));
+        if (Yii::app()->user->isGuest) $this->render('registrationFlow', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'userSkills'=>$userSkills));
+        else $this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea'], 'userSkills'=>$userSkills));
 			} else {
 				//this would cause an infinite loop, so lets not do it
 				//in a perfect world this would redirect to the register page. not sure how to dynamically redirect outside the same controller
@@ -399,7 +426,20 @@ class ProfileController extends GxController {
 
 	public function actionAddSkill() {
 
-		$user_id = Yii::app()->user->id;
+    if (Yii::app()->user->isGuest && isset($_GET['key']) && isset($_GET['email']) && !empty($_GET['key']) && !empty($_GET['email'])){
+      $user_register = User::model()->notsafe()->findByAttributes(array('email'=>$_GET['email']));
+      
+      if (!$user_register || ((substr($user_register->activkey, 0, 10) !== $_GET['key']) || ($user_register->status != 0))){
+				$return['message'] = Yii::t('msg', "Unable to add skill.");
+				$return['status'] = 1;
+        $return = json_encode($return);
+				echo $return; //return array
+        return;
+      }
+      $user_id = $user_register->id;
+    }else $user_id = Yii::app()->user->id;
+    
+    
 		$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
 		$match_id = $match->id;
 
@@ -492,8 +532,19 @@ class ProfileController extends GxController {
 
 	public function actionDeleteSkill() {
     
-		$user_id = Yii::app()->user->id;
-		$skill_id = 0;
+    if (Yii::app()->user->isGuest && isset($_GET['key']) && isset($_GET['email']) && !empty($_GET['key']) && !empty($_GET['email'])){
+      $user_register = User::model()->notsafe()->findByAttributes(array('email'=>$_GET['email']));    
+      if (!$user_register || ((substr($user_register->activkey, 0, 10) !== $_GET['key']) || ($user_register->status != 0))){
+				$return['message'] = Yii::t('msg', "Unable to remove skill.");
+				$return['status'] = 1;
+        $return = json_encode($return);
+				echo $return; //return array
+        return;
+      }
+      $user_id = $user_register->id;
+    }else $user_id = Yii::app()->user->id;
+    
+    $skill_id = 0;
 		if (isset($_POST['id']))
 			$skill_id = $_POST['id'];
 
@@ -633,5 +684,24 @@ class ProfileController extends GxController {
 			} 
 		}
 	}
+  
+  public function actionRegistrationFlow(){
+    
+    $this->layout="//layouts/card";
+    
+    if (!isset($_GET['key']) || !isset($_GET['email']) || empty($_GET['key']) || empty($_GET['email'])){
+      $this->render('/site/message',array('title'=>Yii::t('app','Registration finished'),"content"=>Yii::t('msg','Thank you for your registration. Please check your email for confirmation code.')));
+      return;
+    }
+//      $this->redirect(Yii::app()->createUrl("user/login"));
+    $user = User::model()->notsafe()->findByAttributes(array('email'=>$_GET['email']));
+    if ((substr($user->activkey, 0, 10) !== $_GET['key']) || 
+        ($user->status != 0)){
+      $this->render('/site/message',array('title'=>Yii::t('app','Registration finished'),"content"=>Yii::t('msg','Thank you for your registration. Please check your email for confirmation code.')));
+      return;
+    }
+
+    $this->actionIndex();
+  }
 
 }
