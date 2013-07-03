@@ -130,6 +130,8 @@ class SiteController extends Controller
 
 	public function actionNotify()
 	{
+    if (!Yii::app()->user->isGuest) $this->redirect("index"); //loged in no need to send notifications
+    
     if (isset($_POST['email']) && !empty($_POST['email'])){
       $newFilePath = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "uploads";
       if (!is_dir($newFilePath)) {
