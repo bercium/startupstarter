@@ -1,5 +1,5 @@
  <div class="large-12 small-12 columns radius panel card-idea">
-    <div class="row card-idea-title" onclick="location.href='<?php echo Yii::app()->createUrl("project/".$idea['id']); ?>'">
+    <div class="row card-idea-title" onclick="window.open('<?php echo Yii::app()->createUrl("project/".$idea['id']); ?>','_blank')">
       <div class="large-12 small-12 columns" >
         <h5><?php echo trim_text($idea['title'],60); ?></h5>
         
@@ -88,7 +88,7 @@
           
           <small class="meta"><?php echo Yii::t('app','Updated {n} day ago|Updated {n} days ago',array(1)); ?></small>
           <div class="card-floater">
-            <a class="small button radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("project/".$idea['id']); ?>"><?php echo Yii::t('app','details').'...'; ?></a>
+            <a class="small button radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("project/".$idea['id']); ?>" target="_blank"><?php echo Yii::t('app','details').'...'; ?></a>
           </div>
         </div>
         </div>

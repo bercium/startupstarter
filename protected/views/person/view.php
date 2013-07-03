@@ -153,8 +153,8 @@ $user = $data['user'];
 				
 				<?php
 				if (is_array($user['idea']))
-					foreach ($user['idea'] as $idea) {
-						 ?><div class="idea-panel"><span class="icon-lightbulb meta" ></span><a class="" href="<?php echo Yii::app()->createUrl("project/" . $idea['id']); ?>"><?php echo $idea['title']; ?></a></div><?php 
+					foreach ($user['idea'] as $idea_data) {
+						 ?><div class="idea-panel"><span class="icon-lightbulb meta" ></span><a class="" href="<?php echo Yii::app()->createUrl("project/" . $idea_data['id']); ?>"><?php echo $idea_data['title']; ?></a></div><?php 
 					}
 				?>
 				<?php } ?>
@@ -165,4 +165,4 @@ $user = $data['user'];
 </div>
 
 <?php
-Yii::log(arrayLog($idea), CLogger::LEVEL_INFO, 'custom.info.user');
+Yii::log(arrayLog($user), CLogger::LEVEL_INFO, 'custom.info.user');

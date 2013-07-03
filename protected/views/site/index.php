@@ -10,7 +10,6 @@
 ?>
 
 <?php /* ?><div id="intro1" style="background-position: 40% 0px; padding-bottom: 1px; padding-top: 30px;"><?php */ ?>
-<?php if (!Yii::app()->user->getState('fpi')){ ?>
 
 
 <script>
@@ -19,60 +18,40 @@
 	var countrySuggest_url = '<?php echo Yii::app()->createUrl("site/sugestCountry",array("ajax"=>1)) ?>';
 </script>
 
+<?php //if (!Yii::app()->user->getState('fpi')){ ?>
+
 <div class="intro" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
   <div  class="row" >
     <div class="large-12 small-12 columns" style="text-align: center;" >
 
 <!-- Content if guest -->
-<?php if (Yii::app()->user->isGuest){ ?>
       <h1>With the <span>right team</span> any <span class="isc">idea</span> can change your life</h1>
       <div class="row">      	
         <div class="large-6 small-12 columns"></div>				
-		<p>
+        <p>
             <?php echo CHtml::encode(Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.')); ?>
-  		</p>
+        </p>
+        <br />
         <div class="large-5 small-12 columns hide-for-small">          
-          <br>
-          <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" class="button right round medium success" >Register here </a> 
-          <a href="#" data-dropdown="drop-login" class="button right round medium secondary" ><?php echo Yii::t('msg','Login') ?> </a>
-        </div>
-        <div class="large-6 small-12 columns show-for-small">
-          <br>
-          <br>
-          <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" class="button round medium success" >Register here </a> 
+          <?php if (Yii::app()->user->isGuest){ ?>
+          <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" class="button round medium success" ><?php echo Yii::t('msg','Register here') ?></a> 
           <a href="#" data-dropdown="drop-login" class="button round medium secondary" ><?php echo Yii::t('msg','Login') ?> </a>
+          <?php }else{ ?>
+          <h4>
+          <?php echo Yii::t('msg',"{username} welcome to coFinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
+          </h4>
+          <?php } ?>
         </div>
 
-<!-- Content if logged in -->
-        <?php }
-        	else { ?>
-        	<h2>Welcome to user pages John Doe!<br>
-        		Find the <span><a class="c_cofinder" href="#">right team</a></span> or post your <span class="isc"><a href="">idea</a></span>.</h2>
-        	<p style="text-align: center;">
-            <?php echo CHtml::encode(Yii::t('msg','Bi se lahko tukaj dalo pravilo da se zgornje izpiše ko se nekdo prvič prijavi? In pa: naprimer če klikne na find the right team se ga lahko pelje skozi proces izpolnitve svojega profila, kokr da bo tko lažje prišel do pravega teama.')); ?>
-          </p>
-		
-		<div class="large-12 small-12  center  columns hide-for-small">			
-			<br>
-<a href="#"  class="button round  medium secondary" >Learn more </a>	
-<a href="#" class="button round medium " >Explore</a>	                      
-        </div>  
-
-        <div class="large-6 small-12 columns show-for-small">        
-          <br>          
-          <a href="#"  class="button round medium secondary" >Learn more </a>	
-<a href="#" class="button round medium " >Explore</a>	          
-        </div>
-        <?php }
-         ?>
       </div>      
 
     </div>
   </div>
 </div>
-<?php } ?>
+<?php // } ?>
 
 
+<?php /* ?>
 	<div class="close pagination-centered ">
 		
 			<a  href="#"  id="showhide" class="button tiny secondary">hide intro<span class='icon-angle-up'></span></a>                      
@@ -86,21 +65,19 @@ $("#showhide").click(function() {
   });
 });
 		</script>
+<?php */ ?>
 
 
-<div class="row panel searchpanel radius" style="margin-top: 20px;">
+<div class="row panel searchpanel radius" style="margin-top: 40px;">
 	<div class="large-12 small-12 columns search_content edit-header">
-      
+    <a class="anchor-link" id="filter_search"></a>
+    
 		<div class="row">
 		  <div class="large-4 small-12 columns">
-    		<h4 class="meta-title"><?php echo CHtml::encode(Yii::t('app','Narrow your search to:')); ?> </h4>
+    		<h4 class="meta-title"><?php echo CHtml::encode(Yii::t('app','Sort your search by')); ?> </h4>
       </div>
 		  <div class="large-8 small-12 columns">
-				<div  class="exp_srch">
-					<a class="button small secondary radius" href="#" onclick="$('.advance').toggle(); return false;">Advanced search <span class="icon-caret-down"></span></a>
-				</div>
-
-				<div class="toggle_search switch large-3 right small round small-3" onclick="$('.filter_projects').toggle();$('.filter_people').toggle();">
+				<div class="toggle_search switch large-3 small round small-3" onclick="$('.filter_projects').toggle();$('.filter_people').toggle();">
 					<input id="project_0" name="SearchForm[isProject]" type="radio" value="1" <?php if ($filter->isProject) echo 'checked="checked"' ?>>
 					<label for="project_0" onclick=""><?php echo Yii::t('app','Projects'); ?></label>
 
@@ -109,10 +86,15 @@ $("#showhide").click(function() {
 					<label for="project_1" onclick=""><?php echo Yii::t('app','People') ?></label>
 					<span></span>
 				</div>
+        
+				<div  class="exp_srch right">
+					<a class="button small secondary radius" href="#" onclick="$('.advance').toggle(); return false;">Advanced search <span class="icon-caret-down"></span></a>
+				</div>
+        
       </div>
 		</div>
 
-    <?php echo CHtml::beginForm(Yii::app()->createUrl("site/index"),'get',array('class'=>"custom","style"=>"margin-bottom:0;")); ?>
+    <?php echo CHtml::beginForm(Yii::app()->createUrl("site/index")."#filter_search",'get',array('class'=>"custom","style"=>"margin-bottom:0;")); ?>
 		<?php echo CHtml::hiddenField("SearchForm[isProject]", "1");  ?>
 		
 		<div class="row filter_projects" <?php if (!$filter->isProject) echo 'style="display:none"'; ?>>
@@ -202,7 +184,7 @@ $("#showhide").click(function() {
 		<?php echo CHtml::endForm(); ?>		
 		
 		
-    <?php echo CHtml::beginForm(Yii::app()->createUrl("site/index"),'get',array('class'=>"custom","style"=>"margin-bottom:0;")); ?>
+    <?php echo CHtml::beginForm(Yii::app()->createUrl("site/index")."#filter_search",'get',array('class'=>"custom","style"=>"margin-bottom:0;")); ?>
 		<?php echo CHtml::hiddenField("SearchForm[isProject]", "0");  ?>
 		
 		<div class="row filter_people" <?php if ($filter->isProject) echo 'style="display:none"'; ?>>

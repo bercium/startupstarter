@@ -1,5 +1,5 @@
 <div class="large-12 small-12 columns radius panel card-person">
-    <div class="row card-person-title" onclick="location.href='<?php echo Yii::app()->createUrl("person/".$user['id']); ?>'">
+    <div class="row card-person-title" onclick="window.open('<?php echo Yii::app()->createUrl("person/".$user['id']); ?>','_blank')">
       <div class="large-12 small-12 columns" >
         <img src="<?php echo avatar_image($user['avatar_link'],$user['id'],60); ?>" style="height:60px; margin-right: 10px; float:left;" />
         <h5><?php echo $user['name']." ".$user['surname']; ?></h5>
@@ -76,7 +76,7 @@
 				<?php } ?>
         </div><!-- end card-abstract -->
         <div class="card-floater">
-          <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>"><?php echo Yii::t('app','details').'...'; ?></a>
+          <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>" target="_blank"><?php echo Yii::t('app','details').'...'; ?></a>
         </div>
 		  </div>
 	  </div>
