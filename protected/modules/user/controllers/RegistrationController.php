@@ -62,6 +62,7 @@ class RegistrationController extends Controller
                       if ($model->save()) {
                         $user_match = new UserMatch();
                         $user_match->user_id = $model->id;
+                        $user_match->save();
 
                         $activation_url = '<a href="'.$this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $model->activkey, "email" => $model->email)).">".Yii::t('msg',"Activate")."</a>";
                         
