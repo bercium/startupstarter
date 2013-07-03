@@ -10,11 +10,12 @@
 <div class="row myprojects">
   <div class="small-12 columns edit-header">
     <div class="edit-floater">
-      <?php if(!isset($candidate)){ ?><a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl('project/create?step=2&candidate'); ?>"><?php echo Yii::t('app','Add new') ?></a><?php } ?>
+      <?php if(!isset($candidate)){ ?><a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl('project/create?step=2&candidate=new'); ?>"><?php echo Yii::t('app','Add new') ?></a><?php } ?>
     </div>
     
-    <h3><?php echo Yii::t('app', 'Open positions'); ?></h3>
-
+    <h3><?php if(!isset($candidate)){ echo Yii::t('app', 'Open positions'); }
+              else echo Yii::t('app', 'New positions');?>
+    </h3>
 
     <?php if(Yii::app()->user->hasFlash('profileMessage')){ ?>
     <div data-alert class="alert-box radius success">
@@ -24,7 +25,12 @@
     <?php } ?>
     
     <?php if(isset($candidate['id'])){ ?>
-    <?php echo CHtml::beginForm('','post',array('class'=>"custom  large-6 small-12")); ?>
+    <?php if($candidate['id'] != 'new' && $candidate['id'] != '' && is_numeric($candidate['id'])){
+        echo CHtml::beginForm(Yii::app()->createUrl('project/create?step=2&candidate='.$candidate['id']),'post',array('class'=>"custom  large-6 small-12"));
+      } else {
+        echo CHtml::beginForm(Yii::app()->createUrl('project/create?step=2&candidate'),'post',array('class'=>"custom  large-6 small-12"));
+      } ?>
+      
     <p>
       
     <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
@@ -35,9 +41,8 @@
     <?php 
     echo Yii::t('app','Collaboration preferences');
     if(isset($candidate['collabpref'])){
-
       foreach ($candidate['collabpref'] as $collabpref){ ?>
-        <label for="CollabPref_<?php echo $collabpref['id']; ?>"><?php echo CHtml::checkBox('CollabPref['.$collabpref['id'].']',$collabpref['active'],array('style'=>'display:none')); ?>
+        <label for="CollabPref_<?php echo $collabpref['collab_id']; ?>"><?php echo CHtml::checkBox('CollabPref['.$collabpref['collab_id'].']',$collabpref['active'],array('style'=>'display:none')); ?>
          <?php echo $collabpref['name'] ?></label>
          <?php
       }
@@ -63,7 +68,6 @@
     
     <hr>
     <p>
-   <a href="#" onclick="$('.addSkils').toggle(); return false;"><?php echo Yii::t('app',"My skills"); ?> +</a>
     <div class="addSkils">
 
   
@@ -87,7 +91,7 @@
   
     <?php echo CHtml::submitButton(Yii::t("app","Add skill"),
                     array('class'=>"button small success radius",
-                        'onclick'=>'addSkill(\''.Yii::app()->createUrl("profile/addSkill").'\');')
+                        'onclick'=>'addSkill(\''.Yii::app()->createUrl("project/sAddSkill").'\');')
                 ); ?>
     
     <?php $this->endWidget(); ?>  
@@ -95,23 +99,18 @@
     </div>
   
     <div class="skillList">
-    <?php if(isset($candidate['skill'])){
-      foreach ($candidate['skill'] as $key => $skillset){ 
-        if(isset($skillset['skill']) && is_array($skillset['skill'])){
-
-            foreach($skillset AS $key1 => $skill){
+    <?php if(isset($candidate['skills']) && count($candidate['skills']) > 0){
+      foreach ($candidate['skills'] as $key => $skill){ 
               ?>
-      <span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $skill->id; ?>">
-          <?php echo $skill['name']."<br /><small class='meta'>".$skill['name']."</small>"; ?>
-          <a href="#" class="close" onclick="removeSkill(<?php echo $skill['id']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteSkill"); ?>')">&times;</a>
+      <span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $skill['skill']; ?>">
+          <?php echo $skill['skill']."<br /><small class='meta'>".$skill['skillset_name']."</small>"; ?>
+          <a href="#" class="close" onclick="removeSkill('<?php echo $key; ?>','<?php echo Yii::app()->createUrl("project/sDeleteSkill"); ?>')">&times;</a>
      </span>
     <?php }
         } else {
           //what happens when something is not a skill, but merely a skillset?
           //is that even possible?
           //!!!debug
-        }
-        }
         } ?>
     </div>
     
@@ -126,7 +125,7 @@
 if(is_array($idea['candidate'])){
   $cnum = 0;
   foreach($idea['candidate'] AS $key => $value){
-    if($value['match_id'] != $candidate['id']){
+    //if($value['match_id'] != $candidate['id']){
     $cnum++; 
 ?>
     <div class="row panel idea-panel">
@@ -134,6 +133,9 @@ if(is_array($idea['candidate'])){
         <div class="edit-floater">
           
       <?php  
+            echo "<a href='".Yii::app()->createUrl('project/create?step=2&candidate='.$value['match_id'])."'>Edit</a> ";
+            echo "<a href='".Yii::app()->createUrl('project/create?step=2&delete_candidate='.$value['match_id'])."'>Delete</a> ";
+
             echo CHtml::ajaxButton(Yii::t("app","Delete"),'','',
                   array('class'=>"button tiny alert radius",
                         'confirm'=>Yii::t("msg","You are about to remove this open position!\nAre you sure?"),
@@ -208,7 +210,7 @@ if(is_array($idea['candidate'])){
 
     </div>
 <?php
-    }
+    //}
   }
 }
 ?>    
