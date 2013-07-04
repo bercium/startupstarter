@@ -43,21 +43,24 @@
 		<h1><?php echo Yii::t('app','Our team'); ?></h1>
   </div>
   <div class="small-12 large-12 columns panel edit-content">
-    <div class="large-6 small-12 columns">
+    <div class="large-5 small-12 columns">
       <img id="team_image" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg" alt="coFinder team" title="coFinder team">
+      <div style="top:30px;left:70px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('zb');" onmouseout="hidePerson('zb')"></div>
+      <div style="top:200px;left:90px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('bb');" onmouseout="hidePerson('bb')"></div>
+      <div style="top:100px;left:240px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('jr');" onmouseout="hidePerson('jr')"></div>
     </div>
-    <div class="large-6 small-12 columns">
-      <h4 onmouseover="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team-zb.jpg')" onmouseout="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg')">Žiga Berce</h4>
-      <p onmouseover="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team-zb.jpg')" onmouseout="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg')">
+    <div class="large-7 small-12 columns">
+      <h4 onmouseover="showPerson('zb');" onmouseout="hidePerson('zb')">Žiga Berce</h4>
+      <p id="team_desc_zb" onmouseover="showPerson('zb');" onmouseout="hidePerson('zb')">
       Within coFinder I take care of development while motivating the team and trying my hardest to engage others to join our project. Too much ideas and not enough time forced me to commit only to projects I really love, like making my own surfboard and bike, building websites or organizing social tournaments. Remaining time I spend on outdoor sports.
       <br />Since the only constant in life are changes it is important not to fall asleep on past successes or to give up at the first problems. Tomorrow is a new day, even at coFinder.
       </p>
-    	<h4 onmouseover="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team-bb.jpg')" onmouseout="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg')">Blaž Beuermann</h4>
-      <p onmouseover="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team-bb.jpg')" onmouseout="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg')">
+    	<h4 onmouseover="showPerson('bb');" onmouseout="hidePerson('bb')">Blaž Beuermann</h4>
+      <p id="team_desc_bb" onmouseover="showPerson('bb');" onmouseout="hidePerson('bb')">
       My designation at coFinder.eu is to take care of our online foundations, otherwise I’m a creative with a wide span of expertise, given to me by curiousity. From previous startup experience I am aware of the importance of a team, but what also brought me here is the desire to solve wider societal issues. The dark skies of current economies needs hope. As a human I enjoy other people’s company, a bike ride, a cruise with my board, or a search of a new hidden place in nature.
       </p>
-      <h4 onmouseover="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team-jr.jpg')" onmouseout="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg')">Jure Ravlič</h4>
-      <p onmouseover="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team-jr.jpg')" onmouseout="$('#team_image').attr('src','<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg')">
+      <h4 onmouseover="showPerson('jr');" onmouseout="hidePerson('jr')">Jure Ravlič</h4>
+      <p id="team_desc_jr" onmouseover="showPerson('jr');" onmouseout="hidePerson('jr')">
         Hi! My name is Jure Ravlič and I come from Ljubljana (Slovenia). I've been interested in building things from the very young age. After elementary I applied for design school and passed all entry tests, but in the end decided for a classic program. Nevertheless, I kept my interest in creativity trough drawing and lettering. As the popularity of internet expanded, I figured that it would be pretty awesome to apply my skills to the web, so I started learning, Photoshop, HTML, CSS, Javascript and PHP. My early websites weren't much, but ever since I got my first W3C validation badge (which i thought was the most awesome thing at the time) I never looked back.
         When not working/learning, I usually go to Lindy hop, 6-count swing partys at Caffee Union and SEM. I also like playing basketball and occasional hiking and sport climbing.         
       </p>

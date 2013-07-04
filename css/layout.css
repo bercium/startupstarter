@@ -434,7 +434,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7072', end
 	margin: 0;
 	color: #888;
 	font-weight: 100;
-	font-size: 1.2em;
+	font-size: 1.6em;
 
 }
 
@@ -494,6 +494,10 @@ f-line {
 .edit-floater{
   float:right;
   margin-top:15px;
+}
+
+.edit-floater .button{
+  margin-bottom: 12px;
 }
 
 .card-person hr, .card-idea hr{
@@ -1094,9 +1098,6 @@ border-radius: 2px;
 }
 
 
-	
-
-}
 .card-idea .meta_tags ul li, .card-person .meta_tags ul li {
 	display: inline-block;
 	font-size: 0.8em;
@@ -1410,3 +1411,14 @@ textarea#IdeaTranslation_description {
 	min-height: 400px;
 }
 
+
+
+.description{
+  color:#999; 
+  font-size: 0.8em; 
+  font-style: italic;
+}
+
+label{
+  /*font-weight: bold;*/
+}

@@ -12,8 +12,10 @@
     <?php echo CHtml::errorSummary($translation,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
 
     <?php echo CHtml::activeLabelEx($translation,'language_id'); ?>
-    <p>Choose your language that you want to write your idea in.<span data-tooltip title="Lorem Ipsum je slepi tekst, ki se uporablja pri razvoju tipografij in pri pripravi za tisk. Lorem Ipsum je v uporabi že več kot petsto let saj je to kombinacijo znakov neznani tiskar združil v vzorčno knjigo že v začetku 16. stoletja. "<i  style="float:right" class="icon-question-sign"></i></span></p>
-    <?php echo CHtml::activedropDownList($translation, 'language_id', GxHtml::listDataEx(Language::model()->findAllAttributes(array("id","native_name"), true),"id","native_name"), array('empty' => '&nbsp;')); ?>
+    <span class="description">
+      <?php echo Yii::t('msg','Choose the language you want to write your idea in. Later you can add more translations for the same idea'); ?>
+    </span>
+    <?php echo CHtml::activedropDownList($translation, 'language_id', GxHtml::listDataEx(Language::model()->findAllAttributes(array("id","native_name"), true,array('order'=>'native_name')),"id","native_name"), array('empty' => '&nbsp;','style'=>'display:none')); ?>
 
     <?php echo CHtml::activeLabelEx($translation,'title'); ?>
     <p>What are you calling it? One or two words please, you can always change it later.<span data-tooltip title="Lorem Ipsum je slepi tekst, ki se uporablja pri razvoju tipografij in pri pripravi za tisk. Lorem Ipsum je v uporabi že več kot petsto let saj je to kombinacijo znakov neznani tiskar združil v vzorčno knjigo že v začetku 16. stoletja. "<i  style="float:right" class="icon-question-sign"></i></span></p>
@@ -30,19 +32,12 @@
     <p>This is your pitch. Be short.<span data-tooltip title="Lorem Ipsum je slepi tekst, ki se uporablja pri razvoju tipografij in pri pripravi za tisk. Lorem Ipsum je v uporabi že več kot petsto let saj je to kombinacijo znakov neznani tiskar združil v vzorčno knjigo že v začetku 16. stoletja. "<i  style="float:right" class="icon-question-sign"></i></span></p>
     <?php echo CHtml::activeTextArea($translation,"pitch"); ?>
 
-
-
-        <?php echo CHtml::activeLabelEx($idea,'status_id'); ?>
-    <?php echo CHtml::activedropDownList($idea, 'status_id', GxHtml::listDataEx(IdeaStatus::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;')); ?>
-
-
-     
+     <br /><br />
 
   <div class="showhide panel">
     <?php echo CHtml::activeLabelEx($translation,'description'); ?>
      <p>This is your pitch. Be short. Some more info on this subject.<span data-tooltip title="Lorem Ipsum je slepi tekst, ki se uporablja pri razvoju tipografij in pri pripravi za tisk. Lorem Ipsum je v uporabi že več kot petsto let saj je to kombinacijo znakov neznani tiskar združil v vzorčno knjigo že v začetku 16. stoletja. "<i  style="float:right" class="icon-question-sign"></i></span></p>
     <?php echo CHtml::activeTextArea($translation,"description"); ?> 
-   <div class="hideme">
     <?php echo CHtml::activeLabelEx($translation,'description_public'); ?>
     <div class="switch small round small-3" style="text-align: center;">
       <input id="description_public_0" name="IdeaTranslation[description_public]" type="radio" value="0" <?php if (!$translation->description_public) echo 'checked="checked"' ?>>
@@ -53,7 +48,6 @@
       <span></span>
     </div>
 
-      </div> 
   </div> 
 
   <div class="showhide panel">

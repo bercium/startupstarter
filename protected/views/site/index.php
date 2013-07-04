@@ -22,30 +22,25 @@
 
 <div class="intro" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
   <div  class="row" >
-    <div class="large-12 small-12 columns" style="text-align: center;" >
+    <div class="large-10 large-offset-1 small-12 columns" style="text-align: center;" >
 
 <!-- Content if guest -->
       <h1>With the <span>right team</span> any <span class="isc">idea</span> can change your life</h1>
-      <div class="row">      	
-        <div class="large-6 small-12 columns"></div>				
-        <p>
-            <?php echo CHtml::encode(Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.')); ?>
-        </p>
-        <br />
-        <div class="large-5 small-12 columns hide-for-small">          
-          <?php if (Yii::app()->user->isGuest){ ?>
-          <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" class="button round medium success" ><?php echo Yii::t('msg','Register here') ?></a> 
-          <a href="#" data-dropdown="drop-login" class="button round medium secondary" ><?php echo Yii::t('msg','Login') ?> </a>
-          <?php }else{ ?>
-          <h4>
-          <?php echo Yii::t('msg',"{username} welcome to coFinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
-          </h4>
-          <?php } ?>
-        </div>
-
-      </div>      
-
+      <p>
+          <?php echo CHtml::encode(Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.')); ?>
+      </p>
     </div>
+    <div class="large-6 center columns hide-for-small">
+      <?php if (Yii::app()->user->isGuest){ ?>
+      <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" class="button round medium success" ><?php echo Yii::t('msg','Register here') ?></a> 
+      <a href="#" data-dropdown="drop-login" class="button round medium secondary" ><?php echo Yii::t('msg','Login') ?> </a>
+      <?php }else{ ?>
+      <h4>
+      <?php echo Yii::t('msg',"{username} welcome to coFinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
+      </h4>
+      <?php } ?>
+    </div>
+    
   </div>
 </div>
 <?php // } ?>

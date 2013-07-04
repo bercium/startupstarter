@@ -34,12 +34,22 @@
 			
     <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
     
-    <?php echo CHtml::activeLabelEx($match,'available'); ?>
+    <?php echo CHtml::activeLabel($match,'available'); ?>
+    <span class="description">
+      <?php /* ?><span style="float:left; margin-right:2px; color:#89B561;" class="icon-question-sign"></span><?php */ ?>
+       <?php echo Yii::t('msg','Select how much time you have to work on projects.'); ?>
+    </span>
+
     <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listDataEx(Available::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
     
-    <?php 
-		echo Yii::t('app','Collaboration preferences');
-		foreach ($data['user']['collabpref'] as $colabpref){ ?>
+    
+    <?php echo "<label>".Yii::t('app','Collaboration preferences')."</label>"; ?>
+
+    <span class="description">
+       <?php echo Yii::t('msg','What kind of colaboration do you prefer when working on a project.'); ?>
+    </span>
+    
+		<?php foreach ($data['user']['collabpref'] as $colabpref){ ?>
 			<label for="CollabPref_<?php echo $colabpref['collab_id']; ?>">
         <?php echo CHtml::checkBox('CollabPref['.$colabpref['collab_id'].']',$colabpref['active'],array('style'=>'display:none')); ?>
        <?php echo $colabpref['name'] ?></label>
@@ -73,21 +83,18 @@
     <a id="link_skill" class="anchor-link"></a>
     
     <div class="edit-floater">
-      <a class="button success radius small" href="#" onclick="$('.addSkils').toggle(); return false;"><?php echo Yii::t('app',"Add skills"); ?> <span class="icon-plus"></span></a>
+      <a class="button radius small" href="#" onclick="$('.addSkils').toggle(); return false;"><?php echo Yii::t('app',"Add skills"); ?> 
+        <span class="icon-plus"></span>
+      </a>
     </div>
 
-    <h3><?php echo Yii::t('app', 'My Skills'); ?></h3>
+    <h3><?php echo Yii::t('app', 'My skills'); ?></h3>
 
   </div>
   <div class="small-12 large-12 columns panel edit-content">
 
     
-    <p>
-   
     <div class="addSkils" style="display:none">
-
-
-  
           <?php $form=$this->beginWidget('CActiveForm', array(
               'id'=>'SkillForm',
 //             'enableClientValidation'=>true,
@@ -98,14 +105,17 @@
                               ),
           )); ?>
     
-    <?php echo '<label for="skill">'.Yii::t('app','Skill');  ?> 
-    <span class="icon-question-sign" data-tooltip title="<?php echo Yii::t('msg',"Add as many relevant skills you. Bla bla blaaa"); ?>"></span>
-    <p>skills will represent you.. and stuff..
-    <?php echo '</label>'; ?>
+    <?php echo '<label for="skill">'.Yii::t('app','Skill')."</label>";  ?> 
+    <span class="description" >
+       <?php echo Yii::t('msg','Name of skill you posess.'); ?>
+    </span>
     <?php echo CHtml::textField("skill","", array('maxlength' => 128)); ?>
   
  
     <?php echo CHtml::label(Yii::t('app','Skill group'),''); ?>
+    <span class="description">
+       <?php echo Yii::t('msg','Select group which represents your skill the closest.'); ?>
+    </span>
     <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAll(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
   
     <?php echo CHtml::submitButton(Yii::t("app","Add"),
@@ -125,8 +135,7 @@
      </span>
     <?php } ?>
     </div>
-    
-    </p>
+
     
   </div>
 </div>
@@ -229,9 +238,13 @@
    
       <hr>
 			<p>
-      <a href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My custom links"); ?> +</a>
+      <?php /* ?><a href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My custom links"); ?> +</a> <?php */ ?>
+      <a class="button radius small right" href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My links"); ?> 
+        <span class="icon-plus"></span>
+      </a>
+      
       <div class="addLinks" style="display:none">
-
+<br />
           <?php $form=$this->beginWidget('CActiveForm', array(
               'id'=>'LinkForm',
 //             'enableClientValidation'=>true,
@@ -245,6 +258,9 @@
               <?php echo $form->errorSummary($link); ?>
 
               <?php echo $form->labelEx($link,'title'); ?>
+              <span class="description">
+                 <?php echo Yii::t('msg','Chose a name to represent your link.'); ?>
+              </span>
               <?php echo $form->textField($link,'title'); ?>
 
               <?php echo $form->labelEx($link,'url'); ?>
