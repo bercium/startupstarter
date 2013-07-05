@@ -55,11 +55,17 @@
           'buttons' => 'create'));
   }?>
     
-  <hr>
-  <?php echo CHtml::submitButton(Yii::t("app","Finish"),
+  
+  <?php
+  
+  if (!isset($_GET['candidate'])){
+    
+  echo "<hr>".CHtml::submitButton(Yii::t("app","Finish"),
             array('class'=>"button small success radius",
                 'onclick'=>'window.location.href=(\''.$idea_id.'\');')
-        ); ?>
+        );
+  
+   } ?>
     
 </div>
 </div>    

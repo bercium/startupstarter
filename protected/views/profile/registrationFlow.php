@@ -25,7 +25,7 @@
 <br />
 
 
-  <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6 small-12")); ?>
+  <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6 small-12",'id'=>'after_register_form')); ?>
   <p>
 
   <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
@@ -118,14 +118,8 @@
       </div>
       
 
-    <?php echo CHtml::submitButton(Yii::t("app","Save"),
-          array('class'=>"button small success radius")
-      ); ?>
-
 <?php echo CHtml::endForm(); ?>		
     
-<hr>
-
     
           <?php $form=$this->beginWidget('CActiveForm', array(
               'id'=>'SkillForm',
@@ -149,7 +143,7 @@
     <span class="description"><?php echo Yii::t('msg','Select group which represents your skill the closest.'); ?></span>
     <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAll(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
   
-    <?php echo CHtml::submitButton(Yii::t("app","Add"),
+    <?php echo CHtml::submitButton(Yii::t("app","Add skill"),
                     array('class'=>"button small success radius",
                         'onclick'=>'addSkill(\''.Yii::app()->createUrl("profile/addSkill",array("key"=>substr($user->activkey,0,10),"email"=>$user->email)).'\');')
                 ); ?>
@@ -164,4 +158,11 @@
     <?php } ?>
     </div>  
     
-    <?php $this->endWidget(); ?>      
+    <?php $this->endWidget(); ?>     
+
+    
+    <hr>
+    
+        <?php echo CHtml::button(Yii::t("app","Save"),
+          array('class'=>"button small success radius",'onclick'=>"$('#after_register_form').submit();")
+      ); ?>

@@ -709,6 +709,8 @@ class ProfileController extends GxController {
     
     $this->layout="//layouts/card";
     
+    if (!Yii::app()->user->isGuest) $this->redirect(array('profile/'));
+    
     if (!isset($_GET['key']) || !isset($_GET['email']) || empty($_GET['key']) || empty($_GET['email'])){
       $this->render('/site/message',array('title'=>Yii::t('app','Registration finished'),"content"=>Yii::t('msg','Thank you for your registration. Please check your email for confirmation code.')));
       return;

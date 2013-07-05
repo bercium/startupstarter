@@ -76,10 +76,9 @@
           'idea' => $idea,
           'buttons' => 'create'));
   }
-  echo CHtml::submitButton(Yii::t("app","Finish"),
-            array('class'=>"button small success radius",
-                'onclick'=>'window.location.href=(\''.$idea_id.'\');')
-        ); ?>
+
+  
+   ?>
     
 </div>
 </div>    

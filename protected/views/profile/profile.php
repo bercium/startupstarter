@@ -119,7 +119,7 @@
     </span>
     <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
   
-    <?php echo CHtml::submitButton(Yii::t("app","Add"),
+    <?php echo CHtml::submitButton(Yii::t("app","Add skill"),
                     array('class'=>"button small success radius",
                         'onclick'=>'addSkill(\''.Yii::app()->createUrl("profile/addSkill").'\');')
                 ); ?>

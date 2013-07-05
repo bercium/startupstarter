@@ -15,9 +15,9 @@
     
     <?php if(isset($candidate['id'])){ ?>
     <?php if($candidate['id'] != 'new' && $candidate['id'] != '' && is_numeric($candidate['id'])){
-        echo CHtml::beginForm(Yii::app()->createUrl('project/create?step=2&candidate='.$candidate['id']),'post',array('class'=>"custom  large-6 small-12"));
+        echo CHtml::beginForm(Yii::app()->createUrl('project/create?step=2&candidate='.$candidate['id']),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
       } else {
-        echo CHtml::beginForm(Yii::app()->createUrl('project/create?step=2&candidate'),'post',array('class'=>"custom  large-6 small-12"));
+        echo CHtml::beginForm(Yii::app()->createUrl('project/create?step=2&candidate'),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
       } ?>
       
     <p>
@@ -48,15 +48,11 @@
     <?php //*/ ?> 
           
     </p>
-    
-      <?php echo CHtml::submitButton(Yii::t("app","Save"),
-            array('class'=>"button small success radius")
-        ); ?>
+
 
   <?php echo CHtml::endForm(); ?>   
     
-    <hr>
-    <p>
+
     <div class="addSkils">
 
   
@@ -108,13 +104,17 @@
           //!!!debug
         } ?>
     </div>
-    
-    </p>
+
+<hr>
+        <?php echo CHtml::button(Yii::t("app","Add new candidate"),
+          array('class'=>"button small success radius",'onclick'=>"$('#candidate_form').submit();")
+      ); ?>
+
+    <a href="<?php echo Yii::app()->createUrl('project/create',array('step'=>2)); ?>" class="button small secondary radius"><?php echo Yii::t("app","Cancel"); ?></a>
 
 <?php } ?>
 
 
-    
 <?php
 if(is_array($idea['candidate'])){
   $cnum = 0;
