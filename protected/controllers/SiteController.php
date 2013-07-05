@@ -24,7 +24,7 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("index",'error','logout','about','terms','notify','sugestCountry','sugestSkill'),
+        'actions'=>array("index",'error','logout','about','terms','notify','sugestCountry','sugestSkill','sugestCity'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -242,7 +242,7 @@ class SiteController extends Controller
 		
 		echo json_encode($response);
 		Yii::app()->end();
-	}	
+	}
 	
 
 	public function actionSugestCountry() {

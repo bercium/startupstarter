@@ -5,17 +5,6 @@
   $cs->registerCssFile($baseUrl.'/css/ui/jquery-ui-1.10.3.custom.min.css');
   $cs->registerScriptFile($baseUrl.'/js/jquery-ui-1.10.3.custom.min.js',CClientScript::POS_END);
 ?>
-<script type="text/javascript" src="/cofindr/js/controllers/profile/index.js"></script>
-
-<div class="row myprojects">
-  <div class="small-12 columns edit-header">
-    <div class="edit-floater">
-      <?php if(!isset($candidate)){ ?><a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl('project/create?step=2&candidate=new'); ?>"><?php echo Yii::t('app','Add new') ?></a><?php } ?>
-    </div>
-    
-    <h3><?php if(!isset($candidate)){ echo Yii::t('app', 'Open positions'); }
-              else echo Yii::t('app', 'New positions');?>
-    </h3>
 
     <?php if(Yii::app()->user->hasFlash('profileMessage')){ ?>
     <div data-alert class="alert-box radius success">
@@ -36,7 +25,7 @@
     <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
     
     <?php echo CHtml::activeLabelEx($match,'available'); ?>
-    <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listDataEx(Available::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+    <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listData(Available::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
     
     <?php 
     echo Yii::t('app','Collaboration preferences');
@@ -81,13 +70,19 @@
                               ),
           )); ?>
   
-    <?php echo Yii::t('app','Skill'); ?>  
-    <span class="general foundicon-flag" data-tooltip title="<?php echo Yii::t('msg',"Add as many relevant skills you. Bla bla blaaa"); ?>"></span>
+    <?php echo '<label for="skill">'.Yii::t('app','Skill')."</label>";  ?> 
+    <span class="description" >
+       <?php echo Yii::t('msg','Name of skill your candidate should posess.'); ?>
+    </span>
     <?php echo CHtml::textField("skill","", array('maxlength' => 128)); ?>
   
  
-    <?php echo Yii::t('app','Skill group'); ?>
-    <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAll(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+    <?php echo CHtml::label(Yii::t('app','Skill group'),''); ?>
+    <span class="description">
+       <?php echo Yii::t('msg','Select group which represents your skill the closest.'); ?>
+    </span>
+      
+    <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
   
     <?php echo CHtml::submitButton(Yii::t("app","Add skill"),
                     array('class'=>"button small success radius",
@@ -118,8 +113,7 @@
 
 <?php } ?>
 
-  </div>
-  <div class="small-12 columns edit-content">
+
     
 <?php
 if(is_array($idea['candidate'])){
@@ -214,6 +208,3 @@ if(is_array($idea['candidate'])){
   }
 }
 ?>    
-    
-  </div>
-</div>

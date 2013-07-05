@@ -145,7 +145,7 @@ class ProjectController extends GxController {
 				$match = UserMatch::Model()->findByAttributes( array( 'user_id' => $user_id ) );
 
 				if (isset($_POST['Idea']) AND isset($_POST['IdeaTranslation'])) {
-					$_POST['Idea']['time_updated'] = time();
+					$_POST['Idea']['time_updated'] = date("Y-m-d h:m:s",time());
 					$idea->setAttributes($_POST['Idea']);
 
 					if ($idea->save()) {
@@ -201,7 +201,7 @@ class ProjectController extends GxController {
 				}
 			}
 
-			$this->render('createidea', array( 'step' => $step, 'idea' => $idea, 'translation' => $translation, 'language' => $language, 'ideas'=>$data['user']['idea'] ));
+			$this->render('createidea_1', array( 'idea' => $idea, 'translation' => $translation, 'language' => $language, 'ideas'=>$data['user']['idea'] ));
 
 		} elseif($step == 2) {
 
@@ -391,16 +391,16 @@ class ProjectController extends GxController {
 
 			//render
 			if(isset($_SESSION['Candidate']) && $candidate_in_edit){
-				$this->render('createidea', array( 'step' => $step, 'idea' => $data['idea'], 'idea_id' => $idea_id, 'candidate' => $_SESSION['Candidate'], 'match' => $match ));
+				$this->render('createidea_2', array( 'idea' => $data['idea'], 'idea_id' => $idea_id, 'candidate' => $_SESSION['Candidate'], 'match' => $match ));
 			} else {
-				$this->render('createidea', array( 'step' => $step, 'idea' => $data['idea'], 'idea_id' => $idea_id ));
+				$this->render('createidea_2', array( 'idea' => $data['idea'], 'idea_id' => $idea_id ));
 			}
 
 		} elseif($step == 3) {
 			$idea_id = $_SESSION['IdeaCreated'];
 			$translation = IdeaTranslation::Model()->findByAttributes(array('idea_id' => $idea_id));
 
-			$this->render('createidea', array( 'step' => $step, 'translation' => $translation, 'idea_id' => $idea_id ));
+			$this->render('createidea_3', array('translation' => $translation, 'idea_id' => $idea_id ));
 		}
 	}
 

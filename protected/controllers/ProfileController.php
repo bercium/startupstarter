@@ -175,6 +175,17 @@ class ProfileController extends GxController {
 
 						$_POST['UserMatch']['user_id'] = $user_id;
 						$match->setAttributes($_POST['UserMatch']);
+            
+            if (!empty($_POST['UserMatch']['city'])){
+              $city = City::model()->findByAttributes(array('name'=>$_POST['UserMatch']['city']));
+              if ($city) $match->city_id = $city->id;
+              else{
+                $city = new City();
+                $city->name = $_POST['UserMatch']['city'];
+                $city->save();
+                $match->city_id = $city->id;
+              }
+            }
 
 						if ($match->save()) {
 							Yii::app()->user->setFlash('personalMessage', UserModule::t("Personal information saved."));
@@ -199,7 +210,7 @@ class ProfileController extends GxController {
             $user_collabpref->collab_id = $collab;
             if ($user_collabpref->save()) $c--;
           }
-
+          
           if (($c == 0) && ($match->save())) {
             Yii::app()->user->setFlash('profileMessage', UserModule::t("Profile details saved."));
           }else{
@@ -583,11 +594,20 @@ class ProfileController extends GxController {
 			$connection=Yii::app()->db;
 			
 			// needs translation as well
-			$command=$connection->createCommand("SELECT s.name AS skill, ss.name AS skillset, s.id, ss.id AS skillset_id FROM skill s
-																					 LEFT JOIN skillset_skill sss ON sss.skill_id = s.id
-																					 LEFT JOIN skillset ss ON ss.id = sss.skillset_id
-																					 WHERE s.name LIKE '%".$_GET['term']."%'");
-			
+      if (Yii::app()->getLanguage() != 'en'){
+      	$lang = Language::model()->findByAttributes(array("language_code"=>Yii::app()->getLanguage()));
+        $command=$connection->createCommand("SELECT s.name AS skill, ss.translation AS skillset, s.id, ss.row_id AS skillset_id FROM skill s
+                                             LEFT JOIN skillset_skill sss ON sss.skill_id = s.id
+                                             LEFT JOIN (SELECT * FROM translation WHERE language_id = ".$lang->id." AND `table`='skillset') ss ON ss.row_id = sss.skillset_id
+                                             WHERE s.name LIKE '%".$_GET['term']."%'");
+        
+      } else {
+        $command=$connection->createCommand("SELECT s.name AS skill, ss.name AS skillset, s.id, ss.id AS skillset_id FROM skill s
+                                             LEFT JOIN skillset_skill sss ON sss.skill_id = s.id
+                                             LEFT JOIN skillset ss ON ss.id = sss.skillset_id
+                                             WHERE s.name LIKE '%".$_GET['term']."%'");
+      }
+      
 			$dataReader=$command->query();
 
 			$data = array();

@@ -7,6 +7,7 @@
 ?>
 <script>
 	var skillSuggest_url = '<?php echo Yii::app()->createUrl("profile/sugestSkill",array("ajax"=>1)) ?>';
+	var citySuggest_url = '<?php echo Yii::app()->createUrl("site/sugestCity",array("ajax"=>1)) ?>';
 </script>
 
  
@@ -221,8 +222,8 @@
       <?php echo CHtml::activeLabelEx($match,'country_id'); ?>
       <?php echo CHtml::activedropDownList($match, 'country_id', GxHtml::listDataEx(Country::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
 
-      <?php echo CHtml::activeLabelEx($match,'city_id'); ?>
-      <?php echo CHtml::activedropDownList($match, 'city_id', GxHtml::listDataEx(City::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+      <?php echo CHtml::activeLabelEx($match,'city'); ?>
+      <?php echo CHtml::activeTextField($match, 'city', array("class"=>"city")); ?>
 
       <?php echo CHtml::activeLabelEx($user,'address'); ?>
       <?php echo CHtml::activetextField($user, 'address', array('maxlength' => 128)); ?>

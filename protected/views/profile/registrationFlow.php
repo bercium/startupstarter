@@ -11,13 +11,16 @@
 <script>
 	var skillSuggest_url = '<?php echo Yii::app()->createUrl("profile/sugestSkill",array("ajax"=>1,"key"=>substr($user->activkey,0,10),"email"=>$user->email)) ?>';
 	var skillRemove_url = '<?php echo Yii::app()->createUrl("profile/deleteSkill",array("key"=>substr($user->activkey,0,10),"email"=>$user->email)); ?>';
+	var citySuggest_url = '<?php echo Yii::app()->createUrl("site/sugestCity",array("ajax"=>1)) ?>';
 </script>
 
 
 <p>
 <?php echo Yii::t('msg','Thank you for your registration. You will shortly receive our confirmation email.'); ?>
 <br /><br />
-<?php echo Yii::t('msg','While you wait for our confirmation email you can fill in some more information.'); ?>
+<strong>
+<?php echo Yii::t('msg','While you wait for our confirmation email fill in some of your profile information.'); ?>
+</strong>
 </p>
 <br />
 
@@ -28,11 +31,16 @@
   <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
 
   <?php echo CHtml::activeLabelEx($match,'available'); ?>
+  <span class="description"><?php echo Yii::t('msg','Select how much time you have to work on projects.'); ?></span>
+    
   <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listDataEx(Available::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
 
-  <?php 
-  echo Yii::t('app','Collaboration preferences');
-  foreach ($data['user']['collabpref'] as $colabpref){ ?>
+    <?php echo "<label>".Yii::t('app','Collaboration preferences')."</label>"; ?>
+
+    <span class="description">
+       <?php echo Yii::t('msg','What kind of colaboration do you prefer when working on a project.'); ?>
+    </span>
+  <?php foreach ($data['user']['collabpref'] as $colabpref){ ?>
     <label for="CollabPref_<?php echo $colabpref['collab_id']; ?>">
       <?php echo CHtml::checkBox('CollabPref['.$colabpref['collab_id'].']',$colabpref['active'],array('style'=>'display:none')); ?>
      <?php echo $colabpref['name'] ?></label>
@@ -99,8 +107,8 @@
       <?php echo CHtml::activeLabelEx($match,'country_id'); ?>
       <?php echo CHtml::activedropDownList($match, 'country_id', GxHtml::listDataEx(Country::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
 
-      <?php echo CHtml::activeLabelEx($match,'city_id'); ?>
-      <?php echo CHtml::activedropDownList($match, 'city_id', GxHtml::listDataEx(City::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+      <?php echo CHtml::activeLabelEx($match,'city'); ?>
+      <?php echo CHtml::activeTextField($match, 'city', array("class"=>"city")); ?>
 
       <?php echo CHtml::activeLabelEx($user,'address'); ?>
       <?php echo CHtml::activetextField($user, 'address', array('maxlength' => 128)); ?>
@@ -108,9 +116,6 @@
     
     </div>
       </div>
-  
-  
-  
       
 
     <?php echo CHtml::submitButton(Yii::t("app","Save"),
@@ -133,14 +138,15 @@
           )); ?>
     
    
-<?php echo '<label for="skill">'.Yii::t('app','Skill');  ?> 
-    <span class="icon-question-sign" data-tooltip title="<?php echo Yii::t('msg',"Add as many relevant skills you. Bla bla blaaa"); ?>"></span>
-    <p>skills will represent you.. and stuff..
+    <?php echo '<label for="skill">'.Yii::t('app','Skill');  ?> 
     <?php echo '</label>'; ?>
+
+    <span class="description"><?php echo Yii::t('msg','Name of skill you posess.') ?></span>
     <?php echo CHtml::textField("skill","", array('maxlength' => 128)); ?>
   
  
     <?php echo CHtml::label(Yii::t('app','Skill group'),''); ?>
+    <span class="description"><?php echo Yii::t('msg','Select group which represents your skill the closest.'); ?></span>
     <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAll(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
   
     <?php echo CHtml::submitButton(Yii::t("app","Add"),

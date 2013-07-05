@@ -3,7 +3,7 @@
 </script>
 
 <div class="row createidea">
-  <div class="small-12 large-12 columns edit-header">
+  <div class="columns edit-header">
     <h3>
       <?php if($step == 1) echo Yii::t('app', 'Project presentation'); ?>
       <?php if($step == 2) echo Yii::t('app', 'Team'); ?>
@@ -25,7 +25,7 @@
     </ol>
    
   </div>
-  <div class="small-12 large-12 columns panel edit-content">
+  <div class="columns panel edit-content">
     <?php
     if($step == 1){
       $this->renderPartial('_formidea', array(
@@ -46,8 +46,26 @@
     ?>
   </div>
 </div>
-<?php if($step == 2){
-  if(isset($candidate) && isset($match)){
+
+<?php if($step == 2){ ?>
+<div class="row">
+  <div class="columns edit-header">
+    <div class="edit-floater">
+      <?php if(!isset($candidate)){ ?>
+      <a class="small button radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl('project/create?step=2&candidate=new'); ?>"><?php echo Yii::t('app','Add new') ?>
+        <span class="icon-plus"></span>
+      </a>
+        <?php } ?>
+    </div>
+    
+     <h3><?php if(!isset($candidate)){ echo Yii::t('app', 'Open positions'); }
+              else echo Yii::t('app', 'New positions');?>
+    </h3>
+    
+  </div>
+  <div class="columns panel edit-content">    
+    
+  <?php if(isset($candidate) && isset($match)){
       $this->renderPartial('_formteam', array(
           'idea' => $idea,
           'candidate' => $candidate,
@@ -61,5 +79,8 @@
   echo CHtml::submitButton(Yii::t("app","Finish"),
             array('class'=>"button small success radius",
                 'onclick'=>'window.location.href=(\''.$idea_id.'\');')
-        );
-}?>
+        ); ?>
+    
+</div>
+</div>    
+<?php } ?>
