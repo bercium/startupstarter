@@ -40,7 +40,7 @@
        <?php echo Yii::t('msg','Select how much time you have to work on projects.'); ?>
     </span>
 
-    <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listDataEx(Available::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+    <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listDataEx(Available::model()->findAllTranslated(),"id","name"), array('empty' => '&nbsp;','style'=>'display:none')); ?>
     
     
     <?php echo "<label>".Yii::t('app','Collaboration preferences')."</label>"; ?>
@@ -116,7 +116,7 @@
     <span class="description">
        <?php echo Yii::t('msg','Select group which represents your skill the closest.'); ?>
     </span>
-    <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAll(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+    <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
   
     <?php echo CHtml::submitButton(Yii::t("app","Add"),
                     array('class'=>"button small success radius",
@@ -222,7 +222,7 @@
       <?php echo CHtml::activedropDownList($match, 'country_id', GxHtml::listDataEx(Country::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
 
       <?php echo CHtml::activeLabelEx($match,'city_id'); ?>
-      <?php echo CHtml::activedropDownList($match, 'city_id', GxHtml::listDataEx(City::model()->findAllAttributes(null, true,array('order'=>'name'))), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+      <?php echo CHtml::activedropDownList($match, 'city_id', GxHtml::listDataEx(City::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
 
       <?php echo CHtml::activeLabelEx($user,'address'); ?>
       <?php echo CHtml::activetextField($user, 'address', array('maxlength' => 128)); ?>
@@ -242,9 +242,9 @@
       <a class="button radius small right" href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My links"); ?> 
         <span class="icon-plus"></span>
       </a>
-      
-      <div class="addLinks" style="display:none">
 <br />
+      <div class="addLinks" style="display:none">
+
           <?php $form=$this->beginWidget('CActiveForm', array(
               'id'=>'LinkForm',
 //             'enableClientValidation'=>true,

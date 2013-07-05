@@ -100,7 +100,7 @@
       <?php echo CHtml::activedropDownList($match, 'country_id', GxHtml::listDataEx(Country::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
 
       <?php echo CHtml::activeLabelEx($match,'city_id'); ?>
-      <?php echo CHtml::activedropDownList($match, 'city_id', GxHtml::listDataEx(City::model()->findAllAttributes(null, true,array('order'=>'name'))), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+      <?php echo CHtml::activedropDownList($match, 'city_id', GxHtml::listDataEx(City::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
 
       <?php echo CHtml::activeLabelEx($user,'address'); ?>
       <?php echo CHtml::activetextField($user, 'address', array('maxlength' => 128)); ?>

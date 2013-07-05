@@ -48,12 +48,13 @@ $user = $data['user'];
     </div>
     <?php } ?>       
       
-			<div class="large-10 small-12 columns" >
-				<?php if (Yii::app()->user->id == $user['id']) { ?>
-					<div class="card-floater">
-						<a style="" href="<?php echo Yii::app()->createUrl("profile"); ?>"><?php echo Yii::t('app', 'Edit profile') ?></a>
-					</div>
-				<?php } ?>
+			<div class="columns" >
+  			<div class="card-floater">
+      		<?php if (Yii::app()->user->id == $user['id']) { ?>
+            <a style="" href="<?php echo Yii::app()->createUrl("profile"); ?>"><?php echo Yii::t('app', 'Edit profile') ?></a><br /><br />
+  				<?php } ?>
+					<a class="button success radius" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact me') ?></a>
+				</div>
 
 				<img src="<?php echo avatar_image($user['avatar_link'], $user['id'], false); ?>" />
 				<h1><?php echo $user['name'] . " " . $user['surname']; ?></h1>
@@ -72,7 +73,7 @@ $user = $data['user'];
 								?>
 							<?php //echo $user['address'];  ?>
 							</small>
-<?php } ?>
+        <?php } ?>
 
 					</strong><br />
 					<small class="meta"><?php echo Yii::t('app', 'Member since') ?>: 
@@ -81,20 +82,17 @@ $user = $data['user'];
 				
 
 			</div>
-			<div class="large-2 small-12 columns card-floater">
-					<a class="button success radius" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact me') ?></a>
-				</div>
 		</div>
 
 		<div  class="row">
 			<div class="large-4 small-12 columns"  >
 				<p class="meta">
 					<span class="meta-field">
-					<?php
-					echo Yii::t('app', 'Skilled in') . ":";
-
-
+					<?php	echo Yii::t('app', 'Skilled in');?>
+          <br />
+          <?php 
           foreach ($user['skillset'] as $skillset){
+            //echo "<br /><a>".$skillset['skillset']."</a> with skills in<br />";
             foreach ($skillset['skill'] as $skill){
               ?>
               <span class="label radius success-alt meta_tags" data-tooltip title="<?php echo $skillset['skillset']; ?>"><?php echo $skill['skill']; ?></span>
@@ -113,7 +111,7 @@ $user = $data['user'];
 					<?php if (count($user['collabpref']) > 0) { ?>
 					<p class="meta">
 						<span class="meta-field">
-							<?php echo Yii::t('app', 'Collaboration') ?>:
+							<?php echo Yii::t('app', 'Collaboration') ?>
 						</span>
 							 <a>
 							<?php
@@ -136,7 +134,7 @@ $user = $data['user'];
 					<span class="meta"><?php echo Yii::t('app', 'Available') ?>: <a><?php echo $user['available_name']; ?></a></span><hr>
 				<?php } ?>
 				<?php if (count($user['link']) > 0) { ?>
-					<span class="meta"><?php echo Yii::t('app', 'My links') ?>: 
+					<span class="meta"><?php echo Yii::t('app', 'My links') ?><br /> 
 						<?php 
 						foreach ($user['link'] as $link) {
 						 ?>
@@ -149,7 +147,7 @@ $user = $data['user'];
 			
 			<div class="large-6 small-12 columns"  >
 				<?php if (count($user['num_of_rows']) > 0) { ?>
-				<p class="meta"><span class="meta-field"><?php echo Yii::t('app', 'Involved in ') ?><a><?php echo Yii::t('app', '{n} project|{n} projects', array($user['num_of_rows'])) ?></a>:</span>
+				<p class="meta"><span class="meta-field"><?php echo Yii::t('app', 'Involved in ') ?><a><?php echo Yii::t('app', '{n} project|{n} projects', array($user['num_of_rows'])) ?></a></span>
 				
 				<?php
 				if (is_array($user['idea']))

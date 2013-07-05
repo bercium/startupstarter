@@ -109,7 +109,7 @@ $("#showhide").click(function() {
 				<?php echo CHtml::label(Yii::t('app','Language'),''); ?>
 				<?php echo CHtml::activedropDownList($filter,'language', 
 							//GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
-							CHtml::listData(Language::model()->findAllAttributes(null, true,array('order'=>'name')),"id","name")
+							CHtml::listData(Language::model()->findAllAttributes(null, true),"id","name")
 							, array('empty' => '&nbsp;',"class"=>"small-12 large-3","style"=>"display:none")); ?>
 			</div>
 

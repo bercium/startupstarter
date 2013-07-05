@@ -15,7 +15,7 @@
     <span class="description">
       <?php echo Yii::t('msg','Choose the language you want to write your idea in. Later you can add more translations for the same idea'); ?>
     </span>
-    <?php echo CHtml::activedropDownList($translation, 'language_id', GxHtml::listDataEx(Language::model()->findAllAttributes(array("id","native_name"), true,array('order'=>'native_name')),"id","native_name"), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+    <?php echo CHtml::activedropDownList($translation, 'language_id', GxHtml::listDataEx(Language::model()->findAllAttributes(array("id","native_name"), true),"id","native_name"), array('empty' => '&nbsp;','style'=>'display:none')); ?>
 
     <?php echo CHtml::activeLabelEx($translation,'title'); ?>
     <p>What are you calling it? One or two words please, you can always change it later.<span data-tooltip title="Lorem Ipsum je slepi tekst, ki se uporablja pri razvoju tipografij in pri pripravi za tisk. Lorem Ipsum je v uporabi že več kot petsto let saj je to kombinacijo znakov neznani tiskar združil v vzorčno knjigo že v začetku 16. stoletja. "<i  style="float:right" class="icon-question-sign"></i></span></p>
