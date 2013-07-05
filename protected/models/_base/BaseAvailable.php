@@ -55,7 +55,7 @@ abstract class BaseAvailable extends GxActiveRecord {
 			'name' => Yii::t('app', 'Name'),
 		);
 	}
-
+    
 	public function search() {
 		$criteria = new CDbCriteria;
 

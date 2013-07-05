@@ -24,4 +24,10 @@ class Collabpref extends BaseCollabpref
 			//return Translation::model()->findAll($criteria);
 		}
 	}
+  
+  public function defaultScope(){
+    return array(
+       'order'=>'name',
+    );
+  }  
 }

@@ -23,5 +23,11 @@ class Available extends BaseAvailable
 			return $result;
 			//return Translation::model()->findAll($criteria);
 		}
-	}	
+	}
+  
+  public function defaultScope(){
+    return array(
+       'order'=>'name',
+    );
+  }  
 }

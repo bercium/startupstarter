@@ -24,5 +24,10 @@ class Membertype extends BaseMembertype
 			//return Translation::model()->findAll($criteria);
 		}
 	}
-	
+  
+  public function defaultScope(){
+    return array(
+       'order'=>'name',
+    );
+  }	
 }

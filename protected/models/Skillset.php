@@ -14,7 +14,7 @@ class Skillset extends BaseSkillset
 			$lang = Language::model()->findByAttributes(array("language_code"=>Yii::app()->getLanguage()));
 			$criteria=new CDbCriteria();
 			$criteria->condition = " `table` = 'skillset' AND language_id=".$lang->id;
-			$trans = Translation::model()->findAll($criteria);
+      $trans = Translation::model()->findAll($criteria);
 			$result = array();
 			// does not use original values if not translated
 			foreach ($trans as $row){
@@ -24,4 +24,10 @@ class Skillset extends BaseSkillset
 			//return Translation::model()->findAll($criteria);
 		}
 	}	
+  
+  public function defaultScope(){
+    return array(
+       'order'=>'name',
+    );
+  }  
 }
