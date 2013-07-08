@@ -535,7 +535,7 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 
 .card-floater{
   float:right; 
-  border-left: 1px solid #ddd; 
+  
   padding-left: 12px; 
   font-size: 0.8em;
 }
@@ -1307,11 +1307,18 @@ h6.title-field {
 .person-details{
   margin-top:40px;
 }
-.person-details .card-person h1{
-	font-size: 1.6875em;
-	line-height: 0.9;
-	margin: 0;
+
+.person-details .card-person {
+    padding-bottom: 30px;
 }
+
+.person-details .card-person h1{
+	font-size: 1.375em;
+	line-height: 0.9;
+	margin: 5px 0 0 0 ;
+}
+
+
 .person-details .card-person .card-person-title {
 	padding-bottom: 0.7em;
 	padding-top: 1em;
@@ -1347,11 +1354,67 @@ border-right: none;
 
 }
 
-
-.idea-panel {
-	padding: 10px;
-	margin-bottom: 15px;
+.person-details .edit-profile {
+    background: none repeat scroll 0 0 white;
+    border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.75em;
+    padding: 6px;
+    position: absolute;
+    right: 0;
+    top: -16px;
 }
+
+
+.person-details .skills {
+	margin-bottom: 20px;
+}
+
+
+
+.person-details .idea-list p  {
+	margin:0;
+	margin-bottom: 1px;
+}
+
+
+.person-details .idea-list p a {
+	display: block;	
+	padding: 6px 0 0 20px;
+	border-bottom: 1px solid #ddd;
+
+}
+
+
+
+.person-details .idea-list p a span {
+	 left: 16px;
+    margin-top: 4px;
+    position: absolute;
+
+}
+
+
+.person-details .available-time {
+	float: left;
+	margin-right: 20px;
+	margin-top: 10px;
+}
+
+
+.person-details .card-floater {
+	margin-right: 20px;
+	
+}
+
+.person-details .icon-external-link {
+	font-size: 0.5em;
+	position: absolute;
+	margin-left: 2px;
+
+}
+
+
 
 /* #MY PROJECT PAGE
 ================================================== */
