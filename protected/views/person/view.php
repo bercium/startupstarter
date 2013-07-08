@@ -127,11 +127,16 @@ $user = $data['user'];
 						</a>
 					</p><hr>
 				<?php } ?>
-				<p class="meta">
+				
 				<span class="meta-field">
 				<?php if ($user['available_name']) { ?>
-				<span>
-					<span class="meta"><?php echo Yii::t('app', 'Available') ?>: <a><?php echo $user['available_name']; ?></a></span><hr>
+					
+						<span class="meta"><?php echo Yii::t('app', 'Available') ?>: <a><?php echo $user['available_name']; ?></a></span>
+
+
+				</span>
+
+					<hr>
 				<?php } ?>
 				<?php if (count($user['link']) > 0) { ?>
 					<span class="meta"><?php echo Yii::t('app', 'My links') ?><br /> 
