@@ -1,19 +1,17 @@
 <div class="row myprojects">
-  <div class="small-12 columns edit-header">
+  <div class="columns edit-header">
     <div class="edit-floater">
       <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo Yii::t('app','Create new') ?></a>
     </div>
 		
     <h3><?php echo Yii::t('app', 'My projects'); ?></h3>
   </div>
-  <div class="small-12 columns edit-content">
     
 <?php
 foreach($user['idea'] AS $key => $idea){
 	if ($idea['type_id'] != 1) continue;
 ?>
-    <div class="row panel idea-panel">
-
+      <div class="columns edit-content middle">
         <div class="edit-floater">
           
       <?php  echo CHtml::ajaxButton(Yii::t("app","Delete"),'','',
@@ -21,7 +19,7 @@ foreach($user['idea'] AS $key => $idea){
                         'confirm'=>Yii::t("msg","You are about to delete this project!\nAre you sure?"),
                         'onclick'=>"$(document).stopPropagation();",
                       )
-              ); ?>
+              );?>
         </div>        
 
         <a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><h5><?php echo $idea['title'];?></h5></a>
@@ -30,26 +28,23 @@ foreach($user['idea'] AS $key => $idea){
           <?php echo Yii::t('app', 'has <a>{n} member</a>| has <a>{n} members</a>',0); ?> | 
           <?php echo Yii::t('app', 'viewed <a>{n} time</a>| viewed <a>{n} times</a>',$idea['num_of_clicks']); ?>
         </small>
-
-    </div>
+      </div>
 <?php
 }
 ?>    
     
-  </div>
 </div>
 
-<div class="row myprojects">
-  <div class="small-12 columns edit-header">
+<div class="row myprojects" style="margin-top:20px;">
+  <div class="  columns edit-header">
     <h3><?php echo Yii::t('app', 'Projects I\'m member of'); ?></h3>
   </div>
-  <div class="small-12 columns edit-content">
     
 <?php
 foreach($user['idea'] AS $key => $idea){
 	if ($idea['type_id'] != 2) continue;
 ?>
-    <div class="row idea-panel">
+    <div class="columns edit-content middle">
 
         <div class="edit-floater">
           
@@ -73,7 +68,6 @@ foreach($user['idea'] AS $key => $idea){
 }
 ?>    
     
-  </div>
 </div>
 
 <?php

@@ -2,10 +2,10 @@
 <?php $this->beginContent('//layouts/main'); ?>
 
 <div class="row" style="margin-top:20px;">
-	<div class="small-12 large-12 columns edit-header">
+	<div class="columns edit-header">
 		<h1><?php echo $this->pageTitle; ?></h1>
 	</div>
-  <div class="small-12 large-12 columns panel edit-content">
+  <div class="columns panel edit-content">
     <?php echo $content; ?>
   </div>
 </div>

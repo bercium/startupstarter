@@ -1420,15 +1420,12 @@ border-right: none;
 ================================================== */
 
 .myprojects .edit-header {
-	border-radius: 4px;
-	background: #fff;
-	margin-bottom: 15px;
 }
 
-.myprojects .edit-content  {
-	background: none;
-	box-shadow: none;
-	border: none;
+.myprojects .edit-content.middle  {
+  margin-bottom: 0;
+  padding-top: 2px;
+  padding-bottom: 10px;
 }
 
 .myprojects .edit-content .idea-panel {

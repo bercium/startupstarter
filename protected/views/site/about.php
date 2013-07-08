@@ -4,11 +4,11 @@
 
 
 <div class="row" style="margin-top:20px;">
-	<div class="small-12 large-12 columns edit-header">
+	<div class="columns edit-header">
 		<h1><?php echo Yii::t('app','About project'); ?></h1>
 	</div>
-  <div class="small-12 large-12 columns panel edit-content">
-   <div class="large-8 small-12 columns">
+  <div class="  columns panel edit-content">
+   <div class="large-8  columns">
 		 
 		<p>
 		<?php 
@@ -26,7 +26,7 @@
 		
     </div>
 
-    <div class="large-4 small-12 columns">
+    <div class="large-4  columns">
       <?php if ($idea)  $this->renderPartial('//project/_project', array('idea' => $idea));  ?>
     </div>
     
@@ -36,20 +36,20 @@
 
 
 <div class="row">
-	<div class="small-12 large-12 columns edit-header">
+	<div class="  columns edit-header">
     <div class="edit-floater">
 			<a href="#" class="button small radius success" onclick="contact(this);"><?php echo CHtml::encode(Yii::t('app','Contact us')); ?></a>
     </div>		
 		<h1><?php echo Yii::t('app','Our team'); ?></h1>
   </div>
-  <div class="small-12 large-12 columns panel edit-content">
-    <div class="large-5 small-12 columns">
+  <div class="  columns panel edit-content">
+    <div class="large-5  columns">
       <img id="team_image" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg" alt="coFinder team" title="coFinder team">
       <div style="top:30px;left:70px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('zb');" onmouseout="hidePerson('zb')"></div>
       <div style="top:200px;left:90px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('bb');" onmouseout="hidePerson('bb')"></div>
       <div style="top:100px;left:240px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('jr');" onmouseout="hidePerson('jr')"></div>
     </div>
-    <div class="large-7 small-12 columns">
+    <div class="large-7  columns">
       <h4 onmouseover="showPerson('zb');" onmouseout="hidePerson('zb')">Žiga Berce</h4>
       <p id="team_desc_zb" onmouseover="showPerson('zb');" onmouseout="hidePerson('zb')">
       Within coFinder I take care of development while motivating the team and trying my hardest to engage others to join our project. Too much ideas and not enough time forced me to commit only to projects I really love, like making my own surfboard and bike, building websites or organizing social tournaments. Remaining time I spend on outdoor sports.
@@ -69,10 +69,10 @@
 </div>
 
 <div class="row">
-	<div class="small-12 large-12 columns edit-header">
+	<div class="  columns edit-header">
 		<h1><?php echo Yii::t('app','Supporters'); ?></h1>
 	</div>
-  <div class="small-12 large-12 columns panel edit-content">
+  <div class="  columns panel edit-content">
   </div>
 </div>
 
