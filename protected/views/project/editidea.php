@@ -1,7 +1,26 @@
 <div class="row">
   <div class="small-12 large-12 columns edit-header">
     <div class="edit-floater">
-      <a class="small button alert radius" style="margin-bottom:0;" href=""><?php echo Yii::t('app','Delete') ?></a>
+
+      <?php  
+      
+      if($isOwner){
+        echo CHtml::link(Yii::t("app","Delete"),Yii::app()->createUrl('project/deleteIdea',array('id'=>$idea['id'])),
+                  array('class'=>"button small alert radius",
+                        'confirm'=>Yii::t("msg","You are about to delete this project!\nAre you sure?"),
+                        'onclick'=>"$(document).stopPropagation();",
+                      )
+              );?>
+      <?php 
+      }else{
+      echo CHtml::link(Yii::t("app","Leave project"),Yii::app()->createUrl('project/leaveIdea',array('id'=>$idea['id'])),
+                  array('class'=>"button small alert radius",
+                        'confirm'=>Yii::t("msg","You are about to leave this project!\nYou will have to be re invited to be a member.\nAre you sure?"),
+                        'onclick'=>"$(document).stopPropagation();",
+                      )
+              ); 
+      }?>
+      
     </div>
     <h3><?php echo Yii::t('app', 'Edit project'); ?></h3>
   </div>
