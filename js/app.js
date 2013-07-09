@@ -52,6 +52,21 @@
       }, 0);
     });
   }
+  
+  $(".lin-hidden").each(function(){
+    if ($(this).find('.lin-edit').val() == '') $(this).hide();
+  });
+  $(".lin-edit").focusout(function(){
+    if ($(this).val() == '') $(this).parents('.lin-hidden').hide();
+    if ($(this).hasClass('lin-hidden')) $(this).hide();
+  });
+  $(".lin-trigger").hover(
+    function(){
+      $(this).find('.lin-hidden').show();
+    }, 
+    function(){
+      if (!$(this).find(".lin-edit").is(':focus') && $(this).find(".lin-edit").val() == '') $(this).find('.lin-hidden').hide();
+    });
 
 })(jQuery, this);
 

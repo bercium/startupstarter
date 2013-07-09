@@ -1247,24 +1247,6 @@ h6.title-field {
 	font-size: 0.85em;
 }
 
-.createidea .showhide {
-	background: #f0f0f0;
-	border: 1px solid #ddd;
-}
-
-.createidea .showhide textarea,
-.createidea .showhide #tweetCount,
-.createidea .showhide input,
-.createidea .showhide .hideme
- {
-	display: none;
-}
-
-.createidea .showhide:hover textarea,
-.createidea .showhide:hover #tweetCount,
-.createidea .showhide:hover input {
-	display: block;
-}
 
 .createidea .breadcrumbs li:first-child:before {
 	content: " ";	
@@ -1275,19 +1257,16 @@ h6.title-field {
     position: relative;
     top: 1px;
 }
-
+/*
 .createidea label {
 	font-weight: 600;
 }
 
-.createidea p {
-	font-size: 0.85em;
-}
-
+/*
 .createidea span:first-child {
 	color: #89B561 !important;
 	font-size: 1em;
-}
+}*/
 
 .createidea #tweetCount {
 	margin-top: 5px;
@@ -1298,8 +1277,6 @@ h6.title-field {
 	
 	border-radius: 6px;
 	float: left;
-
-
 }
 
 /* #PERSON PAGE
@@ -1454,7 +1431,7 @@ border-right: none;
 
 /* #EDIT IDEA PAGE
 ================================================== */
-.formidea label {
+/*.formidea label {
 	margin-top: 50px;
 	margin-bottom: 10px;
 }
@@ -1469,7 +1446,7 @@ textarea#IdeaTranslation_pitch {
 
 textarea#IdeaTranslation_description {
 	min-height: 400px;
-}
+}*/
 
 
 

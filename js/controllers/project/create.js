@@ -34,7 +34,7 @@ function removeSkill(skill_id, inUrl){
     $.ajax({
    type: 'POST',
    url: inUrl,
-   data:{ id: skill_id, ajax: 1},
+   data:{id: skill_id, ajax: 1},
         success:function(data){
           data = JSON.parse(indata);
           if (data.message != '') alert(data.message);
@@ -106,7 +106,7 @@ function removeSkill(skill_id, inUrl){
 				minLength: 2,
         source: function( request, response ) {
 					
-					$.getJSON( citySuggest_url, { term: extractLast( request.term ) }, function( data, status, xhr ) {
+					$.getJSON( citySuggest_url, {term: extractLast( request.term )}, function( data, status, xhr ) {
 						if (data.status == 0){
 							cityCache[ extractLast( request.term ) ] = data.data;
 							response( data.data );
@@ -114,5 +114,5 @@ function removeSkill(skill_id, inUrl){
 					});
         }
       });    
-    
+        
   });
