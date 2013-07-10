@@ -7,6 +7,21 @@
     <h3>
       <?php echo Yii::t('app', 'Project presentation'); ?>
     </h3>
+
+        <?php if (count($ideadata['translation_other'])){ ?>
+      <div class="large-12 small-12 columns panel languages" >
+        <p class="meta">Languages:
+        <?php 
+          
+          foreach ($ideadata['translation_other'] as $trans){
+            echo '<a href="'.Yii::app()->createUrl("project/edit",array("id"=>$id, "lang"=>$trans['language_code'])).'">'.$trans['language']."</a> | ";
+          }
+          echo "<a href='".Yii::app()->createUrl("project/translate",array("id"=>$id))."'>".Yii::t('app', 'Translate project')."</a>";
+
+          ?>
+           </p>
+      </div>
+          <?php }  ?>
   </div>
   <div class="columns panel edit-content">
     <?php
@@ -72,18 +87,6 @@
           'ideadata' => $ideadata,
           'buttons' => 'create'));
   }?>
-    
-  
-  <?php
-  
-  if (!isset($_GET['candidate'])){
-    
-  echo "<hr>".CHtml::submitButton(Yii::t("app","Finish"),
-            array('class'=>"button small success radius",
-                'onclick'=>'window.location.href=(\''.$idea_id.'\');')
-        );
-  
-   } ?>
     
 </div>
 </div>    

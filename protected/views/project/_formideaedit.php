@@ -56,7 +56,7 @@
       
     
 <hr>
-    <?php echo CHtml::submitButton(Yii::t("app","Next >>"),
+    <?php echo CHtml::submitButton(Yii::t("app","Save"),
           array('class'=>"button small success radius right")
       ); ?>
     <?php echo CHtml::endForm(); ?>  

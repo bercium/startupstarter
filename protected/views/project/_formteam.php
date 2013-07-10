@@ -106,9 +106,16 @@
     </div>
 
 <hr>
-        <?php echo CHtml::button(Yii::t("app","Add new candidate"),
+        <?php 
+        if(isset($_GET['candidate']) && is_numeric($_GET['candidate'])){
+          echo CHtml::button(Yii::t("app","Update candidate"),
           array('class'=>"button small success radius",'onclick'=>"$('#candidate_form').submit();")
-      ); ?>
+          ); 
+        } else {
+          echo CHtml::button(Yii::t("app","Add new candidate"),
+          array('class'=>"button small success radius",'onclick'=>"$('#candidate_form').submit();")
+          ); 
+        }?>
 
     <a href="<?php echo Yii::app()->createUrl('project/create',array('step'=>2)); ?>" class="button small secondary radius"><?php echo Yii::t("app","Cancel"); ?></a>
 

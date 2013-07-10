@@ -484,12 +484,16 @@ class ProfileController extends GxController {
           $skillset_skill = SkillsetSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
                                                                            "skillset_id"=>$_POST['skillset']));
           // save skillset skill connection
-          if ($skillset_skill == null){
-            $skillset_skill = new SkillsetSkill;
-            $skillset_skill->skill_id = $skill->id;
-            $skillset_skill->skillset_id = $_POST['skillset'];
-            $skillset_skill->save();
-          }
+          $usage_count = false;
+	      if ($skillset_skill == null){
+	        $skillset_skill = new SkillsetSkill;
+	        $skillset_skill->skill_id = $skill->id;
+	        $skillset_skill->skillset_id = $value['skillset_id'];
+	        $skillset_skill->usage_count = 1;
+	        $skillset_skill->save();
+	      } else {
+	        $usage_count = true;
+	      }
           
           $user_skill = UserSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
                                                                    "skillset_id"=>$_POST['skillset'],
@@ -499,6 +503,12 @@ class ProfileController extends GxController {
             $user_skill->skill_id = $skill->id;
             $user_skill->skillset_id = $_POST['skillset'];
             $user_skill->match_id = $match_id;
+
+            if($usage_count){
+				$skillset_skill->usage_count = $skillset_skill->usage_count + 1;
+				$skillset_skill->save();
+            }
+
             if ($user_skill->save()){
               
               $skillset = Skillset::model()->findByPk($_POST['skillset']);
