@@ -1143,11 +1143,11 @@ public function search($type, $filter){
 		$array = array_slice($array, ($filter['page'] - 1) * $filter['per_page'], $filter['per_page']);
 		
 		//DEBUG
-		echo $type."\n";
+		/*echo $type."\n";
 		echo "# of conditions: $total\n";
 		print_r($cols_backup);
 		echo $sql;
-		print_r($array);
+		print_r($array);*/
 
 		//Load the array with data!
 		if($type == "idea") {
