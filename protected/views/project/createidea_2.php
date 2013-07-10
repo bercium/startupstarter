@@ -18,7 +18,7 @@
   <div class="columns panel edit-content">
     <?php
       $this->renderPartial('_formmembers', array(
-          'idea' => $idea,
+          'ideadata' => $ideadata,
           'idea_id' => $idea_id));
     ?>
   </div>
@@ -45,13 +45,13 @@
     
   <?php if(isset($candidate) && isset($match)){
       $this->renderPartial('_formteam', array(
-          'idea' => $idea,
+          'ideadata' => $ideadata,
           'candidate' => $candidate,
           'match' => $match,
           'buttons' => 'create'));
   } else {
       $this->renderPartial('_formteam', array(
-          'idea' => $idea,
+          'ideadata' => $ideadata,
           'buttons' => 'create'));
   }?>
     

@@ -15,9 +15,9 @@
     
     <?php if(isset($candidate['id'])){ ?>
     <?php if($candidate['id'] != 'new' && $candidate['id'] != '' && is_numeric($candidate['id'])){
-        echo CHtml::beginForm(Yii::app()->createUrl('project/create?step=2&candidate='.$candidate['id']),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
+         echo CHtml::beginForm(Yii::app()->createUrl('project/edit/'.$id.'?lang='.$lang.'&candidate='.$candidate['id']),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
       } else {
-        echo CHtml::beginForm(Yii::app()->createUrl('project/create?step=2&candidate'),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
+          echo CHtml::beginForm(Yii::app()->createUrl('project/edit/'.$id.'?lang='.$lang.'&candidate'),'post',array('class'=>"custom large-6",'id'=>'candidate_form')); 
       } ?>
       
     <p>
@@ -110,7 +110,7 @@
           array('class'=>"button small success radius",'onclick'=>"$('#candidate_form').submit();")
       ); ?>
 
-    <a href="<?php echo Yii::app()->createUrl('project/create',array('step'=>2)); ?>" class="button small secondary radius"><?php echo Yii::t("app","Cancel"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl('project/edit',array('id'=>$id, 'lang'=>$lang)); ?>" class="button small secondary radius"><?php echo Yii::t("app","Cancel"); ?></a>
 
 <?php } ?>
 
@@ -127,8 +127,8 @@ if(is_array($ideadata['candidate'])){
         <div class="edit-floater">
           
       <?php  
-            echo "<a href='".Yii::app()->createUrl('project/create?step=2&candidate='.$value['match_id'])."'>Edit</a> ";
-            echo "<a href='".Yii::app()->createUrl('project/create?step=2&delete_candidate='.$value['match_id'])."'>Delete</a> ";
+            echo "<a href='".Yii::app()->createUrl('project/edit?id='.$id.'&lang='.$lang.'&candidate='.$value['match_id'])."'>Edit</a> ";
+            echo "<a href='".Yii::app()->createUrl('project/edit?id='.$id.'&lang='.$lang.'&delete_candidate='.$value['match_id'])."'>Delete</a> ";
 
             echo CHtml::ajaxButton(Yii::t("app","Delete"),'','',
                   array('class'=>"button tiny alert radius",

@@ -1,5 +1,5 @@
 <script>
-  var skillSuggest_url = '<?php echo Yii::app()->createUrl("profile/sugestSkill",array("ajax"=>1)) ?>';
+  var skillSuggest_url = '<?php echo Yii::app()->createUrl("site/sugestSkill",array("ajax"=>1)) ?>';
 </script>
 
 <div class="row createidea">
@@ -7,12 +7,17 @@
     <h3>
       <?php echo Yii::t('app', 'Project presentation'); ?>
     </h3>
+
+    <ul class="breadcrumbs meta">
+       <li><strong> 1.<?php echo Yii::t('app', 'Presentation'); ?></strong></li>
+       <li> 2.<?php echo Yii::t('app', 'Team'); ?></li>
+       <?php /* ?><li><strong>3.<?php echo Yii::t('app', 'Social'); ?></strong></li> <?php */ ?>
+      <li> You're done!</li>
+    </ul>
   </div>
   <div class="columns panel edit-content">
     <?php
-      $this->renderPartial('_formideaedit', array(
-          'id' => $id,
-          'lang' => $lang,
+      $this->renderPartial('_formidea', array(
           'idea' => $idea,
           'language' => $language,
           'translation' => $translation,
@@ -29,9 +34,7 @@
   </div>
   <div class="columns panel edit-content">
     <?php
-      $this->renderPartial('_formmembersedit', array(
-          'id' => $id,
-          'lang' => $lang,
+      $this->renderPartial('_formmembers', array(
           'ideadata' => $ideadata,
           'idea_id' => $idea_id));
     ?>
@@ -43,7 +46,7 @@
   <div class="columns edit-header">
     <div class="edit-floater">
       <?php if(!isset($candidate)){ ?>
-      <a class="small button radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl('project/edit',array('id'=>$id,'lang'=>$lang,'candidate'=>'new')); ?>">
+      <a class="small button radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl('project/create',array('step'=>2,'candidate'=>'new')); ?>">
         <?php echo Yii::t('app','Add new') ?>
         <span class="icon-plus"></span>
       </a>
@@ -58,17 +61,13 @@
   <div class="columns panel edit-content">    
     
   <?php if(isset($candidate) && isset($match)){
-      $this->renderPartial('_formteamedit', array(
-          'id' => $id,
-          'lang' => $lang,
+      $this->renderPartial('_formteam', array(
           'ideadata' => $ideadata,
           'candidate' => $candidate,
           'match' => $match,
           'buttons' => 'create'));
   } else {
-      $this->renderPartial('_formteamedit', array(
-          'id' => $id,
-          'lang' => $lang,
+      $this->renderPartial('_formteam', array(
           'ideadata' => $ideadata,
           'buttons' => 'create'));
   }?>
@@ -96,9 +95,7 @@
   </div>
   <div class="columns panel edit-content">
     <?php
-      $this->renderPartial('_formsocialedit', array(
-          'id' => $id,
-          'lang' => $lang,
+      $this->renderPartial('_formsocial', array(
           'translation' => $translation,
           'idea_id' => $idea_id,
           'buttons' => 'create'));
