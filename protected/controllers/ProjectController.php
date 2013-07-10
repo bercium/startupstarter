@@ -189,6 +189,9 @@ class ProjectController extends GxController {
 						$translation->idea_id = $idea->id;
 		 				$translation->setAttributes($_POST['IdeaTranslation']);
 
+		 				//break up keywords and save
+		 				$this->addKeywords($idea->id, $translation->language_id, $_POST['IdeaTranslation']['keywords']);
+
 		 				//idea member data
 		 				$_POST['IdeaMember']['idea_id'] = $idea->id;
 		 				$_POST['IdeaMember']['match_id'] = $match->id;
@@ -236,11 +239,14 @@ class ProjectController extends GxController {
 
 						if ($idea->save()) {
 
+							//translation data
 							$_POST['IdeaTranslation']['idea_id'] = $idea->id;
 							if($id)
 								$_POST['IdeaTranslation']['language_id'] = $translation->language_id;
-							
 							$translation->setAttributes($_POST['IdeaTranslation']);
+
+							//break up keywords and save
+		 					$this->addKeywords($idea->id, $translation->language_id, $_POST['IdeaTranslation']['keywords']);
 
 							if(!$translation->validate())
 								Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to save project details."));
@@ -509,6 +515,22 @@ class ProjectController extends GxController {
 
 			$this->render('editidea', $data_array);
 		}
+		}
+	}
+
+	public function addKeywords($idea_id, $language_id, $keywords){
+		Keyword::Model()->deleteAll("keyword.table = :table AND row_id = :row_id", array(':table' => 'idea_translation', ':row_id' => $idea_id));
+
+		$keyworder = new Keyworder;
+		$keywords = $keyworder->string2array($keywords);
+
+		foreach($keywords AS $key => $word){
+          $keyword = new Keyword;
+          $keyword->table = 'idea_translation';
+          $keyword->row_id = $idea_id;
+          $keyword->keyword = $word;
+          $keyword->language_id = $language_id;
+          $keyword->save();
 		}
 	}
 
