@@ -269,7 +269,7 @@ class SqlBuilder {
 						"AND l.id = it.language_id ".
 						"AND it.deleted = 0 ".
 						"AND it.idea_id = {$filter['idea_id']} ".
-						"ORDER BY FIELD(it.language_id, '{$filter['lang']}') DESC";
+						"ORDER BY FIELD(it.language_id, '{$filter['lang']}') DESC LIMIT 1";
 
 		} else {
 			$sql=		"SELECT it.id AS translation_id, it.title, it.keywords, it.pitch, it.description, it.description_public, it.tweetpitch, it.language_id, l.name AS language, l.language_code FROM ".
@@ -804,14 +804,14 @@ public function search($type, $filter){
 				if(strlen($value) >= 3){
 					$value = addcslashes($value, '%_'); // escape LIKE's special characters
 					$condition = new CDbCriteria( array(
-					    'condition' => "`keyword` LIKE :value AND `table` = 'idea'",         // no quotes around :match
-					    'params'    => array(':value' => "%$value%")  // Aha! Wildcards go here
+					    'condition' => "`keyword` LIKE :value AND `table` = 'idea_translation'",         // no quotes around :match
+					    'params'    => array(':value' => "%".$value."%")  // Aha! Wildcards go here
 					) );
 
 					$dataReader = Keyword::Model()->findAll( $condition );
 
-					foreach($dataReader AS $key => $value){
-						$filter['keyword'][] = $value->keyword;
+					foreach($dataReader AS $row){
+						$filter['keyword'][] = $row['id'];
 					}
 				}
 			}
@@ -896,6 +896,11 @@ public function search($type, $filter){
 			$sql.=	"m.available, ";
 		}
 
+		//idea_translation AS it
+		if(isset($filter['language']) AND is_numeric($filter['language'])){
+			$sql.=	"it.language_id, ";
+		}
+
 		//user_collabpref AS c
 		if( isset($filter['collabpref']) && is_array($filter['collabpref']) && count($filter['collabpref']) > 0 ){
 			$c = -1;
@@ -948,15 +953,15 @@ public function search($type, $filter){
 
 		if($type == "idea"){
 			//idea_keyword AS k
-			if( isset($filter['keyword']) && is_array($filter['keyword']) && count($filter['keyword']) > 0 ){
+			if( isset($filter['keywords']) && is_array($filter['keyword']) && count($filter['keyword']) > 0 ){
 				$k = -1;
 				foreach($filter['keyword'] AS $key => $value){
 					//$VALUE INPUT VALIDATION NEEDED
 					$k++;
 					$sql.= "LEFT JOIN `keyword` AS k{$k} ON 
-								k{$k}.table = 'idea' 
+								k{$k}.table = 'idea_translation' 
 								AND k{$k}.row_id = i.id 
-								AND k{$k}.keyword = :k{$k}_id ";
+								AND k{$k}.id = :k{$k}_id ";
 					$cols["k{$k}_id"] = $value; //this key is an _id here, but it's really a string
 				}
 			}
@@ -983,6 +988,13 @@ public function search($type, $filter){
 		}*/
 		if(isset($filter['available']) AND is_numeric($filter['available'])){
 			$cols["available"] = $filter['available'];
+		}
+
+		//language
+		if(isset($filter['language']) AND is_numeric($filter['language'])){
+			$sql.= "LEFT JOIN `idea_translation` AS it ON 
+						it.idea_id = i.id ";
+			$cols["language_id"] = $filter['language'];
 		}
 
 		//user_match (country) as co
@@ -1074,7 +1086,7 @@ public function search($type, $filter){
 		$cols_backup = $cols;
 		//print_r($cols);
 		foreach($cols as $col =>  &$value){ // $value can be changed by the body of foreach loop.
-			if($col != 'status_id' && $col != 'available' && $col != 'website' && $col != 'video_link')
+			if($col != 'status_id' && $col != 'available' && $col != 'language_id' && $col != 'website' && $col != 'video_link')
 				$command->bindParam(":{$col}", $value);
 		}
 		$dataReader=$command->query();
@@ -1089,12 +1101,13 @@ public function search($type, $filter){
 			if($total > 0){
 
 				foreach($cols_backup AS $key => $value){
-					//echo "ROW: ".$row[$col] . "\n";
-					//echo "COL: ".$key . "\n";
-					//echo "VAL: ".$value . "\n\n";
+					/*echo "ROW: ".$row[$col] . "\n";
+					echo "COL: ".$key . "\n";
+					echo "VAL: ".$value . "\n\n";*/
 					
 					if(	$key == "status_id" || 
-						$key == "available" ){
+						$key == "available" ||
+						$key == "language_id" ){
 
 						if($row[$key] == $value){
 							$rank++;

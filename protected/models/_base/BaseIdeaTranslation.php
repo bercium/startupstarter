@@ -25,7 +25,7 @@
 abstract class BaseIdeaTranslation extends GxActiveRecord {
 
 	public static function model($className=__CLASS__) {
-		return parent::model($className);
+		return parent::model($className);	
 	}
 
 	public function tableName() {
@@ -47,8 +47,9 @@ abstract class BaseIdeaTranslation extends GxActiveRecord {
 			array('idea_id', 'length', 'max'=>8),
 			array('tweetpitch', 'length', 'max'=>140),
 			array('title', 'length', 'max'=>128),
+			array('keywords', 'length', 'max'=>256),
 			array('title', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, language_id, idea_id, pitch, description, description_public, tweetpitch, deleted, title', 'safe', 'on'=>'search'),
+			array('id, language_id, idea_id, pitch, description, description_public, tweetpitch, deleted, title, keywords', 'safe', 'on'=>'search'),
 		);
 	}
 
