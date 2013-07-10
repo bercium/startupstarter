@@ -269,7 +269,7 @@ class SqlBuilder {
 						"AND l.id = it.language_id ".
 						"AND it.deleted = 0 ".
 						"AND it.idea_id = {$filter['idea_id']} ".
-						"ORDER BY FIELD(it.language_id, '{$filter['lang']}') DESC";
+						"ORDER BY FIELD(it.language_id, '{$filter['lang']}') DESC LIMIT 1";
 
 		} else {
 			$sql=		"SELECT it.id AS translation_id, it.title, it.keywords, it.pitch, it.description, it.description_public, it.tweetpitch, it.language_id, l.name AS language, l.language_code FROM ".
