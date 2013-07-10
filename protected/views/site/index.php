@@ -68,11 +68,11 @@ $("#showhide").click(function() {
     <a class="anchor-link" id="filter_search"></a>
     
 		<div class="row">
-		  <div class="large-4 small-12 columns">
+		  <div class="large-3 small-12 columns">
     		<h4 class="meta-title"><?php echo CHtml::encode(Yii::t('app','Sort your search by')); ?> </h4>
       </div>
-		  <div class="large-8 small-12 columns">
-				<div class="toggle_search switch large-3 small round small-3" onclick="$('.filter_projects').toggle();$('.filter_people').toggle();">
+		  <div class="large-9 small-12 columns">
+				<div class="left toggle_search switch large-3 small round small-3" onclick="$('.filter_projects').toggle();$('.filter_people').toggle();">
 					<input id="project_0" name="SearchForm[isProject]" type="radio" value="1" <?php if ($filter->isProject) echo 'checked="checked"' ?>>
 					<label for="project_0" onclick=""><?php echo Yii::t('app','Projects'); ?></label>
 
@@ -82,9 +82,9 @@ $("#showhide").click(function() {
 					<span></span>
 				</div>
         
-				<div  class="exp_srch right">
-					<a class="button small secondary radius" href="#" onclick="$('.advance').toggle(); return false;">Advanced search <span class="icon-caret-down"></span></a>
-				</div>
+				
+					<a class="exp_srch large-3 small-3 button small secondary right round" href="#" onclick="$('.advance').toggle(); return false;">Advanced search <span class="icon-caret-down"></span></a>
+				
         
       </div>
 		</div>
@@ -124,7 +124,7 @@ $("#showhide").click(function() {
 								array('class'=>"button small radius")
 						); ?>
 				 &nbsp; 
-				 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" class="button small radius secondary"><?php echo Yii::t("app","Reset"); ?></a>
+				 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" class="button reset-btn small radius secondary"><?php echo Yii::t("app","Reset"); ?></a>
       </div>
 			
 				

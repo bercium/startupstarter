@@ -136,29 +136,16 @@ margin-left: 20px;
 }
 
 .exp_srch {
-	
-	position: absolute;	 
-	 z-index: 0;	  
-	  right:230px;
-	  top: 2px;
-	    display: block;
-	   
-	
+	margin-right: 20px;
+	margin-top: 5px;
 }
 
-.exp_srch .icon-collapse,
-.intro .icon-collapse-top
- {
-	margin-left: 10px;
+
+.reset-btn {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
 }
 
-.exp_srch a {
-	display: block;
-	text-align: center;
-	
-	height: 100%;	
-	padding:12px 20px 10px 10px ;
-}
 
 .extra_detail {
 	margin-top: 22px;
@@ -738,6 +725,7 @@ border-radius: 2px;
 
 .label {
 	padding: 0.4em 0.8em 0.4em;
+	text-transform: capitalize;
 }
 
 .label.default-light {
@@ -1149,11 +1137,18 @@ border-radius: 2px;
   margin-bottom: 5px;
 }
 
+.idea-sidebar {
+	background: #E5E8EE;
+	overflow: hidden;
+	margin-bottom: 1px;
+	padding: 10px 0;
+}
+
 .idea-sidebar .panel,
 .idea-panel {
 background-color: #e5e8ee;
 border: 1px solid #fff;
-box-shadow: 0 0 0 1px #ced3dc, 0 1px 0px 1px #a0abbe;
+
 border-radius: 2px;
 }
 
@@ -1180,9 +1175,9 @@ h6.title-field {
 
 
 .idea-details .location {
-	position: absolute;
-	top: -10px;
-	left: 10px;
+	
+	
+	
 }
 
 
@@ -1215,23 +1210,7 @@ h6.title-field {
 
 
 
- .idea-sidebar .available-time {
-	display: inline;
-	position: absolute;
-	top:0;
-	right:0;
-	border-top: none;
-	border-right: none;
-	font-size: 0.7em;	
-	font-weight: 600;
-	background: #fff;
-	border-radius: 0 0 0 6px;
-}
 
-.idea-sidebar .available-time:hover {
-	background: #fff;
-	cursor: inherit;
-}
 
 .idea-sidebar h6 {
 	display: block;

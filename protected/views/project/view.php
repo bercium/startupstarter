@@ -57,7 +57,7 @@ $idea = $data['idea'];
           <p class="meta">
         <?php echo Yii::t('app','Stage').": "; ?>
         <span data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>">
-          <a><?php echo $idea['status']; ?></a>
+          <?php echo $idea['status']; ?>
         </span>
       </p>
       <p class="meta">
@@ -99,7 +99,8 @@ $idea = $data['idea'];
 			
 			<div class="large-4 small-12 columns">
         <?php if ($idea['website']){ ?>
-        <p class="title-field meta"><span class="general foundicon-globe" title=""></span>
+        <hr>
+        <p class="title-field meta"><span class="icon-globe" title=""></span>
         <?php
           echo Yii::t('app',"Official web page").': <a href="http://'.$idea['website'].'" target="_blank">'.$idea['website']."</a>";
         } ?>
@@ -117,29 +118,31 @@ $idea = $data['idea'];
             $cnum++; 
           ?>
            <div  class="idea-sidebar">
-            <div class="small-12 columns panel">
+            <div class="small-12 columns">
 							
-							<div class="location-s" style="position: absolute; top:10px;">
-										<?php	if ($candidate['city'] || $candidate['country']){ ?>
-										<small class="meta" data-tooltip title="<img src='<?php echo getGMap($candidate['country'],$candidate['city']); ?>'>">
-
-										<a><span class="general foundicon-location" title=""></span><?php
-												echo $candidate['city']; 
-												if ($candidate['city'] && $candidate['country']) echo ', '; 
-												echo $candidate['country']; 
-												?></a>
-											<?php //echo $candidate['address']; ?>
-											</small>
-										<?php } ?>              
-							</div>
-
+						
 							
               <?php if ($candidate['available_name']) { ?>
-                <div class="available-time button small secondary"><?php echo $candidate['available_name']; ?></div>
+                <div class="available-time"><?php echo $candidate['available_name']; ?></div>
               <?php } ?>
 								
-						 <br />
-             <small class="meta person-skills">
+						 
+              <div class="location-s">
+                    <?php if ($candidate['city'] || $candidate['country']){ ?>
+                    <p class="" data-tooltip title="<img src='<?php echo getGMap($candidate['country'],$candidate['city']); ?>'>">
+
+                    <span class="general foundicon-location" title=""></span><?php
+                        echo $candidate['city']; 
+                        if ($candidate['city'] && $candidate['country']) echo ', '; 
+                        echo $candidate['country']; 
+                        ?>
+                      <?php //echo $candidate['address']; ?>
+                      </p>
+                    <?php } ?>              
+              </div>
+
+
+             <p class="meta person-skills">
                 <?php
                 
                 foreach ($candidate['skillset'] as $skillset){
@@ -149,9 +152,8 @@ $idea = $data['idea'];
                     <?php
                   }
                 } ?>
-            </small>
-             
-           
+            </p>
+          
               <?php if (count($candidate['collabpref']) > 0) { ?>
                 <small class="meta">
                     <?php
@@ -166,20 +168,7 @@ $idea = $data['idea'];
                 </small>
               <?php } ?>
 
-                <div class="location">
-                      <?php	if ($candidate['city'] || $candidate['country']){ ?>
-                      <br>
-                        <small class="meta" data-tooltip title="<img src='<?php echo getGMap($candidate['country'],$candidate['city']); ?>'>">
-                        
-                      <a><span class="general foundicon-location" title=""></span><?php
-                          echo $candidate['city']; 
-                          if ($candidate['city'] && $candidate['country']) echo ', '; 
-                          echo $candidate['country']; 
-                          ?></a>
-                        <?php //echo $candidate['address']; ?>
-                        </small>
-                      <?php } ?>              
-                </div>
+            
             </div>
            </div>
           <?php } ?>
