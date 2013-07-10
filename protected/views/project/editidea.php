@@ -39,7 +39,24 @@
 <div class="row createidea">
   <div class="columns edit-header">
     <h3>
-      <?php echo Yii::t('app', 'Team'); ?>
+      <?php echo Yii::t('app', 'Team');
+
+          if($isOwner){
+        echo CHtml::link(Yii::t("app","Delete"),Yii::app()->createUrl('project/deleteIdea',array('id'=>$idea['id'])),
+                  array('class'=>"button small alert radius",
+                        'confirm'=>Yii::t("msg","You are about to delete this project!\nAre you sure?"),
+                        'onclick'=>"$(document).stopPropagation();",
+                      )
+              );?>
+      <?php 
+      }else{
+      echo CHtml::link(Yii::t("app","Leave project"),Yii::app()->createUrl('project/leaveIdea',array('id'=>$idea['id'])),
+                  array('class'=>"button small alert radius",
+                        'confirm'=>Yii::t("msg","You are about to leave this project!\nYou will have to be re invited to be a member.\nAre you sure?"),
+                        'onclick'=>"$(document).stopPropagation();",
+                      )
+              ); 
+      }?>
     </h3>
   </div>
   <div class="columns panel edit-content">

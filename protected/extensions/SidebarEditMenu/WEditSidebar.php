@@ -13,6 +13,8 @@ class WEditSidebar extends CWidget
 			   $user = $sqlbuilder->load_array("user", $filter);
 
 				$this->ideas = $user['idea'];
+        Yii::log(arrayLog($this->ideas), CLogger::LEVEL_INFO, 'WEdistSidebar.info.idea');
+
 			}
 			
       $this->render("start",array("ideas"=>$this->ideas));

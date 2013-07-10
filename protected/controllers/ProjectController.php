@@ -29,7 +29,7 @@ class ProjectController extends GxController {
 				'users'=>array('*'),
 			),
 	    array('allow',
-		        'actions'=>array('create','edit'),
+		        'actions'=>array('create','edit','leaveIdea','deleteIdea'),
 		        'users'=>array("@"),
 		    ),
 			array('allow', // allow admins only
@@ -494,7 +494,7 @@ class ProjectController extends GxController {
 				$translation = IdeaTranslation::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'deleted' => 0 ) );
 
 			if(!$id)
-				$this->render('createidea_3', array('translation' => $translation, 'idea_id' => $idea_id ));
+				$this->render('createidea_3', array('translation' => $translation, 'idea_id' => $idea_id));
 		}
 
 		//render for edit
@@ -502,6 +502,7 @@ class ProjectController extends GxController {
 
 			$data_array['id'] = $id;
 			$data_array['lang'] = $lang;
+			$data_array['isOwner']=($hasPriviledges->type_id==1);
 
 			if(isset($idea))
 				$data_array['idea'] = $idea;
@@ -640,32 +641,27 @@ class ProjectController extends GxController {
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
 		
 		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
-		$criteria=new CDbCriteria();
-		$criteria->addInCondition('type_id',array(1)); //owner
-		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
 
-		if($idea && $hasPriviledges){
-			$idea->setAttributes(array('deleted' => 1));
+    	$ideaMember = IdeaMember::Model()->findByAttributes(array('type_id' => 1,'match_id' => $match->id, 'idea_id' => $id));
+		if($idea && $ideaMember){
+			$idea->deleted = 1;
 				
 			if($idea->save()){
-				$return['message'] = Yii::t('msg', "Success!");
-				$return['status'] = 0;
-			} else {
-				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to delete project.");
-				$return['status'] = 1;
-			}
-				
-			if(isset($_GET['ajax'])){
-				$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
-				echo $return; //return array
-				Yii::app()->end();
-			} else {
-	           	//not ajax stuff
 			}
 		}
 
-		$this->redirect(array('index'));
+    	$this->redirect(Yii::app()->createUrl('profile/projects'));
 	}
+  
+	 public function actionLeaveIdea($id){
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+
+	    $ideaMember = IdeaMember::Model()->findByAttributes(array('type_id' => 2,'match_id' => $match->id, 'idea_id' => $id));
+	    if($ideaMember){
+	      $ideaMember->delete();
+	    }
+	    $this->redirect(Yii::app()->createUrl('profile/projects'));
+	  }
 
 	//ajax functions
 	public function actionSAddSkill() {

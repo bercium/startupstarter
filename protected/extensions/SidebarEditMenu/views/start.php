@@ -17,6 +17,7 @@
         <div class="idea-each alpha omega" >
           <span class="alt"><?php echo $idea['title']; ?></span>
           <small class="meta"><?php echo Yii::t("app","viewed {n} time|viewed {n} times",array($idea['num_of_clicks'])); ?></small>
+          <small class="meta right"><?php if ($idea['type_id'] == 1) echo Yii::t("app","owner"); else echo Yii::t("app","member"); ?></small>
         </div>
         </a>
       <?php } ?>
