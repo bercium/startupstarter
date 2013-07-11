@@ -13,7 +13,8 @@
 #assets/
 #protected/runtime/
 protected/tests/report/
-
+uploads/
+temp/
 
 protected/config/local-db.php
 protected/config/local-path.php
