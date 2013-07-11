@@ -13,21 +13,21 @@
 
     <?php echo CHtml::activeLabelEx($translation,'title'); ?>
     <span class="description">
-      What are you calling it? One or two words please, you can always change it later.
+      <?php echo Yii::t('msg','What are you calling it? One or two words please, you can always change it later.'); ?>
     </span>
     <?php echo CHtml::activeTextField($translation,"title", array('maxlength' => 128)); ?>
 
     <?php echo CHtml::activeLabelEx($translation,'pitch'); ?>
     <span class="description">
-        This is your pitch. Be short and to the point
+        <?php echo Yii::t('msg','This is your pitch. Be short and to the point.'); ?>
     </span>
     <?php echo CHtml::activeTextArea($translation,"pitch"); ?>
 
-<br />
+      <br />
     <?php echo CHtml::activeLabelEx($idea,'status_id'); ?>
      <span class="description">
-      Status of 
-     </span>
+      <?php echo Yii::t('msg','Status of project.'); ?>
+     </span>  
     <?php echo CHtml::activedropDownList($idea, 'status_id', GxHtml::listData(IdeaStatus::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;', 'style' => 'display: none;')); ?>
 
 
@@ -35,17 +35,17 @@
     <?php echo CHtml::activeLabelEx($translation,'description'); ?>
     
      <span class="description">
-       This is your pitch. Be short. Some more info on this subject.
+       <?php echo Yii::t('msg','Describe your project in detail.'); ?>
      </span>
     <?php echo CHtml::activeTextArea($translation,"description",array('class'=>'lin-edit')); ?> 
      <br />
     <?php echo CHtml::activeLabelEx($translation,'description_public'); ?>
     <div class="switch small round small-3" style="text-align: center;">
       <input id="description_public_0" name="IdeaTranslation[description_public]" type="radio" value="0" <?php if (!$translation->description_public) echo 'checked="checked"' ?>>
-      <label for="description_public_0" onclick="">Off</label>
+      <label for="description_public_0" onclick=""><?php echo Yii::t('msg','Off'); ?></label>
 
       <input id="description_public_1" name="IdeaTranslation[description_public]" type="radio" value="1" <?php if ($translation->description_public) echo 'checked="checked"' ?>>
-      <label for="description_public_1" onclick="">On</label>
+      <label for="description_public_1" onclick=""><?php echo Yii::t('msg','On'); ?></label>
       <span></span>
    </div>
      
@@ -53,7 +53,7 @@
     <?php echo CHtml::activeLabelEx($translation,'keywords'); ?>
     <div class="lin-hidden">
      <span class="description">
-      Describe your project with comma separated keywords to increase visibility of your project.
+      <?php echo Yii::t('msg','Describe your project with comma separated keywords to increase visibility of your project.'); ?>
      </span>
     <?php echo CHtml::activeTextArea($translation,"keywords",array('class'=>'lin-edit')); ?>
     </div>
@@ -63,7 +63,7 @@
     <?php echo CHtml::activeLabelEx($translation,'tweetpitch'); ?>
     <div class="lin-hidden">
      <span class="description">
-      Describe your project with comma separated keywords to increase visibility of your project.
+      <?php echo Yii::t('msg','Describe your project with comma separated keywords to increase visibility of your project.'); ?>
      </span>
     <?php echo CHtml::activeTextArea($translation,"tweetpitch",array('class'=>'lin-edit')); ?>
     </div>

@@ -33,10 +33,10 @@
       <?php echo CHtml::activeLabelEx($user,'newsletter'); ?>
       <div class="switch small round small-4 large-3">
         <input id="newsletter_0" name="UserEdit[newsletter]" type="radio" value="0" <?php if (!$user->newsletter) echo 'checked="checked"' ?>>
-        <label for="newsletter_0" onclick="">Off</label>
+        <label for="newsletter_0" onclick=""><?php echo Yii::t('app','Off');?></label>
 
         <input id="newsletter_1" name="UserEdit[newsletter]" type="radio" value="1" <?php if ($user->newsletter) echo 'checked="checked"' ?>>
-        <label for="newsletter_1" onclick="">On</label>
+        <label for="newsletter_1" onclick=""><?php echo Yii::t('app','On');?></label>
         <span></span>
       </div>
     
@@ -120,10 +120,10 @@
     <?php echo CHtml::label(Yii::t('app', 'Account status'),'deactivate_account'); ?>
     <div class="switch small round small-2">
       <input id="deactivate_account_0" name="deactivate_account" type="radio" value="1" >
-      <label for="deactivate_account_0" onclick="">Off</label>
+      <label for="deactivate_account_0" onclick=""><?php echo Yii::t('app','Off');?></label>
 
       <input id="deactivate_account_1" name="deactivate_account" type="radio" value="0" checked="checked">
-      <label for="deactivate_account_1" onclick="">On</label>
+      <label for="deactivate_account_1" onclick=""><?php echo Yii::t('app','On');?></label>
       <span></span>
     </div>
 

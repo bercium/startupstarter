@@ -8,7 +8,7 @@
        <li><strong>1.<?php echo Yii::t('app', 'Presentation'); ?></strong></li>
        <li>2.<?php echo Yii::t('app', 'Team'); ?></li>
        <?php /* ?><li><strong>3.<?php echo Yii::t('app', 'Social'); ?></strong></li> <?php */ ?>
-      <li> You're done!</li>
+      <li><?php echo Yii::t('app','You are done!');?></li>
     </ul>
   </div>
   <div class="columns panel edit-content">

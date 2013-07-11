@@ -37,7 +37,7 @@ foreach($user['idea'] AS $key => $idea){
 
 <div class="row myprojects" style="margin-top:20px;">
   <div class="  columns edit-header">
-    <h3><?php echo Yii::t('app', 'Projects I\'m member of'); ?></h3>
+    <h3><?php echo Yii::t('app', "Projects I'm member of"); ?></h3>
   </div>
     
 <?php

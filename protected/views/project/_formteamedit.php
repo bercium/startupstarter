@@ -134,8 +134,8 @@ if(is_array($ideadata['candidate'])){
         <div class="edit-floater">
           
       <?php  
-            echo "<a href='".Yii::app()->createUrl('project/edit?id='.$id.'&lang='.$lang.'&candidate='.$value['match_id'])."'>Edit</a> ";
-            echo "<a href='".Yii::app()->createUrl('project/edit?id='.$id.'&lang='.$lang.'&delete_candidate='.$value['match_id'])."'>Delete</a> ";
+            echo "<a href='".Yii::app()->createUrl('project/edit?id='.$id.'&lang='.$lang.'&candidate='.$value['match_id'])."'>".Yii::t('app','Edit')."</a> ";
+            echo "<a href='".Yii::app()->createUrl('project/edit?id='.$id.'&lang='.$lang.'&delete_candidate='.$value['match_id'])."'>".Yii::t('app','Delete')."</a> ";
 
             echo CHtml::ajaxButton(Yii::t("app","Delete"),'','',
                   array('class'=>"button tiny alert radius",

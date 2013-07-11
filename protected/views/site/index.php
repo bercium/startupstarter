@@ -25,7 +25,7 @@
     <div class="large-10 large-offset-1 small-12 columns" style="text-align: center;" >
 
 <!-- Content if guest -->
-      <h1>With the <span>right team</span> any <span class="isc">idea</span> can change your life</h1>
+      <h1><?php echo Yii::t('msg','With the <span>right team</span> any <span>idea</span> can change your life'); ?></h1>
       <p>
           <?php echo CHtml::encode(Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.')); ?>
       </p>
@@ -83,7 +83,7 @@ $("#showhide").click(function() {
 				</div>
         
 				
-					<a class="exp_srch large-3 small-3 button small secondary right round" href="#" onclick="$('.advance').toggle(); return false;">Advanced search <span class="icon-caret-down"></span></a>
+					<a class="exp_srch large-3 small-3 button small secondary right round" href="#" onclick="$('.advance').toggle(); return false;"><?php echo Yii::t('msg','Advanced search'); ?> <span class="icon-caret-down"></span></a>
 				
         
       </div>

@@ -14,7 +14,7 @@
   </ul>
 
 	<div class="pagination-centered">
-		<small class="hide-for-small"><a href="<?php echo Yii::app()->createUrl("person/recent/1"); ?>"  class="right button small secondary">show all </a></small>
+		<small class="hide-for-small"><a href="<?php echo Yii::app()->createUrl("person/recent/1"); ?>"  class="right button small secondary"><?php echo Yii::t('app','show all'); ?></a></small>
 		
 		<ul class="pagination hide-for-small">
 			<?php if ($page > 1){ ?>
@@ -33,5 +33,5 @@
 	</div>
 
 	<small class="show-for-small">
-		<a href="<?php echo Yii::app()->createUrl("person/recent/1"); ?>"  class="button large secondary expand secondary">show all</a>
+		<a href="<?php echo Yii::app()->createUrl("person/recent/1"); ?>"  class="button large secondary expand secondary"><?php echo Yii::t('app','show all'); ?></a>
 	</small>
