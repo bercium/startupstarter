@@ -85,7 +85,7 @@ class WProfileInfo extends CWidget
                                   "action"=>Yii::app()->createUrl("profile")."#link_personal");
         
         if ($user->avatar_link != '') $perc+=10;
-        else $messages[] = array("hint"=>Yii::t('msg',"Selecting an avatar will give you more visibility."),
+        else $messages[] = array("hint"=>Yii::t('msg',"Selecting an avatar will make you more recognizable."),
                                   "action"=>Yii::app()->createUrl("profile")."#link_personal");
         
         
