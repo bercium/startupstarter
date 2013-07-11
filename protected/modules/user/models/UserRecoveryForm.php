@@ -29,7 +29,7 @@ class UserRecoveryForm extends CFormModel {
 	public function attributeLabels()
 	{
 		return array(
-			'login_or_email'=>Yii::t('app',"Pleas write your email"),
+			'login_or_email'=>Yii::t('app',"Please write your email"),
 		);
 	}
 	

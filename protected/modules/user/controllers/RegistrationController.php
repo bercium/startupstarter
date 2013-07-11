@@ -64,7 +64,7 @@ class RegistrationController extends Controller
                         $user_match->user_id = $model->id;
                         $user_match->save();
 
-                        $activation_url = '<a href="'.$this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $model->activkey, "email" => $model->email)).">".Yii::t('msg',"Activate")."</a>";
+                        $activation_url = '<a href="'.$this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $model->activkey, "email" => $model->email)).">".Yii::t('app',"Activate")."</a>";
                         
                         $message = new YiiMailMessage;
                         $message->view = 'system';

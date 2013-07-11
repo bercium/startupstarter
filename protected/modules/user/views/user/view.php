@@ -5,10 +5,10 @@ $this->breadcrumbs=array(
 );
 $this->layout='//layouts/column2';
 $this->menu=array(
-    array('label'=>Yii::t('app','List User'), 'url'=>array('index')),
+    array('label'=>Yii::t('app','List user'), 'url'=>array('index')),
 );
 ?>
-<h1><?php echo Yii::t('app','View User').' "'.$model->email.'"'; ?></h1>
+<h1><?php echo Yii::t('app','View user').' "'.$model->email.'"'; ?></h1>
 <?php 
 
 // For all users

@@ -10,7 +10,7 @@ $this->pageTitle = Yii::t('app', 'Login');
 
 <?php endif; ?>
 
-<p><?php echo Yii::t('msg', "Please fill out the following form with your login credentials:"); ?></p>
+<p><?php echo Yii::t('msg', "Please fill out the following form with your login credentials"); ?></p>
 
 <div class="form">
 	<?php echo CHtml::beginForm('','post',array('class'=>"custom  large-6 small-12")); ?>

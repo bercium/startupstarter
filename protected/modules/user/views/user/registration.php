@@ -45,6 +45,15 @@ $this->pageTitle = Yii::t('app', 'Registration');
 		<p class="hint"><?php echo Yii::t('msg',"Please enter the letters as they are shown in the image above."); ?>
 		<br/><?php echo Yii::t('msg',"Letters are not case-sensitive."); ?></p>
 	<?php endif; ?>
+    
+  <label for="RegistrationForm_tos" <?php if ($form->error($model,'tos')) echo 'class="error"'; ?>>
+ 	<?php echo $form->checkBox($model,'tos',array('style'=>'display:none')); ?>
+	<?php 
+   $tos = Yii::t('app','Terms of service');
+   echo Yii::t('msg','I have read and agree to the following Terms of Use {tos}',array('{tos}'=>'<a href="'.Yii::app()->createUrl('site/terms').'" target="_blank">'.$tos.'</a>')); ?>
+  </label>
+  <span class="error"><?php echo $form->error($model,'tos'); ?></span>
+  <br /><br />
 	
 	<?php echo CHtml::submitButton(Yii::t('app',"Register"),array("class"=>"radius small button")); ?>
 
