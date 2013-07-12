@@ -28,7 +28,7 @@ abstract class BaseSkillsetSkill extends GxActiveRecord {
 	}
 
 	public static function label($n = 1) {
-		return Yii::t('app', 'SkillsetSkill|SkillsetSkills', $n);
+		return Yii::t('app', 'Skill group|Skill group', $n);
 	}
 
 	public static function representingColumn() {
@@ -62,7 +62,7 @@ abstract class BaseSkillsetSkill extends GxActiveRecord {
 			'id' => Yii::t('app', 'ID'),
 			'skillset_id' => null,
 			'skill_id' => null,
-			'usage_count' => Yii::t('app', 'Usage Count'),
+			'usage_count' => Yii::t('app', 'Usage count'),
 			'skillset' => null,
 			'skill' => null,
 		);

@@ -33,7 +33,7 @@ abstract class BaseIdeaTranslation extends GxActiveRecord {
 	}
 
 	public static function label($n = 1) {
-		return Yii::t('app', 'IdeaTranslation|IdeaTranslations', $n);
+		return Yii::t('app', 'Project translation|Project translations', $n);
 	}
 
 	public static function representingColumn() {
@@ -72,7 +72,7 @@ abstract class BaseIdeaTranslation extends GxActiveRecord {
 			'idea_id' => null,
 			'pitch' => Yii::t('app', 'Pitch'),
 			'description' => Yii::t('app', 'Description'),
-			'description_public' => Yii::t('app', 'Description Public'),
+			'description_public' => Yii::t('app', 'Public description'),
 			'keywords' => Yii::t('app', 'Keywords'),
 			'tweetpitch' => Yii::t('app', 'Tweetpitch'),
 			'deleted' => Yii::t('app', 'Deleted'),

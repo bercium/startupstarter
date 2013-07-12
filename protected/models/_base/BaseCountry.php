@@ -56,7 +56,7 @@ abstract class BaseCountry extends GxActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => Yii::t('app', 'ID'),
-			'name' => Yii::t('app', 'Name'),
+			'name' => Yii::t('app', 'Country'),
       'country_code' => Yii::t('app', 'Country code'),
 		);
 	}

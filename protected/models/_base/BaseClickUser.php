@@ -28,7 +28,7 @@ abstract class BaseClickUser extends GxActiveRecord {
 	}
 
 	public static function label($n = 1) {
-		return Yii::t('app', 'ClickUser|ClickUsers', $n);
+		return Yii::t('app', 'User view|User views', $n);
 	}
 
 	public static function representingColumn() {

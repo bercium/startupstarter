@@ -171,80 +171,68 @@ class ProfileController extends GxController {
 						}
 					}// end post check 
 
+					$user->validate();
+					$match->validate();
+
 					if ($user->save()) {
 
 						$_POST['UserMatch']['user_id'] = $user_id;
 						$match->setAttributes($_POST['UserMatch']);
             
-            if (!empty($_POST['UserMatch']['city'])){
-              $city = City::model()->findByAttributes(array('name'=>$_POST['UserMatch']['city']));
-              if ($city) $match->city_id = $city->id;
-              else{
-                $city = new City();
-                $city->name = $_POST['UserMatch']['city'];
-                $city->save();
-                $match->city_id = $city->id;
-              }
-            }
+			            if (!empty($_POST['UserMatch']['city'])){
+			              $city = City::model()->findByAttributes(array('name'=>$_POST['UserMatch']['city']));
+			              if ($city) $match->city_id = $city->id;
+			              else{
+			                $city = new City();
+			                $city->name = $_POST['UserMatch']['city'];
+			                $city->save();
+			                $match->city_id = $city->id;
+			              }
+			            }
 
 						if ($match->save()) {
 							Yii::app()->user->setFlash('personalMessage', UserModule::t("Personal information saved."));
-							/* if (Yii::app()->getRequest()->getIsAjaxRequest())
-							  Yii::app()->end();
-							  else
-							  $this->redirect(array('profile/')); */
 						}
 					}
 				}
         
-        if (isset($_POST['CollabPref']) && isset($_POST['UserMatch'])) {
-          $match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
-          $match_id = $match->id;
-          $match->setAttributes($_POST['UserMatch']);
-          
-          UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
-          $c = count($_POST['CollabPref']);
-          foreach ($_POST['CollabPref'] as $collab => $collab_name){
-            $user_collabpref = new UserCollabpref;
-            $user_collabpref->match_id = $match_id;
-            $user_collabpref->collab_id = $collab;
-            if ($user_collabpref->save()) $c--;
-          }
-          
-          if (($c == 0) && ($match->save())) {
-            Yii::app()->user->setFlash('profileMessage', UserModule::t("Profile details saved."));
-          }else{
-            Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to save profile details."));
-          }
-          
-        }
+		        if (isset($_POST['CollabPref']) && isset($_POST['UserMatch'])) {
+		          $match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
+		          $match_id = $match->id;
+		          $match->setAttributes($_POST['UserMatch']);
+		          
+		          UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
+		          $c = count($_POST['CollabPref']);
+		          foreach ($_POST['CollabPref'] as $collab => $collab_name){
+		            $user_collabpref = new UserCollabpref;
+		            $user_collabpref->match_id = $match_id;
+		            $user_collabpref->collab_id = $collab;
+		            if ($user_collabpref->save()) $c--;
+		          }
+		          
+		          if (($c == 0) && ($match->save())) {
+		            Yii::app()->user->setFlash('profileMessage', UserModule::t("Profile details saved."));
+		          }else{
+		            Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to save profile details."));
+		          }
+		          
+		        }
 
 				$filter['user_id'] = $user_id;
 				$sqlbuilder = new SqlBuilder;
 				$data['user'] = $sqlbuilder->load_array("user", $filter);
-				//$this->ideas = $data['user']['idea'];
-				//print_r($data['user']);
-				//$link = new LinkForm;
 				$link = new UserLink;
 
         
-        $userSkills = UserSkill::Model()->findAllByAttributes(array('match_id' => $match['id']));
+        		$userSkills = UserSkill::Model()->findAllByAttributes(array('match_id' => $match['id']));
 				//$mod = UserCollabpref::Model()->findAllByAttributes( array( 'match_id' => $match->id) );
 				/* $data = Collabpref::model()->with('userCollabprefs')
 				  ->findAll( array( 'condition'=>'userCollabprefs.match_id = '.$match->id ) ); */
 				//$data = UserCollabpref::model()->with('collab')->findAllByAttributes( array( 'match_id' => $match->id) );
 
-        if (Yii::app()->user->isGuest) $this->render('registrationFlow', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'userSkills'=>$userSkills));
-        else $this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea'], 'userSkills'=>$userSkills));
-			} else {
-				//this would cause an infinite loop, so lets not do it
-				//in a perfect world this would redirect to the register page. not sure how to dynamically redirect outside the same controller
-				//$this->redirect(array('index'));
+        		if (Yii::app()->user->isGuest) $this->render('registrationFlow', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'userSkills'=>$userSkills));
+        		else $this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea'], 'userSkills'=>$userSkills));
 			}
-		} else {
-			//this would cause an infinite loop, so lets not do it
-			//in a perfect world this would redirect to the register page. not sure how to dynamically redirect outside the same controller
-			//$this->redirect(array('index'));
 		}
 	}
 
@@ -296,12 +284,7 @@ class ProfileController extends GxController {
 						ELangPick::setLanguage($lang->language_code);
 					}
 
-					/* if (Yii::app()->getRequest()->getIsAjaxRequest())
-					  Yii::app()->end();
-					  else{ */
 					Yii::app()->user->setFlash('settingsMessage', UserModule::t("Settings saved."));
-					//$this->redirect(array('profile/account/'));
-					//}
 				}
 			} else
 			if (isset($_POST['deactivate_account']) && ($_POST['deactivate_account'] == 1)) {
@@ -310,7 +293,7 @@ class ProfileController extends GxController {
 					$this->redirect(array('user/logout'));
 			}
 
-			// pasword changing
+			// password changing
 			$form2 = new UserChangePassword;
 			$find = User::model()->findByPk(Yii::app()->user->id);
 			if (isset($_POST['UserChangePassword'])) {
@@ -323,7 +306,6 @@ class ProfileController extends GxController {
 					}
 					$find->save();
 					Yii::app()->user->setFlash('passChangeMessage', UserModule::t("New password is saved."));
-					//$this->redirect(Yii::app()->controller->module->recoveryUrl);
 				}
 			}
 
@@ -333,8 +315,6 @@ class ProfileController extends GxController {
 			//$this->ideas = $data['user']['idea'];
 
 			$this->render('account', array('user' => $user, "passwordForm" => $form2, "fpi" => $fpi, 'ideas'=>$data['user']['idea']));
-		} else {
-			//not logged in stuff
 		}
 	}
 
@@ -366,10 +346,10 @@ class ProfileController extends GxController {
 			}
 
 			if ($allgood) {
-				$return['message'] = Yii::t('msg', "Success!");
+				$return['message'] = Yii::t('msg', "Project removed successfully!");
 				$return['status'] = 0;
 			} else {
-				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove project from your account.");
+				$return['message'] = Yii::t('msg', "Unable to remove project from your account.");
 				$return['status'] = 1;
 			}
 
@@ -377,11 +357,7 @@ class ProfileController extends GxController {
 				$return = json_encode($return);
 				echo $return; //return array
 				Yii::app()->end();
-			} else {
-				//not ajax stuff
 			}
-		} else {
-			//not logged in stuff
 		}
 	}
 
@@ -415,10 +391,10 @@ class ProfileController extends GxController {
 				}
 
 				if ($allgood) {
-					$return['message'] = Yii::t('msg', "Success!");
+					$return['message'] = Yii::t('msg', "Successfully updated collaboration preferences!");
 					$return['status'] = 0;
 				} else {
-					$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update collaboration preferences.");
+					$return['message'] = Yii::t('msg', "Unable to update collaboration preferences.");
 					$return['status'] = 1;
 				}
 
@@ -426,29 +402,25 @@ class ProfileController extends GxController {
 					$return = json_encode($return);
 					echo $return; //return array
 					Yii::app()->end();
-				} else {
-					//not ajax stuff
 				}
 			}
-		} else {
-			//not logged in stuff
 		}
 	}
 
 	public function actionAddSkill() {
 
-    if (Yii::app()->user->isGuest && isset($_GET['key']) && isset($_GET['email']) && !empty($_GET['key']) && !empty($_GET['email'])){
-      $user_register = User::model()->notsafe()->findByAttributes(array('email'=>$_GET['email']));
-      
-      if (!$user_register || ((substr($user_register->activkey, 0, 10) !== $_GET['key']) || ($user_register->status != 0))){
+	    if (Yii::app()->user->isGuest && isset($_GET['key']) && isset($_GET['email']) && !empty($_GET['key']) && !empty($_GET['email'])){
+	      $user_register = User::model()->notsafe()->findByAttributes(array('email'=>$_GET['email']));
+	      
+	      	if (!$user_register || ((substr($user_register->activkey, 0, 10) !== $_GET['key']) || ($user_register->status != 0))){
 				$return['message'] = Yii::t('msg', "Unable to add skill.");
 				$return['status'] = 1;
-        $return = json_encode($return);
+        		$return = json_encode($return);
 				echo $return; //return array
-        return;
-      }
-      $user_id = $user_register->id;
-    }else $user_id = Yii::app()->user->id;
+        		return;
+	      	}
+	      	$user_id = $user_register->id;
+	    }else $user_id = Yii::app()->user->id;
     
     
 		$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
@@ -460,79 +432,68 @@ class ProfileController extends GxController {
 
 			if (!empty($_POST['skill']) && !empty($_POST['skillset'])) {
 				
+		        $skill = Skill::model()->findByAttributes(array("name"=>$_POST['skill']));
+		        // save new skill
+		        if ($skill == null){
+		          $skill = new Skill;
+		          $skill->name = $_POST['skill'];
+		          $skill->save();
+		        }
         
-            /*$response = array("data" => null,
-							"status" => 1,
-							"message" => print_r($_POST, true));
-          
-          echo json_encode($response);
-          Yii::app()->end();*/
-        
-				// check if skill exists if not add to table skill
-				// check if skill with skillset exist if not add to table skillset_skill
-				// add ID to user_skill
-				
-        $skill = Skill::model()->findByAttributes(array("name"=>$_POST['skill']));
-        // save new skill
-        if ($skill == null){
-          $skill = new Skill;
-          $skill->name = $_POST['skill'];
-          $skill->save();
-        }
-        
-        if ($skill->id){
-          $skillset_skill = SkillsetSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
-                                                                           "skillset_id"=>$_POST['skillset']));
-          // save skillset skill connection
-          $usage_count = false;
-	      if ($skillset_skill == null){
-	        $skillset_skill = new SkillsetSkill;
-	        $skillset_skill->skill_id = $skill->id;
-	        $skillset_skill->skillset_id = $value['skillset_id'];
-	        $skillset_skill->usage_count = 1;
-	        $skillset_skill->save();
-	      } else {
-	        $usage_count = true;
-	      }
-          
-          $user_skill = UserSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
-                                                                   "skillset_id"=>$_POST['skillset'],
-                                                                   "match_id"=>$match_id,));
-          if ($user_skill == null){
-            $user_skill = new UserSkill;
-            $user_skill->skill_id = $skill->id;
-            $user_skill->skillset_id = $_POST['skillset'];
-            $user_skill->match_id = $match_id;
+		        if ($skill->id){
+			        $skillset_skill = SkillsetSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
+			                                                                           "skillset_id"=>$_POST['skillset']));
+			        // save skillset skill connection
+			        $usage_count = false;
+				    if ($skillset_skill == null){
+				        $skillset_skill = new SkillsetSkill;
+				        $skillset_skill->skill_id = $skill->id;
+				        $skillset_skill->skillset_id = $value['skillset_id'];
+				        $skillset_skill->usage_count = 1;
+				        $skillset_skill->save();
+				    } else {
+				        $usage_count = true;
+				    }
+		          
+		          	$user_skill = UserSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
+		                                                                   	"skillset_id"=>$_POST['skillset'],
+		                                                                   	"match_id"=>$match_id,));
+		          	if ($user_skill == null){
+			            $user_skill = new UserSkill;
+			            $user_skill->skill_id = $skill->id;
+			            $user_skill->skillset_id = $_POST['skillset'];
+			            $user_skill->match_id = $match_id;
 
-            if($usage_count){
-				$skillset_skill->usage_count = $skillset_skill->usage_count + 1;
-				$skillset_skill->save();
-            }
+			            if($usage_count){
+							$skillset_skill->usage_count = $skillset_skill->usage_count + 1;
+							$skillset_skill->save();
+			            }
 
-            if ($user_skill->save()){
-              
-              $skillset = Skillset::model()->findByPk($_POST['skillset']);
-              $response = array("data" => array("title" => $_POST['skill'],
-                                                "id" => $user_skill->id,
-                                                "location" => Yii::app()->createUrl("profile/deleteSkill"),
-                                                "desc" => $skillset->name, // !!! add description
-                                ),
-              "status" => 0,
-              "message" => "");
-            }else{
-              $response = array("data" => null,
-								"status" => 1,
-								"message" => Yii::t('msg', "Problem saving skill. Please check fields for correct values."));            }
-          }else{
-            $response = array("data" => null,
-							"status" => 1,
-							"message" => Yii::t('msg', "You already have this skill."));
-          }
-          echo json_encode($response);
-          Yii::app()->end();
-        }
+			            if ($user_skill->save()){
+			              
+			              $skillset = Skillset::model()->findByPk($_POST['skillset']);
+			              $response = array("data" => array("title" => $_POST['skill'],
+			                                                "id" => $user_skill->id,
+			                                                "location" => Yii::app()->createUrl("profile/deleteSkill"),
+			                                                "desc" => $skillset->name, // !!! add description
+			                                ),
+			              "status" => 0,
+			              "message" => "");
+			            }else{
+			              $response = array("data" => null,
+											"status" => 1,
+											"message" => Yii::t('msg', "Problem saving skill. Please check fields for correct values."));
+			          	}
+			        }else{
+			            $response = array("data" => null,
+										"status" => 1,
+										"message" => Yii::t('msg', "You already have this skill."));
+			        }
+		          	echo json_encode($response);
+		          	Yii::app()->end();
+		        }
 
-      // end set skill and skillset
+      		// end set skill and skillset
 			}else{
 				if (empty($_POST['skillset'])){
 					$response = array("data" => null,
@@ -546,31 +507,29 @@ class ProfileController extends GxController {
 				echo json_encode($response);
 				Yii::app()->end();
 			}
-		} else {
-			//not logged in stuff
 		}
 	}
 
 	public function actionDeleteSkill() {
     
-    if (Yii::app()->user->isGuest && isset($_GET['key']) && isset($_GET['email']) && !empty($_GET['key']) && !empty($_GET['email'])){
-      $user_register = User::model()->notsafe()->findByAttributes(array('email'=>$_GET['email']));    
-      if (!$user_register || ((substr($user_register->activkey, 0, 10) !== $_GET['key']) || ($user_register->status != 0))){
+	    if (Yii::app()->user->isGuest && isset($_GET['key']) && isset($_GET['email']) && !empty($_GET['key']) && !empty($_GET['email'])){
+	      	$user_register = User::model()->notsafe()->findByAttributes(array('email'=>$_GET['email']));    
+	      	if (!$user_register || ((substr($user_register->activkey, 0, 10) !== $_GET['key']) || ($user_register->status != 0))){
 				$return['message'] = Yii::t('msg', "Unable to remove skill.");
 				$return['status'] = 1;
-        $return = json_encode($return);
+	        	$return = json_encode($return);
 				echo $return; //return array
-        return;
-      }
-      $user_id = $user_register->id;
-    }else $user_id = Yii::app()->user->id;
-    
-    $skill_id = 0;
+	        	return;
+	      	}
+	      	$user_id = $user_register->id;
+	    }else $user_id = Yii::app()->user->id;
+	    
+	    $skill_id = 0;
 		if (isset($_POST['id']))
 			$skill_id = $_POST['id'];
 
 		if ($user_id > 0 && $skill_id) {
-  		$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
+			$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
 
 			$skill = UserSkill::Model()->findByAttributes(array('id' => $skill_id,'match_id'=>$match['id']));
 
@@ -586,48 +545,43 @@ class ProfileController extends GxController {
 				$return = json_encode($return);
 				echo $return; //return array
 				Yii::app()->end();
-			} else {
-				//not ajax stuff
 			}
 		}
-    
 	}
 
-	
 	public function actionSugestSkill() {
 
 		if (!isset($_GET['term'])){
 			$response = array("data" => null,
-												"status" => 1,
-												"message" => Yii::t('msg', "No search query."));
+								"status" => 1,
+								"message" => Yii::t('msg', "No search query."));
 		}else{
 			$connection=Yii::app()->db;
 			
 			// needs translation as well
-      if (Yii::app()->getLanguage() != 'en'){
-      	$lang = Language::model()->findByAttributes(array("language_code"=>Yii::app()->getLanguage()));
-        $command=$connection->createCommand("SELECT s.name AS skill, ss.translation AS skillset, s.id, ss.row_id AS skillset_id FROM skill s
-                                             LEFT JOIN skillset_skill sss ON sss.skill_id = s.id
-                                             LEFT JOIN (SELECT * FROM translation WHERE language_id = ".$lang->id." AND `table`='skillset') ss ON ss.row_id = sss.skillset_id
-                                             WHERE s.name LIKE '%".$_GET['term']."%'");
-        
-      } else {
-        $command=$connection->createCommand("SELECT s.name AS skill, ss.name AS skillset, s.id, ss.id AS skillset_id FROM skill s
-                                             LEFT JOIN skillset_skill sss ON sss.skill_id = s.id
-                                             LEFT JOIN skillset ss ON ss.id = sss.skillset_id
-                                             WHERE s.name LIKE '%".$_GET['term']."%'");
-      }
+      	if (Yii::app()->getLanguage() != 'en'){
+      		$lang = Language::model()->findByAttributes(array("language_code"=>Yii::app()->getLanguage()));
+        	$command=$connection->createCommand("SELECT s.name AS skill, ss.translation AS skillset, s.id, ss.row_id AS skillset_id FROM skill s
+                                             	LEFT JOIN skillset_skill sss ON sss.skill_id = s.id
+                                             	LEFT JOIN (SELECT * FROM translation WHERE language_id = ".$lang->id." AND `table`='skillset') ss ON ss.row_id = sss.skillset_id
+                                             	WHERE s.name LIKE '%".$_GET['term']."%'");
+      	} else {
+        	$command=$connection->createCommand("SELECT s.name AS skill, ss.name AS skillset, s.id, ss.id AS skillset_id FROM skill s
+                                             	LEFT JOIN skillset_skill sss ON sss.skill_id = s.id
+                                             	LEFT JOIN skillset ss ON ss.id = sss.skillset_id
+                                             	WHERE s.name LIKE '%".$_GET['term']."%'");
+      	}
       
-			$dataReader=$command->query();
+		$dataReader=$command->query();
 
-			$data = array();
-			foreach ($dataReader as $row){
-				$data[] = $row;
-			}
+		$data = array();
+		foreach ($dataReader as $row){
+			$data[] = $row;
+		}
 			
-			$response = array("data" => $data,
-												"status" => 0,
-												"message" => '');
+		$response = array("data" => $data,
+							"status" => 0,
+							"message" => '');
 		}
 		
 		echo json_encode($response);
@@ -662,29 +616,21 @@ class ProfileController extends GxController {
 										"location" => Yii::app()->createUrl("profile/deleteLink")
 								),
 								"status" => 0, // a damo console status kjer je 0 OK vse ostale cifre pa error????
-								"message" => "");
-						echo json_encode($response);
-						Yii::app()->end();
+								"message" => Yii::t('msg', "Link successfully saved to profile."));
 					} else {
 						$response = array("data" => null,
 								"status" => 1,
 								"message" => Yii::t('msg', "Problem saving link. Please check fields for correct values."));
-						echo json_encode($response);
-						Yii::app()->end();
-						/* if (Yii::app()->getRequest()->getIsAjaxRequest()){ 
-						  }
-						  else $this->redirect(array('addLink', 'id' => $user_id )); */
 					}
 				} else {
 					$response = array("data" => null,
 							"status" => 1,
 							"message" => Yii::t('msg', "You already have this link."));
-					echo json_encode($response);
-					Yii::app()->end();
 				}
+
+				echo json_encode($response);
+				Yii::app()->end();
 			}
-		} else {
-			//not logged in stuff
 		}
 	}
 
@@ -702,16 +648,15 @@ class ProfileController extends GxController {
 			if ($link->delete()) {
 				$response = array("data" => array("id" => $link_id),
 						"status" => 0,
-						"message" => '');
-				echo json_encode($response);
-				Yii::app()->end();
+						"message" => "Link successfully removed from profile.");
 			} else {
 				$response = array("data" => null,
 						"status" => 1,
 						"message" =>  Yii::t('msg', "Unable to remove link."));
-				echo json_encode($response);
-				Yii::app()->end();
-			} 
+			}
+
+			echo json_encode($response);
+			Yii::app()->end();
 		}
 	}
   

@@ -25,7 +25,7 @@ abstract class BaseCollabpref extends GxActiveRecord {
 	}
 
 	public static function label($n = 1) {
-		return Yii::t('app', 'Collabpref|Collabprefs', $n);
+		return Yii::t('app', 'Collaboration preference|Collaboration preferences', $n);
 	}
 
 	public static function representingColumn() {

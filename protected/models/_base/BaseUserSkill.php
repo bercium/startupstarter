@@ -29,7 +29,7 @@ abstract class BaseUserSkill extends GxActiveRecord {
 	}
 
 	public static function label($n = 1) {
-		return Yii::t('app', 'UserSkill|UserSkills', $n);
+		return Yii::t('app', 'User skill|User skills', $n);
 	}
 
 	public static function representingColumn() {

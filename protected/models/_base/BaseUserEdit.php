@@ -41,7 +41,7 @@ abstract class BaseUserEdit extends GxActiveRecord {
 	}
 
 	public static function label($n = 1) {
-		return Yii::t('app', 'UserEdit|UserEdits', $n);
+		return Yii::t('app', 'User|Users', $n);
 	}
 
 	public static function representingColumn() {
@@ -79,15 +79,15 @@ abstract class BaseUserEdit extends GxActiveRecord {
 			'id' => Yii::t('app', 'ID'),
 			'email' => Yii::t('app', 'Email'),
 			'password' => Yii::t('app', 'Password'),
-			'activkey' => Yii::t('app', 'Activkey'),
-			'create_at' => Yii::t('app', 'Create At'),
-			'lastvisit_at' => Yii::t('app', 'Lastvisit At'),
+			'activkey' => Yii::t('app', 'Activation key'),
+			'create_at' => Yii::t('app', 'Registered'),
+			'lastvisit_at' => Yii::t('app', 'Last visited'),
 			'superuser' => Yii::t('app', 'Superuser'),
 			'status' => Yii::t('app', 'Status'),
 			'name' => Yii::t('app', 'Name'),
 			'surname' => Yii::t('app', 'Surname'),
 			'address' => Yii::t('app', 'Address'),
-			'avatar_link' => Yii::t('app', 'Avatar Link'),
+			'avatar_link' => Yii::t('app', 'Avatar link'),
 			'language_id' => Yii::t('app', 'Page language'),
 			'newsletter' => Yii::t('app', 'Newsletter'),
 			'clickIdeas' => null,

@@ -28,7 +28,7 @@ abstract class BaseClickIdea extends GxActiveRecord {
 	}
 
 	public static function label($n = 1) {
-		return Yii::t('app', 'ClickIdea|ClickIdeas', $n);
+		return Yii::t('app', 'Project view|Project views', $n);
 	}
 
 	public static function representingColumn() {
