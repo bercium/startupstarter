@@ -42,29 +42,6 @@ class ProjectController extends GxController {
 	}
 
 	public function actionIndex($lang = NULL) {
-		/*echo 'Links: <br/><br/>
-		/ -> list ideas
-		/create -> create new idea <br/>
-		/$id -> view idea by id <br/>
-		/$id?lang=$language_code -> view idea by id and language code (2 letter code, sl/en/..) <br/>
-		/edit/$id -> edit idea by id <br/>
-		/edit/$id?lang=$language_code -> edit idea by id and language code (2 letter code, sl/en/..) <br/>
-		/deleteIdea/$id -> delete idea by id <br/>
-		/translate/$id -> add translation by idea id <br/>
-		/editTranslation/$id?lang=$language_code -> edit translation by idea id and language code (2 letter code, sl/en/..) <br/>
-		/deleteTranslation/$id&lang=$lang -> delete translation by idea id and language code (2 letter code, sl/en/..) <br/>
-		/addMember/$id -> add member to idea <br/>
-		/editMember/$id?member_id=$match_id -> edit member by idea id and member id (actually match_id)<br/>
-		/deleteMember/$id?member_id=$match_id -> delete member by idea id and member id (actually match_id) <br/>
-		/addCandidate/$id -> add candidate to idea <br/>
-		/editCandidate/$id&candidate_id=$match_id -> edit candidate by idea id and candidate_id (actually match_id)<br/>
-		/deleteCandidate/$id&candidate_id=$match_id -> delete candidate by idea id and candidate_id (actually match_id)<br/>
-		/addCollabpref/$id&candidate_id=$match_id -> add collabpref by idea id, candidate_id (actually match_id)<br/>
-		/deleteCollabpref/$id&candidate_id=$match_id&collab_id=$usercollab_id -> delete collabpref by idea id, candidate_id (actually match_id), collab_id<br/>
-		/addSkill/$id -> add skill by idea id, candidate_id (actually match_id)<br/>
-		/deleteSkill/$id&candidate_id=$match_id&skill_id=$userskill_id -> delete skill by idea id, candidate_id (actually match_id), skill_id<br/>
-		<br/>';*/
-
 		$filter = Yii::app()->request->getQuery('filter', array());
 		
 		$sqlbuilder = new SqlBuilder;
@@ -184,39 +161,39 @@ class ProjectController extends GxController {
 					$_POST['Idea']['time_updated'] = date("Y-m-d h:m:s",time());
 					$idea->setAttributes($_POST['Idea']);
 
-					if(!$idea->validate())
-						Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to save project."));
+					//translation data
+					$translation->idea_id = 1; //dummy value, just for validation
+		 			$translation->setAttributes($_POST['IdeaTranslation']);
 
-					if ($idea->save()) {
+		 			//member data
+		 			$_POST['IdeaMember']['idea_id'] = 1; //dummy value, just for validation
+		 			$_POST['IdeaMember']['match_id'] = $match->id;
+		 			$_POST['IdeaMember']['type_id'] = 1;
+					$member->setAttributes($_POST['IdeaMember']);
 
-						//translation data
+					//validate models and save idea
+					if ($translation->validate() && $member->validate() && $idea->save()) {
+
+		 				//idea member data
+		 				$member->idea_id = $idea->id;
+
+						//idea translation data
 						$translation->idea_id = $idea->id;
-		 				$translation->setAttributes($_POST['IdeaTranslation']);
 
 		 				//break up keywords and save
 		 				$this->addKeywords($idea->id, $translation->language_id, $_POST['IdeaTranslation']['keywords']);
-
-		 				//idea member data
-		 				$_POST['IdeaMember']['idea_id'] = $idea->id;
-		 				$_POST['IdeaMember']['match_id'] = $match->id;
-		 				$_POST['IdeaMember']['type_id'] = 1;
-						$member->setAttributes($_POST['IdeaMember']);
-
-						//validate models
-						if(!$member->validate())
-							Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to assign administrator to project."));
-						if(!$translation->validate())
-							Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to save project details."));
 
 						if ($translation->save() && $member->save()){
 							//set session and go to step 2
 							$_SESSION['IdeaCreated'] = $idea->id;
 
-							Yii::app()->user->setFlash('profileMessageError', UserModule::t("Project successfully saved."));
+							Yii::app()->user->setFlash('profileMessageError', UserModule::t("Project successfully created."));
 
 							//redirect
 							if(!$id)
 								$this->redirect(array('project/create', 'step' => 2));
+						} else {
+							Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to create project."));
 						}
 					}
 				}
@@ -236,35 +213,32 @@ class ProjectController extends GxController {
 						$_POST['time_updated'] = time();
 						$idea->setAttributes($_POST['Idea']);
 
-						if(!$idea->validate())
-							Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to save project."));
+						//translation data
+						$_POST['IdeaTranslation']['idea_id'] = $idea->id;
+						if($id)
+							$_POST['IdeaTranslation']['language_id'] = $translation->language_id;
+						$translation->setAttributes($_POST['IdeaTranslation']);
 
-						if ($idea->save()) {
-
-							//translation data
-							$_POST['IdeaTranslation']['idea_id'] = $idea->id;
-							if($id)
-								$_POST['IdeaTranslation']['language_id'] = $translation->language_id;
-							$translation->setAttributes($_POST['IdeaTranslation']);
-
+						//validate models
+						if($idea->validate() && $translation->validate()){
 							//break up keywords and save
-		 					$this->addKeywords($idea->id, $translation->language_id, $_POST['IdeaTranslation']['keywords']);
+	 						$this->addKeywords($idea->id, $translation->language_id, $_POST['IdeaTranslation']['keywords']);
+						}
 
-							if(!$translation->validate())
-								Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to save project details."));
-
-							if ($translation->save()) {
-								$time_updated = new TimeUpdated;
-								$time_updated->idea($idea->id);
-								
-								//redirect
-								if($id){
-									$this->redirect(array('project/edit', 'id' => $id, 'lang' => $lang));
-								} else {
-									$this->redirect(array('project/create', 'step' => 2));
-								}
-								
+						if ($idea->save() && $translation->save()) {
+							$time_updated = new TimeUpdated;
+							$time_updated->idea($idea->id);
+							
+							//redirect
+							if($id){
+								$this->redirect(array('project/edit', 'id' => $id, 'lang' => $lang));
+							} else {
+								$this->redirect(array('project/create', 'step' => 2));
 							}
+
+							Yii::app()->user->setFlash('profileMessageError', UserModule::t("Project successfully updated."));
+						} else {
+							Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to update project."));
 						}
 					}
 				}
@@ -355,6 +329,7 @@ class ProjectController extends GxController {
 
 			//assign changes to currently edited candidate
 			if(isset($_GET['candidate']) && isset($_POST['UserMatch']) && isset($_POST['CollabPref']) && $candidate_in_edit){
+
 				//assign changes ($_POST) to session array 
 				$match->setAttributes($_POST['UserMatch']);
 
@@ -362,9 +337,18 @@ class ProjectController extends GxController {
 				//difference between existing and new candidate
 				$match_saved = false;
 				if( isset($_GET['candidate']) && ($_GET['candidate'] != 'new' && $_GET['candidate'] != '' && is_numeric($_GET['candidate']))){
-					$match_id = $_SESSION['Candidate']['id'];				
-					UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
-					UserSkill::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
+
+					$match_id = $_SESSION['Candidate']['id'];		
+					$criteria=new CDbCriteria();
+					$criteria->addInCondition('type_id',array(3)); //candidate
+					$isMember = IdeaMember::Model()->findByAttributes(array('match_id' => $match_id, 'idea_id' => $idea_id), $criteria);
+
+					if($isMember){
+						UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
+						UserSkill::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
+					} else {
+						Yii::app()->user->setFlash('profileMessageError', UserModule::t("Wrong candidate ID supplied, could not update candidate."));
+					}
 					
 					if($match->save())
 						$match_saved = true;
@@ -388,16 +372,18 @@ class ProjectController extends GxController {
 
 				//collabprefs
 				$c = count($_POST['CollabPref']);
-				foreach ($_POST['CollabPref'] as $collab => $collab_name){
-					$user_collabpref = new UserCollabpref;
-					$user_collabpref->match_id = $match_id;
-					$user_collabpref->collab_id = $collab;
-					if ($user_collabpref->save()) $c--;
+				if($match_saved && $ideamember_saved){
+					foreach ($_POST['CollabPref'] as $collab => $collab_name){
+						$user_collabpref = new UserCollabpref;
+						$user_collabpref->match_id = $match_id;
+						$user_collabpref->collab_id = $collab;
+						if ($user_collabpref->save()) $c--;
+					}
 				}
 
 				//skills
 				$s = 0;
-				if(isset($_SESSION['Candidate']['skills'])){
+				if(isset($_SESSION['Candidate']['skills']) && $match_saved && $ideamember_saved){
 					$s = count($_SESSION['Candidate']['skills']);
 					foreach($_SESSION['Candidate']['skills'] AS $key => $value){
 
@@ -410,19 +396,20 @@ class ProjectController extends GxController {
 				        }
 				        
 				        if ($skill->id){
-				          $skillset_skill = SkillsetSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
+				          	$skillset_skill = SkillsetSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
 				                                                                           "skillset_id"=>$value['skillset_id']));
-				          // save skillset skill connection
-				          $usage_count = false;
-					      if ($skillset_skill == null){
-					        $skillset_skill = new SkillsetSkill;
-					        $skillset_skill->skill_id = $skill->id;
-					        $skillset_skill->skillset_id = $value['skillset_id'];
-					        $skillset_skill->usage_count = 1;
-					        $skillset_skill->save();
-					      } else {
-					      	$usage_count = true;
-					      }
+				          	
+				          	// save skillset skill connection
+				          	$usage_count = false;
+					      	if ($skillset_skill == null){
+						       	$skillset_skill = new SkillsetSkill;
+						        $skillset_skill->skill_id = $skill->id;
+						        $skillset_skill->skillset_id = $value['skillset_id'];
+						        $skillset_skill->usage_count = 1;
+						        $skillset_skill->save();
+					      	} else {
+					      		$usage_count = true;
+					      	}
 				          
 					        $user_skill = UserSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
 					                                                                 "skillset_id"=>$value['skillset_id'],
@@ -439,18 +426,22 @@ class ProjectController extends GxController {
 									$skillset_skill->save();
 					            }
 				          	}
+
+				          	if($user_skill->id){
+				          		$s--;
+				          	}
 					   	}
 					}
 				}
 				
 				//check if it went okay
 				if ($c == 0 && $s == 0 && $match_saved && $ideamember_saved) {
-					Yii::app()->user->setFlash('profileMessage', UserModule::t("Profile details saved."));
+					Yii::app()->user->setFlash('profileMessage', UserModule::t("Open position saved."));
 					//reset session
 					$candidate_in_edit = false;
 					$this->sessionReset('candidate');
 				}else{
-					Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to save profile details."));
+					Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to save open position."));
 				}
 
 				if($id){
@@ -462,13 +453,21 @@ class ProjectController extends GxController {
 
 			//delete candidate
 			if(isset($_GET['delete_candidate']) && is_numeric($_GET['delete_candidate']) && $_GET['delete_candidate'] > 0){
-				UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $_GET['delete_candidate']));
-				UserSkill::Model()->deleteAll("match_id = :match_id", array(':match_id' => $_GET['delete_candidate']));
-				IdeaMember::Model()->deleteAll("match_id = :match_id", array(':match_id' => $_GET['delete_candidate']));
-				UserMatch::Model()->deleteAll("id = :match_id", array(':match_id' => $_GET['delete_candidate']));
-				
+	
+				$criteria=new CDbCriteria();
+				$criteria->addInCondition('type_id',array(3)); //candidate
+				$isMember = IdeaMember::Model()->findByAttributes(array('match_id' => $_GET['delete_candidate'], 'idea_id' => $idea_id), $criteria);
 
-				Yii::app()->user->setFlash('profileMessageError', UserModule::t("Open position deleted."));
+				if($isMember){
+					UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $_GET['delete_candidate']));
+					UserSkill::Model()->deleteAll("match_id = :match_id", array(':match_id' => $_GET['delete_candidate']));
+					IdeaMember::Model()->deleteAll("match_id = :match_id", array(':match_id' => $_GET['delete_candidate']));
+					UserMatch::Model()->deleteAll("id = :match_id", array(':match_id' => $_GET['delete_candidate']));
+					
+					Yii::app()->user->setFlash('profileMessageError', UserModule::t("Open position deleted."));
+				} else {
+					Yii::app()->user->setFlash('profileMessageError', UserModule::t("Could not delete open position."));
+				}
 
 				if($id){
 					$this->redirect(array('project/edit', 'id' => $id, 'lang' => $lang));
@@ -591,7 +590,11 @@ class ProjectController extends GxController {
 
 		 			$language = Language::Model()->findByAttributes(array('id' => $translation->language_id));
 
+		 			Yii::app()->user->setFlash('profileMessageError', UserModule::t("Successfully saved project translation!"));
+
 					$this->redirect(array('edit', 'id' => $id, 'lang' => $language->language_code));
+				} else {
+					Yii::app()->user->setFlash('profileMessageError', UserModule::t("Could not save project translation."));
 				}
 			}
 
@@ -618,13 +621,13 @@ class ProjectController extends GxController {
 				$translation->setAttributes(array('deleted' => 1));
 
 				if ($translation->save()) {
-					$return['message'] = Yii::t('msg', "Success!");
+					$return['message'] = Yii::t('msg', "Successfully removed translation!");
 					$return['status'] = 0;
 
 					$time_updated = new TimeUpdated;
 					$time_updated->idea($id);
 				} else {
-					$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove translation from project.");
+					$return['message'] = Yii::t('msg', "Unable to remove translation from project.");
 					$return['status'] = 1;
 				}
 				
@@ -647,21 +650,24 @@ class ProjectController extends GxController {
 			$idea->deleted = 1;
 				
 			if($idea->save()){
+				Yii::app()->user->setFlash('profileMessageError', UserModule::t("Project deleted successfully."));
 			}
 		}
 
     	$this->redirect(Yii::app()->createUrl('profile/projects'));
 	}
   
-	 public function actionLeaveIdea($id){
+	public function actionLeaveIdea($id){
 		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
 
 	    $ideaMember = IdeaMember::Model()->findByAttributes(array('type_id' => 2,'match_id' => $match->id, 'idea_id' => $id));
-	    if($ideaMember){
-	      $ideaMember->delete();
+	    if($ideaMember && $ideaMember->delete()){
+	      	Yii::app()->user->setFlash('profileMessageError', UserModule::t("Project removed from your account successfully."));
+	    } else {
+	    	Yii::app()->user->setFlash('profileMessageError', UserModule::t("Could not remove project from your account."));
 	    }
 	    $this->redirect(Yii::app()->createUrl('profile/projects'));
-	  }
+	}
 
 	//ajax functions
 	public function actionSAddSkill() {
@@ -731,6 +737,7 @@ class ProjectController extends GxController {
 	}
 
 	public function actionAddMember($id) {
+
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
 
 		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
@@ -771,10 +778,7 @@ class ProjectController extends GxController {
 						$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
 						echo $return; //return array
 						Yii::app()->end();
-					} else {
-		            	//not ajax stuff
-					}
-					
+					}					
 				}
 			}
 		}
@@ -809,247 +813,6 @@ class ProjectController extends GxController {
 				Yii::app()->end();
 			} else {
 	           	//not ajax stuff
-			}
-		}
-	}
-
-	public function actionAddCandidate($id) {
-		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-
-		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
-		$criteria=new CDbCriteria();
-		$criteria->addInCondition('type_id',array(1)); //owner
-		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
-
-		if($idea && $hasPriviledges){
-
-			$candidate = new IdeaMember;
-			$match = new UserMatch;
-
-			if (isset($_POST['UserMatch'])) {
-				$match->setAttributes($_POST['UserMatch']);
-
-				if ($match->save()) {
-
-					$_POST['IdeaMember']['idea_id'] = $id;
-					$_POST['IdeaMember']['match_id'] = $match->id;
-					$_POST['IdeaMember']['type_id'] = 3; //HARDCODED CANDIDATE
-					$candidate->setAttributes($_POST['IdeaMember']);
-
-					if($candidate->save()){
-						$return['message'] = Yii::t('msg', "Success!");
-						$return['status'] = 0;
-
-						$time_updated = new TimeUpdated;
-						$time_updated->idea($id);
-					} else {
-						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to add new candidate to project.");
-						$return['status'] = 1;
-					}
-					
-					if(isset($_GET['ajax'])){
-						$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
-						echo $return; //return array
-						Yii::app()->end();
-					} else {
-		            	//not ajax stuff
-					}
-				}
-			}
-		}
-	}
-
-	public function actionDeleteCandidate($id, $match_id) {
-		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-
-		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
-		$criteria=new CDbCriteria();
-		$criteria->addInCondition('type_id',array(1)); //owner
-		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
-
-		if($idea && $hasPriviledges){
-
-			$match = UserMatch::Model()->findByAttributes( array( 'id' => $match_id ) );
-			$candidate = IdeaMember::Model()->findByAttributes( array( 'match_id' => $match_id ) );
-			$allgood = false;
-
-			if($match->delete())
-				$allgood = true;
-			if($candidate->delete())
-				$allgood = true;
-
-			if($allgood){
-				$return['message'] = Yii::t('msg', "Success!");
-				$return['status'] = 0;
-
-				$time_updated = new TimeUpdated;
-				$time_updated->idea($id);
-			} else {
-				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove candidate from project.");
-				$return['status'] = 1;
-			}
-				
-			if(isset($_GET['ajax'])){
-				$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
-				echo $return; //return array
-				Yii::app()->end();
-			} else {
-	           	//not ajax stuff
-			}
-		}
-	}
-
-	public function actionAddCollabpref($id, $match_id) {
-
-		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-
-		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
-		$criteria=new CDbCriteria();
-		$criteria->addInCondition('type_id',array(1)); //owner
-		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
-
-		if($idea && $hasPriviledges){
-
-			$collabpref = new UserCollabpref;
-
-			if (isset($_POST['UserCollabpref'])) {
-
-				$_POST['UserCollabpref']['match_id'] = $match_id;
-
-				$exists = UserCollabpref::Model()->findByAttributes( array( 'match_id' => $match_id, 'collab_id' => $_POST['UserCollabpref']['collab_id'] ) );
-				if(!$exists){
-
-					$collabpref->setAttributes($_POST['UserCollabpref']);
-
-					if($collabpref->save()){
-						$return['message'] = Yii::t('msg', "Success!");
-						$return['status'] = 0;
-
-						$time_updated = new TimeUpdated;
-						$time_updated->idea($id);
-					} else {
-						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update collaboration preferences.");
-						$return['status'] = 1;
-					}
-						
-					if(isset($_GET['ajax'])){
-						$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
-						echo $return; //return array
-						Yii::app()->end();
-					} else {
-			        	//not ajax stuff
-					}
-				}
-			}
-		}
-	}
-
-	public function actionDeleteCollabpref($id, $collab_id) {
-		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-
-		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
-		$criteria=new CDbCriteria();
-		$criteria->addInCondition('type_id',array(1)); //owner
-		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
-
-		if($idea && $hasPriviledges){
-
-			$collabpref = UserCollabpref::Model()->findByAttributes( array( 'id' => $collab_id ) );
-
-			if($collabpref->delete()){
-				$return['message'] = Yii::t('msg', "Success!");
-				$return['status'] = 0;
-
-				$time_updated = new TimeUpdated;
-				$time_updated->idea($id);
-			} else {
-				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update collaboration preferences.");
-				$return['status'] = 1;
-			}
-						
-			if(isset($_GET['ajax'])){
-				$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
-				echo $return; //return array
-				Yii::app()->end();
-			} else {
-		    	//not ajax stuff
-			}
-		}
-	}
-
-	public function actionAddSkill($id, $match_id) {
-		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-
-		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
-		$criteria=new CDbCriteria();
-		$criteria->addInCondition('type_id',array(1)); //owner
-		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
-
-		if($idea && $hasPriviledges){
-
-			$skill = new UserSkill;
-
-			if (isset($_POST['UserSkill'])) {
-
-				$_POST['UserSkill']['match_id'] = $match_id;
-
-				$exists = UserSkill::Model()->findByAttributes( array( 'match_id' => $match_id, 'skill_id' => $_POST['UserSkill']['skill_id'], 'skillset_id' => $_POST['UserSkill']['skillset_id'] ) );
-				if(!$exists){
-
-					$skill->setAttributes($_POST['UserSkill']);
-
-					if($skill->save()){
-						$return['message'] = Yii::t('msg', "Success!");
-						$return['status'] = 0;
-
-						$time_updated = new TimeUpdated;
-						$time_updated->idea($id);
-					} else {
-						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills.");
-						$return['status'] = 1;
-					}
-								
-					if(isset($_GET['ajax'])){
-						$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
-						echo $return; //return array
-						Yii::app()->end();
-					} else {
-				    	//not ajax stuff
-					}
-				}
-			}
-		}
-	}
-
-	public function actionDeleteSkill($id, $skill_id) {
-		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-
-		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
-		$criteria=new CDbCriteria();
-		$criteria->addInCondition('type_id',array(1)); //owner
-		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
-
-		if($idea && $hasPriviledges){
-
-			$skill = UserSkill::Model()->findByAttributes( array( 'id' => $skill_id ) );
-
-			if($skill->delete()){
-				$return['message'] = Yii::t('msg', "Success!");
-				$return['status'] = 0;
-
-				$time_updated = new TimeUpdated;
-				$time_updated->idea($id);
-			} else {
-				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to update skills.");
-				$return['status'] = 1;
-			}
-						
-			if(isset($_GET['ajax'])){
-				$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
-				echo $return; //return array
-				Yii::app()->end();
-			} else {
-		    	//not ajax stuff
 			}
 		}
 	}

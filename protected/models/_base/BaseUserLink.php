@@ -27,7 +27,7 @@ abstract class BaseUserLink extends GxActiveRecord {
 	}
 
 	public static function label($n = 1) {
-		return Yii::t('app', 'UserLink|UserLinks', $n);
+		return Yii::t('app', 'Link|Links', $n);
 	}
 
 	public static function representingColumn() {

@@ -217,8 +217,8 @@ class SiteController extends Controller
 
 		if (!isset($_GET['term'])){
 			$response = array("data" => null,
-												"status" => 1,
-												"message" => Yii::t('msg', "No search query."));
+								"status" => 1,
+								"message" => Yii::t('msg', "No search query."));
 		}else{
 			$connection=Yii::app()->db;
 			$data = array();
@@ -236,8 +236,8 @@ class SiteController extends Controller
 			}
 			
 			$response = array("data" => $data,
-												"status" => 0,
-												"message" => '');
+								"status" => 0,
+								"message" => '');
 		}
 		
 		echo json_encode($response);
@@ -249,8 +249,8 @@ class SiteController extends Controller
 
 		if (!isset($_GET['term'])){
 			$response = array("data" => null,
-												"status" => 1,
-												"message" => Yii::t('msg', "No search query."));
+								"status" => 1,
+								"message" => Yii::t('msg', "No search query."));
 		}else{
 			$connection=Yii::app()->db;
 			$data = array();
@@ -275,7 +275,7 @@ class SiteController extends Controller
 	}	
 	
 
-		public function actionSugestSkill() {
+	public function actionSugestSkill() {
 
 		if (!isset($_GET['term'])){
 			$response = array("data" => null,

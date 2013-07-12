@@ -58,9 +58,9 @@ abstract class BaseLanguage extends GxActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => Yii::t('app', 'ID'),
-			'language_code' => Yii::t('app', 'Language Code'),
+			'language_code' => Yii::t('app', 'Language code'),
 			'name' => Yii::t('app', 'Name'),
-      'native_name' => Yii::t('app', 'Native name'),
+      		'native_name' => Yii::t('app', 'Native name'),
 		);
 	}
 
