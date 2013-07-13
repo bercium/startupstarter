@@ -19,7 +19,7 @@ if(UserModule::isAdmin()) {
 		array(
 			'name' => 'email',
 			'type'=>'raw',
-			'value' => 'CHtml::link(CHtml::encode($data->email),array("user/view","id"=>$data->id))',
+			'value' => 'CHtml::link($data->email,array("user/view","id"=>$data->id))',
 		),
 		'create_at',
 		'lastvisit_at',

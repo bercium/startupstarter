@@ -1,16 +1,16 @@
 <div class="section-container sidebar accordion" data-section>
   <section class="section <?php echo isMenuItemActive(""); ?>">
-    <p class="title"><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><span class="icon-user"></span><?php echo CHtml::encode(Yii::t('app','Profile')); ?></a></p>
+    <p class="title"><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><span class="icon-user"></span><?php echo Yii::t('app','Profile'); ?></a></p>
   </section>
   <section class="section <?php echo isMenuItemActive(array("create","projects","edit")); ?>">
     <p class="title">
       <a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>"><span class="icon-lightbulb"></span>
-        <?php echo CHtml::encode(Yii::t('app','Projects')); ?>
+        <?php echo Yii::t('app','Projects'); ?>
       </a>
     </p>
     <div class="content ideas-aside">
       <a class="idea-new" href="<?php echo Yii::app()->createUrl("project/create"); ?>" class="ideas-aside-new <?php echo isMenuItemActive("create"); ?>">
-        <?php echo CHtml::encode(Yii::t('app','Create a new project').' +'); ?>
+        <?php echo Yii::t('app','Create a new project').' +'; ?>
       </a>
       <?php foreach ($ideas as $idea){ ?>
       <a href="<?php echo Yii::app()->createUrl("project/edit/".$idea['id']); ?>" >
@@ -24,6 +24,6 @@
     </div>
   </section>
   <section class="section <?php echo isMenuItemActive("account"); ?>">
-    <p class="title"><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><span class="general foundicon-settings"></span><?php echo CHtml::encode(Yii::t('app','Settings')); ?></a></p>
+    <p class="title"><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><span class="general foundicon-settings"></span><?php echo Yii::t('app','Settings'); ?></a></p>
   </section>
 </div>

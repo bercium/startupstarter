@@ -1,4 +1,4 @@
-<h6 class="meta-title"><?php echo CHtml::encode(Yii::t('app','Recent projects')); ?></h6>
+<h6 class="meta-title"><?php echo Yii::t('app','Recent projects'); ?></h6>
 	
   <ul class="small-block-grid-1 large-block-grid-3">
 		<?php 

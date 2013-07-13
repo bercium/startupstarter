@@ -15,3 +15,13 @@
   list-style: none;
   margin-bottom: 0;
 }
+
+.top-bar-section li.desc a{
+  line-height: 30px;
+}
+
+.top-bar-section li.desc small{
+  line-height:0px; 
+  margin-top:-10px; 
+  color:#999;
+}

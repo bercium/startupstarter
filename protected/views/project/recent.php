@@ -1,5 +1,5 @@
 <div  class="row">
-  <h1><?php echo CHtml::encode(Yii::t('app', 'Recent projects')); ?></h1>
+  <h1><?php echo Yii::t('app', 'Recent projects'); ?></h1>
 
   <?php if ($ideas) { ?>
     <div class="hide-for-medium-down">

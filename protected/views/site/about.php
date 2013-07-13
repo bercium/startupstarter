@@ -5,7 +5,7 @@
 
 <div class="row" style="margin-top:20px;">
 	<div class="columns edit-header">
-		<h1><?php echo Yii::t('app','About project'); ?></h1>
+		<h1><?php echo Yii::t('app','What is cofinder'); ?></h1>
 	</div>
   <div class="  columns panel edit-content">
    <div class="large-8  columns">
@@ -28,7 +28,7 @@
 		
     </div>
 
-    <div class="large-4  columns">
+    <div class="large-4 columns">
       <?php if ($idea)  $this->renderPartial('//project/_project', array('idea' => $idea));  ?>
     </div>
     
@@ -40,13 +40,13 @@
 <div class="row">
 	<div class="  columns edit-header">
     <div class="edit-floater">
-			<a href="#" class="button small radius success" onclick="contact(this);"><?php echo CHtml::encode(Yii::t('app','Contact us')); ?></a>
+			<a href="#" class="button small radius success" onclick="contact(this);"><?php echo Yii::t('app','Contact us'); ?></a>
     </div>		
-		<h1><?php echo Yii::t('app','Our team'); ?></h1>
+		<h1><?php echo Yii::t('app','Who is behind cofinder'); ?></h1>
   </div>
   <div class="  columns panel edit-content">
     <div class="large-5  columns">
-      <img id="team_image" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg" alt="coFinder team" title="coFinder team">
+      <img id="team_image" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg" alt="cofinder team" title="cofinder team">
       <div style="top:30px;left:70px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('zb');" onmouseout="hidePerson('zb')"></div>
       <div style="top:200px;left:90px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('bb');" onmouseout="hidePerson('bb')"></div>
       <div style="top:100px;left:240px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('jr');" onmouseout="hidePerson('jr')"></div>
@@ -55,12 +55,12 @@
       <h4 onmouseover="showPerson('zb');" onmouseout="hidePerson('zb')">Žiga Berce</h4>
       <p id="team_desc_zb" onmouseover="showPerson('zb');" onmouseout="hidePerson('zb')">
      <?php echo Yii::t('msg',"
-      Within coFinder I take care of development while motivating the team and trying my hardest to engage others to join our project. Too much ideas and not enough time forced me to commit only to projects I really love, like making my own surfboard and bike, building websites or organizing social tournaments. Remaining time I spend on outdoor sports.
-      <br />Since the only constant in life are changes it is important not to fall asleep on past successes or to give up at the first problems. Tomorrow is a new day, even at coFinder."); ?>
+      Within cofinder I take care of development while motivating the team and trying my hardest to engage others to join our project. Too much ideas and not enough time forced me to commit only to projects I really love, like making my own surfboard and bike, building websites or organizing social tournaments. Remaining time I spend on outdoor sports.
+      <br />Since the only constant in life are changes it is important not to fall asleep on past successes or to give up at the first problems. Tomorrow is a new day, even at cofinder."); ?>
       </p>
     	<h4 onmouseover="showPerson('bb');" onmouseout="hidePerson('bb')">Blaž Beuermann</h4>
       <p id="team_desc_bb" onmouseover="showPerson('bb');" onmouseout="hidePerson('bb')">
-      <?php echo Yii::t('msg',"My designation at coFinder.eu is to take care of our online foundations, otherwise I’m a creative with a wide span of expertise, given to me by curiousity. From previous startup experience I am aware of the importance of a team, but what also brought me here is the desire to solve wider societal issues. The dark skies of current economies needs hope. As a human I enjoy other people’s company, a bike ride, a cruise with my board, or a search of a new hidden place in nature."); ?>
+      <?php echo Yii::t('msg',"My designation at cofinder.eu is to take care of our online foundations, otherwise I’m a creative with a wide span of expertise, given to me by curiousity. From previous startup experience I am aware of the importance of a team, but what also brought me here is the desire to solve wider societal issues. The dark skies of current economies needs hope. As a human I enjoy other people’s company, a bike ride, a cruise with my board, or a search of a new hidden place in nature."); ?>
       </p>
       <h4 onmouseover="showPerson('jr');" onmouseout="hidePerson('jr')">Jure Ravlič</h4>
       <p id="team_desc_jr" onmouseover="showPerson('jr');" onmouseout="hidePerson('jr')">
@@ -73,7 +73,7 @@
 
 <div class="row">
 	<div class="  columns edit-header">
-		<h1><?php echo Yii::t('app','Supporters'); ?></h1>
+		<h1><?php echo Yii::t('app','Our supporters'); ?></h1>
 	</div>
   <div class="  columns panel edit-content">
   </div>

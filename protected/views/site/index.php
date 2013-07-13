@@ -27,13 +27,13 @@
 <!-- Content if guest -->
       <h1><?php echo Yii::t('msg','With the <span>right team</span> any <span>idea</span> can change your life'); ?></h1>
       <p>
-          <?php echo CHtml::encode(Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.')); ?>
+          <?php echo Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.'); ?>
       </p>
     </div>
     <div class="large-6 center columns hide-for-small">
       <?php if (Yii::app()->user->isGuest){ ?>
-      <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" class="button round medium success" ><?php echo Yii::t('msg','Register here') ?></a> 
-      <a href="#" data-dropdown="drop-login" class="button round medium secondary" ><?php echo Yii::t('msg','Login') ?> </a>
+      <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" class="button radius success" ><?php echo Yii::t('msg','Find talent') ?></a> 
+      <a href="#" data-dropdown="drop-login" class="button radius " ><?php echo Yii::t('msg','Discover projects') ?> </a>
       <?php }else{ ?>
       <h4>
       <?php echo Yii::t('msg',"{username} welcome to coFinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
@@ -63,13 +63,45 @@ $("#showhide").click(function() {
 <?php */ ?>
 
 
+
+<?php if (!$filter->checkSearchForm()){ ?>
+	<?php if (isset($data['user'])){ ?>
+
+		<div class="row" id="recent_users">
+			<?php $this->renderPartial('//person/_recent', array('users' => $data['user'],"page"=>1,"maxPage"=>3)); ?>
+			</div>
+
+	<?php } ?>
+
+
+	<?php if (isset($data['idea'])){ ?>
+
+		<div class="row" id="recent_projects">
+			<?php $this->renderPartial('//project/_recent', array('ideas' => $data['idea'],"page"=>1,"maxPage"=>3)); ?>
+		</div>
+
+	<?php } ?>
+
+<?php 
+Yii::log(arrayLog($data['idea']), CLogger::LEVEL_INFO, 'custom.info.idea'); 
+Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user'); 
+
+} ?>
+
+
+
+
+
+
+
+
 <div class="row panel searchpanel radius" style="margin-top: 40px;">
 	<div class="large-12 small-12 columns search_content edit-header">
     <a class="anchor-link" id="filter_search"></a>
     
 		<div class="row">
 		  <div class="large-3 small-12 columns">
-    		<h4 class="meta-title"><?php echo CHtml::encode(Yii::t('app','Sort your search by')); ?> </h4>
+    		<h4 class="meta-title"><?php echo Yii::t('app','Sort your search by'); ?> </h4>
       </div>
 		  <div class="large-9 small-12 columns">
 				<div class="left toggle_search switch large-3 small round small-3" onclick="$('.filter_projects').toggle();$('.filter_people').toggle();">
@@ -250,29 +282,12 @@ $("#showhide").click(function() {
   
 
 
-<?php if (!$filter->checkSearchForm()){ ?>
-	<?php if (isset($data['user'])){ ?>
-
-		<div class="row" id="recent_users">
-			<?php $this->renderPartial('//person/_recent', array('users' => $data['user'],"page"=>1,"maxPage"=>3)); ?>
-			</div>
-
-	<?php } ?>
 
 
-	<?php if (isset($data['idea'])){ ?>
 
-		<div class="row" id="recent_projects">
-			<?php $this->renderPartial('//project/_recent', array('ideas' => $data['idea'],"page"=>1,"maxPage"=>3)); ?>
-		</div>
 
-	<?php } ?>
 
-<?php 
-Yii::log(arrayLog($data['idea']), CLogger::LEVEL_INFO, 'custom.info.idea'); 
-Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user'); 
-
-}else{ ?>
+<?php if ($filter->checkSearchForm()){ ?>
 <div class="row" id="recent_projects">
 	<?php
 	if (count($searchResult) && count($searchResult['data'])){

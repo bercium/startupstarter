@@ -12,17 +12,17 @@
   <meta name="viewport" content="width=device-width" />
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="language" content="<?php echo Yii::app()->language; ?>" />
-  <meta name="description" content="<?php echo CHtml::encode($this->pageDesc); ?>" />
+  <meta name="description" content="<?php echo $this->pageDesc; ?>" />
 
   <!-- FB -->
-  <meta property="og:title" content="<?php echo CHtml::encode(Yii::app()->name); ?>" />
-  <meta property="og:description" content="<?php echo CHtml::encode($this->pageDesc); ?>" />
+  <meta property="og:title" content="<?php echo Yii::app()->name; ?>" />
+  <meta property="og:description" content="<?php echo $this->pageDesc; ?>" />
   <meta property="og:image" content="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/fb-logo.png" />
   <meta property="og:url" content="http://www.cofinder.eu"/>
   
   <!-- M$ -->
-  <meta name="application-name" content="<?php echo CHtml::encode(Yii::app()->name); ?>" />
-  <meta name="msapplication-tooltip" content="<?php echo CHtml::encode($this->pageDesc); ?>" />
+  <meta name="application-name" content="<?php echo Yii::app()->name; ?>" />
+  <meta name="msapplication-tooltip" content="<?php echo $this->pageDesc; ?>" />
   <meta name="msapplication-starturl" content="http://www.cofinder.eu" />
   <meta name="msapplication-navbutton-color" content="#83B25B" />
   
@@ -35,7 +35,7 @@
   <link rel="icon" type="image/ico" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico">
   
 
-	<title><?php echo CHtml::encode(Yii::app()->name); if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) echo " - ".$this->pageTitle; ?></title>
+	<title><?php echo Yii::app()->name; if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) echo " - ".$this->pageTitle; ?></title>
 </head>
 
 <body>
@@ -75,7 +75,7 @@
                <?php } ?>
               </li>
             <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-            <li class="toggle-topbar menu-icon"><a href="#"><span><?php echo CHtml::encode(Yii::t('app','Menu')); ?></span></a></li>
+            <li class="toggle-topbar menu-icon"><a href="#"><span><?php echo Yii::t('app','Menu'); ?></span></a></li>
           </ul>
 
         <section class="top-bar-section">
@@ -83,22 +83,36 @@
             <ul class="left">
               <li class="divider"></li>
               <?php /* ?><li class="<?php echo isMenuItemActive("team"); ?>">
-                <a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo CHtml::encode(Yii::t('app','Our team')); ?></a>
+                <a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo Yii::t('app','Our team'); ?></a>
               </li>
               <li class="divider"></li>
               <?php */ ?>
-              <li class="<?php echo isMenuItemActive("about"); ?>">
-                <a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo CHtml::encode(Yii::t('app','About')); ?></a>
+              <li class="<?php echo isMenuItemActive("about"); ?> desc">
+                <a href="<?php echo Yii::app()->createUrl("site/about"); ?>">
+                <?php echo Yii::t('app','What is {bs}cofinder{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
+                </a>
+                
+              </li>
+              <li class="divider"></li>
+              <li class="<?php echo isMenuItemActive("about_"); ?> desc">
+                <a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo Yii::t('app','Find {bs}talent{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
+                </a>
+              </li>
+              <li class="divider"></li>
+              <li class="<?php echo isMenuItemActive("about_"); ?> desc">
+                <a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo Yii::t('app','Discover {bs}projects{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
+                
+                </a>
               </li>
               <li class="divider"></li>
               <?php if (Yii::app()->user->isAdmin()){ ?>
               <li class="<?php echo isMenuItemActive("list"); ?> has-dropdown">
-                <a href="<?php echo Yii::app()->createUrl("site/list"); ?>"><?php echo CHtml::encode(Yii::t('app','Admin')); ?></a>
+                <a href="<?php echo Yii::app()->createUrl("site/list"); ?>"><?php echo Yii::t('app','Admin'); ?></a>
                 
                 <ul class="dropdown">
-                  <li><a href="<?php echo Yii::app()->createUrl("newsletter"); ?>"><?php echo CHtml::encode(Yii::t('app','Newsletter')); ?></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("translation"); ?>"><?php echo CHtml::encode(Yii::t('app','Translations')); ?></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("backendAuditTrail"); ?>"><?php echo CHtml::encode(Yii::t('app','Logs')); ?></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("newsletter"); ?>"><?php echo Yii::t('app','Newsletter'); ?></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("translation"); ?>"><?php echo Yii::t('app','Translations'); ?></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("backendAuditTrail"); ?>"><?php echo Yii::t('app','Logs'); ?></a></li>
                 </ul>
                 
               </li>
@@ -119,27 +133,29 @@
                  </a>
 
                 <ul class="dropdown">
-                  <li><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><?php echo CHtml::encode(Yii::t('app','Profile')); ?><span class="icon-user"></span></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>"><?php echo CHtml::encode(Yii::t('app','My projects')); ?><span class="icon-lightbulb"></span></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo CHtml::encode(Yii::t('app','Create new project')); ?><span class="general foundicon-plus"></span></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><?php echo CHtml::encode(Yii::t('app','Settings')); ?><span class="general foundicon-settings"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><?php echo Yii::t('app','Profile'); ?><span class="icon-user"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>"><?php echo Yii::t('app','My projects'); ?><span class="icon-lightbulb"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo Yii::t('app','Create new project'); ?><span class="general foundicon-plus"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><?php echo Yii::t('app','Settings'); ?><span class="general foundicon-settings"></span></a></li>
                   
-                  <li><a class="altli" href="<?php echo Yii::app()->createUrl(Yii::app()->getModule('user')->logoutUrl[0]); ?>"><?php echo CHtml::encode(Yii::t('app','Logout')); ?></a></li>
+                  <li><a class="altli" href="<?php echo Yii::app()->createUrl(Yii::app()->getModule('user')->logoutUrl[0]); ?>"><?php echo Yii::t('app','Logout'); ?></a></li>
                 </ul>
 
               </li>
               <?php }else{ ?>
                 <li>
-                  <a href="#" data-dropdown="drop-login"><?php echo CHtml::encode(Yii::t('app','Login')); ?></a>
+                  <a href="#" data-dropdown="drop-login"><?php echo Yii::t('app','Login'); ?></a>
                 </li>
               <li class="divider"></li>
                 <li>
-                  <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>"><?php echo CHtml::encode(Yii::t('app','Register')); ?></a>
+                  <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>"><?php echo Yii::t('app','Register'); ?></a>
                 </li>
               <?php } ?>
               <li class="divider"></li>
-              <li>
-                <a href="#" style="" data-dropdown="langselect"><?php echo Yii::app()->getLanguage() ?></a>
+              <li class="desc">
+                <a href="#" style="" data-dropdown="langselect"><?php echo Yii::app()->getLanguage() ?>
+                <br /><small>language</small>
+                </a>
               </li>
 
             </ul>
@@ -162,14 +178,16 @@
 			</div>
 			<div class="small-12 large-9 columns footer-links">
 				<ul class="inline-list">
-          <?php /* ?><li><a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo CHtml::encode(Yii::t('app','Our team')); ?></a></li> <?php */ ?>
-					<li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo CHtml::encode(Yii::t('app','About')); ?></a></li>
+          <?php /* ?><li><a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo Yii::t('app','Our team'); ?></a></li> <?php */ ?>
+					<li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo Yii::t('app','About'); ?></a></li>
 					<?php if (false && Yii::app()->user->isAdmin()){ ?>
-						<li><a href="<?php echo Yii::app()->createUrl("site/list"); ?>"><?php echo CHtml::encode(Yii::t('app','Admin')); ?></a></li>
+						<li><a href="<?php echo Yii::app()->createUrl("site/list"); ?>"><?php echo Yii::t('app','Admin'); ?></a></li>
 					<?php } ?>
-					<li><a href="<?php echo Yii::app()->createUrl("site/terms"); ?>"><?php echo CHtml::encode(Yii::t('app','Terms of service')); ?></a></li>
-					<li><a href="#" onclick="contact(this);"><?php echo CHtml::encode(Yii::t('app','Contact')); ?></a></li>
+					<li><a href="<?php echo Yii::app()->createUrl("site/terms"); ?>"><?php echo Yii::t('app','Terms of service'); ?></a></li>
+					<li><a href="#" onclick="contact(this);"><?php echo Yii::t('app','Contact'); ?></a></li>
+					
 				</ul>
+        
 
 			</div>
 
@@ -219,6 +237,7 @@
   <?php echo CHtml::endForm(); ?>
   </div>
 </div>
+
 <!-- userreport.com snippet -->
 <script type="text/javascript">
 var _urq = _urq || [];

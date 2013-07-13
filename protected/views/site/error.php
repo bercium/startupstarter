@@ -3,5 +3,5 @@
 ?>
 
 <div class="error">
-<?php echo CHtml::encode($message); ?>
+<?php echo $message; ?>
 </div>
