@@ -88,7 +88,7 @@ class PersonController extends GxController {
       
       $message = new YiiMailMessage;
       $message->view = 'system';
-      $message->setBody($_POST['message'], 'text/html');
+      $message->setBody(array("content"=>$_POST['message']), 'text/html');
       //$message->setBody(array("content"=>$_POST['message'],"senderMail"=>$sender->email), 'text/html');
       $message->subject = "New message from ".$sender->name." ".$sender->surname;
       

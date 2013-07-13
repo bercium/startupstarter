@@ -68,8 +68,8 @@ class RegistrationController extends Controller
                         
                         $message = new YiiMailMessage;
                         $message->view = 'system';
-                        $message->setBody(Yii::t('msg',"To activate you account go to {activation_url}",array('{activation_url}'=>$activation_url)), 'text/html');
-                        $message->subject = Yii::t('msg','Registration for coFinder');
+                        $message->setBody(array("content"=>"To activate you account go to ".$activation_url), 'text/html');
+                        $message->subject = 'Registration for cofinder';
                         $message->addTo($model->email);
                         $message->from = Yii::app()->params['noreplyEmail'];
                         Yii::app()->mail->send($message);

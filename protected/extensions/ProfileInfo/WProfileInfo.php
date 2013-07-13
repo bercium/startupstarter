@@ -35,12 +35,10 @@ class WProfileInfo extends CWidget
             // send mail
             $message = new YiiMailMessage;
             $message->view = 'system';
-            $message->setBody(Yii::t('msg',"We've been hard at work on our new service called coFinder.
+            $message->setBody(array("content"=>"We've been hard at work on our new service called coFinder.
                                             It is a web platform through which you can share your ideas with the same-minded entrepreneurs and search for interesting projects to join. 
-                                            <br /><br /> {username} thinks you might be the right person to test our private beta.
-                                            <br /><br /> If we got your attention you can {activation_url}!",
-                                      array('{activation_url}'=>$activation_url,
-                                            '{username}'=>$user->name." ".$user->surname)
+                                            <br /><br /> ".$user->name." ".$user->surname." thinks you might be the right person to test our private beta.
+                                            <br /><br /> If we got your attention you can ".$activation_url."!"
                                     ), 'text/html');
             $message->subject = Yii::t('msg',"You are invited to join coFinder");
             $message->addTo($invitation->email);

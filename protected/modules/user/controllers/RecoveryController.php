@@ -46,20 +46,18 @@ class RecoveryController extends Controller
               
               $activation_url = '<a href="'.$this->createAbsoluteUrl('/user/recovery',array("activkey" => $user->activkey, "email" => $user->email)).'">'.Yii::t('msg',"Activate")."</a>";
 							
-							$subject = Yii::t('msg',"Password recovery for coFinder");
-			    		$message1 = Yii::t('msg',"You have requested the password recovery for {site_name}. To receive a new password, go to {activation_url}.",
-			    					array(
-			    						'{site_name}'=>'<a href="www.cofinder.eu">coFinder</a>',
-			    						'{activation_url}'=>$activation_url,
-			    					));
+							$subject = "Password recovery for cofinder";
+			    		$message1 = 'You have requested the password recovery for <a href="www.cofinder.eu">coFinder</a>. To receive a new password, go to '.$activation_url;
               
                 $message = new YiiMailMessage;
                 $message->view = 'system';
-                $message->setBody($message1, 'text/html');
+                $message->setBody(array("content"=>$message1), 'text/html');
                 $message->subject = $subject;
                 $message->addTo($user->email);
                 $message->from = Yii::app()->params['noreplyEmail'];
                 Yii::app()->mail->send($message);
+                
+                
 			    			//UserModule::sendMail($user->email,$subject,$message);
   							Yii::app()->user->setFlash('recoveryMessage',Yii::t('msg'," Please check your email. <br />Instructions were sent to your email address."));
 			    			$this->refresh();
