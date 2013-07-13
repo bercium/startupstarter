@@ -85,5 +85,19 @@ class NewsletterController extends GxController {
     
     //echo "OK";
 	}
+  
+	public function actionMailSystem() {
+    $this->layout = 'blank';
+    $content = '';
+    if (isset($_GET['content'])) $content = $_GET['content'];
+    $this->render('//mailTemplates/system',array('content'=>$content));
+  }
 
+	public function actionMailNews(){
+    $this->layout = 'blank';
+    $content = '';
+    if (isset($_GET['content'])) $content = $_GET['content'];
+    $this->render('//mailTemplates/newsletter',array('content'=>$content));
+  }
+  
 }
