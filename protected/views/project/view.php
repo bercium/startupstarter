@@ -3,6 +3,38 @@ $this->pageTitle=Yii::app()->name;
 
 $idea = $data['idea'];
 ?>
+
+<div id="drop-msg" class="f-dropdown content medium" data-dropdown-content>
+  <div class="contact-form">
+    
+ <?php
+ if (Yii::app()->user->isGuest) echo Yii::t('msg','You must be loged in to contact this person.'); 
+ else { ?>    
+    
+  <?php 
+  $user_id = '';
+  foreach ($idea['member'] as $member){
+    if ($member['type_id'] == 1){
+      $user_id = $member['id'];
+      break;
+    }
+  }
+  echo CHtml::beginForm(Yii::app()->createUrl("person/contact",array("id"=>$user_id)),'post',array("class"=>"custom")); ?>
+
+      <?php echo CHtml::label(Yii::t('app','Message').":",'message'); ?>
+      <?php echo CHtml::textArea('message') ?>
+      <br />
+      <div class="login-floater">
+      <?php echo CHtml::submitButton(Yii::t("app","Send"),array("class"=>"button small radius")); ?>
+      </div>
+
+  <?php echo CHtml::endForm();
+    }
+  ?>
+      
+  </div>
+</div>
+
 <div class="row idea-details">
 	<div class="large-12 small-12 columns radius panel card-idea">
 		
@@ -21,10 +53,15 @@ $idea = $data['idea'];
 					<div class="card-floater">
 						<a style="" href="<?php echo Yii::app()->createUrl("project/edit",array("id"=>$idea['id'])); ?>"><span class="general foundicon-settings"></span> <?php echo Yii::t('app', 'Edit project') ?></a>
             <br />
+            <br />
             <br /><small class="meta right"><?php echo Yii::t('app','viewed {n} time|viewed {n} times',array($idea['num_of_clicks'])); ?></small>
 					</div>
-				<?php } ?>
-
+				<?php }else{ ?>
+  			<div class="card-floater">	 				
+					<a class="button success radius" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact members') ?></a>
+  			</div>        
+        <?php } ?>
+        
 				<h1 class=""><?php echo $idea['title']; ?></h1>
 
 			</div>
