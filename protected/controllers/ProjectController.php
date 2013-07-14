@@ -193,7 +193,7 @@ class ProjectController extends GxController {
 							if(!$id)
 								$this->redirect(array('project/create', 'step' => 2));
 						} else {
-							Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to create project."));
+							Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Unable to create project."));
 						}
 					}
 				}
@@ -236,9 +236,9 @@ class ProjectController extends GxController {
 								$this->redirect(array('project/create', 'step' => 2));
 							}
 
-							Yii::app()->user->setFlash('profileMessageError', UserModule::t("Project successfully updated."));
+							Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Project successfully updated."));
 						} else {
-							Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to update project."));
+							Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Unable to update project."));
 						}
 					}
 				}
@@ -347,7 +347,7 @@ class ProjectController extends GxController {
 						UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
 						UserSkill::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
 					} else {
-						Yii::app()->user->setFlash('profileMessageError', UserModule::t("Wrong candidate ID supplied, could not update candidate."));
+						Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Wrong candidate ID supplied, could not update candidate."));
 					}
 					
 					if($match->save())
@@ -436,12 +436,12 @@ class ProjectController extends GxController {
 				
 				//check if it went okay
 				if ($c == 0 && $s == 0 && $match_saved && $ideamember_saved) {
-					Yii::app()->user->setFlash('profileMessage', UserModule::t("Open position saved."));
+					Yii::app()->user->setFlash('profileMessage', Yii::t('msg',"Open position saved."));
 					//reset session
 					$candidate_in_edit = false;
 					$this->sessionReset('candidate');
 				}else{
-					Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to save open position."));
+					Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Unable to save open position."));
 				}
 
 				if($id){
@@ -464,9 +464,9 @@ class ProjectController extends GxController {
 					IdeaMember::Model()->deleteAll("match_id = :match_id", array(':match_id' => $_GET['delete_candidate']));
 					UserMatch::Model()->deleteAll("id = :match_id", array(':match_id' => $_GET['delete_candidate']));
 					
-					Yii::app()->user->setFlash('profileMessageError', UserModule::t("Open position deleted."));
+					Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Open position deleted."));
 				} else {
-					Yii::app()->user->setFlash('profileMessageError', UserModule::t("Could not delete open position."));
+					Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Could not delete open position."));
 				}
 
 				if($id){
@@ -590,11 +590,11 @@ class ProjectController extends GxController {
 
 		 			$language = Language::Model()->findByAttributes(array('id' => $translation->language_id));
 
-		 			Yii::app()->user->setFlash('profileMessageError', UserModule::t("Successfully saved project translation!"));
+		 			Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Successfully saved project translation!"));
 
 					$this->redirect(array('edit', 'id' => $id, 'lang' => $language->language_code));
 				} else {
-					Yii::app()->user->setFlash('profileMessageError', UserModule::t("Could not save project translation."));
+					Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Could not save project translation."));
 				}
 			}
 
@@ -662,9 +662,9 @@ class ProjectController extends GxController {
 
 	    $ideaMember = IdeaMember::Model()->findByAttributes(array('type_id' => 2,'match_id' => $match->id, 'idea_id' => $id));
 	    if($ideaMember && $ideaMember->delete()){
-	      	Yii::app()->user->setFlash('profileMessageError', UserModule::t("Project removed from your account successfully."));
+	      	Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Project removed from your account successfully."));
 	    } else {
-	    	Yii::app()->user->setFlash('profileMessageError', UserModule::t("Could not remove project from your account."));
+	    	Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Could not remove project from your account."));
 	    }
 	    $this->redirect(Yii::app()->createUrl('profile/projects'));
 	}
