@@ -164,7 +164,7 @@ class ProfileController extends GxController {
 								}
 
 								//if ($user->save()) {
-								//  Yii::app()->user->setFlash('avatarMessage',UserModule::t("Avatar saved."));
+								//  Yii::app()->user->setFlash('avatarMessage',Yii::t('msg',"Avatar saved."));
 								//}
 							}else
 								$user->avatar_link = '';
@@ -188,7 +188,7 @@ class ProfileController extends GxController {
             }
 
 						if ($match->save()) {
-							Yii::app()->user->setFlash('personalMessage', UserModule::t("Personal information saved."));
+							Yii::app()->user->setFlash('personalMessage', Yii::t('msg',"Personal information saved."));
 							/* if (Yii::app()->getRequest()->getIsAjaxRequest())
 							  Yii::app()->end();
 							  else
@@ -212,9 +212,9 @@ class ProfileController extends GxController {
           }
           
           if (($c == 0) && ($match->save())) {
-            Yii::app()->user->setFlash('profileMessage', UserModule::t("Profile details saved."));
+            Yii::app()->user->setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
           }else{
-            Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to save profile details."));
+            Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Unable to save profile details."));
           }
           
         }
@@ -299,7 +299,7 @@ class ProfileController extends GxController {
 					/* if (Yii::app()->getRequest()->getIsAjaxRequest())
 					  Yii::app()->end();
 					  else{ */
-					Yii::app()->user->setFlash('settingsMessage', UserModule::t("Settings saved."));
+					Yii::app()->user->setFlash('settingsMessage', Yii::t('msg',"Settings saved."));
 					//$this->redirect(array('profile/account/'));
 					//}
 				}
@@ -322,7 +322,7 @@ class ProfileController extends GxController {
 						$find->status = 1;
 					}
 					$find->save();
-					Yii::app()->user->setFlash('passChangeMessage', UserModule::t("New password is saved."));
+					Yii::app()->user->setFlash('passChangeMessage', Yii::t('msg',"New password is saved."));
 					//$this->redirect(Yii::app()->controller->module->recoveryUrl);
 				}
 			}

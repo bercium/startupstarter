@@ -1,3 +1,10 @@
+    <?php if(Yii::app()->user->hasFlash('removeProjectsMessage')){ ?>
+    <div data-alert class="alert-box radius success">
+      <?php echo Yii::app()->user->getFlash('removeProjectsMessage'); ?>
+      <a href="#" class="close">&times;</a>
+    </div>
+    <?php } ?>
+
 <div class="row myprojects">
   <div class="columns edit-header">
     <div class="edit-floater">

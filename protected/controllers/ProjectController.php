@@ -185,7 +185,7 @@ class ProjectController extends GxController {
 					$idea->setAttributes($_POST['Idea']);
 
 					if(!$idea->validate())
-						Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to save project."));
+						Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Unable to save project."));
 
 					if ($idea->save()) {
 
@@ -204,15 +204,15 @@ class ProjectController extends GxController {
 
 						//validate models
 						if(!$member->validate())
-							Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to assign administrator to project."));
+							Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Unable to assign administrator to project."));
 						if(!$translation->validate())
-							Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to save project details."));
+							Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Unable to save project details."));
 
 						if ($translation->save() && $member->save()){
 							//set session and go to step 2
 							$_SESSION['IdeaCreated'] = $idea->id;
 
-							Yii::app()->user->setFlash('profileMessageError', UserModule::t("Project successfully saved."));
+							Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Project successfully saved."));
 
 							//redirect
 							if(!$id)
@@ -237,7 +237,7 @@ class ProjectController extends GxController {
 						$idea->setAttributes($_POST['Idea']);
 
 						if(!$idea->validate())
-							Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to save project."));
+							Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Unable to save project."));
 
 						if ($idea->save()) {
 
@@ -251,7 +251,7 @@ class ProjectController extends GxController {
 		 					$this->addKeywords($idea->id, $translation->language_id, $_POST['IdeaTranslation']['keywords']);
 
 							if(!$translation->validate())
-								Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to save project details."));
+								Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Unable to save project details."));
 
 							if ($translation->save()) {
 								$time_updated = new TimeUpdated;
@@ -445,12 +445,12 @@ class ProjectController extends GxController {
 				
 				//check if it went okay
 				if ($c == 0 && $s == 0 && $match_saved && $ideamember_saved) {
-					Yii::app()->user->setFlash('profileMessage', UserModule::t("Profile details saved."));
+					Yii::app()->user->setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
 					//reset session
 					$candidate_in_edit = false;
 					$this->sessionReset('candidate');
 				}else{
-					Yii::app()->user->setFlash('profileMessageError', UserModule::t("Unable to save profile details."));
+					Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Unable to save profile details."));
 				}
 
 				if($id){
@@ -468,7 +468,7 @@ class ProjectController extends GxController {
 				UserMatch::Model()->deleteAll("id = :match_id", array(':match_id' => $_GET['delete_candidate']));
 				
 
-				Yii::app()->user->setFlash('profileMessageError', UserModule::t("Open position deleted."));
+				Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Open position deleted."));
 
 				if($id){
 					$this->redirect(array('project/edit', 'id' => $id, 'lang' => $lang));
@@ -647,6 +647,7 @@ class ProjectController extends GxController {
 			$idea->deleted = 1;
 				
 			if($idea->save()){
+        Yii::app()->user->setFlash('removeProjectsMessage', Yii::t('msg',"Project successfully removed."));
 			}
 		}
 
@@ -659,6 +660,7 @@ class ProjectController extends GxController {
 	    $ideaMember = IdeaMember::Model()->findByAttributes(array('type_id' => 2,'match_id' => $match->id, 'idea_id' => $id));
 	    if($ideaMember){
 	      $ideaMember->delete();
+        Yii::app()->user->setFlash('removeProjectsMessage', Yii::t('msg',"You are no longer member of a project."));
 	    }
 	    $this->redirect(Yii::app()->createUrl('profile/projects'));
 	  }
