@@ -29,7 +29,7 @@ abstract class BaseIdeaMember extends GxActiveRecord {
 	}
 
 	public static function label($n = 1) {
-		return Yii::t('app', 'IdeaMember|IdeaMembers', $n);
+		return Yii::t('app', 'Project member|Project members', $n);
 	}
 
 	public static function representingColumn() {

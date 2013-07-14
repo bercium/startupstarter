@@ -33,7 +33,7 @@ abstract class BaseIdea extends GxActiveRecord {
 	}
 
 	public static function label($n = 1) {
-		return Yii::t('app', 'Idea|Ideas', $n);
+		return Yii::t('app', 'Project|Projects', $n);
 	}
 
 	public static function representingColumn() {
@@ -69,8 +69,8 @@ abstract class BaseIdea extends GxActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => Yii::t('app', 'ID'),
-			'time_registered' => Yii::t('app', 'Time Registered'),
-			'time_updated' => Yii::t('app', 'Time Updated'),
+			'time_registered' => Yii::t('app', 'Registered'),
+			'time_updated' => Yii::t('app', 'Last Updated'),
 			'status_id' => null,
 			'website' => Yii::t('app', 'Website'),
 			'video_link' => Yii::t('app', 'Video Link'),

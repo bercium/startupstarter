@@ -796,7 +796,7 @@ public function search($type, $filter){
 				}
 			}
 		}
-		if( isset($filter['keywords']) && strlen($filter['keywords']) > 0){
+		if( isset($filter['keyword']) && strlen($filter['keywords']) > 0){
 			$keyworder = new Keyworder;
 			$keywords = $keyworder->string2array($filter['keywords']);
 
@@ -953,7 +953,7 @@ public function search($type, $filter){
 
 		if($type == "idea"){
 			//idea_keyword AS k
-			if( isset($filter['keywords']) && is_array($filter['keyword']) && count($filter['keyword']) > 0 ){
+			if( isset($filter['keyword']) && is_array($filter['keyword']) && count($filter['keyword']) > 0 ){
 				$k = -1;
 				foreach($filter['keyword'] AS $key => $value){
 					//$VALUE INPUT VALIDATION NEEDED

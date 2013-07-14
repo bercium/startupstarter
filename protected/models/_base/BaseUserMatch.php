@@ -33,7 +33,7 @@ abstract class BaseUserMatch extends GxActiveRecord {
 	}
 
 	public static function label($n = 1) {
-		return Yii::t('app', 'UserMatch|UserMatches', $n);
+		return Yii::t('app', 'User match|User matches', $n);
 	}
 
 	public static function representingColumn() {
