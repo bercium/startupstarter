@@ -25,17 +25,17 @@
     <div class="large-10 large-offset-1 small-12 columns" style="text-align: center;" >
 
 <!-- Content if guest -->
-      <h1><?php echo Yii::t('msg','With the <span>right team</span> any <span>idea</span> can change your life'); ?></h1>
+      <h1><?php echo Yii::t('msg','With the <span>right team</span> <br> any <span>idea</span> can change your <span>life</span>'); ?></h1>
       <p>
           <?php echo CHtml::encode(Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.')); ?>
       </p>
     </div>
-    <div class="large-6 center columns hide-for-small">
+    <div class="large-12 center columns hide-for-small">
       <?php if (Yii::app()->user->isGuest){ ?>
       <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" class="button round medium success" ><?php echo Yii::t('msg','Register here') ?></a> 
       <a href="#" data-dropdown="drop-login" class="button round medium secondary" ><?php echo Yii::t('msg','Login') ?> </a>
       <?php }else{ ?>
-      <h4>
+      <h4 style="text-align: center;">
       <?php echo Yii::t('msg',"{username} welcome to coFinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
       </h4>
       <?php } ?>
