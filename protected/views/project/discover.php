@@ -1,11 +1,11 @@
 <div class="row pannel radius" style="margin-top: 40px;">
   <div class="columns">
-    <h4>Discover: </h4>
-    <a href="<?php echo Yii::app()->createUrl("project/discover",array('SearchForm[stage]'=>'1')); ?>" class="button round secondary" style="margin-left:20px;"><?php echo Yii::t("app","Interesting ideas"); ?></a>
-    <a href="<?php echo Yii::app()->createUrl("project/discover",array('SearchForm[available]'=>'8')); ?>" class="button round secondary" style="margin-left:20px;"><?php echo Yii::t("app","Weekend jobs"); ?></a>
-    <a href="<?php echo Yii::app()->createUrl("project/discover",array('SearchForm[available]'=>'40')); ?>" class="button round secondary" style="margin-left:20px;"><?php echo Yii::t("app","Full time projects"); ?></a>
-    <a href="<?php echo Yii::app()->createUrl("project/discover",array('SearchForm[collabPref]'=>'4')); ?>" class="button round secondary" style="margin-left:20px;"><?php echo Yii::t("app","Investments"); ?></a>
-    <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" class="button round secondary" style="margin-left:20px;"><?php echo Yii::t("app","Local projects"); ?></a>
+    <h4><?php echo Yii::t('app','Discover'); ?></h4>
+    <a href="<?php echo Yii::app()->createUrl("project/discover",array('SearchForm[stage]'=>'1')); ?>" class="button round success" style="margin-left:20px;"><?php echo Yii::t("app","Interesting ideas"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl("project/discover",array('SearchForm[available]'=>'8')); ?>" class="button round success" style="margin-left:20px;"><?php echo Yii::t("app","Weekend jobs"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl("project/discover",array('SearchForm[available]'=>'40')); ?>" class="button round success" style="margin-left:20px;"><?php echo Yii::t("app","Full time projects"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl("project/discover",array('SearchForm[collabPref]'=>'4')); ?>" class="button round success" style="margin-left:20px;"><?php echo Yii::t("app","Investments"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" class="button round success" style="margin-left:20px;"><?php echo Yii::t("app","Local projects"); ?></a>
   </div>
 </div>
 
