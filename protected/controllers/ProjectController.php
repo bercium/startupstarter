@@ -25,7 +25,7 @@ class ProjectController extends GxController {
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("view","recent"),
+        'actions'=>array("view","recent","embed"),
 				'users'=>array('*'),
 			),
 	    array('allow',
@@ -871,5 +871,14 @@ class ProjectController extends GxController {
 			unset($_SESSION['IdeaCreated']);
 		}
 	}
+  
+  public function actionEmbed($id){
+    $this->layout="//layouts/blank";
+    
+		$sqlbuilder = new SqlBuilder;
+		$filter = array( 'idea_id' => $id);
+
+		$this->render('embed', array('user' => $sqlbuilder->load_array("idea", $filter)));
+  }  
 
 }

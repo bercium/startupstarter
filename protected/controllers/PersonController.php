@@ -24,7 +24,7 @@ class PersonController extends GxController {
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("view","recent", "contact"),
+        'actions'=>array("view","recent", "contact","embed"),
 				'users'=>array('*'),
 			),
 			array('allow', // allow admins only
@@ -105,5 +105,15 @@ class PersonController extends GxController {
     }
     $this->redirect(Yii::app()->createUrl("person/view",array("id"=>$id)));
 	}  
+  
+  
+  public function actionEmbed($id){
+    $this->layout="//layouts/blank";
+    
+		$sqlbuilder = new SqlBuilder;
+		$filter = array( 'user_id' => $id);
+
+		$this->render('embed', array('user' => $sqlbuilder->load_array("user", $filter)));
+  }
 	
 }
