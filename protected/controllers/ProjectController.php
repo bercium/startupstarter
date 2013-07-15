@@ -25,7 +25,7 @@ class ProjectController extends GxController {
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("view","recent","embed"),
+        'actions'=>array("view","recent","discover","embed"),
 				'users'=>array('*'),
 			),
 	    array('allow',
@@ -878,7 +878,55 @@ class ProjectController extends GxController {
 		$sqlbuilder = new SqlBuilder;
 		$filter = array( 'idea_id' => $id);
 
-		$this->render('embed', array('user' => $sqlbuilder->load_array("idea", $filter)));
+		$this->render('embed', array('idea' => $sqlbuilder->load_array("idea", $filter)));
   }  
+  
+
+  public function actionDiscover($id = 1){
+    $this->layout="//layouts/none";
+    
+		$sqlbuilder = new SqlBuilder;
+		$filter = Yii::app()->request->getQuery('filter', array());
+		$filter['per_page'] = 6;
+    $filter['page'] = $id;
+		
+    
+    $searchForm = new SearchForm();
+    $searchForm->isProject = true;
+    
+    $searchResult = array();
+		
+		if (isset($_GET['SearchForm'])) $searchForm->setAttributes($_GET['SearchForm']);
+		
+    if ($searchForm->checkSearchForm()){
+			// search results
+      $searchForm->setAttributes($_GET['SearchForm']);
+			
+			$filter['available'] = $searchForm->available;
+			$filter['city'] = $searchForm->city;
+			$filter['collabpref'] = $searchForm->collabPref;
+			$filter['country'] = $searchForm->country;
+			$filter['extra'] = $searchForm->extraDetail; // like video or images
+			$filter['keywords'] = $searchForm->keywords;
+			$filter['language'] = $searchForm->language;
+			$filter['skill'] = $searchForm->skill;
+			$filter['stage'] = $searchForm->stage;
+			
+			if ($searchForm->isProject)	$searchResult['data'] = $sqlbuilder->load_array("search_idea", $filter);
+			else $searchResult['data'] = $sqlbuilder->load_array("search_user", $filter);
+			
+			$searchResult['page'] = $id;
+			$searchResult['maxPage'] = 2; //!!! add page count
+
+    }else{
+      
+			$searchResult['data'] = $sqlbuilder->load_array("recent_updated", $filter);
+			$searchResult['page'] = $id;
+			$searchResult['maxPage'] = 2; //!!! add page count
+    }
+		
+
+		$this->render('discover', array("filter"=>$searchForm, "searchResult"=>$searchResult));
+  }
 
 }

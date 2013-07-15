@@ -33,14 +33,14 @@
     <div class="large-12 center columns hide-for-small">
       <div class="right">
       <?php if (Yii::app()->user->isGuest){ ?>
-      <a href="<?php echo Yii::app()->createUrl("user/discover"); ?>" class="button radius success" ><?php echo Yii::t('msg','Find talent') ?></a> 
+      <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" class="button radius success" ><?php echo Yii::t('msg','Find talent') ?></a> 
       <span style="margin-left:20px;"> or </span>
       <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" class="button radius " ><?php echo Yii::t('msg','Discover projects') ?> </a>
       <?php }else{ ?>
       <h4 >
       <?php echo Yii::t('msg',"{username} welcome to coFinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
       </h4>
-      <a href="<?php echo Yii::app()->createUrl("user/discover"); ?>" class="button radius success" ><?php echo Yii::t('msg','Find a cofounder') ?></a> 
+      <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" class="button radius success" ><?php echo Yii::t('msg','Find a cofounder') ?></a> 
       <span style="margin-left:20px;"> or </span>
       <a href="<?php echo Yii::app()->createUrl("project/create"); ?>" class="button radius" ><?php echo Yii::t('msg','Create your project') ?> </a>
       <?php } ?>
@@ -257,12 +257,12 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 			</div>
 			
 			
-			<div class="small-12 large-3 columns"  style="text-align: center;">
+			<div class="small-12 large-3 columns" style="text-align: center; padding-top: 16px;">
 					<?php echo CHtml::submitButton(Yii::t("app","Search"),
 							array('class'=>"button small radius")
 					); ?>
 				 &nbsp; 
-				 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" class="button small radius secondary"><?php echo Yii::t("app","Reset"); ?></a>
+				 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" class="button small reset-btn radius secondary"><?php echo Yii::t("app","Reset"); ?></a>
 				
 	    </div>
 			

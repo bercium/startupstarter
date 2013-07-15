@@ -61,7 +61,8 @@ function avatar_image($filename, $userID = 0, $thumb=30){
 /**
  * check if curent action is active and return apropriate CSS class
  */
-function isMenuItemActive($action){
+function isMenuItemActive($action,$controller = ''){
+  if ($controller != '' && $controller != Yii::app()->controller->id) return '';
   if (is_array($action)){
     foreach ($action as $act)
       if ($act == Yii::app()->controller->action->id) return "active";
