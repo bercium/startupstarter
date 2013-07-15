@@ -22,23 +22,29 @@
 
 <div class="intro" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
   <div  class="row" >
-    <div class="large-10 large-offset-1 small-12 columns" style="text-align: center;" >
+    <div class="large-10 large-offset-1 small-12 columns" style="text-align: center;">
 
 <!-- Content if guest -->
-      <h1><?php echo Yii::t('msg','With the <span>right team</span> <br> any <span>idea</span> can change your <span>life</span>'); ?></h1>
+      <h1><?php echo Yii::t('msg','With the <span>right team</span> any <span>idea</span> can <br />change your life'); ?></h1>
       <p>
           <?php echo Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.'); ?>
-      </p>
+      </p><br />
     </div>
     <div class="large-12 center columns hide-for-small">
+      <div class="right">
       <?php if (Yii::app()->user->isGuest){ ?>
-      <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" class="button radius success" ><?php echo Yii::t('msg','Find talent') ?></a> 
-      <a href="#" data-dropdown="drop-login" class="button radius " ><?php echo Yii::t('msg','Discover projects') ?> </a>
+      <a href="<?php echo Yii::app()->createUrl("user/discover"); ?>" class="button radius success" ><?php echo Yii::t('msg','Find talent') ?></a> 
+      <span style="margin-left:20px;"> or </span>
+      <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" class="button radius " ><?php echo Yii::t('msg','Discover projects') ?> </a>
       <?php }else{ ?>
-      <h4 style="text-align: center;">
+      <h4 >
       <?php echo Yii::t('msg',"{username} welcome to coFinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
       </h4>
+      <a href="<?php echo Yii::app()->createUrl("user/discover"); ?>" class="button radius success" ><?php echo Yii::t('msg','Find a cofounder') ?></a> 
+      <span style="margin-left:20px;"> or </span>
+      <a href="<?php echo Yii::app()->createUrl("project/create"); ?>" class="button radius" ><?php echo Yii::t('msg','Create your project') ?> </a>
       <?php } ?>
+      </div>
     </div>
     
   </div>
@@ -81,7 +87,7 @@ $("#showhide").click(function() {
 		</div>
 
 	<?php } ?>
-
+<hr>
 <?php 
 Yii::log(arrayLog($data['idea']), CLogger::LEVEL_INFO, 'custom.info.idea'); 
 Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user'); 
