@@ -1,4 +1,4 @@
-<h6 class="meta-title"><?php echo Yii::t('app','Recent users'); ?></h6>
+<h4 class="meta-title"><?php echo Yii::t('app','Recent users'); ?></h4>
 	
   <ul class="small-block-grid-1 large-block-grid-3">
 		<?php 
