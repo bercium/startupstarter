@@ -287,11 +287,13 @@ class SiteController extends Controller
 
 			$connection=Yii::app()->db;
 			$data = array();
+      $dataReader = array();
 			
 			$criteria=new CDbCriteria();
 			
 			// translated skill sets
 			//!!!language
+      
 			if($language != 40){
 				$criteria->condition = " `translation` LIKE :name AND `table` = 'skillset'"; //AND language_id = 
 				$criteria->params = array(":name"=>"%".$_GET['term']."%");

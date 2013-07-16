@@ -1,3 +1,20 @@
+<?php
+	$this->pageTitle = 'Discover projects'; // leave this empty
+	$this->pageDesc = '';
+
+  $baseUrl = Yii::app()->baseUrl; 
+  $cs = Yii::app()->getClientScript();
+  
+  $cs->registerCssFile($baseUrl.'/css/ui/jquery-ui-1.10.3.custom.min.css');
+  $cs->registerScriptFile($baseUrl.'/js/jquery-ui-1.10.3.custom.min.js',CClientScript::POS_END);
+?>
+
+<script>
+	var skillSuggest_url = '<?php echo Yii::app()->createUrl("site/sugestSkill",array("ajax"=>1)) ?>';
+	var citySuggest_url = '<?php echo Yii::app()->createUrl("site/sugestCity",array("ajax"=>1)) ?>';
+	var countrySuggest_url = '<?php echo Yii::app()->createUrl("site/sugestCountry",array("ajax"=>1)) ?>';
+</script>
+
 <div class="row pannel radius" style="margin-top: 40px;">
   <div class="columns">
     <h4><?php echo Yii::t('app','Discover'); ?></h4>
