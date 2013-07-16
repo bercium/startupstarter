@@ -86,7 +86,10 @@
         </div>
         <div class="large-12 columns subinfo">
           
-          <small class="meta"><?php echo Yii::t('app','Updated {n} day ago|Updated {n} days ago',array(1)); ?></small>
+          <small class="meta"><?php 
+          if ($idea['days_updated'] == 0) echo Yii::t('app','Updated today');
+          else if ($idea['days_updated'] == 1) echo Yii::t('app','Updated yesterday');
+          else echo Yii::t('app','Updated {n} day ago|Updated {n} days ago',array($idea['days_updated'])); ?></small>
           <div class="card-floater">
             <a class="small button radius success" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("project/".$idea['id']); ?>" target="_blank"><?php echo Yii::t('app','details').'...'; ?></a>
           </div>

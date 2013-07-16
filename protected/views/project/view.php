@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle=Yii::app()->name;
+$this->pageTitle="";
 
 $idea = $data['idea'];
 ?>
@@ -50,11 +50,9 @@ $idea = $data['idea'];
           }
           
           if ($canEdit) { ?>
-					<div class="card-floater">
-						<a style="" href="<?php echo Yii::app()->createUrl("project/edit",array("id"=>$idea['id'])); ?>"><span class="general foundicon-settings"></span> <?php echo Yii::t('app', 'Edit project') ?></a>
-            <br />
-            <br />
-            <br /><small class="meta right"><?php echo Yii::t('app','viewed {n} time|viewed {n} times',array($idea['num_of_clicks'])); ?></small>
+					<a class="edit-project" href="<?php echo Yii::app()->createUrl("project/edit",array("id"=>$idea['id'])); ?>"><?php echo Yii::t('app', 'Edit project') ?></a>
+					<div class="card-floater" style="margin-top:30px;">
+            <small class="meta right"><?php echo Yii::t('app','viewed {n} time|viewed {n} times',array($idea['num_of_clicks'])); ?></small>
 					</div>
 				<?php }else{ ?>
   			<div class="card-floater">	 				
@@ -79,7 +77,7 @@ $idea = $data['idea'];
           ?>
            </p>
       </div>
-          <?php        } ?>
+          <?php } ?>
      
 		</div>
 
@@ -93,7 +91,7 @@ $idea = $data['idea'];
         <div class="meta-field">
           <p class="meta">
         <?php echo Yii::t('app','Stage').": "; ?>
-        <span data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>">
+        <span style="color: #333; font-size: 1.1em;" data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>">
           <?php echo $idea['status']; ?>
         </span>
       </p>
@@ -156,8 +154,6 @@ $idea = $data['idea'];
           ?>
            <div  class="idea-sidebar">
             <div class="small-12 columns">
-							
-						
 							
               <?php if ($candidate['available_name']) { ?>
                 <div class="available-time"><?php echo $candidate['available_name']; ?></div>

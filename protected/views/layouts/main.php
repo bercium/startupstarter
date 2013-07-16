@@ -48,7 +48,7 @@
         <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
           <h1>
            <img class="logo" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" />
-            co<span>finder</span>
+            co<span>finder</span> <small style="font-size:14px;">BETA</span>
           </h1>
         </a>
       </div>

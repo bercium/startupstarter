@@ -1,6 +1,6 @@
 <?php
 /* @var $this SiteController */
-$this->pageTitle = Yii::app()->name;
+$this->pageTitle = "";
 $user = $data['user'];
 ?>
 
@@ -54,11 +54,9 @@ $user = $data['user'];
   				<?php } ?>
 			
 
-  			<div class="card-floater">	 				
-
-      		
+  			<div class="card-floater">
 					<a class="button success radius" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact me') ?></a>
-			</div>
+  			</div>
 
 				<img src="<?php echo avatar_image($user['avatar_link'], $user['id'], false); ?>" />
 				<h1><?php echo $user['name'] . " " . $user['surname']; ?></h1>

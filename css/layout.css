@@ -1141,7 +1141,7 @@ border-radius: 2px;
 .idea-sidebar {
 	background: #E5E8EE;
 	overflow: hidden;
-	margin-bottom: 1px;
+	margin-bottom: 8px;
 	padding: 10px 0;
 }
 
@@ -1311,7 +1311,7 @@ border-right: none;
 
 }
 
-.person-details .edit-profile {
+.person-details .edit-profile, .edit-project {
     background: none repeat scroll 0 0 white;
     border-left: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
