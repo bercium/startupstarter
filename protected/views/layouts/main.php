@@ -47,7 +47,7 @@
       <div class="small-12 large-12" >
         <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
           <h1>
-           <img class="logo" alt="coFinder" title="coFinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" />
+           <img class="logo" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" />
             co<span>finder</span>
           </h1>
         </a>
@@ -66,6 +66,7 @@
 								 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
 									<img class="logo" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png" />
 								 </a>
+                 <img class="logo" alt="beta" title="beta" src="<?php echo Yii::app()->request->baseUrl; ?>/images/beta.png" style="position: absolute; bottom: -44px; left:20px;" />
 							 </div>
                
                <?php if (!Yii::app()->user->isGuest){ ?>
