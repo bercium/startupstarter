@@ -45,28 +45,123 @@
 		<h1><?php echo Yii::t('app','Who is behind cofinder'); ?></h1>
   </div>
   <div class="  columns panel edit-content">
-    <div class="large-5  columns">
-      <img id="team_image" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team.jpg" alt="cofinder team" title="cofinder team">
+    <div class="large-5  columns hide-for-small">
+      <img id="team_image" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team.jpg" alt="cofinder team" title="cofinder team">
       <div style="top:30px;left:70px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('zb');" onmouseout="hidePerson('zb')"></div>
       <div style="top:200px;left:90px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('bb');" onmouseout="hidePerson('bb')"></div>
       <div style="top:100px;left:240px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('jr');" onmouseout="hidePerson('jr')"></div>
     </div>
     <div class="large-7  columns">
-      <h4 onmouseover="showPerson('zb');" onmouseout="hidePerson('zb')">Žiga Berce</h4>
-      <p id="team_desc_zb" onmouseover="showPerson('zb');" onmouseout="hidePerson('zb')">
-     <?php echo Yii::t('msg',"
-      Within cofinder I take care of development while motivating the team and trying my hardest to engage others to join our project. Too much ideas and not enough time forced me to commit only to projects I really love, like making my own surfboard and bike, building websites or organizing social tournaments. Remaining time I spend on outdoor sports.
-      <br />Since the only constant in life are changes it is important not to fall asleep on past successes or to give up at the first problems. Tomorrow is a new day, even at cofinder."); ?>
-      </p>
-    	<h4 onmouseover="showPerson('bb');" onmouseout="hidePerson('bb')">Blaž Beuermann</h4>
-      <p id="team_desc_bb" onmouseover="showPerson('bb');" onmouseout="hidePerson('bb')">
-      <?php echo Yii::t('msg',"My designation at cofinder.eu is to take care of our online foundations, otherwise I’m a creative with a wide span of expertise, given to me by curiousity. From previous startup experience I am aware of the importance of a team, but what also brought me here is the desire to solve wider societal issues. The dark skies of current economies needs hope. As a human I enjoy other people’s company, a bike ride, a cruise with my board, or a search of a new hidden place in nature."); ?>
-      </p>
-      <h4 onmouseover="showPerson('jr');" onmouseout="hidePerson('jr')">Jure Ravlič</h4>
-      <p id="team_desc_jr" onmouseover="showPerson('jr');" onmouseout="hidePerson('jr')">
-        <?php echo Yii::t('msg',"Hi! My name is Jure Ravlič and I come from Ljubljana (Slovenia). I've been interested in building things from the very young age. After elementary I applied for design school and passed all entry tests, but in the end decided for a classic program. Nevertheless, I kept my interest in creativity trough drawing and lettering. As the popularity of internet expanded, I figured that it would be pretty awesome to apply my skills to the web, so I started learning, Photoshop, HTML, CSS, Javascript and PHP. My early websites weren't much, but ever since I got my first W3C validation badge (which i thought was the most awesome thing at the time) I never looked back.
-        When not working/learning, I usually go to Lindy hop, 6-count swing partys at Caffee Union and SEM. I also like playing basketball and occasional hiking and sport climbing."); ?>
-      </p>
+      <div class="row" onmouseover="showPerson('zb');" onmouseout="hidePerson('zb')">
+        <div class="small-4 columns show-for-small">
+        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-ziga.jpg" alt="Žiga Berce" title="Žiga Berce">
+        </div>
+        <div class="small-8 large-12 columns">
+          <h4 id="team_desc_zb">Žiga Berce
+            <div class="login-floater">
+              <a href="<?php echo Yii::app()->getBaseUrl(true); ?>/person/1">
+                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-cofinder.png" alt="Žiga Berce" title="Žiga Berce">
+              </a>
+              <a href="">
+                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-linkedin.png" alt="Žiga Berce" title="Žiga Berce">
+              </a>
+            </div>
+          </h4>
+          <p >
+            <?php echo Yii::t('msg',"Within cofinder I take care of development while motivating the team and try to engage others to join our project."); ?>
+          </p>
+        </div>
+        
+        <div class="columns">
+          <blockquote style="font-size: 0.9em">
+          <?php echo Yii::t('msg',"The only constant in life is change so it's important not to fall asleep on past successes or to give up at the sight of problems."); ?>
+          </blockquote>
+        </div>
+      </div>
+      
+      <div class="row" onmouseover="showPerson('bb');" onmouseout="hidePerson('bb')">
+        <div class="small-4 columns show-for-small">
+          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-blaz.jpg" alt="Blaž Beuermann" title="Blaž Beuermann">
+        </div>
+        <div class="small-8 large-12 columns">
+          <h4 id="team_desc_bb">Blaž Beuermann
+            <div class="login-floater">
+              <a href="<?php echo Yii::app()->getBaseUrl(true); ?>/person/1">
+                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-cofinder.png" alt="Blaž Beuermann" title="Blaž Beuermann">
+              </a>
+              <a href="">
+                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-facebook.png" alt="Blaž Beuermann" title="Blaž Beuermann">
+              </a>
+              <a href="">
+                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-googleplus.png" alt="Blaž Beuermann" title="Blaž Beuermann">
+              </a>
+            </div>
+          </h4>
+          <p >
+            <?php echo Yii::t('msg',"My designation at cofinder is to take care of our online foundations."); ?>
+          </p>
+        </div>
+        
+        <div class="columns">
+          <blockquote style="font-size: 0.9em">
+          <?php echo Yii::t('msg',""); ?>
+          </blockquote>
+        </div>
+      </div>
+      
+      <div class="row" onmouseover="showPerson('jr');" onmouseout="hidePerson('jr')">
+        <div class="small-4 columns show-for-small">
+        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-jure.jpg" alt="Jure Ravlič" title="Jure Ravlič">
+        </div>
+        <div class="small-8 large-12 columns">
+          <h4 id="team_desc_jr">Jure Ravlič
+            <div class="login-floater">
+              <a href="<?php echo Yii::app()->getBaseUrl(true); ?>/person/1">
+                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-cofinder.png" alt="Jure Ravlič" title="Jure Ravlič">
+              </a>
+            </div>
+          </h4>
+          <p >
+            <?php echo Yii::t('msg',"Taking care of overall design is my primary focus here on cofinder."); ?>
+          </p>
+        </div>
+        
+        <div class="columns">
+          <blockquote style="font-size: 0.9em">
+          <?php echo Yii::t('msg',""); ?>
+          </blockquote>
+        </div>
+      </div>
+
+      
+      <div class="row">
+        <div class="small-4 columns show-for-small">
+        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-jureg.jpg" alt="Jure Grahek" title="Jure Grahek" >
+        </div>
+        <div class="small-8 large-12 columns">
+          <h4 id="team_desc_zb">Jure Grahek
+            <div class="login-floater">
+              <a href="<?php echo Yii::app()->getBaseUrl(true); ?>/person/1">
+                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-cofinder.png" alt="Jure Ravlič" title="Jure Grahek">
+              </a>
+              <a href="<?php echo Yii::app()->getBaseUrl(true); ?>/person/1">
+                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-twitter.png" alt="Jure Ravlič" title="Jure Grahek">
+              </a>
+            </div>
+          </h4>
+          <p >
+            <?php echo Yii::t('msg',""); ?>
+          </p>
+        </div>
+        
+        <div class="columns">
+          <blockquote style="font-size: 0.9em">
+          <?php echo Yii::t('msg',""); ?>
+          </blockquote>
+        </div>
+      </div>
+      
+
     </div>
   </div>
 </div>
