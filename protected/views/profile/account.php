@@ -32,7 +32,7 @@
               , array('empty' => '&nbsp;',"style"=>"display:none")); ?>
 
       <?php echo CHtml::activeLabelEx($user,'newsletter'); ?>
-      <div class="switch small round small-4 large-3">
+      <div class="switch small round" style="width:120px">
         <input id="newsletter_0" name="UserEdit[newsletter]" type="radio" value="0" <?php if (!$user->newsletter) echo 'checked="checked"' ?>>
         <label for="newsletter_0" onclick=""><?php echo Yii::t('app','Off');?></label>
 
