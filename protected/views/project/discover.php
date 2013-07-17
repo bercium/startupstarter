@@ -76,7 +76,10 @@
 								array('class'=>"button small radius")
 						); ?>
 				 &nbsp; 
-				 <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" class="button reset-btn small radius secondary"><?php echo Yii::t("app","Reset"); ?></a>
+				 <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" >
+					<?php echo CHtml::button(Yii::t("app","Reset"),
+								array('class'=>"button small radius secondary")
+						); ?>
       </div>
 			
 				

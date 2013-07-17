@@ -161,7 +161,12 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 								array('class'=>"button small radius")
 						); ?>
 				 &nbsp; 
-				 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" class="button reset-btn small radius secondary"><?php echo Yii::t("app","Reset"); ?></a>
+				 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
+					<?php echo CHtml::button(Yii::t("app","Reset"),
+								array('class'=>"button small radius secondary")
+						); ?>
+         
+         </a>
       </div>
 			
 				

@@ -40,18 +40,19 @@
                     }
                 }
 								
-								echo Yii::t('app','Looking for <a>{n} person</a>|Looking for <a>{n} people</a>',array(count($idea['candidate'])));
+//								echo Yii::t('app','Looking for <a>{n} person</a>|Looking for <a>{n} people</a>',array(count($idea['candidate'])));
 								//echo Yii:: (app','Looking for').' <a>'.Yii:: ('app','{n} person|{n} people',array(count($idea['candidate']))).'</a>';
 								
 								if (count($skills) > 0){
 									//echo " ".Yii::t('app','with skill|with skills',array($c)).":<br />";
-									echo " ".Yii::t('app','skilled in').":<br />";
+									//echo " ".Yii::t('app','skilled in').":<br />";
+                  echo Yii::t('app','Looking for <a>{n} person</a> skilled in|Looking for <a>{n} people</a> skilled in',array(count($idea['candidate']))).": <br />";
 									foreach ($skills as $skillset=>$skill){
 										?>
 										<span class="label radius default-light meta_tags" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
 										<?php 
 									}
-								}
+								}else echo Yii::t('app','Looking for <a>{n} person</a>|Looking for <a>{n} people</a>',array(count($idea['candidate'])));
 							}
             ?> 
           </small>

@@ -86,8 +86,10 @@
 							array('class'=>"button small radius")
 					); ?>
 				 &nbsp; 
-				 <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" class="button small reset-btn radius secondary"><?php echo Yii::t("app","Reset"); ?></a>
-				
+				 <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" >
+					<?php echo CHtml::button(Yii::t("app","Reset"),
+								array('class'=>"button small radius secondary")
+						); ?>
 	    </div>
 			
 			<div class="advance" <?php if (!$filter->checkAdvanceForm()) echo "style='display:none'"; ?>>

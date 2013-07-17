@@ -17,7 +17,6 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  0 => '',
   '
 		Ideja se je porodila konec oktobra 2012 na dogodku v PopUp domu. Ob pogovoru z enim izmed ustanovitljev ljubljanskega coworkinga sem prišel na idejo, ki bi razširila ta koncept preko fizičnih meja, saj sem imel tudi sam v preteklosti problem iskanja zanesljivih partnerjev za uresničevanje svojih zamisli. Problem sem videl v relativni majhnosti posameznikovega socialnega kroga, ki zajema predvsem ljudi znotraj njegove glavne panoge.
 		Sredi decembra sva se povezala z Blažem, ki je ravno takrat reševal tak problem. Skupaj sva pričela razvijati koncept ideje, ko se nama je pridružil tudi tretji član z istim problemom, ki trenutno ni več aktiven. 
@@ -102,6 +101,7 @@ return array (
   'Register here' => '',
   'Retype password is incorrect.' => '',
   'Select group which represents your skill the closest.' => '',
+  0 => '',
   'Select how much time you have to work on projects.' => '',
   'Selecting an avatar will make you more recognizable.' => '',
   'Server error. Upload directory isn\'t writable.' => '',

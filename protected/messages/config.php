@@ -10,7 +10,7 @@ return array(
 	'fileTypes'=>array('php'),
 	'overwrite'=>true,
   'sort'=>true,
-  /*'removeOld'=>true,*/
+  'removeOld'=>true,
 	'exclude'=>array(
 		'.svn',
 		'.gitignore',
