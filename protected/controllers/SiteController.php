@@ -86,6 +86,7 @@ class SiteController extends Controller
       $searchForm->setAttributes($_GET['SearchForm']);
 			
 			$filter['per_page'] = 9;
+			$filter['page'] = $id;
 			
 			$filter['available'] = $searchForm->available;
 			$filter['city'] = $searchForm->city;
@@ -97,11 +98,19 @@ class SiteController extends Controller
 			$filter['skill'] = $searchForm->skill;
 			$filter['stage'] = $searchForm->stage;
 			
-			if ($searchForm->isProject)	$searchResult['data'] = $sqlbuilder->load_array("search_idea", $filter);
-			else $searchResult['data'] = $sqlbuilder->load_array("search_user", $filter);
+			if ($searchForm->isProject){
+				$searchResult['data'] = $sqlbuilder->load_array("search_idea", $filter);
+				$count = $sqlbuilder->load_array("search_idea_count", $filter);
+				$count = $count['num_of_rows'];
+			} else {
+				$searchResult['data'] = $sqlbuilder->load_array("search_user", $filter);
+				$count = $sqlbuilder->load_array("search_user_count", $filter);
+				$count = $count['num_of_rows'];
+			}
 			
 			$searchResult['page'] = $id;
-			$searchResult['maxPage'] = 2; //!!! add page count
+			$searchResults['maxPage'] = ceil($count / $filter['per_page']);
+			$searchResult['maxPage'] = 3;
 
     }else{
 			// last results
@@ -207,12 +216,6 @@ class SiteController extends Controller
 		$this->redirect(Yii::app()->homeUrl);
 	}
 
-	public function actionSkill($input){
-		//data[]: type, id, skillset, skill
-		//type: skillset = 1, skill = 2
-		//id se spreminja, ni vedno ista tabela (enkrat skillset, drugič skillset_skill)
-	}
-	
 	public function actionSugestCity() {
 
 		if (!isset($_GET['term'])){
@@ -330,6 +333,6 @@ class SiteController extends Controller
 		
 		echo json_encode($response);
 		Yii::app()->end();
-	}	
+	}
 	
 }
