@@ -62,6 +62,8 @@ $(window).load(function() {
           // add placeholder to get the comma-and-space at the end
           terms.push( "" );
           this.value = terms.join( ", " );
+          
+          if (this.id == 'search_local') $('.search_local_button').click();
           return false;
         }
       });
