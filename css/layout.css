@@ -971,6 +971,10 @@ border-radius: 2px;
 
 
 
+.card-idea{
+  padding-left: 13px;
+  padding-right: 13px;
+}
 
 .card-idea .idea-info {
 	position: absolute;
@@ -994,6 +998,7 @@ border-radius: 2px;
 	padding-top: 13px;
 	border-top: 1px solid #DDDDDD;
 	padding-right: 11px;
+  margin-top: 5px;
 }
 
 
@@ -1266,6 +1271,11 @@ h6.title-field {
 ================================================== */
 .person-details{
   margin-top:40px;
+}
+
+.card-person{
+  padding-left: 13px;
+  padding-right: 13px;
 }
 
 .person-details .card-person {

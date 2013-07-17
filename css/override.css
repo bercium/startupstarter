@@ -1,3 +1,7 @@
+body{
+  font-size:120%;
+}
+
 .ui-autocomplete {
   max-height: 200px;
   overflow-y: auto;
@@ -21,10 +25,14 @@
 a { color: #4469a6;}
 a:hover, a:focus { color: #3c76d6; }
 
+.button{
+  -webkit-box-shadow:none;
+}
 
 button, .button {
   background-color: #4469a6;
   border-color: #355282;
+  box-shadow:none;
 }
 button:hover, button:focus, .button:hover, .button:focus { background-color: #355282; }
 button.success, .button.success {
@@ -85,7 +93,11 @@ form.custom .custom.checkbox.checked:before{
 .top-bar .toggle-topbar a { color: #222; }
 .top-bar .toggle-topbar.menu-icon a { color: #222; }
 .top-bar.expanded .title-area { background: #fff; }
-.top-bar-section ul li > a { color: #222; }
+.top-bar-section ul li > a { 
+  color: #222; 
+  background: #333333;
+  height: 45px;
+}
 .top-bar-section ul li > a:hover { background: #f0f0f0; }
 .top-bar-section ul li.active a, .top-bar-section ul li.hover > a { background: #f0f0f0; color:#222; }
 .top-bar-section .has-dropdown > a:after { border-color: transparent transparent transparent rgba(0, 0, 0, 0.5); }
@@ -111,3 +123,5 @@ form.custom .custom.checkbox.checked:before{
 
 .progress.success .meter { background: #83b25b; }
 .progress.alert .meter { background: #cd3438; }
+
+
