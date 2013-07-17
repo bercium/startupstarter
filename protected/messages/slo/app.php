@@ -174,7 +174,7 @@ return array (
   'Settings' => '',
   'Show' => '',
   'Skill' => '',
-  'Skill group' => '',
+  'Industry' => '',
   'Skill sets' => '',
   'Skilled in' => '',
   'SkillsetSkill|SkillsetSkills' => '',

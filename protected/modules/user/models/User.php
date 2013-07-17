@@ -112,7 +112,7 @@ class User extends BaseUser
 			'activkey' => Yii::t('app', 'Activation key'),
 			'createtime' => Yii::t('app',"Registration date"),
 			'create_at' => Yii::t('app', 'Create at'),
-			'lastvisit_at' => Yii::t('app', 'Lastvisit at'),
+			'lastvisit_at' => Yii::t('app', 'Last visit at'),
 			'superuser' => Yii::t('app', 'Superuser'),
 			'status' => Yii::t('app', 'Status'),
         

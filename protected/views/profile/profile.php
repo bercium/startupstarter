@@ -115,7 +115,7 @@
     <?php echo CHtml::textField("skill","", array('maxlength' => 128)); ?>
   
  
-    <?php echo CHtml::label(Yii::t('app','Skill group'),''); ?>
+    <?php echo CHtml::label(Yii::t('app','Industry'),''); ?>
     <span class="description">
        <?php echo Yii::t('msg','Select group which represents your skill the closest.'); ?>
     </span>
