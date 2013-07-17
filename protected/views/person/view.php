@@ -162,8 +162,8 @@ $user = $data['user'];
 			</div>
 			
 			<div class="large-6 column "  >
-				<?php if (count($user['num_of_rows']) > 0) { ?>
-				<p class="meta-field"><?php echo Yii::t('app', 'Involved in') ?><?php echo Yii::t('app', '{n} project|{n} projects', array($user['num_of_rows'])) ?>:</p>
+				<?php if (count($user['idea']) > 0) { ?>
+				<p class="meta-field"><?php echo Yii::t('app', 'Involved in <a>{n}</a> project|Involved in <a>{n}</a> projects', array(count($user['idea']))) ?>:</p>
 				
 				<?php
 				if (is_array($user['idea']))
