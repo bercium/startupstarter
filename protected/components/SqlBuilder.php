@@ -46,6 +46,7 @@ class SqlBuilder {
 		}
 
 		$filter['action'] = $action;
+		$this->level = 0;
 
 	//WHICH ACTION IS PERFORMED?
 		switch ($action) {
@@ -69,6 +70,10 @@ class SqlBuilder {
 		    case "search_idea":
 		        return $this->search("idea", $filter);
 		        break;
+		    case "search_idea_count":
+		    	$filter['idea_count'] = true;
+		        return $this->search("idea", $filter);
+		        break;
 		    //user related data
 		    case "user":
 		    	if(isset($filter['user_id'])){
@@ -76,6 +81,10 @@ class SqlBuilder {
 		        }
 		        break;
 		    case "search_user":
+		    	return $this->search("user", $filter);
+		        break;
+		    case "search_user_count":
+		    	$filter['user_count'] = true;
 		    	return $this->search("user", $filter);
 		        break;
 		    //pagination data
@@ -97,6 +106,8 @@ class SqlBuilder {
 	}
 
 	public function idea($type, $filter, $data = array()){
+
+		$this->level++;
 
 		if( $type == 'recent_candidate'){
 			//currently not in use
@@ -144,7 +155,7 @@ class SqlBuilder {
 					"AND t.language_id = {$filter['lang']} ".
 
 					"WHERE i.deleted = 0 ".					
-					"ORDER BY i.time_registered DESC";
+					"ORDER BY im.type_id ASC, i.time_registered DESC";
 
 		} elseif( $type == 'idea' ){
 			$sql=	"SELECT i.*, ist.name AS status, t.translation AS status_translation FROM ".
@@ -228,13 +239,16 @@ class SqlBuilder {
 				}
 				unset($row['status_translation']);
 
+				$row['date_updated'] = Yii::app()->dateFormatter->formatDateTime(strtotime($row['time_updated']));
+				$row['days_updated'] = floor( (time() - strtotime($row['time_updated'])) / 86400 );
 				if($type != 'user'){
 					$row['translation_other'] = $this->idea_translation( 'other', $filter );
+					$row['candidate'] = $this->user( 'candidate', $filter );
 					$row['member'] = $this->user( 'member', $filter );
 					$row['num_of_members'] = count($row['member']);
-					$row['candidate'] = $this->user( 'candidate', $filter );
-					$row['date_updated'] = Yii::app()->dateFormatter->formatDateTime(strtotime($row['time_updated']));
-					$row['days_updated'] = round( (strtotime($row['time_updated']) - time()) / 86400 , 0, PHP_ROUND_HALF_DOWN ) * -1;	
+				}
+				if($type == 'user' && $this->level < 3){
+					$row['member'] = $this->user( 'member', $filter );
 				}
 
 				//add number of clicks
@@ -256,6 +270,8 @@ class SqlBuilder {
 				}
 			}
 		}
+
+		$this->level--;
 
 		return $array;
 	}
@@ -300,6 +316,8 @@ class SqlBuilder {
 	}
 
 	public function user($type, $filter = 0, $data = array()){
+
+		$this->level++;
 
 		if( $type == 'user' ) {
 			//return specific user's data
@@ -431,7 +449,7 @@ class SqlBuilder {
 				$condition[] =	"m.id = {$value['id']}";
 				$keys[] = $value['id'];
 			}
-			$sql.= implode($condition, " OR ") . " ) ORDER BY FIELD(m.id, ".implode($keys, ', ').") ASC";
+			$sql.= implode($condition, " OR ") . " ) ORDER BY FIELD(m.id, ".implode($keys, ', ').") ASC ";
 		}
 
 		$connection=Yii::app()->db;
@@ -497,6 +515,8 @@ class SqlBuilder {
 			}
 		}
 
+		$this->level--;
+
 		return $array;
 	}
 
@@ -544,13 +564,10 @@ class SqlBuilder {
 
 	public function skillset($filter){
 
-		$sql=		"SELECT ss.id, ss.name AS skillset, t.translation, us.skill_id, sss.id AS skillset_skill_id FROM ".
+		$sql=		"SELECT ss.id, ss.name AS skillset, t.translation FROM ".
 					"`user_skill` AS us ".
 					"LEFT JOIN `skillset` AS ss ".
 					"ON ss.id = us.skillset_id ".
-					"LEFT JOIN `skillset_skill` AS sss ".
-					"ON sss.skillset_id = us.skillset_id ".
-					"AND sss.skill_id = us.skill_id ".
 					"LEFT JOIN translation AS t ".
 					"ON ss.id = t.row_id ".
 					"AND t.table = 'skillset'".
@@ -570,15 +587,9 @@ class SqlBuilder {
 			}
 
 			$filter['skillset_id'] = $row['id'];
-			unset($filter['skill_id']);
 
 			$array[$row['id']] = $row;
-
-			if($row['skill_id'] > 0){
-				$filter['skill_id'] = $row['skill_id'];
-				unset($row['skill_id']);
-				$array[$row['id']]['skill'] = $this->skillset_skill( $filter );
-			}
+			$array[$row['id']]['skill'] = $this->skillset_skill( $filter );
 		}
 
 		return $array;
@@ -586,21 +597,13 @@ class SqlBuilder {
 
 	public function skillset_skill($filter){
 
-		if(isset($filter['skill_id'])){
-
-			$sql=		"SELECT s.id, s.name AS skill FROM ".
-						"`user_skill` AS us ".
-						"LEFT JOIN `skill` AS s ".
-						"ON s.id = us.skill_id ".
-						"WHERE s.id = '{$filter['skill_id']}' ".
-						"AND us.skillset_id = '{$filter['skillset_id']}' ";
-		}/* else {
-			$sql=		"SELECT s.id, s.name AS skill FROM ".
-						"`user_skill` AS us, ".
-						"`skill` AS s ".
-						"WHERE s.id = us.skill_id ".
-						"AND us.skillset_id = '{$filter['skillset_id']}' ";
-		}*/
+		$sql=		"SELECT s.id, s.name AS skill FROM ".
+					"`user_skill` AS us ".
+					"LEFT JOIN `skill` AS s ".
+					"ON s.id = us.skill_id ".
+					"WHERE us.skillset_id = '{$filter['skillset_id']}' ".
+					"AND us.match_id = '{$filter['match_id']}' ".
+					"GROUP BY s.id";
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
@@ -1136,10 +1139,15 @@ public function search($type, $filter){
 			$rank_array[$row['id']] = $rank;
 		}
 		
+		if(isset($filter['idea_count']) || isset($filter['user_count'])){
+			$count = count($array);
+		}
+
 		//Sort by relevance
 		array_multisort($rank_array, SORT_DESC, $array);
 
 		//Pagination
+		
 		$array = array_slice($array, ($filter['page'] - 1) * $filter['per_page'], $filter['per_page']);
 		
 		//DEBUG
@@ -1150,11 +1158,15 @@ public function search($type, $filter){
 		print_r($array);*/
 
 		//Load the array with data!
-		if($type == "idea") {
+		if($type == "idea" && !isset($filter['idea_count']) && !isset($filter['user_count'])) {
 			return $this->idea("search", $filter, $array);
-		} elseif($type == "user") {
+		} elseif($type == "user" && !isset($filter['idea_count']) && !isset($filter['user_count'])) {
 			return $this->user("search", $filter, $array);
+		} elseif(isset($filter['idea_count']) || isset($filter['user_count'])){
+			return array('num_of_rows' => $count);
+
 		}
+
 	}
 }
 

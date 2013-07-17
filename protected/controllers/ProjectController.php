@@ -259,6 +259,7 @@ class ProjectController extends GxController {
 
 			//if an existing user is to be inserted as a member
 
+
 			//if a new member is to be invited
 			//!!!later
 
@@ -928,5 +929,64 @@ class ProjectController extends GxController {
 
 		$this->render('discover', array("filter"=>$searchForm, "searchResult"=>$searchResult));
   }
+
+	public function actionSuggestUser() {
+
+		if (!isset($_GET['term'])){
+			$response = array("data" => null,
+								"status" => 1,
+								"message" => Yii::t('msg', "No search query."));
+		}else{
+			$connection=Yii::app()->db;
+			$data = array();
+
+			$terms = explode(" ", $_GET['term']);
+			$count = count($terms);	
+
+			foreach($terms AS $key => $value){
+				//find by name
+				$criteria=new CDbCriteria();
+				$criteria->condition = " `name` LIKE :name";
+				$criteria->params = array(":name"=>"%".$value."%");
+				$criteria->order = "name";
+				
+				$dataReader = UserEdit::model()->findAll($criteria);
+				foreach ($dataReader as $row){
+					$data[$row['user_id']] = array("value"=>$row['name'] . " " . $row['surname']);
+				}
+
+				//find by surname
+				$criteria=new CDbCriteria();
+				$criteria->condition = " `surname` LIKE :surname";
+				$criteria->params = array(":surname"=>"%".$value."%");
+				$criteria->order = "name";
+				
+				$dataReader = UserEdit::model()->findAll($criteria);
+				foreach ($dataReader as $row){
+					$data[$row['user_id']] = array("value"=>$row['name'] . " " . $row['surname']);
+				}
+
+				if($count == 1){
+					//find by email
+					$criteria=new CDbCriteria();
+					$criteria->condition = " `email` LIKE :email";
+					$criteria->params = array(":name"=>"%".$value."%");
+					$criteria->order = "name";
+					
+					$dataReader = UserEdit::model()->findAll($criteria);
+					foreach ($dataReader as $row){
+						$data[$row['user_id']] = array("value"=>$row['name'] . " " . $row['surname']);
+					}
+				}
+			}
+			
+			$response = array("data" => $data,
+												"status" => 0,
+												"message" => '');
+		}
+		
+		echo json_encode($response);
+		Yii::app()->end();
+	}
 
 }
