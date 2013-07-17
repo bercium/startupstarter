@@ -54,6 +54,10 @@ $(window).load(function() {
           return false;
         },
         select: function( event, ui ) {
+          if (this.id == 'search_local'){
+            this.value = ui.item.value;
+            $('.search_local_button').click();
+          } 
           var terms = splitComa( this.value );
           // remove the current input
           terms.pop();
@@ -62,8 +66,6 @@ $(window).load(function() {
           // add placeholder to get the comma-and-space at the end
           terms.push( "" );
           this.value = terms.join( ", " );
-          
-          if (this.id == 'search_local') $('.search_local_button').click();
           return false;
         }
       });
