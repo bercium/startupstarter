@@ -586,6 +586,7 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 .top-bar-person{
   float:left; 
   line-height:26px;
+  color:#222 !important; /* hide  link style */
 }
 
 
@@ -610,7 +611,9 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
   {
  	position: absolute;
  	right: 10px;
- 	line-height: 2.3em;
+  line-height: 1.6em;
+  color:#666;
+ 	/*line-height: 2.3em;*/
  }
 
 
@@ -1451,4 +1454,8 @@ label{
 .page-navigation ul{
   list-style: none;
   margin-bottom: 0;
+}
+
+.skillList span{
+  line-height: 1.2em;
 }

@@ -70,8 +70,10 @@
 							 </div>
                
                <?php if (!Yii::app()->user->isGuest){ ?>
-                <div class="show-for-small" style="color:#fff; margin-left:8px">
-                <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
+                <div class="show-for-small" style="margin-left:8px">
+                  <a href="<?php echo Yii::app()->createUrl("profile"); ?>">
+                    <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
+                  </a>
                 </div>
                <?php } ?>
               </li>
@@ -124,7 +126,7 @@
             <ul class="right">
               <?php if (!Yii::app()->user->isGuest){ ?>
               <li class="has-dropdown">
-                <a href="#" >
+                <a href="#" style="height:45px">
                   <div class="hide-for-small">
                   <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
                   </div>

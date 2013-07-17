@@ -16,12 +16,98 @@
   margin-bottom: 0;
 }
 
-.top-bar-section li.desc a{
-  line-height: 30px;
+
+
+a { color: #4469a6;}
+a:hover, a:focus { color: #3c76d6; }
+
+
+button, .button {
+  background-color: #4469a6;
+  border-color: #355282;
+}
+button:hover, button:focus, .button:hover, .button:focus { background-color: #355282; }
+button.success, .button.success {
+    background-color: #83b25b;
+    border-color: #6a9446; 
+}
+button.success:hover, button.success:focus, .button.success:hover, .button.success:focus { background-color: #6a9446; }
+button.alert, .button.alert {
+    background-color: #cd3438;
+    border-color: #a5292c;
+}
+button.alert:hover, button.alert:focus, .button.alert:hover, .button.alert:focus { background-color: #a5292c; }
+button.disabled, button[disabled], .button.disabled, .button[disabled] {
+    background-color: #4469a6;
+    border-color: #355282;
+}
+button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
+      background-color: #355282; }
+button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
+      background-color: #4469a6; }
+button.disabled.success, button[disabled].success, .button.disabled.success, .button[disabled].success {
+      background-color: #83b25b;
+      border-color: #6a9446;
+}
+button.disabled.success:hover, button.disabled.success:focus, button[disabled].success:hover, button[disabled].success:focus, .button.disabled.success:hover, .button.disabled.success:focus, .button[disabled].success:hover, .button[disabled].success:focus {
+        background-color: #6a9446; }
+button.disabled.success:hover, button.disabled.success:focus, button[disabled].success:hover, button[disabled].success:focus, .button.disabled.success:hover, .button.disabled.success:focus, .button[disabled].success:hover, .button[disabled].success:focus {
+        background-color: #83b25b; }
+button.disabled.alert, button[disabled].alert, .button.disabled.alert, .button[disabled].alert {
+      background-color: #cd3438;
+      border-color: #a5292c;}
+button.disabled.alert:hover, button.disabled.alert:focus, button[disabled].alert:hover, button[disabled].alert:focus, .button.disabled.alert:hover, .button.disabled.alert:focus, .button[disabled].alert:hover, .button[disabled].alert:focus {
+        background-color: #a5292c; }
+button.disabled.alert:hover, button.disabled.alert:focus, button[disabled].alert:hover, button[disabled].alert:focus, .button.disabled.alert:hover, .button.disabled.alert:focus, .button[disabled].alert:hover, .button[disabled].alert:focus {
+        background-color: #cd3438; }
+
+
+form.custom .custom.checkbox.checked:before{
+  margin-top: 1px;
 }
 
+.top-bar-section li.desc a{
+  line-height: 30px;
+  height:45px;
+}
 .top-bar-section li.desc small{
-  line-height:0px; 
+  line-height:0px;
   margin-top:-10px; 
   color:#999;
 }
+.top-bar-section > ul > .divider{
+  border-color: #ddd;
+  border-left: none;
+  border-top: none;
+}
+.top-bar { background: #fff; }
+.top-bar .name h1 a { color: #222;}
+.top-bar .toggle-topbar a { color: #222; }
+.top-bar .toggle-topbar.menu-icon a { color: #222; }
+.top-bar.expanded .title-area { background: #fff; }
+.top-bar-section ul li > a { color: #222; }
+.top-bar-section ul li > a:hover { background: #f0f0f0; }
+.top-bar-section ul li.active a, .top-bar-section ul li.hover > a { background: #f0f0f0; color:#222; }
+.top-bar-section .has-dropdown > a:after { border-color: transparent transparent transparent rgba(0, 0, 0, 0.5); }
+.top-bar-section .dropdown { box-shadow: 0 4px 4px rgba(0,0,0,0.3); }
+.top-bar-section .dropdown li a { border-top: 1px solid #ddd; line-height: 1.6em; }
+.top-bar-section .dropdown li.title h5 a { color: #222; }
+.top-bar-section ul{ background: #fff; }
+.top-bar-section ul li > a{}
+.top-bar-section li.desc a{ padding-top: 2px; }
+
+.top-bar .toggle-topbar.menu-icon a span{  box-shadow: 0 10px 0 1px #666, 0 16px 0 1px #666, 0 22px 0 1px #666; }
+
+
+@media only screen and (min-width: 58.75em) {
+  .top-bar {  background: #fff; }
+  .top-bar.expanded { background: #fff; }
+  .top-bar-section li a:not(.button) { background: #fff; color:#222; }
+  .top-bar-section li a:not(.button):hover { color: #222; }
+  .top-bar-section .has-dropdown > a:after { border-color: rgba(0, 0, 0, 0.5) transparent transparent transparent; }
+  .top-bar-section .dropdown li a { color: #222; }
+  .top-bar-section ul{ background: #fff; }
+}
+
+.progress.success .meter { background: #83b25b; }
+.progress.alert .meter { background: #cd3438; }
