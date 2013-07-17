@@ -61,7 +61,6 @@ return array (
   'Country|Countries' => 'Država|Državi|Države|Držav',
   'Create' => 'Ustvari',
   'Create a new project' => 'Ustvari nov projekt',
-  'Create new' => 'Ustvari novo',
   'Create new project' => 'Ustvari nov projekt',
   'Create user' => 'Ustvari uporabnika',
   'Created at' => 'Ustvarjen',

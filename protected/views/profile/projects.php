@@ -10,7 +10,7 @@
 <div class="row myprojects">
   <div class="columns edit-header">
     <div class="edit-floater">
-      <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo Yii::t('app','Create new') ?></a>
+      <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo Yii::t('app','Create new project') ?></a>
     </div>
 		
     <h3><?php echo Yii::t('app', 'My projects'); ?></h3>
