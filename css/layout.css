@@ -685,17 +685,6 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 }
 
 
-
-.tooltip  {
- box-shadow: 0 0 0 1px #fff, 0 0 2px #87878e,  0 0 3px 3px rgba(0,0,0,0.3);
-background: #f8f8fb;
-border-radius: 2px;
- -webkit-border-radius: 2px;
- color: #111; 
-  text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
-  font-weight: 100;
-}
-
 .hide-text {
 	text-indent: 100%;
 	white-space: nowrap;

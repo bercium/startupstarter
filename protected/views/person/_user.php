@@ -42,12 +42,14 @@
               }
 							
 							//echo Yii::t('app','Skill|Skills',array($c)).":"; 
-							echo Yii::t('app','Skilled in').":"; 
+              if (count($skills) > 0){
+                echo Yii::t('app','Skilled in').":"; 
 
-              foreach ($skills as $skillset=>$skill){
-                ?>
-                <span class="label radius success-alt meta_tags"<?php if(count($skill)) echo " data-tooltip title='".implode("<br />",$skill)."'"; ?>><?php echo $skillset; ?></span>
-                <?php 
+                foreach ($skills as $skillset=>$skill){
+                  ?>
+                  <span class="label radius success-alt meta_tags"<?php if(count($skill)) echo " data-tooltip title='".implode("<br />",$skill)."'"; ?>><?php echo $skillset; ?></span>
+                  <?php 
+                }
               }
           
           ?> 

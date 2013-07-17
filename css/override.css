@@ -70,9 +70,12 @@ button.disabled.alert:hover, button.disabled.alert:focus, button[disabled].alert
         background-color: #cd3438; }
 
 
+
 form.custom .custom.checkbox.checked:before{
   margin-top: 1px;
 }
+
+
 
 .top-bar-section li.desc a{
   line-height: 30px;
@@ -125,3 +128,24 @@ form.custom .custom.checkbox.checked:before{
 .progress.alert .meter { background: #cd3438; }
 
 
+.tooltip  {
+  box-shadow: 0 0 0 1px #fff, 0 0 2px #87878e,  0 0 3px 3px rgba(0,0,0,0.3);
+  background: #f8f8fb;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  color: #666;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
+  /*font-weight: normal !important;*/
+  font-size: 0.8em;
+}
+
+.tooltip > .nub{
+  display: block;
+  left: 5px;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: solid 5px;
+  border-color: transparent transparent #f8f8fb transparent;
+  top: -10px; 
+}
