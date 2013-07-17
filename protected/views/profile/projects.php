@@ -1,3 +1,5 @@
+<?php $this->pageTitle = Yii::t('app','My projects'); ?>
+
     <?php if(Yii::app()->user->hasFlash('removeProjectsMessage')){ ?>
     <div data-alert class="alert-box radius success">
       <?php echo Yii::app()->user->getFlash('removeProjectsMessage'); ?>

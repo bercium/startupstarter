@@ -1,3 +1,4 @@
+<?php $this->pageTitle = Yii::t('app','Settings'); ?>
 <div class="row">
   <div class="small-12 large-12 columns edit-header">
     <h3><?php echo Yii::t('app', 'Settings'); ?></h3>

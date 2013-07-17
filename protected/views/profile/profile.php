@@ -1,4 +1,6 @@
 <?php
+  $this->pageTitle = Yii::t('app','Profile');
+  
   $baseUrl = Yii::app()->baseUrl; 
   $cs = Yii::app()->getClientScript();
   
