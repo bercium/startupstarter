@@ -109,7 +109,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 		  <div class="large-3 small-12 columns">
     		<h4 class="meta-title"><?php echo Yii::t('app','Sort your search by'); ?> </h4>
       </div>
-		  <div class="large-9 small-12 columns">
+		  <div class="large-2 small-12 columns">
 				<div class="left toggle_search switch large-3 small round small-3" onclick="$('.filter_projects').toggle();$('.filter_people').toggle();">
 					<input id="project_0" name="SearchForm[isProject]" type="radio" value="1" <?php if ($filter->isProject) echo 'checked="checked"' ?>>
 					<label for="project_0" onclick=""><?php echo Yii::t('app','Projects'); ?></label>
@@ -119,11 +119,10 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 					<label for="project_1" onclick=""><?php echo Yii::t('app','People') ?></label>
 					<span></span>
 				</div>
-        
-				
-					<a class="exp_srch large-3 small-3 button small secondary right round" href="#" onclick="$('.advance').toggle(); return false;"><?php echo Yii::t('app','Advanced search'); ?> <span class="icon-caret-down"></span></a>
-				
-        
+      </div>
+      
+		  <div class="large-7 small-12 columns">
+					<a class="exp_srch button small secondary right round" href="#" onclick="$('.advance').toggle(); return false;"><?php echo Yii::t('app','Advanced search'); ?> <span class="icon-caret-down"></span></a>
       </div>
 		</div>
 

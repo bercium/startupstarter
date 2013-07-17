@@ -37,7 +37,7 @@
       </div>
 		  <div class="large-9 small-12 columns">
 				
-			<a class="exp_srch large-3 small-3 button small secondary right round" href="#" onclick="$('.advance').toggle(); return false;"><?php echo Yii::t('app','Advanced search'); ?> <span class="icon-caret-down"></span></a>
+			<a class="exp_srch button small secondary right round" href="#" onclick="$('.advance').toggle(); return false;"><?php echo Yii::t('app','Advanced search'); ?> <span class="icon-caret-down"></span></a>
         
       </div>
 		</div>
