@@ -9,7 +9,7 @@
     </h3>
 
         <?php if (count($ideadata['translation_other'])){ ?>
-      <div class="large-12 small-12 columns panel languages" >
+      <div class="columns panel languages" >
         <p class="meta">Languages:
         <?php 
           

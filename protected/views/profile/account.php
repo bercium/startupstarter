@@ -1,9 +1,9 @@
 <?php $this->pageTitle = Yii::t('app','Settings'); ?>
 <div class="row">
-  <div class="small-12 large-12 columns edit-header">
+  <div class="columns edit-header">
     <h3><?php echo Yii::t('app', 'Settings'); ?></h3>
   </div>
-  <div class="small-12 large-12 columns panel edit-content">
+  <div class="columns panel edit-content">
     
     <?php if(Yii::app()->user->hasFlash('settingsMessage')){ ?>
     <div data-alert class="alert-box radius success">
@@ -12,7 +12,7 @@
     </div>
     <?php } ?>    
     
-      <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6 small-12")); ?>
+      <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6")); ?>
     
       <?php echo CHtml::errorSummary($user,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
 
@@ -59,10 +59,10 @@
 </div>
 
 <div class="row">
-  <div class="small-12 large-12 columns edit-header">
+  <div class="columns edit-header">
     <h3><?php echo Yii::t('app', 'Change password'); ?></h3>
   </div>
-  <div class="small-12 large-12 columns panel edit-content">
+  <div class="columns panel edit-content">
 
     <?php if(Yii::app()->user->hasFlash('passChangeMessage')){ ?>
     <div data-alert class="alert-box radius success">
@@ -71,7 +71,7 @@
     </div>
     <?php } ?>
     
-      <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6 small-12")); ?>
+      <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6")); ?>
 
       <?php echo CHtml::errorSummary($passwordForm,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
 
@@ -95,7 +95,7 @@
 </div>
 
 <div class="row">
-  <div class="small-12 large-12 columns edit-header">
+  <div class="columns edit-header">
     <div class="edit-floater">
           <?php echo CHtml::submitButton(Yii::t("app","Open"),
                 array('class'=>"button small secondary radius",
@@ -105,7 +105,7 @@
     </div>
     <h3><?php echo Yii::t('app', 'Deactivate account'); ?></h3>
   </div>
-  <div class="small-12 large-12 columns panel edit-content" id="deactivate" style="display:none;">
+  <div class="columns panel edit-content" id="deactivate" style="display:none;">
     <p>
       <?php echo Yii::t('msg', 'To deactivate your account change "Account status" to off and click deactivate. You will then be loged out of the system.'); ?>
       <br />

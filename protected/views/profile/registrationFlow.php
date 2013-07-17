@@ -25,7 +25,7 @@
 <br />
 
 
-  <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6 small-12",'id'=>'after_register_form')); ?>
+  <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6",'id'=>'after_register_form')); ?>
   <p>
 
   <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
@@ -54,7 +54,7 @@
   
   
   <div class="row">
-      <div class="small-12 large-4 right columns">
+      <div class="large-4 right columns">
       <?php 
        //echo Yii::app()->getBaseUrl(true)."/".Yii::app()->params['tempFolder'];
          //echo "<img class='avatar' src='".avatar_image($user->avatar_link, $user->id)."'>";
@@ -97,7 +97,7 @@
        ?>
       <?php echo CHtml::activeHiddenField($user,'avatar_link'); ?>
       </div>
-      <div class="small-12 large-7 left columns">
+      <div class="large-7 left columns">
 
       <?php if (!$user->surname){ ?>
       <?php echo CHtml::activeLabelEx($user,'surname'); ?>

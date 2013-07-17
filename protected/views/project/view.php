@@ -36,10 +36,10 @@ $idea = $data['idea'];
 </div>
 
 <div class="row idea-details">
-	<div class="large-12 small-12 columns radius panel card-idea">
+	<div class="columns radius panel card-idea">
 		
 		<div class="row">
-			<div class="large-12 small-12 columns title-field" >
+			<div class="columns title-field" >
 				<?php 
           $canEdit = false;
           foreach ($idea['member'] as $member){
@@ -66,7 +66,7 @@ $idea = $data['idea'];
 
 			
         <?php if (count($idea['translation_other'])){ ?>
-      <div class="large-12 small-12 columns panel languages" >
+      <div class="columns panel languages" >
         <p class="meta">Languages:
         <?php 
           
@@ -82,7 +82,7 @@ $idea = $data['idea'];
 		</div>
 
 		<div  class="row">
-			<div class="large-8 small-12 columns">
+			<div class="large-8 columns">
         <p class="pitch">
           <?php echo $idea['pitch']; ?>
         </p>
@@ -132,7 +132,7 @@ $idea = $data['idea'];
 
 			</div>
 			
-			<div class="large-4 small-12 columns">
+			<div class="large-4 columns">
         <?php if ($idea['website']){ ?>
         <hr>
         <p class="title-field meta"><span class="icon-globe" title=""></span>
@@ -153,7 +153,7 @@ $idea = $data['idea'];
             $cnum++; 
           ?>
            <div  class="idea-sidebar">
-            <div class="small-12 columns">
+            <div class="columns">
 							
               <?php if ($candidate['available_name']) { ?>
                 <div class="available-time"><?php echo $candidate['available_name']; ?></div>

@@ -1,6 +1,6 @@
- <div class="large-12 small-12 columns radius panel card-idea">
+ <div class="columns radius panel card-idea">
     <div class="row card-idea-title" onclick="window.open('<?php echo Yii::app()->createUrl("project/".$idea['id']); ?>','_blank')">
-      <div class="large-12 small-12 columns" >
+      <div class="columns" >
         <h5><?php echo trim_text($idea['title'],60); ?></h5>
         
         <?php /* ?><div class="card-floater">
@@ -13,7 +13,7 @@
 
       
     <div  class="row">
-      <div class="large-12 small-12 columns card-content"  >
+      <div class="columns card-content"  >
 
         <div class="card-abstract">
           <p>
@@ -60,7 +60,7 @@
 		  </div>
        <div class="idea-info">
 
-          <div class="large-12 columns"> 
+          <div class="columns"> 
               <?php 
               $i = 0;
               // show first 4 members
@@ -84,7 +84,7 @@
              <span class="general foundicon-video" data-tooltip title="<?php  echo Yii::t('msg','Project has a video'); ?>" ></span>
             <?php } ?>        
         </div>
-        <div class="large-12 columns subinfo">
+        <div class="columns subinfo">
           
           <small class="meta"><?php 
           if ($idea['days_updated'] == 0) echo Yii::t('app','Updated today');

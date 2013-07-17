@@ -44,7 +44,7 @@
 
   <div class="header-wrap show-for-small">
     <div class="row header">
-      <div class="small-12 large-12" >
+      <div class="" >
         <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
           <h1>
            <img class="logo" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" />
@@ -57,7 +57,7 @@
   
   <div class="top-bar-holder sticky" >
       <div class="row">
-        <div class="small-12 large-12">
+        <div class="">
           <nav class="top-bar contain-to-grid">
           <ul class="title-area">
             <!-- Title Area -->
@@ -173,13 +173,13 @@
 
 	<div class="footer">
 		<div class="row">
-			 <div class="small-12 large-3 columns">
+			 <div class="large-3 columns">
 
 				 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
 					 <img class="logo-mini" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-mini.png" />
 				 </a>
 			</div>
-			<div class="small-12 large-9 columns footer-links">
+			<div class="large-9 columns footer-links">
 				<ul class="inline-list">
           <?php /* ?><li><a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo Yii::t('app','Our team'); ?></a></li> <?php */ ?>
 					<li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo Yii::t('app','About'); ?></a></li>

@@ -14,10 +14,10 @@
 
  
 <div class="row">
-  <div class="small-12 large-12 columns edit-header">
+  <div class="columns edit-header">
     <h3><?php echo Yii::t('app', 'Profile details'); ?></h3>
   </div>
-  <div class="small-12 large-12 columns panel edit-content">
+  <div class="columns panel edit-content">
 
     <?php if(Yii::app()->user->hasFlash('profileMessage')){ ?>
     <div data-alert class="alert-box radius success">
@@ -32,7 +32,7 @@
     </div>
     <?php } ?>
     
-    <?php echo CHtml::beginForm('','post',array('class'=>"custom  large-6 small-12")); ?>
+    <?php echo CHtml::beginForm('','post',array('class'=>"custom  large-6")); ?>
     <p>
 			
     <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
@@ -82,7 +82,7 @@
 
 
 <div class="row">
-  <div class="small-12 large-12 columns edit-header">
+  <div class="columns edit-header">
     <a id="link_skill" class="anchor-link"></a>
     
     <div class="edit-floater">
@@ -94,7 +94,7 @@
     <h3><?php echo Yii::t('app', 'My skills'); ?></h3>
 
   </div>
-  <div class="small-12 large-12 columns panel edit-content">
+  <div class="columns panel edit-content">
 
     
     <div class="addSkils" style="display:none">
@@ -151,11 +151,11 @@
 
 
 <div class="row">
-  <div class="small-12 large-12 columns edit-header">
+  <div class="columns edit-header">
     <a id="link_personal" class="anchor-link"></a>
     <h3><?php echo Yii::t('app', 'Personal information'); ?></h3>
   </div>
-  <div class="small-12 large-12 columns panel edit-content">
+  <div class="columns panel edit-content">
     <?php if(Yii::app()->user->hasFlash('personalMessage')){ ?>
     <div data-alert class="alert-box radius success">
       <?php echo Yii::app()->user->getFlash('personalMessage'); ?>
@@ -163,13 +163,13 @@
     </div>
     <?php } ?>    
     
-     <?php echo CHtml::beginForm('','post',array('class'=>"custom large-12 small-12")); ?>
+     <?php echo CHtml::beginForm('','post',array('class'=>"custom")); ?>
 
       <?php echo CHtml::errorSummary($user,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
       <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
     
     <div class="row">
-      <div class="small-12 large-4 right columns">
+      <div class="large-4 right columns">
       <?php 
        //echo Yii::app()->getBaseUrl(true)."/".Yii::app()->params['tempFolder'];
          //echo "<img class='avatar' src='".avatar_image($user->avatar_link, $user->id)."'>";
@@ -212,7 +212,7 @@
        ?>
       <?php echo CHtml::activeHiddenField($user,'avatar_link'); ?>
       </div>
-      <div class="small-12 large-7 left columns">
+      <div class="large-7 left columns">
 
       <?php echo CHtml::activeLabelEx($user,'name'); ?>
       <?php echo CHtml::activeTextField($user,"name", array('maxlength' => 128)); ?>

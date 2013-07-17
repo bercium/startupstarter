@@ -31,7 +31,7 @@ $user = $data['user'];
 
 
 <div class="row person-details">
-	<div class="large-12 small-12 columns radius panel card-person">
+	<div class="columns radius panel card-person">
    
 		<div class="row card-person-title">
 
@@ -89,7 +89,7 @@ $user = $data['user'];
 		<div  class="row">
 
 
-			<div class="large-12 small-12 columns skills"  >
+			<div class="columns skills"  >
 						<p class="meta-field">
 					<?php	echo Yii::t('app', 'Skilled in');?>:
           
@@ -114,7 +114,7 @@ $user = $data['user'];
 					</p>
 			</div>
 
-				<div class="large-4 small-12 columns"  >
+				<div class="large-4 columns"  >
 				
 			
 					
@@ -161,7 +161,7 @@ $user = $data['user'];
 
 			</div>
 			
-			<div class="large-6 small-12 column "  >
+			<div class="large-6 column "  >
 				<?php if (count($user['num_of_rows']) > 0) { ?>
 				<p class="meta-field"><?php echo Yii::t('app', 'Involved in') ?><?php echo Yii::t('app', '{n} project|{n} projects', array($user['num_of_rows'])) ?>:</p>
 				

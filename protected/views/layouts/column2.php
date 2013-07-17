@@ -1,10 +1,10 @@
 
 <?php $this->beginContent('//layouts/main'); ?>
 <div class="row" style="margin-top:20px;">
-  <div class="small-12 large-10 push-2 columns" >
+  <div class="large-10 push-2 columns" >
     <?php echo $content; ?>
   </div>
-  <div class="small-12 large-2 pull-10 columns" style="padding-top:30px;">
+  <div class="large-2 pull-10 columns" style="padding-top:30px;">
 	<?php
 		$this->beginWidget('zii.widgets.CPortlet', array(
 			'title'=>'Operations',
