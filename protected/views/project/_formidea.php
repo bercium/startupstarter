@@ -48,10 +48,10 @@
     <?php echo CHtml::activeLabelEx($translation,'description_public'); ?>
     <div class="switch small round small-3" style="text-align: center;">
       <input id="description_public_0" name="IdeaTranslation[description_public]" type="radio" value="0" <?php if (!$translation->description_public) echo 'checked="checked"' ?>>
-      <label for="description_public_0" onclick=""><?php echo Yii::t('msg','Off'); ?></label>
+      <label for="description_public_0" onclick=""><?php echo Yii::t('app','Off'); ?></label>
 
       <input id="description_public_1" name="IdeaTranslation[description_public]" type="radio" value="1" <?php if ($translation->description_public) echo 'checked="checked"' ?>>
-      <label for="description_public_1" onclick=""><?php echo Yii::t('msg','On'); ?></label>
+      <label for="description_public_1" onclick=""><?php echo Yii::t('app','On'); ?></label>
       <span></span>
    </div>
      

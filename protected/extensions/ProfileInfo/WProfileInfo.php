@@ -35,17 +35,17 @@ class WProfileInfo extends CWidget
             // send mail
             $message = new YiiMailMessage;
             $message->view = 'system';
-            $message->setBody(array("content"=>"We've been hard at work on our new service called coFinder.
+            $message->setBody(array("content"=>"We've been hard at work on our new service called cofinder.
                                             It is a web platform through which you can share your ideas with the same-minded entrepreneurs and search for interesting projects to join. 
                                             <br /><br /> ".$user->name." ".$user->surname." thinks you might be the right person to test our private beta.
                                             <br /><br /> If we got your attention you can ".$activation_url."!"
                                     ), 'text/html');
-            $message->subject = Yii::t('msg',"You are invited to join coFinder");
+            $message->subject = Yii::t('msg',"You are invited to join cofinder");
             $message->addTo($invitation->email);
             $message->from = Yii::app()->params['noreplyEmail'];
             Yii::app()->mail->send($message);
             
-            Yii::app()->user->setFlash("invitationMessage",Yii::t('app','Invitation send.'));
+            Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation send.'));
           }else Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','This user is already invited.'));
           
         }
@@ -117,7 +117,7 @@ class WProfileInfo extends CWidget
 
           $count = UserCollabpref::Model()->count("match_id=:matchID", array("matchID" => $idMatch));
           if ($count > 0) $perc+=10;
-          else $messages[] = array("hint"=>Yii::t('msg',"What is your prefered colaboration."),
+          else $messages[] = array("hint"=>Yii::t('msg',"What is your prefered Collaboration."),
                                     "action"=>Yii::app()->createUrl("profile"));
           
 

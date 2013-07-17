@@ -111,7 +111,7 @@ class User extends BaseUser
 			'verifyCode'=>Yii::t('app',"Verification Code"),
 			'activkey' => Yii::t('app', 'Activation key'),
 			'createtime' => Yii::t('app',"Registration date"),
-			'create_at' => Yii::t('app', 'Create At'),
+			'create_at' => Yii::t('app', 'Create at'),
 			'lastvisit_at' => Yii::t('app', 'Lastvisit at'),
 			'superuser' => Yii::t('app', 'Superuser'),
 			'status' => Yii::t('app', 'Status'),

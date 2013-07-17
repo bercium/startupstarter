@@ -37,7 +37,7 @@
       </div>
 		  <div class="large-9 small-12 columns">
 				
-			<a class="exp_srch large-3 small-3 button small secondary right round" href="#" onclick="$('.advance').toggle(); return false;"><?php echo Yii::t('msg','Advanced search'); ?> <span class="icon-caret-down"></span></a>
+			<a class="exp_srch large-3 small-3 button small secondary right round" href="#" onclick="$('.advance').toggle(); return false;"><?php echo Yii::t('app','Advanced search'); ?> <span class="icon-caret-down"></span></a>
         
       </div>
 		</div>
@@ -48,7 +48,7 @@
 			<div class="small-12 large-3 columns">
 				<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
 				
-				<?php echo CHtml::label(Yii::t('app','Colaboration'),''); ?>
+				<?php echo CHtml::label(Yii::t('app','Collaboration'),''); ?>
 				<?php echo CHtml::dropDownList('SearchForm[collabPref]',$filter->collabPref, 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
               CHtml::listData(Collabpref::model()->findAllTranslated(),"id","name")

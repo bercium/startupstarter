@@ -10,6 +10,8 @@ return array(
 	'languages'=>array('sl'),
 	'fileTypes'=>array('js'),
 	'overwrite'=>true,
+  'sort'=>true,
+  /*'removeOld'=>true,*/
 	'exclude'=>array(
 		'.svn',
 		'.gitignore',

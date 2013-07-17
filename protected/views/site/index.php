@@ -38,7 +38,7 @@
       <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" class="button radius " ><?php echo Yii::t('msg','Discover projects') ?> </a>
       <?php }else{ ?>
       <h4 >
-      <?php echo Yii::t('msg',"{username} welcome to coFinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
+      <?php echo Yii::t('msg',"{username} welcome to cofinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
       </h4>
       <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" class="button radius success" ><?php echo Yii::t('msg','Find a cofounder') ?></a> 
       <span style="margin-left:20px;"> or </span>
@@ -121,7 +121,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 				</div>
         
 				
-					<a class="exp_srch large-3 small-3 button small secondary right round" href="#" onclick="$('.advance').toggle(); return false;"><?php echo Yii::t('msg','Advanced search'); ?> <span class="icon-caret-down"></span></a>
+					<a class="exp_srch large-3 small-3 button small secondary right round" href="#" onclick="$('.advance').toggle(); return false;"><?php echo Yii::t('app','Advanced search'); ?> <span class="icon-caret-down"></span></a>
 				
         
       </div>
@@ -187,7 +187,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 					<div class="small-12 large-3 columns">
 						<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
 
-						<?php echo CHtml::label(Yii::t('app','Colaboration'),''); ?>
+						<?php echo CHtml::label(Yii::t('app','Collaboration'),''); ?>
 						<?php echo CHtml::dropDownList('SearchForm[collabPref]',$filter->collabPref, 
 									//GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
 									CHtml::listData(Collabpref::model()->findAllTranslated(),"id","name")
@@ -224,7 +224,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 			<div class="small-12 large-3 columns">
 				<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
 				
-				<?php echo CHtml::label(Yii::t('app','Colaboration'),''); ?>
+				<?php echo CHtml::label(Yii::t('app','Collaboration'),''); ?>
 				<?php echo CHtml::dropDownList('SearchForm[collabPref]',$filter->collabPref, 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
               CHtml::listData(Collabpref::model()->findAllTranslated(),"id","name")

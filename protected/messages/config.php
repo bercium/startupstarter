@@ -9,6 +9,8 @@ return array(
 	'languages'=>array('sl'),
 	'fileTypes'=>array('php'),
 	'overwrite'=>true,
+  'sort'=>true,
+  /*'removeOld'=>true,*/
 	'exclude'=>array(
 		'.svn',
 		'.gitignore',

@@ -20,7 +20,7 @@ class ActivationController extends Controller
 				//$find->status = 1;
 				$find->save();
 			    $this->render('/user/message',array('title'=>Yii::t('app',"User activation"),
-                        'content'=>Yii::t('msg',"You account is activated.").'<br /><br /><a href="#" data-dropdown="drop-login" class="button radius small" >'.Yii::t('msg','Login now').'</a>'));
+                        'content'=>Yii::t('msg',"You account is activated.").'<br /><br /><a href="#" data-dropdown="drop-login" class="button radius small" >'.Yii::t('app','Login now').'</a>'));
 			} else {
 			    $this->render('/user/message',array('title'=>Yii::t('app',"User activation"),'content'=>Yii::t('msg',"Incorrect activation URL.")));
 			}

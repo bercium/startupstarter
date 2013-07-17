@@ -75,7 +75,7 @@ class AuditTrail extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'old_value' => Yii::t('app','Old Value'),
-			'new_value' => Yii::t('app','New Value'),
+			'new_value' => Yii::t('app','New value'),
 			'action' => Yii::t('app','Action'),
 			'model' => Yii::t('app','Type'),
 			'field' => Yii::t('app','Field'),

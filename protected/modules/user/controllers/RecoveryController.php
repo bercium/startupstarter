@@ -28,7 +28,7 @@ class RecoveryController extends Controller
 									$find->status = 1;
 								}
 								$find->save();
-								Yii::app()->user->setFlash('recoveryMessage',Yii::t('msg',"New password is saved.".'<br /><br /><a href="#" data-dropdown="drop-login" class="button radius small" >'.Yii::t('msg','Login now').'</a>'));
+								Yii::app()->user->setFlash('recoveryMessage',Yii::t('msg',"New password is saved.".'<br /><br /><a href="#" data-dropdown="drop-login" class="button radius small" >'.Yii::t('app','Login now').'</a>'));
 								$this->redirect(Yii::app()->controller->module->recoveryUrl);
 							}
 						} 
@@ -44,10 +44,10 @@ class RecoveryController extends Controller
 			    			$user = User::model()->notsafe()->findbyPk($form->user_id);
 							//$activation_url = 'http://' . $_SERVER['HTTP_HOST'].$this->createUrl(implode(Yii::app()->controller->module->recoveryUrl),array("activkey" => $user->activkey, "email" => $user->email));
               
-              $activation_url = '<a href="'.$this->createAbsoluteUrl('/user/recovery',array("activkey" => $user->activkey, "email" => $user->email)).'">'.Yii::t('msg',"Activate")."</a>";
+              $activation_url = '<a href="'.$this->createAbsoluteUrl('/user/recovery',array("activkey" => $user->activkey, "email" => $user->email)).'">'.Yii::t('app',"Activate")."</a>";
 							
 							$subject = "Password recovery for cofinder";
-			    		$message1 = 'You have requested the password recovery for <a href="www.cofinder.eu">coFinder</a>. To receive a new password, go to '.$activation_url;
+			    		$message1 = 'You have requested the password recovery for <a href="www.cofinder.eu">cofinder</a>. To receive a new password, go to '.$activation_url;
               
                 $message = new YiiMailMessage;
                 $message->view = 'system';

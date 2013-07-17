@@ -60,7 +60,7 @@ class UserLogin extends CFormModel
 					$this->addError("email",Yii::t('msg',"Email is incorrect."));
 					break;
 				/*case UserIdentity::ERROR_USERNAME_INVALID:
-					$this->addError("username",Yii::t('app',"Username is incorrect."));
+					$this->addError("username",Yii::t('msg',"Username is incorrect."));
 					break;*/
 				case UserIdentity::ERROR_STATUS_NOTACTIV:
 					$this->addError("status",Yii::t('msg',"You account is not activated."));

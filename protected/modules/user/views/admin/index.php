@@ -5,10 +5,10 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-    array('label'=>Yii::t('app','Create User'), 'url'=>array('create')),
-    array('label'=>Yii::t('app','Manage Users'), 'url'=>array('admin')),
-    array('label'=>Yii::t('app','Manage Profile Field'), 'url'=>array('profileField/admin')),
-    array('label'=>Yii::t('app','List User'), 'url'=>array('/user')),
+    array('label'=>Yii::t('app','Create user'), 'url'=>array('create')),
+    array('label'=>Yii::t('app','Manage users'), 'url'=>array('admin')),
+    array('label'=>Yii::t('app','Manage profile field'), 'url'=>array('profileField/admin')),
+    array('label'=>Yii::t('app','List user'), 'url'=>array('/user')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -25,9 +25,9 @@ $('.search-form form').submit(function(){
 ");
 
 ?>
-<h1><?php echo Yii::t('app',"Manage Users"); ?></h1>
+<h1><?php echo Yii::t('app',"Manage users"); ?></h1>
 
-<p><?php echo Yii::t('msg',"You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b> or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done."); ?></p>
+<p><?php echo Yii::t('msg',"You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&gt; or =) at the beginning of each of your search values to specify how the comparison should be done."); ?></p>
 
 <?php echo CHtml::link(Yii::t('app','Advanced Search'),'#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">

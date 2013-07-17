@@ -70,7 +70,7 @@ abstract class BaseIdea extends GxActiveRecord {
 		return array(
 			'id' => Yii::t('app', 'ID'),
 			'time_registered' => Yii::t('app', 'Registered'),
-			'time_updated' => Yii::t('app', 'Last Updated'),
+			'time_updated' => Yii::t('app', 'Last updated'),
 			'status_id' => null,
 			'website' => Yii::t('app', 'Website'),
 			'video_link' => Yii::t('app', 'Video Link'),

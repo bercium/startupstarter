@@ -3,7 +3,7 @@
 /* @var $model ContactForm */
 /* @var $form CActiveForm */
 
-$this->pageTitle= Yii::t('msg','Contact Us');
+$this->pageTitle= Yii::t('app','Contact us');
 $this->breadcrumbs=array(
 	'Contact',
 );
@@ -68,8 +68,7 @@ $this->breadcrumbs=array(
 		<?php $this->widget('CCaptcha'); ?>
 		<?php echo $form->textField($model,'verifyCode'); ?>
 		</div>
-		<div class="hint"><?php echo Yii::t('msg','Please enter the letters as they are shown in the image above.
-		<br/>Letters are not case-sensitive.'); ?></div>
+		<div class="hint"><?php echo Yii::t('msg','Please enter the letters as they are shown in the image above.<br/>Letters are not case-sensitive.'); ?></div>
 		<?php echo $form->error($model,'verifyCode'); ?>
 	</div>
 	<?php endif; ?>

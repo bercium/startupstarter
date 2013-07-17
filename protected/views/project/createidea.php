@@ -21,7 +21,7 @@
       <?php /*if($step == 3) echo "<strong>"; 
             echo "<li>3.". Yii::t('app', 'Social');
             if($step == 3) echo "</li></strong>"; */?>
-      <li><?php echo Yii::t('app'," You are done!");?></li>
+      <li> <?php echo Yii::t('app',"You are done!");?></li>
     </ol>
    
   </div>

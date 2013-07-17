@@ -35,7 +35,7 @@ class TranslationController extends Controller
   
 	public function actionIndex()
 	{
-    $codeLists = array('collabpref'=>Yii::t('app',"Colaborations"),
+    $codeLists = array('collabpref'=>Yii::t('app',"Collaborations"),
                        'skillset'=>Yii::t('app',"Skill sets"),
                        'membertype'=>Yii::t('app',"Member types"),
                        'idea_status'=>Yii::t('app',"Project status"),

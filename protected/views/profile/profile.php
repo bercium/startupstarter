@@ -47,7 +47,7 @@
     <?php echo "<label>".Yii::t('app','Collaboration preferences')."</label>"; ?>
 
     <span class="description">
-       <?php echo Yii::t('msg','What kind of colaboration do you prefer when working on a project.'); ?>
+       <?php echo Yii::t('msg','What kind of Collaboration do you prefer when working on a project.'); ?>
     </span>
     
 		<?php foreach ($data['user']['collabpref'] as $colabpref){ ?>

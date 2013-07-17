@@ -12,7 +12,7 @@
        <li> <a href="<?php echo Yii::app()->createUrl('project/create',array('step'=>1)); ?>">1.<?php echo Yii::t('app', 'Presentation'); ?></a></li>
        <li> <strong>2.<?php echo Yii::t('app', 'Team'); ?></strong></li>
        <?php /* ?><li><strong>3.<?php echo Yii::t('app', 'Social'); ?></strong></li> <?php */ ?>
-      <li><?php echo Yii::t('app'," You are done!");?></li>
+      <li><?php echo Yii::t('app',"You are done!");?></li>
     </ul>
   </div>
   <div class="columns panel edit-content">
