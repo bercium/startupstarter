@@ -66,16 +66,16 @@ $idea = $data['idea'];
 
 			
         <?php if (count($idea['translation_other'])){ ?>
-      <div class="columns panel languages" >
-        <p class="meta">Languages:
-        <?php 
-          
-          foreach ($idea['translation_other'] as $trans){
-            echo '<a href="#">'.$trans['language']."</a> | ";
-          }
-
-          ?>
-           </p>
+      <div class="columns panel languages">
+        <span style="float:left; margin-right: 8px; margin-top:5px;"><?php echo Yii::t('app','Languages'); ?>:</span> 
+        <ul class="button-group radius">
+          <li><a class="button tiny"><?php echo $idea['language']; ?></a></li>
+          <?php 
+            foreach ($idea['translation_other'] as $trans){
+              echo '<li><a href="?lang='.$trans['language_code'].'" class="button tiny secondary">'.$trans['language']."</a></li>";
+            }
+           ?>
+          </ul>
       </div>
           <?php } ?>
      
@@ -91,9 +91,9 @@ $idea = $data['idea'];
         <div class="meta-field">
           <p class="meta">
         <?php echo Yii::t('app','Stage').": "; ?>
-        <span style="color: #333; font-size: 1.1em;" data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>">
+        <a data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>">
           <?php echo $idea['status']; ?>
-        </span>
+        </a>
       </p>
       <p class="meta">
         
@@ -117,7 +117,7 @@ $idea = $data['idea'];
       </p>
       <p>
         <span class="meta">
-        <?php echo Yii::t('app','Last updated').": ".Yii::app()->dateFormatter->formatDateTime(strtotime($idea['date_updated']),"long",null); ?>
+        <?php echo Yii::t('app','Last updated').": <a>".Yii::app()->dateFormatter->formatDateTime(strtotime($idea['date_updated']),"long",null)."</a>"; ?>
         </span>
       </p>
       </div>

@@ -105,6 +105,7 @@ return array (
   'Keyword|Keywords' => 'Ključna beseda|Ključne besede',
   'Language' => 'Jezik',
   'Language code' => 'Koda jezika',
+  'Languages' => 'Jeziki',
   'Language|Languages' => 'Jezik|Jeziki',
   'Last updated' => 'Nazadnje posodobljen',
   'Last visit at' => 'Zadnji obisk ob',
