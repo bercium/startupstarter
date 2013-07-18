@@ -153,6 +153,9 @@ class ProjectController extends GxController {
 				$translation = new IdeaTranslation;
 				$member = new IdeaMember;
 
+				//preset english
+				$translation->language_id = 40;
+
 				//idea owner objects
 				$user_id = Yii::app()->user->id;
 				$match = UserMatch::Model()->findByAttributes( array( 'user_id' => $user_id ) );
