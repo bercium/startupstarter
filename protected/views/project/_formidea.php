@@ -15,7 +15,13 @@
     <span class="description">
       <?php echo Yii::t('msg','Choose the language you want to write your idea in. Later you can add more translations for the same idea'); ?>
     </span>
-    <?php echo CHtml::activedropDownList($translation, 'language_id', GxHtml::listDataEx(Language::model()->findAllAttributes(array("id","native_name"), true),"id","native_name"), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+
+    <?php
+    $lang = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
+    $lang = $lang->id;
+    ?>
+
+    <?php echo CHtml::activedropDownList($translation, 'language_id', GxHtml::listDataEx(Language::model()->findAllAttributes(array("id","native_name"), true, array('order' => 'FIELD(id, '.$lang.', 40) DESC')),"id","native_name"), array('style'=>'display:none')); ?>
 
     <?php echo CHtml::activeLabelEx($translation,'title'); ?>
     <span class="description">

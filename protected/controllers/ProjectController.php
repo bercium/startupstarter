@@ -153,6 +153,9 @@ class ProjectController extends GxController {
 				$translation = new IdeaTranslation;
 				$member = new IdeaMember;
 
+				//preset english
+				$translation->language_id = 40;
+
 				//idea owner objects
 				$user_id = Yii::app()->user->id;
 				$match = UserMatch::Model()->findByAttributes( array( 'user_id' => $user_id ) );
@@ -187,13 +190,13 @@ class ProjectController extends GxController {
 							//set session and go to step 2
 							$_SESSION['IdeaCreated'] = $idea->id;
 
-							Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Project successfully saved."));
+							Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Project successfully saved."));
 
 							//redirect
 							if(!$id)
 								$this->redirect(array('project/create', 'step' => 2));
 						} else {
-							Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Unable to create project."));
+							Yii::app()->user->setFlash('projectMessageError', Yii::t('msg',"Unable to create project."));
 						}
 					}
 				}
@@ -236,9 +239,9 @@ class ProjectController extends GxController {
 								$this->redirect(array('project/create', 'step' => 2));
 							}
 
-							Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Project successfully updated."));
+							Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Project successfully updated."));
 						} else {
-							Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Unable to update project."));
+							Yii::app()->user->setFlash('projectMessageError', Yii::t('msg',"Unable to update project."));
 						}
 					}
 				}
@@ -334,6 +337,17 @@ class ProjectController extends GxController {
 				//assign changes ($_POST) to session array 
 				$match->setAttributes($_POST['UserMatch']);
 
+	            if (!empty($_POST['UserMatch']['city'])){
+	              $city = City::model()->findByAttributes(array('name'=>$_POST['UserMatch']['city']));
+	              if ($city) $match->city_id = $city->id;
+	              else{
+	                $city = new City();
+	                $city->name = $_POST['UserMatch']['city'];
+	                $city->save();
+	                $match->city_id = $city->id;
+	              }
+	            }
+
 				//save user match and delete collabprefs
 				//difference between existing and new candidate
 				$match_saved = false;
@@ -348,7 +362,7 @@ class ProjectController extends GxController {
 						UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
 						UserSkill::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
 					} else {
-						Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Wrong candidate ID supplied, could not update candidate."));
+						Yii::app()->user->setFlash('projectMessageError', Yii::t('msg',"Wrong candidate ID supplied, could not update candidate."));
 					}
 					
 					if($match->save())
@@ -437,12 +451,12 @@ class ProjectController extends GxController {
 				
 				//check if it went okay
 				if ($c == 0 && $s == 0 && $match_saved && $ideamember_saved) {
-					Yii::app()->user->setFlash('profileMessage', Yii::t('msg',"Open position saved."));
+					Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Position successfully opened."));
 					//reset session
 					$candidate_in_edit = false;
 					$this->sessionReset('candidate');
 				}else{
-					Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Unable to save open position."));
+					Yii::app()->user->setFlash('projectMessageError', Yii::t('msg',"Unable to save open position."));
 				}
 
 				if($id){
@@ -465,9 +479,9 @@ class ProjectController extends GxController {
 					IdeaMember::Model()->deleteAll("match_id = :match_id", array(':match_id' => $_GET['delete_candidate']));
 					UserMatch::Model()->deleteAll("id = :match_id", array(':match_id' => $_GET['delete_candidate']));
 					
-					Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Open position deleted."));
+					Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Open position deleted."));
 				} else {
-					Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Could not delete open position."));
+					Yii::app()->user->setFlash('projectMessageError', Yii::t('msg',"Could not delete open position."));
 				}
 
 				if($id){
@@ -591,11 +605,11 @@ class ProjectController extends GxController {
 
 		 			$language = Language::Model()->findByAttributes(array('id' => $translation->language_id));
 
-		 			Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Successfully saved project translation!"));
+		 			Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Successfully saved project translation!"));
 
 					$this->redirect(array('edit', 'id' => $id, 'lang' => $language->language_code));
 				} else {
-					Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Could not save project translation."));
+					Yii::app()->user->setFlash('projectMessageError', Yii::t('msg',"Could not save project translation."));
 				}
 			}
 
@@ -663,9 +677,9 @@ class ProjectController extends GxController {
 
 	    $ideaMember = IdeaMember::Model()->findByAttributes(array('type_id' => 2,'match_id' => $match->id, 'idea_id' => $id));
 	    if($ideaMember && $ideaMember->delete()){
-	      	Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Project removed from your account successfully."));
+	      	Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Project removed from your account successfully."));
 	    } else {
-	    	Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Could not remove project from your account."));
+	    	Yii::app()->user->setFlash('projectMessageError', Yii::t('msg',"Could not remove project from your account."));
 	    }
 	    $this->redirect(Yii::app()->createUrl('profile/projects'));
 	}
@@ -765,7 +779,6 @@ class ProjectController extends GxController {
 					$member->setAttributes($_POST['IdeaMember']);
 
 					if ($member->save()) {
-						$return['message'] = Yii::t('msg', "Success!");
 						$return['status'] = 0;
 
 						$time_updated = new TimeUpdated;
@@ -798,7 +811,6 @@ class ProjectController extends GxController {
 			$member = IdeaMember::Model()->findByAttributes( array( 'match_id' => $match->id ) );
 
 			if($member->delete()){
-				$return['message'] = Yii::t('msg', "Success!");
 				$return['status'] = 0;
 
 				$time_updated = new TimeUpdated;
