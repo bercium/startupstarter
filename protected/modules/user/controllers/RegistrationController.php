@@ -68,7 +68,7 @@ class RegistrationController extends Controller
                         
                         $message = new YiiMailMessage;
                         $message->view = 'system';
-                        $message->setBody(array("content"=>"To activate you account go to ".$activation_url), 'text/html');
+                        $message->setBody(array("content"=>"To activate your account go to ".$activation_url), 'text/html');
                         $message->subject = 'Registration for cofinder';
                         $message->addTo($model->email);
                         $message->from = Yii::app()->params['noreplyEmail'];
@@ -83,7 +83,7 @@ class RegistrationController extends Controller
                         
                           /*if (Yii::app()->controller->module->sendActivationMail) {
                                $activation_url = $this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $model->activkey, "email" => $model->email));
-                              UserModule::sendMail($model->email,Yii::t('msg',"You registered from {site_name}",array('{site_name}'=>Yii::app()->name)),Yii::t('msg',"Please activate you account go to {activation_url}",array('{activation_url}'=>$activation_url)));
+                              UserModule::sendMail($model->email,Yii::t('msg',"You registered from {site_name}",array('{site_name}'=>Yii::app()->name)),Yii::t('msg',"To activate you account please go to {activation_url}",array('{activation_url}'=>$activation_url)));
                           }*/
                           /*
                           if ((Yii::app()->controller->module->loginNotActiv||(Yii::app()->controller->module->activeAfterRegister&&Yii::app()->controller->module->sendActivationMail==false))&&Yii::app()->controller->module->autoLogin) {
@@ -95,7 +95,7 @@ class RegistrationController extends Controller
                               if (!Yii::app()->controller->module->activeAfterRegister&&!Yii::app()->controller->module->sendActivationMail) {
                                   Yii::app()->user->setFlash('registration',Yii::t('msg',"Thank you for your registration. Contact Admin to activate your account."));
                               } elseif(Yii::app()->controller->module->activeAfterRegister&&Yii::app()->controller->module->sendActivationMail==false) {
-                                  Yii::app()->user->setFlash('registration',Yii::t('msg',"Thank you for your registration. Please {{login}}.",array('{{login}}'=>CHtml::link(Yii::t('app','Login'),Yii::app()->controller->module->loginUrl))));
+                                  Yii::app()->user->setFlash('registration',Yii::t('msg',"Thank you for your registration. Please {login}.",array('{login}'=>CHtml::link(Yii::t('app','Login'),Yii::app()->controller->module->loginUrl))));
                               } elseif(Yii::app()->controller->module->loginNotActiv) {
                                   Yii::app()->user->setFlash('registration',Yii::t('msg',"Thank you for your registration. Please check your email or login."));
                               } else {

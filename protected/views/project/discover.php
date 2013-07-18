@@ -65,7 +65,7 @@
 			<div class="large-3 columns">
 				<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
 				
-				<?php echo CHtml::label(Yii::t('app','Stage'),''); ?>
+				<?php echo CHtml::label(Yii::t('app','Stage of project'),''); ?>
 				<?php echo CHtml::activedropDownList($filter,'stage', 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
               CHtml::listData(IdeaStatus::model()->findAllTranslated(),"id","name")

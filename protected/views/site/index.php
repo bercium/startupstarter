@@ -41,7 +41,7 @@
       <?php echo Yii::t('msg',"{username} welcome to cofinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
       </h4>
       <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" class="button radius success" ><?php echo Yii::t('app','Find a cofounder'); ?></a> 
-      <span style="margin-left:20px;"> or </span>
+      <span style="margin-left:20px;"> <?php echo Yii::t('app','or'); ?> </span>
       <a href="<?php echo Yii::app()->createUrl("project/create"); ?>" class="button radius" ><?php echo Yii::t('app','Create your project'); ?> </a>
       <?php } ?>
       </div>
@@ -133,7 +133,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 			<div class="large-3 columns">
 				<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
 				
-				<?php echo CHtml::label(Yii::t('app','Stage'),''); ?>
+				<?php echo CHtml::label(Yii::t('app','Stage of project'),''); ?>
 				<?php echo CHtml::activedropDownList($filter,'stage', 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
               CHtml::listData(IdeaStatus::model()->findAllTranslated(),"id","name")

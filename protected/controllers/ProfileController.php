@@ -512,7 +512,7 @@ class ProfileController extends GxController {
 				}else{
 					$response = array("data" => null,
 							"status" => 1,
-							"message" => Yii::t('msg', "Problem saving skill. Please check all fields for correct values."));
+							"message" => Yii::t('msg', "Problem saving skill. Please check fields for correct values."));
 				}
 				echo json_encode($response);
 				Yii::app()->end();

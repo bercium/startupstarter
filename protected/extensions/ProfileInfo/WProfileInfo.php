@@ -30,7 +30,7 @@ class WProfileInfo extends CWidget
             $user->save();
             
             
-            $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.">".Yii::t('msg',"Register here")."</a>";
+            $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.">".Yii::t('app',"Register here")."</a>";
             
             // send mail
             $message = new YiiMailMessage;
@@ -142,11 +142,11 @@ class WProfileInfo extends CWidget
               if ($im->type->id == 1) $member = 1;
             }
             $perc += 6*($owner+$member); //max 12
-            if (!$owner && !$member) $messages[] = array("hint"=>Yii::t('msg',"Create or become a part of a project."),
+            if (!$owner && !$member) $messages[] = array("hint"=>Yii::t('msg',"Create or take part in a project."),
                                                           "action"=>Yii::app()->createUrl("profile/projects"));
             
             // add idea to percentage???
-          }else $messages[] = array("hint"=>Yii::t('msg',"Create or become a part of a project."),
+          }else $messages[] = array("hint"=>Yii::t('msg',"Create or take part in a project."),
                                     "action"=>Yii::app()->createUrl("profile/projects"));
 
         }else $messages[] = array("hint"=>Yii::t('msg',"Fill up your profile details."),
