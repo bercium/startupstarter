@@ -46,7 +46,7 @@
     <?php echo CHtml::activeTextArea($translation,"description",array('class'=>'lin-edit')); ?> 
      <br />
     <?php echo CHtml::activeLabelEx($translation,'description_public'); ?>
-    <div class="switch small round small-3" style="text-align: center;">
+    <div class="switch small round" style="text-align: center; width:120px;">
       <input id="description_public_0" name="IdeaTranslation[description_public]" type="radio" value="0" <?php if (!$translation->description_public) echo 'checked="checked"' ?>>
       <label for="description_public_0" onclick=""><?php echo Yii::t('app','Off'); ?></label>
 
@@ -69,7 +69,7 @@
     <?php echo CHtml::activeLabelEx($translation,'tweetpitch'); ?>
     <div class="lin-hidden">
      <span class="description">
-      <?php echo Yii::t('msg','Describe your project with comma separated keywords to increase visibility of your project.'); ?>
+      <?php echo Yii::t('msg','Describe your project with 140 characters or less for sharing on social networks.'); ?>
      </span>
     <?php echo CHtml::activeTextArea($translation,"tweetpitch",array('class'=>'lin-edit')); ?>
     </div>
@@ -85,6 +85,9 @@
   <div class="lin-trigger panel">
     <?php echo CHtml::activeLabelEx($idea,'video_link'); ?>
     <div class="lin-hidden">
+     <span class="description">
+      <?php echo Yii::t('msg','Link to video presentation of project.'); ?>
+     </span>
     <?php echo CHtml::activeTextField($idea,"video_link", array('maxlength' => 128,'class'=>'lin-edit')); ?> 
     </div>
   </div>
