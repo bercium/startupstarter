@@ -6,9 +6,15 @@
   $cs->registerScriptFile($baseUrl.'/js/jquery-ui-1.10.3.custom.min.js',CClientScript::POS_END);
 ?>
 
-    <?php if(Yii::app()->user->hasFlash('profileMessage')){ ?>
+    <?php if(Yii::app()->user->hasFlash('projectMessage')){ ?>
     <div data-alert class="alert-box radius success">
-      <?php echo Yii::app()->user->getFlash('profileMessage'); ?>
+      <?php echo Yii::app()->user->getFlash('projectMessage'); ?>
+      <a href="#" class="close">&times;</a>
+    </div>
+    <?php } ?>
+    <?php if(Yii::app()->user->hasFlash('projectMessageError')){ ?>
+    <div data-alert class="alert-box radius error">
+      <?php echo Yii::app()->user->getFlash('projectMessageError'); ?>
       <a href="#" class="close">&times;</a>
     </div>
     <?php } ?>
@@ -36,9 +42,14 @@
          <?php
       }
 
-    }
+    } ?>
     
-    ?>
+      <?php echo CHtml::activeLabelEx($match,'country_id'); ?>
+      <?php echo CHtml::activedropDownList($match, 'country_id', GxHtml::listDataEx(Country::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+
+      <?php echo CHtml::activeLabelEx($match,'city'); ?>
+      <?php echo CHtml::activeTextField($match, 'city', array("class"=>"city")); ?>    
+    
 
     <?php /* extra data ?>
     <?php echo Yii::t('app','Extra information'); ?>
@@ -118,8 +129,12 @@
         }?>
 
     <a href="<?php echo Yii::app()->createUrl('project/create',array('step'=>2)); ?>" class="button small secondary radius"><?php echo Yii::t("app","Cancel"); ?></a>
+ 
+<?php 
 
-<?php } ?>
+echo "<br /><br /><h5>".Yii::t('app','Already opened positions')."</h5>";
+
+} ?>
 
 
 <?php
@@ -134,37 +149,39 @@ if(is_array($ideadata['candidate'])){
         <div class="edit-floater">
           
       <?php  
-            echo "<a href='".Yii::app()->createUrl('project/create?step=2&candidate='.$value['match_id'])."'>".Yii::t('app',"Edit")."</a> ";
-            echo "<a href='".Yii::app()->createUrl('project/create?step=2&delete_candidate='.$value['match_id'])."'>".Yii::t('app',"Delete")."</a> ";
-
-            echo CHtml::ajaxButton(Yii::t("app","Delete"),'','',
+        echo "<a class='button tiny radius' href='".Yii::app()->createUrl('project/create?step=2&candidate='.$value['match_id'])."'>".Yii::t('app',"Edit")."</a> ";
+            
+        echo CHtml::link(Yii::t("app","Remove"),Yii::app()->createUrl('project/create',array('step'=>2,'delete_candidate'=>$value['match_id'])),
                   array('class'=>"button tiny alert radius",
-                        'confirm'=>Yii::t("msg","You are about to remove this open position!\nAre you sure?"),
+                        'confirm'=>Yii::t("msg","You are about to remove this candidate!\nAre you sure?"),
                         'onclick'=>"$(document).stopPropagation();",
                       )
-              ); ?>
+              );
+            
+             ?>
         </div> 
 
-             <div class="location-s" style="position: absolute; top:10px;">
-                    <?php if ($value['city'] || $value['country']){ ?>
-                    <small class="meta" data-tooltip title="<img src='<?php echo getGMap($value['country'],$value['city']); ?>'>">
 
-                    <a><span class="general foundicon-location" title=""></span><?php
+              <?php if ($value['available_name']) { ?>
+                <div class="available-time"><?php echo $value['available_name']; ?></div>
+              <?php } ?>
+                
+             
+              <div class="location-s">
+                    <?php if ($value['city'] || $value['country']){ ?>
+                    <p class="" data-tooltip title="<img src='<?php echo getGMap($value['country'],$value['city']); ?>'>">
+
+                    <span class="general foundicon-location" title=""></span><?php
                         echo $value['city']; 
                         if ($value['city'] && $value['country']) echo ', '; 
                         echo $value['country']; 
-                        ?></a>
-                      <?php //echo $value['address']; ?>
-                      </small>
+                        ?>
+                      <?php //echo $candidate['address']; ?>
+                      </p>
                     <?php } ?>              
               </div>
-
-              <?php if ($value['available_name']) { ?>
-                <div class="available-time button small secondary"><?php echo $value['available_name']; ?></div>
-              <?php } ?>
                 
-             <br />
-             <small class="meta person-skills">
+             <p class="meta person-skills">
                 <?php
                 
                 if(is_array($value['skillset'])){
@@ -177,7 +194,7 @@ if(is_array($ideadata['candidate'])){
                   }
                 }
                 }} ?>
-            </small>
+            </p>
              
            
               <?php if (count($value['collabpref']) > 0) { ?>
@@ -194,20 +211,6 @@ if(is_array($ideadata['candidate'])){
                 </small>
               <?php } ?>
 
-                <div class="location">
-                      <?php if ($value['city'] || $value['country']){ ?>
-                      <br>
-                        <small class="meta" data-tooltip title="<img src='<?php echo getGMap($value['country'],$value['city']); ?>'>">
-                        
-                      <a><span class="general foundicon-location" title=""></span><?php
-                          echo $value['city']; 
-                          if ($value['city'] && $value['country']) echo ', '; 
-                          echo $value['country']; 
-                          ?></a>
-                        <?php //echo $value['address']; ?>
-                        </small>
-                      <?php } ?>              
-                </div>
 
     </div>
 <?php
