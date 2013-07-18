@@ -72,7 +72,7 @@ abstract class BaseIdea extends GxActiveRecord {
 			'time_registered' => Yii::t('app', 'Registered'),
 			'time_updated' => Yii::t('app', 'Last updated'),
 			'status_id' => null,
-			'website' => Yii::t('app', 'Website'),
+			'website' => Yii::t('app', 'Project website'),
 			'video_link' => Yii::t('app', 'Video Link'),
 			'deleted' => Yii::t('app', 'Deleted'),
 			'clickIdeas' => null,

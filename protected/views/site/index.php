@@ -33,16 +33,16 @@
     <div class="center columns hide-for-small">
       <div class="right">
       <?php if (Yii::app()->user->isGuest){ ?>
-      <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" class="button radius success" ><?php echo Yii::t('msg','Find talent') ?></a> 
-      <span style="margin-left:20px;"> or </span>
-      <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" class="button radius " ><?php echo Yii::t('msg','Discover projects') ?> </a>
+      <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" class="button radius success" ><?php echo Yii::t('app','Find talent'); ?></a> 
+      <span style="margin-left:20px;"> <?php echo Yii::t('app','or'); ?> </span>
+      <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" class="button radius " ><?php echo Yii::t('app','Discover projects'); ?> </a>
       <?php }else{ ?>
       <h4 >
       <?php echo Yii::t('msg',"{username} welcome to cofinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
       </h4>
-      <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" class="button radius success" ><?php echo Yii::t('msg','Find a cofounder') ?></a> 
+      <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" class="button radius success" ><?php echo Yii::t('app','Find a cofounder'); ?></a> 
       <span style="margin-left:20px;"> or </span>
-      <a href="<?php echo Yii::app()->createUrl("project/create"); ?>" class="button radius" ><?php echo Yii::t('msg','Create your project') ?> </a>
+      <a href="<?php echo Yii::app()->createUrl("project/create"); ?>" class="button radius" ><?php echo Yii::t('app','Create your project'); ?> </a>
       <?php } ?>
       </div>
     </div>

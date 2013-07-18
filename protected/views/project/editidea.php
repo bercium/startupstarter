@@ -4,9 +4,34 @@
 
 <div class="row createidea">
   <div class="columns edit-header">
+   
+    <div class="edit-floater">
+      
+        <?php 
+          if($isOwner){
+        echo CHtml::link(Yii::t("app","Delete project"),Yii::app()->createUrl('project/deleteIdea',array('id'=>$idea['id'])),
+                  array('class'=>"button small alert radius",
+                        'confirm'=>Yii::t("msg","You are about to delete this project!\nAre you sure?"),
+                        'onclick'=>"$(document).stopPropagation();",
+                      )
+              );?>
+      <?php 
+      }else{
+      echo CHtml::link(Yii::t("app","Leave project"),Yii::app()->createUrl('project/leaveIdea',array('id'=>$idea['id'])),
+                  array('class'=>"button small alert radius",
+                        'confirm'=>Yii::t("msg","You are about to leave this project!\nYou will have to be re invited to be a member.\nAre you sure?"),
+                        'onclick'=>"$(document).stopPropagation();",
+                      )
+              ); 
+      }      
+      ?>
+    </div>
+      
     <h3>
       <?php echo Yii::t('app', 'Project presentation'); ?>
     </h3>
+      
+    
 
         <?php if (count($ideadata['translation_other'])){ ?>
       <div class="columns panel languages" >
@@ -14,14 +39,16 @@
         <?php 
           
           foreach ($ideadata['translation_other'] as $trans){
-            echo '<a href="'.Yii::app()->createUrl("project/edit",array("id"=>$id, "lang"=>$trans['language_code'])).'">'.$trans['language']."</a> | ";
+            echo '<a href="'.Yii::app()->createUrl("project/edit",array("id"=>$id, "lang"=>$trans['language_code'])).'">'.$trans['language']."</a>";
           }
-          echo "<a href='".Yii::app()->createUrl("project/translate",array("id"=>$id))."'>".Yii::t('app', 'Translate project')."</a>";
 
           ?>
            </p>
       </div>
-          <?php }  ?>
+          <?php } ?>
+          
+      <a class="button success small"  href="<?php echo Yii::app()->createUrl("project/translate",array("id"=>$id)); ?>"><?php echo Yii::t('app', 'New translation'); ?></a>
+          
   </div>
   <div class="columns panel edit-content">
     <?php
@@ -39,24 +66,7 @@
 <div class="row createidea">
   <div class="columns edit-header">
     <h3>
-      <?php echo Yii::t('app', 'Team');
-
-          if($isOwner){
-        echo CHtml::link(Yii::t("app","Delete"),Yii::app()->createUrl('project/deleteIdea',array('id'=>$idea['id'])),
-                  array('class'=>"button small alert radius",
-                        'confirm'=>Yii::t("msg","You are about to delete this project!\nAre you sure?"),
-                        'onclick'=>"$(document).stopPropagation();",
-                      )
-              );?>
-      <?php 
-      }else{
-      echo CHtml::link(Yii::t("app","Leave project"),Yii::app()->createUrl('project/leaveIdea',array('id'=>$idea['id'])),
-                  array('class'=>"button small alert radius",
-                        'confirm'=>Yii::t("msg","You are about to leave this project!\nYou will have to be re invited to be a member.\nAre you sure?"),
-                        'onclick'=>"$(document).stopPropagation();",
-                      )
-              ); 
-      }?>
+      <?php echo Yii::t('app', 'Team'); ?>
     </h3>
   </div>
   <div class="columns panel edit-content">
