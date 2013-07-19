@@ -153,8 +153,11 @@ class ProjectController extends GxController {
 				$translation = new IdeaTranslation;
 				$member = new IdeaMember;
 
-				//preset english
-				$translation->language_id = 40;
+				//presets
+				if(!isset($_POST['Idea']) AND !isset($_POST['IdeaTranslation'])){
+					$translation->language_id = 40;
+					$translation->description_public = 1;
+				}
 
 				//idea owner objects
 				$user_id = Yii::app()->user->id;

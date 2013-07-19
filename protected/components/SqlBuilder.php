@@ -35,6 +35,9 @@ class SqlBuilder {
 		$language = Language::Model()->findByAttributes( array( 'language_code' => $filter['lang'] ) );
 		$filter['lang'] = $language->id;
 
+		$language = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
+		$filter['site_lang'] = $language->id;
+
 		if(!isset($filter['page']))
 			$filter['page'] = 1;
 		if(!isset($filter['per_page'])){
@@ -132,7 +135,7 @@ class SqlBuilder {
 					"LEFT JOIN `translation` AS t ".
 					"ON ist.id = t.row_id ".
 					"AND t.table = 'idea_status' ".
-					"AND t.language_id = {$filter['lang']} ".
+					"AND t.language_id = {$filter['site_lang']} ".
 
 					"WHERE i.deleted = 0 ".
 					"ORDER BY i.time_updated DESC ".
@@ -152,7 +155,7 @@ class SqlBuilder {
 					"LEFT JOIN `translation` AS t ".
 					"ON ist.id = t.row_id ".
 					"AND t.table = 'idea_status' ".
-					"AND t.language_id = {$filter['lang']} ".
+					"AND t.language_id = {$filter['site_lang']} ".
 
 					"WHERE i.deleted = 0 ".					
 					"ORDER BY im.type_id ASC, i.time_registered DESC";
@@ -167,7 +170,7 @@ class SqlBuilder {
 					"LEFT JOIN `translation` AS t ".
 					"ON ist.id = t.row_id ".
 					"AND t.table = 'idea_status' ".
-					"AND t.language_id = {$filter['lang']} ".
+					"AND t.language_id = {$filter['site_lang']} ".
 
 					"WHERE i.id = '{$filter['idea_id']}' ".
 					"AND i.deleted = 0 ";
@@ -194,7 +197,7 @@ class SqlBuilder {
 					"LEFT JOIN `translation` AS t ".
 					"ON ist.id = t.row_id ".
 					"AND t.table = 'idea_status' ".
-					"AND t.language_id = {$filter['lang']} ".
+					"AND t.language_id = {$filter['site_lang']} ".
 
 					"WHERE i.deleted = 0 ".
 					"AND ist.id = i.status_id ".
@@ -337,7 +340,7 @@ class SqlBuilder {
 					"LEFT JOIN `translation` AS t ".
 					"ON a.id = t.row_id ".
 					"AND t.table = 'available' ".
-					"AND t.language_id = {$filter['lang']} ".
+					"AND t.language_id = {$filter['site_lang']} ".
 
 					"WHERE m.user_id > 0 AND u.id = '{$filter['user_id']}'";
 
@@ -359,7 +362,7 @@ class SqlBuilder {
 					"LEFT JOIN `translation` AS t ".
 					"ON a.id = t.row_id ".
 					"AND t.table = 'available' ".
-					"AND t.language_id = {$filter['lang']} ".
+					"AND t.language_id = {$filter['site_lang']} ".
 
 					"WHERE m.user_id > 0 ".
 					"ORDER BY u.create_at DESC ".
@@ -385,7 +388,7 @@ class SqlBuilder {
 					"LEFT JOIN `translation` AS t ".
 					"ON a.id = t.row_id ".
 					"AND t.table = 'available' ".
-					"AND t.language_id = {$filter['lang']} ".
+					"AND t.language_id = {$filter['site_lang']} ".
 
 					"WHERE m.user_id > 0 ".
 					"AND im.idea_id = '{$filter['idea_id']}' ".
@@ -408,7 +411,7 @@ class SqlBuilder {
 					"LEFT JOIN `translation` AS t ".
 					"ON a.id = t.row_id ".
 					"AND t.table = 'available' ".
-					"AND t.language_id = {$filter['lang']} ".
+					"AND t.language_id = {$filter['site_lang']} ".
 
 					"WHERE m.user_id IS NULL ".
 					"AND im.idea_id = '{$filter['idea_id']}' ".
@@ -439,7 +442,7 @@ class SqlBuilder {
 					"LEFT JOIN `translation` AS t ".
 					"ON a.id = t.row_id ".
 					"AND t.table = 'available' ".
-					"AND t.language_id = {$filter['lang']} ".
+					"AND t.language_id = {$filter['site_lang']} ".
 
 					"WHERE m.user_id > 0 ".
 					"AND ( ";
@@ -528,13 +531,13 @@ class SqlBuilder {
 					"LEFT JOIN translation AS t ".
 					"ON collabpref.id = t.row_id ".
 					"AND t.table = 'collabpref' ".
-					"AND t.language_id = '{$filter['lang']}'";
+					"AND t.language_id = '{$filter['site_lang']}'";
 		} elseif($type == 'empty'){
 			$sql=	"SELECT collabpref.id AS collab_id, collabpref.name, t.translation, 0 AS active FROM collabpref ".
 					"LEFT JOIN translation AS t ".
 					"ON collabpref.id = t.row_id ".
 					"AND t.table = 'collabpref' ".
-					"AND t.language_id = '{$filter['lang']}'";
+					"AND t.language_id = '{$filter['site_lang']}'";
 		} else {
 			$sql=	"SELECT uc.id, c.id AS collab_id, c.name, t.translation FROM ".
 					"`collabpref` AS c ".
@@ -543,7 +546,7 @@ class SqlBuilder {
 					"LEFT JOIN translation AS t ".
 					"ON c.id = t.row_id ".
 					"AND t.table = 'collabpref'".
-					"AND t.language_id = '{$filter['lang']}'".
+					"AND t.language_id = '{$filter['site_lang']}'".
 					"WHERE uc.match_id = '{$filter['match_id']}'";
 		}
 
@@ -571,7 +574,7 @@ class SqlBuilder {
 					"LEFT JOIN translation AS t ".
 					"ON ss.id = t.row_id ".
 					"AND t.table = 'skillset'".
-					"AND language_id = '{$filter['lang']}'".
+					"AND language_id = '{$filter['site_lang']}'".
 					"WHERE us.match_id = '{$filter['match_id']}' ".
 					"GROUP BY ss.id";
 
