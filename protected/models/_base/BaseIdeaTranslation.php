@@ -68,7 +68,7 @@ abstract class BaseIdeaTranslation extends GxActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => Yii::t('app', 'ID'),
-			'language_id' => null,
+			'language_id' => Yii::t('app', 'Language'),
 			'idea_id' => null,
 			'pitch' => Yii::t('app', 'Pitch'),
 			'description' => Yii::t('app', 'Description'),
@@ -77,7 +77,7 @@ abstract class BaseIdeaTranslation extends GxActiveRecord {
 			'tweetpitch' => Yii::t('app', 'Tweetpitch'),
 			'deleted' => Yii::t('app', 'Deleted'),
 			'title' => Yii::t('app', 'Title'),
-			'language' => null,
+			'language' => Yii::t('app', 'Language'),
 			'idea' => null,
 		);
 	}

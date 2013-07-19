@@ -60,7 +60,7 @@ abstract class BaseTranslation extends GxActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => Yii::t('app', 'ID'),
-			'language_id' => null,
+			'language_id' => Yii::t('app', 'Language'),
 			'table' => Yii::t('app', 'Table'),
 			'row_id' => Yii::t('app', 'Row'),
 			'translation' => Yii::t('app', 'Translation'),

@@ -73,14 +73,14 @@ abstract class BaseUserMatch extends GxActiveRecord {
 		return array(
 			'id' => Yii::t('app', 'ID'),
 			'user_id' => null,
-			'available' => null,
-			'country_id' => null,
-			'city_id' => null,
+			'available' => Yii::t('app', 'Available'),
+			'country_id' => Yii::t('app', 'Country'),
+			'city_id' => Yii::t('app', 'City'),
 			'ideaMembers' => null,
 			'userCollabprefs' => null,
-			'city' => null,
-			'country' => null,
-			'user' => null,
+			'city' => Yii::t('app', 'City'),
+			'country' => Yii::t('app', 'Country'),
+			'user' => Yii::t('app', 'User'),
 			'userSkills' => null,
 		);
 	}

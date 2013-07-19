@@ -62,7 +62,7 @@ abstract class BaseClickIdea extends GxActiveRecord {
 			'user_id' => null,
 			'idea_click_id' => null,
 			'ideaClick' => null,
-			'user' => null,
+			'user' => Yii::t('app', 'User'),
 		);
 	}
 

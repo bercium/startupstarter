@@ -60,8 +60,8 @@ abstract class BaseSkillsetSkill extends GxActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => Yii::t('app', 'ID'),
-			'skillset_id' => null,
-			'skill_id' => null,
+			'skillset_id' => Yii::t('app', 'Industry'),
+			'skill_id' => Yii::t('app', 'Skill'),
 			'usage_count' => Yii::t('app', 'Usage count'),
 			'skillset' => null,
 			'skill' => null,

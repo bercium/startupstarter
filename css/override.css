@@ -36,7 +36,7 @@ button, .button {
 }
 button:hover, button:focus, .button:hover, .button:focus { background-color: #355282; }
 button.success, .button.success {
-    background-color: #83b25b;
+    background-color: #89b561;
     border-color: #6a9446; 
 }
 button.success:hover, button.success:focus, .button.success:hover, .button.success:focus { background-color: #6a9446; }
@@ -54,13 +54,13 @@ button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[dis
 button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
       background-color: #4469a6; }
 button.disabled.success, button[disabled].success, .button.disabled.success, .button[disabled].success {
-      background-color: #83b25b;
+      background-color: #89b561;
       border-color: #6a9446;
 }
 button.disabled.success:hover, button.disabled.success:focus, button[disabled].success:hover, button[disabled].success:focus, .button.disabled.success:hover, .button.disabled.success:focus, .button[disabled].success:hover, .button[disabled].success:focus {
         background-color: #6a9446; }
 button.disabled.success:hover, button.disabled.success:focus, button[disabled].success:hover, button[disabled].success:focus, .button.disabled.success:hover, .button.disabled.success:focus, .button[disabled].success:hover, .button[disabled].success:focus {
-        background-color: #83b25b; }
+        background-color: #89b561; }
 button.disabled.alert, button[disabled].alert, .button.disabled.alert, .button[disabled].alert {
       background-color: #cd3438;
       border-color: #a5292c;}
@@ -124,7 +124,7 @@ form.custom .custom.checkbox.checked:before{
   .top-bar-section ul{ background: #fff; }
 }
 
-.progress.success .meter { background: #83b25b; }
+.progress.success .meter { background: #89b561; }
 .progress.alert .meter { background: #cd3438; }
 
 

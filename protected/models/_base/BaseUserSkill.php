@@ -62,8 +62,8 @@ abstract class BaseUserSkill extends GxActiveRecord {
 		return array(
 			'id' => Yii::t('app', 'ID'),
 			'match_id' => null,
-			'skillset_id' => null,
-			'skill_id' => null,
+			'skillset_id' => Yii::t('app', 'Industry'),
+			'skill_id' => Yii::t('app', 'Skill'),
 			'match' => null,
 			'skillset' => null,
 			'skill' => null,

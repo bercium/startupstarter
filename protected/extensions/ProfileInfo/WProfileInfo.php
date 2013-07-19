@@ -30,7 +30,7 @@ class WProfileInfo extends CWidget
             $user->save();
             
             
-            $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.">".Yii::t('app',"Register here")."</a>";
+            $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'">'.Yii::t('app',"Register here")."</a>";
             
             // send mail
             $message = new YiiMailMessage;

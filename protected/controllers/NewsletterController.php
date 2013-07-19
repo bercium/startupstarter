@@ -43,7 +43,7 @@ class NewsletterController extends GxController {
         
         $message = new YiiMailMessage;
         $message->view = 'newsletter';
-        $message->setBody($model->newsletter, 'text/html');
+        $message->setBody(array("content"=>$model->newsletter,), 'text/html');
         $message->subject = $model->newsletterTitle;
         
         // get all users
@@ -73,11 +73,11 @@ class NewsletterController extends GxController {
     //$this->render('index', array(		));
   }
 
-	public function actionSend() {
+	public function actionTestSend() {
     
     $message = new YiiMailMessage;
     $message->view = 'newsletter';
-    $message->setBody('En testni mail', 'text/html');
+    $message->setBody(array("content"=>'En testni mail'), 'text/html');
     $message->subject = 'Testni subjekt';
     $message->addTo('bercium@gmail.com');
     $message->from = app()->params['noreplyEmail'];

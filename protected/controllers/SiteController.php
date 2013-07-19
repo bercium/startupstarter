@@ -77,6 +77,8 @@ class SiteController extends Controller
     $searchForm = new SearchForm();
     $searchResult = array();
 		$data = array();
+    $maxPagePerson = 0;
+    $maxPageIdea = 0;
 		
 		if (isset($_GET['SearchForm'])) $searchForm->setAttributes($_GET['SearchForm']);
 		
@@ -114,11 +116,16 @@ class SiteController extends Controller
     }else{
 			// last results
 			$data['idea'] = $sqlbuilder->load_array("recent_updated", $filter);
+      $pagedata = $sqlbuilder->load_array("count_idea", $filter);
+      $maxPageIdea = ceil($pagedata['num_of_rows'] / $pagedata['filter']['per_page']); 
+      
 			$data['user'] = $sqlbuilder->load_array("recent_user", $filter);
+      $pagedata = $sqlbuilder->load_array("count_user", $filter);
+      $maxPagePerson = ceil($pagedata['num_of_rows'] / $pagedata['filter']['per_page']); 
 		}
 		
 
-		$this->render('index', array('data' => $data, "filter"=>$searchForm, "searchResult"=>$searchResult));
+		$this->render('index', array('data' => $data, "filter"=>$searchForm, "searchResult"=>$searchResult, "maxPageIdea"=>$maxPageIdea, "maxPagePerson"=>$maxPagePerson));
 	}
 
 	public function actionAbout()

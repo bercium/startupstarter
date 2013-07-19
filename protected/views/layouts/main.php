@@ -24,7 +24,7 @@
   <meta name="application-name" content="<?php echo Yii::app()->name; ?>" />
   <meta name="msapplication-tooltip" content="<?php echo $this->pageDesc; ?>" />
   <meta name="msapplication-starturl" content="http://www.cofinder.eu" />
-  <meta name="msapplication-navbutton-color" content="#83B25B" />
+  <meta name="msapplication-navbutton-color" content="#89b561" />
   
   <!-- Mobile icons -->
   <link rel="apple-touch-icon" sizes="114x114" href="<?php echo Yii::app()->request->baseUrl; ?>/images/iphone-retina.png">

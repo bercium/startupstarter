@@ -60,8 +60,8 @@ abstract class BaseKeyword extends GxActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => Yii::t('app', 'ID'),
-			'type' => null,
-			'language_id' => null,
+			'type' => Yii::t('app', 'Type'),
+			'language_id' => Yii::t('app', 'Language'),
 			'table' => Yii::t('app', 'Table'),
 			'row_id' => Yii::t('app', 'Row'),
 			'keyword' => Yii::t('app', 'Keyword'),
