@@ -365,7 +365,7 @@ class ProjectController extends GxController {
 						UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
 						UserSkill::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
 					} else {
-						Yii::app()->user->setFlash('projectMessageError', Yii::t('msg',"Wrong candidate ID supplied, could not update candidate."));
+						Yii::app()->user->setFlash('projectPositionMessageError', Yii::t('msg',"Wrong candidate ID supplied, could not update candidate."));
 					}
 					
 					if($match->save())
@@ -454,12 +454,12 @@ class ProjectController extends GxController {
 				
 				//check if it went okay
 				if ($c == 0 && $s == 0 && $match_saved && $ideamember_saved) {
-					Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Position successfully opened."));
+					Yii::app()->user->setFlash('projectPositionMessage', Yii::t('msg',"Position successfully opened."));
 					//reset session
 					$candidate_in_edit = false;
 					$this->sessionReset('candidate');
 				}else{
-					Yii::app()->user->setFlash('projectMessageError', Yii::t('msg',"Unable to save open position."));
+					Yii::app()->user->setFlash('projectPositionMessageError', Yii::t('msg',"Unable to save open position."));
 				}
 
 				if($id){
@@ -482,9 +482,9 @@ class ProjectController extends GxController {
 					IdeaMember::Model()->deleteAll("match_id = :match_id", array(':match_id' => $_GET['delete_candidate']));
 					UserMatch::Model()->deleteAll("id = :match_id", array(':match_id' => $_GET['delete_candidate']));
 					
-					Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Open position deleted."));
+					Yii::app()->user->setFlash('projectPositionMessage', Yii::t('msg',"Open position deleted."));
 				} else {
-					Yii::app()->user->setFlash('projectMessageError', Yii::t('msg',"Could not delete open position."));
+					Yii::app()->user->setFlash('projectPositionMessageError', Yii::t('msg',"Could not delete open position."));
 				}
 
 				if($id){

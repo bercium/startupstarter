@@ -12,11 +12,11 @@
       <?php echo Yii::t('app', 'Team'); ?>
     </h3>
 
-    <ul class="breadcrumbs meta">
-       <li> <a href="<?php echo Yii::app()->createUrl('project/create',array('step'=>1)); ?>">1.<?php echo Yii::t('app', 'Presentation'); ?></a></li>
-       <li> <strong>2.<?php echo Yii::t('app', 'Team'); ?></strong></li>
+    <ul class="button-group radius">
+       <li><a href="<?php echo Yii::app()->createUrl('project/create',array('step'=>1)); ?>" class="button tiny success">1.<?php echo Yii::t('app', 'Presentation'); ?></a></li>
+       <li><a class="button tiny">2.<?php echo Yii::t('app', 'Team'); ?></a></li>
        <?php /* ?><li><strong>3.<?php echo Yii::t('app', 'Social'); ?></strong></li> <?php */ ?>
-      <li><?php echo Yii::t('app',"You are done!");?></li>
+      <li><a  class="button tiny secondary"><?php echo Yii::t('app',"You are done!");?></a></li>
     </ul>
   </div>
   <div class="columns panel edit-content">

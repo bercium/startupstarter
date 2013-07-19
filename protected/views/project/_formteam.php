@@ -6,28 +6,31 @@
   $cs->registerScriptFile($baseUrl.'/js/jquery-ui-1.10.3.custom.min.js',CClientScript::POS_END);
 ?>
 
-    <?php if(Yii::app()->user->hasFlash('projectMessage')){ ?>
+    <?php if(Yii::app()->user->hasFlash('projectPositionMessage')){ ?>
     <div data-alert class="alert-box radius success">
-      <?php echo Yii::app()->user->getFlash('projectMessage'); ?>
+      <?php echo Yii::app()->user->getFlash('projectPositionMessage'); ?>
       <a href="#" class="close">&times;</a>
     </div>
     <?php } ?>
-    <?php if(Yii::app()->user->hasFlash('projectMessageError')){ ?>
+    <?php if(Yii::app()->user->hasFlash('projectPositionMessageError')){ ?>
     <div data-alert class="alert-box radius error">
-      <?php echo Yii::app()->user->getFlash('projectMessageError'); ?>
+      <?php echo Yii::app()->user->getFlash('projectPositionMessageError'); ?>
       <a href="#" class="close">&times;</a>
     </div>
     <?php } ?>
     
     <?php if(isset($candidate['id'])){ ?>
+    <p>
+      <?php echo Yii::t('msg',"Try to fill as many fields as posible to describe your perfect candidate. If you are not sure or you don't require certain aspects just leave them blank.") ?>
+    </p>
+    
     <?php if($candidate['id'] != 'new' && $candidate['id'] != '' && is_numeric($candidate['id'])){
         echo CHtml::beginForm(Yii::app()->createUrl('project/create?step=2&candidate='.$candidate['id']),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
       } else {
         echo CHtml::beginForm(Yii::app()->createUrl('project/create?step=2&candidate'),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
       } ?>
       
-    <p>
-      
+    <p>      
     <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
     
     <?php echo CHtml::activeLabelEx($match,'available'); ?>
@@ -43,7 +46,7 @@
       }
 
     } ?>
-    
+    <br />
       <?php echo CHtml::activeLabelEx($match,'country_id'); ?>
       <?php echo CHtml::activedropDownList($match, 'country_id', GxHtml::listDataEx(Country::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
 
@@ -132,7 +135,7 @@
  
 <?php 
 
-echo "<br /><br /><h5>".Yii::t('app','Already opened positions')."</h5>";
+if(count($ideadata['candidate'])) echo "<br /><br /><h5>".Yii::t('app','Already opened positions')."</h5>";
 
 } ?>
 

@@ -27,6 +27,8 @@ return array (
   'Add some skills.' => 'Dodajte znanja.',
   'Adding more skills will improve your profile visibility.' => 'Dodajanje znanj bo izboljšalo vidnost vašega profila.',
   'Are you sure you want to delete this item?' => 'Ste prepričani, da želite to izbrisati?',
+  'At the end we will append link to your project like this <strong>{url}</strong>' => 'Na konec vam bomo pripeli takšno povezavo na vaš projekt <strong>{url}</strong>',
+  'At the end we will append this link to your project <a href="{url}" target="_blank">{url}</a>' => 'Na konec vam bomo pripeli še to povezavo na vaš projekt <a href="{url}" target="_blank">{url}</a>',
   'Avatar saved.' => 'Progilna slika shranjena.',
   'Choose the language you want to write your idea in. Later you can add more translations for the same idea' => 'Izberite v katerem jeziku želite opisati vašo idejo. Kasneje lahko dodate prevode v ostale jezike.',
   'Chose a name to represent your link.' => 'Izberite ime, ki bo predstavljalo vašo povezavo.',
@@ -57,6 +59,7 @@ return array (
   'Incorrect username (length between 3 and 20 characters).' => 'Nepravilno uporabniško ime (dolžina je omejena na 3 do 20 znakov)',
   'Incorrect username or password.' => 'Nepravilno uporabniško ime ali geslo.',
   'Invalid request. Please do not repeat this request again.' => 'Neveljavna zahteva. Prosimo ne ponovite te zahteve.',
+  0 => '',
   'Invitation send.' => 'Povabilo poslano.',
   'Letters are not case-sensitive.' => 'Črke niso občutljive na velikost',
   'Link successfully saved to profile.' => 'Povezava uspešno shranjena na profil.',
@@ -118,9 +121,11 @@ return array (
   'The only constant in life is change so it\'s important not to fall asleep on past successes or to give up at the sight of problems.' => '',
   'The requested page does not exist.' => 'Želena stran ne obstaja',
   'This action will change your password!
-Are you sure?' => 'To dejanje bo spremenilo vaše geslo. Ali res to želite?',
+Are you sure?' => 'Ta akcija vam bo spremenila geslo!
+Ali ste prepričani?',
   'This action will deactivate your account.
-Are you sure?' => 'To dejanje bo izbrisalo vaš račun. Ali res to želite?',
+Are you sure?' => 'Ta akcija vam bo zaklenila dostop!
+Ali ste prepričani?',
   'This is your pitch. Be short and to the point.' => 'To je vaš pitch. Bodite kratki in jedernati.',
   'This user is already invited.' => 'Ta uporabnik je že povabljen.',
   'This user\'s email address already exists.' => 'Ta email je že zaseden s strani enega od uporabnikov.',
@@ -129,6 +134,7 @@ Are you sure?' => 'To dejanje bo izbrisalo vaš račun. Ali res to želite?',
   'To deactivate your account change "Account status" to off and click deactivate. You will then be loged out of the system.' => 'Za deaktivacijo računa spremenite "Status računa" na izključeno in kliknite deaktiviraj račun. Nato boste odjavljeni iz sistema.',
   'Translations saved.' => 'Prevodi shranjeni.',
   'Try filling up your personal information.' => 'Potrudite se izpolniti vaše osebne informacije.',
+  'Try to fill as many fields as posible to describe your perfect candidate. If you are not sure or you don\'t require certain aspects just leave them blank.' => 'Poizkusite izpolniti čimveč relevantnih polj, ki definirajo vašega idealnega kandidata. Če ne veste kaj potrebujete oziroma česa ne zahtevate, pustite tista polja prazna.',
   'Unable to add skill.' => 'Ni mogoče dodati znanj.',
   'Unable to create project.' => 'Ni bilo mogoče ustvariti projekta',
   'Unable to remove link.' => 'Ni mogoče odstraniti povezave.',
@@ -158,21 +164,18 @@ Are you sure?' => 'To dejanje bo izbrisalo vaš račun. Ali res to želite?',
   'You already have this link.' => 'To povezavo že imate.',
   'You already have this skill.' => 'To znanje že imate dodano.',
   'You are about to delete this project!
-Are you sure?' => 'Izbrisali boste projekt! Ste prepričani, da to želite?',
+Are you sure?' => 'S tem klikom boste izbrisali projekt!
+Ali ste prepričani?',
   'You are about to leave this project!
 You will have to be re invited to be a member.
-Are you sure?' => 'Zapustili boste ta projekt kot član!
-  Če to storite vsa bodo morali ponovno povabiti k projektu.
-  Ste prepričani, da to želite?',
+Are you sure?' => 'Če boste zapustili projekt vas bodo morali k njamu povabiti ponovno!
+Ali ste prepričani?',
   'You are about to remove this candidate!
-Are you sure?' => 'Odstranili boste kandidata!
-  Ste prepričani, da to želite?',
+Are you sure?' => 'Odstranili boste tega kandidata!
+Ali ste prepričani?',
   'You are about to remove this member from the team!
-Are you sure?' => 'Odstranili boste člana ekipe! 
-  Ste prepričani, da to želite?',
-  'You are about to remove this open position!
-Are you sure?' => 'Odstranili boste odprto pozicijo! 
-  Ste prepričani, da to želite?',
+Are you sure?' => 'Odstranili boste člana ekipe!
+Ali ste prepričani?',
   'You are invited to join cofinder' => 'Vabimo vas, da se pridružite cofinder-ju',
   'You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&gt; or =) at the beginning of each of your search values to specify how the comparison should be done.' => '',
   'You must agree to the terms and conditions' => 'Soglašati morate s pogoji uporabe',
