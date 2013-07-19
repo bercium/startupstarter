@@ -36,7 +36,7 @@ return array (
   'Could not save uploaded file. The upload was cancelled, or server error encountered' => 'Ni nam uspelo shraniti naložene datoteke. Nalaganje je bilo preklicano, predvidoma zaradi napake na strežniku',
   'Create or take part in a project.' => 'Ustvari ali postani član projekta.',
   'Describe your project in detail.' => 'Opišite vaš projekt bolj podrobno.',
-  'Describe your project with 140 characters or less for sharing on social networks.' => 'Za deljenje na socialnih omrežjih opiši svoj projekt z 140 znaki ali manj.',
+  'Describe your project with 120 characters or less for sharing on social networks.' => 'Za deljenje na socialnih omrežjih opiši svoj projekt z 120 znaki ali manj.',
   'Describe your project with comma separated keywords to increase visibility of your project.' => 'Opišite vaš projekt z uporabo ključnih besed. Le-te ločite z vejicami. S tem boste povečali vidnost vašega projekta na strani.',
   'Description isn\'t published!' => 'Opis ni javno objavljen!',
   'Drop file here to change your profile picture.' => 'Tu odložite datoteko, če želite spremeniti vašo profilno sliko.',

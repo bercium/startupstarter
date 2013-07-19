@@ -3,12 +3,12 @@ if(is_array($ideadata['member'])){
   foreach($ideadata['member'] AS $key => $member){
     //if ($member['type_id'] != 1) continue;
 ?>
-    <div class="row panel idea-panel">
+    <div class="panel">
 
         <div class="edit-floater">
           
       <?php  if($member['type_id'] != 1){
-            echo CHtml::ajaxButton(Yii::t("app","Delete"),'','',
+            echo CHtml::ajaxButton(Yii::t("app","Remove"),'','',
                   array('class'=>"button tiny alert radius",
                         'confirm'=>Yii::t("msg","You are about to remove this member from the team!\nAre you sure?"),
                         'onclick'=>"$(document).stopPropagation();",

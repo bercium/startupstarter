@@ -1,3 +1,6 @@
+<?php
+  $this->pageTitle=Yii::t('app','Create - step 1');
+?>
 <script>
   var skillSuggest_url = '<?php echo Yii::app()->createUrl("site/sugestSkill",array("ajax"=>1)) ?>';
 </script>

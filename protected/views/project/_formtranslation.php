@@ -1,11 +1,13 @@
- <?php if(Yii::app()->user->hasFlash('personalMessage')){ ?>
+ <?php if(Yii::app()->user->hasFlash('projectMessage')){ ?>
     <div data-alert class="alert-box radius success">
-      <?php echo Yii::app()->user->getFlash('personalMessage'); ?>
+      <?php echo Yii::app()->user->getFlash('projectMessage'); ?>
       <a href="#" class="close">&times;</a>
     </div>
     <?php } ?>    
 
    <?php echo CHtml::beginForm('','post',array('class'=>"custom formidea")); ?>
+
+
 
     <?php echo CHtml::errorSummary($translation,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
 
@@ -13,10 +15,12 @@
     <span class="description">
       <?php echo Yii::t('msg','Choose the language you want to write your idea in. Later you can add more translations for the same idea'); ?>
     </span>
+
     <?php
     $lang = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
     $lang = $lang->id;
     ?>
+
     <?php echo CHtml::activedropDownList($translation, 'language_id', GxHtml::listDataEx(Language::model()->findAllAttributes(array("id","native_name"), true, array('order' => 'FIELD(id, '.$lang.', 40) DESC')),"id","native_name"), array('style'=>'display:none')); ?>
 
     <?php echo CHtml::activeLabelEx($translation,'title'); ?>
@@ -24,12 +28,6 @@
       <?php echo Yii::t('msg','What are you calling it? One or two words please, you can always change it later.'); ?>
     </span>
     <?php echo CHtml::activeTextField($translation,"title", array('maxlength' => 128)); ?>
-
-    <?php echo CHtml::activeLabelEx($translation,'keywords'); ?>
-     <span class="description">
-      <?php echo Yii::t('msg','Describe your project with comma separated keywords to increase visibility of your project.'); ?>
-     </span>
-    <?php echo CHtml::activeTextArea($translation,"keywords"); ?>
 
     <?php echo CHtml::activeLabelEx($translation,'pitch'); ?>
     <span class="description">
@@ -39,24 +37,57 @@
 
      <br /><br />
 
-  <div class="showhide panel">
+
     <?php echo CHtml::activeLabelEx($translation,'description'); ?>
-     <p>This is your pitch. Be short. Some more info on this subject.<span data-tooltip title="Lorem Ipsum je slepi tekst, ki se uporablja pri razvoju tipografij in pri pripravi za tisk. Lorem Ipsum je v uporabi že več kot petsto let saj je to kombinacijo znakov neznani tiskar združil v vzorčno knjigo že v začetku 16. stoletja. "<i  style="float:right" class="icon-question-sign"></i></span></p>
-    <?php echo CHtml::activeTextArea($translation,"description"); ?> 
+    
+     <span class="description">
+       <?php echo Yii::t('msg','Describe your project in detail.'); ?>
+     </span>
+    <?php echo CHtml::activeTextArea($translation,"description",array('class'=>'lin-edit')); ?> 
+     <br />
     <?php echo CHtml::activeLabelEx($translation,'description_public'); ?>
-    <div class="switch small round small-3" style="text-align: center;">
+    <div class="switch small round" style="text-align: center; width:120px;">
       <input id="description_public_0" name="IdeaTranslation[description_public]" type="radio" value="0" <?php if (!$translation->description_public) echo 'checked="checked"' ?>>
       <label for="description_public_0" onclick=""><?php echo Yii::t('app','Off'); ?></label>
 
       <input id="description_public_1" name="IdeaTranslation[description_public]" type="radio" value="1" <?php if ($translation->description_public) echo 'checked="checked"' ?>>
       <label for="description_public_1" onclick=""><?php echo Yii::t('app','On'); ?></label>
       <span></span>
+   </div>
+     
+  <div class="lin-trigger panel">
+    <?php echo CHtml::activeLabelEx($translation,'keywords'); ?>
+    <div class="lin-hidden">
+     <span class="description">
+      <?php echo Yii::t('msg','Describe your project with comma separated keywords to increase visibility of your project.'); ?>
+     </span>
+    <?php echo CHtml::activeTextArea($translation,"keywords",array('class'=>'lin-edit')); ?>
     </div>
-
-  </div>      
+  </div>
+     
+  <div class="lin-trigger panel">
+    <?php echo CHtml::activeLabelEx($translation,'tweetpitch'); ?>
+    <div class="lin-hidden">
+     <span class="description">
+      <?php echo Yii::t('msg','Describe your project with 120 characters or less for sharing on social networks.'); ?>
+     </span>
+    <?php echo CHtml::activeTextArea($translation,"tweetpitch", array('class'=>'lin-edit','maxlength' => 120,"onkeydown"=>'countTweetChars()',"onkeyup"=>'countTweetChars()',"onchange"=>'countTweetChars()')); ?>
+    <div class="meta" id="tweetCount"><?php echo (120-strlen($translation->tweetpitch)) ?></div>
+    <br /><br />
+     <span class="description">
+      <?php echo Yii::t('msg','At the end we will append link to your project like this <strong>{url}</strong>',array('{url}'=>short_url_google(Yii::app()->createAbsoluteUrl("project/view",array("id"=>0))) )); ?>
+     </span>
+    </div>
+  </div>         
     
 <hr>
     <?php echo CHtml::submitButton(Yii::t("app","Save"),
-          array('class'=>"button small success radius right")
+          array('class'=>"button small success radius")
       ); ?>
-    <?php echo CHtml::endForm(); ?>  
+
+        <?php 
+        echo CHtml::link(Yii::t("app","Cancel"),Yii::app()->createUrl('project/edit',array('id'=>$id)),
+                  array('class'=>"button small secondary radius",
+                        'onclick'=>"$(document).stopPropagation();",
+                      )
+              );?>

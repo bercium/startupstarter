@@ -55,6 +55,7 @@ function removeSkill(skill_id, inUrl){
   var cityCache = {};  
   	
   $(function() {
+    if ($('#skill').length != 0)
     $( "#skill" ).autocomplete({
       //minLength: 1,
 			delay:300,

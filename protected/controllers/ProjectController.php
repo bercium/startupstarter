@@ -584,11 +584,16 @@ class ProjectController extends GxController {
 		$criteria=new CDbCriteria();
 		$criteria->addInCondition('type_id',array(1,2)); //members
 		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
-
+    
 		if($idea && $hasPriviledges){
 
 			$translation = new IdeaTranslation;
 
+      if(!isset($_POST['Idea']) AND !isset($_POST['IdeaTranslation'])){
+        //$translation->language_id = 40;
+        $translation->description_public = 1;
+      }
+      
 			if (isset($_POST['IdeaTranslation'])) {
 				$_POST['IdeaTranslation']['idea_id'] = $id;
 

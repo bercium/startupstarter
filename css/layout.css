@@ -1261,6 +1261,11 @@ h6.title-field {
 	float: left;
 }
 
+.createidea #tweetCount.alert{
+  background-color: #BD3438;
+  color:#FFF !important;
+}
+
 /* #PERSON PAGE
 ================================================== */
 .person-details{

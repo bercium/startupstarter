@@ -1,6 +1,6 @@
- <?php if(Yii::app()->user->hasFlash('personalMessage')){ ?>
+ <?php if(Yii::app()->user->hasFlash('projectMessage')){ ?>
     <div data-alert class="alert-box radius success">
-      <?php echo Yii::app()->user->getFlash('personalMessage'); ?>
+      <?php echo Yii::app()->user->getFlash('projectMessage'); ?>
       <a href="#" class="close">&times;</a>
     </div>
     <?php } ?>    
@@ -75,9 +75,14 @@
     <?php echo CHtml::activeLabelEx($translation,'tweetpitch'); ?>
     <div class="lin-hidden">
      <span class="description">
-      <?php echo Yii::t('msg','Describe your project with 140 characters or less for sharing on social networks.'); ?>
+      <?php echo Yii::t('msg','Describe your project with 120 characters or less for sharing on social networks.'); ?>
      </span>
-    <?php echo CHtml::activeTextArea($translation,"tweetpitch",array('class'=>'lin-edit')); ?>
+    <?php echo CHtml::activeTextArea($translation,"tweetpitch", array('class'=>'lin-edit','maxlength' => 120,"onkeydown"=>'countTweetChars()',"onkeyup"=>'countTweetChars()',"onchange"=>'countTweetChars()')); ?>
+    <div class="meta" id="tweetCount"><?php echo (120-strlen($translation->tweetpitch)) ?></div>
+    <br /><br />
+     <span class="description">
+      <?php echo Yii::t('msg','At the end we will append link to your project like this <strong>{url}</strong>',array('{url}'=>short_url_google(Yii::app()->createAbsoluteUrl("project/view",array("id"=>0))) )); ?>
+     </span>
     </div>
   </div>      
 

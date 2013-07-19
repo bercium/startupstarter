@@ -1,6 +1,6 @@
- <?php if(Yii::app()->user->hasFlash('personalMessage')){ ?>
+ <?php if(Yii::app()->user->hasFlash('projectMessage')){ ?>
     <div data-alert class="alert-box radius success">
-      <?php echo Yii::app()->user->getFlash('personalMessage'); ?>
+      <?php echo Yii::app()->user->getFlash('projectMessage'); ?>
       <a href="#" class="close">&times;</a>
     </div>
     <?php } ?>    
@@ -23,11 +23,11 @@
     </span>
     <?php echo CHtml::activeTextArea($translation,"pitch"); ?>
 
-      <br />
+<br />
     <?php echo CHtml::activeLabelEx($idea,'status_id'); ?>
      <span class="description">
       <?php echo Yii::t('msg','Status of project.'); ?>
-     </span>  
+     </span>
     <?php echo CHtml::activedropDownList($idea, 'status_id', GxHtml::listData(IdeaStatus::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;', 'style' => 'display: none;')); ?>
 
 
@@ -40,7 +40,7 @@
     <?php echo CHtml::activeTextArea($translation,"description",array('class'=>'lin-edit')); ?> 
      <br />
     <?php echo CHtml::activeLabelEx($translation,'description_public'); ?>
-    <div class="switch small round small-3" style="text-align: center;">
+    <div class="switch small round" style="text-align: center; width:120px;">
       <input id="description_public_0" name="IdeaTranslation[description_public]" type="radio" value="0" <?php if (!$translation->description_public) echo 'checked="checked"' ?>>
       <label for="description_public_0" onclick=""><?php echo Yii::t('app','Off'); ?></label>
 
@@ -63,9 +63,14 @@
     <?php echo CHtml::activeLabelEx($translation,'tweetpitch'); ?>
     <div class="lin-hidden">
      <span class="description">
-      <?php echo Yii::t('msg','Describe your project with comma separated keywords to increase visibility of your project.'); ?>
+      <?php echo Yii::t('msg','Describe your project with 120 characters or less for sharing on social networks.'); ?>
      </span>
-    <?php echo CHtml::activeTextArea($translation,"tweetpitch",array('class'=>'lin-edit')); ?>
+    <?php echo CHtml::activeTextArea($translation,"tweetpitch", array('class'=>'lin-edit','maxlength' => 120,"onkeydown"=>'countTweetChars()',"onkeyup"=>'countTweetChars()',"onchange"=>'countTweetChars()')); ?>
+    <div class="meta" id="tweetCount"><?php echo (120-strlen($translation->tweetpitch)) ?></div>
+    <br /><br />
+     <span class="description">
+      <?php echo Yii::t('msg','At the end we will append this link to your project <a href="{url}" target="_blank">{url}</a>',array('{url}'=>short_url_google(Yii::app()->createAbsoluteUrl("project/view",array("id"=>$id))) )); ?>
+     </span>
     </div>
   </div>      
 
@@ -79,6 +84,9 @@
   <div class="lin-trigger panel">
     <?php echo CHtml::activeLabelEx($idea,'video_link'); ?>
     <div class="lin-hidden">
+     <span class="description">
+      <?php echo Yii::t('msg','Link to video presentation of project.'); ?>
+     </span>
     <?php echo CHtml::activeTextField($idea,"video_link", array('maxlength' => 128,'class'=>'lin-edit')); ?> 
     </div>
   </div>
@@ -86,6 +94,6 @@
     
 <hr>
     <?php echo CHtml::submitButton(Yii::t("app","Save"),
-          array('class'=>"button small success radius right")
+          array('class'=>"button small success radius")
       ); ?>
     <?php echo CHtml::endForm(); ?>  

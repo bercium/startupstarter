@@ -1,3 +1,7 @@
+<?php
+  $this->pageTitle=Yii::t('app','Create - step 3');
+?>
+
 <div class="row createidea">
   <div class="columns edit-header">
     <h3>
