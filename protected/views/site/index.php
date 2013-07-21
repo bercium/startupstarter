@@ -27,7 +27,7 @@
 <!-- Content if guest -->
       <h1><?php echo Yii::t('msg','With the <span>right team</span> any <span>idea</span> can <br />change your life'); ?></h1>
       <p>
-          <?php echo Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the same-minded entrepreneurs and search for interesting projects to join.'); ?>
+          <?php echo Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the like minded entrepreneurs and search for interesting projects to join.'); ?>
       </p><br />
     </div>
     <div class="center columns hide-for-small">

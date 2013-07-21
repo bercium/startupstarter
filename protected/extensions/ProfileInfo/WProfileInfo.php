@@ -42,7 +42,7 @@ class WProfileInfo extends CWidget
             $message = new YiiMailMessage;
             $message->view = 'system';
             $message->setBody(array("content"=>"We've been hard at work on our new service called cofinder.
-                                            It is a web platform through which you can share your ideas with the same-minded entrepreneurs and search for interesting projects to join. 
+                                            It is a web platform through which you can share your ideas with the like minded entrepreneurs and search for interesting projects to join. 
                                             <br /><br /> ".$user->name." ".$user->surname." thinks you might be the right person to test our private beta.
                                             <br /><br /> If we got your attention you can ".$activation_url."!"
                                     ), 'text/html');
