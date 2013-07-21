@@ -16,11 +16,12 @@ class ActivationController extends Controller
 			if (isset($find)&&$find->status) {
 			    $this->render('/user/message',array('title'=>Yii::t('app',"User activation"),'content'=>Yii::t('msg',"You account is active.")));
 			} elseif(isset($find->activkey) && ($find->activkey==$activkey)) {
-				//$find->activkey = UserModule::encrypting(microtime());
-				//$find->status = 1;
-				$find->save();
-			    $this->render('/user/message',array('title'=>Yii::t('app',"User activation"),
-                        'content'=>Yii::t('msg',"You account is activated.").'<br /><br /><a href="#" data-dropdown="drop-login" class="button radius small" >'.Yii::t('app','Login now').'</a>'));
+				$find->activkey = UserModule::encrypting(microtime());
+				$find->status = 1;
+				if ($find->save())  $this->render('/user/message',array('title'=>Yii::t('app',"User activation"),
+                                          'content'=>Yii::t('msg',"You account is activated.").'<br /><br /><a href="#" data-dropdown="drop-login" class="button radius small" >'.Yii::t('app','Login now').'</a>'));
+        else $this->render('/user/message',array('title'=>Yii::t('app',"User activation"),
+                                          'content'=>Yii::t('msg',"There was a problem activating your account!")));
 			} else {
 			    $this->render('/user/message',array('title'=>Yii::t('app',"User activation"),'content'=>Yii::t('msg',"Incorrect activation URL.")));
 			}

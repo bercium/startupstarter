@@ -215,7 +215,8 @@ class ProfileController extends GxController {
           }
           
           if (($c == 0) && ($match->save())) {
-            Yii::app()->user->setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
+            if (Yii::app()->user->isGuest) Yii::app()->user->setFlash('profileMessage', Yii::t('msg',"Profile details saved. Please check your mail for activation code."));
+            else Yii::app()->user->setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
           }else{
             Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Unable to save profile details."));
           }

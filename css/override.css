@@ -72,7 +72,7 @@ button.disabled.alert:hover, button.disabled.alert:focus, button[disabled].alert
 
 
 form.custom .custom.checkbox.checked:before{
-  margin-top: 1px;
+  /*margin-top: 1px;*/
 }
 
 
