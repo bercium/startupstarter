@@ -42,7 +42,7 @@ return array(
       # login form path
       'loginUrl' => array('/user/login'),
       # page after login
-      'returnUrl' => array('/user/profile'),
+      'returnUrl' => array('/profile'),
       # page after logout
       'returnLogoutUrl' => array('/user/login'),        
 		), 
@@ -82,8 +82,10 @@ return array(
 	),
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'admin@cofinder.eu',
-    'noreplyEmail'=>'no-reply@cofinder.eu',
+		'adminEmail'=>array('no-reply@cofinder.eu'=>'Cofinder.eu'), //!!! must decide if usefull seperate mail
+    'noreplyEmail'=>array('no-reply@cofinder.eu'=>'Cofinder.eu'),
     'tempFolder'=>'temp/',
+    'avatarFolder'=>'uploads/avatars/',
+    'mapsFolder'=>'uploads/maps/',
 	),    
 );

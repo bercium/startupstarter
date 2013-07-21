@@ -64,7 +64,7 @@ return array(
       # login form path
       'loginUrl' => array('/user/login'),
       # page after login
-      'returnUrl' => array('/user/profile'),
+      'returnUrl' => array('/profile'),
       # page after logout
       'returnLogoutUrl' => array('/site/index'),        
 		),
