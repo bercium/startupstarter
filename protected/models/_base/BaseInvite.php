@@ -41,7 +41,13 @@ abstract class BaseInvite extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('id_sender, email', 'required'),
-			array('email', 'unique'),
+			//array('email', 'unique'),
+      array('email', 'unique', 'criteria'=>array(
+            'condition'=>'`id_idea`=:idIdea',
+            'params'=>array(
+                ':idIdea'=>$this->id_idea,
+            )
+        )),        
 			array('id_sender, id_idea, id_receiver', 'length', 'max'=>11),
 			array('key, email', 'length', 'max'=>50),
 			array('key, id_idea, id_receiver', 'default', 'setOnEmpty' => true, 'value' => null),

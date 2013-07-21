@@ -18,13 +18,19 @@ class WProfileInfo extends CWidget
         $views = ClickUser::model()->count("user_id = :userID",array(":userID"=>Yii::app()->user->id));
         
         // send invitations
-        if (isset($_POST['invite-email']) && !empty($_POST['invite-email'])){
+        if (!empty($_POST['invite-email']) && $user){
           
           // create invitation
           $invitation = new Invite();
           $invitation->email = $_POST['invite-email'];
           $invitation->id_sender = Yii::app()->user->id;
           $invitation->key = md5(microtime().$invitation->email);
+          if (!empty($_POST['invite-idea'])){
+            $invitation->id_idea = $_POST['invite-idea']; // invite to idea
+            //$invitee = User::model()->findByPk(Yii::app()->user->id);
+            //$invitation->id_user = 
+          }
+          
           if ($invitation->save()){
             $user->invitations = $user->invitations-1;
             $user->save();
