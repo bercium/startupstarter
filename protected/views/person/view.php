@@ -128,6 +128,7 @@ $user = $data['user'];
 							$firsttime = true;
 							if (is_array($user['collabpref']))
 								foreach ($user['collabpref'] as $collab) {
+                if (!$collab['active']) continue;
 									if (!$firsttime)
 										echo ", ";
 									$firsttime = false;
@@ -138,7 +139,7 @@ $user = $data['user'];
 						
 				<?php } ?>
 
-				<hr>
+				<br />
 					
 					<?php if ($user['available_name']) { ?>
 					<p class="meta-field"><?php echo Yii::t('app', 'Available') ?>:</p>
@@ -148,7 +149,8 @@ $user = $data['user'];
 				
 			
 				<?php if (count($user['link']) > 0) { ?>
-				<hr>
+				<br />
+        
 					<p class="meta-field"><?php echo Yii::t('app', 'My links') ?>:</p>
 						<?php 
 						foreach ($user['link'] as $link) {

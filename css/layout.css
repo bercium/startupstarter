@@ -223,7 +223,7 @@ margin-left: 20px;
 .card-content .meta_tags {
 	letter-spacing: 0px;
 	font-family: "tahoma","arial",sans-serif;
-    font-size: 0.67em;
+    font-size: 0.8em;
     letter-spacing: 0.05em;
     line-height: 0.7em;
     text-transform: uppercase;
@@ -721,12 +721,6 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 	text-transform: capitalize;
 }
 
-.label.default-light {
-	background-color: #8CA1C6;
-	/*box-shadow: 0 1px 0 0px #6d83a9;*/
-	
-	color: #fff;
-}
 
 .label.success-alt {
 	background-color: #97b27b;
@@ -1086,7 +1080,7 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 
 .card-idea .meta_tags ul li, .card-person .meta_tags ul li {
 	display: inline-block;
-	font-size: 0.8em;
+	font-size: 0.9em;
 }
 
 

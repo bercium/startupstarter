@@ -49,7 +49,7 @@
                   echo Yii::t('app','Looking for <a>{n} person</a> skilled in|Looking for <a>{n} people</a> skilled in',array(count($idea['candidate']))).": <br />";
 									foreach ($skills as $skillset=>$skill){
 										?>
-										<span class="label radius default-light meta_tags" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
+										<span class="label radius meta_tags" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
 										<?php 
 									}
 								}else echo Yii::t('app','Looking for <a>{n} person</a>|Looking for <a>{n} people</a>',array(count($idea['candidate'])));
@@ -92,7 +92,7 @@
           else if ($idea['days_updated'] == 1) echo Yii::t('app','Updated yesterday');
           else echo Yii::t('app','Updated {n} day ago|Updated {n} days ago',array($idea['days_updated'])); ?></small>
           <div class="card-floater">
-            <a class="small button radius success" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("project/".$idea['id']); ?>" target="_blank"><?php echo Yii::t('app','details').'...'; ?></a>
+            <a class="small button radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("project/".$idea['id']); ?>" target="_blank"><?php echo Yii::t('app','details').'...'; ?></a>
           </div>
         </div>
         </div>
