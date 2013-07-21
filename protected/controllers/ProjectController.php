@@ -635,7 +635,7 @@ class ProjectController extends GxController {
 
 		if($idea && $hasPriviledges){
 
-			$sql = "SELECT count(id) FROM idea_translation WHERE id = $id AND deleted = 0";
+			$sql = "SELECT count(id) FROM idea_translation WHERE idea_id = $id AND deleted = 0";
 			$numTranslations = Yii::app()->db->createCommand($sql)->queryScalar();
 			if($numTranslations > 1){
 				$language = Language::Model()->findByAttributes( array( 'language_code' => $lang ) );
@@ -644,14 +644,16 @@ class ProjectController extends GxController {
 				$translation->setAttributes(array('deleted' => 1));
 
 				if ($translation->save()) {
-					$return['message'] = Yii::t('msg', "Successfully removed translation!");
+					$return['message'] = Yii::t('msg', "Translation successfully removed!");
 					$return['status'] = 0;
 
 					$time_updated = new TimeUpdated;
 					$time_updated->idea($id);
+          Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Translation successfully removed."));
 				} else {
 					$return['message'] = Yii::t('msg', "Unable to remove translation from project.");
 					$return['status'] = 1;
+          Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Unable to remove translation from project."));
 				}
 				
 				if(isset($_GET['ajax'])){
@@ -659,6 +661,10 @@ class ProjectController extends GxController {
 					echo $return; //return array
 					Yii::app()->end();
 				}
+        
+
+        $this->redirect(Yii::app()->createUrl('project/edit',array('id'=>$id)));
+        
 			}
 		}
 	}

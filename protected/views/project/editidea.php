@@ -63,6 +63,22 @@
           
   </div>
   <div class="columns panel edit-content">
+   
+    <?php if (count($ideadata['translation_other'])){ ?>
+    <div class="edit-floater">
+      
+        <?php 
+        echo CHtml::link(Yii::t("app","Delete this translation"),Yii::app()->createUrl('project/deleteTranslation',array('id'=>$idea['id'],'lang'=>$ideadata['language_code'])),
+                  array('class'=>"button tiny alert radius",
+                        'confirm'=>Yii::t("msg","You are about to delete this translation!\nAre you sure?"),
+                        'onclick'=>"$(document).stopPropagation();",
+                      )
+              );
+        ?>
+    </div> 
+    <br /><br />
+    <?php } ?>
+    
     <?php
       $this->renderPartial('_formideaedit', array(
           'id' => $id,
