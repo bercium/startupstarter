@@ -966,45 +966,23 @@ class ProjectController extends GxController {
 			$connection=Yii::app()->db;
 			$data = array();
 
-			$terms = explode(" ", $_GET['term']);
-			$count = count($terms);	
+			$value = $_GET['term'];
 
-			foreach($terms AS $key => $value){
 				//find by name
 				$criteria=new CDbCriteria();
-				$criteria->condition = " `name` LIKE :name";
-				$criteria->params = array(":name"=>"%".$value."%");
+				$criteria->condition = " `name` LIKE :value OR `surname` LIKE :value OR `email` LIKE :value";
+				$criteria->params = array(":value"=>"%".$value."%");
 				$criteria->order = "name";
 				
 				$dataReader = UserEdit::model()->findAll($criteria);
 				foreach ($dataReader as $row){
-					$data[$row['user_id']] = array("value"=>$row['name'] . " " . $row['surname']);
+					$data[] = array("name"=>$row['name']." ".$row['surname'], 
+                          "email"=>$row['email'], 
+                          "id"=>$row['id'], 
+                          "avatar"=>avatar_image($row['avatar_link'], $row['id'], 30));
+                      
 				}
 
-				//find by surname
-				$criteria=new CDbCriteria();
-				$criteria->condition = " `surname` LIKE :surname";
-				$criteria->params = array(":surname"=>"%".$value."%");
-				$criteria->order = "name";
-				
-				$dataReader = UserEdit::model()->findAll($criteria);
-				foreach ($dataReader as $row){
-					$data[$row['user_id']] = array("value"=>$row['name'] . " " . $row['surname']);
-				}
-
-				if($count == 1){
-					//find by email
-					$criteria=new CDbCriteria();
-					$criteria->condition = " `email` LIKE :email";
-					$criteria->params = array(":name"=>"%".$value."%");
-					$criteria->order = "name";
-					
-					$dataReader = UserEdit::model()->findAll($criteria);
-					foreach ($dataReader as $row){
-						$data[$row['user_id']] = array("value"=>$row['name'] . " " . $row['surname']);
-					}
-				}
-			}
 			
 			$response = array("data" => $data,
 												"status" => 0,

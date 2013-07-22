@@ -12,7 +12,7 @@
 </div>
 
 <?php if ($invites > 0){ ?>
-<div id="drop-invitation-msg" class="f-dropdown content medium" data-dropdown-content>
+<div id="drop-invitation-msg" class="f-dropdown content large" data-dropdown-content>
   <div class="invitation-form">
   <?php echo CHtml::beginForm('','post',array("class"=>"custom")); ?>
 
