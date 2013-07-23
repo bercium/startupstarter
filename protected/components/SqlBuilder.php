@@ -347,7 +347,7 @@ class SqlBuilder {
 					"AND t.table = 'available' ".
 					"AND t.language_id = {$filter['site_lang']} ".
 
-					"WHERE m.user_id > 0 AND u.id = '{$filter['user_id']}'";
+					"WHERE m.user_id > 0 AND u.id = '{$filter['user_id']}' AND u.status = 1";
 
 		} elseif( $type == 'recent' ){
 			//return recently registered users' data
@@ -369,7 +369,7 @@ class SqlBuilder {
 					"AND t.table = 'available' ".
 					"AND t.language_id = {$filter['site_lang']} ".
 
-					"WHERE m.user_id > 0 ".
+					"WHERE m.user_id > 0 AND u.status = 1 ".
 					"ORDER BY u.create_at DESC ".
 					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". $filter['per_page'];
 
@@ -395,7 +395,7 @@ class SqlBuilder {
 					"AND t.table = 'available' ".
 					"AND t.language_id = {$filter['site_lang']} ".
 
-					"WHERE m.user_id > 0 ".
+					"WHERE m.user_id > 0 AND u.status = 1 ".
 					"AND im.idea_id = '{$filter['idea_id']}' ".
 					"AND (im.type_id = '2' || im.type_id = '1') ". //HARDCODED MEMBER TYPE
 					"ORDER BY im.type_id ASC";
@@ -428,7 +428,7 @@ class SqlBuilder {
 			$sql=	"SELECT count(u.id) AS count FROM ".
 					"`user` AS u 
            INNER JOIN `user_match` AS m ON u.id = m.user_id
-           WHERE m.user_id > 0";
+           WHERE m.user_id > 0  AND u.status = 1";
 		} elseif( $type == 'search' ){
 
 			$sql=	"SELECT m.id AS match_id, ".
@@ -449,7 +449,7 @@ class SqlBuilder {
 					"AND t.table = 'available' ".
 					"AND t.language_id = {$filter['site_lang']} ".
 
-					"WHERE m.user_id > 0 ".
+					"WHERE m.user_id > 0  AND u.status = 1 ".
 					"AND ( ";
 
 			$keys = array();
