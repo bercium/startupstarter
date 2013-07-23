@@ -716,7 +716,15 @@ class ProjectController extends GxController {
 					$key = $_POST['skillset'] . "_" . $_POST['skill'];
 
 					$_SESSION['Candidate']['skills'][$key]['skillset_id'] = $_POST['skillset']; //id
-					$_SESSION['Candidate']['skills'][$key]['skillset_name'] = $skillset->name; //id$skillset->name
+
+					$language = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
+					if($language->id == 40){
+						$_SESSION['Candidate']['skills'][$key]['skillset_name'] = $skillset->name; //id$skillset->name
+					} else {
+						$translation = Translation::Model()->findByAttributes(array('language_id' => $language->id, 'table' => 'skillset', 'row_id' => $skillset->id));
+						$_SESSION['Candidate']['skills'][$key]['skillset_name'] = $translation->translation; //id$skillset->name
+					}
+
 					$_SESSION['Candidate']['skills'][$key]['skill'] = $_POST['skill']; //skill name
 
 					$status = 0;
@@ -731,7 +739,7 @@ class ProjectController extends GxController {
 			$response = array("data" => array("title" => $_POST['skill'],
 			                                "id" => $key,
 			                                "location" => Yii::app()->createUrl("project/sDeleteSkill"),
-			                                "desc" => $skillset->name, // !!! add description
+			                                "desc" => $_SESSION['Candidate']['skills'][$key]['skillset_name'], // !!! add description
 			                ),
 			"status" => 0,
 			"message" => "");
