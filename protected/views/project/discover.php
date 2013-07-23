@@ -10,9 +10,9 @@
 ?>
 
 <script>
-	var skillSuggest_url = '<?php echo Yii::app()->createUrl("site/sugestSkill",array("ajax"=>1)) ?>';
-	var citySuggest_url = '<?php echo Yii::app()->createUrl("site/sugestCity",array("ajax"=>1)) ?>';
-	var countrySuggest_url = '<?php echo Yii::app()->createUrl("site/sugestCountry",array("ajax"=>1)) ?>';
+	var skillSuggest_url = '<?php echo Yii::app()->createUrl("site/suggestSkill",array("ajax"=>1)) ?>';
+	var citySuggest_url = '<?php echo Yii::app()->createUrl("site/suggestCity",array("ajax"=>1)) ?>';
+	var countrySuggest_url = '<?php echo Yii::app()->createUrl("site/suggestCountry",array("ajax"=>1)) ?>';
 </script>
 
 <div id="drop-local-project" class="f-dropdown content small" data-dropdown-content>

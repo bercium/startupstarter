@@ -18,3 +18,5 @@ if ($invitations > 0){ ?>
   </div>
 </div>
 <?php } ?>
+
+<?php writeFlash("invitationMessage"); ?>

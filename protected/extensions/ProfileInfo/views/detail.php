@@ -13,12 +13,6 @@
 
 
 <div style="text-align: center;">
-     <?php if(Yii::app()->user->hasFlash('invitationMessage')){ ?>
-    <div data-alert class="alert-box radius success">
-      <?php echo Yii::app()->user->getFlash('invitationMessage'); ?>
-      <a href="#" class="close">&times;</a>
-    </div>
-    <?php } ?> 
   <?php if ($invites > 0){ ?>
   <a class="button alert radius small"  href="#" data-dropdown="drop-invitation-msg"><?php echo Yii::t('app','Send invitation ({n})',array($invites)); ?></a>
   <?php } ?>

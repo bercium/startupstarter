@@ -47,11 +47,11 @@
 	var cityCache = {};
 	var countryCache = {};
 	var skillCache = {};
-	//var skillSuggest_url = 'profile/sugestSkill';
+	//var skillSuggest_url = 'profile/suggestSkill';
 	
   $(function() {
 		
-		
+    if ($('.city').length != 0)
     $( ".city" )
       // don't navigate away from the field on tab when selecting an item
       .bind( "keydown", function( event ) {
@@ -96,6 +96,7 @@
         }
       });
 			
+    if ($('.country').length != 0)
 		$( ".country" )
       // don't navigate away from the field on tab when selecting an item
       .bind( "keydown", function( event ) {
@@ -141,6 +142,7 @@
       });
 			
 
+    if ($('.skill').length != 0)
 		$( ".skill" )
       // don't navigate away from the field on tab when selecting an item
       .bind( "keydown", function( event ) {

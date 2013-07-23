@@ -20,17 +20,14 @@ if(is_array($ideadata['member'])){
               ); } ?>
         </div>        
 
-        <a href="<?php echo Yii::app()->createUrl("person/{$member['id']}"); ?>"><h5><?php echo $member['name'] . " ". $member['surname'];?></h5></a>
+      <a href="<?php echo Yii::app()->createUrl("person/{$member['id']}"); ?>"><h5><img src="<?php echo avatar_image($member['avatar_link'], $member['id']); ?>" width="25"> <?php echo $member['name'] . " ". $member['surname'];?></h5></a>
         
     </div>
 
 <?php }} ?>
 
 
-<?php 
-  $invitees = Invite::model()->findAllByAttributes(array("id_idea"=>$ideadata['id'],"id_sender"=>Yii::app()->user->id));
-  if ($invitees){
-?>
+<?php if ($invitees){ ?>
 <hr>
 
   <?php echo CHtml::beginForm('','post',array("class"=>"custom large-6")); ?>

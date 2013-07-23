@@ -545,9 +545,11 @@ class ProjectController extends GxController {
 			if(isset($match))
 				$data_array['match'] = $match;
 
+      $data_array['invitees'] = Invite::model()->findAllByAttributes(array("id_idea"=>$id,"id_sender"=>Yii::app()->user->id));
+      
 			$this->render('editidea', $data_array);
 		}
-		}
+		}else throw new CHttpException(400, Yii::t('msg', 'Your request is invalid.'));
 	}
 
 	public function addKeywords($idea_id, $language_id, $keywords){
@@ -622,7 +624,7 @@ class ProjectController extends GxController {
 			}
 
 			$this->render('createtranslation', array( 'idea' => $idea, 'translation' => $translation ));
-		}		
+		}else throw new CHttpException(400, Yii::t('msg', 'Your request is invalid.'));
 	}
 
 	public function actionDeleteTranslation($id, $lang) {

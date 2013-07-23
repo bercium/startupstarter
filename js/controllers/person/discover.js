@@ -21,7 +21,7 @@ $(window).load(function() {
     }); 
 
 
-	
+    if ($('.city').length != 0)
     $( ".city" )
       // don't navigate away from the field on tab when selecting an item
       .bind( "keydown", function( event ) {
@@ -70,6 +70,7 @@ $(window).load(function() {
         }
       });
 			
+    if ($('.country').length != 0)
 		$( ".country" )
       // don't navigate away from the field on tab when selecting an item
       .bind( "keydown", function( event ) {
@@ -115,6 +116,7 @@ $(window).load(function() {
       });
 			
 
+    if ($('.skill').length != 0)
 		$( ".skill" )
       // don't navigate away from the field on tab when selecting an item
       .bind( "keydown", function( event ) {

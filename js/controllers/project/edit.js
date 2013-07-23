@@ -57,6 +57,7 @@ function removeSkill(skill_id, inUrl){
   $(function() {
     
     
+    if ($('.finduser').length != 0)
     $( ".finduser" )
       // don't navigate away from the field on tab when selecting an item
       .bind( "keydown", function( event ) {
@@ -133,6 +134,8 @@ function removeSkill(skill_id, inUrl){
         .appendTo( ul );
     };
     
+    
+    if ($('.city').length != 0)
     $( ".city" )
       // don't navigate away from the field on tab when selecting an item
       .bind( "keydown", function( event ) {

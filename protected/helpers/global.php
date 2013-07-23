@@ -186,3 +186,25 @@ function arrayLog($data, $space = '&nbsp;&nbsp;'){
 function sifTrans($value){
   return Yii::t("app",$value);
 }
+
+
+function setFlash($flashName, $flashMessage, $status = 'success'){
+  $flash = array("message"=>$flashMessage, "status"=>$status);
+  Yii::app()->user->setFlash($flashName, $flash);
+}
+
+function getFlash($flashName){
+  $html = '';
+  if(Yii::app()->user->hasFlash($flashName)){
+    $flash = Yii::app()->user->getFlash($flashName);
+    
+    $html .= '<div data-alert class="alert-box radius '.$flash['status'].'">';
+    $html .= $flash['message'];
+    $html .= '<a href="#" class="close">&times;</a></div>';
+  }
+  return $html;
+}
+
+function writeFlash($flashName){
+  echo getFlash($flashName);
+}

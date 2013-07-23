@@ -22,12 +22,12 @@ class ProfileController extends GxController {
 	public function accessRules() {
 		return array(
 				array('allow',
-						'actions' => array('registrationFlow','addSkill','deleteSkill','sugestSkill','upload'),
+						'actions' => array('registrationFlow','addSkill','deleteSkill','suggestSkill','upload'),
 						/*'users' => array("?"),*/
             'expression' => array($this,'isLogedInOrAfterRegister'),
 				),
 				array('allow',
-						'actions' => array('index', 'view', 'projects', 'account','upload','removeIdea','addIdea', 'addLink','deleteLink','addSkill','deleteSkill','sugestSkill'),
+						'actions' => array('index', 'view', 'projects', 'account','upload','removeIdea','addIdea', 'addLink','deleteLink','addSkill','deleteSkill','suggestSkill'),
 						'users' => array("@"),
 				),
 				array('allow', // allow admins only
@@ -570,7 +570,7 @@ class ProfileController extends GxController {
 		}
 	}
 
-	public function actionSugestSkill() {
+	public function actionsuggestSkill() {
 
 		if (!isset($_GET['term'])){
 			$response = array("data" => null,

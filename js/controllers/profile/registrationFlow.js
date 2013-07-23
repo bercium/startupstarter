@@ -54,9 +54,11 @@ function removeSkill(skill_id){
 
 	var cache = {};
   var cityCache = {};
-	//var skillSuggest_url = 'profile/sugestSkill';
+	//var skillSuggest_url = 'profile/suggestSkill';
 	
   $(function() {
+    
+    if ($('#skill').length != 0)
     $( "#skill" ).autocomplete({
       //minLength: 1,
 			delay:300,
@@ -95,6 +97,7 @@ function removeSkill(skill_id){
         .appendTo( ul );
     };
     
+    if ($('.city').length != 0)
     $( ".city" )
       // don't navigate away from the field on tab when selecting an item
       .bind( "keydown", function( event ) {

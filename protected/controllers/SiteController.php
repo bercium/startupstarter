@@ -24,7 +24,7 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("index",'error','logout','about','terms','notify','sugestCountry','sugestSkill','sugestCity'),
+        'actions'=>array("index",'error','logout','about','terms','notify','suggestCountry','suggestSkill','suggestCity'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -221,7 +221,7 @@ class SiteController extends Controller
 		$this->redirect(Yii::app()->homeUrl);
 	}
 
-	public function actionSugestCity() {
+	public function actionsuggestCity() {
 
 		if (!isset($_GET['term'])){
 			$response = array("data" => null,
@@ -253,7 +253,7 @@ class SiteController extends Controller
 	}
 	
 
-	public function actionSugestCountry() {
+	public function actionsuggestCountry() {
 
 		if (!isset($_GET['term'])){
 			$response = array("data" => null,
@@ -283,7 +283,7 @@ class SiteController extends Controller
 	}	
 	
 
-	public function actionSugestSkill() {
+	public function actionsuggestSkill() {
 
 		if (!isset($_GET['term'])){
 			$response = array("data" => null,

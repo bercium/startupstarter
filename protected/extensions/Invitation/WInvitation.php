@@ -62,8 +62,10 @@ class WInvitation extends CWidget
           $message->from = Yii::app()->params['noreplyEmail'];
           Yii::app()->mail->send($message);
 
-          Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation send.'));
-        }else Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','This user is already invited.'));
+          setFlash("invitationMessage",Yii::t('msg','Invitation send.'));
+          //Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation send.'));
+        }else setFlash("invitationMessage",Yii::t('msg','This user is already invited.'));
+          //Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','This user is already invited.'));
 
       }      
       
