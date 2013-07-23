@@ -48,6 +48,7 @@ abstract class BaseIdeaTranslation extends GxActiveRecord {
 			array('tweetpitch', 'length', 'max'=>140),
 			array('title', 'length', 'max'=>128),
 			array('keywords', 'length', 'max'=>256),
+			array('description', 'safe'),
 			array('title', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('id, language_id, idea_id, pitch, description, description_public, tweetpitch, deleted, title, keywords', 'safe', 'on'=>'search'),
 		);

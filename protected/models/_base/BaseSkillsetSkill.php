@@ -40,7 +40,7 @@ abstract class BaseSkillsetSkill extends GxActiveRecord {
 			array('skillset_id, skill_id', 'required'),
 			array('skillset_id, skill_id', 'numerical', 'integerOnly'=>true),
 			array('usage_count', 'length', 'max'=>11),
-			array('usage_count', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('usage_count', 'default', 'setOnEmpty' => true, 'value' => 1),
 			array('id, skillset_id, skill_id, usage_count', 'safe', 'on'=>'search'),
 		);
 	}

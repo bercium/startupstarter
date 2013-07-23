@@ -46,6 +46,7 @@ abstract class BaseIdea extends GxActiveRecord {
 			array('time_updated', 'required', 'on'=>'clicks'),
 			array('status_id, deleted', 'numerical', 'integerOnly'=>true),
 			array('website, video_link', 'length', 'max'=>128),
+			array('website, video_link', 'url'),
 			array('time_updated', 'safe'),
 			array('time_updated, website, video_link', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('id, time_registered, time_updated, status_id, website, video_link, deleted', 'safe', 'on'=>'search'),

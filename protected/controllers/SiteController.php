@@ -110,8 +110,7 @@ class SiteController extends Controller
 			}
 			
 			$searchResult['page'] = $id;
-			$searchResults['maxPage'] = ceil($count / $filter['per_page']);
-			$searchResult['maxPage'] = 3;
+			$searchResult['maxPage'] = ceil($count / $filter['per_page']);
 
     }else{
 			// last results
@@ -297,7 +296,7 @@ class SiteController extends Controller
 
 			$connection=Yii::app()->db;
 			$data = array();
-      $dataReader = array();
+      		$dataReader = array();
 			
 			$criteria=new CDbCriteria();
 			
