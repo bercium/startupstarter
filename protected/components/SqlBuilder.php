@@ -82,6 +82,7 @@ class SqlBuilder {
 		    //user related data
 		    case "user":
 		    	if(isset($filter['user_id'])){
+		    		//print_r($this->user("user", $filter));
 		        	return $this->user("user", $filter);
 		        }
 		        break;
@@ -485,13 +486,15 @@ class SqlBuilder {
 				}
 
 				//user's ideas, add and count
-				$row['idea'] = $this->idea('user', $filter);
-				$i = 0;
-				if(count($row['idea']) > 0){
-					foreach($row['idea'] AS $key => $value)
-						$i++;
+				if($this->level <= 2){
+					$row['idea'] = $this->idea('user', $filter);
+					$i = 0;
+					if(count($row['idea']) > 0){
+						foreach($row['idea'] AS $key => $value)
+							$i++;
+					}
+					$row['num_of_rows'] = $i;
 				}
-				$row['num_of_rows'] = $i;
 
 				//skillset
 				$row['skillset'] = $this->skillset( $filter );
