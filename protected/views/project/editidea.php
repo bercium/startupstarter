@@ -104,7 +104,8 @@
           'lang' => $lang,
           'ideadata' => $ideadata,
           'idea_id' => $idea_id,
-          'invitees' => $invitees));
+          'invitees' => $invite['data'],
+          'invitations' => $invite['count']));
     ?>
   </div>
 </div>

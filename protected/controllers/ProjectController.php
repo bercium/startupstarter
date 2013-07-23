@@ -545,7 +545,9 @@ class ProjectController extends GxController {
 			if(isset($match))
 				$data_array['match'] = $match;
 
-      $data_array['invitees'] = Invite::model()->findAllByAttributes(array("id_idea"=>$id,"id_sender"=>Yii::app()->user->id));
+      $user = User::model()->findByPk(Yii::app()->user->id);
+      $data_array['invite']['data'] = Invite::model()->findAllByAttributes(array("id_idea"=>$id,"id_sender"=>Yii::app()->user->id));
+      $data_array['invite']['count'] = $user->invitations;
       
 			$this->render('editidea', $data_array);
 		}

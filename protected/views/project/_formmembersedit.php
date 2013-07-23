@@ -27,7 +27,7 @@ if(is_array($ideadata['member'])){
 <?php }} ?>
 
 
-<?php if ($invitees){ ?>
+<?php if ($invitations){ ?>
 <hr>
 
   <?php echo CHtml::beginForm('','post',array("class"=>"custom large-6")); ?>
@@ -45,12 +45,13 @@ if(is_array($ideadata['member'])){
  
   <?php echo CHtml::endForm(); ?>
 
-
+<?php if ($invitees){ ?>
 <h5><?php echo Yii::t('app','Invited to project'); ?></h5>
 <p>
   <?php foreach($invitees as $row){ ?>
   <?php echo $row->email; ?>,
   <?php } ?>
 </p>
-<?php } ?>
+<?php }
+} ?>
 

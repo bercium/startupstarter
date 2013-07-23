@@ -1,5 +1,5 @@
-<?php 
-if ($invitations > 0){ ?>
+<?php if ($invitations > 0){ ?>
+
 <div id="drop-invitation-msg" class="f-dropdown content small" data-dropdown-content>
   <div class="invitation-form">
   <?php echo CHtml::beginForm('','post',array("class"=>"custom")); ?>
