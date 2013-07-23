@@ -110,8 +110,7 @@ class SiteController extends Controller
 			}
 			
 			$searchResult['page'] = $id;
-			$searchResults['maxPage'] = ceil($count / $filter['per_page']);
-			$searchResult['maxPage'] = 3;
+			$searchResult['maxPage'] = ceil($count / $filter['per_page']);
 
     }else{
 			// last results

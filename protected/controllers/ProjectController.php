@@ -947,17 +947,20 @@ class ProjectController extends GxController {
 			$filter['skill'] = $searchForm->skill;
 			$filter['stage'] = $searchForm->stage;
 			
-			if ($searchForm->isProject)	$searchResult['data'] = $sqlbuilder->load_array("search_idea", $filter);
-			else $searchResult['data'] = $sqlbuilder->load_array("search_user", $filter);
+			$searchResult['data'] = $sqlbuilder->load_array("search_idea", $filter);
+			$count = $sqlbuilder->load_array("search_idea_count", $filter);
+			$count = $count['num_of_rows'];
 			
 			$searchResult['page'] = $id;
-			$searchResult['maxPage'] = 2; //!!! add page count
+			$searchResult['maxPage'] = ceil($count / $filter['per_page']); //!!! add page count
 
     }else{
-      
+            $count = $sqlbuilder->load_array("count_idea", $filter);
+            $count = $count['num_of_rows'];
+
 			$searchResult['data'] = $sqlbuilder->load_array("recent_updated", $filter);
 			$searchResult['page'] = $id;
-			$searchResult['maxPage'] = 2; //!!! add page count
+			$searchResult['maxPage'] = ceil($count / $filter['per_page']); ; //!!! add page count
     }
 		
 
