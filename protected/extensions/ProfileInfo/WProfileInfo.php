@@ -17,60 +17,7 @@ class WProfileInfo extends CWidget
 
         $views = ClickUser::model()->count("user_id = :userID",array(":userID"=>Yii::app()->user->id));
         
-        // send invitations
-        if (!empty($_POST['invite-email']) && $user){
-          
-          // create invitation
-          $invitation = new Invite();
-          $invitation->email = $_POST['invite-email'];
-          $invitation->id_sender = Yii::app()->user->id;
-          $invitation->key = md5(microtime().$invitation->email);
-          
-          if (!empty($_POST['invite-idea'])){
-            $invitation->id_idea = $_POST['invite-idea']; // invite to idea
-            $invitee = User::model()->findByAttributres(array("email"=>$invitation->email));
-            if ($invitee) $invitation->id_receiver = $invitee->id;
-          }
-          
-          if ($invitation->save()){
-            $user->invitations = $user->invitations-1;
-            $user->save();
-            
-            
-            // send mail
-            $message = new YiiMailMessage;
-            $message->view = 'system';
-            
-            if ($invitation->id_receiver){
-              $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'">'.Yii::t('app',"Register here")."</a>";
-              
-              $message->setBody(array("content"=>"We've been hard at work on our new service called cofinder.
-                                              It is a web platform through which you can share your ideas with the like minded entrepreneurs and search for interesting projects to join. 
-                                              <br /><br /> ".$user->name." ".$user->surname." thinks you might be the right person to test our private beta.
-                                              <br /><br /> If we got your attention you can ".$activation_url."!"
-                                      ), 'text/html');
-              $message->subject = Yii::t('msg',"You have been invited to join cofinder");
-            }else{
-              $idea = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$invitation->id_idea));
-              
-              $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/acceptinvitation')."?id=".$invitation->key.'">'.Yii::t('app',"Accept invitation")."</a>";
-            
-              $projectName = '';
-              
-              $message->setBody(array("content"=>$user->name." ".$user->surname." invited you to become a member of a project called '".$projectName."'".
-                                              "<br /><br />You can accept his invitation inside your cofinder profile or by clicking ".$activation_url."!"
-                                      ), 'text/html');
-              $message->subject = Yii::t('msg',"You have been invited to join a project on cofinder");
-            }
-            
-            $message->addTo($invitation->email);
-            $message->from = Yii::app()->params['noreplyEmail'];
-            Yii::app()->mail->send($message);
-            
-            Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation send.'));
-          }else Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','This user is already invited.'));
-          
-        }
+   
         
         $this->render("detail",array("perc"=>$perc,"percClass"=>$percClass,
                                      "memberDate"=>$user->create_at,

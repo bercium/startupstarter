@@ -223,13 +223,21 @@ class ProfileController extends GxController {
           
         }
 
+        $link = new UserLink;
 				$filter['user_id'] = $user_id;
 				$sqlbuilder = new SqlBuilder;
-				$data['user'] = $sqlbuilder->load_array("regflow", $filter);
-				$link = new UserLink;
+        
+				if (Yii::app()->user->isGuest){
+          $data['user'] = $sqlbuilder->load_array("regflow", $filter);
+          $this->render('registrationFlow', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link));
+        }
+        else {
+          $data['user'] = $sqlbuilder->load_array("user", $filter);
+          $this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea']));
+        }
 
-        		if (Yii::app()->user->isGuest) $this->render('registrationFlow', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link));
-        		else $this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea']));
+        //if (Yii::app()->user->isGuest) $this->render('registrationFlow', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link));
+        //else $this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea']));
 			}
 		}
 	}

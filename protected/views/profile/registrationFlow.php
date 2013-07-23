@@ -156,12 +156,19 @@
       
   
     <div class="skillList">
-    <?php foreach ($userSkills as $skill){ ?>
-      <span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $skill->id; ?>">
-          <?php echo $skill->skill->name."<br /><small class='meta'>".$skill->skillset->name."</small>"; ?>
-          <a href="#" class="close" onclick="removeSkill(<?php echo $skill->id; ?>)">&times;</a>
+    
+    <?php if(isset($data['user']['skillset'])){
+          foreach ($data['user']['skillset'] as $skillset){
+            foreach ($skillset['skill'] as $skill){
+              ?>
+
+      <span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $skill['skill']; ?>">
+          <?php echo $skillset['skillset']."<br /><small class='meta'>".$skill['skill']."</small>"; ?>
+          <a href="#" class="close" onclick="removeSkill(<?php echo $skill['skill']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteSkill"); ?>')">&times;</a>
      </span>
-    <?php } ?>
+    <?php }}} ?>    
+    
+
     </div>  
     
     <?php $this->endWidget(); ?>     

@@ -27,5 +27,33 @@ if(is_array($ideadata['member'])){
 <?php }} ?>
 
 
-<?php echo CHtml::label('member','member'); ?>
-<?php echo CHtml::textField('member', '', array("class"=>"finduser")); ?>           
+<?php 
+  $invitees = Invite::model()->findAllByAttributes(array("id_idea"=>$ideadata['id'],"id_sender"=>Yii::app()->user->id));
+  if ($invitees){
+?>
+<hr>
+
+  <?php echo CHtml::beginForm('','post',array("class"=>"custom large-6")); ?>
+
+      <?php echo CHtml::label(Yii::t('app','New members email'),'message'); ?>
+      <div class="row collapse">
+        <div class="small-9 columns">
+          <?php echo CHtml::textField('invite-email'); ?>
+          <?php echo CHtml::hiddenField('invite-idea',$ideadata['id']); ?>
+        </div>
+        <div class="small-3 columns">
+           <?php echo CHtml::submitButton(Yii::t("app","Invite"),array("class"=>"postfix button radius")); ?>
+        </div>
+      </div>    
+ 
+  <?php echo CHtml::endForm(); ?>
+
+
+<h5><?php echo Yii::t('app','Invited to project'); ?></h5>
+<p>
+  <?php foreach($invitees as $row){ ?>
+  <?php echo $row->email; ?>,
+  <?php } ?>
+</p>
+<?php } ?>
+

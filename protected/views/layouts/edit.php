@@ -1,6 +1,9 @@
 <?php /* @var $this Controller */ ?>
 <?php $this->beginContent('//layouts/main'); ?>
 
+
+<?php $this->widget('ext.Invitation.WInvitation'); ?>
+
 <div class="row" style="margin-top:20px;">
   <div class="large-3 columns">
     <?php $this->widget('ext.ProfileInfo.WProfileInfo',array("style"=>"sidebar")); ?>
