@@ -55,6 +55,45 @@ function removeSkill(skill_id, inUrl){
   var cityCache = {};  
   	
   $(function() {
+    
+    
+    $( ".finduser" )
+      // don't navigate away from the field on tab when selecting an item
+      .bind( "keydown", function( event ) {
+        if ( event.keyCode === $.ui.keyCode.TAB &&
+            $( this ).data( "ui-autocomplete" ).menu.active ) {
+          event.preventDefault();
+        }
+      })
+			.autocomplete({
+				delay:300,
+				minLength: 2,
+        source: function( request, response ) {
+					
+					$.getJSON( userSuggest_url, { term: extractLast( request.term ) }, function( data, status, xhr ) {
+						if (data.status == 0){
+							cityCache[ extractLast( request.term ) ] = data.data;
+							response( data.data );
+						}else alert(data.message);
+					});
+        },
+       select: function( event, ui ) {
+        $( "#skill" ).val( ui.item.skill );
+				$('#skillset').val(ui.item.skillset_id); 
+				Foundation.libs.forms.refresh_custom_select($('#skillset'),true);
+				
+        $( "#project-id" ).val( ui.item.id );
+ 
+        return false;
+      }
+      })
+     .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+      return $( "<li>" )
+        .append( "<a><img style='height:30px;' src='"+item.avatar+"'> " + item.name + "</a>" )
+        .appendTo( ul );
+    };
+      
+    
     if ($('#skill').length != 0)
     $( "#skill" ).autocomplete({
       //minLength: 1,

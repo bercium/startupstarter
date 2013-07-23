@@ -167,7 +167,7 @@ return array (
   'Old password' => 'Staro geslo',
   'On' => 'Vključeno',
   'Open' => 'Odpri',
-  'Open positions' => 'Odprt položaj',
+  'Open positions' => 'Odprta pozicija',
   'Our supporters' => 'Naši podporniki',
   'Our team' => 'Naša ekipa',
   'Page' => 'Stran',
