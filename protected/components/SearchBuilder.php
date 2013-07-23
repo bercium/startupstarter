@@ -60,8 +60,6 @@ class SearchBuilder {
 
 						$dataReader = Country::Model()->findAll( $condition );
 
-						
-
 						foreach ($dataReader as $row){
 							$filter['country'][] = $row['id'];
 						}

@@ -51,6 +51,9 @@ class SqlBuilder {
 		$filter['action'] = $action;
 		$this->level = 0;
 
+	//UNSET VARIABLEs
+		unset($filter['regflow']);
+
 	//WHICH ACTION IS PERFORMED?
 		switch ($action) {
 			//frontpage controller
@@ -86,6 +89,11 @@ class SqlBuilder {
 		        	return $this->user("user", $filter);
 		        }
 		        break;
+		    case "regflow":
+		    	if(isset($filter['user_id'])){
+			    	$filter['regflow'] = true;
+			    	return $this->user("user", $filter);
+			    }
 		    case "search_user":
 		    	$search = new SearchBuilder;
 		    	return $this->user("search", $filter, $search->search("user", $filter));
@@ -346,8 +354,14 @@ class SqlBuilder {
 					"ON a.id = t.row_id ".
 					"AND t.table = 'available' ".
 					"AND t.language_id = {$filter['site_lang']} ".
+					"WHERE m.user_id > 0 AND u.id = '{$filter['user_id']}'";
 
-					"WHERE m.user_id > 0 AND u.id = '{$filter['user_id']}' AND u.status = 1";
+			if(isset($filter['regflow'])){
+				$sql.= " AND u.status = 0";
+			} else {
+				$sql.= " AND u.status = 1";
+			}
+			
 
 		} elseif( $type == 'recent' ){
 			//return recently registered users' data
