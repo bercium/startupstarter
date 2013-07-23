@@ -459,7 +459,7 @@ class ProfileController extends GxController {
 				    if ($skillset_skill == null){
 				        $skillset_skill = new SkillsetSkill;
 				        $skillset_skill->skill_id = $skill->id;
-				        $skillset_skill->skillset_id = $value['skillset_id'];
+				        $skillset_skill->skillset_id = $_POST['skillset'];
 				        $skillset_skill->usage_count = 1;
 				        $skillset_skill->save();
 				    } else {
@@ -690,6 +690,46 @@ class ProfileController extends GxController {
     }
 
     $this->actionIndex();
+  }
+  
+  
+  public function actionCreateInvitation(){
+    $this->layout="//layouts/card";
+    
+    if (!empty($_POST['invite-email'])){
+    
+      $user = User::model()->findByPk(Yii::app()->user->id);
+ // send invitations
+      if ($user){
+
+        // create invitation
+        $invitation = new Invite();
+        $invitation->email = $_POST['invite-email'];
+        $invitation->id_sender = Yii::app()->user->id;
+        $invitation->key = md5(microtime().$invitation->email);
+        if (!empty($_POST['invite-idea'])){
+          $invitation->id_idea = $_POST['invite-idea']; // invite to idea
+          //$invitee = User::model()->findByPk(Yii::app()->user->id);
+          //$invitation->id_user = 
+        }
+
+        if ($invitation->save()){
+          $user->invitations = $user->invitations-1;
+          $user->save();
+
+          $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key;
+
+          Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation generated: <br /><br />'.$activation_url));
+        }else{
+          $invitation = Invite::model()->findByAttributes(array("email"=>$_POST['invite-email']));
+          $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key;
+          Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation already exit on address: <br /><br />'.$activation_url));
+        }
+
+      }
+    }
+    
+    $this->render('/profile/createInvitation');
   }
 
 }

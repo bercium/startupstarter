@@ -115,6 +115,8 @@
                 <ul class="dropdown">
                   <li><a href="<?php echo Yii::app()->createUrl("newsletter"); ?>"><?php echo Yii::t('app','Newsletter'); ?></a></li>
                   <li><a href="<?php echo Yii::app()->createUrl("translation"); ?>"><?php echo Yii::t('app','Translations'); ?></a></li>
+                  <?php if(!Yii::app()->user->isGuest){  ?><li><a href="<?php echo Yii::app()->createUrl("profile/createInvitation"); ?>"><?php echo Yii::t('app','Create invitation'); ?></a></li>
+                  <?php } ?>
                   <li><a href="<?php echo Yii::app()->createUrl("backendAuditTrail"); ?>"><?php echo Yii::t('app','Logs'); ?></a></li>
                 </ul>
                 

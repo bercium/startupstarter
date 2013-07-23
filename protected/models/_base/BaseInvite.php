@@ -43,7 +43,7 @@ abstract class BaseInvite extends GxActiveRecord {
 			array('id_sender, email', 'required'),
 			//array('email', 'unique'),
       array('email', 'unique', 'criteria'=>array(
-            'condition'=>'`id_idea`=:idIdea',
+            'condition'=>'`id_idea`=:idIdea OR ISNULL(id_idea)',
             'params'=>array(
                 ':idIdea'=>$this->id_idea,
             )
