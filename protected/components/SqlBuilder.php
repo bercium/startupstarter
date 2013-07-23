@@ -282,7 +282,7 @@ class SqlBuilder {
 	public function idea_translation($type, $filter){
 
 		if($type == 'userlang'){
-			$sql=		"SELECT it.id AS translation_id, it.title, it.keywords, it.pitch, it.description, it.description_public, it.tweetpitch, it.language_id, l.name AS language, l.language_code FROM ".
+			$sql=		"SELECT it.id AS translation_id, it.title, it.keywords, it.pitch, it.description, it.description_public, it.tweetpitch, it.language_id, l.native_name AS language, l.language_code FROM ".
 						"`idea` AS i,`idea_translation` AS it,`language` AS l ".
 						"WHERE i.id = it.idea_id ".
 						"AND l.id = it.language_id ".
@@ -291,7 +291,7 @@ class SqlBuilder {
 						"ORDER BY FIELD(it.language_id, '{$filter['lang']}') DESC LIMIT 1";
 
 		} else {
-			$sql=		"SELECT it.id AS translation_id, it.title, it.keywords, it.pitch, it.description, it.description_public, it.tweetpitch, it.language_id, l.name AS language, l.language_code FROM ".
+			$sql=		"SELECT it.id AS translation_id, it.title, it.keywords, it.pitch, it.description, it.description_public, it.tweetpitch, it.language_id, l.native_name AS language, l.language_code FROM ".
 						"`idea` AS i,`idea_translation` AS it,`language` AS l ".
 						"WHERE i.id = it.idea_id ".
 						"AND l.id = it.language_id ".
