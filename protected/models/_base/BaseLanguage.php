@@ -29,7 +29,7 @@ abstract class BaseLanguage extends GxActiveRecord {
 	}
 
 	public static function representingColumn() {
-		return 'name';
+		return 'native_name';
 	}
 
 	public function rules() {

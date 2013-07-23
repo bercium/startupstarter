@@ -297,7 +297,7 @@ class SiteController extends Controller
 
 			$connection=Yii::app()->db;
 			$data = array();
-      $dataReader = array();
+      		$dataReader = array();
 			
 			$criteria=new CDbCriteria();
 			
