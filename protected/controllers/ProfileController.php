@@ -225,7 +225,7 @@ class ProfileController extends GxController {
 
 				$filter['user_id'] = $user_id;
 				$sqlbuilder = new SqlBuilder;
-				$data['user'] = $sqlbuilder->load_array("user", $filter);
+				$data['user'] = $sqlbuilder->load_array("regflow", $filter);
 				$link = new UserLink;
 
         

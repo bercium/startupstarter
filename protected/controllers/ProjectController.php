@@ -649,7 +649,7 @@ class ProjectController extends GxController {
 
 					$time_updated = new TimeUpdated;
 					$time_updated->idea($id);
-          Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Translation successfully removed."));
+          Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Translation successfully removed!"));
 				} else {
 					$return['message'] = Yii::t('msg', "Unable to remove translation from project.");
 					$return['status'] = 1;
@@ -970,7 +970,7 @@ class ProjectController extends GxController {
 
 				//find by name
 				$criteria=new CDbCriteria();
-				$criteria->condition = " `name` LIKE :value OR `surname` LIKE :value OR `email` LIKE :value";
+				$criteria->condition = " `name` LIKE :value OR `surname` LIKE :value"; // OR `email` LIKE :value";
 				$criteria->params = array(":value"=>"%".$value."%");
 				$criteria->order = "name";
 				
