@@ -155,8 +155,8 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>array('no-reply@cofinder.eu'=>'Cofinder.eu'), //!!! must decide if usefull seperate mail
-    'noreplyEmail'=>array('no-reply@cofinder.eu'=>'Cofinder.eu'),
+		'adminEmail'=>array('no-reply@cofinder.eu'=>'Cofinder'), //!!! must decide if usefull seperate mail
+    'noreplyEmail'=>array('no-reply@cofinder.eu'=>'Cofinder'),
     'tempFolder'=>'temp/',
     'avatarFolder'=>'uploads/avatars/',
     'mapsFolder'=>'uploads/maps/',

@@ -86,11 +86,16 @@ class PersonController extends GxController {
       
       $sender = User::model()->findByPk(Yii::app()->user->id);
       
+      
       $message = new YiiMailMessage;
       $message->view = 'system';
-      $message->setBody(array("content"=>GxHtml::encode($_POST['message'])), 'text/html');
-      //$message->setBody(array("content"=>$_POST['message'],"senderMail"=>$sender->email), 'text/html');
+      
       $message->subject = "New message from ".$sender->name." ".$sender->surname;
+      $content = "This message was sent trough cofinder by ".$sender->name." ".$sender->surname.'. '.
+                 'To check his profile or to replay <a href="'.Yii::app()->createAbsoluteUrl('/person/',array('id'=>Yii::app()->user->id)).'">click here</a>.<br /><br /><br />'.
+                 GxHtml::encode($_POST['message']);
+      $message->setBody(array("content"=>$content), 'text/html');
+      //$message->setBody(array("content"=>$_POST['message'],"senderMail"=>$sender->email), 'text/html');
       
       // get all users
       $user = User::model()->findByPk($id);

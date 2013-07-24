@@ -9,9 +9,9 @@
 <table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td align="left" valign="top"  bgcolor="#f1f69d" style="background-color:#FFF; padding:20px;">
-    <a href="http://www.cofinder.eu/">
+    <a href="http://www.cofinder.eu/" style="text-decoration: none;">
       <img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/mail-logo.png" alt="cofinder" title="cofinder" style="border: 0;height: auto;line-height: 100%;outline: none;text-decoration: none;display: inline;margin: 0;padding: 0; float:left;" border="0" height="38" width="40"></img>
-      <div style="color:#9a9a9a; font-weight: bold; font-size: 38px;  font-family:Sans,Helvetica,Arial,sans-serif; margin-top:9px;">
+      <div style="color:#9a9a9a; font-weight: bold; text-decoration: none; font-size: 38px;  font-family:Sans,Helvetica,Arial,sans-serif; margin-top:9px;">
         co<span style="color:#89b561">finder</span>
       </div>
     </a>
