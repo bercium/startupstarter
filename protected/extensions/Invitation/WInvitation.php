@@ -34,7 +34,7 @@ class WInvitation extends CWidget
               
               // is user in system
               if ($invitee){
-                $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/profile/acceptInvitation')."?id=".$invitation->key.'">'.Yii::t('app',"Accept invitation")."</a>";
+                $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/profile/acceptInvitation')."?id=".$invitation->id_idea.'">'.Yii::t('app',"Accept invitation")."</a>";
                 $this->sendMail($invitation->email,
                                 "You have been invited to join a project on cofinder", 
                                 $user->name." ".$user->surname." invited you to become a member of a project called '".$idea->title."'".
