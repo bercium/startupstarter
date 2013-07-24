@@ -319,15 +319,16 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
         
         <h5><?php echo Yii::t("app","Page")." ".$searchResult['page']; ?></h5>
         <ul class="small-block-grid-1 large-block-grid-3">
-          <?php 
-          foreach ($searchResult['data'] as $result){ ?>
+          <?php
+          if(is_array($searchResult['data']) > 0){
+            foreach ($searchResult['data'] as $result){ ?>
             <li>
             <?php 
               if ($filter->isProject) $this->renderPartial('//project/_project', array('idea' => $result));
               else $this->renderPartial('//person/_user', array('user' => $result));
             ?>
             </li>
-          <?php } ?>
+          <?php }} ?>
         </ul>
       </div>
 		</div>
