@@ -228,8 +228,8 @@ class SiteController extends Controller
 		$this->redirect(Yii::app()->homeUrl);
 	}
 
-	public function actionsuggestCity() {
-
+	public function actionSuggestCity() {
+    return;
 		if (!isset($_GET['term'])){
 			$response = array("data" => null,
 								"status" => 1,
@@ -254,13 +254,12 @@ class SiteController extends Controller
 								"status" => 0,
 								"message" => '');
 		}
-		
 		echo json_encode($response);
 		Yii::app()->end();
 	}
 	
 
-	public function actionsuggestCountry() {
+	public function actionSuggestCountry() {
 
 		if (!isset($_GET['term'])){
 			$response = array("data" => null,
@@ -290,7 +289,7 @@ class SiteController extends Controller
 	}	
 	
 
-	public function actionsuggestSkill() {
+	public function actionSuggestSkill() {
 
 		if (!isset($_GET['term'])){
 			$response = array("data" => null,

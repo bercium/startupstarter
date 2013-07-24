@@ -579,7 +579,7 @@ class ProfileController extends GxController {
 		}
 	}
 
-	public function actionsuggestSkill() {
+	public function actionSuggestSkill() {
 
 		if (!isset($_GET['term'])){
 			$response = array("data" => null,

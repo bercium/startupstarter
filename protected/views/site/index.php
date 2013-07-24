@@ -146,7 +146,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 				<?php echo CHtml::label(Yii::t('app','Language'),''); ?>
 				<?php echo CHtml::activedropDownList($filter,'language', 
 							//GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
-							CHtml::listData(Language::model()->findAllAttributes(null, true),"id","name")
+							CHtml::listData(Language::model()->findAllAttributes(null, true),"id","native_name")
 							, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
 			</div>
 

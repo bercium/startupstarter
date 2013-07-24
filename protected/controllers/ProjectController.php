@@ -29,7 +29,7 @@ class ProjectController extends GxController {
 				'users'=>array('*'),
 			),
 	    array('allow',
-		        'actions'=>array('create','edit','leaveIdea','deleteIdea'),
+		        'actions'=>array('create','edit','leaveIdea','deleteIdea','addMember','deleteMember','sAddSkill','sDeleteSkill','translate','deleteTranslation'),
 		        'users'=>array("@"),
 		    ),
 			array('allow', // allow admins only
