@@ -98,6 +98,13 @@ class SiteController extends Controller
 			$filter['language'] = $searchForm->language;
 			$filter['skill'] = $searchForm->skill;
 			$filter['stage'] = $searchForm->stage;
+
+			//categories work like this
+			/*foreach($filter AS $key => $value){
+				if(strlen($value) > 0 && $value){
+					$filter['category'][] = $key;
+				}
+			}*/
 			
 			if ($searchForm->isProject){
 				$searchResult['data'] = $sqlbuilder->load_array("search_idea", $filter);

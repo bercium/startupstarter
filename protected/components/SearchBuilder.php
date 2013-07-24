@@ -322,6 +322,7 @@ class SearchBuilder {
 								AND k{$k}.row_id = i.id 
 								AND k{$k}.id = :k{$k}_id ";
 					$cols["k{$k}_id"] = $value; //this key is an _id here, but it's really a string
+					$where['keywords']["k{$k}.id"] = $value;
 				}
 			}
 
@@ -329,10 +330,13 @@ class SearchBuilder {
 			//the following field does not require joins, we're merely preparing variables for result ranking
 			if(isset($filter['status_id']) AND is_numeric($filter['status_id'])){
 				$cols["status_id"] = $filter['status_id'];
+				$where['stage']['i.status_id'] = $filter['status_id'];
 			}
 			if(isset($filter['extra']) && $filter['extra'] == 1){
 				$cols["website"] = "";
 				$cols["video_link"] = "";
+				$where['extra']['i.website'] = NULL;
+				$where['extra']['i.video_link'] = NULL;
 			}
 
 			//language
@@ -340,20 +344,15 @@ class SearchBuilder {
 				$sql.= "LEFT JOIN `idea_translation` AS it ON 
 							it.idea_id = i.id ";
 				$cols["language_id"] = $filter['language'];
+				$where['language']['it.id'] = $filter['language'];
 			}
 		}
 
 		//user_match AS m
-		//the following fields do not require joins, we're merely preparing variables for result ranking
-		
-		/*if(isset($filter['country_id']) AND is_numeric($filter['country_id'])){
-			$cols["country_id"] = $filter['country_id'];
-		}
-		if(isset($filter['city_id']) AND is_numeric($filter['city_id'])){
-			$cols["city_id"] = $filter['city_id'];
-		}*/
+			//the following field does not require joins, we're merely preparing variables for result ranking
 		if(isset($filter['available']) AND is_numeric($filter['available'])){
 			$cols["available"] = $filter['available'];
+			$where['available']['m.available'] = $filter['available'];
 		}
 
 		//user_match (country) as co
@@ -363,9 +362,10 @@ class SearchBuilder {
 				if(is_numeric($value)){
 					$co++;
 					$sql.= "LEFT JOIN `country` AS co{$co} ON 
-								co{$co}.id = m.country_id  
+								co{$co}.id = m.country_id 
 								AND co{$co}.id = :co{$co}_id ";
 					$cols["co{$co}_id"] = $value;
+					$where['country']['m.country_id'] = $value;
 				}
 			}
 		}
@@ -379,6 +379,7 @@ class SearchBuilder {
 								ci{$ci}.id = m.city_id  
 								AND ci{$ci}.id = :ci{$ci}_id ";
 					$cols["ci{$ci}_id"] = $value;
+					$where['city']['m.city_id'] = $value;
 				}
 			}
 		}
@@ -389,6 +390,7 @@ class SearchBuilder {
 								c.match_id = m.id 
 								AND c.id = :collab_id ";
 			$cols["collab_id"] = $filter['collabpref'];
+			$where['collabpref']['c.id'] = $filter['collabpref'];
 		}
 
 		//user_skill (skillset) AS ms
@@ -401,6 +403,7 @@ class SearchBuilder {
 								ms{$ms}.match_id = m.id 
 								AND ms{$ms}.skillset_id = :ms{$ms}_id ";
 					$cols["ms{$ms}_id"] = $value;
+					$where['skillset']["ms{$ms}.skillset_id"] = $value;
 				}
 			}
 		}
@@ -415,6 +418,7 @@ class SearchBuilder {
 								mss{$mss}.match_id = m.id 
 								AND mss{$mss}.skill_id = :mss{$mss}_id ";
 					$cols["mss{$mss}_id"] = $value;
+					$where['skillset_skill']["mss{$mss}.skill_id"] = $value;
 				}
 			}
 		}
@@ -425,13 +429,38 @@ class SearchBuilder {
 		$where_sql = "";
 		if(isset($filter['category']) && is_array($filter['category'])){
 			foreach($filter['category'] AS $key => $value){
-				switch ($action) {
-				    case "country":
-				    	
-				        break;
-				    case "country":
-				    	
-				        break;
+				$buffer = array();
+				if(isset($where[$value]) AND is_array($where[$value])){
+					if($value == 'extra') {
+						//$where_sql.="AND (i.website OR i.video_link) "; //this doesn't work for some reason
+					} elseif($value == 'collabpref') {
+						//this too doesn't work for some reason
+					} else {
+						$where_sql.="AND (";
+						foreach($where[$value] AS $key1 => $value1){
+							$buffer[] = $key1 . " = " . $value1;
+						}
+						$where_sql.= implode(' OR ', $buffer) . ") ";
+					}
+				} else {
+					if($value == 'skill'){
+						if(isset($where['skillset'])){
+							$where_sql.="AND (";
+							foreach($where['skillset'] AS $key1 => $value1){
+								$buffer[] = $key1 . " = " . $value1;
+							}
+							$where_sql.= implode(' OR ', $buffer) . ") ";
+						}
+						if(isset($where['skillset_skill'])){
+							$buffer = array();
+							$where_sql.="AND (";
+							foreach($where['skillset_skill'] AS $key1 => $value1){
+								$buffer[] = $key1 . " = " . $value1;
+							}
+							$where_sql.= implode(' OR ', $buffer) . ") ";
+						}
+					}
+				}
 			}
 		}
 
@@ -509,17 +538,20 @@ class SearchBuilder {
 			$count = count($array);
 		}
 
-		//Sort by relevance
-		array_multisort($rank_array, SORT_DESC, $array);
+		
+		if(count($array) > 0){
+			//Sort by relevance
+			array_multisort($rank_array, SORT_DESC, $array);
 
-		//Pagination
-		
-		$array = array_slice($array, ($filter['page'] - 1) * $filter['per_page'], $filter['per_page']);
-		
+			//Pagination
+			$array = array_slice($array, ($filter['page'] - 1) * $filter['per_page'], $filter['per_page']);
+		}
+			
 		//DEBUG
 		/*echo $type."\n";
 		echo "# of conditions: $total\n";
 		print_r($cols_backup);
+		print_r($where);
 		echo $sql;
 		print_r($array);*/
 
