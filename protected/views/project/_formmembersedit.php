@@ -12,7 +12,6 @@ if(is_array($ideadata['member'])){
         <div class="edit-floater">
           
       <?php  if (($member['type_id'] != 1) && ($isOwner)){
-
         echo CHtml::link(Yii::t("app","Remove"),Yii::app()->createUrl('/project/deleteMember',array('id'=>$id,'user_id'=>$member['id'])),
               array('class'=>"button tiny alert radius",
                     'confirm'=>Yii::t("msg","You are about to remove this member!\nAre you sure?"),

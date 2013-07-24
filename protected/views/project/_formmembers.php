@@ -7,7 +7,7 @@ if(is_array($ideadata['member'])){
   foreach($ideadata['member'] AS $key => $member){
     //if ($member['type_id'] != 1) continue;
 ?>
-    <div class="row panel idea-panel">
+    <div class="panel">
 
         <div class="edit-floater">
           

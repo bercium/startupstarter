@@ -202,18 +202,21 @@ class ProfileController extends GxController {
 					}
 				}
         
-        if (isset($_POST['CollabPref']) && isset($_POST['UserMatch'])) {
+        if (isset($_POST['UserMatch'])) {
           $match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
           $match_id = $match->id;
           $match->setAttributes($_POST['UserMatch']);
           
           UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
-          $c = count($_POST['CollabPref']);
-          foreach ($_POST['CollabPref'] as $collab => $collab_name){
-            $user_collabpref = new UserCollabpref;
-            $user_collabpref->match_id = $match_id;
-            $user_collabpref->collab_id = $collab;
-            if ($user_collabpref->save()) $c--;
+          $c = 0;
+          if (isset($_POST['CollabPref'])){
+            $c = count($_POST['CollabPref']);
+            foreach ($_POST['CollabPref'] as $collab => $collab_name){
+              $user_collabpref = new UserCollabpref;
+              $user_collabpref->match_id = $match_id;
+              $user_collabpref->collab_id = $collab;
+              if ($user_collabpref->save()) $c--;
+            }
           }
           
           if (($c == 0) && ($match->save())) {
@@ -456,18 +459,18 @@ class ProfileController extends GxController {
         
 		        if ($skill->id){
 			        $skillset_skill = SkillsetSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
-			                                                                           "skillset_id"=>$_POST['skillset']));
+			                                                                         "skillset_id"=>$_POST['skillset']));
 			        // save skillset skill connection
 			        $usage_count = false;
-				    if ($skillset_skill == null){
-				        $skillset_skill = new SkillsetSkill;
-				        $skillset_skill->skill_id = $skill->id;
-				        $skillset_skill->skillset_id = $_POST['skillset'];
-				        $skillset_skill->usage_count = 1;
-				        $skillset_skill->save();
-				    } else {
-				        $usage_count = true;
-				    }
+              if ($skillset_skill == null){
+                  $skillset_skill = new SkillsetSkill;
+                  $skillset_skill->skill_id = $skill->id;
+                  $skillset_skill->skillset_id = $_POST['skillset'];
+                  $skillset_skill->usage_count = 1;
+                  $skillset_skill->save();
+              } else {
+                  $usage_count = true;
+              }
 		          
 		          	$user_skill = UserSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
 		                                                                   	"skillset_id"=>$_POST['skillset'],
@@ -479,29 +482,29 @@ class ProfileController extends GxController {
 			            $user_skill->match_id = $match_id;
 
 			            if($usage_count){
-							$skillset_skill->usage_count = $skillset_skill->usage_count + 1;
-							$skillset_skill->save();
+            				$skillset_skill->usage_count = $skillset_skill->usage_count + 1;
+          					$skillset_skill->save();
 			            }
 
 			            if ($user_skill->save()){
 			              
 			              $skillset = Skillset::model()->findByPk($_POST['skillset']);
 
-						  $language = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
-						  if($language->id == 40){
-							$skillset_name = $skillset->name; //id$skillset->name
-						  } else {
-							$translation = Translation::Model()->findByAttributes(array('language_id' => $language->id, 'table' => 'skillset', 'row_id' => $skillset->id));
-							$skillset_name = $translation->translation; //id$skillset->name
-						  }
+                    $language = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
+                    if($language->id == 40){
+                      $skillset_name = $skillset->name; //id$skillset->name
+                    } else {
+                      $translation = Translation::Model()->findByAttributes(array('language_id' => $language->id, 'table' => 'skillset', 'row_id' => $skillset->id));
+                      $skillset_name = $translation->translation; //id$skillset->name
+                    }
 
 			              $response = array("data" => array("title" => $_POST['skill'],
 			                                                "id" => $user_skill->id,
 			                                                "location" => Yii::app()->createUrl("profile/deleteSkill"),
-			                                                "desc" => $skillset_name, // !!! add description
+			                                                "desc" => $skillset_name, 
 			                                ),
 			              "status" => 0,
-			              "message" => "");
+			              "message" => Yii::t('msg', "Skill added."));
 			            }else{
 			              $response = array("data" => null,
 											"status" => 1,

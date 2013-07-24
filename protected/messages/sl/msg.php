@@ -104,7 +104,7 @@ return array (
   'Project successfully saved.' => 'Projekt uspešno shranjen.',
   'Project successfully updated.' => 'Projekt uspešno posodobljen.',
   'Retype password is incorrect.' => 'Ponovitev gesla napačna.',
-  'Select group which represents your skill the closest.' => 'Izberi skupino, ki se ujema s tvojimi znanji',
+  'Select group which represents your skill the closest.' => 'Izberi skupino, ki se ujema s tvojimi znanji.',
   'Select how much time you have to work on projects.' => 'Izberi koliko časa lahko posvetiš delu na projektu',
   'Selecting an avatar will make you more recognizable.' => 'Na podlagi profilne slike se boste z ostalimi uporabniki lažje prepoznali, ko se srečate v živo',
   'Server error. Upload directory isn\'t writable.' => 'Napaka na strežniku. V mapo za nalaganje se ne da pisati',

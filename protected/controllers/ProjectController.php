@@ -256,7 +256,7 @@ class ProjectController extends GxController {
 		}
 		if($step == 2 || $id){
       $user = User::model()->findByPk(Yii::app()->user->id);
-      $invites['data'] = Invite::model()->findAllByAttributes(array("id_idea"=>$id,"id_sender"=>Yii::app()->user->id));
+      $invites['data'] = Invite::model()->findAllByAttributes(array("id_idea"=>$id,"id_sender"=>Yii::app()->user->id),'NOT ISNULL(id_idea)');
       $invites['count'] = $user->invitations;
 
       
@@ -339,7 +339,7 @@ class ProjectController extends GxController {
 			}
 
 			//assign changes to currently edited candidate
-			if(isset($_GET['candidate']) && isset($_POST['UserMatch']) && isset($_POST['CollabPref']) && $candidate_in_edit){
+			if(isset($_GET['candidate']) && isset($_POST['UserMatch']) && $candidate_in_edit){
 
 				//assign changes ($_POST) to session array 
 				$match->setAttributes($_POST['UserMatch']);
@@ -393,15 +393,18 @@ class ProjectController extends GxController {
 				}
 
 				//collabprefs
-				$c = count($_POST['CollabPref']);
-				if($match_saved && $ideamember_saved){
-					foreach ($_POST['CollabPref'] as $collab => $collab_name){
-						$user_collabpref = new UserCollabpref;
-						$user_collabpref->match_id = $match_id;
-						$user_collabpref->collab_id = $collab;
-						if ($user_collabpref->save()) $c--;
-					}
-				}
+        $c = 0;
+        if (isset($_POST['CollabPref'])){
+          $c = count($_POST['CollabPref']);
+          if($match_saved && $ideamember_saved){
+            foreach ($_POST['CollabPref'] as $collab => $collab_name){
+              $user_collabpref = new UserCollabpref;
+              $user_collabpref->match_id = $match_id;
+              $user_collabpref->collab_id = $collab;
+              if ($user_collabpref->save()) $c--;
+            }
+          }
+        }
 
 				//skills
 				$s = 0;
@@ -557,7 +560,8 @@ class ProjectController extends GxController {
 	}
 
 	public function addKeywords($idea_id, $language_id, $keywords){
-		Keyword::Model()->deleteAll("keyword.table = :table AND row_id = :row_id", array(':table' => 'idea_translation', ':row_id' => $idea_id));
+		Keyword::Model()->deleteAll("keyword.table = :table AND row_id = :row_id", 
+                                 array(':table' => 'idea_translation', ':row_id' => $idea_id));
 
 		$keyworder = new Keyworder;
 		$keywords = $keyworder->string2array($keywords);

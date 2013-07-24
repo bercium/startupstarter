@@ -62,9 +62,6 @@
               <a href="<?php echo Yii::app()->getBaseUrl(true); ?>/person/1">
                 <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-cofinder.png" alt="Žiga Berce" title="Žiga Berce">
               </a>
-              <a href="">
-                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-linkedin.png" alt="Žiga Berce" title="Žiga Berce">
-              </a>
             </div>
           </h4>
           <p >
@@ -86,14 +83,8 @@
         <div class="small-8 large-12 columns">
           <h4 id="team_desc_bb">Blaž Beuermann
             <div class="login-floater">
-              <a href="<?php echo Yii::app()->getBaseUrl(true); ?>/person/1">
+              <a href="<?php echo Yii::app()->getBaseUrl(true); ?>/person/4">
                 <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-cofinder.png" alt="Blaž Beuermann" title="Blaž Beuermann">
-              </a>
-              <a href="">
-                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-facebook.png" alt="Blaž Beuermann" title="Blaž Beuermann">
-              </a>
-              <a href="">
-                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-googleplus.png" alt="Blaž Beuermann" title="Blaž Beuermann">
               </a>
             </div>
           </h4>
@@ -116,7 +107,7 @@
         <div class="small-8 large-12 columns">
           <h4 id="team_desc_jr">Jure Ravlič
             <div class="login-floater">
-              <a href="<?php echo Yii::app()->getBaseUrl(true); ?>/person/1">
+              <a href="<?php echo Yii::app()->getBaseUrl(true); ?>/person/6">
                 <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-cofinder.png" alt="Jure Ravlič" title="Jure Ravlič">
               </a>
             </div>
@@ -141,11 +132,8 @@
         <div class="small-8 large-12 columns">
           <h4 id="team_desc_zb">Jure Grahek
             <div class="login-floater">
-              <a href="<?php echo Yii::app()->getBaseUrl(true); ?>/person/1">
+              <a href="<?php echo Yii::app()->getBaseUrl(true); ?>/person/5">
                 <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-cofinder.png" alt="Jure Ravlič" title="Jure Grahek">
-              </a>
-              <a href="<?php echo Yii::app()->getBaseUrl(true); ?>/person/1">
-                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-twitter.png" alt="Jure Ravlič" title="Jure Grahek">
               </a>
             </div>
           </h4>

@@ -141,13 +141,13 @@
     <?php echo '<label for="skill">'.Yii::t('app','Skill');  ?> 
     <?php echo '</label>'; ?>
 
-    <span class="description"><?php echo Yii::t('msg','Name of skill you posess.') ?></span>
-    <?php echo CHtml::textField("skill","", array('maxlength' => 128)); ?>
+    <span class="description"><?php echo Yii::t('msg','Name of skill you posess. You can write multiple skills for the same industry separated by commas.') ?></span>
+    <?php echo CHtml::textField("skill","", array('maxlength' => 128,'class'=>'skill')); ?>
   
  
     <?php echo CHtml::label(Yii::t('app','Industry'),''); ?>
     <span class="description"><?php echo Yii::t('msg','Select group which represents your skill the closest.'); ?></span>
-    <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAll(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+    <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAll(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none', 'class'=>'skillset')); ?>
   
     <?php echo CHtml::submitButton(Yii::t("app","Add skill"),
                     array('class'=>"button small success radius",
@@ -162,9 +162,9 @@
             foreach ($skillset['skill'] as $skill){
               ?>
 
-      <span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $skill['skill']; ?>">
-          <?php echo $skillset['skillset']."<br /><small class='meta'>".$skill['skill']."</small>"; ?>
-          <a href="#" class="close" onclick="removeSkill(<?php echo $skill['skill']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteSkill"); ?>')">&times;</a>
+      <span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $skill['id']; ?>">
+          <?php echo $skill['skill']."<br /><small class='meta'>".$skillset['skillset']."</small>"; ?>
+          <a href="#" class="close" onclick="removeSkill(<?php echo $skill['id']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteSkill"); ?>')">&times;</a>
      </span>
     <?php }}} ?>    
     
