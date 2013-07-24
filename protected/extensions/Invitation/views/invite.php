@@ -1,3 +1,4 @@
+<div class="columns">
 <?php if ($invitations > 0){ ?>
 
 <div id="drop-invitation-msg" class="f-dropdown content small" data-dropdown-content>
@@ -20,3 +21,4 @@
 <?php } ?>
 
 <?php writeFlash("invitationMessage"); ?>
+</div>

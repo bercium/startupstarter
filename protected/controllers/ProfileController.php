@@ -27,7 +27,9 @@ class ProfileController extends GxController {
             'expression' => array($this,'isLogedInOrAfterRegister'),
 				),
 				array('allow',
-						'actions' => array('index', 'view', 'projects', 'account','upload','removeIdea','addIdea', 'addLink','deleteLink','addSkill','deleteSkill','suggestSkill'),
+						'actions' => array('index', 'view', 'projects', 'account','upload','removeIdea','addIdea', 
+                               'addLink','deleteLink','addSkill','deleteSkill','suggestSkill',
+                               'notification'),
 						'users' => array("@"),
 				),
 				array('allow', // allow admins only
@@ -742,4 +744,68 @@ class ProfileController extends GxController {
     $this->render('/profile/createInvitation');
   }
 
+  
+  public function actionNotification(){
+
+		$user_id = Yii::app()->user->id;
+		$user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
+		
+    $filter['user_id'] = $user_id;
+    $sqlbuilder = new SqlBuilder;
+    $ideas = $sqlbuilder->load_array("user", $filter);
+    $ideas = $ideas['idea'];
+
+    $invite_record = Invite::model()->findAllByAttributes(array(),"(id_receiver = :idReceiver OR email LIKE :email) AND NOT ISNULL(id_idea)",array(":idReceiver"=>$user_id,":email"=>$user->email));
+    
+    $invites = array();
+    foreach ($invite_record as $invite){
+      $idea = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$invite->id_idea),array('order' => 'FIELD(language_id, 40) DESC'));
+
+      if ($idea)
+      $invites[] = array('id' => $invite->id_idea,
+                         'title' => $idea->title,
+                         'user' => $invite->idSender);
+    }
+    
+    //$this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea']));
+    $this->render('notifications',array('user' => $user, 'ideas'=>$ideas, "invites"=>$invites));
+  }
+  
+   public function actionAcceptInvitation($id){
+ 		 $user_id = Yii::app()->user->id;
+  	 $user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
+     $invite_record = Invite::model()->findByAttributes(array(),"(id_receiver = :idReceiver OR email LIKE :email) AND id_idea = :idIdea",
+                                                        array(":idIdea"=>$id, ":idReceiver"=>$user_id,":email"=>$user->email));
+     
+     if ($invite_record){
+    	 $userMatch = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
+       
+       $ideaMember = new IdeaMember();
+       $ideaMember->idea_id = $id;
+       $ideaMember->match_id = $userMatch->id;
+       $ideaMember->type_id = 2;
+       
+       if ($ideaMember->save()){
+         $idea = Idea::model()->findByPk($id);
+         $idea->time_updated = date('Y-m-d H:i:s');
+         $idea->save();
+         //$invite_record->delete();
+         setFlash("notificationMessage", Yii::t('msg','You have successfully joined a project.'));
+       }
+     }
+     
+     $this->redirect(Yii::app()->createUrl("profile/notification"));
+   }
+  
+   public function actionDeclineInvitation($id){
+ 		 $user_id = Yii::app()->user->id;
+  	 $user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
+     $invite_record = Invite::model()->findByAttributes(array(),"(id_receiver = :idReceiver OR email LIKE :email) AND id_idea = :idIdea",
+                                                        array(":idIdea"=>$id, ":idReceiver"=>$user_id,":email"=>$user->email));
+     
+     if ($invite_record) $invite_record->delete();
+     
+     setFlash("notificationMessage", Yii::t('msg','Invitation removed!'));
+     $this->redirect(Yii::app()->createUrl("profile/notification"));
+   }
 }

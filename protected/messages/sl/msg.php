@@ -35,10 +35,10 @@ return array (
   'Could not delete open position.' => 'Ni bilo možno odstraniti odprte pozicije.',
   'Could not remove project from your account.' => 'Ni bilo možno odstraniti projekta.',
   'Could not save project translation.' => 'Ni bilo možno shraniti prevoda projekta.',
-  0 => '',
   'Could not save uploaded file. The upload was cancelled, or server error encountered' => 'Ni nam uspelo shraniti naložene datoteke. Nalaganje je bilo preklicano, predvidoma zaradi napake na strežniku',
   'Create or take part in a project.' => 'Ustvari ali postani član projekta.',
   'Describe your project in detail.' => 'Opišite vaš projekt bolj podrobno.',
+  0 => '',
   'Describe your project with 120 characters or less for sharing on social networks.' => 'Za deljenje na socialnih omrežjih opiši svoj projekt z 120 znaki ali manj.',
   'Describe your project with comma separated keywords to increase visibility of your project.' => 'Opišite vaš projekt z uporabo ključnih besed. Le-te ločite z vejicami. S tem boste povečali vidnost vašega projekta na strani.',
   'Description isn\'t published!' => 'Opis ni javno objavljen!',
@@ -54,16 +54,20 @@ return array (
   'I have read and agree to the following Terms of Use {tos}' => 'Prebral sem in se strinjam s Pogoji uporabe {tos}',
   'If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.' => 'Če imate poslovno ali kakršnokoli drugo vprašanje, vas prosimo da izpolnete kontaktni obrazec. Hvala.',
   'If you wish to be invited or notified when we go live please leave your email address below.' => 'Če želite biti obveščeni o novostih in o tem kdaj se bo storitev odprla za širšo javnost nam prosim spodaj pustite vaš email.',
+  'In private beta member invitations are disabled.' => 'Povabila članov so izklopljena v privatni beti.',
   'Incorrect activation URL.' => 'Nepravilen aktivacijski URL.',
   'Incorrect password (minimal length 4 symbols).' => 'Nepravilno geslo (najmanjša dolžina so 4 znaki)',
   'Incorrect symbols (A-z0-9).' => 'Nepravilni znaki (A-z0-9).',
   'Incorrect username (length between 3 and 20 characters).' => 'Nepravilno uporabniško ime (dolžina je omejena na 3 do 20 znakov)',
   'Incorrect username or password.' => 'Nepravilno uporabniško ime ali geslo.',
   'Invalid request. Please do not repeat this request again.' => 'Neveljavna zahteva. Prosimo ne ponovite te zahteve.',
+  'Invitation removed!' => 'Povabilo odstranjeno!',
   'Invitation send.' => 'Povabilo poslano.',
+  'Invitation to add new member send.' => 'Povabilo je bilo poslano novemu članu.',
   'Letters are not case-sensitive.' => 'Črke niso občutljive na velikost',
   'Link successfully saved to profile.' => 'Povezava uspešno shranjena na profil.',
   'Link to video presentation of project.' => 'Povezava do video predstavitve projekta.',
+  'Member removed from project' => 'Član je bil odstranjen iz projekta.',
   'Message can\'t be empty!' => 'Sporočilo ne sme biti prazno!',
   'Minimal password length 4 symbols.' => 'Minimalna dolžina gesla 4 znake.',
   'My designation at cofinder is to take care of our online foundations.' => '',
@@ -74,6 +78,7 @@ return array (
   'No files were uploaded.' => 'Nobena datoteka ni bila naložena.',
   'No results found with this filters.' => 'Nobenega rezultata ne najdem z uporabo teh filtrov.',
   'No search query.' => 'Ni iskalnega niza po katerem bi iskal.',
+  'Not able to invite this person to this project.' => 'Ni bilo mogoče povabiti te osebe k projektu.',
   'Old Password is incorrect.' => 'Staro geslo je nepravilno.',
   'Oops! Something went wrong. Unable to add new member to project.' => 'Ups! Nekaj je bilo narobe. Ni nam uspelo dodati novega člana k projektu.',
   'Oops! Something went wrong. Unable to remove member from project.' => 'Ups! Nekaj je bilo narobe. Ni nam uspelo odstraniti člana od projekta.',
@@ -124,9 +129,13 @@ return array (
   'This action will change your password!
 Are you sure?' => 'Ta akcija vam bo spremenila geslo!
 Ali ste prepričani?',
+  'This action will create an invitation.
+Are you sure?' => 'Ta akcija bo poslala vabilo.
+Ali ste prepričani?',
   'This action will deactivate your account.
 Are you sure?' => 'Ta akcija vam bo zaklenila dostop!
 Ali ste prepričani?',
+  'This form will generate an invite for specific email address and return invite address <strong>Invitation email will not be sent!</strong>.' => 'Ta forma bo ustvarila povezavo do povabila za izbran email.<strong>Povabilo ne bo poslano na email.</strong>',
   'This is your pitch. Be short and to the point.' => 'To je vaš pitch. Bodite kratki in jedernati.',
   'This user is already invited.' => 'Ta uporabnik je že povabljen.',
   'This user\'s email address already exists.' => 'Ta email je že zaseden s strani enega od uporabnikov.',
@@ -145,6 +154,7 @@ Ali ste prepričani?',
   'Unable to remove translation from project.' => 'Ni mogoče odstraniti prevoda projekta.',
   'Unable to save open position.' => 'Ni bilo možno shraniti odprte pozicije.',
   'Unable to save profile details.' => 'Ni bilo možno shraniti profila.',
+  'Unable to send invitation! Eather user is already invited or the email you provided is incorrect.' => 'Ni bilo mogoče poslati povabila! Verjetno je uporabnik že povabljen ali pa ste vpisali napačno elektronsko pošto.',
   'Unable to update collaboration preferences.' => 'Ni mogoče posodobiti preferenčnega načina sodelovanja.',
   'Unable to update project.' => 'Ni bilo možno',
   'Username is incorrect.' => 'Uporabniško ime ni pravilno.',
@@ -167,6 +177,12 @@ Ali ste prepričani?',
   'You already have this skill.' => 'To znanje že imate dodano.',
   'You are about to delete this project!
 Are you sure?' => 'S tem klikom boste izbrisali projekt!
+Ali ste prepričani?',
+  'You are about to delete this translation!
+Are you sure?' => 'Odstranili boste ta prevod!
+Ali ste prepričani?',
+  'You are about to join this project!
+Are you sure?' => 'Pridružili se boste temu projektu!
 Ali ste prepričani?',
   'You are about to leave this project!
 You will have to be re invited to be a member.
