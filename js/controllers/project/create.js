@@ -80,8 +80,8 @@ function removeSkill(skill_id, inUrl){
         }
       });    
     
-    if ($('#skill').length != 0)
-    $( "#skill" ).autocomplete({
+    if ($('.skill').length != 0)
+    $( ".skill" ).autocomplete({
       //minLength: 1,
 			delay:300,
       source: function( request, response ) {
@@ -104,9 +104,9 @@ function removeSkill(skill_id, inUrl){
         return false;
       },
       select: function( event, ui ) {
-        $( "#skill" ).val( ui.item.skill );
-				$('#skillset').val(ui.item.skillset_id); 
-				Foundation.libs.forms.refresh_custom_select($('#skillset'),true);
+        $( ".skill" ).val( ui.item.skill );
+				$('.skillset').val(ui.item.skillset_id); 
+				Foundation.libs.forms.refresh_custom_select($('.skillset'),true);
 				
         $( "#project-id" ).val( ui.item.id );
  

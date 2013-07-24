@@ -34,6 +34,7 @@ abstract class BaseSkill extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('name', 'required'),
+			array('name', 'unique'),
 			array('name', 'length', 'max'=>128),
 			array('id, name', 'safe', 'on'=>'search'),
 		);

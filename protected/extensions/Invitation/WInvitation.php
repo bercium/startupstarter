@@ -34,14 +34,16 @@ class WInvitation extends CWidget
               
               // is user in system
               if ($invitee){
-                $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/profile/acceptinvitation')."?id=".$invitation->key.'">'.Yii::t('app',"Accept invitation")."</a>";
+                $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/profile/acceptInvitation')."?id=".$invitation->id_idea.'">'.Yii::t('app',"Accept invitation")."</a>";
                 $this->sendMail($invitation->email,
                                 "You have been invited to join a project on cofinder", 
                                 $user->name." ".$user->surname." invited you to become a member of a project called '".$idea->title."'".
                                                 "<br /><br />You can accept his invitation inside your cofinder profile or by clicking ".$activation_url."!");
               }else{
                 // invite user to system
-                $invitation->id_idea = null;
+                $invitation = new Invite();
+                $invitation->email = $_POST['invite-email'];
+                $invitation->id_sender = Yii::app()->user->id;
                 $invitation->key = md5(microtime().$invitation->email);
                 $invitation->save();
                 
@@ -55,7 +57,7 @@ class WInvitation extends CWidget
               }
               setFlash("invitationMessage",Yii::t('msg','Invitation to add new member send.'));
               
-            }else setFlash("invitationMessage",Yii::t('msg','Unable to send invitation! Eather user is allready invited or the email you provided is incorrect.'),'alert');
+            }else setFlash("invitationMessage",Yii::t('msg','Unable to send invitation! Eather user is already invited or the email you provided is incorrect.'),'alert');
           }else setFlash("invitationMessage",Yii::t('msg','Not able to invite this person to this project.'),'alert');
           
         }else if ($invitation->save()){

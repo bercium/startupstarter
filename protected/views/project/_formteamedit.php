@@ -81,9 +81,9 @@
   
     <?php echo '<label for="skill">'.Yii::t('app','Skill')."</label>";  ?> 
     <span class="description" >
-       <?php echo Yii::t('msg','Name of skill your candidate should posess.'); ?>
+       <?php echo Yii::t('msg','Name of skill your candidate should posess. You can write multiple skills for the same industry separated by commas.'); ?>
     </span>
-    <?php echo CHtml::textField("skill","", array('maxlength' => 128)); ?>
+    <?php echo CHtml::textField("skill","", array('maxlength' => 128,'class'=>'skill')); ?>
   
  
     <?php echo CHtml::label(Yii::t('app','Industry'),''); ?>
@@ -91,7 +91,7 @@
        <?php echo Yii::t('msg','Select group which represents your skill the closest.'); ?>
     </span>
       
-    <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+    <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none','class'=>'skillset')); ?>
   
     <?php echo CHtml::submitButton(Yii::t("app","Add skill"),
                     array('class'=>"button small success radius",
@@ -106,8 +106,8 @@
     <?php if(isset($candidate['skills']) && count($candidate['skills']) > 0){
       foreach ($candidate['skills'] as $key => $skill){ 
               ?>
-      <span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $skill['skill']; ?>">
-          <?php echo $skill['skill']."<br /><small class='meta'>".$skill['skillset_name']."</small>"; ?>
+      <span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $key; ?>">
+          <?php echo $skill['skillset_name']."<br /><small class='meta'>".$skill['skill']."</small>"; ?>
           <a href="#" class="close" onclick="removeSkill('<?php echo $key; ?>','<?php echo Yii::app()->createUrl("project/sDeleteSkill"); ?>')">&times;</a>
      </span>
     <?php }

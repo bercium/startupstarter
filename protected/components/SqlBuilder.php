@@ -75,7 +75,9 @@ class SqlBuilder {
 		        break;
 		    case "search_idea":
 		   		$search = new SearchBuilder;
-		        return $this->idea("search", $filter, $search->search("idea", $filter));
+		    	$search = $search->search("idea", $filter);
+		    	if(count($search) > 0) return $this->idea("search", $filter, $search);
+		    	else return false;
 		        break;
 		    case "search_idea_count":
 		    	$filter['idea_count'] = true;
@@ -96,7 +98,9 @@ class SqlBuilder {
 			    }
 		    case "search_user":
 		    	$search = new SearchBuilder;
-		    	return $this->user("search", $filter, $search->search("user", $filter));
+		    	$search = $search->search("user", $filter);
+		    	if(count($search) > 0) return $this->user("search", $filter, $search);
+		    	else return false;
 		        break;
 		    case "search_user_count":
 		    	$filter['user_count'] = true;

@@ -23,7 +23,9 @@
     <?php
       $this->renderPartial('_formmembers', array(
           'ideadata' => $ideadata,
-          'idea_id' => $idea_id));
+          'idea_id' => $idea_id,
+          'invitees' => $invite['data'],
+          'invitations' => $invite['count']));
     ?>
   </div>
 </div>

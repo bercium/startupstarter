@@ -86,7 +86,7 @@
           'idea' => $idea,
           'language' => $language,
           'translation' => $translation,
-          'buttons' => 'create'));
+          'buttons' => 'create' ));
     ?>
   </div>
 </div>
@@ -105,7 +105,8 @@
           'ideadata' => $ideadata,
           'idea_id' => $idea_id,
           'invitees' => $invite['data'],
-          'invitations' => $invite['count']));
+          'invitations' => $invite['count'],
+          'isOwner'=>$isOwner));
     ?>
   </div>
 </div>

@@ -27,7 +27,9 @@ class ProfileController extends GxController {
             'expression' => array($this,'isLogedInOrAfterRegister'),
 				),
 				array('allow',
-						'actions' => array('index', 'view', 'projects', 'account','upload','removeIdea','addIdea', 'addLink','deleteLink','addSkill','deleteSkill','suggestSkill'),
+						'actions' => array('index', 'view', 'projects', 'account','upload','removeIdea','addIdea', 
+                               'addLink','deleteLink','addSkill','deleteSkill','suggestSkill',
+                               'notification'),
 						'users' => array("@"),
 				),
 				array('allow', // allow admins only
@@ -200,18 +202,21 @@ class ProfileController extends GxController {
 					}
 				}
         
-        if (isset($_POST['CollabPref']) && isset($_POST['UserMatch'])) {
+        if (isset($_POST['UserMatch'])) {
           $match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
           $match_id = $match->id;
           $match->setAttributes($_POST['UserMatch']);
           
           UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
-          $c = count($_POST['CollabPref']);
-          foreach ($_POST['CollabPref'] as $collab => $collab_name){
-            $user_collabpref = new UserCollabpref;
-            $user_collabpref->match_id = $match_id;
-            $user_collabpref->collab_id = $collab;
-            if ($user_collabpref->save()) $c--;
+          $c = 0;
+          if (isset($_POST['CollabPref'])){
+            $c = count($_POST['CollabPref']);
+            foreach ($_POST['CollabPref'] as $collab => $collab_name){
+              $user_collabpref = new UserCollabpref;
+              $user_collabpref->match_id = $match_id;
+              $user_collabpref->collab_id = $collab;
+              if ($user_collabpref->save()) $c--;
+            }
           }
           
           if (($c == 0) && ($match->save())) {
@@ -440,79 +445,78 @@ class ProfileController extends GxController {
 
 		//check for permission
 		if ($user_id > 0) {
-			$skill = new UserSkill;
 
 			if (!empty($_POST['skill']) && !empty($_POST['skillset'])) {
-				
-		        $skill = Skill::model()->findByAttributes(array("name"=>$_POST['skill']));
-		        // save new skill
-		        if ($skill == null){
-		          $skill = new Skill;
-		          $skill->name = $_POST['skill'];
-		          $skill->save();
-		        }
+        //$skill = new UserSkill;
         
-		        if ($skill->id){
-			        $skillset_skill = SkillsetSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
-			                                                                           "skillset_id"=>$_POST['skillset']));
-			        // save skillset skill connection
-			        $usage_count = false;
-				    if ($skillset_skill == null){
-				        $skillset_skill = new SkillsetSkill;
-				        $skillset_skill->skill_id = $skill->id;
-				        $skillset_skill->skillset_id = $_POST['skillset'];
-				        $skillset_skill->usage_count = 1;
-				        $skillset_skill->save();
-				    } else {
-				        $usage_count = true;
-				    }
-		          
-		          	$user_skill = UserSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
-		                                                                   	"skillset_id"=>$_POST['skillset'],
-		                                                                   	"match_id"=>$match_id,));
-		          	if ($user_skill == null){
-			            $user_skill = new UserSkill;
-			            $user_skill->skill_id = $skill->id;
-			            $user_skill->skillset_id = $_POST['skillset'];
-			            $user_skill->match_id = $match_id;
+        $skills = explode(",",$_POST['skill']);
 
-			            if($usage_count){
-							$skillset_skill->usage_count = $skillset_skill->usage_count + 1;
-							$skillset_skill->save();
-			            }
+        
+        $skill = new Skill;
+        $skill->name = $_POST['skill'];
+        if (!$skill->save()) $skill = Skill::model()->findByAttributes(array("name"=>$_POST['skill']));
 
-			            if ($user_skill->save()){
-			              
-			              $skillset = Skillset::model()->findByPk($_POST['skillset']);
+        if ($skill->id){
+          $skillset_skill = SkillsetSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
+                                                                           "skillset_id"=>$_POST['skillset']));
+          // save skillset skill connection
+          $usage_count = false;
+          if ($skillset_skill == null){
+              $skillset_skill = new SkillsetSkill;
+              $skillset_skill->skill_id = $skill->id;
+              $skillset_skill->skillset_id = $_POST['skillset'];
+              $skillset_skill->usage_count = 1;
+              $skillset_skill->save();
+          } else {
+              $usage_count = true;
+          }
 
-						  $language = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
-						  if($language->id == 40){
-							$skillset_name = $skillset->name; //id$skillset->name
-						  } else {
-							$translation = Translation::Model()->findByAttributes(array('language_id' => $language->id, 'table' => 'skillset', 'row_id' => $skillset->id));
-							$skillset_name = $translation->translation; //id$skillset->name
-						  }
+            $user_skill = UserSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
+                                                                    "skillset_id"=>$_POST['skillset'],
+                                                                    "match_id"=>$match_id,));
+            if ($user_skill == null){
+              $user_skill = new UserSkill;
+              $user_skill->skill_id = $skill->id;
+              $user_skill->skillset_id = $_POST['skillset'];
+              $user_skill->match_id = $match_id;
 
-			              $response = array("data" => array("title" => $_POST['skill'],
-			                                                "id" => $user_skill->id,
-			                                                "location" => Yii::app()->createUrl("profile/deleteSkill"),
-			                                                "desc" => $skillset_name, // !!! add description
-			                                ),
-			              "status" => 0,
-			              "message" => "");
-			            }else{
-			              $response = array("data" => null,
-											"status" => 1,
-											"message" => Yii::t('msg', "Problem saving skill. Please check fields for correct values."));
-			          	}
-			        }else{
-			            $response = array("data" => null,
-										"status" => 1,
-										"message" => Yii::t('msg', "You already have this skill."));
-			        }
-		          	echo json_encode($response);
-		          	Yii::app()->end();
-		        }
+              if($usage_count){
+                $skillset_skill->usage_count = $skillset_skill->usage_count + 1;
+                $skillset_skill->save();
+              }
+
+              if ($user_skill->save()){
+
+                $skillset = Skillset::model()->findByPk($_POST['skillset']);
+
+                $language = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
+                if($language->id == 40){
+                  $skillset_name = $skillset->name; //id$skillset->name
+                } else {
+                  $translation = Translation::Model()->findByAttributes(array('language_id' => $language->id, 'table' => 'skillset', 'row_id' => $skillset->id));
+                  $skillset_name = $translation->translation; //id$skillset->name
+                }
+
+                $response = array("data" => array("title" => $_POST['skill'],
+                                                  "id" => $user_skill->id,
+                                                  "location" => Yii::app()->createUrl("profile/deleteSkill"),
+                                                  "desc" => $skillset_name, 
+                                  ),
+                "status" => 0,
+                "message" => Yii::t('msg', "Skill added."));
+              }else{
+                $response = array("data" => null,
+                  "status" => 1,
+                  "message" => Yii::t('msg', "Problem saving skill. Please check fields for correct values."));
+              }
+            }else{
+                $response = array("data" => null,
+                  "status" => 1,
+                  "message" => Yii::t('msg', "You already have this skill."));
+            }
+              echo json_encode($response);
+              Yii::app()->end();
+          }
 
       		// end set skill and skillset
 			}else{
@@ -742,4 +746,68 @@ class ProfileController extends GxController {
     $this->render('/profile/createInvitation');
   }
 
+  
+  public function actionNotification(){
+
+		$user_id = Yii::app()->user->id;
+		$user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
+		
+    $filter['user_id'] = $user_id;
+    $sqlbuilder = new SqlBuilder;
+    $ideas = $sqlbuilder->load_array("user", $filter);
+    $ideas = $ideas['idea'];
+
+    $invite_record = Invite::model()->findAllByAttributes(array(),"(id_receiver = :idReceiver OR email LIKE :email) AND NOT ISNULL(id_idea)",array(":idReceiver"=>$user_id,":email"=>$user->email));
+    
+    $invites = array();
+    foreach ($invite_record as $invite){
+      $idea = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$invite->id_idea),array('order' => 'FIELD(language_id, 40) DESC'));
+
+      if ($idea)
+      $invites[] = array('id' => $invite->id_idea,
+                         'title' => $idea->title,
+                         'user' => $invite->idSender);
+    }
+    
+    //$this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea']));
+    $this->render('notifications',array('user' => $user, 'ideas'=>$ideas, "invites"=>$invites));
+  }
+  
+   public function actionAcceptInvitation($id){
+ 		 $user_id = Yii::app()->user->id;
+  	 $user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
+     $invite_record = Invite::model()->findByAttributes(array(),"(id_receiver = :idReceiver OR email LIKE :email) AND id_idea = :idIdea",
+                                                        array(":idIdea"=>$id, ":idReceiver"=>$user_id,":email"=>$user->email));
+     
+     if ($invite_record){
+    	 $userMatch = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
+       
+       $ideaMember = new IdeaMember();
+       $ideaMember->idea_id = $id;
+       $ideaMember->match_id = $userMatch->id;
+       $ideaMember->type_id = 2;
+       
+       if ($ideaMember->save()){
+         $idea = Idea::model()->findByPk($id);
+         $idea->time_updated = date('Y-m-d H:i:s');
+         $idea->save();
+         //$invite_record->delete();
+         setFlash("notificationMessage", Yii::t('msg','You have successfully joined a project.'));
+       }
+     }
+     
+     $this->redirect(Yii::app()->createUrl("profile/notification"));
+   }
+  
+   public function actionDeclineInvitation($id){
+ 		 $user_id = Yii::app()->user->id;
+  	 $user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
+     $invite_record = Invite::model()->findByAttributes(array(),"(id_receiver = :idReceiver OR email LIKE :email) AND id_idea = :idIdea",
+                                                        array(":idIdea"=>$id, ":idReceiver"=>$user_id,":email"=>$user->email));
+     
+     if ($invite_record) $invite_record->delete();
+     
+     setFlash("notificationMessage", Yii::t('msg','Invitation removed!'));
+     $this->redirect(Yii::app()->createUrl("profile/notification"));
+   }
 }

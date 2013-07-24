@@ -230,10 +230,10 @@ class ProjectController extends GxController {
 							//break up keywords and save
 	 						$this->addKeywords($idea->id, $translation->language_id, $_POST['IdeaTranslation']['keywords']);
 						}
-
+            $idea->time_updated = date('Y-m-d H:i:s');
 						if ($idea->save() && $translation->save()) {
-							$time_updated = new TimeUpdated;
-							$time_updated->idea($idea->id);
+							//$time_updated = new TimeUpdated;
+							//$time_updated->idea($idea->id);
 							
 							//redirect
 							if($id){
@@ -255,7 +255,11 @@ class ProjectController extends GxController {
 				$this->render('createidea_1', array( 'idea' => $idea, 'translation' => $translation, 'language' => $language, 'ideas'=>$data['user']['idea'] ));
 		}
 		if($step == 2 || $id){
+      $user = User::model()->findByPk(Yii::app()->user->id);
+      $invites['data'] = Invite::model()->findAllByAttributes(array("id_idea"=>$id,"id_sender"=>Yii::app()->user->id),'NOT ISNULL(id_idea)');
+      $invites['count'] = $user->invitations;
 
+      
 			//load idea data
 			$idea_id = $_SESSION['IdeaCreated'];
 			$filter['idea_id'] = $idea_id;
@@ -335,7 +339,7 @@ class ProjectController extends GxController {
 			}
 
 			//assign changes to currently edited candidate
-			if(isset($_GET['candidate']) && isset($_POST['UserMatch']) && isset($_POST['CollabPref']) && $candidate_in_edit){
+			if(isset($_GET['candidate']) && isset($_POST['UserMatch']) && $candidate_in_edit){
 
 				//assign changes ($_POST) to session array 
 				$match->setAttributes($_POST['UserMatch']);
@@ -389,15 +393,18 @@ class ProjectController extends GxController {
 				}
 
 				//collabprefs
-				$c = count($_POST['CollabPref']);
-				if($match_saved && $ideamember_saved){
-					foreach ($_POST['CollabPref'] as $collab => $collab_name){
-						$user_collabpref = new UserCollabpref;
-						$user_collabpref->match_id = $match_id;
-						$user_collabpref->collab_id = $collab;
-						if ($user_collabpref->save()) $c--;
-					}
-				}
+        $c = 0;
+        if (isset($_POST['CollabPref'])){
+          $c = count($_POST['CollabPref']);
+          if($match_saved && $ideamember_saved){
+            foreach ($_POST['CollabPref'] as $collab => $collab_name){
+              $user_collabpref = new UserCollabpref;
+              $user_collabpref->match_id = $match_id;
+              $user_collabpref->collab_id = $collab;
+              if ($user_collabpref->save()) $c--;
+            }
+          }
+        }
 
 				//skills
 				$s = 0;
@@ -497,9 +504,9 @@ class ProjectController extends GxController {
 			//render
 			if(!$id){
 				if(isset($_SESSION['Candidate']) && $candidate_in_edit){
-					$this->render('createidea_2', array( 'ideadata' => $data['idea'], 'idea_id' => $idea_id, 'candidate' => $_SESSION['Candidate'], 'match' => $match ));
+					$this->render('createidea_2', array( 'ideadata' => $data['idea'], 'idea_id' => $idea_id, 'candidate' => $_SESSION['Candidate'], 'match' => $match, 'invite'=>$invites ));
 				} else {
-					$this->render('createidea_2', array( 'ideadata' => $data['idea'], 'idea_id' => $idea_id ));
+					$this->render('createidea_2', array( 'ideadata' => $data['idea'], 'idea_id' => $idea_id,'invite'=>$invites ));
 				}
 			}
 		}
@@ -545,9 +552,7 @@ class ProjectController extends GxController {
 			if(isset($match))
 				$data_array['match'] = $match;
 
-      $user = User::model()->findByPk(Yii::app()->user->id);
-      $data_array['invite']['data'] = Invite::model()->findAllByAttributes(array("id_idea"=>$id,"id_sender"=>Yii::app()->user->id));
-      $data_array['invite']['count'] = $user->invitations;
+      $data_array['invite'] = $invites;
       
 			$this->render('editidea', $data_array);
 		}
@@ -555,7 +560,8 @@ class ProjectController extends GxController {
 	}
 
 	public function addKeywords($idea_id, $language_id, $keywords){
-		Keyword::Model()->deleteAll("keyword.table = :table AND row_id = :row_id", array(':table' => 'idea_translation', ':row_id' => $idea_id));
+		Keyword::Model()->deleteAll("keyword.table = :table AND row_id = :row_id", 
+                                 array(':table' => 'idea_translation', ':row_id' => $idea_id));
 
 		$keyworder = new Keyworder;
 		$keywords = $keyworder->string2array($keywords);
@@ -828,19 +834,21 @@ class ProjectController extends GxController {
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
 
 		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
-		$criteria=new CDbCriteria();
-		$criteria->addInCondition('type_id',array(1)); //owner
-		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
+		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id,'type_id'=>1));
 
 		if($idea && $hasPriviledges){
 			$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
-			$member = IdeaMember::Model()->findByAttributes( array( 'match_id' => $match->id ) );
+			$member = IdeaMember::Model()->findByAttributes( array( 'match_id' => $match->id, 'idea_id' => $id ) );
 
 			if($member->delete()){
 				$return['status'] = 0;
 
-				$time_updated = new TimeUpdated;
-				$time_updated->idea($id);
+        $idea->time_updated = date('Y-m-d H:i:s');
+        $idea->save();
+				//$time_updated = new TimeUpdated;
+				//$time_updated->idea($id);
+        //setFlash("projectMessage", Yii::t('msg','Member removed from project'));
+        Yii::app()->user->setFlash('projectMessage', Yii::t('msg','Member removed from project'));
 			} else {
 				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove member from project.");
 				$return['status'] = 1;
@@ -851,9 +859,10 @@ class ProjectController extends GxController {
 				echo $return; //return array
 				Yii::app()->end();
 			} else {
+        $this->redirect(Yii::app()->request->urlReferrer);
 	           	//not ajax stuff
 			}
-		}
+		}else throw new CHttpException(400, Yii::t('msg', 'Your request is invalid.'));
 	}
 
 	//AJAX

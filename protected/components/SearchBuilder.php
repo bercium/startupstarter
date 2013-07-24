@@ -96,78 +96,74 @@ class SearchBuilder {
 				}
 			}
 		}
-		if( isset($filter['skill']) && is_array($filter['skill']) && count($filter['skill']) > 0  ){
-			foreach($filter['skill'] AS $key => $value){
-				if($value['type'] == '1')
-					$filter['skillset'][] = $value['id']; //skillset_id
-				if($value['type'] == '2')
-					$filter['skillset_skill'][] = $value['id']; //skillset_skill's id
-			}
-		} else {
-			if(isset($filter['skill']) && strlen($filter['skill']) > 0){
+		if(isset($filter['skill']) && strlen($filter['skill']) > 0){
 
-				//break up into keywords
-				$keyworder = new Keyworder;
-				$skills = $keyworder->string2array($filter['skill']);
+			//break up into keywords
+			$keyworder = new Keyworder;
+			$skills = $keyworder->string2array($filter['skill']);
 
-				//print_r($skills);
+			unset($filter['skillset']);
+			unset($filter['skillset_skill']);
 
-				foreach($skills AS $key => $value){
+			//print_r($skills);
 
-					//this is deficient... why?
-					/*
-						-languages are not checked yet FIRST ISSUE TO BE SOLVED
+			foreach($skills AS $key => $value){
 
-						-skillset_skill has been omitted (from here and from all the following sql sentences)
-						-skillset needs to be checked through translation and skillset tables
-						-these together add up into relevancy and efficiency issues
-						//recheck when we're optimizing experience and performance
-						//!!!efficiency
-						//!!!UX
+				//this is deficient... why?
+				/*
+					-languages are not checked yet FIRST ISSUE TO BE SOLVED
 
-						undersigned Blaž
-					*/
-					if(strlen($value) >= 3){
-						$criteria=new CDbCriteria();
-						
-						// translated skill sets
-						//!!!language
-						if($filter['lang'] != 40){
-							$value = addcslashes($value, '%_'); // escape LIKE's special characters
-							$criteria->condition = " `translation` LIKE :name AND `table` = 'skillset'"; //AND language_id = 
-							$criteria->params = array(":name"=>"%".$value."%");
-							$dataReader = Translation::model()->findAll($criteria);
+					-skillset_skill has been omitted (from here and from all the following sql sentences)
+					-skillset needs to be checked through translation and skillset tables
+					-these together add up into relevancy and efficiency issues
+					//recheck when we're optimizing experience and performance
+					//!!!efficiency
+					//!!!UX
 
-							//$data = array();
-							foreach ($dataReader as $row){
-								$filter['skillset'][] = $row['row_id'];
-							}
-						}
-						
-						$criteria->condition = " `name` LIKE :name";
+					undersigned Blaž
+				*/
+				if(strlen($value) >= 3){
+					$criteria=new CDbCriteria();
+					
+					// translated skill sets
+					//!!!language
+					if($filter['lang'] != 40){
+						$value = addcslashes($value, '%_'); // escape LIKE's special characters
+						$criteria->condition = " `translation` LIKE :name AND `table` = 'skillset'"; //AND language_id = 
 						$criteria->params = array(":name"=>"%".$value."%");
-						
-						// original skill sets
-						$dataReader = Skillset::model()->findAll($criteria);
+						$dataReader = Translation::model()->findAll($criteria);
 
 						//$data = array();
 						foreach ($dataReader as $row){
-							$filter['skillset'][] = $row['id'];
+							$filter['skillset'][] = $row['row_id'];
 						}
+					}
+					
+					$criteria->condition = " `name` LIKE :name";
+					$criteria->params = array(":name"=>"%".$value."%");
+					
+					// original skill sets
+					$dataReader = Skillset::model()->findAll($criteria);
 
-						// skills
-						$dataReader = Skill::model()->findAll($criteria);
-						
-						foreach ($dataReader as $row){
-							$filter['skillset_skill'][] = $row['id'];
-						}
+					//$data = array();
+					foreach ($dataReader as $row){
+						$filter['skillset'][] = $row['id'];
+					}
+
+					// skills
+					$dataReader = Skill::model()->findAll($criteria);
+					
+					foreach ($dataReader as $row){
+						$filter['skillset_skill'][] = $row['id'];
 					}
 				}
 			}
 		}
-		if( isset($filter['keyword']) && strlen($filter['keywords']) > 0){
+		if( isset($filter['keywords']) && strlen($filter['keywords']) > 0){
 			$keyworder = new Keyworder;
 			$keywords = $keyworder->string2array($filter['keywords']);
+
+			unset($filter['keyword']);
 
 			foreach($keywords AS $key => $value){
 				if(strlen($value) >= 3){
@@ -230,6 +226,11 @@ class SearchBuilder {
 				$sql.=	"i.website, 
 						i.video_link, ";
 			}
+
+			//idea_translation AS it
+			if(isset($filter['language']) AND is_numeric($filter['language'])){
+				$sql.=	"it.language_id, ";
+			}
 		}
 
 		//applies to everything
@@ -265,20 +266,9 @@ class SearchBuilder {
 			$sql.=	"m.available, ";
 		}
 
-		//idea_translation AS it
-		if(isset($filter['language']) AND is_numeric($filter['language'])){
-			$sql.=	"it.language_id, ";
-		}
-
 		//user_collabpref AS c
-		if( isset($filter['collabpref']) && is_array($filter['collabpref']) && count($filter['collabpref']) > 0 ){
-			$c = -1;
-			foreach($filter['collabpref'] AS $key => $value){
-				if(is_numeric($value)){
-					$c++;
-					$sql.= "c{$c}.id AS c{$c}_id, ";
-				}
-			}
+		if( isset($filter['collabpref']) && is_numeric($filter['collabpref']) ){
+			$sql.=	"c.id AS collab_id, ";
 		}
 
 		//user_skill (skillset) AS ms
@@ -332,6 +322,7 @@ class SearchBuilder {
 								AND k{$k}.row_id = i.id 
 								AND k{$k}.id = :k{$k}_id ";
 					$cols["k{$k}_id"] = $value; //this key is an _id here, but it's really a string
+					$where['keywords']["k{$k}.id"] = $value;
 				}
 			}
 
@@ -339,31 +330,29 @@ class SearchBuilder {
 			//the following field does not require joins, we're merely preparing variables for result ranking
 			if(isset($filter['status_id']) AND is_numeric($filter['status_id'])){
 				$cols["status_id"] = $filter['status_id'];
+				$where['stage']['i.status_id'] = $filter['status_id'];
 			}
 			if(isset($filter['extra']) && $filter['extra'] == 1){
 				$cols["website"] = "";
 				$cols["video_link"] = "";
+				$where['extra']['i.website'] = NULL;
+				$where['extra']['i.video_link'] = NULL;
+			}
+
+			//language
+			if(isset($filter['language']) AND is_numeric($filter['language'])){
+				$sql.= "LEFT JOIN `idea_translation` AS it ON 
+							it.idea_id = i.id ";
+				$cols["language_id"] = $filter['language'];
+				$where['language']['it.id'] = $filter['language'];
 			}
 		}
 
 		//user_match AS m
-		//the following fields do not require joins, we're merely preparing variables for result ranking
-		
-		/*if(isset($filter['country_id']) AND is_numeric($filter['country_id'])){
-			$cols["country_id"] = $filter['country_id'];
-		}
-		if(isset($filter['city_id']) AND is_numeric($filter['city_id'])){
-			$cols["city_id"] = $filter['city_id'];
-		}*/
+			//the following field does not require joins, we're merely preparing variables for result ranking
 		if(isset($filter['available']) AND is_numeric($filter['available'])){
 			$cols["available"] = $filter['available'];
-		}
-
-		//language
-		if(isset($filter['language']) AND is_numeric($filter['language'])){
-			$sql.= "LEFT JOIN `idea_translation` AS it ON 
-						it.idea_id = i.id ";
-			$cols["language_id"] = $filter['language'];
+			$where['available']['m.available'] = $filter['available'];
 		}
 
 		//user_match (country) as co
@@ -373,9 +362,10 @@ class SearchBuilder {
 				if(is_numeric($value)){
 					$co++;
 					$sql.= "LEFT JOIN `country` AS co{$co} ON 
-								co{$co}.id = m.country_id  
+								co{$co}.id = m.country_id 
 								AND co{$co}.id = :co{$co}_id ";
 					$cols["co{$co}_id"] = $value;
+					$where['country']['m.country_id'] = $value;
 				}
 			}
 		}
@@ -389,22 +379,18 @@ class SearchBuilder {
 								ci{$ci}.id = m.city_id  
 								AND ci{$ci}.id = :ci{$ci}_id ";
 					$cols["ci{$ci}_id"] = $value;
+					$where['city']['m.city_id'] = $value;
 				}
 			}
 		}
 
 		//user_collabpref AS c
-		if( isset($filter['collabpref']) && is_array($filter['collabpref']) && count($filter['collabpref']) > 0 ){
-			$c = -1;
-			foreach($filter['collabpref'] AS $key => $value){
-				if(is_numeric($value)){
-					$c++;
-					$sql.= "LEFT JOIN `user_collabpref` AS c{$c} ON 
-								c{$c}.match_id = m.id  
-								AND c{$c}.id = :c{$c}_id ";
-					$cols["c{$c}_id"] = $value;
-				}
-			}
+		if( isset($filter['collabpref']) && is_numeric($filter['collabpref']) ){
+			$sql.= "LEFT JOIN `user_collabpref` AS c ON 
+								c.match_id = m.id 
+								AND c.id = :collab_id ";
+			$cols["collab_id"] = $filter['collabpref'];
+			$where['collabpref']['c.id'] = $filter['collabpref'];
 		}
 
 		//user_skill (skillset) AS ms
@@ -417,6 +403,7 @@ class SearchBuilder {
 								ms{$ms}.match_id = m.id 
 								AND ms{$ms}.skillset_id = :ms{$ms}_id ";
 					$cols["ms{$ms}_id"] = $value;
+					$where['skillset']["ms{$ms}.skillset_id"] = $value;
 				}
 			}
 		}
@@ -431,6 +418,48 @@ class SearchBuilder {
 								mss{$mss}.match_id = m.id 
 								AND mss{$mss}.skill_id = :mss{$mss}_id ";
 					$cols["mss{$mss}_id"] = $value;
+					$where['skillset_skill']["mss{$mss}.skill_id"] = $value;
+				}
+			}
+		}
+
+
+		//WHERE SENTENCES
+		//first prepare the conditions based on $cols
+		$where_sql = "";
+		if(isset($filter['category']) && is_array($filter['category'])){
+			foreach($filter['category'] AS $key => $value){
+				$buffer = array();
+				if(isset($where[$value]) AND is_array($where[$value])){
+					if($value == 'extra') {
+						//$where_sql.="AND (i.website OR i.video_link) "; //this doesn't work for some reason
+					} elseif($value == 'collabpref') {
+						//this too doesn't work for some reason
+					} else {
+						$where_sql.="AND (";
+						foreach($where[$value] AS $key1 => $value1){
+							$buffer[] = $key1 . " = " . $value1;
+						}
+						$where_sql.= implode(' OR ', $buffer) . ") ";
+					}
+				} else {
+					if($value == 'skill'){
+						if(isset($where['skillset'])){
+							$where_sql.="AND (";
+							foreach($where['skillset'] AS $key1 => $value1){
+								$buffer[] = $key1 . " = " . $value1;
+							}
+							$where_sql.= implode(' OR ', $buffer) . ") ";
+						}
+						if(isset($where['skillset_skill'])){
+							$buffer = array();
+							$where_sql.="AND (";
+							foreach($where['skillset_skill'] AS $key1 => $value1){
+								$buffer[] = $key1 . " = " . $value1;
+							}
+							$where_sql.= implode(' OR ', $buffer) . ") ";
+						}
+					}
 				}
 			}
 		}
@@ -438,15 +467,15 @@ class SearchBuilder {
 		if($type == "idea") {
 			//group by idea_id
 			//because it's highly relevant if one person has skills sought in several candidates
-			$sql.=	" WHERE i.deleted = 0 GROUP BY i.id";
+			$sql.=	" WHERE i.deleted = 0 " . $where_sql . " GROUP BY i.id";
 		} elseif($type == "user") {
-			$sql.=	" WHERE m.user_id > 0 
-					 GROUP BY m.id";
+			$sql.=	" WHERE m.user_id > 0 " . $where_sql . " GROUP BY m.id";
 		}
 
 		/*print_r($cols);
 		echo $sql;
 		die();*/
+
 		/*WE GOT SQL SENTENCE BUILT ($sql), DATA GATHERED ($cols) LETS RUN THIS STUFF*/
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
@@ -509,17 +538,20 @@ class SearchBuilder {
 			$count = count($array);
 		}
 
-		//Sort by relevance
-		array_multisort($rank_array, SORT_DESC, $array);
+		
+		if(count($array) > 0){
+			//Sort by relevance
+			array_multisort($rank_array, SORT_DESC, $array);
 
-		//Pagination
-		
-		$array = array_slice($array, ($filter['page'] - 1) * $filter['per_page'], $filter['per_page']);
-		
+			//Pagination
+			$array = array_slice($array, ($filter['page'] - 1) * $filter['per_page'], $filter['per_page']);
+		}
+			
 		//DEBUG
 		/*echo $type."\n";
 		echo "# of conditions: $total\n";
 		print_r($cols_backup);
+		print_r($where);
 		echo $sql;
 		print_r($array);*/
 
