@@ -44,7 +44,7 @@ class RecoveryController extends Controller
 			    			$user = User::model()->notsafe()->findbyPk($form->user_id);
 							//$activation_url = 'http://' . $_SERVER['HTTP_HOST'].$this->createUrl(implode(Yii::app()->controller->module->recoveryUrl),array("activkey" => $user->activkey, "email" => $user->email));
               
-              $activation_url = '<a href="'.$this->createAbsoluteUrl('/user/recovery',array("activkey" => $user->activkey, "email" => $user->email)).'">'.Yii::t('app',"Activate")."</a>";
+              $activation_url = '<a href="'.$this->createAbsoluteUrl('/user/recovery',array("activkey" => $user->activkey, "email" => $user->email)).'">Activate</a>';
 							
 							$subject = "Password recovery for cofinder";
 			    		$message1 = 'You have requested the password recovery for <a href="www.cofinder.eu">cofinder</a>. To receive a new password, go to '.$activation_url;

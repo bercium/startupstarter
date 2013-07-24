@@ -34,7 +34,7 @@ class WInvitation extends CWidget
               
               // is user in system
               if ($invitee){
-                $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/profile/acceptInvitation')."?id=".$invitation->id_idea.'">'.Yii::t('app',"Accept invitation")."</a>";
+                $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/profile/acceptInvitation')."?id=".$invitation->id_idea.'">Accept invitation</a>';
                 $this->sendMail($invitation->email,
                                 "You have been invited to join a project on cofinder", 
                                 $user->name." ".$user->surname." invited you to become a member of a project called '".$idea->title."'".
@@ -47,7 +47,7 @@ class WInvitation extends CWidget
                 $invitation->key = md5(microtime().$invitation->email);
                 $invitation->save();
                 
-                $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'">'.Yii::t('app',"Register here")."</a>";
+                $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'">Register here</a>';
                 $this->sendMail($invitation->email,
                                 "You have been invited to join cofinder", 
                                 "We've been hard at work on our new service called cofinder.
@@ -64,7 +64,7 @@ class WInvitation extends CWidget
           $user->invitations = $user->invitations-1;
           $user->save();
 
-          $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'">'.Yii::t('app',"Register here")."</a>";
+          $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'">Register here</a>';
           $this->sendMail($invitation->email,
                           "You have been invited to join cofinder", 
                           "We've been hard at work on our new service called cofinder.

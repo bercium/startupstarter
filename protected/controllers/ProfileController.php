@@ -29,7 +29,7 @@ class ProfileController extends GxController {
 				array('allow',
 						'actions' => array('index', 'view', 'projects', 'account','upload','removeIdea','addIdea', 
                                'addLink','deleteLink','addSkill','deleteSkill','suggestSkill',
-                               'notification'),
+                               'notification','acceptInvitation'),
 						'users' => array("@"),
 				),
 				array('allow', // allow admins only
@@ -796,7 +796,7 @@ class ProfileController extends GxController {
          $idea = Idea::model()->findByPk($id);
          $idea->time_updated = date('Y-m-d H:i:s');
          $idea->save();
-         //$invite_record->delete();
+         $invite_record->delete();
          setFlash("notificationMessage", Yii::t('msg','You have successfully joined a project.'));
        }
      }
