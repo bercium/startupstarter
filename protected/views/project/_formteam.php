@@ -13,7 +13,7 @@
     </div>
     <?php } ?>
     <?php if(Yii::app()->user->hasFlash('projectPositionMessageError')){ ?>
-    <div data-alert class="alert-box radius error">
+    <div data-alert class="alert-box radius alert">
       <?php echo Yii::app()->user->getFlash('projectPositionMessageError'); ?>
       <a href="#" class="close">&times;</a>
     </div>
@@ -108,7 +108,7 @@
       foreach ($candidate['skills'] as $key => $skill){ 
               ?>
       <span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $key; ?>">
-          <?php echo $skill['skillset_name']."<br /><small class='meta'>".$skill['skill']."</small>"; ?>
+          <?php echo $skill['skill']."<br /><small class='meta'>".$skill['skillset_name']."</small>"; ?>
           <a href="#" class="close" onclick="removeSkill('<?php echo $key; ?>','<?php echo Yii::app()->createUrl("project/sDeleteSkill"); ?>')">&times;</a>
      </span>
     <?php }

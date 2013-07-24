@@ -411,7 +411,49 @@ class ProjectController extends GxController {
 				if(isset($_SESSION['Candidate']['skills']) && $match_saved && $ideamember_saved){
 					$s = count($_SESSION['Candidate']['skills']);
 					foreach($_SESSION['Candidate']['skills'] AS $key => $value){
+                $s--;
+                $skillsExtractor = new Keyworder;
+                $skills = $skillsExtractor->string2array($value['skill']);
 
+                foreach ($skills as $row){
+                  if ($row == '') continue; // if empty
+
+                  $skill = new Skill;
+                  $skill->name = $row;
+                  if (!$skill->save()) $skill = Skill::model()->findByAttributes(array("name"=>$row));
+
+                  $skillset_skill = SkillsetSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
+                                                                                   "skillset_id"=>$value['skillset_id']));
+                  // save skillset skill connection
+                  $usage_count = false;
+                  if ($skillset_skill == null){
+                      $skillset_skill = new SkillsetSkill;
+                      $skillset_skill->skill_id = $skill->id;
+                      $skillset_skill->skillset_id = $value['skillset_id'];
+                      $skillset_skill->usage_count = 1;
+                      $skillset_skill->save();
+                  } else {
+                      $usage_count = true;
+                  }
+
+                  $user_skill = UserSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
+                                                                          "skillset_id"=>$value['skillset_id'],
+                                                                          "match_id"=>$match_id,));
+                  if ($user_skill == null){
+                    $user_skill = new UserSkill;
+                    $user_skill->skill_id = $skill->id;
+                    $user_skill->skillset_id = $value['skillset_id'];
+                    $user_skill->match_id = $match_id;
+
+                    if($usage_count){
+                      $skillset_skill->usage_count = $skillset_skill->usage_count + 1;
+                      $skillset_skill->save();
+                    }
+
+                    if ($user_skill->save());
+                  }
+                }
+            /*
 				        $skill = Skill::model()->findByAttributes(array("name"=>$value['skill']));
 				        // save new skill
 				        if ($skill == null){
@@ -455,7 +497,7 @@ class ProjectController extends GxController {
 				          	if($user_skill->id){
 				          		$s--;
 				          	}
-					   	}
+					   	}*/
 					}
 				}
 				
@@ -749,7 +791,8 @@ class ProjectController extends GxController {
 			$response = array("data" => array("title" => $_POST['skill'],
 			                                "id" => $key,
 			                                "location" => Yii::app()->createUrl("project/sDeleteSkill"),
-			                                "desc" => $_SESSION['Candidate']['skills'][$key]['skillset_name'], // !!! add description
+			                                "desc" => $_SESSION['Candidate']['skills'][$key]['skillset_name'], 
+                                      "multi" => 1
 			                ),
 			"status" => 0,
 			"message" => "");
