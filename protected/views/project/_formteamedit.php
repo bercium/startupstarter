@@ -105,7 +105,7 @@
     <div class="skillList">
     <?php
     
-    print_r($candidate['skills']);
+    //print_r($candidate['skills']);
     
     if(isset($candidate['skills']) && count($candidate['skills']) > 0){
       foreach ($candidate['skills'] as $key => $skill){ 

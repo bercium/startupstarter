@@ -115,12 +115,14 @@ function removeSkill(skill_id, inUrl){
             return;
           }
 
-          $.getJSON( skillSuggest_url, { term: term }, function( data, status, xhr ) {
-            if (data.status == 0){
-              cache[ term ] = data.data;
-              response( data.data );
-            }else alert(data.message);
-          });
+          if (term.length > 2){
+            $.getJSON( skillSuggest_url, { term: term }, function( data, status, xhr ) {
+              if (data.status == 0){
+                cache[ term ] = data.data;
+                response( data.data );
+              }else alert(data.message);
+            });
+          }
         },
         /*search: function() {
           // custom minLength
