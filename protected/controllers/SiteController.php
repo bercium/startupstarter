@@ -229,7 +229,7 @@ class SiteController extends Controller
 	}
 
 	public function actionSuggestCity() {
-    return;
+    
 		if (!isset($_GET['term'])){
 			$response = array("data" => null,
 								"status" => 1,
