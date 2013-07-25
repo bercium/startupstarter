@@ -988,11 +988,11 @@ class ProjectController extends GxController {
     
     $searchResult = array();
 		
-		if (isset($_GET['SearchForm'])) $searchForm->setAttributes($_GET['SearchForm']);
+	if (isset($_GET['SearchForm'])) $searchForm->setAttributes($_GET['SearchForm']);
 		
     if ($searchForm->checkSearchForm()){
 			// search results
-      $searchForm->setAttributes($_GET['SearchForm']);
+      	$searchForm->setAttributes($_GET['SearchForm']);
 			
 			$filter['available'] = $searchForm->available;
 			$filter['city'] = $searchForm->city;
@@ -1003,6 +1003,14 @@ class ProjectController extends GxController {
 			$filter['language'] = $searchForm->language;
 			$filter['skill'] = $searchForm->skill;
 			$filter['stage'] = $searchForm->stage;
+
+			if(isset($_GET['Category'])){
+                $keyworder = new Keyworder;
+                $category = $keyworder->string2array($_GET['Category']);
+
+				foreach($category AS $value)
+				    $filter['category'][] = $value;
+			}
 			
 			$searchResult['data'] = $sqlbuilder->load_array("search_idea", $filter);
 			$count = $sqlbuilder->load_array("search_idea_count", $filter);

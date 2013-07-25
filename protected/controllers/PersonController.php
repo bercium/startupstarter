@@ -151,6 +151,14 @@ class PersonController extends GxController {
 			$filter['language'] = $searchForm->language;
 			$filter['skill'] = $searchForm->skill;
 			$filter['stage'] = $searchForm->stage;
+
+			if(isset($_GET['Category'])){
+                $keyworder = new Keyworder;
+                $category = $keyworder->string2array($_GET['Category']);
+
+				foreach($category AS $value)
+				    $filter['category'][] = $value;
+			}
 			
     		$searchResult['data'] = $sqlbuilder->load_array("search_user", $filter);
 			$count = $sqlbuilder->load_array("search_user_count", $filter);

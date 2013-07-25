@@ -25,7 +25,7 @@
         </div>
         <div class="small-3 columns">
            <?php echo CHtml::button(Yii::t("app","Find"),array("class"=>"search_local_button postfix button radius",
-                  'onclick'=>"location.href='".Yii::app()->createUrl("project/discover")."?SearchForm[city]='+$('#search_local').val();")); ?>
+                  'onclick'=>"location.href='".Yii::app()->createUrl("project/discover")."?SearchForm[city]='+$('#search_local').val()+'&Category=city';")); ?>
         </div>
       </div>    
   </div>
@@ -35,10 +35,10 @@
 <div class="row pannel radius" style="margin-top: 40px;">
   <div class="columns">
     <h4><?php echo Yii::t('app','Discover'); ?></h4>
-    <a href="<?php echo Yii::app()->createUrl("project/discover",array('SearchForm[stage]'=>'1')); ?>" class="button round success" style="margin-left:20px;"><?php echo Yii::t("app","Interesting ideas"); ?></a>
-    <a href="<?php echo Yii::app()->createUrl("project/discover",array('SearchForm[available]'=>'8')); ?>" class="button round success" style="margin-left:20px;"><?php echo Yii::t("app","Weekend jobs"); ?></a>
-    <a href="<?php echo Yii::app()->createUrl("project/discover",array('SearchForm[available]'=>'40')); ?>" class="button round success" style="margin-left:20px;"><?php echo Yii::t("app","Full time projects"); ?></a>
-    <a href="<?php echo Yii::app()->createUrl("project/discover",array('SearchForm[collabPref]'=>'4')); ?>" class="button round success" style="margin-left:20px;"><?php echo Yii::t("app","Investments"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl("project/discover",array('SearchForm[stage]'=>'1', 'Category'=>'stage')); ?>" class="button round success" style="margin-left:20px;"><?php echo Yii::t("app","Interesting ideas"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl("project/discover",array('SearchForm[available]'=>'8', 'Category'=>'available')); ?>" class="button round success" style="margin-left:20px;"><?php echo Yii::t("app","Weekend jobs"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl("project/discover",array('SearchForm[available]'=>'40', 'Category'=>'available')); ?>" class="button round success" style="margin-left:20px;"><?php echo Yii::t("app","Full time projects"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl("project/discover",array('SearchForm[collabPref]'=>'4', 'Category'=>'collabpref')); ?>" class="button round success" style="margin-left:20px;"><?php echo Yii::t("app","Investments"); ?></a>
     <a href="#" data-dropdown="drop-local-project" onclick="$('#search_local').focus()" class="button round success" style="margin-left:20px;"><?php echo Yii::t("app","Local projects"); ?></a>
   </div>
 </div>
