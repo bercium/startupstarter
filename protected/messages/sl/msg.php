@@ -17,10 +17,6 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  '
-		Ideja se je porodila konec oktobra 2012 na dogodku v PopUp domu. Ob pogovoru z enim izmed ustanovitljev ljubljanskega coworkinga sem prišel na idejo, ki bi razširila ta koncept preko fizičnih meja, saj sem imel tudi sam v preteklosti problem iskanja zanesljivih partnerjev za uresničevanje svojih zamisli. Problem sem videl v relativni majhnosti posameznikovega socialnega kroga, ki zajema predvsem ljudi znotraj njegove glavne panoge.
-		Sredi decembra sva se povezala z Blažem, ki je ravno takrat reševal tak problem. Skupaj sva pričela razvijati koncept ideje, ko se nama je pridružil tudi tretji član z istim problemom, ki trenutno ni več aktiven. 
-		Do konca februarja smo koncept pripeljali tako daleč, da smo ga na Sedi 5 v Kinu Šiška tudi predstavili. Pozitiven odziv poslušalcev nas je motiviral, da smo se odločili, da projekt tudi realiziramo. Po predstavitvi se nam je pridružil tudi Jure in v začetku marca smo se lotili realizacije.' => '',
   ' Please check your email. <br />Instructions were sent to your email address.' => 'Prosimo preverite vaš email. <br />Navodila so bila poslana na navedeni email.',
   'Add some extra information like what you can offer...' => 'Navedite nekaj dodatnih informacij, kot na primer, kaj lahko ponudite...',
   'Add some links.' => 'Dodajte povezave.',
@@ -38,7 +34,6 @@ return array (
   'Could not save uploaded file. The upload was cancelled, or server error encountered' => 'Ni nam uspelo shraniti naložene datoteke. Nalaganje je bilo preklicano, predvidoma zaradi napake na strežniku',
   'Create or take part in a project.' => 'Ustvari ali postani član projekta.',
   'Describe your project in detail.' => 'Opišite vaš projekt bolj podrobno.',
-  0 => '',
   'Describe your project with 120 characters or less for sharing on social networks.' => 'Za deljenje na socialnih omrežjih opiši svoj projekt z 120 znaki ali manj.',
   'Describe your project with comma separated keywords to increase visibility of your project.' => 'Opišite vaš projekt z uporabo ključnih besed. Le-te ločite z vejicami. S tem boste povečali vidnost vašega projekta na strani.',
   'Description isn\'t published!' => 'Opis ni javno objavljen!',
@@ -51,6 +46,7 @@ return array (
   'File is too large!' => 'Datoteka je prevelika!',
   'Fill up your profile details.' => 'Izpolnite podrobnosti vašega profila.',
   'Getting content length is not supported.' => 'Pridobivanje dolžine vsebine ni podprto.',
+  'Helping with the non-technical side of development.' => 'Odgovoren za netehnična področja razvoja platforme.',
   'I have read and agree to the following Terms of Use {tos}' => 'Prebral sem in se strinjam s Pogoji uporabe {tos}',
   'If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.' => 'Če imate poslovno ali kakršnokoli drugo vprašanje, vas prosimo da izpolnete kontaktni obrazec. Hvala.',
   'If you wish to be invited or notified when we go live please leave your email address below.' => 'Če želite biti obveščeni o novostih in o tem kdaj se bo storitev odprla za širšo javnost nam prosim spodaj pustite vaš email.',
@@ -61,6 +57,7 @@ return array (
   'Incorrect username (length between 3 and 20 characters).' => 'Nepravilno uporabniško ime (dolžina je omejena na 3 do 20 znakov)',
   'Incorrect username or password.' => 'Nepravilno uporabniško ime ali geslo.',
   'Invalid request. Please do not repeat this request again.' => 'Neveljavna zahteva. Prosimo ne ponovite te zahteve.',
+  0 => '',
   'Invitation removed!' => 'Povabilo odstranjeno!',
   'Invitation send.' => 'Povabilo poslano.',
   'Invitation to add new member send.' => 'Povabilo je bilo poslano novemu članu.',
@@ -70,9 +67,9 @@ return array (
   'Member removed from project' => 'Član je bil odstranjen iz projekta.',
   'Message can\'t be empty!' => 'Sporočilo ne sme biti prazno!',
   'Minimal password length 4 symbols.' => 'Minimalna dolžina gesla 4 znake.',
-  'My designation at cofinder is to take care of our online foundations.' => '',
-  'Name of skill you posess.' => 'Ime vaše spretnosti oz znanja',
-  'Name of skill your candidate should posess.' => 'Ime spretnosti oz znanja, ki ga more imeti kandidat.',
+  'My designation at cofinder is to take care of our online foundations.' => 'Moja naloga pri cofinder-ju je razvoj tehničnih temeljev naše platforme.',
+  'Name of skill you posess. You can write multiple skills for the same industry separated by commas.' => 'Ime vaše spretnosti oz znanja. Lahko napišete več znanj ločenih z vejico, ki spadajo pod isto industrijo.',
+  'Name of skill your candidate should posess. You can write multiple skills for the same industry separated by commas.' => 'Ime spretnosti oz znanja, ki ga more imeti kandidat. Lahko napišete več znanj ločenih z vejico, ki spadajo pod isto industrijo.',
   'New password is saved.' => 'Novo geslo je shranjeno.',
   'Newsletter sent succesfully.' => 'Newsletter uspešno poslan.',
   'No files were uploaded.' => 'Nobena datoteka ni bila naložena.',
@@ -95,7 +92,7 @@ return array (
   'Problem saving link. Please check fields for correct values.' => 'Povezava za reševanje problemov. Prosimo preverite če imajo polja prave vrednosti.',
   'Problem saving skill. Please check fields for correct values.' => 'Ni bilo možno shraniti znanja. Prosimo preverite vsa polja za pravilne vrednosti.',
   'Profile details saved.' => 'Profil uspešno shranjen.',
-  'Profile details saved. Please check your mail for activation code.' => '',
+  'Profile details saved. Please check your mail for activation code.' => 'Profil uspešno shranjen. Prosimo preverite ali ste že prejeli email z aktivacijsko kodo.',
   'Project has a presentational web page' => 'Projekt ima predstavitveno spletno stran',
   'Project has a video' => 'Projekt ima video',
   'Project removed from your account successfully.' => 'Projekt uspešno odstranjen iz vašega profila.',
@@ -109,12 +106,13 @@ return array (
   'Selecting an avatar will make you more recognizable.' => 'Na podlagi profilne slike se boste z ostalimi uporabniki lažje prepoznali, ko se srečate v živo',
   'Server error. Upload directory isn\'t writable.' => 'Napaka na strežniku. V mapo za nalaganje se ne da pisati',
   'Settings saved.' => 'Nastavitve shranjene.',
+  'Skill added.' => 'Znanje dodano.',
   'Status of project.' => 'Status projekta',
   'Subscribe to newsletter and get all important updates.' => 'Prijavite se na novičnik in bodite na tekočem z vsemi pomembnimi novostmi',
   'Success!' => 'Uspelo!',
   'Successfully saved project translation!' => 'Uspešno shranjen prevod projekta.',
   'Successfully updated collaboration preferences!' => 'Uspešno osvežene preference načina sodelovanja',
-  'Taking care of overall design is my primary focus here on cofinder.' => '',
+  'Taking care of overall design is my primary focus here on cofinder.' => 'Pri cofinder-ju skrbim za področje designa.',
   'Thank you for your interest!' => 'Hvala za izkazano zanimanje',
   'Thank you for your registration. Contact Admin to activate your account.' => 'Hvala za vašo registracijo. Kontaktirajte administratorja za aktivacijo vašega računa.',
   'Thank you for your registration. Please check your email for confirmation code.' => 'Hvala za vašo registracijo. Prosim preverite če ste na navedeni email prejeli potrditveno kodo.',
@@ -123,9 +121,14 @@ return array (
   'Thank you for your registration. Please {login}.' => 'Hvala za vašo registracijo. Prosimo prijavite se {login}.',
   'Thank you for your registration. You will shortly receive our confirmation email.' => 'Hvala za vašo registracijo. V kratkem boste prejeli potrditveni email.',
   'The files are being uploaded, if you leave now the upload will be cancelled.' => 'Datoteke se nalagajo, če zapustite stran sedaj bo nalaganje preklicano',
+  'The idea was born during the conversation that happened in October 2012 at PopUp home. Talking to one of the founders of Slovenia coworking made me realise that online platform could open up the concept of coworking to a broader community. It will help solving a problem of finding the right team to build new products and services. 
+In mid December Blaž joined me. He\'s been facing the same problem. It was difficult for him to find a realiable team of people outside his social circles. Soon after the third member joined our team.
+In late February 2013 the three of us developed and presented our concept to Slovenia\'s coworking community. Positive feedback gave us more than enough motivation to go on with the development of the web platform. Soon after our presentation the fourth member joined the team and the developement process.' => 'Ideja se je porodila konec oktobra 2012 na dogodku v PopUp domu. Ob pogovoru z enim izmed ustanovitljev ljubljanskega coworkinga sem prišel na idejo, ki bi razširila ta koncept preko fizičnih meja, saj sem imel tudi sam v preteklosti problem iskanja zanesljivih partnerjev za uresničevanje svojih zamisli. Problem sem videl v relativni majhnosti posameznikovega socialnega kroga, ki zajema predvsem ljudi znotraj njegove glavne panoge.
+	Sredi decembra sva se povezala z Blažem, ki je ravno takrat reševal tak problem. Skupaj sva pričela razvijati koncept ideje, ko se nama je pridružil tudi tretji član z istim problemom, ki trenutno ni več aktiven. 	
+Do konca februarja smo koncept pripeljali tako daleč, da smo ga na Sedi 5 v Kinu Šiška tudi predstavili. Pozitiven odziv poslušalcev nas je motiviral, da smo se odločili, da projekt tudi realiziramo. Po predstavitvi se nam je pridružil tudi Jure in v začetku marca smo se lotili realizacije.',
   'The only constant in life is change so it\'s important not to fall asleep on past successes or to give up at the sight of problems.' => '',
   'The requested page does not exist.' => 'Želena stran ne obstaja',
-  'There was a problem activating your account!' => '',
+  'There was a problem activating your account!' => 'Prišlo je do problema pri aktivaciji vašega računa.',
   'This action will change your password!
 Are you sure?' => 'Ta akcija vam bo spremenila geslo!
 Ali ste prepričani?',
@@ -167,7 +170,7 @@ Ali ste prepričani?',
   'When we purge your account all data connected to it will be removed as well.' => 'Ko izbrišemo vaš račun, bodo z njim izgubljeni vsi podatki ki jih vsebuje.',
   'While you wait for our confirmation email fill in some of your profile information.' => 'Medtem ko čakate na potrditveni email, vas prosimo da izpolnete nekaj osnovnih informacij na vašem novem profilu.',
   'With the <span>right team</span> any <span>idea</span> can <br />change your life' => 'S <span>pravo ekipo</span> vam lahko katerakoli <span>ideja</span> spremeni življenje',
-  'Within cofinder I take care of development while motivating the team and try to engage others to join our project.' => '',
+  'Within cofinder I take care of development while motivating the team and try to engage others to join our project.' => 'Pri cofinderju skrbim za motivacijo ekipe in nemoten razvoj. Trudim pa se k sodelovanju privabiti čimveč ljudi.',
   'Wrong candidate ID supplied, could not update candidate.' => 'Napačna koda kandidata posredovana zato ga ni bilo možno posodobiti.',
   'You account is activated.' => 'Vaš račun je aktiviran.',
   'You account is already active.' => 'Vaš račun je že aktiviran.',
