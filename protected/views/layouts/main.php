@@ -46,10 +46,7 @@
     <div class="row header">
       <div class="" >
         <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
-          <h1>
-           <img class="logo" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" />
-            co<span>finder</span> <small style="font-size:14px;">BETA</span>
-          </h1>
+           <img alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title-mobile.png" />
         </a>
       </div>
     </div>
