@@ -742,7 +742,7 @@ class ProfileController extends GxController {
         }else{
           $invitation = Invite::model()->findByAttributes(array("email"=>$_POST['invite-email']));
           $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key;
-          Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation already exit on address: <br /><br />'.$activation_url));
+          Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation already exist: <br /><br />'.$activation_url));
         }
 
       }

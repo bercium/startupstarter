@@ -130,7 +130,7 @@ return array (
 Are you sure?' => 'Ta akcija vam bo spremenila geslo!
 Ali ste prepričani?',
   'This action will create an invitation.
-Are you sure?' => 'Ta akcija bo poslala vabilo.
+Are you sure?' => 'Ta akcija bo ustvarila vabilo.
 Ali ste prepričani?',
   'This action will deactivate your account.
 Are you sure?' => 'Ta akcija vam bo zaklenila dostop!
