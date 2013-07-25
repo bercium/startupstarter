@@ -51,6 +51,7 @@ abstract class BaseInvite extends GxActiveRecord {
 			array('id_sender, id_idea, id_receiver', 'length', 'max'=>11),
 			array('key, email', 'length', 'max'=>50),
 			array('key, id_idea, id_receiver', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('time_invited', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
 			array('id, id_sender, key, email, id_idea, id_receiver', 'safe', 'on'=>'search'),
 		);
 	}
@@ -79,6 +80,7 @@ abstract class BaseInvite extends GxActiveRecord {
 			'idSender' => null,
 			'idIdea' => null,
 			'idReceiver' => null,
+			'time_invited' => null,
 		);
 	}
 
@@ -91,6 +93,7 @@ abstract class BaseInvite extends GxActiveRecord {
 		$criteria->compare('email', $this->email, true);
 		$criteria->compare('id_idea', $this->id_idea);
 		$criteria->compare('id_receiver', $this->id_receiver);
+		$criteria->compare('time_invited', $this->time_invited);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
