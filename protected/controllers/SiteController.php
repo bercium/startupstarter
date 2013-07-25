@@ -161,7 +161,7 @@ class SiteController extends Controller
       $filecont = $filecont.$_POST['email'].",\n";
       file_put_contents($newFilePath,$filecont);
       
-      Yii::app()->user->setFlash("interestMessage",Yii::t('msg',"Your email (".$_POST['email'].") was succesfully saved in our database."));
+      Yii::app()->user->setFlash("interestMessage",Yii::t('msg',"Your email ({email}) was succesfully saved in our database.",array('{email}'=>$_POST['email'])));
       $this->refresh();
     }
 		$this->render('notify');
