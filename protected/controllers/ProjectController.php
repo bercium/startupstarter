@@ -326,10 +326,11 @@ class ProjectController extends GxController {
 					//load skills
 					if(isset($data['idea']['candidate'][$_GET['candidate']]['skillset']) && count($data['idea']['candidate'][$_GET['candidate']]['skillset']) > 0){
 						foreach($data['idea']['candidate'][$_GET['candidate']]['skillset'] AS $key => $skillset){
-							foreach($skillset['skill'] AS $key1 => $skill)
-							$_SESSION['Candidate']['skills'][$key]['skillset_id'] = $skillset['id']; //id
-							$_SESSION['Candidate']['skills'][$key]['skillset_name'] = $skillset['skillset'];  //id$skillset->name
-							$_SESSION['Candidate']['skills'][$key]['skill'] = $skill['skill']; //skill name
+							foreach($skillset['skill'] AS $key1 => $skill){
+								$_SESSION['Candidate']['skills'][$key]['skillset_id'] = $skillset['id']; //id
+								$_SESSION['Candidate']['skills'][$key]['skillset_name'] = $skillset['skillset'];  //id$skillset->name
+								$_SESSION['Candidate']['skills'][$key]['skill'] = $skill['skill']; //skill name
+							}
 						}
 					}
 				}
@@ -767,25 +768,26 @@ class ProjectController extends GxController {
 				if($skillset){
 					$key = $_POST['skillset'] . "_" . $_POST['skill'];
 
-					$_SESSION['Candidate']['skills'][$key]['skillset_id'] = $_POST['skillset']; //id
+					if(!isset($_SESSION['Candidate']['skills'][$key])){
+						$_SESSION['Candidate']['skills'][$key]['skillset_id'] = $_POST['skillset']; //id
 
-					$language = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
-					if($language->id == 40){
-						$_SESSION['Candidate']['skills'][$key]['skillset_name'] = $skillset->name; //id$skillset->name
-					} else {
-						$translation = Translation::Model()->findByAttributes(array('language_id' => $language->id, 'table' => 'skillset', 'row_id' => $skillset->id));
-						$_SESSION['Candidate']['skills'][$key]['skillset_name'] = $translation->translation; //id$skillset->name
-					}
+						$language = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
+						if($language->id == 40){
+							$_SESSION['Candidate']['skills'][$key]['skillset_name'] = $skillset->name; //id$skillset->name
+						} else {
+							$translation = Translation::Model()->findByAttributes(array('language_id' => $language->id, 'table' => 'skillset', 'row_id' => $skillset->id));
+							$_SESSION['Candidate']['skills'][$key]['skillset_name'] = $translation->translation; //id$skillset->name
+						}
 
-					$_SESSION['Candidate']['skills'][$key]['skill'] = $_POST['skill']; //skill name
+						$_SESSION['Candidate']['skills'][$key]['skill'] = $_POST['skill']; //skill name
 
-					$status = 0;
-				} else {
-					$status = 1;
-				}
+						$status = 0;
+					} else $status = 1;
+
+				} else $status = 2;
 			}
 
-		}
+		} else $status = 3;
 
 		if($status == 0){
 			$response = array("data" => array("title" => $_POST['skill'],

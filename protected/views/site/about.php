@@ -19,11 +19,7 @@
 		
 		<h4><?php echo Yii::t('app','Brief history'); ?></h4>
 		<p>
-      <?php echo Yii::t('msg','
-		Ideja se je porodila konec oktobra 2012 na dogodku v PopUp domu. Ob pogovoru z enim izmed ustanovitljev ljubljanskega coworkinga sem prišel na idejo, ki bi razširila ta koncept preko fizičnih meja, saj sem imel tudi sam v preteklosti problem iskanja zanesljivih partnerjev za uresničevanje svojih zamisli. Problem sem videl v relativni majhnosti posameznikovega socialnega kroga, ki zajema predvsem ljudi znotraj njegove glavne panoge.
-		Sredi decembra sva se povezala z Blažem, ki je ravno takrat reševal tak problem. Skupaj sva pričela razvijati koncept ideje, ko se nama je pridružil tudi tretji član z istim problemom, ki trenutno ni več aktiven. 
-		Do konca februarja smo koncept pripeljali tako daleč, da smo ga na Sedi 5 v Kinu Šiška tudi predstavili. Pozitiven odziv poslušalcev nas je motiviral, da smo se odločili, da projekt tudi realiziramo. Po predstavitvi se nam je pridružil tudi Jure in v začetku marca smo se lotili realizacije.'); ?>
-      
+      <?php echo Yii::t('msg',"The idea was born during the conversation that happened in October 2012 at PopUp home. Talking to one of the founders of Slovenia coworking made me realise that online platform could open up the concept of coworking to a broader community. It will help solving a problem of finding the right team to build new products and services. In mid December Blaž joined me. He's been facing the same problem. It was difficult for him to find a realiable team of people outside his social circles. Soon after the third member joined our team. In late February 2013 the three of us developed and presented our concept to Slovenia's coworking community. Positive feedback gave us more than enough motivation to go on with the development of the web platform. Soon after our presentation the fourth member joined the team and the developement process."); ?>
 		</p> 
 		
     </div>
@@ -69,11 +65,13 @@
           </p>
         </div>
         
+        <?php /* ?>
         <div class="columns">
           <blockquote style="font-size: 0.9em">
           <?php echo Yii::t('msg',"The only constant in life is change so it's important not to fall asleep on past successes or to give up at the sight of problems."); ?>
           </blockquote>
         </div>
+        <?php */ ?>
       </div>
       
       <div class="row" onmouseover="showPerson('bb');" onmouseout="hidePerson('bb')">
@@ -92,12 +90,11 @@
             <?php echo Yii::t('msg',"My designation at cofinder is to take care of our online foundations."); ?>
           </p>
         </div>
-        
+        <?php /* ?>
         <div class="columns">
           <blockquote style="font-size: 0.9em">
-          <?php echo Yii::t('msg',""); ?>
           </blockquote>
-        </div>
+        </div><?php */ ?>
       </div>
       
       <div class="row" onmouseover="showPerson('jr');" onmouseout="hidePerson('jr')">
@@ -116,12 +113,11 @@
             <?php echo Yii::t('msg',"Taking care of overall design is my primary focus here on cofinder."); ?>
           </p>
         </div>
-        
+        <?php /* ?>
         <div class="columns">
           <blockquote style="font-size: 0.9em">
-          <?php echo Yii::t('msg',""); ?>
           </blockquote>
-        </div>
+        </div><?php */ ?>
       </div>
 
       
@@ -138,15 +134,14 @@
             </div>
           </h4>
           <p >
-            <?php echo Yii::t('msg',""); ?>
+            <?php echo Yii::t('msg',"Helping with the non-technical side of development."); ?>
           </p>
         </div>
-        
+        <?php /* ?>
         <div class="columns">
           <blockquote style="font-size: 0.9em">
-          <?php echo Yii::t('msg',""); ?>
           </blockquote>
-        </div>
+        </div><?php */ ?>
       </div>
       
 

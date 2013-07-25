@@ -59,39 +59,61 @@ function removeSkill(skill_id){
   $(function() {
     
     if ($('.skill').length != 0)
-    $( ".skill" ).autocomplete({
-      //minLength: 1,
-			delay:300,
-      source: function( request, response ) {
-        var term = request.term;
-        if ( term in cache ) {
-          response( cache[ term ] );
-          return;
+    $( ".skill" )
+      // don't navigate away from the field on tab when selecting an item
+      .bind( "keydown", function( event ) {
+        if ( event.keyCode === $.ui.keyCode.TAB &&
+            $( this ).data( "ui-autocomplete" ).menu.active ) {
+          event.preventDefault();
         }
- 
-        $.getJSON( skillSuggest_url, request, function( data, status, xhr ) {
-					if (data.status == 0){
-						cache[ term ] = data.data;
-						response( data.data );
-					}else alert(data.message);
-        });
-      },
-			//source:projects,
-      focus: function( event, ui ) {
-        $( "#project" ).val( ui.item.skill );
-        return false;
-      },
-      select: function( event, ui ) {
-        $( ".skill" ).val( ui.item.skill );
-				$('.skillset').val(ui.item.skillset_id); 
-				Foundation.libs.forms.refresh_custom_select($('.skillset'),true);
-				
-        $( "#project-id" ).val( ui.item.id );
- 
-        return false;
-      }
-    })
-    .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+      })
+			.autocomplete({
+				delay:300,
+				minLength: 2,
+        source: function( request, response ) {
+					
+          var term = extractLast( request.term );
+          if ( term in cache ) {
+            response( cache[ term ] );
+            return;
+          }
+
+          $.getJSON( skillSuggest_url, { term: term }, function( data, status, xhr ) {
+            if (data.status == 0){
+              cache[ term ] = data.data;
+              response( data.data );
+            }else alert(data.message);
+          });
+        },
+        /*search: function() {
+          // custom minLength
+          var term = extractLast( this.value );
+          if ( term.length < 2 ) {
+            return false;
+          }
+        },*/
+        focus: function( event, ui ) {
+          $( "#project" ).val( ui.item.skill );
+          // prevent value inserted on focus
+          return false;
+        },
+        select: function( event, ui ) {
+          var terms = splitComa( this.value );
+          // remove the current input
+          terms.pop();
+          // add the selected item
+          terms.push( ui.item.skill );
+
+      		$('.skillset').val(ui.item.skillset_id); 
+    			Foundation.libs.forms.refresh_custom_select($('.skillset'),true);
+          $( "#project-id" ).val( ui.item.id );
+          // add placeholder to get the comma-and-space at the end
+          terms.push( "" );
+          this.value = terms.join( ", " );
+          return false;
+        }
+      })
+     .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
       return $( "<li>" )
         .append( "<a>" + item.skill + "<br><small>" + item.skillset + "</small></a>" )
         .appendTo( ul );
