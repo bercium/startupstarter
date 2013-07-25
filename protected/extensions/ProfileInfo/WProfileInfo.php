@@ -137,7 +137,7 @@ class WProfileInfo extends CWidget
       // random notification msg
       //if ($msg) return $messages[rand(0,count($messages)-1)];
       $rand = rand(0,count($messages)-1);
-      Yii::app()->user->setFlash('WProfileInfoHint',$messages[$rand]['hint']."|".$messages[$rand]['action']);
+      if (count($messages) > 0) Yii::app()->user->setFlash('WProfileInfoHint',$messages[$rand]['hint']."|".$messages[$rand]['action']);
     }
     
 }
