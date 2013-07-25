@@ -255,9 +255,9 @@ class ProjectController extends GxController {
 				$this->render('createidea_1', array( 'idea' => $idea, 'translation' => $translation, 'language' => $language, 'ideas'=>$data['user']['idea'] ));
 		}
 		if($step == 2 || $id){
-      $user = User::model()->findByPk(Yii::app()->user->id);
-      $invites['data'] = Invite::model()->findAllByAttributes(array("id_idea"=>$id,"id_sender"=>Yii::app()->user->id),'NOT ISNULL(id_idea)');
-      $invites['count'] = $user->invitations;
+	      $user = User::model()->findByPk(Yii::app()->user->id);
+	      $invites['data'] = Invite::model()->findAllByAttributes(array("id_idea"=>$id,"id_sender"=>Yii::app()->user->id),'NOT ISNULL(id_idea)');
+	      $invites['count'] = $user->invitations;
 
       
 			//load idea data
@@ -290,8 +290,7 @@ class ProjectController extends GxController {
 			}
 
 			//end candidate session if not open
-			if(!isset($_GET['candidate']))
-				$this->sessionReset('candidate');
+			if(!isset($_GET['candidate'])) $this->sessionReset('candidate');
 
 			//new candidate session is open
 			if( isset($_GET['candidate']) && strlen($_GET['candidate']) == 0 ){
@@ -327,9 +326,9 @@ class ProjectController extends GxController {
 					if(isset($data['idea']['candidate'][$_GET['candidate']]['skillset']) && count($data['idea']['candidate'][$_GET['candidate']]['skillset']) > 0){
 						foreach($data['idea']['candidate'][$_GET['candidate']]['skillset'] AS $key => $skillset){
 							foreach($skillset['skill'] AS $key1 => $skill){
-								$_SESSION['Candidate']['skills'][$key]['skillset_id'] = $skillset['id']; //id
-								$_SESSION['Candidate']['skills'][$key]['skillset_name'] = $skillset['skillset'];  //id$skillset->name
-								$_SESSION['Candidate']['skills'][$key]['skill'] = $skill['skill']; //skill name
+								$_SESSION['Candidate']['skills'][$skillset['id']."_".$skill['id']]['skillset_id'] = $skillset['id']; //id
+								$_SESSION['Candidate']['skills'][$skillset['id']."_".$skill['id']]['skillset_name'] = $skillset['skillset'];  //id$skillset->name
+								$_SESSION['Candidate']['skills'][$skillset['id']."_".$skill['id']]['skill'] = $skill['skill']; //skill name
 							}
 						}
 					}
@@ -394,18 +393,18 @@ class ProjectController extends GxController {
 				}
 
 				//collabprefs
-        $c = 0;
-        if (isset($_POST['CollabPref'])){
-          $c = count($_POST['CollabPref']);
-          if($match_saved && $ideamember_saved){
-            foreach ($_POST['CollabPref'] as $collab => $collab_name){
-              $user_collabpref = new UserCollabpref;
-              $user_collabpref->match_id = $match_id;
-              $user_collabpref->collab_id = $collab;
-              if ($user_collabpref->save()) $c--;
-            }
-          }
-        }
+		        $c = 0;
+		        if (isset($_POST['CollabPref'])){
+		          $c = count($_POST['CollabPref']);
+		          if($match_saved && $ideamember_saved){
+		            foreach ($_POST['CollabPref'] as $collab => $collab_name){
+		              $user_collabpref = new UserCollabpref;
+		              $user_collabpref->match_id = $match_id;
+		              $user_collabpref->collab_id = $collab;
+		              if ($user_collabpref->save()) $c--;
+		            }
+		          }
+		        }
 
 				//skills
 				$s = 0;
