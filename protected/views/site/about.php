@@ -93,7 +93,6 @@
         <?php /* ?>
         <div class="columns">
           <blockquote style="font-size: 0.9em">
-          <?php echo Yii::t('msg',""); ?>
           </blockquote>
         </div><?php */ ?>
       </div>
@@ -117,7 +116,6 @@
         <?php /* ?>
         <div class="columns">
           <blockquote style="font-size: 0.9em">
-          <?php echo Yii::t('msg',""); ?>
           </blockquote>
         </div><?php */ ?>
       </div>
@@ -142,7 +140,6 @@
         <?php /* ?>
         <div class="columns">
           <blockquote style="font-size: 0.9em">
-          <?php echo Yii::t('msg',""); ?>
           </blockquote>
         </div><?php */ ?>
       </div>
