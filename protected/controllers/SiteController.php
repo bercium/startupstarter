@@ -169,6 +169,7 @@ class SiteController extends Controller
 	
 	public function actionTerms()
 	{
+    $this->layout = 'none';
 		$this->render('terms');
 	}	
 
