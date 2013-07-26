@@ -133,7 +133,7 @@
 
 <div class="row" id="recent_projects">
 	<?php
-	if (count($searchResult) && count($searchResult['data'])){
+	if (!empty($searchResult['data']) && count($searchResult['data']) > 0){
 		Yii::log(arrayLog($searchResult), CLogger::LEVEL_INFO, 'custom.info.search_result'); 
 		?>
   
