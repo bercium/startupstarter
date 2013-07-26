@@ -577,7 +577,8 @@ INSERT INTO `collabpref` (`id`, `name`) VALUES
 (1, 'Paid work'),
 (2, 'Sweat equity'),
 (3, 'Equal investors'),
-(4, 'Sole investor');
+(4, 'Sole investor'),
+(5, 'Volunteer');
 
 
 --

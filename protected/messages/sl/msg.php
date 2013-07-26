@@ -92,7 +92,6 @@ return array (
   'Problem saving link. Please check fields for correct values.' => 'Povezava za reševanje problemov. Prosimo preverite če imajo polja prave vrednosti.',
   'Problem saving skill. Please check fields for correct values.' => 'Ni bilo možno shraniti znanja. Prosimo preverite vsa polja za pravilne vrednosti.',
   'Profile details saved.' => 'Profil uspešno shranjen.',
-  0 => '',
   'Profile details saved. Please check your mail for activation code.' => 'Profil uspešno shranjen. Prosimo preverite ali ste že prejeli email z aktivacijsko kodo.',
   'Project has a presentational web page' => 'Projekt ima predstavitveno spletno stran',
   'Project has a video' => 'Projekt ima video',
