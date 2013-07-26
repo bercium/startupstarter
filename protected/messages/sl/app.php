@@ -189,7 +189,7 @@ return array (
   'Profile' => 'Profil',
   'Profile completeness' => 'Izpolnjenost profila',
   'Profile details' => 'Podrobnosti profila',
-  'Profile viewed' => 'Profile viden',
+  'Profile viewed' => 'Profil viden',
   'Project member|Project members' => 'Član projekta|Člana projekta|Člani projekta',
   'Project presentation' => 'Predstavitev projekta',
   'Project status' => 'Status projekta',
