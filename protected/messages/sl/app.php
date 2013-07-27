@@ -139,7 +139,7 @@ return array (
   'Logs' => 'Logi',
   'Looking for <a>{n} person</a> skilled in|Looking for <a>{n} people</a> skilled in' => 'Iščem <a>{n} osebo</a> spretno v|Iščem <a>{n} osebi</a> spretni v|Iščem <a>{n} osebe</a> spretne v|Iščem <a>{n} oseb</a> spretnih v',
   'Looking for <a>{n} person</a>|Looking for <a>{n} people</a>' => 'Iščem <a>{n} osebo</a>|Iščem <a>{n} osebi</a>|Iščem <a>{n} osebe</a>|Iščem <a>{n} oseb</a>',
-  'Looking for {n} candidate|Looking for {n} candidates' => 'Iščem <a>{n} kandidata</a>|Iščem <a>{n} kandidata|Iščem <a>{n} kandidate|Iščem <a>{n} kandidatov</a>',
+  'Looking for <a>{n} candidate</a>|Looking for <a>{n} candidates</a>' => 'Iščem <a>{n} kandidata</a>|Iščem <a>{n} kandidata</a>|Iščem <a>{n} kandidate</a>|Iščem <a>{n} kandidatov</a>',
   'Lost Password?' => 'Izgubljeno geslo',
   'Manage' => 'Upravljaj',
   'Manage profile field' => 'Uredi polja profila',

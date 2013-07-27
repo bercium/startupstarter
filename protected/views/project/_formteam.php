@@ -36,9 +36,13 @@
     <?php echo CHtml::activeLabelEx($match,'available'); ?>
     <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listData(Available::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
     
-    <?php 
-    echo Yii::t('app','Collaboration preferences');
-    if(isset($candidate['collabpref'])){
+    <?php echo "<label>".Yii::t('app','Collaboration preferences')."</label>"; ?>
+
+    <span class="description">
+       <?php echo Yii::t('msg','What kind of Collaboration do you prefer when working on a project. Paid work - get paid for your work, Sweat equity - will work for a share in company, Equal investors - prepared to invest equal share of money, Sole investor - want to invest only, Volunteer - just want to help'); ?>
+    </span>
+      
+    <?php if(isset($candidate['collabpref'])){
       foreach ($candidate['collabpref'] as $collabpref){ ?>
         <label for="CollabPref_<?php echo $collabpref['collab_id']; ?>"><?php echo CHtml::checkBox('CollabPref['.$collabpref['collab_id'].']',$collabpref['active'],array('style'=>'display:none')); ?>
          <?php echo $collabpref['name'] ?></label>

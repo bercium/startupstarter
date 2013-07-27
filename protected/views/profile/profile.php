@@ -49,7 +49,7 @@
     <?php echo "<label>".Yii::t('app','Collaboration preferences')."</label>"; ?>
 
     <span class="description">
-       <?php echo Yii::t('msg','What kind of Collaboration do you prefer when working on a project.'); ?>
+       <?php echo Yii::t('msg','What kind of Collaboration do you prefer when working on a project. Paid work - get paid for your work, Sweat equity - will work for a share in company, Equal investors - prepared to invest equal share of money, Sole investor - want to invest only, Volunteer - just want to help'); ?>
     </span>
     
 		<?php foreach ($data['user']['collabpref'] as $colabpref){ ?>
