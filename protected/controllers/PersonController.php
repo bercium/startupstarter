@@ -165,15 +165,15 @@ class PersonController extends GxController {
 			$count = $count['num_of_rows'];
 
 			$searchResult['page'] = $id;
-			$searchResult['maxPage'] = ceil($count / $filter['per_page']); //!!! add page count
+			$searchResult['maxPage'] = ceil($count / $filter['per_page']); 
 
     }else{
-    		$count = $sqlbuilder->load_array("count_idea", $filter);
+    		$count = $sqlbuilder->load_array("count_user", $filter);
     		$count = $count['num_of_rows'];
 
 			$searchResult['data'] = $sqlbuilder->load_array("recent_user", $filter);
 			$searchResult['page'] = $id;
-			$searchResult['maxPage'] = ceil($count / $filter['per_page']); //!!! add page count
+			$searchResult['maxPage'] = ceil($count / $filter['per_page']); 
     }
 		
 
