@@ -76,6 +76,7 @@
       if (!$(this).find(".lin-edit").is(':focus') && $(this).find(".lin-edit").val() == '') $(this).find('.lin-hidden').hide();
     });
 
+    $('select').chosen({no_results_text: Yii.t('js','Oops, nothing found!'), allow_single_deselect: true, width:'100%' });
 })(jQuery, this);
 
 

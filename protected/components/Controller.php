@@ -41,6 +41,7 @@ class Controller extends CController
     $cs->registerCssFile($baseUrl.'/css/general_foundicons_ie7.css');
     $cs->registerCssFile($baseUrl.'/css/font-awesome.css');
     $cs->registerCssFile($baseUrl.'/css/font-awesome-ie7.css');
+    $cs->registerCssFile($baseUrl.'/css/chosen/chosen.min.css');
 		
     $cs->registerCssFile($baseUrl.'/css/override.css'); // be the last to override any other CSS settings
 
@@ -56,7 +57,9 @@ class Controller extends CController
     $cs->registerScriptFile($baseUrl.'/js/foundation.min.js',CClientScript::POS_END);
     //$cs->registerScriptFile($baseUrl.'/js/foundation/foundation.dropdown.js',CClientScript::POS_END); // temp untill it's fixed in minified version
     $cs->registerScriptFile($baseUrl.'/js/jquery.infinitescroll.min.js',CClientScript::POS_END);
-		
+
+    $cs->registerScriptFile($baseUrl.'/js/chosen.jquery.min.js',CClientScript::POS_END);
+    
     //$cs->registerScriptFile($baseUrl.'/js/jquery.parallax-1.1.3.js',CClientScript::POS_END);
     
     // start foundation

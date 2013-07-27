@@ -158,8 +158,9 @@ function removeSkill(skill_id, inUrl){
           terms.push( ui.item.skill );
 
       		$('.skillset').val(ui.item.skillset_id); 
-    			Foundation.libs.forms.refresh_custom_select($('.skillset'),true);
-          $( "#project-id" ).val( ui.item.id );
+    			//Foundation.libs.forms.refresh_custom_select($('.skillset'),true);
+          $(".skillset").trigger("liszt:updated");
+          //$( "#project-id" ).val( ui.item.id );
           // add placeholder to get the comma-and-space at the end
           terms.push( "" );
           this.value = terms.join( ", " );

@@ -32,7 +32,7 @@
     </div>
     <?php } ?>
     
-    <?php echo CHtml::beginForm('','post',array('class'=>"custom  large-6")); ?>
+    <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6")); ?>
     <p>
 			
     <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
@@ -102,7 +102,7 @@
               'id'=>'SkillForm',
 //             'enableClientValidation'=>true,
                'htmlOptions'=>array(
-                              'class'=>'custom',
+                              //'class'=>'customs',
                               'onsubmit'=>"return false;",/* Disable normal form submit */
                               //'onkeypress'=>" if(event.keyCode == 13){ addSkill('".Yii::app()->createUrl("profile/addSkill")."'); } " /* Do ajax call when user presses enter key */
                               ),
