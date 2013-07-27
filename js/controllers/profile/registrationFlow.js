@@ -35,7 +35,7 @@ function removeSkill(skill_id){
    type: 'POST',
    url: skillRemove_url,
    data:{ id: skill_id, ajax: 1},
-        success:function(data){
+        success:function(indata){
           data = JSON.parse(indata);
           if (data.message != '') alert(data.message);
           else {

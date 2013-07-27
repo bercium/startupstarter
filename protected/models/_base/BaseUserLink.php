@@ -37,6 +37,7 @@ abstract class BaseUserLink extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('user_id, title, url', 'required'),
+			array('url', 'url', 'defaultScheme' => 'http'),
 			array('user_id', 'length', 'max'=>8),
 			array('id, user_id, link_id', 'safe', 'on'=>'search'),
 		);

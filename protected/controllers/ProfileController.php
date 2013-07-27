@@ -541,15 +541,14 @@ class ProfileController extends GxController {
 	}
 
 	public function actionDeleteSkill() {
-    
 	    if (Yii::app()->user->isGuest && isset($_GET['key']) && isset($_GET['email']) && !empty($_GET['key']) && !empty($_GET['email'])){
 	      	$user_register = User::model()->notsafe()->findByAttributes(array('email'=>$_GET['email']));    
 	      	if (!$user_register || ((substr($user_register->activkey, 0, 10) !== $_GET['key']) || ($user_register->status != 0))){
-				$return['message'] = Yii::t('msg', "Unable to remove skill.");
-				$return['status'] = 1;
+            $return['message'] = Yii::t('msg', "Unable to remove skill.");
+            $return['status'] = 1;
 	        	$return = json_encode($return);
-				echo $return; //return array
-	        	return;
+            echo $return; //return array
+	        	Yii::app()->end();
 	      	}
 	      	$user_id = $user_register->id;
 	    }else $user_id = Yii::app()->user->id;
@@ -561,7 +560,7 @@ class ProfileController extends GxController {
 		if ($user_id > 0 && $skill_id) {
 			$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
 
-			$skill = UserSkill::Model()->findByAttributes(array('id' => $skill_id,'match_id'=>$match['id']));
+			$skill = UserSkill::Model()->findByAttributes(array('skill_id' => $skill_id,'match_id'=>$match->id));
 
 			if ($skill->delete()) { //delete
 				$return['message'] = '';
@@ -571,7 +570,7 @@ class ProfileController extends GxController {
 				$return['status'] = 1;
 			}
 
-			if (isset($_GET['ajax'])) {
+			if (isset($_POST['ajax']) || isset($_GET['ajax'])) {
 				$return = json_encode($return);
 				echo $return; //return array
 				Yii::app()->end();

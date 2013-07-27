@@ -13,7 +13,7 @@
 					if (!data.status){
             skill = '<span data-alert class="label alert-box radius secondary profile-skils" id="skill_'+data.data.id+'">';
             skill += data.data.title+"<br /><small class='meta'>"+data.data.desc+"</small>";
-            /*if (data.data.multi == 1) */skill += '<a href="#" class="close" onclick="removeSkill('+data.data.id+',\''+data.data.location+'\')">&times;</a>';
+            /*if (data.data.multi == 1) */skill += '<a href="#" class="close" onclick="removeSkill(\''+data.data.id+'\',\''+data.data.location+'\')">&times;</a>';
             skill += '</div>';
             $('.skillList').append(skill);
           }
@@ -35,7 +35,7 @@ function removeSkill(skill_id, inUrl){
    type: 'POST',
    url: inUrl,
    data:{id: skill_id, ajax: 1},
-        success:function(data){
+        success:function(indata){
           data = JSON.parse(indata);
           if (data.message != '') alert(data.message);
           else {
