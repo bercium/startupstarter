@@ -15,6 +15,13 @@
  
 <div class="row">
   <div class="columns edit-header">
+
+    <div class="edit-floater">
+      <a class="button radius small" href="person/<?php echo $user['id']; ?>" target="_blank"><?php echo Yii::t('app',"Preview"); ?> 
+      </a>
+    </div>
+
+    
     <h3><?php echo Yii::t('app', 'Profile details'); ?></h3>
   </div>
   <div class="columns panel edit-content">

@@ -144,6 +144,14 @@
                 </ul>
 
               </li>
+              <?php if ($this->getNotifications()){ ?>
+              <li class="divider"></li>
+                <li class="desc">
+                  <a href="<?php echo Yii::app()->createUrl("profile/notification"); ?>" style="padding-top: 13px; background-color: #89B561;">
+                    <span class="icon-flag" style="cursor: pointer; color: /*#CD3438*/ #FFF;font-size: 1.4em;"> <?php echo $this->getNotifications(); ?></span>
+                  </a>
+                </li>
+              <?php } ?>
               <?php }else{ ?>
                 <li>
                   <a href="#" data-dropdown="drop-login"><?php echo Yii::t('app','Login'); ?></a>

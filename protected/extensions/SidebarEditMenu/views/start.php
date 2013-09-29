@@ -26,7 +26,7 @@
   <section class="section <?php echo isMenuItemActive("account"); ?>">
     <p class="title"><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><span class="general foundicon-settings"></span><?php echo Yii::t('app','Settings'); ?></a></p>
   </section>
-  <?php //if(yii::app()->user->isAdmin()){ ?>
+  <?php //if(Yii::app()->user->isAdmin()){ ?>
   <section class="section <?php echo isMenuItemActive(""); ?>">
     <p class="title"><a href="<?php echo Yii::app()->createUrl("profile/notification"); ?>"><span class="icon-flag"></span><?php echo Yii::t('app','Notifications'); ?></a></p>
   </section><?php //} ?>

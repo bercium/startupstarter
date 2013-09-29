@@ -42,7 +42,7 @@ class WInvitation extends CWidget
             }else{
               // invite outside the system
               
-              if (yii::app()->user->isAdmin()){
+              if (Yii::app()->user->isAdmin()){
                 if ($invitation->save()){
                   $user->invitations = $user->invitations-1;
                   $user->save();

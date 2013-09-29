@@ -33,7 +33,7 @@ if(is_array($ideadata['member'])){
 <span class="description">
   <?php echo Yii::t('msg','In private beta member invitations are disabled.'); ?>
 </span><?php */ ?>
-<?php //if ($invitations && yii::app()->user->isAdmin()){ ?>
+<?php //if ($invitations && Yii::app()->user->isAdmin()){ ?>
 <hr>
 
   <?php echo CHtml::beginForm('','post',array("class"=>"custom large-6")); ?>
