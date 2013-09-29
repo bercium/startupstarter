@@ -71,6 +71,11 @@
                   <a href="<?php echo Yii::app()->createUrl("profile"); ?>">
                     <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
                   </a>
+                  <?php if ($this->getNotifications()){ ?>
+                    <a href="<?php echo Yii::app()->createUrl("profile/notification"); ?>" style="position:relative;top: 10px;left:20px;">
+                      <span class="icon-flag" style="cursor: pointer; color: /*#CD3438*/ #89B561;font-size: 1.4em;"> <?php echo $this->getNotifications(); ?></span>
+                    </a>
+                  <?php } ?>                  
                 </div>
                <?php } ?>
               </li>
@@ -144,14 +149,14 @@
                 </ul>
 
               </li>
-              <?php if ($this->getNotifications()){ ?>
-              <li class="divider"></li>
+                <?php if ($this->getNotifications()){ ?>
+                <li class="divider"></li>
                 <li class="desc">
                   <a href="<?php echo Yii::app()->createUrl("profile/notification"); ?>" style="padding-top: 13px; background-color: #89B561;">
                     <span class="icon-flag" style="cursor: pointer; color: /*#CD3438*/ #FFF;font-size: 1.4em;"> <?php echo $this->getNotifications(); ?></span>
                   </a>
                 </li>
-              <?php } ?>
+                <?php } ?>
               <?php }else{ ?>
                 <li>
                   <a href="#" data-dropdown="drop-login"><?php echo Yii::t('app','Login'); ?></a>
