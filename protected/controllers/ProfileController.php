@@ -29,7 +29,7 @@ class ProfileController extends GxController {
 				array('allow',
 						'actions' => array('index', 'view', 'projects', 'account','upload','removeIdea','addIdea', 
                                'addLink','deleteLink','addSkill','deleteSkill','suggestSkill',
-                               'notification','acceptInvitation'),
+                               'notification','acceptInvitation','completeness'),
 						'users' => array("@"),
 				),
 				array('allow', // allow admins only
@@ -814,4 +814,15 @@ class ProfileController extends GxController {
      setFlash("notificationMessage", Yii::t('msg','Invitation removed!'));
      $this->redirect(Yii::app()->createUrl("profile/notification"));
    }
+   
+  public function actionCompleteness() {
+    $user_id = Yii::app()->user->id;
+    $user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
+
+    $filter['user_id'] = $user_id;
+    $sqlbuilder = new SqlBuilder;
+    $ideas = $sqlbuilder->load_array("user", $filter);
+    $ideas = $ideas['idea'];
+     $this->render('completeness',array('user' => $user, 'ideas'=>$ideas, "invites"=>$invites));
+  }
 }
