@@ -269,6 +269,7 @@ class SqlBuilder {
 				}
 				//add link
 				$row['link'] = $this->link( 'idea', $filter );
+				$row['gallery'] = $this->gallery( $filter );
 
 				if($type == 'user' && $this->level < 3){
 					$row['member'] = $this->user( 'member', $filter );
@@ -658,6 +659,24 @@ class SqlBuilder {
 						"`idea_link` AS il ".
 						"WHERE il.idea_id = '{$filter['idea_id']}'";
 		}
+
+		$connection=Yii::app()->db;
+		$command=$connection->createCommand($sql);
+		$dataReader=$command->query();
+		$array = array();
+
+		while(($row=$dataReader->read())!==false) {
+			$array[$row['id']] = $row;
+		}
+
+		return $array;
+	}
+
+	public function gallery($filter){
+
+		$sql=		"SELECT ig.* FROM ".
+					"`idea_gallery` AS ig ".
+					"WHERE ig.idea_id = '{$filter['idea_id']}'";
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
