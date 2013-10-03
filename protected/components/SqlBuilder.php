@@ -655,7 +655,7 @@ class SqlBuilder {
 						"WHERE ul.user_id = '{$filter['uid']}'";
 		} elseif($type == 'idea'){
 			$sql=		"SELECT il.* FROM ".
-						"`idea_id` AS il ".
+						"`idea_link` AS il ".
 						"WHERE il.idea_id = '{$filter['idea_id']}'";
 		}
 

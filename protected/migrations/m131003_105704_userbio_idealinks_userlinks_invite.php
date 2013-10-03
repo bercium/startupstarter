@@ -9,14 +9,14 @@ class m131003_105704_userbio_idealinks_userlinks_invite extends CDbMigration
 
 		$this->execute('CREATE TABLE IF NOT EXISTS `idea_link` (
 						  `id` int(9) unsigned NOT NULL AUTO_INCREMENT,
-						  `user_id` int(11) unsigned NOT NULL,
+						  `idea_id` int(11) unsigned NOT NULL,
 						  `title` varchar(128) NOT NULL,
 						  `url` varchar(128) NOT NULL,
 						  PRIMARY KEY (`id`),
-						  KEY `user_id` (`user_id`)
+						  KEY `idea_id` (`idea_id`)
 						) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1');
 		$this->execute('ALTER TABLE `idea_link`
-  						ADD CONSTRAINT `idea_link_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE');
+  						ADD CONSTRAINT `idea_link_ibfk_1` FOREIGN KEY (`idea_id`) REFERENCES `idea` (`id`) ON DELETE CASCADE');
 
 		$this->execute('ALTER TABLE  `invite` DROP FOREIGN KEY  `invite_ibfk_1`');
 		$this->execute('ALTER TABLE  `invite` DROP FOREIGN KEY  `invite_ibfk_2`');
