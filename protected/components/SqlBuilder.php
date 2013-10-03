@@ -267,6 +267,9 @@ class SqlBuilder {
 					$row['member'] = $this->user( 'member', $filter );
 					$row['num_of_members'] = count($row['member']);
 				}
+				//add link
+				$row['link'] = $this->link( 'idea', $filter );
+
 				if($type == 'user' && $this->level < 3){
 					$row['member'] = $this->user( 'member', $filter );
 				}
@@ -343,7 +346,7 @@ class SqlBuilder {
 			//return specific user's data
 			$sql=	"SELECT m.id AS match_id, ".
 					"u.id AS id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, ".
-					"u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
+					"u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, u.bio, ".
 					"l.name AS language, c.name AS country, ci.name AS city, m.country_id, m.city_id, ".
 					"m.available, a.name AS available_name, t.translation AS available_translation FROM ".
 					"`user_match` AS m ".
@@ -526,7 +529,7 @@ class SqlBuilder {
 				//add link
 				if($type != 'candidate'){
 					$filter['uid'] = $row['id'];
-					$row['link'] = $this->link( $filter );
+					$row['link'] = $this->link( 'user', $filter );
 				}
 
 				//is it one to one or one to many array?
@@ -644,11 +647,17 @@ class SqlBuilder {
 		return $array;
 	}
 
-	public function link($filter){
+	public function link($type, $filter){
 
-		$sql=		"SELECT ul.* FROM ".
-					"`user_link` AS ul ".
-					"WHERE ul.user_id = '{$filter['uid']}'";
+		if($type == 'user'){
+			$sql=		"SELECT ul.* FROM ".
+						"`user_link` AS ul ".
+						"WHERE ul.user_id = '{$filter['uid']}'";
+		} elseif($type == 'idea'){
+			$sql=		"SELECT il.* FROM ".
+						"`idea_id` AS il ".
+						"WHERE il.idea_id = '{$filter['idea_id']}'";
+		}
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
