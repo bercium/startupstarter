@@ -150,24 +150,38 @@ class SiteController extends Controller
     if (!Yii::app()->user->isGuest) $this->redirect("index"); //loged in no need to send notifications
     
     if (isset($_POST['email']) && !empty($_POST['email'])){
-      $invite = Invite::model()->findByAttributes(array('email' => $_POST['email']));
-      if ($invite){
-        $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invite->key;
-        $button = "<a href='".$activation_url."' class='button radius small' style='margin-bottom: 3px;'>".Yii::t('msg',"Register here")."</a>";
-        Yii::app()->user->setFlash("interestMessage",Yii::t('msg',"You already have invitation pending. To join please click {button} or copy this url:<br>{url}",array('{button}'=>$button,"{url}"=>$activation_url)));
+      
+      $invitee = User::model()->findByAttributes(array("email"=>$_POST['email']));
+      if ($invitee){
+        $login = '<a data-dropdown="drop-login" class="button radius small" style="margin-bottom:0;" href="#">'.Yii::t('msg','Login').'</a>';
+        Yii::app()->user->setFlash("interestMessage",Yii::t('msg','You have already registered please {login}',array('{login}' => $login)));
       }else{
-        $newFilePath = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "uploads";
-        if (!is_dir($newFilePath)) {
-          mkdir($newFilePath, 0777, true);
-          //chmod( $newFilePath, 0777 );
-        }
-        $filecont = '';
-        $newFilePath = $newFilePath.DIRECTORY_SEPARATOR."emails.txt";
-        if (file_exists($newFilePath)) $filecont = file_get_contents($newFilePath);
-        $filecont = $filecont.$_POST['email'].",\n";
-        file_put_contents($newFilePath,$filecont);
+      
+        $invite = Invite::model()->findByAttributes(array('email' => $_POST['email'],'id_idea'=>null));
+        if ($invite){
+          if ($invite->key){
+            $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invite->key;
+            $button = "<a href='".$activation_url."' class='button radius small' style='margin-bottom: 3px;'>".Yii::t('msg',"Register here")."</a>";
+            Yii::app()->user->setFlash("interestMessage",Yii::t('msg',"You already have invitation pending. To join please click {button} or copy this url:<br>{url}",array('{button}'=>$button,"{url}"=>$activation_url)));
+          }else Yii::app()->user->setFlash("interestMessage",Yii::t('msg',"We already have you in our list."));
+        }else{
 
-        Yii::app()->user->setFlash("interestMessage",Yii::t('msg',"Your email ({email}) was succesfully saved in our database.",array('{email}'=>$_POST['email'])));
+          /*$newFilePath = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "uploads";
+          if (!is_dir($newFilePath)) {
+            mkdir($newFilePath, 0777, true);
+            //chmod( $newFilePath, 0777 );
+          }
+          $filecont = '';
+          $newFilePath = $newFilePath.DIRECTORY_SEPARATOR."emails.txt";
+          if (file_exists($newFilePath)) $filecont = file_get_contents($newFilePath);
+          $filecont = $filecont.$_POST['email'].",\n";
+          file_put_contents($newFilePath,$filecont);*/
+
+          $invitation = new Invite();
+          $invitation->email = $_POST['email'];
+
+          if ($invitation->save())  Yii::app()->user->setFlash("interestMessage",Yii::t('msg',"Your email ({email}) was succesfully saved in our database.",array('{email}'=>$_POST['email'])));
+        }
       }
       $this->refresh();
     }

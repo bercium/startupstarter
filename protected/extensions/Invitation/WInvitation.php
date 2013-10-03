@@ -49,11 +49,21 @@ class WInvitation extends CWidget
 
                   $idea = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$invitation->id_idea),array('order' => 'FIELD(language_id, 40) DESC'));
 
-                  // invite user to system
-                  $invitation = new Invite();
-                  $invitation->email = $_POST['invite-email'];
-                  $invitation->id_sender = Yii::app()->user->id;
-                  $invitation->key = md5(microtime().$invitation->email);
+                  $invite = Invite::model()->findByAttributes(array('email' => $_POST['email'],'id_idea'=>null));
+                  if ($invite){
+                    //if self invited already
+                    if (!$invite->key){
+                      // invit
+                      $invitation->id_sender = Yii::app()->user->id;
+                      $invitation->key = md5(microtime().$invitation->email);
+                    }
+                  }else{
+                    // invite user to system
+                    $invitation = new Invite();
+                    $invitation->email = $_POST['invite-email'];
+                    $invitation->id_sender = Yii::app()->user->id;
+                    $invitation->key = md5(microtime().$invitation->email);
+                  }
                   $invitation->save();
 
                   $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'">Register here</a>';

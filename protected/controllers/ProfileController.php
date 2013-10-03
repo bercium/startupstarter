@@ -720,30 +720,42 @@ class ProfileController extends GxController {
  // send invitations
       if ($user){
 
-        // create invitation
-        $invitation = new Invite();
-        $invitation->email = $_POST['invite-email'];
-        $invitation->id_sender = Yii::app()->user->id;
-        $invitation->key = md5(microtime().$invitation->email);
-        if (!empty($_POST['invite-idea'])){
-          $invitation->id_idea = $_POST['invite-idea']; // invite to idea
-          //$invitee = User::model()->findByPk(Yii::app()->user->id);
-          //$invitation->id_user = 
-        }
-
-        if ($invitation->save()){
-          $user->invitations = $user->invitations-1;
-          $user->save();
-
-          $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key;
-
-          Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation generated: <br /><br />'.$activation_url));
+        $invitee = User::model()->findByAttributes(array("email"=>$_POST['invite-email']));
+        if ($invitee){
+          Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitee is already in the system.'.$activation_url));
         }else{
-          $invitation = Invite::model()->findByAttributes(array("email"=>$_POST['invite-email']));
-          $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key;
-          Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation already exist: <br /><br />'.$activation_url));
-        }
+          $invitation = Invite::model()->findByAttributes(array('email'=>$_POST['invite-email'],'key'=>null)); // self invited from system
 
+          if ($invitation){
+            // self invitation exists
+            $invitation->id_sender = Yii::app()->user->id;
+            $invitation->key = md5(microtime().$invitation->email);
+          }else{
+            // create invitation
+            $invitation = new Invite();
+            $invitation->email = $_POST['invite-email'];
+            $invitation->id_sender = Yii::app()->user->id;
+            $invitation->key = md5(microtime().$invitation->email);
+            if (!empty($_POST['invite-idea'])){
+              $invitation->id_idea = $_POST['invite-idea']; // invite to idea
+              //$invitee = User::model()->findByPk(Yii::app()->user->id);
+              //$invitation->id_user = 
+            }
+          }
+
+          if ($invitation->save()){
+            $user->invitations = $user->invitations-1;
+            $user->save();
+
+            $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key;
+
+            Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation generated: <br /><br />'.$activation_url));
+          }else{
+            $invitation = Invite::model()->findByAttributes(array("email"=>$_POST['invite-email']));
+            $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key;
+            Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation already exist: <br /><br />'.$activation_url));
+          }
+        }// end not in system
       }
     }
     
