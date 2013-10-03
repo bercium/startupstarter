@@ -722,7 +722,7 @@ class ProfileController extends GxController {
 
         $invitee = User::model()->findByAttributes(array("email"=>$_POST['invite-email']));
         if ($invitee){
-          Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitee is already in the system.'.$activation_url));
+          Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitee is already in the system.'));
         }else{
           $invitation = Invite::model()->findByAttributes(array('email'=>$_POST['invite-email'],'key'=>null)); // self invited from system
 

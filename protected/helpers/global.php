@@ -68,6 +68,7 @@ function isMenuItemActive($action,$controller = ''){
       if ($act == Yii::app()->controller->action->id) return "active";
   }
   else if ($action == Yii::app()->controller->action->id) return "active";
+  return '';
 }
 
 
