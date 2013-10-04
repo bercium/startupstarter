@@ -6,21 +6,25 @@
 				
 				<?php	if ($user['city'] || $user['country']){ ?>
 						<small class="meta" data-tooltip title="<img src='<?php echo getGMap($user['country'],$user['city'],$user['address']); ?>'>">
-            <span class="general foundicon-location" title=""></span>
-          <a><?php
-							echo $user['city']; 
-							if ($user['city'] && $user['country']) echo ', '; 
-							echo $user['country']; 
-							?></a>
+           
+
 						<?php //echo $user['address']; ?>
 						</small>
 					<?php } ?>
 					
 		  </div>
 	  </div>
-
+    
     <div  class="row">
       <div class="columns card-content"  >
+        <div class="columns">
+         <span class="general foundicon-location" title=""></span>
+          <?php
+              echo $user['city']; 
+              if ($user['city'] && $user['country']) echo ', '; 
+              echo $user['country']; 
+              ?>
+        </div>
         
         <small class="meta person-skills">
           <?php 

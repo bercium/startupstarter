@@ -222,12 +222,12 @@ margin-left: 20px;
 /*****************/
 .card-content .meta_tags {
 	letter-spacing: 0px;
-	font-family: "tahoma","arial",sans-serif;
+	font-family: arial, sans-serif;
     font-size: 0.8em;
     letter-spacing: 0.05em;
     line-height: 0.7em;
     text-transform: uppercase;
-    margin: 0 2px 2px 0;
+    margin: 0 2px 1px 0;
 }
 
 .card-content .meta_tags .label {
@@ -254,6 +254,19 @@ margin-left: 20px;
 	border-radius: 2px; 
 }
 
+.card-person .card-person-title .columns {
+    display: table !important;
+    
+}
+
+.card-person .card-person-title h5 {
+display: table-cell !important;
+    line-height: 1.4em;
+    padding-bottom: 17px;
+    vertical-align: middle !important;
+    }
+
+
 .card-person .card-content {
 	position: relative;
 	min-height: 160px;
@@ -264,9 +277,6 @@ margin-left: 20px;
 	right: 15px;
 	bottom: -6px;
 
-}
-.person-skills {
-	/*min-height: */
 }
 
 
@@ -522,11 +532,15 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
   float:right;
 }
 
-.card-floater{
-  float:right; 
+
   
   padding-left: 12px; 
   font-size: 0.8em;
+}
+
+img.card-avatar {
+	height: 24px;
+	position: static;
 }
 
 .card-avatar, .card-icons{
@@ -558,102 +572,6 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
   padding: 0 !important;
   background-color: #666 !important;
 }
-
-
-
-
-/* #   $foundation custom fixes
-================================================== */
-
-.top-bar-holder{
-  background: none repeat scroll 0 0 #111111; 
-  border-bottom: 1px solid #000; 
-  box-shadow:0 2px 2px 0px rgba(0, 0, 0, .25); 
-  border-top: 1px solid #333;
-}
-
-.top-bar-avatar{
-  float:left;
-  margin-top:6px; 
-  height:34px; 
-  margin-right: 10px;
-
-  border:1px solid #FFF;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-}
-
-.top-bar-person{
-  float:left; 
-  line-height:26px;
-  color:#222 !important; /* hide  link style */
-}
-
-
-  .top-bar-section .dropdown li  a:hover     {
-
-  	background: #f0f0f0;
-
-  }
-
- 
- .top-bar-section .dropdown li a.altli
-  {
- 	background: #f0f0f0;
- }
-.top-bar-section .dropdown li a.altli:hover {
-	background: #ddd;
-}
-
- .top-bar-section .dropdown li a .general,
- .top-bar-section .dropdown li a .icon-user,
- .top-bar-section .dropdown li a .icon-lightbulb
-  {
- 	position: absolute;
- 	right: 10px;
-  line-height: 1.6em;
-  color:#666;
- 	/*line-height: 2.3em;*/
- }
-
-
-      .top-bar,
-.top-bar-holder,
-.top-bar-section li a:not(.button) {
-  background: #fff;
-  box-shadow: none; 
-}
-
-.top-bar-section > ul > .divider {
-    border-color: -moz-use-text-color #ddd -moz-use-text-color #fff; 
- }
-
-.top-bar-holder {
-  border-bottom: 1px solid #bbb;
-  box-shadow: 0 -1px 0 2px #ddd;
-}
-
-
-.section-container section, .section-container .section, .section-container.auto section, .section-container.auto .section {
-    border-bottom: 1px solid #ddd;
-    border-top: none;
-    position: relative;
-}
-
-.top-bar-section ul li > a {
-	color: #221E1D;
-}
-
-.panel h1, .panel h2, .panel h3, .panel h4, .panel h5, .panel h6, .panel p {
-    color: #403a36;
-}
-
- .section-container section.active .title,
-    .section-container .section.active .title, .section-container.auto section.active .title,
-    .section-container.auto .section.active .title {
-      background: #ddd; }
-
 
 
 
@@ -1261,7 +1179,7 @@ h6.title-field {
   color:#FFF !important;
 }
 
-/* #PERSON PAGE
+/* @PERSON PAGE
 ================================================== */
 .person-details{
   margin-top:40px;
@@ -1272,26 +1190,47 @@ h6.title-field {
   padding-right: 13px;
 }
 
-.person-details .card-person {
-    padding-bottom: 30px;
-}
 
-.person-details .card-person h1{
+
+.person-details h1{
 	font-size: 1.375em;
 	line-height: 0.9;
-	margin: 5px 0 0 0 ;
+	margin: 20px 0 20px 0 ;
+	color: #334421;	
+	text-transform: capitalize;
 }
 
 
-.person-details .card-person .card-person-title {
-	padding-bottom: 0.7em;
-	padding-top: 1em;
+.person-details .card-person-title {
+	
+	line-height: 1.3em;
+	font-size: 1.1em;
+	text-transform: lowercase;
+	font-weight: bold;
+	margin: 0 -13px 0 -13px;
+	padding: 4px 10px;
+	border-bottom: 1px solid #ddd;
+	background: #F8F6F5;		
 }
 
-.person-details .card-person  img {
-height:100px; margin-right: 20px; float:left;
+
+.person-details h3.card-person-title {
+	color: inherit;
 }
 
+.person-details img.card-avatar {
+	    border: 1px solid #FFFFFF;
+    border-radius: 2px 2px 2px 2px;
+    box-shadow: 0 0 0 1px #DDDDDD;    
+    margin-top: 15px;
+    width: 100%;
+    height: 100%;
+}
+
+.lbf1 {
+    float: right;
+    width: 47.5%;
+}
 
 
 .person-details .card-person .meta-field {
@@ -1303,7 +1242,10 @@ height:100px; margin-right: 20px; float:left;
 }
 
 .person-details .card-person .card-floater {
- margin-top:  30px;
+ margin-top:  20px;  
+}
+.person-details .card-person .card-floater a {
+	margin-bottom: 0;
 }
 
 .person-details .card-person span.foundicon-idea {
@@ -1330,9 +1272,7 @@ border-right: none;
 }
 
 
-.person-details .skills {
-	margin-bottom: 20px;
-}
+
 
 
 
@@ -1366,15 +1306,11 @@ border-right: none;
 }
 
 
-.person-details .card-floater {
-	margin-right: 20px;
-	
-}
+
 
 .person-details .icon-external-link {
-	font-size: 0.5em;
-	position: absolute;
-	margin-left: 2px;
+	font-size: 0.8em;
+	margin-right: 5px;
 
 }
 
