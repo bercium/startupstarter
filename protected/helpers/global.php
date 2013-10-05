@@ -160,6 +160,61 @@ function getGMap($country = '', $city = '', $addr = ''){
   }
 }
 
+
+/**
+ * 
+ */
+//if(!class_exists('elhttpclient'));
+function getLinkIcon($link){
+  //include_once "httpclient.php";
+	//if(!class_exists('elhttpclient')){
+	Yii::import('application.helpers.elHttpClient');
+	//}
+  $httpClient = new elHttpClient();
+  $httpClient->setUserAgent("ff3");
+ 
+  $link =  parse_url("http://".remove_http($link), PHP_URL_HOST);
+  
+  $URL = "http://www.google.com/s2/favicons?domain=".$link;
+ 
+  $filename = $link.".png";
+  $folder = Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['iconsFolder'];
+  
+  if (file_exists($folder.$filename)){
+    return Yii::app()->getBaseUrl(true)."/".Yii::app()->params['iconsFolder'].$filename;
+  }else{
+    //$this->buildRequest($URL, 'GET');
+    //return $this->fetch($URL);
+    $httpClient->setHeaders(array("Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"));
+    //$htmlDataObject = $httpClient->get("maps.googleapis.com");
+    $URL = str_replace(" ", "%20", $URL);
+    $htmlDataObject = $httpClient->get($URL);
+    //change from XML to array
+    $htmlData = $htmlDataObject->httpBody;
+    
+ 		if (!is_dir($folder)) {
+			mkdir($folder, 0777, true);
+		}
+
+    file_put_contents($folder.$filename, $htmlData);
+    return Yii::app()->getBaseUrl(true)."/".Yii::app()->params['iconsFolder'].$filename;
+  }
+}
+
+
+/**
+ * remove http:// and https://
+ */
+function remove_http($url) {
+   $disallowed = array('http://', 'https://');
+   foreach($disallowed as $d) {
+      if(strpos($url, $d) === 0) {
+         return str_replace($d, '', $url);
+      }
+   }
+   return $url;
+}
+
 /**
  * will convert array data into format useful for logging
  */

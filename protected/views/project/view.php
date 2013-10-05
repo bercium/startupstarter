@@ -104,14 +104,15 @@ $idea = $data['idea'];
           // show first 4 members
           if(isset($idea['member'])){
             foreach ($idea['member'] as $member){
-              $i++; if ($i > 3) break;
+              $i++; 
+              //if ($i > 3) break;
             ?>
               <a href="<?php echo Yii::app()->createUrl("person/".$member['id']); ?>">
                 <img src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" data-tooltip title="<?php echo $member['name']." ".$member['surname']; ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="card-avatar" />
               </a>
             <?php } 
               // extra members
-              if (count($idea['member']) > 3) echo '<font class="meta">+'.(count($idea['member'])-3).'</font>';
+              //if (count($idea['member']) > 3) echo '<font class="meta">+'.(count($idea['member'])-3).'</font>';
           }
         ?>
       </p>
@@ -135,12 +136,19 @@ $idea = $data['idea'];
 			<div class="large-4 columns">
         <?php if ($idea['website']){ ?>
         <hr>
-        <p class="title-field meta"><span class="icon-globe" title=""></span>
+        <p class="title-field meta">
+          <img src="<?php echo getLinkIcon($idea['website']); ?>">
+          <?php /* ?><span class="icon-globe" title=""></span><?php */ ?>
         <?php
           echo Yii::t('app',"Official web page").': <a href="http://'.$idea['website'].'" target="_blank">'.$idea['website']."</a>";
         } ?>
-        <?php if (isset($idea['video']) && $idea['video']){
-          echo Yii::t('app',"Link to video").': <a href="http://'.$idea['video'].'" target="_blank">'.$idea['video']."</a>";
+        <?php if ($idea['video_link']){ 
+          if (!$idea['website']) echo "<hr>"; ?>
+          
+         <br>
+         <img src="<?php echo getLinkIcon($idea['video_link']); ?>">
+        <?php  
+          echo Yii::t('app',"Link to video").': <a href="http://'.$idea['video_link'].'" target="_blank">'.$idea['video_link']."</a>";
         } ?>
         </p>
         <hr>

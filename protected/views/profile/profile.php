@@ -292,6 +292,7 @@
       <div class="linkList">
         <?php foreach ($data['user']['link'] as $link){ ?>
         <div data-alert class="alert-box radius secondary" id="link_div_<?php echo $link['id']; ?>">
+          <img src="<?php echo getLinkIcon($link['url']); ?>">
           <?php echo $link['title']; ?>: <a href="http://<?php echo $link['url']; ?>" target="_blank"><?php echo $link['url']; ?></a>
           <a href="#" class="close" onclick="removeLink(<?php echo $link['id']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteLink"); ?>')">&times;</a>
         </div>

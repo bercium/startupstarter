@@ -3,28 +3,23 @@
       <div class="columns" >
         <img src="<?php echo avatar_image($user['avatar_link'],$user['id'],60); ?>" style="height:60px; margin-right: 10px; float:left;" />
         <h5><?php echo $user['name']." ".$user['surname']; ?></h5>
-				
 				<?php	if ($user['city'] || $user['country']){ ?>
 						<small class="meta" data-tooltip title="<img src='<?php echo getGMap($user['country'],$user['city'],$user['address']); ?>'>">
            
-
+             <span class="general foundicon-location" title=""></span>
+              <?php
+                  echo $user['city']; 
+                  if ($user['city'] && $user['country']) echo ', '; 
+                  echo $user['country']; 
+                  ?>
 						<?php //echo $user['address']; ?>
 						</small>
-					<?php } ?>
-					
+					<?php } ?>				
 		  </div>
 	  </div>
     
     <div  class="row">
       <div class="columns card-content"  >
-        <div class="columns">
-         <span class="general foundicon-location" title=""></span>
-          <?php
-              echo $user['city']; 
-              if ($user['city'] && $user['country']) echo ', '; 
-              echo $user['country']; 
-              ?>
-        </div>
         
         <small class="meta person-skills">
           <?php 

@@ -71,7 +71,12 @@ $user = $data['user'];
 		<?php 
 		foreach ($user['link'] as $link) {
 		?>
-		<p><span class="icon-external-link"></span><small class="meta"><a href="<?php echo "http://".$link['url']; ?>" target="_blank"><?php echo $link['title']; ?>  </a></small></p><?php 
+		<p><span class="icon-external-link"></span>
+      
+      <small class="meta"><a href="<?php echo "http://".$link['url']; ?>" target="_blank">
+      <img src="<?php echo getLinkIcon($link['url']); ?>">
+      <?php echo $link['title']; ?>  </a></small>
+    </p><?php 
 		}
 		?>
 

@@ -160,5 +160,6 @@ return array(
     'tempFolder'=>'temp/',
     'avatarFolder'=>'uploads/avatars/',
     'mapsFolder'=>'uploads/maps/',
+    'iconsFolder'=>'uploads/icons/',
 	),
 );
