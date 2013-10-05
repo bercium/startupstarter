@@ -180,7 +180,21 @@ class SiteController extends Controller
           $invitation = new Invite();
           $invitation->email = $_POST['email'];
 
-          if ($invitation->save())  Yii::app()->user->setFlash("interestMessage",Yii::t('msg',"Your email ({email}) was succesfully saved in our database.",array('{email}'=>$_POST['email'])));
+          if ($invitation->save()){
+            $message = new YiiMailMessage;
+            $message->view = 'system';      
+
+            $message->subject = "You have requested invite for cofinder";
+            $content = 'Thank you for your interest in joining <a href="http://www.cofinder.eu">cofinder</a>!
+                        <br>We will keep you posted on progress we make.';
+            $message->setBody(array("content"=>$content), 'text/html');
+
+            $message->addTo($_POST['email']);
+            $message->from = Yii::app()->params['noreplyEmail'];
+            Yii::app()->mail->send($message);
+      
+            Yii::app()->user->setFlash("interestMessage",Yii::t('msg',"Your email ({email}) was succesfully saved in our database.",array('{email}'=>$_POST['email'])));
+          }
         }
       }
       $this->refresh();
