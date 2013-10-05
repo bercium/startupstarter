@@ -256,7 +256,7 @@ class ProjectController extends GxController {
 		}
 		if($step == 2 || $id){
 	      $user = User::model()->findByPk(Yii::app()->user->id);
-	      $invites['data'] = Invite::model()->findAllByAttributes(array("id_idea"=>$id,"id_sender"=>Yii::app()->user->id),'NOT ISNULL(id_idea)');
+	      $invites['data'] = Invite::model()->findAllByAttributes(array("idea_id"=>$id,"sender_id"=>Yii::app()->user->id),'NOT ISNULL(idea_id)');
 	      $invites['count'] = $user->invitations;
 
       

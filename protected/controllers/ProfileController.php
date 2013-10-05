@@ -728,16 +728,16 @@ class ProfileController extends GxController {
 
           if ($invitation){
             // self invitation exists
-            $invitation->id_sender = Yii::app()->user->id;
+            $invitation->sender_id = Yii::app()->user->id;
             $invitation->key = md5(microtime().$invitation->email);
           }else{
             // create invitation
             $invitation = new Invite();
             $invitation->email = $_POST['invite-email'];
-            $invitation->id_sender = Yii::app()->user->id;
+            $invitation->sender_id = Yii::app()->user->id;
             $invitation->key = md5(microtime().$invitation->email);
             if (!empty($_POST['invite-idea'])){
-              $invitation->id_idea = $_POST['invite-idea']; // invite to idea
+              $invitation->idea_id = $_POST['invite-idea']; // invite to idea
               //$invitee = User::model()->findByPk(Yii::app()->user->id);
               //$invitation->id_user = 
             }
@@ -773,14 +773,14 @@ class ProfileController extends GxController {
     $ideas = $sqlbuilder->load_array("user", $filter);
     $ideas = $ideas['idea'];
 
-    $invite_record = Invite::model()->findAllByAttributes(array(),"(id_receiver = :idReceiver OR email LIKE :email) AND NOT ISNULL(id_idea)",array(":idReceiver"=>$user_id,":email"=>$user->email));
+    $invite_record = Invite::model()->findAllByAttributes(array(),"(receiver_id = :idReceiver OR email LIKE :email) AND NOT ISNULL(idea_id)",array(":idReceiver"=>$user_id,":email"=>$user->email));
     
     $invites = array();
     foreach ($invite_record as $invite){
-      $idea = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$invite->id_idea),array('order' => 'FIELD(language_id, 40) DESC'));
+      $idea = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$invite->idea_id),array('order' => 'FIELD(language_id, 40) DESC'));
 
       if ($idea)
-      $invites[] = array('id' => $invite->id_idea,
+      $invites[] = array('id' => $invite->idea_id,
                          'title' => $idea->title,
                          'user' => $invite->idSender);
     }
@@ -792,7 +792,7 @@ class ProfileController extends GxController {
    public function actionAcceptInvitation($id){
  		 $user_id = Yii::app()->user->id;
   	 $user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
-     $invite_record = Invite::model()->findByAttributes(array(),"(id_receiver = :idReceiver OR email LIKE :email) AND id_idea = :idIdea",
+     $invite_record = Invite::model()->findByAttributes(array(),"(receiver_id = :idReceiver OR email LIKE :email) AND idea_id = :idIdea",
                                                         array(":idIdea"=>$id, ":idReceiver"=>$user_id,":email"=>$user->email));
      
      if ($invite_record){
@@ -818,7 +818,7 @@ class ProfileController extends GxController {
    public function actionDeclineInvitation($id){
  		 $user_id = Yii::app()->user->id;
   	 $user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
-     $invite_record = Invite::model()->findByAttributes(array(),"(id_receiver = :idReceiver OR email LIKE :email) AND id_idea = :idIdea",
+     $invite_record = Invite::model()->findByAttributes(array(),"(receiver_id = :idReceiver OR email LIKE :email) AND idea_id = :idIdea",
                                                         array(":idIdea"=>$id, ":idReceiver"=>$user_id,":email"=>$user->email));
      
      if ($invite_record) $invite_record->delete();

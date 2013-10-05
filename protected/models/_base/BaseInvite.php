@@ -10,11 +10,11 @@
  * followed by relations of table "invite" available as properties of the model.
  *
  * @property integer $id
- * @property string $id_sender
+ * @property string $sender_id
  * @property string $key
  * @property string $email
- * @property string $id_idea
- * @property string $id_receiver
+ * @property string $idea_id
+ * @property string $receiver_id
  *
  * @property User $idSender
  * @property Idea $idIdea
@@ -50,7 +50,7 @@ abstract class BaseInvite extends GxActiveRecord {
         )),        
 			array('sender_id, idea_id, receiver_id', 'length', 'max'=>11),
 			array('key, email', 'length', 'max'=>50),
-			array('key, idea_id, receiver_id', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('key, idea_id, receiver_id, sender_id', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('time_invited', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
 			array('id, sender_id, key, email, idea_id, receiver_id', 'safe', 'on'=>'search'),
 		);

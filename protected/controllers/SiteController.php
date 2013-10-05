@@ -157,7 +157,7 @@ class SiteController extends Controller
         Yii::app()->user->setFlash("interestMessage",Yii::t('msg','You have already registered please {login}',array('{login}' => $login)));
       }else{
       
-        $invite = Invite::model()->findByAttributes(array('email' => $_POST['email'],'id_idea'=>null));
+        $invite = Invite::model()->findByAttributes(array('email' => $_POST['email'],'idea_id'=>null));
         if ($invite){
           if ($invite->key){
             $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invite->key;
