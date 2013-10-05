@@ -29,16 +29,16 @@ if(is_array($ideadata['member'])){
   }
 }
 ?>
-
+<?php /* ?>
 <span class="description">
   <?php echo Yii::t('msg','In private beta member invitations are disabled.'); ?>
-</span>
-<?php if ($invitations && yii::app()->user->isAdmin()){ ?>
+</span><?php */ ?>
+<?php //if ($invitations && Yii::app()->user->isAdmin()){ ?>
 <hr>
 
   <?php echo CHtml::beginForm('','post',array("class"=>"custom large-6")); ?>
 
-      <?php echo CHtml::label(Yii::t('app','Invited to project'),'message'); ?>
+      <?php echo CHtml::label(Yii::t('app','Invite to project'),'message'); ?>
       <div class="row collapse">
         <div class="small-9 columns">
           <?php echo CHtml::textField('invite-email'); ?>
@@ -59,4 +59,4 @@ if(is_array($ideadata['member'])){
   <?php } ?>
 </p>
 <?php }
-} ?>
+//} ?>

@@ -29,7 +29,7 @@ class ProfileController extends GxController {
 				array('allow',
 						'actions' => array('index', 'view', 'projects', 'account','upload','removeIdea','addIdea', 
                                'addLink','deleteLink','addSkill','deleteSkill','suggestSkill',
-                               'notification','acceptInvitation'),
+                               'notification','acceptInvitation','completeness'),
 						'users' => array("@"),
 				),
 				array('allow', // allow admins only
@@ -720,30 +720,42 @@ class ProfileController extends GxController {
  // send invitations
       if ($user){
 
-        // create invitation
-        $invitation = new Invite();
-        $invitation->email = $_POST['invite-email'];
-        $invitation->id_sender = Yii::app()->user->id;
-        $invitation->key = md5(microtime().$invitation->email);
-        if (!empty($_POST['invite-idea'])){
-          $invitation->id_idea = $_POST['invite-idea']; // invite to idea
-          //$invitee = User::model()->findByPk(Yii::app()->user->id);
-          //$invitation->id_user = 
-        }
-
-        if ($invitation->save()){
-          $user->invitations = $user->invitations-1;
-          $user->save();
-
-          $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key;
-
-          Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation generated: <br /><br />'.$activation_url));
+        $invitee = User::model()->findByAttributes(array("email"=>$_POST['invite-email']));
+        if ($invitee){
+          Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitee is already in the system.'));
         }else{
-          $invitation = Invite::model()->findByAttributes(array("email"=>$_POST['invite-email']));
-          $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key;
-          Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation already exist: <br /><br />'.$activation_url));
-        }
+          $invitation = Invite::model()->findByAttributes(array('email'=>$_POST['invite-email'],'key'=>null)); // self invited from system
 
+          if ($invitation){
+            // self invitation exists
+            $invitation->id_sender = Yii::app()->user->id;
+            $invitation->key = md5(microtime().$invitation->email);
+          }else{
+            // create invitation
+            $invitation = new Invite();
+            $invitation->email = $_POST['invite-email'];
+            $invitation->id_sender = Yii::app()->user->id;
+            $invitation->key = md5(microtime().$invitation->email);
+            if (!empty($_POST['invite-idea'])){
+              $invitation->id_idea = $_POST['invite-idea']; // invite to idea
+              //$invitee = User::model()->findByPk(Yii::app()->user->id);
+              //$invitation->id_user = 
+            }
+          }
+
+          if ($invitation->save()){
+            $user->invitations = $user->invitations-1;
+            $user->save();
+
+            $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key;
+
+            Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation generated: <br /><br />'.$activation_url));
+          }else{
+            $invitation = Invite::model()->findByAttributes(array("email"=>$_POST['invite-email']));
+            $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key;
+            Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation already exist: <br /><br />'.$activation_url));
+          }
+        }// end not in system
       }
     }
     
@@ -814,4 +826,15 @@ class ProfileController extends GxController {
      setFlash("notificationMessage", Yii::t('msg','Invitation removed!'));
      $this->redirect(Yii::app()->createUrl("profile/notification"));
    }
+   
+  public function actionCompleteness() {
+    $user_id = Yii::app()->user->id;
+    $user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
+
+    $filter['user_id'] = $user_id;
+    $sqlbuilder = new SqlBuilder;
+    $ideas = $sqlbuilder->load_array("user", $filter);
+    $ideas = $ideas['idea'];
+     $this->render('completeness',array('user' => $user, 'ideas'=>$ideas, "invites"=>$invites));
+  }
 }

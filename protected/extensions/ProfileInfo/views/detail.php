@@ -1,9 +1,11 @@
 <div class="profile-info">
   <?php echo Yii::t('app',"Profile completeness"); ?>: 
+  <a href="<?php echo Yii::app()->createUrl("profile/completeness"); ?>">
   <div class="progress <?php echo $percClass; ?> round">
     <span class="meter" style="width:<?php echo $perc; ?>%;">
     </span>
   </div>
+  </a>
     <?php echo Yii::t('app',"Profile viewed"); ?> 
     <strong><?php echo Yii::t('app',"{n} time|{n} times",$views); ?></strong>
     <br />

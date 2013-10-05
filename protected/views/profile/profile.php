@@ -15,6 +15,13 @@
  
 <div class="row">
   <div class="columns edit-header">
+
+    <div class="edit-floater">
+      <a class="button radius small" href="person/<?php echo $user['id']; ?>" target="_blank"><?php echo Yii::t('app',"Preview"); ?> 
+      </a>
+    </div>
+
+    
     <h3><?php echo Yii::t('app', 'Profile details'); ?></h3>
   </div>
   <div class="columns panel edit-content">
@@ -32,7 +39,7 @@
     </div>
     <?php } ?>
     
-    <?php echo CHtml::beginForm('','post',array('class'=>"custom  large-6")); ?>
+    <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6")); ?>
     <p>
 			
     <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
@@ -102,7 +109,7 @@
               'id'=>'SkillForm',
 //             'enableClientValidation'=>true,
                'htmlOptions'=>array(
-                              'class'=>'custom',
+                              //'class'=>'customs',
                               'onsubmit'=>"return false;",/* Disable normal form submit */
                               //'onkeypress'=>" if(event.keyCode == 13){ addSkill('".Yii::app()->createUrl("profile/addSkill")."'); } " /* Do ajax call when user presses enter key */
                               ),

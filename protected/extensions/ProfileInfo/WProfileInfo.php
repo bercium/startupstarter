@@ -42,6 +42,22 @@ class WProfileInfo extends CWidget
       $messages = array();
       if (Yii::app()->user->id){
         $user = User::model()->findByPk(Yii::app()->user->id);
+        
+        /*
+        "surname" => array(
+              "group"=>"",
+              "name"=>"",
+              "hint"=>"",
+              "action"=>"",
+              "active"=>false,
+              )
+        ID
+        GROUP
+        NAME
+        HINT
+        ACTION
+        ACTIVE
+        */
 
         if ($user->surname != '') $perc+=10;
         else $messages[] = array("hint"=>Yii::t('msg',"Try filling up your personal information."),

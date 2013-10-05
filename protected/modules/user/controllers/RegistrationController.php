@@ -36,7 +36,7 @@ class RegistrationController extends Controller
             $this->redirect(Yii::app()->createUrl('profile'));
         } else {
             $invited = null;
-            if ($id != '') $invited = Invite::model()->findByAttributes(array('key' => $id));
+            if ($id != '') $invited = Invite::model()->findByAttributes(array('key' => $id,'id_idea'=>null));
             
             if ($id == '' || $invited == null) {
               //Yii::log(CVarDumper::dumpAsString($invited));

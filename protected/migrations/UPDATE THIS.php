@@ -1,0 +1,1 @@
+ALTER TABLE `invite` CHANGE `id_sender` `sender_id` INT( 11 ) UNSIGNED NULL 

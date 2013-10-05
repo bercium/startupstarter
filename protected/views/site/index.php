@@ -126,7 +126,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
       </div>
 		</div>
 
-    <?php echo CHtml::beginForm(Yii::app()->createUrl("site/index")."#filter_search",'get',array('class'=>"custom","style"=>"margin-bottom:0;")); ?>
+    <?php echo CHtml::beginForm(Yii::app()->createUrl("site/index")."#filter_search",'get',array("style"=>"margin-bottom:0;")); ?>
 		<?php echo CHtml::hiddenField("SearchForm[isProject]", "1");  ?>
 		
 		<div class="row filter_projects" <?php if (!$filter->isProject) echo 'style="display:none"'; ?>>
@@ -137,7 +137,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 				<?php echo CHtml::activedropDownList($filter,'stage', 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
               CHtml::listData(IdeaStatus::model()->findAllTranslated(),"id","name")
-							, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
+							, array('empty' => '&nbsp;')); ?>
 			</div>
 
 			<div class="large-3 columns">
@@ -147,7 +147,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 				<?php echo CHtml::activedropDownList($filter,'language', 
 							//GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
 							CHtml::listData(Language::model()->findAllAttributes(null, true),"id","native_name")
-							, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
+							, array('empty' => '&nbsp;')); ?>
 			</div>
 
 			<div class="large-3 columns">
@@ -195,7 +195,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 						<?php echo CHtml::dropDownList('SearchForm[collabPref]',$filter->collabPref, 
 									//GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
 									CHtml::listData(Collabpref::model()->findAllTranslated(),"id","name")
-									, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
+									, array('empty' => '&nbsp;')); ?>
 					</div>
 				
 					<div class="large-3 columns">
@@ -205,15 +205,15 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 						<?php echo CHtml::dropDownList('SearchForm[available]',$filter->available, 
 									//GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
 									CHtml::listData(Available::model()->findAllTranslated(),"id","name")
-									, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
+									, array('empty' => '&nbsp;')); ?>
 					</div>	
 
 					<div class="large-3 extra_detail columns end">
 						<label for="SearchForm_extraDetail">
-							<?php echo CHtml::activeCheckBox($filter,'extraDetail',array("style"=>"display:none")); ?>
+							<?php echo CHtml::activeCheckBox($filter,'extraDetail',array()); ?>
 							<?php echo Yii::t('app','Has extra detail'); ?>
 						</label>
-					</div>			
+          </div>
 					
 				
 			</div>			
@@ -232,7 +232,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 				<?php echo CHtml::dropDownList('SearchForm[collabPref]',$filter->collabPref, 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
               CHtml::listData(Collabpref::model()->findAllTranslated(),"id","name")
-							, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
+							, array('empty' => '&nbsp;')); ?>
 				
 				
 			</div>
@@ -243,7 +243,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 				<?php echo CHtml::dropDownList('SearchForm[available]',$filter->available, 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
               CHtml::listData(Available::model()->findAllTranslated(),"id","name")
-							, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
+							, array('empty' => '&nbsp;')); ?>
 			</div>
 			<?php /* ?>
 			<div class="large-3 columns">
