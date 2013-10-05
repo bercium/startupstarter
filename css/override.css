@@ -158,6 +158,9 @@ form.custom .custom.checkbox.checked:before{
   top: -10px; 
 }
 
+
+/*     CUSTOM DROPDOWN       */
+
 .chzn-container{
   margin-bottom: 1.25em;
   border:1px solid #CCCCCC;
