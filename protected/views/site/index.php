@@ -221,7 +221,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 		<?php echo CHtml::endForm(); ?>		
 		
 		
-    <?php echo CHtml::beginForm(Yii::app()->createUrl("site/index")."#filter_search",'get',array('class'=>"customs","style"=>"margin-bottom:0;")); ?>
+    <?php echo CHtml::beginForm(Yii::app()->createUrl("site/index")."#filter_search",'get',array('class'=>"custom","style"=>"margin-bottom:0;")); ?>
 		<?php echo CHtml::hiddenField("SearchForm[isProject]", "0");  ?>
 		
 		<div class="row filter_people" <?php if ($filter->isProject) echo 'style="display:none"'; ?>>
