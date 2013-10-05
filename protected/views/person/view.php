@@ -38,14 +38,13 @@ $user = $data['user'];
 		</div>
 		<p>
 					
-						<span class="icon-map-marker"></span>
-						<small class="meta">
-						<?php echo $user['address']; ?></small><br />
-						
-						<?php if ($user['city'] || $user['country']) { ?>
+						<?php if ($user['city'] || $user['country'] || $user['address']) { ?>
 						
 						<strong>
-							<small class="" data-tooltip title="<img src='<?php echo getGMap($user['country'], $user['city'], $user['address']); ?>'>">
+							<small class="meta" data-tooltip title="<img src='<?php echo getGMap($user['country'], $user['city'], $user['address']); ?>'>">
+                <span class="icon-map-marker"></span>
+                <?php echo $user['address']; ?>
+                <br />
 
 								<?php
 								echo $user['city'];
@@ -73,7 +72,7 @@ $user = $data['user'];
 		?>
 		<p><span class="icon-external-link"></span>
       
-      <small class="meta"><a href="<?php echo "http://".$link['url']; ?>" target="_blank">
+      <small class="meta"><a href="<?php echo add_http($link['url']); ?>" target="_blank">
       <img src="<?php echo getLinkIcon($link['url']); ?>">
       <?php echo $link['title']; ?>  </a></small>
     </p><?php 

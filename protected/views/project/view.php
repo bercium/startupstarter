@@ -140,7 +140,7 @@ $idea = $data['idea'];
           <img src="<?php echo getLinkIcon($idea['website']); ?>">
           <?php /* ?><span class="icon-globe" title=""></span><?php */ ?>
         <?php
-          echo Yii::t('app',"Official web page").': <a href="http://'.$idea['website'].'" target="_blank">'.$idea['website']."</a>";
+          echo Yii::t('app',"Official web page").': <a href="'.add_http($idea['website']).'" target="_blank">'.$idea['website']."</a>";
         } ?>
         <?php if ($idea['video_link']){ 
           if (!$idea['website']) echo "<hr>"; ?>
@@ -148,7 +148,7 @@ $idea = $data['idea'];
          <br>
          <img src="<?php echo getLinkIcon($idea['video_link']); ?>">
         <?php  
-          echo Yii::t('app',"Link to video").': <a href="http://'.$idea['video_link'].'" target="_blank">'.$idea['video_link']."</a>";
+          echo Yii::t('app',"Link to video").': <a href="'.add_http($idea['video_link']).'" target="_blank">'.$idea['video_link']."</a>";
         } ?>
         </p>
         <hr>

@@ -201,6 +201,14 @@ function getLinkIcon($link){
   }
 }
 
+function add_http($link){
+  //return $link;
+  if ((strpos($link, "http://") === false) && (strpos($link, "https://") === false)){
+    return "http://".$link;
+  }
+  return $link;
+}
+
 
 /**
  * remove http:// and https://
