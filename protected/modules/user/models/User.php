@@ -116,8 +116,8 @@ class User extends BaseUser
 			'superuser' => Yii::t('app', 'Superuser'),
 			'status' => Yii::t('app', 'Status'),
         
-			'name' => Yii::t('app', 'Name'),
-			'surname' => Yii::t('app', 'Surname'),
+			'name' => Yii::t('app', 'First name'),
+			'surname' => Yii::t('app', 'Last name'),
 			'address' => Yii::t('app', 'Address'),
 			'avatar_link' => Yii::t('app', 'Avatar link'),
 			'language_id' => Yii::t('app', 'Language'),
