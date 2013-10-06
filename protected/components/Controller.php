@@ -93,4 +93,21 @@ class Controller extends CController
     //}
     return $value;
   }
+  
+  /**
+   * @return array action filters
+   */
+  public function filters()
+  {
+      return array(
+          array(
+              'application.filters.html.ECompressHtmlFilter',
+              'gzip'            => true,
+              'doStripNewlines' => true,
+//              'gzip'            => (YII_DEBUG ? false : true),
+//              'doStripNewlines' => (YII_DEBUG ? false : true),
+              'actions' => '*'
+          ),
+      );
+  }  
 }
