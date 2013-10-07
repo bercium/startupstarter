@@ -909,6 +909,86 @@ class ProjectController extends GxController {
 		}else throw new CHttpException(400, Yii::t('msg', 'Your request is invalid.'));
 	}
 
+	public function actionAddLink($id) {
+
+		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
+
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $idea->id,'type_id'=>1));
+
+		if($idea && $hasPriviledges){
+
+			$link = new IdeaLink;
+
+			if (isset($_POST['IdeaLink'])) {
+
+				$_POST['IdeaLink']['idea_id'] = $idea->id;
+				$linkURL = str_replace("http://", "", $_POST['IdeaLink']['url']);
+
+				$exists = IdeaLink::Model()->findByAttributes(array('idea_id' => $idea->id, 'url' => $linkURL));
+				if (!$exists) {
+
+					$link->setAttributes($_POST['IdeaLink']);
+					$link->url = $linkURL;
+
+					if ($link->save()) {
+						$response = array("data" => array("title" => $_POST['IdeaLink']['title'],
+										"url" => $linkURL,
+										"id" => $link->id,
+										"location" => Yii::app()->createUrl("project/deleteLink/".$idea->id.)
+								),
+								"status" => 0, // a damo console status kjer je 0 OK vse ostale cifre pa error????
+								"message" => Yii::t('msg', "Link successfully saved to project."));
+					} else {
+						$response = array("data" => null,
+								"status" => 1,
+								"message" => Yii::t('msg', "Problem saving link. Please check fields for correct values."));
+					}
+				} else {
+					$response = array("data" => null,
+							"status" => 1,
+							"message" => Yii::t('msg', "Project already has this link."));
+				}
+
+				echo json_encode($response);
+				Yii::app()->end();
+			}
+		}
+	}
+
+	public function actionDeleteLink($id) {
+
+		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
+
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $idea->id,'type_id'=>1));
+
+		if($idea && $hasPriviledges){
+
+			$link_id = 0;
+			if (isset($_POST['id']))
+				$link_id = $_POST['id'];
+
+			if ($idea->id > 0 && $link_id) {
+
+				$link = IdeaLink::Model()->findByAttributes(array('id' => $link_id,'idea_id' => $idea->id));
+
+				if ($link->delete()) {
+					$response = array("data" => array("id" => $link_id),
+							"status" => 0,
+							"message" => "Link successfully removed from project.");
+				} else {
+					$response = array("data" => null,
+							"status" => 1,
+							"message" =>  Yii::t('msg', "Unable to remove link."));
+				}
+
+				echo json_encode($response);
+				Yii::app()->end();
+			}
+		}
+	}
+
 	//AJAX
 	public function actionRecent($id = 1) {
 
