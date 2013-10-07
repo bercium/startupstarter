@@ -119,6 +119,9 @@
       <?php echo CHtml::activeLabelEx($user,'address'); ?>
       <?php echo CHtml::activetextField($user, 'address', array('maxlength' => 128)); ?>
 
+      <?php echo CHtml::activeLabelEx($user,'bio'); ?>
+      <?php echo CHtml::activetextField($user, 'bio', array()); ?>
+
     
     </div>
       </div>
