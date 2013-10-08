@@ -338,7 +338,7 @@ class SiteController extends Controller
 
 			$connection=Yii::app()->db;
 			$data = array();
-      		$dataReader = array();
+      $dataReader = array();
 			
 			$criteria=new CDbCriteria();
 			
@@ -352,9 +352,11 @@ class SiteController extends Controller
 			}
 
 			//$data = array();
-			foreach ($dataReader as $row){
-				$data[] = array("value"=>$row['name']);
-			}
+      if ($dataReader){
+        foreach ($dataReader as $row){
+          $data[] = array("value"=>$row['translation']);
+        }
+      }
 			
 			$criteria->condition = " `name` LIKE :name";
 			$criteria->params = array(":name"=>"%".$_GET['term']."%");
@@ -363,16 +365,20 @@ class SiteController extends Controller
 			$dataReader = Skillset::model()->findAll($criteria);
 
 			//$data = array();
-			foreach ($dataReader as $row){
-				$data[] = array("value"=>$row['name']);
-			}
+      if ($dataReader){
+        foreach ($dataReader as $row){
+          $data[] = array("value"=>$row['name']);
+        }
+      }
 
 			// skills
 			$dataReader = Skill::model()->findAll($criteria);
 			
-			foreach ($dataReader as $row){
-				$data[] = array("value"=>$row['name']);
-			}
+      if ($dataReader){
+        foreach ($dataReader as $row){
+          $data[] = array("value"=>$row['name']);
+        }
+      }
 			
 			
 			$response = array("data" => $data,

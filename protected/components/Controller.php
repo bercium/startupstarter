@@ -55,12 +55,15 @@ class Controller extends CController
     $cs->registerCoreScript('jquery');  //core jquery lib
     
 		$cs->registerScriptFile($baseUrl.'/js/vendor/custom.modernizr.js',CClientScript::POS_HEAD);  //modernizer
+    
     //$cs->registerScriptFile($baseUrl.'/js/respond.min.js');
     $cs->registerScriptFile($baseUrl.'/js/foundation.min.js');
     $cs->registerScriptFile($baseUrl.'/js/jquery.infinitescroll.min.js');  // infinite scroll
     $cs->registerScriptFile($baseUrl.'/js/chosen.jquery.min.js');  // new dropdown
     $cs->registerScriptFile($baseUrl.'/js/jquery-ui-1.10.3.custom.min.js');
-    
+    //$cs->registerCoreScript($baseUrl.'jquery.ui');
+    //$cs->registerCoreScript($baseUrl.'autocomplete');
+            
     //$cs->registerScriptFile($baseUrl.'/js/jquery.parallax-1.1.3.js');
    
     // startup scripts
