@@ -1,11 +1,5 @@
 <?php 
   $this->pageTitle = Yii::t('app', 'Registration finished');
-
-  $baseUrl = Yii::app()->baseUrl; 
-  $cs = Yii::app()->getClientScript();
-  
-  $cs->registerCssFile($baseUrl.'/css/ui/jquery-ui-1.10.3.custom.min.css');
-  $cs->registerScriptFile($baseUrl.'/js/jquery-ui-1.10.3.custom.min.js',CClientScript::POS_END);
 ?>
 
 <script>

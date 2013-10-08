@@ -1,5 +1,16 @@
 <?php
 
+
+/**
+ * append this string to files that you wish to force refresh during version changes
+ * it should be used on CSS and JS files that get cached for a long time
+ */
+function getVersionID(){
+  $version = Yii::app()->params['version'];
+  
+  return "?".substr(md5($version),0,5);
+}
+
 /**
  * function to shorten URL with google url shortener
  */

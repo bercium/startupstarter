@@ -1,12 +1,6 @@
 <?php
 	$this->pageTitle = ''; // leave this empty
 	$this->pageDesc = '';
-
-  $baseUrl = Yii::app()->baseUrl; 
-  $cs = Yii::app()->getClientScript();
-  
-  $cs->registerCssFile($baseUrl.'/css/ui/jquery-ui-1.10.3.custom.min.css');
-  $cs->registerScriptFile($baseUrl.'/js/jquery-ui-1.10.3.custom.min.js',CClientScript::POS_END);
 ?>
 
 <?php /* ?><div id="intro1" style="background-position: 40% 0px; padding-bottom: 1px; padding-top: 30px;"><?php */ ?>

@@ -31,40 +31,40 @@ class Controller extends CController
     $baseUrl = Yii::app()->baseUrl; 
     $cs = Yii::app()->getClientScript();
   
-    $cs->registerCssFile($baseUrl.'/css/foundation.css');
-    $cs->registerCssFile($baseUrl.'/css/normalize.css');
+    $cs->registerCssFile($baseUrl.'/css/foundation.css'.getVersionID());
+    $cs->registerCssFile($baseUrl.'/css/normalize.css'.getVersionID());
     //$cs->registerCssFile($baseUrl.'/css/ie8-grid-foundation-4.css');
-    $cs->registerCssFile($baseUrl.'/css/layout.css');
-    $cs->registerCssFile($baseUrl.'/css/foundation-overrides.css');
-    $cs->registerCssFile($baseUrl.'/css/general_enclosed_foundicons.css');
-    $cs->registerCssFile($baseUrl.'/css/general_enclosed_foundicons_ie7.css');
-    $cs->registerCssFile($baseUrl.'/css/general_foundicons.css');
-    $cs->registerCssFile($baseUrl.'/css/general_foundicons_ie7.css');
-    $cs->registerCssFile($baseUrl.'/css/font-awesome.css');
-    $cs->registerCssFile($baseUrl.'/css/font-awesome-ie7.css');
-    $cs->registerCssFile($baseUrl.'/css/chosen/chosen.min.css');
+    $cs->registerCssFile($baseUrl.'/css/layout.css'.getVersionID());
+    $cs->registerCssFile($baseUrl.'/css/foundation-overrides.css'.getVersionID());
+    $cs->registerCssFile($baseUrl.'/css/general_enclosed_foundicons.css'.getVersionID());
+    $cs->registerCssFile($baseUrl.'/css/general_enclosed_foundicons_ie7.css'.getVersionID());
+    $cs->registerCssFile($baseUrl.'/css/general_foundicons.css'.getVersionID());
+    $cs->registerCssFile($baseUrl.'/css/general_foundicons_ie7.css'.getVersionID());
+    $cs->registerCssFile($baseUrl.'/css/font-awesome.css'.getVersionID());
+    $cs->registerCssFile($baseUrl.'/css/font-awesome-ie7.css'.getVersionID());
+    
+    $cs->registerCssFile($baseUrl.'/css/chosen/chosen.min.css'.getVersionID());
 		
-    $cs->registerCssFile($baseUrl.'/css/override.css'); // be the last to override any other CSS settings
+    $cs->registerCssFile($baseUrl.'/css/override.css'.getVersionID()); // be the last to override any other CSS settings
+    $cs->registerCssFile($baseUrl.'/css/ui/jquery-ui-1.10.3.custom.min.css'.getVersionID());
 
     
-    new JsTrans('js',Yii::app()->language);
+    new JsTrans('js',Yii::app()->language);  // js translation
 
 		// JAVASCRIPTS
-    $cs->registerCoreScript('jquery',CClientScript::POS_END);
-
-		$cs->registerScriptFile($baseUrl.'/js/vendor/custom.modernizr.js');
-    $cs->registerScriptFile($baseUrl.'/js/respond.min.js');
+    $cs->registerCoreScript('jquery');  //core jquery lib
     
-    $cs->registerScriptFile($baseUrl.'/js/foundation.min.js',CClientScript::POS_END);
-    //$cs->registerScriptFile($baseUrl.'/js/foundation/foundation.dropdown.js',CClientScript::POS_END); // temp untill it's fixed in minified version
-    $cs->registerScriptFile($baseUrl.'/js/jquery.infinitescroll.min.js',CClientScript::POS_END);
-
-    $cs->registerScriptFile($baseUrl.'/js/chosen.jquery.min.js',CClientScript::POS_END);
+		$cs->registerScriptFile($baseUrl.'/js/vendor/custom.modernizr.js',CClientScript::POS_HEAD);  //modernizer
+    //$cs->registerScriptFile($baseUrl.'/js/respond.min.js');
+    $cs->registerScriptFile($baseUrl.'/js/foundation.min.js');
+    $cs->registerScriptFile($baseUrl.'/js/jquery.infinitescroll.min.js');  // infinite scroll
+    $cs->registerScriptFile($baseUrl.'/js/chosen.jquery.min.js');  // new dropdown
+    $cs->registerScriptFile($baseUrl.'/js/jquery-ui-1.10.3.custom.min.js');
     
-    //$cs->registerScriptFile($baseUrl.'/js/jquery.parallax-1.1.3.js',CClientScript::POS_END);
-    
-    // start foundation
-    $cs->registerScriptFile($baseUrl.'/js/app.js',CClientScript::POS_END);   
+    //$cs->registerScriptFile($baseUrl.'/js/jquery.parallax-1.1.3.js');
+   
+    // startup scripts
+    $cs->registerScriptFile($baseUrl.'/js/app.js'.getVersionID());  
     parent::init();
   }
   
@@ -73,13 +73,13 @@ class Controller extends CController
     $cs = Yii::app()->getClientScript();
     // general controller JS
     if (file_exists("js/controllers/".Yii::app()->controller->id."/controller.js"))
-      $cs->registerScriptFile($baseUrl."/js/controllers/".Yii::app()->controller->id."/controller.js",CClientScript::POS_END);
+      $cs->registerScriptFile($baseUrl."/js/controllers/".Yii::app()->controller->id."/controller.js");
     // specific action JS
     if (!$in_actionID) $actionID = $this->defaultAction;
     else $actionID =  $in_actionID;
 
     if (file_exists("js/controllers/".Yii::app()->controller->id."/".$actionID.".js"))
-      $cs->registerScriptFile($baseUrl."/js/controllers/".Yii::app()->controller->id."/".$actionID.".js",CClientScript::POS_END);
+      $cs->registerScriptFile($baseUrl."/js/controllers/".Yii::app()->controller->id."/".$actionID.".js");
     
     parent::run($in_actionID);
   }
@@ -93,21 +93,4 @@ class Controller extends CController
     //}
     return $value;
   }
-  
-  /**
-   * @return array action filters
-   */
-  public function filters()
-  {
-      return array(
-          array(
-              'application.filters.html.ECompressHtmlFilter',
-              'gzip'            => true,
-              'doStripNewlines' => true,
-//              'gzip'            => (YII_DEBUG ? false : true),
-//              'doStripNewlines' => (YII_DEBUG ? false : true),
-              'actions' => '*'
-          ),
-      );
-  }  
 }
