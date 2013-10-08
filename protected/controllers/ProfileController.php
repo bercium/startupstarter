@@ -128,6 +128,7 @@ class ProfileController extends GxController {
 
 				if (isset($_POST['UserEdit']) && isset($_POST['UserMatch'])) {
 					$user->setAttributes($_POST['UserEdit']);
+					$user->bio = $_POST['UserEdit']['bio'];
 					//$user->avatar_link = '';
 
 					if ($_POST['UserEdit']['avatar_link']) {
