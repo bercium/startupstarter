@@ -22,8 +22,11 @@
     <?php
       $this->renderPartial('_formidea', array(
           'idea' => $idea,
+          'idea_id' => $idea_id,
           'language' => $language,
           'translation' => $translation,
+          'link' => $link,
+          'links' => $links,
           'buttons' => 'create'));
     ?>
   </div>

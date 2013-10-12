@@ -102,10 +102,17 @@
     <?php echo CHtml::activeTextField($idea,"video_link", array('maxlength' => 128,'class'=>'lin-edit')); ?> 
     </div>
   </div>
-      
+    
     
 <hr>
     <?php echo CHtml::submitButton(Yii::t("app","Next >>"),
           array('class'=>"button small success radius right")
       ); ?>
     <?php echo CHtml::endForm(); ?>  
+
+    <?php
+      $this->renderPartial('_addlink', array(
+          'link' => $link,
+          'links' => $links,
+          'idea_id' => $idea_id ));
+    ?>

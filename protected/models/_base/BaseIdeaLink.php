@@ -16,7 +16,7 @@
  * @property Link $link
  * @property idea $idea
  */
-abstract class BaseideaLink extends GxActiveRecord {
+abstract class BaseIdeaLink extends GxActiveRecord {
 
 	public static function model($className=__CLASS__) {
 		return parent::model($className);

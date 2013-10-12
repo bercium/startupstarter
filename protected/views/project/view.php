@@ -151,6 +151,18 @@ $idea = $data['idea'];
           echo Yii::t('app',"Link to video").': <a href="'.add_http($idea['video_link']).'" target="_blank">'.$idea['video_link']."</a>";
         } ?>
         </p>
+        <?php
+          // show links
+          if(isset($idea['link'])){
+            foreach ($idea['link'] as $link){
+              $i++; 
+              //if ($i > 3) break;
+            ?>
+              <a href="<?php echo $link['url']; ?>"><?php echo $link['title']; ?></a><br/>
+            <?php } 
+              // extra members
+              //if (count($idea['member']) > 3) echo '<font class="meta">+'.(count($idea['member'])-3).'</font>';
+          } ?>
         <hr>
         <?php if (count($idea['candidate']) > 0){ ?>
         <h6 class="meta-title title-field"><?php echo Yii::t('app','Looking for {n} candidate|Looking for {n} candidates',array(count($idea['candidate']))); ?></h6>
