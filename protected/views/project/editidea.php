@@ -88,6 +88,13 @@
           'translation' => $translation,
           'buttons' => 'create' ));
     ?>
+
+    <?php
+      $this->renderPartial('_addlink', array(
+          'link' => $link,
+          'links' => $links,
+          'idea_id' => $idea_id ));
+    ?>
   </div>
 </div>
 
