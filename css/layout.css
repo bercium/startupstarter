@@ -698,6 +698,22 @@ img.card-avatar {
 }
 
 
+.footer .social-links{
+  float:right;
+  margin-left:40px;
+  padding-top:8px;
+}
+
+.footer .social-links img{
+  margin-right:3px;
+	transition: 0.3s;
+	opacity: 0.75;
+}
+
+.footer .social-links img:hover{
+  opacity: 1;
+}
+
 .list-holder, .list-items{  
   position: relative;
 }

@@ -47,7 +47,7 @@
       <div style="top:200px;left:90px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('bb');" onmouseout="hidePerson('bb')"></div>
       <div style="top:100px;left:240px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('jr');" onmouseout="hidePerson('jr')"></div>
     </div>
-    <div class="large-7  columns">
+    <div class="large-7 columns ">
       <div class="row" onmouseover="showPerson('zb');" onmouseout="hidePerson('zb')">
         <div class="small-4 columns show-for-small">
         <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-ziga.jpg" alt="Žiga Berce" title="Žiga Berce">
@@ -126,7 +126,7 @@
         <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-jureg.jpg" alt="Jure Grahek" title="Jure Grahek" >
         </div>
         <div class="small-8 large-12 columns">
-          <h4 id="team_desc_zb">Jure Grahek
+          <h4 id="team_desc_jg">Jure Grahek
             <div class="login-floater">
               <a href="<?php echo Yii::app()->getBaseUrl(true); ?>/person/5">
                 <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-cofinder.png" alt="Jure Ravlič" title="Jure Grahek">
@@ -143,6 +143,30 @@
           </blockquote>
         </div><?php */ ?>
       </div>
+      
+      
+      <div class="row">
+        <div class="small-4 columns show-for-small">
+        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-jernejm.jpg" alt="Jernej Mirt" title="Jernej Mirt" >
+        </div>
+        <div class="small-8 large-12 columns">
+          <h4 id="team_desc_jm">Jernej Mirt
+            <div class="login-floater">
+              <a href="<?php echo Yii::app()->getBaseUrl(true); ?>/person/10">
+                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-cofinder.png" alt="Jernej Mirt" title="Jernej Mirt">
+              </a>
+            </div>
+          </h4>
+          <p >
+            <?php echo Yii::t('msg',"Managing social marketing."); ?>
+          </p>
+        </div>
+        <?php /* ?>
+        <div class="columns">
+          <blockquote style="font-size: 0.9em">
+          </blockquote>
+        </div><?php */ ?>
+      </div>      
       
 
     </div>
