@@ -197,3 +197,61 @@ form.custom .custom.checkbox.checked:before{
 form.custom .custom.dropdown{
   display:none;
 }
+
+
+
+/**/
+
+
+
+
+.avatar-change {
+
+}
+
+.qq-upload-button {
+	transition: 0.5s;
+	border: 2px solid #ddd;
+	box-shadow: none;
+  /*width:140px;*/
+}
+.qq-upload-button:hover {
+	border: 2px solid #999;
+}
+
+
+.avatar-change {
+	padding: 10px 0;
+	color: #888;
+	background: #F6F6FA;
+	border: 1px solid #fff;
+
+}
+.avatar-loading{
+  display: none;
+  position: absolute;
+  right: 3px;
+  top: 5px;
+}
+
+.avatar-change{
+  padding:3px 0;
+}
+
+.avatar-drop-area{
+  
+}
+
+.qq-upload-drop-area{
+  background-color:#89B561;
+}
+
+.qq-uploader{
+  width:140px;
+}
+
+/*.avatar-button{
+  width:140px !important;
+  padding: 0 !important;
+  background-color: #666 !important;
+}*/

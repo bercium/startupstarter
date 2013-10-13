@@ -265,4 +265,6 @@
   })();
 </script>
 </body>
-</html>
+</html><?php 
+    // be the last to override any other CSS settings
+    Yii::app()->getClientScript()->registerCssFile(Yii::app()->baseUrl.'/css/override.css'.getVersionID()); 

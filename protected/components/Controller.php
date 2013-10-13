@@ -44,10 +44,8 @@ class Controller extends CController
     $cs->registerCssFile($baseUrl.'/css/font-awesome-ie7.css'.getVersionID());
     
     $cs->registerCssFile($baseUrl.'/css/chosen/chosen.min.css'.getVersionID());
-		
-    $cs->registerCssFile($baseUrl.'/css/override.css'.getVersionID()); // be the last to override any other CSS settings
     $cs->registerCssFile($baseUrl.'/css/ui/jquery-ui-1.10.3.custom.min.css'.getVersionID());
-
+    
     
     new JsTrans('js',Yii::app()->language);  // js translation
 
