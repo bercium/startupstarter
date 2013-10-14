@@ -24,7 +24,7 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("index",'error','logout','about','terms','notify','suggestCountry','suggestSkill','suggestCity'),
+        'actions'=>array("index",'error','logout','about','terms','notify','suggestCountry','suggestSkill','suggestCity','removeInvite'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -163,7 +163,7 @@ class SiteController extends Controller
             $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invite->key;
             $button = "<a href='".$activation_url."' class='button radius small' style='margin-bottom: 3px;'>".Yii::t('msg',"Register here")."</a>";
             Yii::app()->user->setFlash("interestMessage",Yii::t('msg',"You already have invitation pending. To join please click {button} or copy this url:<br>{url}",array('{button}'=>$button,"{url}"=>$activation_url)));
-          }else Yii::app()->user->setFlash("interestMessage",Yii::t('msg',"We already have you in our list."));
+          }else Yii::app()->user->setFlash("interestMessage",Yii::t('msg',"We already have you on our list."));
         }else{
 
           /*$newFilePath = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "uploads";
@@ -201,6 +201,12 @@ class SiteController extends Controller
     }
 		$this->render('notify');
 	}
+  
+  
+  public function actionRemoveInvite(){
+    
+  }
+  
 	
 	public function actionTerms()
 	{
