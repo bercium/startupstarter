@@ -35,7 +35,7 @@ class Controller extends CController
     $cs->registerCssFile($baseUrl.'/css/normalize.css'.getVersionID());
     //$cs->registerCssFile($baseUrl.'/css/ie8-grid-foundation-4.css');
     $cs->registerCssFile($baseUrl.'/css/layout.css'.getVersionID());
-    $cs->registerCssFile($baseUrl.'/css/foundation-overrides.css'.getVersionID());
+    //$cs->registerCssFile($baseUrl.'/css/foundation-overrides.css'.getVersionID());
     $cs->registerCssFile($baseUrl.'/css/general_enclosed_foundicons.css'.getVersionID());
     $cs->registerCssFile($baseUrl.'/css/general_enclosed_foundicons_ie7.css'.getVersionID());
     $cs->registerCssFile($baseUrl.'/css/general_foundicons.css'.getVersionID());

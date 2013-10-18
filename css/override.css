@@ -2,6 +2,11 @@ body{
   /*font-size:120%;*/
 }
 
+
+/* #   JQUERY  UI-lib
+================================================== */
+
+
 .ui-autocomplete {
   max-height: 200px;
   overflow-y: auto;
@@ -13,6 +18,143 @@ body{
 */
 * html .ui-autocomplete {
   height: 200px;
+}
+
+
+
+/* #   $foundation overrides & fixes
+================================================== */
+
+body, h1, h2, h3, h4, h5, h6 {
+  font-family: Arial, sans-serif !important; 
+  font-weight: normal;
+}
+
+
+.top-bar-holder{
+  background: none repeat scroll 0 0 #111111; 
+  border-bottom: 1px solid #000; 
+  box-shadow:0 2px 2px 0px rgba(0, 0, 0, .25); 
+  border-top: 1px solid #333;
+}
+
+.top-bar-avatar{
+  float:left;
+  margin-top:6px; 
+  height:34px; 
+  margin-right: 10px;
+
+  border:1px solid #FFF;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.top-bar-person{
+  float:left; 
+  line-height:26px;
+  color:#222 !important; /* hide  link style */
+}
+
+
+  .top-bar-section .dropdown li  a:hover     {
+    background: #f0f0f0;
+  }
+
+ 
+ .top-bar-section .dropdown li a.altli  {
+  background: #f0f0f0;
+ }
+
+.top-bar-section .dropdown li a.altli:hover {
+  background: #ddd;
+}
+
+ .top-bar-section .dropdown li a .general,
+ .top-bar-section .dropdown li a .icon-user,
+ .top-bar-section .dropdown li a .icon-lightbulb,
+ .top-bar-section .dropdown li a .icon-plus,
+ .top-bar-section .dropdown li a .icon-wrench {
+  position: absolute;
+  right: 10px;
+  line-height: 1.6em;
+  color:#666;
+  /*line-height: 2.3em;*/
+ }
+
+
+      .top-bar,
+.top-bar-holder,
+.top-bar-section li a:not(.button) {
+  background: #fff;
+  box-shadow: none; 
+}
+
+.top-bar-section > ul > .divider {
+    border-color: -moz-use-text-color #ddd -moz-use-text-color #fff; 
+ }
+
+.top-bar-holder {
+  border-bottom: 1px solid #bbb;
+  box-shadow: 0 -1px 0 2px #ddd;
+}
+
+.section-container section, .section-container .section, .section-container.auto section, .section-container.auto .section {
+    border-bottom: 1px solid #ddd;
+    border-top: none;
+    position: relative;
+}
+
+.section-container > section > .title, .section-container > .section > .title, .section-container.auto > section > .title, .section-container.auto > .section > .title {
+  border-top: none;
+}
+
+.top-bar-section ul li > a {
+  color: #221E1D;
+}
+
+.panel h1, .panel h2, .panel h3, .panel h4, .panel h5, .panel h6, .panel p {
+    
+    font-weight: 100;
+}
+
+ .section-container section.active .title,
+    .section-container .section.active .title, .section-container.auto section.active .title,
+    .section-container.auto .section.active .title {
+      background: #ddd; }
+
+
+
+/* ==========================================================================
+  @ edit profile
+   ========================================================================== */
+
+.alert-box {
+  font-weight: normal;
+  padding: 15px 10px;
+  color: #134C5B;
+  text-shadow: 1px 1px rgba(255,255,255,0.2);
+}
+
+.alert-box a {
+  color: #fff;
+  text-shadow: 1px 1px rgba(0,0,0,0.2);
+}
+
+.alert-box .action {}
+
+.alert-box .close {
+  margin-top: 0px;
+ color: rgba(0,0,0,0.6) !important;
+}
+
+.alert-box .close:hover {
+   color: rgba(0,0,0,0.8) !important;
+}
+
+
+.alert-box.success {
+  /*color: ;*/
 }
 
 .errorSummary .alert-box ul{
@@ -159,7 +301,9 @@ form.custom .custom.checkbox.checked:before{
 }
 
 
-/*     CUSTOM DROPDOWN       */
+/* #   CUSTOM DROPDOWN
+================================================== */
+
 
 .chzn-container{
   margin-bottom: 1.25em;
@@ -199,11 +343,11 @@ form.custom .custom.dropdown{
 }
 
 
-/*  IMAGE UPLOAD BUTTON */
-
+/* #   IMAGE UPLOAD BUTTON
+================================================== */
 
 .qq-upload-button {
-	/*transition: 0.5s;*/
+	transition: 0.5s;
 	/*border: 2px solid #ddd;*/
 	box-shadow: none;
   /*width:140px;*/
@@ -214,10 +358,8 @@ form.custom .custom.dropdown{
   
 }
 .qq-upload-button:hover {
-	border: 2px solid #999;
+	/*border: 2px solid #999;*/
 }
-
-
 
 .avatar {
   transition: 0.5s;
@@ -227,16 +369,22 @@ form.custom .custom.dropdown{
 	width: 100%;
 }
 
+.qq-upload-button-hover .avatar{
+  border: 1px solid #bbb;
+}
+
+
 .avatar-change {
-	padding: 10px 0;
+	/*padding: 10px 0;
 	color: #888;
 	background: #F6F6FA;
 	border: 1px solid #fff;
-  padding:3px 0;
+  padding:3px 0;*/
   
   width: 100%;
 	margin-top: 0px;
 	border-radius: 0 0 3px 3px;
+  margin-bottom: 0px;
 }
   
 .avatar-loading{
@@ -255,16 +403,17 @@ form.custom .custom.dropdown{
 
 .qq-upload-drop-area{
   background-color:#89B561;
-  
   /*background: #fff;*/
 	
 	font-size: 0.875em;
 	border: 1px dashed #999;
-	border-radius: 3px;  
+	border-radius: 3px;
+  color:#FFF;
+  font-weight: bold;
 }
 
 .qq-uploader{
-  width:140px;
+  /*width:140px;*/
 }
 
 .qq-uploader:click {
