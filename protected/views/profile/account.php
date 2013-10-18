@@ -1,3 +1,4 @@
+<div class="large-12 columns">
 <?php $this->pageTitle = Yii::t('app','Settings'); ?>
 <div class="row">
   <div class="columns edit-header">
@@ -136,6 +137,8 @@
     <?php echo CHtml::endForm(); ?>
   
   </div>
+</div>
+
 </div>
 
 

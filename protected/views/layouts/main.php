@@ -42,6 +42,8 @@
 
 <div class="container">
 
+  <?php if (!isset($this->justContent) || !$this->justContent){ ?>
+  
   <div class="header-wrap show-for-small">
     <div class="row header">
       <div class="" >
@@ -52,7 +54,7 @@
     </div>
   </div><!-- end header-wrap -->
   
-  <div class="top-bar-holder sticky" >
+  <div class="top-bar-holder sticky">
       <div class="row">
         <div class="">
           <nav class="top-bar contain-to-grid">
@@ -142,8 +144,8 @@
                 <ul class="dropdown">
                   <li><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><?php echo Yii::t('app','Profile'); ?><span class="icon-user"></span></a></li>
                   <li><a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>"><?php echo Yii::t('app','My projects'); ?><span class="icon-lightbulb"></span></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo Yii::t('app','Create new project'); ?><span class="general foundicon-plus"></span></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><?php echo Yii::t('app','Settings'); ?><span class="general foundicon-settings"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo Yii::t('app','Create new project'); ?><span class="icon-plus"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><?php echo Yii::t('app','Settings'); ?><span class="icon-wrench"></span></a></li>
                   
                   <li><a class="altli" href="<?php echo Yii::app()->createUrl(Yii::app()->getModule('user')->logoutUrl[0]); ?>"><?php echo Yii::t('app','Logout'); ?></a></li>
                 </ul>
@@ -180,7 +182,9 @@
   </div>
 </div>
 
+<?php } ?>
 <?php echo $content; ?>  
+<?php if (!isset($this->justContent) || !$this->justContent){ ?>
 
 
 	<div class="footer">
@@ -209,8 +213,6 @@
 			</div>
 		</div>
 	</div>
-
-</div>
  
 <!-- page -->
 <div id="langselect" class="f-dropdown content" data-dropdown-content>
@@ -252,6 +254,10 @@
 
   <?php echo CHtml::endForm(); ?>
   </div>
+</div>
+
+<?php } ?>
+
 </div>
 
 <!-- userreport.com snippet -->

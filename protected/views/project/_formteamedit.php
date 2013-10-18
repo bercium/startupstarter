@@ -109,7 +109,7 @@
               ?>
       <span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $key; ?>">
           <?php echo $skill['skill']."<br /><small class='meta'>".$skill['skillset_name']."</small>"; ?>
-          <a href="#" class="close" onclick="removeSkill('<?php echo $key; ?>','<?php echo Yii::app()->createUrl("project/sDeleteSkill"); ?>')">&times;</a>
+          <a href="#" class="close" onclick="removeSkill('<?php echo $key; ?>','<?php echo Yii::app()->createUrl("project/sDeleteSkill"); ?>')"><span class="icon-remove-sign"></span></a>
      </span>
     <?php }
         } else {

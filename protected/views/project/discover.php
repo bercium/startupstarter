@@ -158,7 +158,7 @@
   
     <div class="hide-for-medium-down">
       <div class="page-navigation">
-        <ul>
+        <ul class="button-group">
           <li><a href="#page1"><?php echo Yii::t("app", "Page"); ?> 1</a></li>
         </ul>
       </div>

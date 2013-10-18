@@ -1,6 +1,6 @@
 
 <?php $this->beginContent('//layouts/main'); ?>
-<div class="row" style="margin-top:20px;">
+<div class="row header-margin">
   <div class="large-10 push-2 columns" >
     <?php echo $content; ?>
   </div>

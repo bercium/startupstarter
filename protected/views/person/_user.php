@@ -6,7 +6,7 @@
 				<?php	if ($user['city'] || $user['country']){ ?>
 						<small class="meta" data-tooltip title="<img src='<?php echo getGMap($user['country'],$user['city'],$user['address']); ?>'>">
            
-             <span class="general foundicon-location" title=""></span>
+             <span class="icon-location" title=""></span>
               <?php
                   echo $user['city']; 
                   if ($user['city'] && $user['country']) echo ', '; 
@@ -77,7 +77,7 @@
 				<?php } ?>
         </div><!-- end card-abstract -->
         <div class="card-floater">
-          <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>" target="_blank"><?php echo Yii::t('app','details').'...'; ?></a>
+          <a class="tiny button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>" target="_blank"><?php echo Yii::t('app','details').'...'; ?></a>
         </div>
 		  </div>
 	  </div>

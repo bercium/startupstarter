@@ -1,37 +1,27 @@
 <?php
   $this->pageTitle = Yii::t('app','Profile');
 ?>
+
+
 <script>
 	var skillSuggest_url = '<?php echo Yii::app()->createUrl("profile/suggestSkill",array("ajax"=>1)) ?>';
 	var citySuggest_url = '<?php echo Yii::app()->createUrl("site/suggestCity",array("ajax"=>1)) ?>';
 </script>
 
  
-<div class="row">
+ 
+<div class="">
+
   <div class="columns edit-header">
 
-    <div class="edit-floater">
-      <a class="button radius small" href="person/<?php echo $user['id']; ?>" target="_blank"><?php echo Yii::t('app',"Preview"); ?> 
-      </a>
-    </div>
+    
 
     
     <h3><?php echo Yii::t('app', 'Profile details'); ?></h3>
   </div>
   <div class="columns panel edit-content">
 
-    <?php if(Yii::app()->user->hasFlash('profileMessage')){ ?>
-    <div data-alert class="alert-box radius success">
-      <?php echo Yii::app()->user->getFlash('profileMessage'); ?>
-      <a href="#" class="close">&times;</a>
-    </div>
-    <?php } ?>
-    <?php if(Yii::app()->user->hasFlash('profileMessageError')){ ?>
-    <div data-alert class="alert-box radius alert">
-      <?php echo Yii::app()->user->getFlash('profileMessageError'); ?>
-      <a href="#" class="close">&times;</a>
-    </div>
-    <?php } ?>
+    <!-- moved alert-box success to \protected\views\layouts\edit.php -->
     
     <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6")); ?>
     <p>
@@ -79,25 +69,29 @@
 		
 		
   </div>
+   <div class="preview">
+      <a class="button radius secondary small" href="person/<?php echo $user['id']; ?>" target="_blank"><?php echo Yii::t('app',"Preview"); ?> 
+      </a>
+    </div>
 </div>
 
 
-<div class="row">
+<div class="">
   <div class="columns edit-header">
     <a id="link_skill" class="anchor-link"></a>
     
+    
+
+    <h3><?php echo Yii::t('app', 'My skills'); ?></h3>
+
+  </div>
+  <div class="columns panel edit-content add-skills">
+
     <div class="edit-floater">
       <a class="button radius small" href="#" onclick="$('.addSkils').toggle(); return false;"><?php echo Yii::t('app',"Add skills"); ?> 
         <span class="icon-plus"></span>
       </a>
     </div>
-
-    <h3><?php echo Yii::t('app', 'My skills'); ?></h3>
-
-  </div>
-  <div class="columns panel edit-content">
-
-    
     <div class="addSkils" style="display:none">
           <?php $form=$this->beginWidget('CActiveForm', array(
               'id'=>'SkillForm',
@@ -137,7 +131,7 @@
             foreach ($skillset['skill'] as $skill){
               ?>
 
-      <span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $skill['id']; ?>">
+      <span data-alert class="label radius secondary profile-skils" id="skill_<?php echo $skill['id']; ?>">
           <?php echo $skill['skill']."<br /><small class='meta'>".$skillset['skillset']."</small>"; ?>
           <a href="#" class="close" onclick="removeSkill(<?php echo $skill['id']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteSkill"); ?>')">&times;</a>
      </span>
@@ -155,7 +149,7 @@
 
 
 
-<div class="row">
+<div class="">
   <div class="columns edit-header">
     <a id="link_personal" class="anchor-link"></a>
     <h3><?php echo Yii::t('app', 'Personal information'); ?></h3>
@@ -173,8 +167,8 @@
       <?php echo CHtml::errorSummary($user,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
       <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
     
-    <div class="row">
-      <div class="large-4 right columns">
+    <div class="">
+      <div class="large-4 small-4 right columns">
       <?php 
        //echo Yii::app()->getBaseUrl(true)."/".Yii::app()->params['tempFolder'];
          //echo "<img class='avatar' src='".avatar_image($user->avatar_link, $user->id)."'>";
@@ -186,10 +180,10 @@
                  'allowedExtensions'=>array("jpg", "jpeg", "png"),
                  'template'=> '<div class="qq-uploader">' .
                      '<div class="qq-upload-drop-area avatar-drop-area"><span>'.Yii::t('msg','Drop file here to change your profile picture.').'</span></div>' .
-                     '<div class="qq-upload-button avatar-button">
+                     '<div class="qq-upload-button">
                        <div class="avatar-loading"><span class="qq-upload-spinner"></span></div>
                        <img class="avatar" src="'.avatar_image($user->avatar_link, $user->id, false).'" >
-                       <div class="avatar-change">'.Yii::t('app','Change image').' <span class="general foundicon-photo"></div>
+                      <div class=" button disabled secondary radius small avatar-change">'.Yii::t('app','Change image').' <span class="icon-upload"></div> 
                       </div>' .
                      '<div class="qq-upload-list" style="display:none"></div>' .
                   '</div>',
@@ -250,7 +244,7 @@
       <hr>
 			<p>
       <?php /* ?><a href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My custom links"); ?> +</a> <?php */ ?>
-      <a class="button radius small right" href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My links"); ?> 
+      <a class="button radius small" href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My links"); ?> 
         <span class="icon-plus"></span>
       </a>
 <br />
@@ -288,7 +282,7 @@
 			</p>
       <div class="linkList">
         <?php foreach ($data['user']['link'] as $link){ ?>
-        <div data-alert class="alert-box radius secondary" id="link_div_<?php echo $link['id']; ?>">
+        <div data-alert class="label radius secondary" id="link_div_<?php echo $link['id']; ?>"><br>
           <img src="<?php echo getLinkIcon($link['url']); ?>">
           <?php echo $link['title']; ?>: <a href="<?php echo add_http($link['url']); ?>" target="_blank"><?php echo $link['url']; ?></a>
           <a href="#" class="close" onclick="removeLink(<?php echo $link['id']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteLink"); ?>')">&times;</a>

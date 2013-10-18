@@ -136,7 +136,7 @@ $idea = $data['idea'];
 			<div class="large-4 columns">
         <?php if ($idea['website']){ ?>
         <hr>
-        <p class="title-field meta">
+        <small><p class="meta">
           <img src="<?php echo getLinkIcon($idea['website']); ?>">
           <?php /* ?><span class="icon-globe" title=""></span><?php */ ?>
         <?php

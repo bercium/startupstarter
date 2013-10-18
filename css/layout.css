@@ -12,14 +12,12 @@
 */
 
 body {
-	background: url(../images/body_bg.png) !important;
+	background: url(../images/body_bg.png);
+	background: #F7F5F4;
 	color: #221E1D;
 	height: 100%;
 }
 
-.panel h1, .panel h2, .panel h3, .panel h4, .panel h5, .panel h6, .panel p  {
-	font-weight: 100;
-}
 
 
 .header-wrap {
@@ -53,8 +51,9 @@ body {
 }
 
 
-/* $INTRO
-================================================== */
+/* ==========================================================================
+  @ INTRO
+   ========================================================================== */
 
 .intro{
 
@@ -157,6 +156,7 @@ margin-left: 20px;
   margin-bottom:15px;
   color:#666;
   font-size: 0.8em;
+  margin-top: 34px;
 }
 
 .profile-info .progress{
@@ -202,8 +202,6 @@ margin-left: 20px;
 	border: none;
 	border: 1px solid #fff;
 	box-shadow: 0 0 0 1px #fff, 0 0 0 2px #bbbbbb, 0 0 0 3px #ddd, 0 0 0 4px #ddd;
-	
-	
 }
 
 .searchpanel .search_content {
@@ -213,9 +211,9 @@ margin-left: 20px;
 	padding: 15px 20px 0 20px;
 	z-index: 1;
 	border-radius: 6px;
-	color: #794a93;
-	
+	color: #794a93;	
 }
+
 
 
 /* $card general */
@@ -298,13 +296,15 @@ sidebar  .content {
 .sidebar {	
 	border-radius: 3px;
 	border-top: none;
+	
 }
 
 .sidebar .general,
 .sidebar .icon-user,
 .sidebar .icon-flag,
-.sidebar .icon-lightbulb {
-	color: #87878e;
+.sidebar .icon-lightbulb,
+.sidebar .icon-wrench {
+	color: #666;
 	text-shadow: 1px 1px #fff;
 	font-size: 1.1em;
 	padding-right: 10px;
@@ -312,7 +312,10 @@ sidebar  .content {
 	margin-right: 15px;
 	margin-bottom: -5px;		
 	line-height: 0;
+}
 
+.sidebar-wrap .edit-content {
+	border-radius: 3px;
 }
 
 
@@ -324,6 +327,7 @@ sidebar  .content {
 	line-height: 50px;
 	padding: 0 10px;
 	display: block;
+	text-align: center;
 }
 
 .ideas-aside .idea-each:hover,
@@ -332,16 +336,27 @@ sidebar  .content {
 
 }
 
-.ideas-aside .idea-each .alt {
+.ideas-aside .ico-awesome {
+	margin-left: 10px;
+}
+
+.ideas-aside .idea-each .idealist {
 	display: block;
 	padding: 10px;
 	border-top: 1px solid #ddd;
 	position: relative;
+	font-size: 0.75em;
+	color: #222;
 
 }
 .ideas-aside .idea-each .meta {
 	line-height: 20px;
 	padding: 0 0 0 10px;
+	font-size: 0.5em;
+}
+
+.ideas-aside .idea-each .right {
+	margin-right: 10px;
 }
 
 
@@ -419,29 +434,54 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7072', end
       border-radius: 999px; }
 
 
+
+/* ==========================================================================
+   @ edit profile
+   ========================================================================== */
+
+.hint-alert {
+	margin-top: 50px;
+}
+
+.hint-alert .alert-box .button {
+ margin-left: 20px;
+}
+
 .edit-header{
-  background-color: #f0f0f0;
+  background-color: #F8F6F5;
   border: 1px solid #fff;
   box-shadow: 0 0 0 1px #bbbbbb, 0 0 0 3px #ddd;
   border-radius: 3px 3px 0 0;
   margin-bottom: 4px;
+  padding: 4px 10px;
 }
+
+.settings-title { 
+	
+	line-height: 1.3em;
+	font-size: 1.1em;
+	text-transform: lowercase;
+	font-weight: bold;
+	margin: 0 -13px 0 -13px;
+	padding: 4px 10px;
+	border-bottom: 1px solid #ddd;
+	background: #F8F6F5;	
+}
+
 
 .edit-header h3,
 .edit-header h1 {
-	padding: 10px 0;
+	
 	margin: 0;
-	color: #888;
-	font-weight: 100;
+	color: inherit;
+	font-weight: normal;
 	font-size: 1.6em;
 
+
 }
 
+/****** @ avatar edit ******/
 
-#image {
-	margin-bottom: 30px;
-	margin-top: 16px;
-}
 
 
 
@@ -457,18 +497,68 @@ f-line {
 .edit-content{	
   border: 1px solid #fff;
   box-shadow: 0 0 0 1px #bbbbbb, 0 0 0 3px #ddd;
-  margin-bottom: 20px;
+  margin-bottom: 33px;
   border-radius: 0 0 3px 3px;
   background: #fff;
 }
 
+
+.person-data h3 {
+	font-size: 1.25em;
+}
+
+
+.skills .ico-awesome,
+.available .ico-awesome,
+.collaboration .ico-awesome,
+.involved-in .ico-awesome,
+.about-me .ico-awesome {
+ background: none repeat scroll 0 0 #DDDDDD;
+    border-radius: 3px;
+    color: #6F9A4B;
+    display: block;
+    float: left;
+    font-size: 0.75em !important;
+    min-width: 30px;
+    padding: 5px 8px;
+    text-align: center;
+    text-shadow: 0 1px rgba(255, 255, 255, 0.6);
+    
+
+}
+
+
+.available p,
+.collaboration p {
+	margin-top:  20px;
+	margin-bottom: 0; 
+}
+
+.person-details .about-me .card-avatar {
+	width: 36px;
+	height: auto;
+}
 
 .edit-content > .panel {}
 
 .edit-floater{
   float:right;
   margin-top:15px;
+
 }
+
+
+.add-skills .edit-floater {
+	float: none;
+	margin-bottom: 10px;
+}
+
+.preview   {
+	float: right;
+	margin-top: 0;
+}
+
+
 
 .edit-floater .button{
   margin-bottom: 12px;
@@ -523,10 +613,22 @@ img.card-avatar {
   float:right;
 }
 
+#image {
+	margin-bottom: 30px;	
+	margin-top: 16px;
+}
 
+#image .secondary {
+	border: 1px dashed #999;
+}
 
 /* #Special Styles
 ================================================== */
+
+.header-margin{
+  margin-top:40px;  
+}
+
 .alt {
   /*color: #a23134;*/
   color: #af3f42;
@@ -575,7 +677,7 @@ img.card-avatar {
 
 .meta-title {
 	/*color: #89b561 !important;*/
-	color: #555;
+	
 }
 
  button.custom, .button.custom {
@@ -584,8 +686,10 @@ img.card-avatar {
     color: #111;
 }
 
-.label {
+.label
+ {
 	padding: 0.4em 0.8em 0.4em;
+	
 	text-transform: capitalize;
 }
 
@@ -593,6 +697,7 @@ img.card-avatar {
 .label.success-alt {
 	background-color: #97b27b;
    /*	box-shadow: 0 1px 0 0px #6e8b50;*/
+   color: #fff;
 }
 
 .anchor-link{
@@ -787,6 +892,9 @@ img.card-avatar {
 	padding-bottom: 17px;
 }
 
+.card-idea .card-floater {
+	float: right;
+}
 
 .card-idea {
 	/*font-size: 0.9em;*/
@@ -1020,6 +1128,7 @@ img.card-avatar {
 	padding: 10px 0;
 }
 
+
 .idea-sidebar .panel,
 .idea-panel {
 background-color: #e5e8ee;
@@ -1040,7 +1149,7 @@ h6.title-field {
 }
 
 .idea-details .meta-field {
-	margin: 10px 0 20px 0;
+	margin: 10px 0 10px 0;
 	font-size: 0.8em;
 }
 
@@ -1107,6 +1216,10 @@ h6.title-field {
 	font-size: 0.85em;
 }
 
+.createidea .edit-floater {
+	margin-top: 0;
+}
+
 
 .createidea .breadcrumbs li:first-child:before {
 	content: " ";	
@@ -1144,8 +1257,11 @@ h6.title-field {
   color:#FFF !important;
 }
 
-/* @PERSON PAGE
-================================================== */
+/* ==========================================================================
+  @ PROFILE VIEW
+   ========================================================================== */
+
+
 .person-details{
   margin-top:40px;
 }
@@ -1155,41 +1271,73 @@ h6.title-field {
   padding-right: 13px;
 }
 
+.profile .card-floater a.button {
+	margin: 0;
+}
 
+
+/****** @ profile box ******/
+
+.profile p {
+	margin-bottom: 0.25em;
+}
+.profile .card-floater .button {
+	margin-top: 0.875em;
+}
 
 .person-details h1{
-	font-size: 1.375em;
+	font-size: 1.25em;
 	line-height: 0.9;
-	margin: 20px 0 20px 0 ;
-	color: #334421;	
+	margin: 20px 0 20px 0 ;	
 	text-transform: capitalize;
 }
 
+.person-details .card-person {
+	
+	box-shadow: 0 0 0 1px #fff, 0 0 0 2px #ccc;
+
+}
 
 .person-details .card-person-title {
 	
 	line-height: 1.3em;
-	font-size: 1.1em;
+	font-size: 1em;
 	text-transform: lowercase;
 	font-weight: bold;
 	margin: 0 -13px 0 -13px;
 	padding: 4px 10px;
-	border-bottom: 1px solid #ddd;
-	background: #F8F6F5;		
+	
+	
+	border-radius: 3px;	
+	border: none;	
 }
 
 
 .person-details h3.card-person-title {
-	color: inherit;
+	
+	background: #606060; /* Old browsers */
+background: -moz-linear-gradient(top,  #606060 0%, #3f3f3f 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#606060), color-stop(100%,#3f3f3f)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #606060 0%,#3f3f3f 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #606060 0%,#3f3f3f 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #606060 0%,#3f3f3f 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #606060 0%,#3f3f3f 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606060', endColorstr='#3f3f3f',GradientType=0 ); /* IE6-9 */
+
+	 color: #ddd;
+    text-shadow: 1px 1px rgba(0,0,0, 0.5);
 }
 
+
+
 .person-details img.card-avatar {
-	    border: 1px solid #FFFFFF;
-    border-radius: 2px 2px 2px 2px;
-    box-shadow: 0 0 0 1px #DDDDDD;    
-    margin-top: 15px;
-    width: 100%;
-    height: 100%;
+	box-shadow: none;
+	border: 1px solid #bbb; 
+    margin-top: 5px;
+    width: 220px;
+    height: auto;
+    border-radius: 3px;
+    
 }
 
 .lbf1 {
@@ -1202,7 +1350,7 @@ h6.title-field {
 	display: block;
 }
 
-.person-details .card-person .meta-field span {
+	 .meta-field span {
 	margin-bottom: 8px;
 }
 
@@ -1225,17 +1373,50 @@ border-right: none;
 
 }
 
-.person-details .edit-profile, .edit-project {
-    background: none repeat scroll 0 0 white;
-    border-left: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    font-size: 0.75em;
-    padding: 6px;
-    position: absolute;
-    right: 0;
-    top: -16px;
+
+.person-details .edit-profile {
+	position: absolute;
+    right: 15px;
+    top: -32px;
+
+}
+.person-details .edit-profile .ico-awesome {
+	margin-left: 10px;	
+	float: right;
 }
 
+.person-details .about-me {
+	margin-bottom: 33px;
+
+}
+
+.person-details .overview div {
+	border: none;
+}
+
+.person-details .collaboration .card-person-title {
+	background: #afbdd3;
+}
+
+
+
+.person-details .collaboration p {
+	
+}
+
+.person-details .collaboration p.active {
+	
+	color: inherit;
+}
+
+
+.person-details .available .card-person-title {
+	background: #f4a8a8;
+}
+
+.person-details .available p span {
+	text-align: center;
+}
 
 
 
@@ -1249,18 +1430,14 @@ border-right: none;
 
 .person-details .idea-list p a {
 	display: block;	
-	padding: 6px 0 0 20px;
-	border-bottom: 1px solid #ddd;
-
+	padding: 6px 0 0 12px;
+	border-bottom: 1px solid #eee;
 }
-
-
 
 .person-details .idea-list p a span {
 	 left: 16px;
     margin-top: 4px;
     position: absolute;
-
 }
 
 
@@ -1270,10 +1447,7 @@ border-right: none;
 	margin-top: 10px;
 }
 
-
-
-
-.person-details .icon-external-link {
+.person-details .ico-awesome {
 	font-size: 0.8em;
 	margin-right: 5px;
 
@@ -1285,6 +1459,7 @@ border-right: none;
 ================================================== */
 
 .myprojects .edit-header {
+
 }
 
 .myprojects .edit-content.middle  {
@@ -1293,15 +1468,9 @@ border-right: none;
   padding-bottom: 10px;
 }
 
-.myprojects .edit-content .idea-panel {
 
-	margin-bottom: 15px;
-	margin-top: 0;
-}
 
-.myprojects .edit-content .panel {
-	margin-top: 0 !important;
-}
+
 
 .myprojects .edit-content .idea-panel h5 {
 	font-weight: 100;
@@ -1310,16 +1479,23 @@ border-right: none;
 	color: inherit;
 }
 
+.myprojects .edit-content .idea-panel a h5 {
+	color: inherit;
+}
+
+
 .myprojects .edit-content .edit-floater {
-	padding: 10px 10px 0 20px;
+	padding: 10px 10px 0 20px;	
 	
-	box-shadow: -1px 0  rgba(255,255,255,0.3);
-	border-left: 1px solid #ddd; 
+}
+
+.myprojects .edit-content p {
+	margin-bottom: 0.5em;
 }
 
 /* #EDIT IDEA PAGE
 ================================================== */
-/*.formidea label {
+.formidea label {
 	margin-top: 50px;
 	margin-bottom: 10px;
 }
@@ -1334,7 +1510,7 @@ textarea#IdeaTranslation_pitch {
 
 textarea#IdeaTranslation_description {
 	min-height: 400px;
-}*/
+}
 
 
 
@@ -1348,13 +1524,15 @@ label{
   /*font-weight: bold;*/
 }
 
-
-.page-navigation ul{
+/*
+.page-navigation ul {
   padding:8px 12px;
 	background-color: #fff;
 	border-radius: 10px;
   box-shadow: 0 0 0 1px #fff, 0 0 0 2px #bbbbbb, 0 0 0 3px #ddd, 0 0 0 4px #ddd;  
+  margin-bottom: 10px;
 }
+*/
 
 .page-navigation ul{
   list-style: none;
@@ -1363,4 +1541,5 @@ label{
 
 .skillList span{
   line-height: 1.2em;
+  margin-bottom: 10px;
 }
