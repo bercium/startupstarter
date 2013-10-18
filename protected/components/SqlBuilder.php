@@ -261,8 +261,8 @@ class SqlBuilder {
 
 				$row['date_updated'] = Yii::app()->dateFormatter->formatDateTime(strtotime($row['time_updated']));
 				$row['days_updated'] = floor( (time() - strtotime($row['time_updated'])) / 86400 );
+				$row['translation_other'] = $this->idea_translation( 'other', $filter );
 				if($type != 'user'){
-					$row['translation_other'] = $this->idea_translation( 'other', $filter );
 					$row['candidate'] = $this->user( 'candidate', $filter );
 					$row['member'] = $this->user( 'member', $filter );
 					$row['num_of_members'] = count($row['member']);
