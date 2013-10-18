@@ -51,7 +51,7 @@ class SqlBuilder {
 		$filter['action'] = $action;
 		$this->level = 0;
 
-	//UNSET VARIABLEs
+	//UNSET VARIABLES
 		unset($filter['regflow']);
 
 	//WHICH ACTION IS PERFORMED?
