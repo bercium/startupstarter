@@ -199,34 +199,46 @@ form.custom .custom.dropdown{
 }
 
 
+/*  IMAGE UPLOAD BUTTON */
 
-/**/
-
-
-
-
-.avatar-change {
-
-}
 
 .qq-upload-button {
-	transition: 0.5s;
-	border: 2px solid #ddd;
+	/*transition: 0.5s;*/
+	/*border: 2px solid #ddd;*/
 	box-shadow: none;
   /*width:140px;*/
+  
+	border: none; 
+  width: 100%;
+	background: #fff;
+  
 }
 .qq-upload-button:hover {
 	border: 2px solid #999;
 }
 
 
+
+.avatar {
+  transition: 0.5s;
+	border: 1px dashed #bbb;	
+	border-bottom: none;
+	border-radius: 3px 3px 0 0;
+	width: 100%;
+}
+
 .avatar-change {
 	padding: 10px 0;
 	color: #888;
 	background: #F6F6FA;
 	border: 1px solid #fff;
-
+  padding:3px 0;
+  
+  width: 100%;
+	margin-top: 0px;
+	border-radius: 0 0 3px 3px;
 }
+  
 .avatar-loading{
   display: none;
   position: absolute;
@@ -234,24 +246,35 @@ form.custom .custom.dropdown{
   top: 5px;
 }
 
-.avatar-change{
-  padding:3px 0;
+
+.avatar-drop-area span {
+	margin-top: 10px;
+	font-size: 1em;
 }
 
-.avatar-drop-area{
-  
-}
 
 .qq-upload-drop-area{
   background-color:#89B561;
+  
+  /*background: #fff;*/
+	
+	font-size: 0.875em;
+	border: 1px dashed #999;
+	border-radius: 3px;  
 }
 
 .qq-uploader{
   width:140px;
 }
 
+.qq-uploader:click {
+	outline: 0;
+}
+
+
 /*.avatar-button{
   width:140px !important;
   padding: 0 !important;
   background-color: #666 !important;
 }*/
+

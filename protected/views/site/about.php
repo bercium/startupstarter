@@ -4,10 +4,10 @@
 
 
 <div class="row" style="margin-top:20px;">
-	<div class="columns edit-header">
+	<div class="columns">
 		<h1><?php echo Yii::t('app','What is cofinder'); ?></h1>
 	</div>
-  <div class="  columns panel edit-content">
+  <div class="  columns panel radius edit-content">
    <div class="large-8  columns">
 		 
 		<p>
@@ -27,20 +27,18 @@
     <div class="large-4 columns">
       <?php if ($idea)  $this->renderPartial('//project/_project', array('idea' => $idea));  ?>
     </div>
-    
+  
   </div>
   
 </div>
 
 
 <div class="row">
-	<div class="  columns edit-header">
-    <div class="edit-floater">
-			<a href="#" class="button small radius success" onclick="contact(this);"><?php echo Yii::t('app','Contact us'); ?></a>
-    </div>		
+	<div class="  columns">
+    		
 		<h1><?php echo Yii::t('app','Who is behind cofinder'); ?></h1>
   </div>
-  <div class="  columns panel edit-content">
+  <div class="  columns panel radius edit-content">
     <div class="large-5  columns hide-for-small">
       <img id="team_image" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team.jpg" alt="cofinder team" title="cofinder team">
       <div style="top:30px;left:70px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('zb');" onmouseout="hidePerson('zb')"></div>
@@ -170,14 +168,15 @@
       
 
     </div>
+    <a href="#" class="button small radius success right" onclick="contact(this);"><?php echo Yii::t('app','Contact us'); ?></a>  
   </div>
 </div>
 
 <div class="row">
-	<div class="  columns edit-header">
+	<div class="columns">
 		<h1><?php echo Yii::t('app','Our supporters'); ?></h1>
 	</div>
-  <div class="  columns panel edit-content">
+  <div class="radius columns panel edit-content">
   </div>
 </div>
 

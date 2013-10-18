@@ -5,7 +5,7 @@
   ?>
   <div data-alert class="alert-box radius">
     <?php echo $hint; ?>
-    <a href="<?php echo $action; ?>" class="button radius small" style="margin-bottom: 0;"><?php echo Yii::t("app",'Do it now!') ?></a>
-    <a href="#" class="close">&times;</a>
+    <a href="<?php echo $action; ?>" class="action" style="margin-bottom: 0;"><?php echo Yii::t("app",'Do it now!') ?> <span class="icon-long-arrow-right"></span></a>
+    <a href="#" class="close"><span class="icon-remove-sign"></span></a>
   </div>
 <?php } ?>

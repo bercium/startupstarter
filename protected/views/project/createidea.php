@@ -2,7 +2,7 @@
   var skillSuggest_url = '<?php echo Yii::app()->createUrl("site/suggestSkill",array("ajax"=>1)) ?>';
 </script>
 
-<div class="row createidea">
+<div class="row columns createidea">
   <div class="columns edit-header">
     <h3>
       <?php if($step == 1) echo Yii::t('app', 'Project presentation'); ?>

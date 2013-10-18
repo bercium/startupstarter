@@ -1,3 +1,4 @@
+<div class="large-12 columns">
 <?php
   $this->pageTitle=Yii::t('app','Edit project');
 ?>
@@ -10,7 +11,27 @@
 <div class="row createidea">
   <div class="columns edit-header">
    
-    <div class="edit-floater">
+    
+      
+    <h3>
+      <?php echo Yii::t('app', 'Project presentation'); ?>
+    </h3>
+    <hr>
+    <div class="columns languages" style="margin-bottom: 10px;">
+        <span style="float:left; margin-right: 8px; margin-top:5px;"><?php echo Yii::t('app','Languages'); ?>:</span> 
+        <ul class="button-group radius left">
+          <li><a class="button tiny"><?php echo $ideadata['language']; ?></a></li>
+          <?php 
+           if (count($ideadata['translation_other'])){ 
+              foreach ($ideadata['translation_other'] as $trans){
+                echo '<li><a href="?lang='.$trans['language_code'].'" class="button tiny secondary">'.$trans['language']."</a></li>";
+              }
+            
+            }
+           ?>
+          <li><a class="button success tiny"  href="<?php echo Yii::app()->createUrl("project/translate",array("id"=>$id)); ?>"><?php echo Yii::t('app', 'New translation'); ?></a></li>
+          </ul>
+          <div class="edit-floater">
       
         <?php 
           if($isOwner){
@@ -30,33 +51,14 @@
               ); 
       }      
       ?>
+      </div>
     </div>
       
-    <h3>
-      <?php echo Yii::t('app', 'Project presentation'); ?>
-    </h3>
-      
-    
-    
-      <div class="columns languages" style="margin-bottom: 10px;">
-        <span style="float:left; margin-right: 8px; margin-top:5px;"><?php echo Yii::t('app','Languages'); ?>:</span> 
-        <ul class="button-group radius">
-          <li><a class="button tiny"><?php echo $ideadata['language']; ?></a></li>
-          <?php 
-           if (count($ideadata['translation_other'])){ 
-              foreach ($ideadata['translation_other'] as $trans){
-                echo '<li><a href="?lang='.$trans['language_code'].'" class="button tiny secondary">'.$trans['language']."</a></li>";
-              }
-            
-            }
-           ?>
-          <li><a class="button success tiny"  href="<?php echo Yii::app()->createUrl("project/translate",array("id"=>$id)); ?>"><?php echo Yii::t('app', 'New translation'); ?></a></li>
-          </ul>
-      </div>    
-          
-          
+     
   </div>
+
   <div class="columns panel edit-content">
+    
    
     <?php if (count($ideadata['translation_other'])){ ?>
     <div class="edit-floater">
@@ -150,7 +152,8 @@
   }?>
     
 </div>
-</div>    
+</div>  
+</div>  
 
 <?php /* ?>
 <div class="row createidea">

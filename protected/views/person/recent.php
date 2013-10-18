@@ -1,4 +1,4 @@
-<div  class="row">
+<div  class="row" style="margin-top: 50px;">
   <h1><?php echo Yii::t('app', 'Recent users'); ?></h1>
 
   <?php if ($users) { ?>

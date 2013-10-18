@@ -1,3 +1,4 @@
+<div class="large-12 columns">
 <?php $this->pageTitle = Yii::t('app','My projects'); ?>
 
     <?php if(Yii::app()->user->hasFlash('removeProjectsMessage')){ ?>
@@ -9,9 +10,7 @@
 
 <div class="row myprojects">
   <div class="columns edit-header">
-    <div class="edit-floater">
-      <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo Yii::t('app','Create new project') ?></a>
-    </div>
+   
 		
     <h3><?php echo Yii::t('app', 'My projects'); ?></h3>
   </div>
@@ -31,7 +30,7 @@ foreach($user['idea'] AS $key => $idea){
               );?>
         </div>        
 
-        <a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><h5><?php echo $idea['title'];?></h5></a>
+        <p><a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><?php echo $idea['title'];?></a></p>
         <small class="meta">
           <?php echo Yii::t('app', 'created on'); ?> <a><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($idea['time_registered']),"long",null); ?></a> | 
           <?php echo Yii::t('app', 'has <a>{n} member</a>| has <a>{n} members</a>',count($idea['member'])); ?> | 
@@ -43,6 +42,9 @@ foreach($user['idea'] AS $key => $idea){
 ?>    
     
 </div>
+ 
+     <!-- <a class="small button success radius" style="margin-bottom:0;" href="<?php //echo  Yii::app()->createUrl("project/create"); ?>"><?php // echo Yii::t('app','Create new project') ?></a> -->
+   
 
 <div class="row myprojects" style="margin-top:20px;">
   <div class="  columns edit-header">
@@ -65,11 +67,12 @@ foreach($user['idea'] AS $key => $idea){
               ); ?>
         </div>
 
-        <a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><h5><?php echo $idea['title'];?></h5></a>
+        <p><a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><?php echo $idea['title'];?></a></p>
         <small class="meta">
-          <?php echo Yii::t('app', 'created on'); ?> <a><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($idea['time_registered']),"long",null); ?></a> | 
-          <?php echo Yii::t('app', 'has <a>{n} member</a>| has <a>{n} members</a>',count($idea['member'])); ?> | 
-          <?php echo Yii::t('app', 'viewed <a>{n} time</a>| viewed <a>{n} times</a>',$idea['num_of_clicks']); ?>
+          <p><?php echo Yii::t('app', 'created on'); ?> <?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($idea['time_registered']),"long",null); ?> | 
+          <?php echo Yii::t('app', 'has <span>{n} member</span>| has <span>{n} members</span>',count($idea['member'])); ?> | 
+          <?php echo Yii::t('app', 'viewed <span>{n} time</span>| viewed <span>{n} times</span>',$idea['num_of_clicks']); ?>
+          </p>
         </small>
 
     </div>
@@ -81,4 +84,5 @@ foreach($user['idea'] AS $key => $idea){
 
 <?php
 
-Yii::log(arrayLog($user), CLogger::LEVEL_INFO, 'custom.info.idea');
+Yii::log(arrayLog($user), CLogger::LEVEL_INFO, 'custom.info.idea'); ?>
+</div>

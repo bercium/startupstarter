@@ -1,3 +1,4 @@
+<div class="large-12 columns">
 <?php $this->pageTitle = Yii::t('app','My notifications'); ?>
 
 <div class="row myprojects">
@@ -43,4 +44,5 @@
     
     <?php } ?>
   </div>
+</div>
 </div>
