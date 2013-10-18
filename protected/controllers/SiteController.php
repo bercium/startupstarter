@@ -3,6 +3,7 @@
 class SiteController extends Controller
 {
   public $layout="//layouts/card";
+  public $justContent=false;
   
 	/**
 	 * @return array action filters
@@ -23,8 +24,8 @@ class SiteController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("index",'error','logout','about','terms','notify','suggestCountry','suggestSkill','suggestCity','removeInvite'),
+			array('allow', // allow all users to perform actions
+        'actions'=>array("index",'error','logout','about','terms','notify','notifyFacebook','suggestCountry','suggestSkill','suggestCity','removeInvite'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -201,6 +202,11 @@ class SiteController extends Controller
     }
 		$this->render('notify');
 	}
+  
+  public function actionNotifyFacebook(){
+    $this->justContent = true;  // show no header and footer
+    $this->actionNotify();
+  }
   
   
   public function actionRemoveInvite(){

@@ -42,6 +42,8 @@
 
 <div class="container">
 
+  <?php if (!isset($this->justContent) || !$this->justContent){ ?>
+  
   <div class="header-wrap show-for-small">
     <div class="row header">
       <div class="" >
@@ -180,7 +182,9 @@
   </div>
 </div>
 
+<?php } ?>
 <?php echo $content; ?>  
+<?php if (!isset($this->justContent) || !$this->justContent){ ?>
 
 
 	<div class="footer">
@@ -209,8 +213,6 @@
 			</div>
 		</div>
 	</div>
-
-</div>
  
 <!-- page -->
 <div id="langselect" class="f-dropdown content" data-dropdown-content>
@@ -252,6 +254,10 @@
 
   <?php echo CHtml::endForm(); ?>
   </div>
+</div>
+
+<?php } ?>
+
 </div>
 
 <!-- userreport.com snippet -->
