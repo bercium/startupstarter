@@ -1,7 +1,7 @@
 <?php /* @var $this Controller */ ?>
 <?php $this->beginContent('//layouts/main'); ?>
 
-<div class="row" style="margin-top:20px;">
+<div class="row header-margin">
 	<div class="columns edit-header">
 		<h1><?php echo $this->pageTitle; ?></h1>
 	</div>

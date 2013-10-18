@@ -2,7 +2,7 @@
 <?php $this->beginContent('//layouts/main'); ?>
 
 
-<div class="row" style="margin-top:50px;">
+<div class="row header-margin">
   <?php $this->widget('ext.Invitation.WInvitation'); ?>  
 
 

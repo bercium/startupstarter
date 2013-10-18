@@ -52,7 +52,7 @@
     </div>
   </div><!-- end header-wrap -->
   
-  <div class="top-bar-holder sticky" >
+  <div class="top-bar-holder sticky">
       <div class="row">
         <div class="">
           <nav class="top-bar contain-to-grid">

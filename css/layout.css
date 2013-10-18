@@ -624,6 +624,11 @@ img.card-avatar {
 
 /* #Special Styles
 ================================================== */
+
+.header-margin{
+  margin-top:40px;  
+}
+
 .alt {
   /*color: #a23134;*/
   color: #af3f42;
