@@ -12,7 +12,9 @@
       <a class="idea-new" href="<?php echo Yii::app()->createUrl("project/create"); ?>" class="ideas-aside-new <?php echo isMenuItemActive("create"); ?>">
         <?php echo Yii::t('app','Create a new project').' +'; ?>
       </a>
-      <?php foreach ($ideas as $idea){ ?>
+      <?php
+      if ($ideas)
+        foreach ($ideas as $idea){ ?>
       <a href="<?php echo Yii::app()->createUrl("project/edit/".$idea['id']); ?>" >
         <div class="idea-each alpha omega" >
           <span class="alt"><?php echo $idea['title']; ?></span>
