@@ -262,7 +262,9 @@ function sifTrans($value){
   return Yii::t("app",$value);
 }
 
-
+/**
+ * 
+ */
 function setFlash($flashName, $flashMessage, $status = 'success'){
   $flash = array("message"=>$flashMessage, "status"=>$status);
   Yii::app()->user->setFlash($flashName, $flash);
@@ -282,4 +284,41 @@ function getFlash($flashName){
 
 function writeFlash($flashName){
   echo getFlash($flashName);
+}
+
+function writeFlashes(){
+  $flashMessages = Yii::app()->user->getFlashes();
+  if ($flashMessages) {
+    echo '<div class="row">';
+    echo '<div class="flashes">';
+    $i = 0;
+    $hide = '';
+    $html = '';
+    foreach($flashMessages as $key => $flash) {
+      
+      $html .= '<div data-alert class="alert-box radius '.$flash['status'].' flash-hide-'.$i.' ">';
+      $html .= $flash['message'];
+      $html .= '<a href="#" class="close">&times;</a></div>';
+      
+      if ($flash['status'] != 'alert') $hide .= '$(".flash-hide-'.$i.'").animate({opacity: 1.0}, '.(3000+$i*500).').fadeOut();';
+      else $hide .= '$(".flash-hide-'.$i.'").animate({opacity: 1.0}, '.(10000+$i*500).').fadeOut();';
+      $i++;
+    }
+    echo $html;
+    echo '</div>';
+    echo '</div>';
+      Yii::app()->clientScript->registerScript(
+         'myHideEffect',
+         $hide,
+         CClientScript::POS_READY
+      );
+  }
+}
+
+function goBackController(){
+  if (Yii::app()->getBaseUrl()."/index.php" === Yii::app()->user->returnUrl)
+    $this->redirect(Yii::app()->controller->module->returnUrl);
+  else 
+    if (strpos(Yii::app()->request->urlReferrer,"user/login") === false) $this->redirect(Yii::app()->request->urlReferrer);
+    else $this->redirect(Yii::app()->user->returnUrl);  
 }

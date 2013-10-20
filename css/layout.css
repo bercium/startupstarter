@@ -1543,3 +1543,16 @@ label{
   line-height: 1.2em;
   margin-bottom: 10px;
 }
+
+
+.flashes{
+  z-index: 10000;
+  position: fixed;
+  width:100%;
+  max-width:62.5em; /* not cool on mobile */
+}
+
+.flashes .alert-box{
+  margin-bottom: 0px;
+  margin-top: 1px;
+}

@@ -182,7 +182,11 @@
   </div>
 </div>
 
-<?php } ?>
+<?php 
+
+ writeFlashes();
+
+} ?>
 <?php echo $content; ?>  
 <?php if (!isset($this->justContent) || !$this->justContent){ ?>
 
