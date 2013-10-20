@@ -8,12 +8,6 @@
 	var citySuggest_url = '<?php echo Yii::app()->createUrl("site/suggestCity",array("ajax"=>1)) ?>';
 </script>
 
-    <?php if(Yii::app()->user->hasFlash('profileMessage')){ ?>
-    <div data-alert class="alert-box radius success">
-      <?php echo Yii::app()->user->getFlash('profileMessage'); ?>
-      <a href="#" class="close">&times;</a>
-    </div>
-    <?php } ?>
 
 <p>
 <?php echo Yii::t('msg','Thank you for your registration. You will shortly receive our confirmation email.'); ?>

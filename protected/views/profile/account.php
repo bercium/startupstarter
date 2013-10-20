@@ -6,12 +6,6 @@
   </div>
   <div class="columns panel edit-content">
     
-    <?php if(Yii::app()->user->hasFlash('settingsMessage')){ ?>
-    <div data-alert class="alert-box radius success">
-      <?php echo Yii::app()->user->getFlash('settingsMessage'); ?>
-      <a href="#" class="close">&times;</a>
-    </div>
-    <?php } ?>    
     
       <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6")); ?>
     
@@ -64,13 +58,6 @@
     <h3><?php echo Yii::t('app', 'Change password'); ?></h3>
   </div>
   <div class="columns panel edit-content">
-
-    <?php if(Yii::app()->user->hasFlash('passChangeMessage')){ ?>
-    <div data-alert class="alert-box radius success">
-      <?php echo Yii::app()->user->getFlash('passChangeMessage'); ?>
-      <a href="#" class="close">&times;</a>
-    </div>
-    <?php } ?>
     
       <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6")); ?>
 

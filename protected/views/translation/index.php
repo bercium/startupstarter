@@ -21,14 +21,6 @@
 <h3><?php echo Yii::t('app','List of translations'); ?></h3>
 
 
-<?php if(Yii::app()->user->hasFlash('translationsMessage')){ ?>
-<div data-alert class="alert-box radius success">
-  <?php echo Yii::app()->user->getFlash('translationsMessage'); ?>
-  <a href="#" class="close">&times;</a>
-</div>
-<?php } ?>
-
-
 <?php echo CHtml::beginForm(Yii::app()->createUrl("translation/translate"),'post',array("class"=>"custom")); ?>
 
 <?php echo CHtml::hiddenField('language',$_GET['SifTranslate']['language']); ?>

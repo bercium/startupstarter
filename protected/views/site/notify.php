@@ -2,12 +2,6 @@
 	$this->pageTitle = Yii::t('app','Registration - Invitations');
 ?>
 
-<?php if(Yii::app()->user->hasFlash('interestMessage')){ ?>
-<div data-alert class="alert-box radius success">
-  <?php echo Yii::app()->user->getFlash('interestMessage'); ?>
-  <a href="#" class="close">&times;</a>
-</div>
-<?php } ?>  
 
 <p>
   <strong>

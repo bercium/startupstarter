@@ -2,14 +2,6 @@
 $this->pageTitle = Yii::t('app', 'Login');
 ?>
 
-<?php if (Yii::app()->user->hasFlash('loginMessage')): ?>
-
-	<div class="success">
-		<?php echo Yii::app()->user->getFlash('loginMessage'); ?>
-	</div>
-
-<?php endif; ?>
-
 <p><?php echo Yii::t('msg', "Please fill out the following form with your login credentials"); ?></p>
 
 <div class="form">

@@ -2,11 +2,9 @@
 $this->pageTitle = Yii::t('app', 'Registration');
 ?>
 
-<?php if(Yii::app()->user->hasFlash('registration')): ?>
-<div class="success">
-<?php echo Yii::app()->user->getFlash('registration'); ?>
-</div>
-<?php else: ?>
+<?php if(Yii::app()->user->hasFlash('registration')):
+  writeFlash("registration");
+  else: ?>
 
 <?php $form=$this->beginWidget('UActiveForm', array(
 	'id'=>'registration-form',

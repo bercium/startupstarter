@@ -1,13 +1,6 @@
 <div class="large-12 columns">
 <?php $this->pageTitle = Yii::t('app','My projects'); ?>
 
-    <?php if(Yii::app()->user->hasFlash('removeProjectsMessage')){ ?>
-    <div data-alert class="alert-box radius success">
-      <?php echo Yii::app()->user->getFlash('removeProjectsMessage'); ?>
-      <a href="#" class="close">&times;</a>
-    </div>
-    <?php } ?>
-
 <div class="row myprojects">
   <div class="columns edit-header">
    

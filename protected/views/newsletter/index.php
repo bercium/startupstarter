@@ -2,13 +2,6 @@
 	$this->pageTitle = Yii::t('app','Newsletter');
 ?>
 
-
-    <?php if(Yii::app()->user->hasFlash('newsletter')){ ?>
-    <div data-alert class="alert-box radius success">
-      <?php echo Yii::app()->user->getFlash('newsletter'); ?>
-      <a href="#" class="close">&times;</a>
-    </div>
-    <?php } ?>
     
       <?php echo CHtml::beginForm('','post',array('class'=>"custom")); ?>
 

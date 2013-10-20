@@ -265,10 +265,19 @@ function sifTrans($value){
 /**
  * 
  */
-function setFlash($flashName, $flashMessage, $status = 'success'){
-  $flash = array("message"=>$flashMessage, "status"=>$status);
+function setFlash($flashName, $flashMessage, $status = 'success', $autoShow = true){
+  $flash = array("message"=>$flashMessage, "status"=>$status, "autoShow" => $autoShow);
   Yii::app()->user->setFlash($flashName, $flash);
 }
+
+function getFlashData($flashName){
+  if(Yii::app()->user->hasFlash($flashName)){
+    $flash =  Yii::app()->user->getFlash($flashName);
+    return $flash['message'];
+  }
+  return false;
+}
+
 
 function getFlash($flashName){
   $html = '';
@@ -287,31 +296,33 @@ function writeFlash($flashName){
 }
 
 function writeFlashes(){
-  $flashMessages = Yii::app()->user->getFlashes();
+  $flashMessages = Yii::app()->user->getFlashes(false);
   if ($flashMessages) {
-    echo '<div class="row">';
-    echo '<div class="flashes">';
     $i = 0;
     $hide = '';
-    $html = '';
+    $html = '<div class="row"><div class="flashes">';
     foreach($flashMessages as $key => $flash) {
+      if ($flash["autoShow"]){
+        Yii::app()->user->getFlash($key);
       
-      $html .= '<div data-alert class="alert-box radius '.$flash['status'].' flash-hide-'.$i.' ">';
-      $html .= $flash['message'];
-      $html .= '<a href="#" class="close">&times;</a></div>';
-      
-      if ($flash['status'] != 'alert') $hide .= '$(".flash-hide-'.$i.'").animate({opacity: 1.0}, '.(3000+$i*500).').fadeOut();';
-      else $hide .= '$(".flash-hide-'.$i.'").animate({opacity: 1.0}, '.(10000+$i*500).').fadeOut();';
-      $i++;
+        $html .= '<div data-alert class="alert-box radius '.$flash['status'].' flash-hide-'.$i.' ">';
+        $html .= $flash['message'];
+        $html .= '<a href="#" class="close">&times;</a></div>';
+
+        if ($flash['status'] != 'alert') $hide .= '$(".flash-hide-'.$i.'").animate({opacity: 1.0}, '.(3000+$i*500).').fadeOut();';
+        else $hide .= '$(".flash-hide-'.$i.'").animate({opacity: 1.0}, '.(10000+$i*500).').fadeOut();';
+        $i++;
+      }
     }
-    echo $html;
-    echo '</div>';
-    echo '</div>';
+    $html .= '</div></div>';
+    if ($i > 0){ 
+      echo $html;
       Yii::app()->clientScript->registerScript(
          'myHideEffect',
          $hide,
          CClientScript::POS_READY
       );
+    }
   }
 }
 

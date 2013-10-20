@@ -1,16 +1,3 @@
-
-    <?php if(Yii::app()->user->hasFlash('projectPositionMessage')){ ?>
-    <div data-alert class="alert-box radius success">
-      <?php echo Yii::app()->user->getFlash('projectPositionMessage'); ?>
-      <a href="#" class="close">&times;</a>
-    </div>
-    <?php } ?>
-    <?php if(Yii::app()->user->hasFlash('projectPositionMessageError')){ ?>
-    <div data-alert class="alert-box radius alert">
-      <?php echo Yii::app()->user->getFlash('projectPositionMessageError'); ?>
-      <a href="#" class="close">&times;</a>
-    </div>
-    <?php } ?>
     
     <?php if(isset($candidate['id'])){ ?>
     <p>

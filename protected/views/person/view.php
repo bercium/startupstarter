@@ -134,21 +134,6 @@ $user = $data['user'];
 
 				<hr>
 				</div>
-				<?php if(Yii::app()->user->hasFlash('contactPersonMessage')){ ?>
-				<div data-alert class="alert-box radius success">
-					<?php echo Yii::app()->user->getFlash('contactPersonMessage'); ?>
-					<a href="#" class="close">&times;</a>
-				</div>
-					<?php } ?> 
-					<?php if(Yii::app()->user->hasFlash('contactPersonError')){ ?>
-				<div data-alert class="alert-box radius alert">
-					<?php echo Yii::app()->user->getFlash('contactPersonError'); ?>
-					<a href="#" class="close">&times;</a>
-				</div>
-				<?php } ?>       
-
-
-
 				
 				<div class="large-6 columns radius available"  >				
 					
