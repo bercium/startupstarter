@@ -19,7 +19,7 @@ $idea = $data['idea'];
       break;
     }
   }
-  echo CHtml::beginForm(Yii::app()->createUrl("person/contact",array("id"=>$user_id)),'post',array("class"=>"custom")); ?>
+  echo CHtml::beginForm(Yii::app()->createUrl("message/contact",array("id"=>$user_id)),'post',array("class"=>"custom")); ?>
 
       <?php echo CHtml::label(Yii::t('app','Message').":",'message'); ?>
       <?php echo CHtml::textArea('message') ?>
