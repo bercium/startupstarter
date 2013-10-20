@@ -28,11 +28,11 @@ class SiteController extends Controller
         'actions'=>array("index",'error','logout','about','terms','notify','notifyFacebook','suggestCountry','suggestSkill','suggestCity','removeInvite'),
 				'users'=>array('*'),
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+			/*array('allow', // allow authenticated user to perform 'create' and 'update' actions
         'actions'=>array(),
 				'users'=>array('@'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+			),*/
+			array('allow', // allow admin user to perform actions:
 				'actions'=>array('list'),
 				'users'=>Yii::app()->getModule('user')->getAdmins(),
 			),
