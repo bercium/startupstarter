@@ -1,8 +1,8 @@
 <?php
 
-Yii::import('application.models._base.BaseUserMatch');
+Yii::import('application.models._base.BaseMessage');
 
-class UserMatch extends BaseUserMatch
+class Message extends BaseMessage
 {
 	public static function model($className=__CLASS__) {
 		return parent::model($className);

@@ -16,6 +16,7 @@
   </div>
     
 <?php
+if (isset($user['idea']))
 foreach($user['idea'] AS $key => $idea){
 	if ($idea['type_id'] != 1) continue;
 ?>
@@ -52,6 +53,7 @@ foreach($user['idea'] AS $key => $idea){
   </div>
     
 <?php
+if (isset($user['idea']))
 foreach($user['idea'] AS $key => $idea){
 	if ($idea['type_id'] != 2) continue;
 ?>
