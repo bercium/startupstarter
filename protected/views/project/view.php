@@ -72,7 +72,7 @@ $idea = $data['idea'];
           <li><a class="button tiny"><?php echo $idea['language']; ?></a></li>
           <?php 
             foreach ($idea['translation_other'] as $trans){
-              echo '<li><a href="?lang='.$trans['language_code'].'" class="button tiny secondary">'.$trans['language']."</a></li>";
+              echo '<li><a href="'.Yii::app()->createUrl("project/view",array("id"=>$idea['id'],'lang'=>$trans['language_code'])).'" class="button tiny secondary">'.$trans['language']."</a></li>";
             }
            ?>
           </ul>

@@ -45,11 +45,12 @@ abstract class BaseIdea extends GxActiveRecord {
 			array('status_id', 'required'),
 			array('time_updated', 'required', 'on'=>'clicks'),
 			array('status_id, deleted', 'numerical', 'integerOnly'=>true),
-			array('website, video_link', 'length', 'max'=>128),
+			array('website, video_link, vanityURL', 'length', 'max'=>128),
 			array('website, video_link', 'url', 'defaultScheme' => 'http'),
 			array('time_updated', 'safe'),
-			array('time_updated, website, video_link', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('time_updated, website, video_link, vanityURL', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('id, time_registered, time_updated, status_id, website, video_link, deleted', 'safe', 'on'=>'search'),
+			array('vanityURL', 'unique', 'message' => Yii::t('msg',"This public name is already taken.")),
 		);
 	}
 
@@ -80,6 +81,8 @@ abstract class BaseIdea extends GxActiveRecord {
 			'status' => null,
 			'ideaMembers' => null,
 			'ideaTranslations' => null,
+      'vanityURL' => Yii::t('app', 'Public name'),
+        
 		);
 	}
 
@@ -93,6 +96,7 @@ abstract class BaseIdea extends GxActiveRecord {
 		$criteria->compare('website', $this->website, true);
 		$criteria->compare('video_link', $this->video_link, true);
 		$criteria->compare('deleted', $this->deleted);
+		$criteria->compare('deleted', $this->vanityURL);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
