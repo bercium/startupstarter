@@ -276,17 +276,17 @@ class ProfileController extends GxController {
 
 		$user_id = Yii::app()->user->id;
 		$user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
-		$fpi = !Yii::app()->user->getState('fpi'); // sinc it is not defined default value is 0 and it must be visible
+		//$fpi = !Yii::app()->user->getState('fpi'); // sinc it is not defined default value is 0 and it must be visible
 
 		
 		if ($user) {
 
 			if (isset($_POST['UserEdit'])) {
 				//$_POST['UserEdit']['name'] = $user->name;
-				$fpi = $_POST['UserEdit']['fpi'];
-				Yii::app()->user->setState('fpi', !$fpi);
+				//$fpi = $_POST['UserEdit']['fpi'];
+				//Yii::app()->user->setState('fpi', !$fpi);
 
-				unset($_POST['UserEdit']['fpi']); // since we don't have it in our user model
+				//unset($_POST['UserEdit']['fpi']); // since we don't have it in our user model
 				$_POST['UserEdit']['email'] = $user->email; // can't change email at this time!!!
 				$user->setAttributes($_POST['UserEdit']);
 
@@ -332,7 +332,7 @@ class ProfileController extends GxController {
 			$data['user'] = $sqlbuilder->load_array("user", $filter);
 			//$this->ideas = $data['user']['idea'];
 
-			$this->render('account', array('user' => $user, "passwordForm" => $form2, "fpi" => $fpi, 'ideas'=>$data['user']['idea']));
+			$this->render('account', array('user' => $user, "passwordForm" => $form2, /*"fpi" => $fpi,*/ 'ideas'=>$data['user']['idea']));
 		}
 	}
 
