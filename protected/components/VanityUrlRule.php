@@ -28,8 +28,10 @@ class VanityUrlRule extends CBaseUrlRule
           
           // if user was not found or we specified language 
           if (preg_match('%(-(\w{2}))?$%', $pathInfo, $lang)) {
-            $lang = $lang[2];
-            $matches[1] = str_replace("-".$lang, "", $matches[1]);
+            if (count($lang) > 1){
+              $lang = $lang[2];
+              $matches[1] = str_replace("-".$lang, "", $matches[1]);
+            }
           }
           $idea = Idea::model()->findByAttributes(array('vanityURL'=>$matches[1],'deleted'=>0));
           if ($idea){

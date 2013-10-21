@@ -206,13 +206,13 @@ class ProjectController extends GxController {
 			 					$this->sessionReset('links');
 			 				}
 
-							Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Project successfully saved."));
+							setFlash('projectMessage', Yii::t('msg',"Project successfully saved."));
 
 							//redirect
 							if(!$id)
 								$this->redirect(array('project/create', 'step' => 2));
 						} else {
-							Yii::app()->user->setFlash('projectMessageError', Yii::t('msg',"Unable to create project."));
+							setFlash('projectMessage', Yii::t('msg',"Unable to create project."),'alert');
 						}
 					}
 				}
@@ -255,9 +255,9 @@ class ProjectController extends GxController {
 								//$this->redirect(array('project/create', 'step' => 2));
 							}
 
-							Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Project successfully updated."));
+							setFlash('projectMessage', Yii::t('msg',"Project successfully updated."));
 						} else {
-							Yii::app()->user->setFlash('projectMessageError', Yii::t('msg',"Unable to update project."));
+							setFlash('projectMessage', Yii::t('msg',"Unable to update project."),'alert');
 						}
 					}
 				}
@@ -402,7 +402,7 @@ class ProjectController extends GxController {
 						UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
 						UserSkill::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
 					} else {
-						Yii::app()->user->setFlash('projectPositionMessageError', Yii::t('msg',"Wrong candidate ID supplied, could not update candidate."));
+						setFlash('projectPositionMessage', Yii::t('msg',"Wrong candidate ID supplied, could not update candidate."),'alert');
 					}
 					
 					if($match->save())
@@ -536,12 +536,12 @@ class ProjectController extends GxController {
 				
 				//check if it went okay
 				if ($c == 0 && $s == 0 && $match_saved && $ideamember_saved) {
-					Yii::app()->user->setFlash('projectPositionMessage', Yii::t('msg',"Position successfully opened."));
+					setFlash('projectPositionMessage', Yii::t('msg',"Position successfully opened."));
 					//reset session
 					$candidate_in_edit = false;
 					$this->sessionReset('candidate');
 				}else{
-					Yii::app()->user->setFlash('projectPositionMessageError', Yii::t('msg',"Unable to save open position."));
+					setFlash('projectPositionMessage', Yii::t('msg',"Unable to save open position."),'alert');
 				}
 
 				if($id){
@@ -564,9 +564,9 @@ class ProjectController extends GxController {
 					IdeaMember::Model()->deleteAll("match_id = :match_id", array(':match_id' => $_GET['delete_candidate']));
 					UserMatch::Model()->deleteAll("id = :match_id", array(':match_id' => $_GET['delete_candidate']));
 					
-					Yii::app()->user->setFlash('projectPositionMessage', Yii::t('msg',"Open position deleted."));
+					setFlash('projectPositionMessage', Yii::t('msg',"Open position deleted."));
 				} else {
-					Yii::app()->user->setFlash('projectPositionMessageError', Yii::t('msg',"Could not delete open position."));
+					setFlash('projectPositionMessage', Yii::t('msg',"Could not delete open position."),'alert');
 				}
 
 				if($id){
@@ -704,11 +704,11 @@ class ProjectController extends GxController {
 
 		 			$language = Language::Model()->findByAttributes(array('id' => $translation->language_id));
 
-		 			Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Successfully saved project translation!"));
+		 			setFlash('projectMessage', Yii::t('msg',"Successfully saved project translation!"));
 
 					$this->redirect(array('edit', 'id' => $id, 'lang' => $language->language_code));
 				} else {
-					Yii::app()->user->setFlash('projectMessageError', Yii::t('msg',"Could not save project translation."));
+					setFlash('projectMessage', Yii::t('msg',"Could not save project translation."),'alert');
 				}
 			}
 
@@ -740,11 +740,11 @@ class ProjectController extends GxController {
 
 					$time_updated = new TimeUpdated;
 					$time_updated->idea($id);
-          Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Translation successfully removed!"));
+          setFlash('projectMessage', Yii::t('msg',"Translation successfully removed!"));
 				} else {
 					$return['message'] = Yii::t('msg', "Unable to remove translation from project.");
 					$return['status'] = 1;
-          Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Unable to remove translation from project."));
+          setFlash('projectMessage', Yii::t('msg',"Unable to remove translation from project."),'alert');
 				}
 				
 				if(isset($_GET['ajax'])){
@@ -770,7 +770,7 @@ class ProjectController extends GxController {
 			$idea->deleted = 1;
 				
 			if($idea->save()){
-        Yii::app()->user->setFlash('removeProjectsMessage', Yii::t('msg',"Project successfully removed."));
+        setFlash('removeProjectsMessage', Yii::t('msg',"Project successfully removed."));
 			}
 		}
 
@@ -782,9 +782,9 @@ class ProjectController extends GxController {
 
 	    $ideaMember = IdeaMember::Model()->findByAttributes(array('type_id' => 2,'match_id' => $match->id, 'idea_id' => $id));
 	    if($ideaMember && $ideaMember->delete()){
-	      	Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Project removed from your account successfully."));
+	      	setFlash('projectMessage', Yii::t('msg',"Project removed from your account successfully."));
 	    } else {
-	    	Yii::app()->user->setFlash('projectMessageError', Yii::t('msg',"Could not remove project from your account."));
+	    	setFlash('projectMessage', Yii::t('msg',"Could not remove project from your account."),'alert');
 	    }
 	    $this->redirect(Yii::app()->createUrl('profile/projects'));
 	}
@@ -931,7 +931,7 @@ class ProjectController extends GxController {
 				//$time_updated = new TimeUpdated;
 				//$time_updated->idea($id);
         //setFlash("projectMessage", Yii::t('msg','Member removed from project'));
-        Yii::app()->user->setFlash('projectMessage', Yii::t('msg','Member removed from project'));
+        setFlash('projectMessage', Yii::t('msg','Member removed from project'));
 			} else {
 				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove member from project.");
 				$return['status'] = 1;

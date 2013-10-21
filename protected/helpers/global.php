@@ -256,13 +256,19 @@ function arrayLog($data, $space = '&nbsp;&nbsp;'){
 
 
 /**
- * dynamicaly translate si
+ * dynamicaly translate sif
  */
 function sifTrans($value){
   return Yii::t("app",$value);
 }
 
 /**
+ * set flash will set flash with some extra parameters
+ * @value string $flashName - name of ID to show flash for
+ * @value string $flashMesage - string message to show in flash or
+ *                              array in format array(msg='',action=array of actions(hint='',action='')) where message should have %s for replacing actions
+ * @value string $staus - ['success'] status of message shown can be: alert, success or info
+ * @value string $autoShow - weather flash message should be shown automaticaly or you are going to do it somewhere
  * 
  */
 function setFlash($flashName, $flashMessage, $status = 'success', $autoShow = true){
@@ -270,22 +276,48 @@ function setFlash($flashName, $flashMessage, $status = 'success', $autoShow = tr
   Yii::app()->user->setFlash($flashName, $flash);
 }
 
+/**
+ * will decode message if array or string
+ */
+function decodeFlashMsg($msg){
+  
+  if (is_array($msg) && isset($msg['msg'])){
+    $actions = array();
+    
+    if (isset($msg['actions'])){
+      foreach ($msg['actions'] as $action){
+        $actions[] = '<a href="'.$action['action'].'" class="action" style="margin-bottom: 0;" alt="'.$action['hint'].'" title="'.$action['hint'].'">'.
+                     $action['hint'].
+                     '</a>';
+      }
+    }
+    
+    return vsprintf($msg['msg'],$actions);
+  }else return $msg;
+}
+
+
+/**
+ * will return flash data as a string
+ */
 function getFlashData($flashName){
   if(Yii::app()->user->hasFlash($flashName)){
     $flash =  Yii::app()->user->getFlash($flashName);
-    return $flash['message'];
+    return decodeFlashMsg($flash['message']);
   }
   return false;
 }
 
-
+/**
+ * will return whole flash with styling
+ */
 function getFlash($flashName){
   $html = '';
   if(Yii::app()->user->hasFlash($flashName)){
     $flash = Yii::app()->user->getFlash($flashName);
     
     $html .= '<div data-alert class="alert-box radius '.$flash['status'].'">';
-    $html .= $flash['message'];
+    $html .= decodeFlashMsg($flash['message']);
     $html .= '<a href="#" class="close">&times;</a></div>';
   }
   return $html;
@@ -295,6 +327,9 @@ function writeFlash($flashName){
   echo getFlash($flashName);
 }
 
+/**
+ * will write all the flashes in standard way and assign them a timeout function
+ */
 function writeFlashes(){
   $flashMessages = Yii::app()->user->getFlashes(false);
   if ($flashMessages) {
@@ -306,7 +341,7 @@ function writeFlashes(){
         Yii::app()->user->getFlash($key);
       
         $html .= '<div data-alert class="alert-box radius '.$flash['status'].' flash-hide-'.$i.' ">';
-        $html .= $flash['message'];
+        $html .= decodeFlashMsg($flash['message']);
         $html .= '<a href="#" class="close">&times;</a></div>';
 
         if ($flash['status'] != 'alert') $hide .= '$(".flash-hide-'.$i.'").animate({opacity: 1.0}, '.(3000+$i*500).').fadeOut();';
@@ -326,6 +361,10 @@ function writeFlashes(){
   }
 }
 
+
+/**
+ * will return you to previously called action
+ */
 function goBackController(){
   if (Yii::app()->getBaseUrl()."/index.php" === Yii::app()->user->returnUrl)
     $this->redirect(Yii::app()->controller->module->returnUrl);

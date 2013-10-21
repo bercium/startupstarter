@@ -154,7 +154,7 @@ class WProfileInfo extends CWidget
       //if ($msg) return $messages[rand(0,count($messages)-1)];
       $rand = rand(0,count($messages)-1);
       if (count($messages) > 0){
-        setFlash('WProfileInfoHint',$messages[$rand], "info", false);
+        setFlash('WProfileInfoHint',array('msg'=>$messages[$rand]['hint'].' %s <span class="icon-long-arrow-right"></span>','actions'=>array(array('hint'=>Yii::t("app",'Do it now!'),'action'=>$messages[$rand]['action']))), "info", false);
         //Yii::app()->user->setFlash('WProfileInfoHint',$messages[$rand]);
       }
     }

@@ -78,9 +78,9 @@ class MessageController extends Controller
       Yii::app()->mail->send($message);
       
       // notify
-      Yii::app()->user->setFlash('contactPersonMessage', Yii::t("msg","Your message was sent."));
+      setFlash('contactPerson', Yii::t("msg","Your message was sent."));
     }else{
-      Yii::app()->user->setFlash('contactPersonError', Yii::t("msg","Message can't be empty!"));
+      setFlash('contactPerson', Yii::t("msg","Message can't be empty!"), 'alert');
     }
     
     goBackController();

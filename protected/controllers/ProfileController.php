@@ -167,7 +167,7 @@ class ProfileController extends GxController {
 								}
 
 								//if ($user->save()) {
-								//  Yii::app()->user->setFlash('avatarMessage',Yii::t('msg',"Avatar saved."));
+								//  setFlash('avatarMessage',Yii::t('msg',"Avatar saved."));
 								//}
 							}else
 								$user->avatar_link = '';
@@ -194,7 +194,7 @@ class ProfileController extends GxController {
 			            }
 
 						if ($match->save()) {
-							Yii::app()->user->setFlash('personalMessage', Yii::t('msg',"Personal information saved."));
+							setFlash('personalMessage', Yii::t('msg',"Personal information saved."));
 							/* if (Yii::app()->getRequest()->getIsAjaxRequest())
 							  Yii::app()->end();
 							  else
@@ -221,10 +221,10 @@ class ProfileController extends GxController {
           }
           
           if (($c == 0) && ($match->save())) {
-            if (Yii::app()->user->isGuest) Yii::app()->user->setFlash('profileMessage', Yii::t('msg',"Profile details saved. Please check your mail for activation code."));
-            else Yii::app()->user->setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
+            if (Yii::app()->user->isGuest) setFlash('profileMessage', Yii::t('msg',"Profile details saved. Please check your mail for activation code."));
+            else setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
           }else{
-            Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Unable to save profile details."));
+            setFlash('profileMessage', Yii::t('msg',"Unable to save profile details."),'alert');
           }
           
         }
@@ -299,7 +299,7 @@ class ProfileController extends GxController {
 					/* if (Yii::app()->getRequest()->getIsAjaxRequest())
 					  Yii::app()->end();
 					  else{ */
-					Yii::app()->user->setFlash('settingsMessage', Yii::t('msg',"Settings saved."));
+					setFlash('settingsMessage', Yii::t('msg',"Settings saved."));
 					//$this->redirect(array('profile/account/'));
 					//}
 				}
@@ -322,7 +322,7 @@ class ProfileController extends GxController {
 						$find->status = 1;
 					}
 					$find->save();
-					Yii::app()->user->setFlash('passChangeMessage', Yii::t('msg',"New password is saved."));
+					setFlash('passChangeMessage', Yii::t('msg',"New password is saved."));
 					//$this->redirect(Yii::app()->controller->module->recoveryUrl);
 				}
 			}
@@ -723,7 +723,7 @@ class ProfileController extends GxController {
 
         $invitee = User::model()->findByAttributes(array("email"=>$_POST['invite-email']));
         if ($invitee){
-          Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitee is already in the system.'));
+          setFlash("invitationMessage",Yii::t('msg','Invitee is already in the system.'),'info');
         }else{
           $invitation = Invite::model()->findByAttributes(array('email'=>$_POST['invite-email'],'key'=>null)); // self invited from system
 
@@ -750,11 +750,11 @@ class ProfileController extends GxController {
 
             $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key;
 
-            Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation generated: <br /><br />'.$activation_url));
+            setFlash("invitationMessage",Yii::t('msg','Invitation generated: <br /><br />'.$activation_url));
           }else{
             $invitation = Invite::model()->findByAttributes(array("email"=>$_POST['invite-email']));
             $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key;
-            Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation already exist: <br /><br />'.$activation_url));
+            setFlash("invitationMessage",Yii::t('msg','Invitation already exist: <br /><br />'.$activation_url),'alert');
           }
         }// end not in system
       }

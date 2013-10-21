@@ -82,7 +82,7 @@ class TranslationController extends Controller
             $meta->save();
           }
         }
-        Yii::app()->user->setFlash('translationsMessage', Yii::t('msg',"Translations saved."));
+        setFlash('translationsMessage', Yii::t('msg',"Translations saved."));
       }
       
       $this->redirect(Yii::app()->createUrl("translation/index",array('SifTranslate[codelist]'=>$_POST['codelist'],"SifTranslate[language]"=>$_POST['language'])));
