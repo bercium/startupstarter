@@ -7,15 +7,18 @@
  * property or method in class "Message".
  *
  * Columns in table "message" available as properties of the model,
- * and there are no model relations.
+ * followed by relations of table "message" available as properties of the model.
  *
  * @property integer $id
- * @property integer $user_from_id
- * @property integer $user_to_id
- * @property integer $idea_to_id
+ * @property string $user_from_id
+ * @property string $user_to_id
+ * @property string $idea_to_id
  * @property string $time_sent
  * @property string $message
  *
+ * @property Idea $ideaTo
+ * @property User $userFrom
+ * @property User $userTo
  */
 abstract class BaseMessage extends GxActiveRecord {
 
@@ -37,8 +40,9 @@ abstract class BaseMessage extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('user_from_id, time_sent, message', 'required'),
-			array('user_from_id, user_to_id, idea_to_id', 'numerical', 'integerOnly'=>true),
+      array('time_sent', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
+			array('user_from_id,  message', 'required'),
+			array('user_from_id, user_to_id, idea_to_id', 'length', 'max'=>11),
 			array('user_to_id, idea_to_id', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('id, user_from_id, user_to_id, idea_to_id, time_sent, message', 'safe', 'on'=>'search'),
 		);
@@ -46,6 +50,9 @@ abstract class BaseMessage extends GxActiveRecord {
 
 	public function relations() {
 		return array(
+			'ideaTo' => array(self::BELONGS_TO, 'Idea', 'idea_to_id'),
+			'userFrom' => array(self::BELONGS_TO, 'User', 'user_from_id'),
+			'userTo' => array(self::BELONGS_TO, 'User', 'user_to_id'),
 		);
 	}
 
@@ -57,11 +64,14 @@ abstract class BaseMessage extends GxActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => Yii::t('app', 'ID'),
-			'user_from_id' => Yii::t('app', 'User From'),
-			'user_to_id' => Yii::t('app', 'User To'),
-			'idea_to_id' => Yii::t('app', 'Idea To'),
+			'user_from_id' => null,
+			'user_to_id' => null,
+			'idea_to_id' => null,
 			'time_sent' => Yii::t('app', 'Time Sent'),
 			'message' => Yii::t('app', 'Message'),
+			'ideaTo' => null,
+			'userFrom' => null,
+			'userTo' => null,
 		);
 	}
 

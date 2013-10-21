@@ -365,10 +365,10 @@ function writeFlashes(){
 /**
  * will return you to previously called action
  */
-function goBackController(){
+/*function goBackController($this){
   if (Yii::app()->getBaseUrl()."/index.php" === Yii::app()->user->returnUrl)
     $this->redirect(Yii::app()->controller->module->returnUrl);
   else 
     if (strpos(Yii::app()->request->urlReferrer,"user/login") === false) $this->redirect(Yii::app()->request->urlReferrer);
     else $this->redirect(Yii::app()->user->returnUrl);  
-}
+}*/

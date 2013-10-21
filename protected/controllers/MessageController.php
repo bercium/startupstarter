@@ -48,12 +48,27 @@ class MessageController extends Controller
     
 		if(isset($_POST['message']) && ($_POST['message']  > '')){
       
+      // store in DB
+      $db_message = new Message;
+      $db_message->user_from_id = Yii::app()->user->id;
+      
+      $db_message->message = $_POST['message'];
+      if (isset($_POST['project'])){
+        $db_message->idea_to_id = $id;
+        $ideaMember = IdeaMember::model()->findByAttributes(array("idea_id"=>$id,"type_id"=>1));
+        $receiver = User::model()->findByPk($ideaMember->match->user_id);
+      }else{
+        $db_message->user_to_id = $id;
+        $receiver = User::model()->findByPk($id);
+      }
+      $db_message->save();
+      
+      // create MAIL
       $sender = User::model()->findByPk(Yii::app()->user->id);
-      $receiver = User::model()->findByPk($id);
+      
       
       $message = new YiiMailMessage;
       $message->view = 'system';
-      
       // send to sender
       $message->subject = "New message from ".$sender->name." ".$sender->surname;
       $content = "This message was sent trough cofinder by ".$sender->name." ".$sender->surname.'. '.
@@ -66,16 +81,18 @@ class MessageController extends Controller
       $message->from = Yii::app()->params['adminEmail'];
       Yii::app()->mail->send($message);
       
+      $message_self = new YiiMailMessage;
+      $message_self->view = 'system';
       // send to self
-      $message->subject = "Message send to ".$receiver->name." ".$receiver->surname;
+      $message_self->subject = "Message send to ".$receiver->name." ".$receiver->surname;
       $content = "You send this message trough cofinder to ".$receiver->name." ".$receiver->surname.'. '.
                  'To check his profile <a href="'.Yii::app()->createAbsoluteUrl('/person/view',array('id'=>$receiver->id)).'">click here</a>.<br /><br /><br />'.
                  GxHtml::encode($_POST['message']);
-      $message->setBody(array("content"=>$content), 'text/html');
+      $message_self->setBody(array("content"=>$content), 'text/html');
       //$message->setBody(array("content"=>$_POST['message'],"senderMail"=>$sender->email), 'text/html');
-      $message->addTo($sender->email);
-      $message->from = Yii::app()->params['adminEmail'];
-      Yii::app()->mail->send($message);
+      $message_self->addTo($sender->email);
+      $message_self->from = Yii::app()->params['adminEmail'];
+      Yii::app()->mail->send($message_self);
       
       // notify
       setFlash('contactPerson', Yii::t("msg","Your message was sent."));
@@ -83,7 +100,13 @@ class MessageController extends Controller
       setFlash('contactPerson', Yii::t("msg","Message can't be empty!"), 'alert');
     }
     
-    goBackController();
+    // go to previous controller
+    if (Yii::app()->getBaseUrl()."/index.php" === Yii::app()->user->returnUrl)
+      $this->redirect(Yii::app()->controller->module->returnUrl);
+    else 
+    if (strpos(Yii::app()->request->urlReferrer,"user/login") === false) $this->redirect(Yii::app()->request->urlReferrer);
+    else $this->redirect(Yii::app()->user->returnUrl);      
+    //goBackController($this);
     //$this->refresh();
     //$this->redirect(Yii::app()->createUrl("person/view",array("id"=>$id)));
 	}  

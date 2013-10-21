@@ -12,17 +12,18 @@ $idea = $data['idea'];
  else { ?>    
     
   <?php 
-  $user_id = '';
+  /*$user_id = '';
   foreach ($idea['member'] as $member){
     if ($member['type_id'] == 1){
       $user_id = $member['id'];
       break;
     }
-  }
-  echo CHtml::beginForm(Yii::app()->createUrl("message/contact",array("id"=>$user_id)),'post',array("class"=>"custom")); ?>
+  }*/
+  echo CHtml::beginForm(Yii::app()->createUrl("message/contact",array("id"=>$idea['id'])),'post',array("class"=>"custom")); ?>
 
       <?php echo CHtml::label(Yii::t('app','Message').":",'message'); ?>
       <?php echo CHtml::textArea('message') ?>
+      <?php echo CHtml::hiddenField('project','1') ?>
       <br />
       <div class="login-floater">
       <?php echo CHtml::submitButton(Yii::t("app","Send"),array("class"=>"button small radius")); ?>
