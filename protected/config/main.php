@@ -171,6 +171,7 @@ return array(
     'noreplyEmail'=>array('no-reply@cofinder.eu'=>'Cofinder'),
     'tempFolder'=>'temp/',
     'avatarFolder'=>'uploads/avatars/',
+    'ideaGalleryFolder'=>'uploads/ideagalleries/',
     'mapsFolder'=>'uploads/maps/',
     'iconsFolder'=>'uploads/icons/',
 	),

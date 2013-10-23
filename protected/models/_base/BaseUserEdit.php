@@ -53,7 +53,7 @@ abstract class BaseUserEdit extends GxActiveRecord {
 			array('name', 'required'),
 			array('superuser, status, language_id, newsletter', 'numerical', 'integerOnly'=>true),
 			array('email, password, activkey, name, surname, address, avatar_link', 'length', 'max'=>128),
-			array('lastvisit_at', 'safe'),
+			array('lastvisit_at, bio', 'safe'),
 			array('activkey, lastvisit_at, superuser, status, surname, address, avatar_link, language_id, newsletter', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('id, email, password, activkey, create_at, lastvisit_at, superuser, status, name, surname, address, bio, avatar_link, language_id, newsletter', 'safe', 'on'=>'search'),
 		);

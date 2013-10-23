@@ -234,6 +234,31 @@ $idea = $data['idea'];
 	</div>
 </div>
 
+
+<?php
+if(isset($idea['gallery'])){
+  //cover photo is first
+  //edit the following line to get a thumbnail out. i have predicted thumbnails of 30, 60, 150px. replace the thumbnail_size with those numbers
+  //idea_image($idea['gallery'][0]['url'], $idea['id'], thumbnail_size);
+  ?>
+  <img src="<?php echo idea_image($idea['gallery'][0]['url'], $idea['id'], 0);?>" />
+  <?php
+  foreach($idea['gallery'] AS $key => $value){
+    if($key > 0){
+    ?>
+    <img src="<?php echo idea_image($value['url'], $idea['id'], 0);?>" />
+    <?php
+    }
+  }
+}
+?>
+
+              <a href="<?php echo Yii::app()->createUrl("person/".$member['id']); ?>">
+                <img src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" data-tooltip title="<?php echo $member['name']." ".$member['surname']; ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="card-avatar" />
+              </a>
+
+
+
 <?php
 
 Yii::log(arrayLog($idea), CLogger::LEVEL_INFO, 'custom.info.idea');
