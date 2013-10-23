@@ -676,7 +676,8 @@ class SqlBuilder {
 
 		$sql=		"SELECT ig.* FROM ".
 					"`idea_gallery` AS ig ".
-					"WHERE ig.idea_id = '{$filter['idea_id']}'";
+					"WHERE ig.idea_id = '{$filter['idea_id']}' ".
+					"ORDER BY ig.cover DESC";
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
@@ -684,7 +685,7 @@ class SqlBuilder {
 		$array = array();
 
 		while(($row=$dataReader->read())!==false) {
-			$array[$row['id']] = $row;
+			$array[] = $row;
 		}
 
 		return $array;

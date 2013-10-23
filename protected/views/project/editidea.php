@@ -80,6 +80,7 @@
           'id' => $id,
           'lang' => $lang,
           'idea' => $idea,
+          'ideagallery' => $ideagallery,
           'language' => $language,
           'translation' => $translation,
           'buttons' => 'create' ));

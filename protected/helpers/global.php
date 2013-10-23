@@ -70,6 +70,31 @@ function avatar_image($filename, $userID = 0, $thumb=30){
 }
 
 /**
+ * will return project avatar or default one
+ */
+function idea_image($filename, $ideaID = false, $thumb = 30){
+
+  if ($thumb) $thumb = "thumb_".$thumb."_";
+  else $thumb = '';
+  if ($filename){
+    //if (file_exists($filename)) return $filename;
+    if($ideaID == false){
+      $pathFileName = Yii::app()->params['tempFolder'].$thumb.$filename; 
+    } else {
+      $pathFileName = Yii::app()->params['ideaGalleryFolder'].$thumb.$filename;
+    }
+    
+
+    if (file_exists(Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.$pathFileName)) 
+            return Yii::app()->getBaseUrl(true)."/".$pathFileName;
+  }
+  
+  $ideaID = ($ideaID % 4); // 3 different default avatars
+  return Yii::app()->getBaseUrl(true)."/images/dummy-avatar-".$ideaID.".png";
+//  return Yii::app()->request->baseUrl."/images/dummy-avatar-".$userID.".png";
+}
+
+/**
  * check if curent action is active and return apropriate CSS class
  */
 function isMenuItemActive($action,$controller = ''){
