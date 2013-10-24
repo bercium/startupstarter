@@ -48,6 +48,9 @@ class MessageController extends Controller
     
 		if(isset($_POST['message']) && ($_POST['message']  > '')){
       
+      //Message::model()->findByAttributes();
+      //SELECT (COUNT(DISTINCT `user_to_id`)+COUNT(DISTINCT `idea_to_id`)) AS c FROM `message` WHERE 1
+      
       // store in DB
       $db_message = new Message;
       $db_message->user_from_id = Yii::app()->user->id;

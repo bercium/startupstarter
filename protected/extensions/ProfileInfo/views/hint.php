@@ -1,5 +1,5 @@
-<?php if (Yii::app()->user->hasFlash('WProfileInfoHint')){
-  writeFlash('WProfileInfoHint');
+<?php //if (Yii::app()->user->hasFlash('WProfileInfoHint')){
+  //writeFlash('WProfileInfoHint');
   //$hintAction = getFlashData('WProfileInfoHint');
   
   
@@ -12,4 +12,4 @@
     <a href="<?php echo $hintAction['action']; ?>" class="action" style="margin-bottom: 0;"><?php echo Yii::t("app",'Do it now!') ?> <span class="icon-long-arrow-right"></span></a>
     <a href="#" class="close"><span class="icon-remove-sign"></span></a>
   </div>
-<?php */} ?>
+<?php *///} ?>

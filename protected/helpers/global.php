@@ -268,11 +268,11 @@ function sifTrans($value){
  * @value string $flashMesage - string message to show in flash or
  *                              array in format array(msg='',action=array of actions(hint='',action='')) where message should have %s for replacing actions
  * @value string $staus - ['success'] status of message shown can be: alert, success or info
- * @value string $autoShow - weather flash message should be shown automaticaly or you are going to do it somewhere
+ * @value string $autoHide - weather flash message should be automaticaly hidden after a period of time
  * 
  */
-function setFlash($flashName, $flashMessage, $status = 'success', $autoShow = true){
-  $flash = array("message"=>$flashMessage, "status"=>$status, "autoShow" => $autoShow);
+function setFlash($flashName, $flashMessage, $status = 'success', $autoHide = true){
+  $flash = array("message"=>$flashMessage, "status"=>$status, "autoHide" => $autoHide);
   Yii::app()->user->setFlash($flashName, $flash);
 }
 
@@ -337,17 +337,17 @@ function writeFlashes(){
     $hide = '';
     $html = '<div class="row"><div class="flashes">';
     foreach($flashMessages as $key => $flash) {
-      if ($flash["autoShow"]){
-        Yii::app()->user->getFlash($key);
-      
-        $html .= '<div data-alert class="alert-box radius '.$flash['status'].' flash-hide-'.$i.' ">';
-        $html .= decodeFlashMsg($flash['message']);
-        $html .= '<a href="#" class="close">&times;</a></div>';
+      Yii::app()->user->getFlash($key);
 
+      $html .= '<div data-alert class="alert-box radius '.$flash['status'].' flash-hide-'.$i.' ">';
+      $html .= decodeFlashMsg($flash['message']);
+      $html .= '<a href="#" class="close">&times;</a></div>';
+
+      if ($flash["autoHide"]){
         if ($flash['status'] != 'alert') $hide .= '$(".flash-hide-'.$i.'").animate({opacity: 1.0}, '.(3000+$i*500).').fadeOut();';
         else $hide .= '$(".flash-hide-'.$i.'").animate({opacity: 1.0}, '.(10000+$i*500).').fadeOut();';
-        $i++;
       }
+      $i++;
     }
     $html .= '</div></div>';
     if ($i > 0){ 
