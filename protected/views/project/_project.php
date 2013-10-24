@@ -9,7 +9,7 @@
 		  </div>
       
 	  </div>
-    <div class="row stageinfo"><small class="meta" data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>"><span class="general meta foundicon-graph" title="stage"></span><a class="stage"><?php echo $idea['status']; ?></a></small></div>
+    <div class="row stageinfo"><small class="meta" data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>"> <span class="ico-awesome icon-signal" title="stage"></span><a class="stage"><?php echo $idea['status']; ?></a></small></div>
 
       
     <div  class="row">
@@ -78,11 +78,11 @@
              }
               ?>
             <?php if ($idea['website']){ ?>
-              <span class="general foundicon-globe" data-tooltip title="<?php  echo Yii::t('msg','Project has a presentational web page'); ?>" ></span>
+              <span class="ico-awesome icon-globe" data-tooltip title="<?php  echo Yii::t('msg','Project has a presentational web page'); ?>" ></span>
             <?php } ?>
             <?php if ($idea['video_link']){ ?>
              <!-- <img src="<?php //echo Yii::app()->request->baseUrl; ?>/images/video.png" data-tooltip title="<?php // echo Yii::t('app','Has video'); ?>" alt="<?php // echo Yii::t('app','Has video'); ?>" class="card-icons" /> -->
-             <span class="general foundicon-video" data-tooltip title="<?php  echo Yii::t('msg','Project has a video'); ?>" ></span>
+             <span class="icon-film ico-awesome" data-tooltip title="<?php  echo Yii::t('msg','Project has a video'); ?>" ></span>
             <?php } ?>        
         </div>
         <div class="columns subinfo">
@@ -92,7 +92,7 @@
           else if ($idea['days_updated'] == 1) echo Yii::t('app','Updated yesterday');
           else echo Yii::t('app','Updated {n} day ago|Updated {n} days ago',array($idea['days_updated'])); ?></small>
           <div class="card-floater">
-            <a class="tiny button radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("project/".$idea['id']); ?>" target="_blank"><?php echo Yii::t('app','details').'...'; ?></a>
+            <a class="tiny button radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("project/".$idea['id']); ?>" target="_blank"><?php echo Yii::t('app','details').' <span class="icon-angle-right"></span>'; ?></a>
           </div>
         </div>
         </div>

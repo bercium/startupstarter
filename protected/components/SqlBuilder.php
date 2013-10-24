@@ -51,7 +51,7 @@ class SqlBuilder {
 		$filter['action'] = $action;
 		$this->level = 0;
 
-	//UNSET VARIABLEs
+	//UNSET VARIABLES
 		unset($filter['regflow']);
 
 	//WHICH ACTION IS PERFORMED?
@@ -261,8 +261,8 @@ class SqlBuilder {
 
 				$row['date_updated'] = Yii::app()->dateFormatter->formatDateTime(strtotime($row['time_updated']));
 				$row['days_updated'] = floor( (time() - strtotime($row['time_updated'])) / 86400 );
+				$row['translation_other'] = $this->idea_translation( 'other', $filter );
 				if($type != 'user'){
-					$row['translation_other'] = $this->idea_translation( 'other', $filter );
 					$row['candidate'] = $this->user( 'candidate', $filter );
 					$row['member'] = $this->user( 'member', $filter );
 					$row['num_of_members'] = count($row['member']);
@@ -676,7 +676,8 @@ class SqlBuilder {
 
 		$sql=		"SELECT ig.* FROM ".
 					"`idea_gallery` AS ig ".
-					"WHERE ig.idea_id = '{$filter['idea_id']}'";
+					"WHERE ig.idea_id = '{$filter['idea_id']}' ".
+					"ORDER BY ig.cover DESC";
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
@@ -684,7 +685,7 @@ class SqlBuilder {
 		$array = array();
 
 		while(($row=$dataReader->read())!==false) {
-			$array[$row['id']] = $row;
+			$array[] = $row;
 		}
 
 		return $array;

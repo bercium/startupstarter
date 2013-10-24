@@ -76,10 +76,16 @@ body, h1, h2, h3, h4, h5, h6 {
  .top-bar-section .dropdown li a .icon-plus,
  .top-bar-section .dropdown li a .icon-wrench {
   position: absolute;
-  right: 10px;
+  left: 13px;
   line-height: 1.6em;
-  color:#666;
+  color:#444;
+  margin-top: 4px;
   /*line-height: 2.3em;*/
+ }
+
+ .top-bar-section .dropdown li a .icon-lightbulb {
+  font-size: 1.4em;
+  margin-top: 0;
  }
 
 
@@ -255,7 +261,7 @@ form.custom .custom.checkbox.checked:before{
 .top-bar-section ul li.active a, .top-bar-section ul li.hover > a { background: #f0f0f0; color:#222; }
 .top-bar-section .has-dropdown > a:after { border-color: transparent transparent transparent rgba(0, 0, 0, 0.5); }
 .top-bar-section .dropdown { box-shadow: 0 4px 4px rgba(0,0,0,0.3); }
-.top-bar-section .dropdown li a { border-top: 1px solid #ddd; line-height: 1.6em; }
+.top-bar-section .dropdown li a { border-top: 1px solid #ddd; line-height: 2em; padding-left: 40px; height: 40px; }
 .top-bar-section .dropdown li.title h5 a { color: #222; }
 .top-bar-section ul{ background: #fff; }
 .top-bar-section ul li > a{}

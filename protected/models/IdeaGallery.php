@@ -7,7 +7,7 @@
  * @property string $id
  * @property string $idea_id
  * @property string $url
- * @property integer $front
+ * @property integer $cover
  *
  * The followings are the available model relations:
  * @property Idea $idea
@@ -40,13 +40,13 @@ class IdeaGallery extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('idea_id, url, front', 'required'),
-			array('front', 'numerical', 'integerOnly'=>true),
+			array('idea_id, url, cover', 'required'),
+			array('cover', 'numerical', 'integerOnly'=>true),
 			array('idea_id', 'length', 'max'=>11),
 			array('url', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, idea_id, url, front', 'safe', 'on'=>'search'),
+			array('id, idea_id, url, cover', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,7 +71,7 @@ class IdeaGallery extends CActiveRecord
 			'id' => 'ID',
 			'idea_id' => 'Idea',
 			'url' => 'Url',
-			'front' => 'Front',
+			'cover' => 'cover',
 		);
 	}
 
@@ -89,7 +89,7 @@ class IdeaGallery extends CActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('idea_id',$this->idea_id,true);
 		$criteria->compare('url',$this->url,true);
-		$criteria->compare('front',$this->front);
+		$criteria->compare('cover',$this->cover);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

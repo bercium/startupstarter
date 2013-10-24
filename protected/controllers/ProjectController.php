@@ -154,11 +154,17 @@ class ProjectController extends GxController {
 				$idea = new Idea;
 				$translation = new IdeaTranslation;
 				$member = new IdeaMember;
+				$ideagallery = '';
 
 				//presets
 				if(!isset($_POST['Idea']) AND !isset($_POST['IdeaTranslation'])){
 					$translation->language_id = 40;
 					$translation->description_public = 1;
+				}
+
+				//save posted url early in case the form fails
+				if(isset($_POST['IdeaGallery']['url'])){
+					$ideagallery = $_POST['IdeaGallery']['url'];
 				}
 
 				//idea owner objects
@@ -195,6 +201,11 @@ class ProjectController extends GxController {
 							//set session and go to step 2
 							$_SESSION['IdeaCreated'] = $idea->id;
 
+							//save avatar
+							if(isset($_POST['IdeaGallery']['url'])){
+								$this->uploadToGallery($idea->id, $_POST['IdeaGallery']['url'], $cover = true);
+							}
+
 			 				//save links
 			 				if(isset($_SESSION['Links'])){
 			 					foreach($_SESSION['Links'] AS $key => $value){
@@ -227,6 +238,14 @@ class ProjectController extends GxController {
 					$translation = IdeaTranslation::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'language_id' => $language_id, 'deleted' => 0 ) );
 					if($translation == NULL)
 						$translation = IdeaTranslation::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'deleted' => 0 ) );
+
+					//idea gallery cover photo stuff
+					$ideagallery = IdeaGallery::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'cover' => 1 ) );
+          if ($ideagallery) $ideagallery = $ideagallery->url;
+          else $ideagallery = '';
+					if(isset($_POST['IdeaGallery']['url']) && $_POST['IdeaGallery']['url'] != $ideagallery){
+						$ideagallery = $this->uploadToGallery($idea->id, $_POST['IdeaGallery']['url'], $cover = true);
+					}
 
 					if (isset($_POST['Idea']) AND isset($_POST['IdeaTranslation'])) {
 						$_POST['time_updated'] = time();
@@ -284,7 +303,7 @@ class ProjectController extends GxController {
 					$links = array();
 					$links = $_SESSION['Links'];
 				}
-				$this->render('createidea_1', array( 'idea' => $idea, 'idea_id' => $idea_id, 'translation' => $translation, 'language' => $language, 'link' => $link, 'links' => $links, 'ideas'=>$data['user']['idea'] ));
+				$this->render('createidea_1', array( 'idea' => $idea, 'idea_id' => $idea_id, 'translation' => $translation, 'ideagallery' => $ideagallery, 'language' => $language, 'link' => $link, 'links' => $links, 'ideas'=>$data['user']['idea'] ));
 			}
 		}
 		if($step == 2 || $id){
@@ -614,6 +633,9 @@ class ProjectController extends GxController {
 
 			if(isset($translation))
 				$data_array['translation'] = $translation;
+
+			if(isset($ideagallery))
+				$data_array['ideagallery'] = $ideagallery;
 
 			if(isset($link))
 				$data_array['link'] = $link;
@@ -1088,6 +1110,86 @@ class ProjectController extends GxController {
 
 		echo json_encode($response);
 		Yii::app()->end();
+	}
+
+	public function actionUpload() {
+		Yii::import("ext.EAjaxUpload.qqFileUploader");
+
+		$folder = Yii::app()->basePath . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . Yii::app()->params['tempFolder']; // folder for uploaded files
+
+		if (!is_dir($folder)) {
+			mkdir($folder, 0777, true);
+			//mkdir( $folder );
+			//chmod( $folder, 0777 );
+		}
+
+		$allowedExtensions = array("jpg", "jpeg", "png"); //array("jpg","jpeg","gif","exe","mov" and etc...
+		$sizeLimit = 10 * 1024 * 1024; // maximum file size in bytes
+		$uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
+		$result = $uploader->handleUpload($folder);
+		$return = json_encode($result);
+
+		echo $return; // it's array
+	}
+
+	public function uploadToGallery($id, $link, $cover = true){
+
+		/*
+		add to gallery
+			-action to upload image
+		edit gallery
+			-action/view to edit gallery
+		set cover image
+			-action to 
+		remove from gallery
+			-action to unlink image/unset from db
+		*/
+
+		$filename = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . Yii::app()->params['tempFolder'] . $link;
+
+		// if we need to create avatar image
+		if (is_file($filename)) {
+			$newFilePath = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . Yii::app()->params['ideaGalleryFolder'];
+			//$newFilePath = Yii::app()->params['avatarFolder'];
+			if (!is_dir($newFilePath)) {
+				mkdir($newFilePath, 0777, true);
+				//chmod( $newFilePath, 0777 );
+			}
+			$newFileName = str_replace(".", "", microtime(true)) . "." . pathinfo($filename, PATHINFO_EXTENSION);
+
+			if (rename($filename, $newFilePath . $newFileName)) {
+				// make a thumbnail for avatar
+				Yii::import("ext.EPhpThumb.EPhpThumb");
+				$thumb = new EPhpThumb();
+				$thumb->init(); //this is needed
+				$thumb->create($newFilePath . $newFileName)
+								->resize(30, 30)
+								->save($newFilePath . "thumb_30_" . $newFileName);
+				$thumb->create($newFilePath . $newFileName)
+								->resize(60, 60)
+								->save($newFilePath . "thumb_60_" . $newFileName);
+				$thumb->create($newFilePath . $newFileName)
+								->resize(150, 150)
+								->save($newFilePath . "thumb_150_" . $newFileName);
+
+				//insert
+				$idea_gallery = new IdeaGallery;
+				$idea_gallery->cover = 0;
+				if($cover == true){
+					$idea_gallery->cover = 1;
+					IdeaGallery::model()->updateAll(array('cover'=>0),"cover='1' AND idea_id='{$id}'"); 
+				}
+				
+				$idea_gallery->url = $newFileName;
+				$idea_gallery->idea_id = $id;
+
+				$idea_gallery->save();
+
+				return $newFileName;
+			}
+		}
+
+		return false;
 	}
 
 	public function sessionReset($type){
