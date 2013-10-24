@@ -28,10 +28,10 @@ $user = $data['user'];
   </div>
 </div>
 
-<div class="row person-details" style="margin-top:100px">
+<div class="row person-details card-person panel radius" style="margin-top:50px; padding-top: 35px; padding-bottom:60px;">
 	
 	
-   		<div class="large-3 columns radius edit-content panel profile ">
+   		<div class="large-3 columns profile ">
 		<div class="edit-content-title">
 		<img class="card-avatar" src="<?php echo avatar_image($user['avatar_link'], $user['id'], false); ?>" />
 		<h1><?php echo $user['name'] . " " . $user['surname']; ?></h1>
@@ -89,7 +89,7 @@ $user = $data['user'];
 	</div>
 	
 	<div class="large-9 columns person-data">
-	<div class="large-12 columns">
+	
 		
 		
 			<?php if (Yii::app()->user->id == $user['id']) { ?>
@@ -99,7 +99,7 @@ $user = $data['user'];
 
 			 	
 
-			<div class="large-12 columns radius ">
+			
 				
 				<div class="skills large-12 columns radius"  >
 					<h3 class="edit-content-title"><span class="icon-suitcase ico-awesome"></span>
@@ -132,7 +132,8 @@ $user = $data['user'];
 
 				</p>
 
-				<hr>
+				<!-- <hr> -->
+					<br>
 				</div>
 				
 				<div class="large-6 columns radius available"  >				
@@ -145,7 +146,7 @@ $user = $data['user'];
 					</h3>
 						<?php echo '<p class=""><span class="icon-angle-right"></span> ' . $user['available_name'] . '</p>'; ?>
 					<?php } ?>
-					
+					<br>
 				</div>
 
 				<div class="large-6 columns radius  collaboration" >				
@@ -173,18 +174,21 @@ $user = $data['user'];
 
 					 </p>
 					<?php } ?>	
+					<br>
 				</div>
 
 				
-			</div>
+			
+
 
 
 			
 			
 			<div class="large-12 columns radius   about-me"  >
 
-				<div class="large-12 columns"  >
-					<hr>
+				
+					<!-- <hr> -->
+
 					<h3 class="edit-content-title">
 				<span class="icon-info ico-awesome"></span> Nekaj o meni:
 				</h3>
@@ -193,13 +197,14 @@ $user = $data['user'];
 					Pri cofinderju skrbim za motivacijo ekipe in nemoten razvoj. Trudim pa se k sodelovanju privabiti čimveč ljudi. 
 					Lorem Ipsum je slepi tekst, ki se uporablja pri razvoju tipografij in pri pripravi za tisk. Lorem Ipsum je v uporabi že več kot petsto let saj je to kombinacijo znakov neznani tiskar združil v vzorčno knjigo že v začetku 16. stoletja.
 				</p>
-			</div> 
+			 
 			
 			</div> 
 					
 			<div class="large-12 columns radius  involved-in "  >
-				<hr>
-				<div class="large-12 columns"  >
+				<!-- <hr> -->
+
+				
 
 				<?php if (count($user['idea']) > 0) { ?>
 					<h3 class="edit-content-title"><span class="icon-lightbulb ico-awesome"></span>
@@ -213,9 +218,9 @@ $user = $data['user'];
 				}
 				?>
 				<?php } ?>
-			</div> 	 
+			
 			</div> 
-	</div>	
+	
 	</div>
 			
 

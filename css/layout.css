@@ -505,7 +505,17 @@ f-line {
 
 .person-data h3 {
 	font-size: 1.25em;
+	border: 1px solid #999;
+	padding: 5px 0;
+	border-radius: 3px;
+	background: #F9F9F7;
+
 }
+
+.person-data h3 .ico-awesome {
+	margin-right: 10px;
+}
+
 
 
 .skills .ico-awesome,
@@ -513,19 +523,48 @@ f-line {
 .collaboration .ico-awesome,
 .involved-in .ico-awesome,
 .about-me .ico-awesome {
- background: none repeat scroll 0 0 #DDDDDD;
-    border-radius: 3px;
-    color: #6F9A4B;
+ background: none repeat scroll 0 0 #fff;
+    border-radius: 3px 0 0 3px;
+    color: #938944;
     display: block;
     float: left;
     font-size: 0.75em !important;
     min-width: 30px;
-    padding: 5px 8px;
+    padding: 6px 8px;
+    min-width: 30px;
     text-align: center;
     text-shadow: 0 1px rgba(255, 255, 255, 0.6);
+    border-right: 1px solid #bbb;   
     
+}
+
+
+
+.person-details .ico-awesome {
+    font-size: 0.8em;
+    margin-left: 1px;
+    margin-right: 5px;
+    margin-top: -4px;
 
 }
+
+/*
+.available h3 {	border-color: #B2A550; background: #F9F9F7; }
+.available .ico-awesome { color: #B2A550; background: #E8E8CE;}
+
+.collaboration h3 {	border-color: #AF874F; background: #F9F9F7; }
+.collaboration .ico-awesome { color: #AF874F; background: #EAE6CE;}
+
+
+.about-me h3 {	border-color: #AF5F4F; background: #F9F1EF; }
+.about-me .ico-awesome { color: #AF5F4F; background: #EFDBD7;}
+
+
+.involved-in h3 {	border-color: #729BBF; background: #F2F7FC; }
+.involved-in .ico-awesome { color: #6389AA; background: #D2E2EF;}
+
+
+*/
 
 
 .available p,
@@ -626,7 +665,7 @@ img.card-avatar {
 ================================================== */
 
 .header-margin{
-  margin-top:40px;  
+  margin-top:0px;  
 }
 
 .alt {
@@ -931,16 +970,18 @@ img.card-avatar {
 	padding-left: 10px;
 }
 
-.card-idea .foundicon-graph {
+.card-idea .foundicon-graph,
+.card-idea .icon-signal {
 	margin-top: 9px;
-	font-size: 1.5em;
+	font-size: 1.2em;
 	position: absolute;
 	line-height: 0;	
-	color: #888;
+	color: #444;
+	left: 13px;
 }
 
 .card-idea .stage {
-	padding-left: 25px;
+	padding-left: 28px;
 }
 
 
@@ -958,12 +999,14 @@ img.card-avatar {
 	display: block;
 }
 
+.card-idea .idea-info .ico-awesome,
 .card-idea .idea-info .general {
 	float: right;
 	margin-left: 10px;
-		font-size: 1.45em;
-	color: #999;
-	text-shadow: 0 -1px rgba(0,0,0,0.3);
+	font-size: 1.2em;
+	color:#444;
+	
+	
 	
 }
 
@@ -1286,8 +1329,8 @@ h6.title-field {
 }
 
 .person-details h1{
-	font-size: 1.25em;
-	line-height: 0.9;
+	font-size: 1.5em;
+	line-height: 1.2em;
 	margin: 20px 0 20px 0 ;	
 	text-transform: capitalize;
 }
@@ -1332,7 +1375,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606060', end
 
 .person-details img.card-avatar {
 	box-shadow: none;
-	border: 1px solid #bbb; 
+	border: 1px solid #999; 
     margin-top: 5px;
     width: 220px;
     height: auto;
@@ -1447,11 +1490,7 @@ border-right: none;
 	margin-top: 10px;
 }
 
-.person-details .ico-awesome {
-	font-size: 0.8em;
-	margin-right: 5px;
 
-}
 
 
 

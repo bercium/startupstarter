@@ -18,15 +18,18 @@
 		
 		<ul class="pagination hide-for-small">
 			<?php if ($page > 1){ ?>
-			<li class="arrow"><a class="button small secondary" href="#" onclick="recentUsersPage('<?php echo Yii::app()->createUrl("person/recent",array("id"=>$page-1)); ?>'); return false;">&laquo;</a></li>
+			<li class="arrow"><a class="button small secondary" href="#" onclick="recentUsersPage('<?php echo Yii::app()->createUrl("person/recent",array("id"=>$page-1)); ?>'); return false;"><span class="icon-angle-left"></span></a></li>
 			<?php }else{ ?>
-      <li class="arrow unavailable"><a class="button small secondary disabled">&laquo;</a></li>
+      <li class="arrow unavailable"><a class="button small secondary disabled"><span class="icon-angle-left"></span>
+</a></li>
 			<?php } ?>
 			
 			<?php if ($page < $maxPage){ ?>
-			<li class="arrow"><a class="button small secondary" href="#" onclick="recentUsersPage('<?php echo Yii::app()->createUrl("person/recent",array("id"=>$page+1)); ?>'); return false;">&raquo;</a></li>
+			<li class="arrow"><a class="button small secondary" href="#" onclick="recentUsersPage('<?php echo Yii::app()->createUrl("person/recent",array("id"=>$page+1)); ?>'); return false;"><span class="icon-angle-right"></span>
+</a></li>
 			<?php }else{ ?>
-      <li class="arrow unavailable"><a class="button small secondary disabled">&raquo;</a></li>
+      <li class="arrow unavailable"><a class="button small secondary disabled"><span class="icon-angle-right"></span>
+</a></li>
 			<?php } ?>
 		</ul>
 		

@@ -36,7 +36,7 @@ $idea = $data['idea'];
   </div>
 </div>
 
-<div class="row idea-details">
+<div class="row idea-details" style="margin-top:50px;">
 	<div class="columns radius panel card-idea">
 		
 		<div class="row">
