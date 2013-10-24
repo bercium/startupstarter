@@ -240,9 +240,12 @@ if(isset($idea['gallery'])){
   //cover photo is first
   //edit the following line to get a thumbnail out. i have predicted thumbnails of 30, 60, 150px. replace the thumbnail_size with those numbers
   //idea_image($idea['gallery'][0]['url'], $idea['id'], thumbnail_size);
+  if(isset($idea['gallery'][0])){
   ?>
   <img src="<?php echo idea_image($idea['gallery'][0]['url'], $idea['id'], 0);?>" />
   <?php
+  }
+  
   foreach($idea['gallery'] AS $key => $value){
     if($key > 0){
     ?>

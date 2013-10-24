@@ -241,7 +241,8 @@ class ProjectController extends GxController {
 
 					//idea gallery cover photo stuff
 					$ideagallery = IdeaGallery::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'cover' => 1 ) );
-					$ideagallery = $ideagallery->url;
+          if ($ideagallery) $ideagallery = $ideagallery->url;
+          else $ideagallery = '';
 					if(isset($_POST['IdeaGallery']['url']) && $_POST['IdeaGallery']['url'] != $ideagallery){
 						$ideagallery = $this->uploadToGallery($idea->id, $_POST['IdeaGallery']['url'], $cover = true);
 					}
