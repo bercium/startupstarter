@@ -163,6 +163,11 @@ body, h1, h2, h3, h4, h5, h6 {
   /*color: ;*/
 }
 
+.alert-box.alert {
+  background-color: #A83C3C;
+  text-shadow: 1px 1px rgba(0,0,0,0.3);
+}
+
 .errorSummary .alert-box ul{
   list-style: none;
   margin-bottom: 0;
@@ -180,7 +185,7 @@ a:hover, a:focus { color: #3c76d6; }
 	color: #fff;
 }
 
-
+z
 .button{
   -webkit-box-shadow:none;
 }
@@ -197,7 +202,7 @@ button.success, .button.success {
 }
 button.success:hover, button.success:focus, .button.success:hover, .button.success:focus { background-color: #6a9446; }
 button.alert, .button.alert {
-    background-color: #cd3438;
+    background-color: #A83C3C;
     border-color: #a5292c;
 }
 button.alert:hover, button.alert:focus, .button.alert:hover, .button.alert:focus { background-color: #a5292c; }
@@ -218,12 +223,12 @@ button.disabled.success:hover, button.disabled.success:focus, button[disabled].s
 button.disabled.success:hover, button.disabled.success:focus, button[disabled].success:hover, button[disabled].success:focus, .button.disabled.success:hover, .button.disabled.success:focus, .button[disabled].success:hover, .button[disabled].success:focus {
         background-color: #89b561; }
 button.disabled.alert, button[disabled].alert, .button.disabled.alert, .button[disabled].alert {
-      background-color: #cd3438;
+      background-color: #A83C3C;
       border-color: #a5292c;}
 button.disabled.alert:hover, button.disabled.alert:focus, button[disabled].alert:hover, button[disabled].alert:focus, .button.disabled.alert:hover, .button.disabled.alert:focus, .button[disabled].alert:hover, .button[disabled].alert:focus {
         background-color: #a5292c; }
 button.disabled.alert:hover, button.disabled.alert:focus, button[disabled].alert:hover, button[disabled].alert:focus, .button.disabled.alert:hover, .button.disabled.alert:focus, .button[disabled].alert:hover, .button[disabled].alert:focus {
-        background-color: #cd3438; }
+        background-color: #A83C3C; }
 
 
 
@@ -281,7 +286,7 @@ form.custom .custom.checkbox.checked:before{
 }
 
 .progress.success .meter { background: #89b561; }
-.progress.alert .meter { background: #cd3438; }
+.progress.alert .meter { background: #A83C3C; }
 
 
 .tooltip  {
@@ -305,6 +310,9 @@ form.custom .custom.checkbox.checked:before{
   border-color: transparent transparent #f8f8fb transparent;
   top: -10px; 
 }
+
+
+
 
 
 /* #   CUSTOM DROPDOWN
@@ -433,3 +441,12 @@ form.custom .custom.dropdown{
   background-color: #666 !important;
 }*/
 
+
+/* Tables */
+table {
+  background: white;
+  margin-bottom: 0;
+  border: none; }
+ 
+  table tr.even, table tr.alt, table tr:nth-of-type(even) {
+    background: inherit; }

@@ -82,7 +82,7 @@ $user = $data['user'];
 
 		<?php } ?>
 		<br>
-				<div class="card-floater large-12">
+				<div class="large-12">
 					<a class="button success large-12 radius" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact me') ?></a>
   			</div>
   			

@@ -360,7 +360,7 @@ function writeFlashes(){
   if ($flashMessages) {
     $i = 0;
     $hide = '';
-    $html = '<div class="row"><div class="flashes">';
+    $html = '<div class="row"><div class="large-12 columns flashes">';
     foreach($flashMessages as $key => $flash) {
       Yii::app()->user->getFlash($key);
 

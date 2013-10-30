@@ -19,7 +19,6 @@ body {
 }
 
 
-
 .header-wrap {
 	background: url(../images/header-wrap_bg.png);
 	/*background: #262925;*/
@@ -28,6 +27,7 @@ body {
 	background-attachment: fixed;
 }
 
+
 .header h1{
   margin:0px 0px !important;
   color:#999;
@@ -35,19 +35,19 @@ body {
   font-size:3.6em;
   line-height: 0;
   padding-top: 10px;
-
 }
+
 
 .header h1 span{
   color:#89b561;
 }
+
 
 .header .logo{
   vertical-align: middle; 
   height:70px;  
   margin-left: 10px;
   margin-bottom: 15px;
-
 }
 
 
@@ -156,11 +156,15 @@ margin-left: 20px;
   margin-bottom:15px;
   color:#666;
   font-size: 0.8em;
-  margin-top: 34px;
+  margin-top: 0;
 }
 
 .profile-info .progress{
   margin-top: 5px;
+}
+
+.profile-info p {
+	margin-bottom: 0.3em;
 }
 
 .top-bar{
@@ -221,11 +225,11 @@ margin-left: 20px;
 .card-content .meta_tags {
 	letter-spacing: 0px;
 	font-family: arial, sans-serif;
-    font-size: 0.8em;
+    font-size: 0.7em;
     letter-spacing: 0.05em;
     line-height: 0.7em;
     text-transform: uppercase;
-    margin: 0 2px 1px 0;
+    margin: 2px 2px 2px 0;
 }
 
 .card-content .meta_tags .label {
@@ -241,9 +245,8 @@ margin-left: 20px;
 /* $card-person */
 /*****************/
 .card-person .card-abstract {
-	position: absolute;
-	bottom: 0;
-	left: 10px;
+	margin: 5px 0; 
+	
 }
 
 .card-person .card-person-title img {
@@ -252,30 +255,36 @@ margin-left: 20px;
 	border-radius: 2px; 
 }
 
+
+
 .card-person .card-person-title .columns {
     display: table !important;
     
 }
 
-/*.card-person .card-person-title h5 {
-display: table-cell !important;
-    line-height: 1.4em;
-    padding-bottom: 17px;
-    vertical-align: middle !important;
-    }*/
+.card-person .card-person-title h5 {
+margin-bottom: 0;
+    }
 
 
 .card-person .card-content {
 	position: relative;
-	min-height: 160px;
+	
 }
 
-.card-content .card-floater {
+.card-person .card-content .card-floater {
+	height: 20px;
+	
+	position: relative;
+
+}
+
+.card-person .card-floater .button {
 	position: absolute;
-	right: 15px;
-	bottom: -6px;
-
+	bottom: -10px;
+	right: 0;
 }
+
 
 
 
@@ -316,8 +325,17 @@ sidebar  .content {
 
 .sidebar-wrap .edit-content {
 	border-radius: 3px;
+	overflow: hidden;
 }
 
+.sidebar-wrap .edit-content-top {
+	margin-bottom: 4px;	
+	border-radius: 3px 3px 0 0;
+}
+.sidebar-wrap .edit-content-bottom {
+	
+	border-radius: 0 0 3px 3px;
+}
 
 .ideas-aside {
 	padding: 0 !important;
@@ -328,6 +346,10 @@ sidebar  .content {
 	padding: 0 10px;
 	display: block;
 	text-align: center;
+}
+
+.sidebar-wrap .accordion .ideas-aside .button {
+	margin-bottom: 0;
 }
 
 .ideas-aside .idea-each:hover,
@@ -348,6 +370,14 @@ sidebar  .content {
 	font-size: 0.75em;
 	color: #222;
 
+}
+
+.ideas-aside .idea-each p {
+	margin-bottom: 0;
+}
+
+.ideas-aside .idea-each .meta-wrap {
+	
 }
 .ideas-aside .idea-each .meta {
 	line-height: 20px;
@@ -505,9 +535,8 @@ f-line {
 
 .person-data h3 {
 	font-size: 1.25em;
-	border: 1px solid #999;
-	padding: 5px 0;
-	border-radius: 3px;
+	border: 1px solid #ddd;
+	padding: 5px 0;	
 	background: #F9F9F7;
 
 }
@@ -525,7 +554,7 @@ f-line {
 .about-me .ico-awesome {
  background: none repeat scroll 0 0 #fff;
     border-radius: 3px 0 0 3px;
-    color: #938944;
+    color: #72673B;
     display: block;
     float: left;
     font-size: 0.75em !important;
@@ -534,7 +563,7 @@ f-line {
     min-width: 30px;
     text-align: center;
     text-shadow: 0 1px rgba(255, 255, 255, 0.6);
-    border-right: 1px solid #bbb;   
+    border-right: 1px solid #ddd;   
     
 }
 
@@ -614,12 +643,30 @@ f-line {
 }
 
 .card-person-title {
-  padding-top:0.65em; 
-  padding-bottom:0.65em; 
+  padding-top:0.35em; 
+  padding-bottom:0.35em; 
   margin-bottom: 0.8em !important;
   border-bottom:1px solid #ddd; 
   background-color:#f6f6fa;
   }
+
+
+.card-person table .icons {
+	width: 15px;
+	text-align: center;
+}
+
+.card-person table td {
+ 	padding: 4px 5px;
+}
+
+.card-person table .icons .ico-awesome {
+	color: #72673B;
+	font-size: 1.2em;
+	background: #fff;	
+}
+
+
 
   .card-person-title {
   	background: #F8F6F5;
@@ -711,7 +758,7 @@ img.card-avatar {
 }
 
 .meta {
-		color: #87878e !important;
+		color: #708090 !important;
 }
 
 .meta-title {
@@ -727,7 +774,7 @@ img.card-avatar {
 
 .label
  {
-	padding: 0.4em 0.8em 0.4em;
+	padding: 0.4em 0.6em 0.4em;
 	
 	text-transform: capitalize;
 }
@@ -866,7 +913,17 @@ img.card-avatar {
  }
 
 
+.block {
+	display: block;
+}
 
+.mb-10 {
+	margin-bottom: 10px;
+}
+
+.mt-10 {
+	margin-top: 10px;
+}
 
 
 /* #Pagin Styles
@@ -1593,5 +1650,5 @@ label{
 
 .flashes .alert-box{
   margin-bottom: 0px;
-  margin-top: 1px;
+  margin-top: 5px;
 }

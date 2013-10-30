@@ -24,14 +24,16 @@ foreach($user['idea'] AS $key => $idea){
               );?>
         </div>        
 
-        <p><a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><?php echo $idea['title'];?></a></p>
-        <small class="meta">
-          <?php echo Yii::t('app', 'created on'); ?> <a><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($idea['time_registered']),"long",null); ?></a> | 
-          <?php echo Yii::t('app', 'has <a>{n} member</a>| has <a>{n} members</a>',count($idea['member'])); ?> | 
-          <?php echo Yii::t('app', 'viewed <a>{n} time</a>| viewed <a>{n} times</a>',$idea['num_of_clicks']); ?>
+        <p class="mt-10"><a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><?php echo $idea['title'];?></a></p>
+        <small class="mb-10 block">
+          <span class="meta"><?php echo Yii::t('app', 'created on'); ?> </span><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($idea['time_registered']),"long",null); ?> | 
+          <?php echo Yii::t('app', '<span class="meta">has</span> {n} member| has {n} members',count($idea['member'])); ?> | 
+          <?php echo Yii::t('app', '<span class="meta">viewed</span> {n} time| viewed {n} times',$idea['num_of_clicks']); ?>
+           </small>
+           <small>
           <?php 
            if (isset($idea['translation_other']) && count($idea['translation_other'])){ ?>
-           <br/>Translations: 
+           <span class="meta">translations: </span>
           <?php foreach ($idea['translation_other'] as $trans){ ?>
             <a href="<?php echo Yii::app()->createUrl("project/edit/{$key}?lang={$trans['language_code']}"); ?>"><?php echo $trans['language'];?></a>
           <?php }          
@@ -70,7 +72,7 @@ foreach($user['idea'] AS $key => $idea){
               ); ?>
         </div>
 
-        <p><a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><?php echo $idea['title'];?></a></p>
+        <p class="mt-10"><a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><?php echo $idea['title'];?></a></p>
         <small class="meta">
           <p><?php echo Yii::t('app', 'created on'); ?> <?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($idea['time_registered']),"long",null); ?> | 
           <?php echo Yii::t('app', 'has <span>{n} member</span>| has <span>{n} members</span>',count($idea['member'])); ?> | 

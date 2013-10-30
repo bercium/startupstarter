@@ -36,7 +36,7 @@
         <?php 
           if($isOwner){
         echo CHtml::link(Yii::t("app","Delete project"),Yii::app()->createUrl('project/deleteIdea',array('id'=>$idea['id'])),
-                  array('class'=>"button small alert radius",
+                  array('class'=>"button tiny alert radius",
                         'confirm'=>Yii::t("msg","You are about to delete this project!\nAre you sure?"),
                         'onclick'=>"$(document).stopPropagation();",
                       )

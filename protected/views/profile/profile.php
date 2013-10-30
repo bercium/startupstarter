@@ -276,7 +276,7 @@
 			</p>
       <div class="linkList">
         <?php foreach ($data['user']['link'] as $link){ ?>
-        <div data-alert class="label radius secondary" id="link_div_<?php echo $link['id']; ?>"><br>
+        <div data-alert class="label radius secondary" id="link_div_<?php echo $link['id']; ?>">
           <img src="<?php echo getLinkIcon($link['url']); ?>">
           <?php echo $link['title']; ?>: <a href="<?php echo add_http($link['url']); ?>" target="_blank"><?php echo $link['url']; ?></a>
           <a href="#" class="close" onclick="removeLink(<?php echo $link['id']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteLink"); ?>')">&times;</a>

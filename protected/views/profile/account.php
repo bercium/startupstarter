@@ -100,7 +100,7 @@
       <?php echo Yii::t('msg', 'We purge all deactivated accounts on first day of each month. You have until then to reactivate it by clicking "Lost Password?" in login form.'); ?>
       
       <div data-alert class='alert-box radius alert'>
-        <?php echo Yii::t('msg', 'When we purge your account all data connected to it will be removed as well.'); ?>
+        <span class="icon-warning-sign"></span> <?php echo Yii::t('msg', 'When we purge your account all data connected to it will be removed as well.'); ?>
       </div>
     </p>
     
