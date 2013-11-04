@@ -57,7 +57,7 @@ body {
 
 .intro{
 
-background: url(../images/gridme.png);
+background: url(../images/balloons.png) center 0;	
 border-bottom: 1px solid #bbb;
     background-color: #f9f7f6;   
     margin-bottom: 40px;
@@ -69,7 +69,7 @@ border-bottom: 1px solid #bbb;
 .intro h2
 {
   color:#555 !important;
-  
+
  
 }
 
@@ -119,8 +119,9 @@ border-bottom: 1px solid #bbb;
 	margin-bottom: 30px;
 }
 .intro .button {
-margin-left: 20px;
+margin-right: 20px;
 }
+
 
 .intro .close:hover{
   text-shadow: none;
@@ -1371,6 +1372,10 @@ h6.title-field {
   padding-right: 13px;
 }
 
+.profile {
+	margin-left: 30px;
+}
+
 .profile .card-floater a.button {
 	margin: 0;
 }
@@ -1471,18 +1476,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606060', end
 background-color: #f9f5f2;
 border-right: none;
 
-}
-
-
-.person-details .edit-profile {
-	position: absolute;
-    right: 15px;
-    top: -32px;
-
-}
-.person-details .edit-profile .ico-awesome {
-	margin-left: 10px;	
-	float: right;
 }
 
 .person-details .about-me {

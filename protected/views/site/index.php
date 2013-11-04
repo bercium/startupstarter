@@ -16,10 +16,10 @@
 
 <div class="intro" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
   <div  class="row" >
-    <div class="large-10 large-offset-1 columns" style="text-align: center;">
+    <div class="large-12 columns">
 
 <!-- Content if guest -->
-      <h1><?php echo Yii::t('msg','With the <span>right team</span> any <span>idea</span> can <br />change your life'); ?></h1>
+      <h1><?php echo Yii::t('msg','With the <span>right team</span> any <span>idea</span> can change your life'); ?></h1>
       <p>
           <?php echo Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the like minded entrepreneurs and search for interesting projects to join.'); ?>
       </p><br />
@@ -35,7 +35,7 @@
       <?php echo Yii::t('msg',"{username} welcome to cofinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
       </h4>
       <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" class="button radius success" ><?php echo Yii::t('app','Find a cofounder'); ?></a> 
-      <span style="margin-left:20px;"> <?php echo Yii::t('app','or'); ?> </span>
+      <span style="margin:0 13px 0 0px;"> <?php echo Yii::t('app','or'); ?> </span>
       <a href="<?php echo Yii::app()->createUrl("project/create"); ?>" class="button radius" ><?php echo Yii::t('app','Create your project'); ?> </a>
       <?php } ?>
       </div>

@@ -29,7 +29,13 @@ $user = $data['user'];
 </div>
 
 <div class="row person-details card-person panel radius" style="margin-top:50px; padding-top: 35px; padding-bottom:60px;">
-	
+	<div class="large-12 columns">
+
+			<?php if (Yii::app()->user->id == $user['id']) { ?>
+			<a class="button tiny  radius secondary edit-profile right" href="<?php echo Yii::app()->createUrl("profile"); ?>"><?php echo Yii::t('app', 'Edit profile') ?><span class="ico-awesome icon-wrench"></span></a>
+			<?php } ?>
+
+		</div>
 	
    		<div class="large-3 columns profile ">
 		<div class="edit-content-title">
@@ -88,18 +94,7 @@ $user = $data['user'];
   			
 	</div>
 	
-	<div class="large-9 columns person-data">
-	
-		
-		
-			<?php if (Yii::app()->user->id == $user['id']) { ?>
-			<a class="button tiny  radius secondary edit-profile" href="<?php echo Yii::app()->createUrl("profile"); ?>"><?php echo Yii::t('app', 'Edit profile') ?><span class="ico-awesome icon-wrench"></span></a>
-			<?php } ?>
-			
-
-			 	
-
-			
+	<div class="large-8 right person-data">
 				
 				<div class="skills large-12 columns radius"  >
 					<h3 class="edit-content-title"><span class="icon-suitcase ico-awesome"></span>
