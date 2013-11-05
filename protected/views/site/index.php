@@ -20,6 +20,13 @@
 
 <?php //if (!Yii::app()->user->getState('fpi')){ ?>
 
+<div  class="row" >
+  <div class="column hide-for-small">
+    <img class="logo image-beta" alt="Invite" title="invite" src="<?php echo Yii::app()->request->baseUrl; ?>/images/invite-<?php echo Yii::app()->getLanguage(); ?>.png" style="position: absolute; top: -4px; right:-10px; z-index: 98;" />
+  </div>
+</div>
+
+
 <div class="intro" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
   <div  class="row" >
     <div class="large-10 large-offset-1 columns" style="text-align: center;">

@@ -291,4 +291,5 @@ return array (
   'with skill|with skills' => 'z znanjem|z znanji',
   '{n} project|{n} projects' => '{n} projekt|{n} projekta|{n} projekti|{n} projektov',
   '{n} time|{n} times' => '{n} krat|{n} krat',
+  'Invitations' => 'Povabila',
 );
