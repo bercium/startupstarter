@@ -250,7 +250,7 @@ function add_http($link){
 /**
  * remove http:// and https://
  */
-/*function remove_http($url) {
+function remove_http($url) {
    $disallowed = array('http://', 'https://');
    foreach($disallowed as $d) {
       if(strpos($url, $d) === 0) {
@@ -258,7 +258,7 @@ function add_http($link){
       }
    }
    return $url;
-}*/
+}
 
 /**
  * will convert array data into format useful for logging
