@@ -1463,3 +1463,19 @@ label{
 .skillList span{
   line-height: 1.2em;
 }
+
+.footer .social-links{
+  float:right;
+  margin-left:40px;
+  padding-top:8px;
+}
+
+.footer .social-links img{
+  margin-right:3px;
+        transition: 0.3s;
+        opacity: 0.75;
+}
+
+.footer .social-links img:hover{
+  opacity: 1;
+}

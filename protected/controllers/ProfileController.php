@@ -630,7 +630,8 @@ class ProfileController extends GxController {
 			if (isset($_POST['UserLink'])) {
 
 				$_POST['UserLink']['user_id'] = $user_id;
-				$linkURL = str_replace("http://", "", $_POST['UserLink']['url']);
+//				$linkURL = str_replace("http://", "", $_POST['UserLink']['url']);
+				$linkURL = $_POST['UserLink']['url'];
 
 				$exists = UserLink::Model()->findByAttributes(array('user_id' => $user_id, 'url' => $linkURL));
 				if (!$exists) {

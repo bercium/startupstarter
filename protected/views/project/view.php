@@ -137,10 +137,10 @@ $idea = $data['idea'];
         <hr>
         <p class="title-field meta"><span class="icon-globe" title=""></span>
         <?php
-          echo Yii::t('app',"Official web page").': <a href="http://'.$idea['website'].'" target="_blank">'.$idea['website']."</a>";
+          echo Yii::t('app',"Official web page").': <a href="'.add_http($idea['website']).'" target="_blank">'.$idea['website']."</a>";
         } ?>
         <?php if (isset($idea['video']) && $idea['video']){
-          echo Yii::t('app',"Link to video").': <a href="http://'.$idea['video'].'" target="_blank">'.$idea['video']."</a>";
+          echo Yii::t('app',"Link to video").': <a href="'.add_http($idea['video']).'" target="_blank">'.$idea['video']."</a>";
         } ?>
         </p>
         <hr>

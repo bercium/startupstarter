@@ -155,7 +155,7 @@ $user = $data['user'];
 						<?php 
 						foreach ($user['link'] as $link) {
 						 ?>
-							<p><a href="<?php echo "http://".$link['url']; ?>" target="_blank"><?php echo $link['title']; ?> <span class="icon-external-link"></span> </a></p><?php 
+							<p><a href="<?php echo add_http($link['url']); ?>" target="_blank"><?php echo $link['title']; ?> <span class="icon-external-link"></span> </a></p><?php 
 							}
 						?>
 					
