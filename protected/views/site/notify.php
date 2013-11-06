@@ -1,5 +1,5 @@
 <?php
-	$this->pageTitle = Yii::t('app','Registration - Invitations');
+	$this->pageTitle = Yii::t('app','Invitations');
 ?>
 
 

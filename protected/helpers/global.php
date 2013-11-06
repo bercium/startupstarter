@@ -191,8 +191,9 @@ function getGMap($country = '', $city = '', $addr = ''){
 			mkdir($folder, 0777, true);
 		}
 
-    file_put_contents($folder.$filename, $htmlData);
-    return Yii::app()->getBaseUrl(true)."/".Yii::app()->params['mapsFolder'].$filename;
+    @file_put_contents($folder.$filename, $htmlData);
+    if (file_exists($folder.$filename)) return Yii::app()->getBaseUrl(true)."/".Yii::app()->params['mapsFolder'].$filename;
+    else return false;
   }
 }
 
@@ -279,6 +280,13 @@ function arrayLog($data, $space = '&nbsp;&nbsp;'){
 	return $string;
 }
 
+function add_http($link){
+    //return $link;
+    if ((strpos($link, "http://") === false) && (strpos($link, "https://") === false)){
+      return "http://".$link;
+    }
+    return $link;
+  }
 
 /**
  * dynamicaly translate sif

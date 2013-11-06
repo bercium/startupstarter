@@ -65,7 +65,7 @@
 								 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
 									<img class="logo" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png" />
 								 </a>
-                 <!-- <img class="logo" id="image-beta" alt="beta" title="beta" src="<?php echo Yii::app()->request->baseUrl; ?>/images/beta.png" style="position: absolute; bottom: -44px; left:20px;" />-->
+                 <img class="logo image-beta" alt="beta" title="beta" src="<?php echo Yii::app()->request->baseUrl; ?>/images/beta.png" style="position: absolute; bottom: -44px; left:20px;" />
 							 </div>
                
                <?php if (!Yii::app()->user->isGuest){ ?>
@@ -165,12 +165,13 @@
                 </li>
               <li class="divider"></li>
                 <li>
-                  <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>"><?php echo Yii::t('app','Register'); ?></a>
+                  <?php /* ?><a href="<?php echo Yii::app()->createUrl("user/registration"); ?>"><?php echo Yii::t('app','Register'); ?></a><?php */ ?>
+                  <a href="<?php echo Yii::app()->createUrl("site/notify"); ?>"><?php echo Yii::t('app','Invitations'); ?></a>
                 </li>
               <?php } ?>
               <li class="divider"></li>
               <li class="desc">
-                <a href="#" style="" data-dropdown="langselect"><?php echo Yii::app()->getLanguage() ?>
+                <a href="#" style="" data-dropdown="langselect"><?php echo Yii::app()->getLanguage(); ?>
                 <br /><small>language</small>
                 </a>
               </li>
@@ -266,14 +267,27 @@
 
 <!-- userreport.com snippet -->
 <script type="text/javascript">
-  var _urq = _urq || [];
-  _urq.push(['initSite', 'ff32f930-ced3-4aca-8673-23bef9c3ecc6']);
-  (function() {
-  var ur = document.createElement('script'); ur.type = 'text/javascript'; ur.async = true;
-  ur.src = 'http://sdscdn.userreport.com/userreport.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
-  })();
+var _urq = _urq || [];
+_urq.push(['initSite', 'ff32f930-ced3-4aca-8673-23bef9c3ecc6']);
+(function() {
+var ur = document.createElement('script'); ur.type = 'text/javascript'; ur.async = true;
+ur.src = 'http://sdscdn.userreport.com/userreport.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
+})();
+</script> 
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45467622-1', 'cofinder.eu');
+  ga('send', 'pageview');
+
 </script>
+
 </body>
 </html><?php 
     // be the last to override any other CSS settings
