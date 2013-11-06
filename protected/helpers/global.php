@@ -280,13 +280,6 @@ function arrayLog($data, $space = '&nbsp;&nbsp;'){
 	return $string;
 }
 
-function add_http($link){
-    //return $link;
-    if ((strpos($link, "http://") === false) && (strpos($link, "https://") === false)){
-      return "http://".$link;
-    }
-    return $link;
-  }
 
 /**
  * dynamicaly translate sif
