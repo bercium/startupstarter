@@ -206,4 +206,5 @@ Are you sure?' => 'Odstranili boste povabilo! Ali ste prepričani?',
   '{file} is empty, please select files again without it.' => '{file} je prazna, prosimo izberite ponovno datoteke brez te ki je prazna.',
   '{file} is too large, maximum file size is {sizeLimit}.' => '{file} je prevelika, največja velikost datoteke je lahko {sizeLimit}.',
   '{username} welcome to cofinder!' => '{username} dobrodošel v cofinder-ju!',
+   'Add more skills by selecting different industry.'=>'Dodajte več znanj pod drugo industrijo.',
 );
