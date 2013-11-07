@@ -14,7 +14,11 @@ class ActivationController extends Controller
 		if ($email&&$activkey) {
 			$find = User::model()->notsafe()->findByAttributes(array('email'=>$email));
 			if (isset($find)&&$find->status) {
-			    $this->render('/user/message',array('title'=>Yii::t('app',"User activation"),'content'=>Yii::t('msg',"You account is already active.")));
+          if (Yii::app()->user->isGuest) $this->render('/user/message',array('title'=>Yii::t('app',"User activation"),'content'=>Yii::t('msg',"You account is already active.").'<br /><br /><a href="#" data-dropdown="drop-login" class="button radius small" >'.Yii::t('app','Login now').'</a>' ));
+          else {
+            $this->redirect(Yii::app()->createUrl("site/index"));
+            die();
+          }
 			} elseif(isset($find->activkey) && ($find->activkey==$activkey)) {
 				$find->activkey = UserModule::encrypting(microtime());
 				$find->status = 1;
