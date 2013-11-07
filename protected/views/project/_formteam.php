@@ -87,13 +87,16 @@
     <?php echo '<label for="skill">'.Yii::t('app','Skill')."</label>";  ?> 
     <span class="description" >
        <?php echo Yii::t('msg','Name of skill your candidate should posess. You can write multiple skills for the same industry separated by commas.'); ?>
+       <br />
+      <strong><?php echo Yii::t('msg','Write only skills within the same industry. Later you can add more under different industry.'); ?>
+      </strong>
     </span>
     <?php echo CHtml::textField("skill","", array('maxlength' => 128,'class'=>'skill')); ?>
   
  
     <?php echo CHtml::label(Yii::t('app','Industry'),''); ?>
     <span class="description">
-       <?php echo Yii::t('msg','Select group which represents your skill the closest.'); ?>
+       <?php echo Yii::t('msg','Select group which represents skills above the closest.'); ?>
     </span>
       
     <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none','class'=>'skillset')); ?>
@@ -102,7 +105,9 @@
                     array('class'=>"button small success radius",
                         'onclick'=>'addSkill(\''.Yii::app()->createUrl("project/sAddSkill").'\');')
                 ); ?>
-    
+     <span class="description">
+      <?php echo Yii::t('msg','Add more skills by selecting different industry.'); ?>
+     </span>
     <?php $this->endWidget(); ?>  
   
     </div>
