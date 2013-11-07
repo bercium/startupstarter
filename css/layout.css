@@ -715,7 +715,7 @@ img.card-avatar {
 ================================================== */
 
 .header-margin{
-  margin-top:0px;  
+  margin-top:40px;  /* nastavljeno pri vseh straneh, če ni so strani potisnjene pod  bomo odmaknili ko gremo ven iz bete*/
 }
 
 .alt {
@@ -779,7 +779,7 @@ img.card-avatar {
  {
 	padding: 0.4em 0.6em 0.4em;
 	
-	text-transform: capitalize;
+	/*text-transform: capitalize;*/
 }
 
 
@@ -1396,7 +1396,7 @@ h6.title-field {
 	font-size: 1.5em;
 	line-height: 1.2em;
 	margin: 20px 0 20px 0 ;	
-	text-transform: capitalize;
+	/*text-transform: capitalize;*/
 }
 
 .person-details .card-person {

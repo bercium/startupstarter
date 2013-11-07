@@ -784,7 +784,7 @@ class ProfileController extends GxController {
       if ($idea)
       $invites[] = array('id' => $invite->idea_id,
                          'title' => $idea->title,
-                         'user' => $invite->idSender);
+                         'user' => $invite->sender_id);
     }
     
     //$this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea']));
