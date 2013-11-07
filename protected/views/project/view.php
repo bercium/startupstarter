@@ -256,9 +256,6 @@ if(isset($idea['gallery'])){
 }
 ?>
 
-              <a href="<?php echo Yii::app()->createUrl("person/".$member['id']); ?>">
-                <img src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" data-tooltip title="<?php echo $member['name']." ".$member['surname']; ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="card-avatar" />
-              </a>
 
 
 

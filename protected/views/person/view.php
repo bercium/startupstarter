@@ -109,7 +109,7 @@ $user = $data['user'];
 				//echo "<br />".$skillset['skillset']." with skills in<br />";
 				foreach ($skillset['skill'] as $skill){
 				?>
-				<p class="label radius success-alt meta_tags" data-tooltip title='"<?php echo $skillset['skillset']; ?>' ><?php echo $skill['skill']; ?></p>
+				<p class="label radius success-alt meta_tags" data-tooltip title='<?php echo $skillset['skillset']; ?>' ><?php echo $skill['skill']; ?></p>
 
 
 				
