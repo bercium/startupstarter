@@ -153,7 +153,7 @@ function removeSkill(skill_id, inUrl){
           }
 
           if (term.length > 2){
-            $.getJSON( skillSuggest_url, { term: term }, function( data, status, xhr ) {
+            $.getJSON( skillSuggest_url, { term: term, category:$("#skillset").val() }, function( data, status, xhr ) {
               if (data.status == 0){
                 cache[ term ] = data.data;
                 response( data.data );
