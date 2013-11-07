@@ -10,11 +10,17 @@
 
 
 <p>
-<?php echo Yii::t('msg','Thank you for your registration. You will shortly receive our confirmation email.'); ?>
-<br /><br />
 <strong>
-<?php echo Yii::t('msg','While you wait for our confirmation email fill in some of your profile information.'); ?>
+<?php echo Yii::t('msg','Thank you for your registration. You will shortly receive our confirmation email.'); ?>
 </strong>
+<br /><br />
+<?php echo Yii::t('msg','While you wait for confirmation email try filling up your profile information. Full profiles are more CREDIBLE and have more visibility.'); ?>
+<br />
+<?php echo Yii::t('msg','If you do not wish to do this right now you can browse some interestnig projects'); ?>
+<a href="<?php echo Yii::app()->createUrl("site/index"); ?>">
+<?php echo Yii::t('msg','here'); ?>
+</a>
+
 </p>
 <br />
 
