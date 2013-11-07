@@ -20,7 +20,7 @@
           <span class="idealist"><?php echo $idea['title']; ?></span>
         <div class="meta-wrap">
            <span class="meta"><?php echo Yii::t("app","viewed {n} time|viewed {n} times",array($idea['num_of_clicks'])); ?></span>
-          <small class="meta right"><?php if ($idea['type_id'] == 1) echo Yii::t("app","<span class='label'>owner</span>"); else echo Yii::t("app","Member"); ?></small>
+          <small class="meta right"><?php if ($idea['type_id'] == 1) echo "<span class='label'>".Yii::t("app","owner")."</span>"; else echo Yii::t("app","Member"); ?></small>
         </div>
         </div>
         </a>
