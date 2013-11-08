@@ -27,7 +27,7 @@
   <?php echo CHtml::activeLabelEx($match,'available'); ?>
   <span class="description"><?php echo Yii::t('msg','Select how much time you have to work on projects.'); ?></span>
     
-  <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listDataEx(Available::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+  <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listDataEx(Available::model()->findAllTranslated(),"id","name"), array('empty' => '&nbsp;','style'=>'display:none')); ?>
 
     <?php echo "<label>".Yii::t('app','Collaboration preferences')."</label>"; ?>
 
@@ -144,6 +144,9 @@
                     array('class'=>"button small success radius",
                         'onclick'=>'addSkill(\''.Yii::app()->createUrl("profile/addSkill",array("key"=>substr($user->activkey,0,10),"email"=>$user->email)).'\');')
                 ); ?>
+    <span class="description">
+       <?php echo Yii::t('msg','Add more skills by selecting different industry.'); ?>
+    </span>
       
   
     <div class="skillList">

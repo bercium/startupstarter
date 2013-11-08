@@ -30,8 +30,8 @@
                 <tr class="card-abstract">
                   <td class="icons"><?php if (count($user['collabpref']) > 0){ ?>
                      
-                      <?php echo Yii::t('app','<span class="icon-group ico-awesome"></span>') ?></span>
-                         
+                      <span class="icon-group ico-awesome"></span>
+                      
                       <?php } ?>
                     
                   </td>
@@ -48,7 +48,8 @@
                 </tr>
                 <tr>
                   <td class="icons"><?php if ($user['available_name']) { ?>
-                     <?php echo Yii::t('app','<span class="icon-time ico-awesome"></span>') ?></td>
+                     <span class="icon-time ico-awesome"></span>
+                  </td>
                   <td>
                     <?php echo $user['available_name']; ?><br />
                     <?php } ?>               
@@ -59,7 +60,7 @@
                   <td class="icons">
                     
                     <?php if ($user['num_of_rows']) { ?>
-                    <?php echo Yii::t('app','<span class="icon-lightbulb ico-awesome"></span>') ?> 
+                    <span class="icon-lightbulb ico-awesome"></span>'
                   </td>
                   <td>
                     <?php echo Yii::t('app','{n} project|{n} projects',array($user['num_of_rows'])) ?>
@@ -89,7 +90,7 @@
                       
                       //echo Yii::t('app','Skill|Skills',array($c)).":"; 
                       if (count($skills) > 0){
-                        echo Yii::t('app','<span class="icon-suitcase ico-awesome"></span>'); 
+                        echo '<span class="icon-suitcase ico-awesome"></span>'; 
                         ?>
                        
                   </td>

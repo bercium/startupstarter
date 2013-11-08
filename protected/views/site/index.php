@@ -14,12 +14,21 @@
 
 <?php //if (!Yii::app()->user->getState('fpi')){ ?>
 
+<?php if (Yii::app()->user->isGuest){ ?>
+<div  class="row" >
+  <div class="column hide-for-small">
+    <img class="logo image-beta" alt="Invite" title="invite" src="<?php echo Yii::app()->request->baseUrl; ?>/images/invite-<?php echo Yii::app()->getLanguage(); ?>.png" style="position: absolute; top: -4px; right:-10px; z-index: 98;" />
+  </div>
+</div>
+<?php } ?>
+
+
 <div class="intro" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
   <div  class="row" >
-    <div class="large-12 columns">
+    <div class="large-10 columns large-centered">
 
 <!-- Content if guest -->
-      <h1><?php echo Yii::t('msg','With the <span>right team</span> any <span>idea</span> can change your life'); ?></h1>
+      <h1><?php echo Yii::t('msg','With the <span>right team</span> any <span>idea</span> can</br> change your life'); ?></h1>
       <p>
           <?php echo Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the like minded entrepreneurs and search for interesting projects to join.'); ?>
       </p><br />
@@ -28,7 +37,7 @@
       <div class="right">
       <?php if (Yii::app()->user->isGuest){ ?>
       <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" class="button radius success" ><?php echo Yii::t('app','Find talent'); ?></a> 
-      <span style="margin-left:20px;"> <?php echo Yii::t('app','or'); ?> </span>
+      <span style="margin-right:20px;"> <?php echo Yii::t('app','or'); ?> </span>
       <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" class="button radius " ><?php echo Yii::t('app','Discover projects'); ?> </a>
       <?php }else{ ?>
       <h4 >

@@ -7,7 +7,7 @@ return array(
 	'sourcePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR."..",
 	'messagePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'messages',
   'translator' => 'Yii.t',
-	'languages'=>array('sl'),
+	'languages'=>array('blank','sl'),
 	'fileTypes'=>array('js'),
 	'overwrite'=>true,
   'sort'=>true,

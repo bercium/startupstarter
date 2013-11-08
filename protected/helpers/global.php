@@ -191,8 +191,9 @@ function getGMap($country = '', $city = '', $addr = ''){
 			mkdir($folder, 0777, true);
 		}
 
-    file_put_contents($folder.$filename, $htmlData);
-    return Yii::app()->getBaseUrl(true)."/".Yii::app()->params['mapsFolder'].$filename;
+    @file_put_contents($folder.$filename, $htmlData);
+    if (file_exists($folder.$filename)) return Yii::app()->getBaseUrl(true)."/".Yii::app()->params['mapsFolder'].$filename;
+    else return false;
   }
 }
 
