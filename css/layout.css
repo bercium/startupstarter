@@ -243,9 +243,8 @@ margin-left: 20px;
 /* $card-person */
 /*****************/
 .card-person .card-abstract {
-	position: absolute;
-	bottom: 0;
-	left: 10px;
+	position: relative;
+	bottom: 0;	
 }
 
 .card-person .card-person-title img {
@@ -617,6 +616,12 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
  	/*line-height: 2.3em;*/
  }
 
+ .top-bar-section .dropdown li a .icon-lightbulb,
+ .top-bar-section .dropdown li a .icon-user {
+ 	margin-right: 3px;
+ 	font-size: 1.3em;
+ }
+
 
       .top-bar,
 .top-bar-holder,
@@ -914,9 +919,18 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 	min-height: 150px;
 
 }
+
+.card-idea ul li {
+    list-style-position: inside;
+}
+
+
 .card-idea .card-abstract p {
 		line-height: 1.4em;
 }
+
+
+
 
 .card-idea .card-content {
 	position: relative;
@@ -1265,6 +1279,7 @@ h6.title-field {
 ================================================== */
 .person-details{
   margin-top:40px;
+  margin-bottom: 200px;
 }
 
 .card-person{

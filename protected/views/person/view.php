@@ -86,7 +86,7 @@ $user = $data['user'];
 			</div>
 		</div>
 
-		<div  class="row">
+		<div  class="">
 
 
 			<div class="columns skills"  >
@@ -160,12 +160,12 @@ $user = $data['user'];
 						?>
 					
 				<?php } ?>
-
+                  <br />
 			</div>
 			
-			<div class="large-6 column "  >
+			<div class="large-7 columns"  >
 				<?php if (count($user['idea']) > 0) { ?>
-				<p class="meta-field"><?php echo Yii::t('app', 'Involved in <a>{n}</a> project|Involved in <a>{n}</a> projects', array(count($user['idea']))) ?>:</p>
+				<p class="meta-field"><?php echo Yii::t('app', 'Involved in {n} project|Involved in {n} projects', array(count($user['idea']))) ?>:</p>
 				
 				<?php
 				if (is_array($user['idea']))
