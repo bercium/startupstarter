@@ -97,7 +97,7 @@
     </div>
   </div>
 
-      <div class="large-4 small-4 right columns">
+      <div class="large-4 small-4 columns">
       <?php 
        //echo Yii::app()->getBaseUrl(true)."/".Yii::app()->params['tempFolder'];
          //echo "<img class='avatar' src='".avatar_image($user->avatar_link, $user->id)."'>";

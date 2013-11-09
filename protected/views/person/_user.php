@@ -60,7 +60,7 @@
                   <td class="icons">
                     
                     <?php if ($user['num_of_rows']) { ?>
-                    <span class="icon-lightbulb ico-awesome"></span>'
+                    <span class="icon-lightbulb ico-awesome"></span>
                   </td>
                   <td>
                     <?php echo Yii::t('app','{n} project|{n} projects',array($user['num_of_rows'])) ?>
