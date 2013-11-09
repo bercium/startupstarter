@@ -13,7 +13,7 @@
 
 body {
 	background: url(../images/body_bg.png);
-	background: #F7F5F4;
+	/*background: #F7F5F4;*/
 	color: #221E1D;
 	height: 100%;
 }
@@ -57,7 +57,7 @@ body {
 
 .intro{
 
-background: url(../images/balloons.png) center 0;	
+background: url(../images/gridme.png) center 0;	
 border-bottom: 1px solid #bbb;
     background-color: #f9f7f6;   
     margin-bottom: 40px;
