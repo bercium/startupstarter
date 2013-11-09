@@ -157,7 +157,7 @@ return array(
             'encryption'=>'tls',
           ),require(dirname(__FILE__) . '/local-mail.php')
         ),*/
-        'viewPath' => 'application.views.mailTemplates',
+        'viewPath' => 'application.views.layouts.mail',
         'logging' => true,
         'dryRun' => true
     ),

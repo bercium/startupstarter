@@ -5,15 +5,11 @@
 <div class="row header-margin">
   <?php $this->widget('ext.Invitation.WInvitation'); ?>  
 
-
-
+  <?php /* ?>
   <div class="large-12 columns hint-alert" >
   	<?php $this->widget('ext.ProfileInfo.WProfileInfo',array("style"=>"hint")); ?>
-
-
     <!-- here moved alert-box from \protected\views\profile\profile.php -->
-    
-  </div>
+  </div><?php //*/ ?>
   
   <div class="large-3 sidebar-wrap columns">
     

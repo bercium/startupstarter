@@ -587,18 +587,20 @@ class ProfileController extends GxController {
 		}else{
 			$connection=Yii::app()->db;
 			
+      $cat = '';
+      if (!empty($_GET['category'])) $cat = " AND skillset_id = ".$_GET['category'];
 			// needs translation as well
       	if (Yii::app()->getLanguage() != 'en'){
       		$lang = Language::model()->findByAttributes(array("language_code"=>Yii::app()->getLanguage()));
         	$command=$connection->createCommand("SELECT s.name AS skill, ss.translation AS skillset, s.id, ss.row_id AS skillset_id FROM skill s
                                              	LEFT JOIN skillset_skill sss ON sss.skill_id = s.id
                                              	LEFT JOIN (SELECT * FROM translation WHERE language_id = ".$lang->id." AND `table`='skillset') ss ON ss.row_id = sss.skillset_id
-                                             	WHERE s.name LIKE '%".$_GET['term']."%'");
+                                             	WHERE s.name LIKE '%".$_GET['term']."%'".$cat);
       	} else {
         	$command=$connection->createCommand("SELECT s.name AS skill, ss.name AS skillset, s.id, ss.id AS skillset_id FROM skill s
                                              	LEFT JOIN skillset_skill sss ON sss.skill_id = s.id
                                              	LEFT JOIN skillset ss ON ss.id = sss.skillset_id
-                                             	WHERE s.name LIKE '%".$_GET['term']."%'");
+                                             	WHERE s.name LIKE '%".$_GET['term']."%'".$cat);
       	}
       
 		$dataReader=$command->query();
@@ -782,7 +784,7 @@ class ProfileController extends GxController {
       if ($idea)
       $invites[] = array('id' => $invite->idea_id,
                          'title' => $idea->title,
-                         'user' => $invite->idSender);
+                         'user' => $invite->sender_id);
     }
     
     //$this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea']));

@@ -17,8 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Loading...' => 'Nalagam ...',
-  'No more results!' => 'Ni več zadetkov',
+  'Loading...' => '',
+  'No more results!' => '',
   'Oops, nothing found!' => '',
-  'Page' => 'Stran',
+  'Page' => '',
 );

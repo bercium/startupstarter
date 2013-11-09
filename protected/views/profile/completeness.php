@@ -10,7 +10,7 @@
 
 
       <a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><h5>
-        <span class="gen-enclosed foundicon-checkmark" style="color: #89B561"></span> <?php echo Yii::t('app', ''); ?></h5>
+        <span class="gen-enclosed foundicon-checkmark" style="color: #89B561"></span> </h5>
       </a>
       <a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><h5><span class="gen-enclosed foundicon-remove" style="color: #CD3438"></span> hehe</h5></a>
       <a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><h5><span class="gen-enclosed foundicon-checkmark" style="color: #89B561"></span> hehe</h5></a>
