@@ -64,8 +64,9 @@
                <div class="hide-for-small">
 								 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
 									<img class="logo" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png" />
-								 </a>
-                 <img class="logo image-beta" alt="beta" title="beta" src="<?php echo Yii::app()->request->baseUrl; ?>/images/beta.png" style="position: absolute; bottom: -44px; left:20px;" />
+								 <img class="private-beta" alt="beta" title="beta" src="<?php echo Yii::app()->request->baseUrl; ?>/images/beta.png" />
+                 </a>
+                 
 							 </div>
                
                <?php if (!Yii::app()->user->isGuest){ ?>

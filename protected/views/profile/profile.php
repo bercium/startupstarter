@@ -18,6 +18,8 @@
 
     
     <h3><?php echo Yii::t('app', 'Profile details'); ?></h3>
+    <a class="button radius  right secondary tiny" href="person/<?php echo $user['id']; ?>" target="_blank"><?php echo Yii::t('app',"Preview"); ?> 
+      </a>
   </div>
   <div class="columns panel edit-content">
 
@@ -69,10 +71,9 @@
 		
 		
   </div>
-   <div class="preview">
-      <a class="button radius secondary small" href="person/<?php echo $user['id']; ?>" target="_blank"><?php echo Yii::t('app',"Preview"); ?> 
-      </a>
-    </div>
+   
+      
+    
 </div>
 
 
@@ -83,15 +84,16 @@
     
 
     <h3><?php echo Yii::t('app', 'My skills'); ?></h3>
+    
+      <a class="button radius small right" href="#" onclick="$('.addSkils').toggle(); return false;"><?php echo Yii::t('app',"Add skills"); ?> 
+        <span class="icon-plus"></span>
+      </a>
+    
 
   </div>
   <div class="columns panel edit-content add-skills">
 
-    <div class="edit-floater">
-      <a class="button radius small" href="#" onclick="$('.addSkils').toggle(); return false;"><?php echo Yii::t('app',"Add skills"); ?> 
-        <span class="icon-plus"></span>
-      </a>
-    </div>
+    
     <div class="addSkils" style="display:none">
           <?php $form=$this->beginWidget('CActiveForm', array(
               'id'=>'SkillForm',

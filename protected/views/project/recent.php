@@ -1,4 +1,4 @@
-<div  class="row"  style="margin-top: 50px;">
+<div  class="row">
   <h1><?php echo Yii::t('app', 'Recent projects'); ?></h1>
 
   <?php if ($ideas) { ?>

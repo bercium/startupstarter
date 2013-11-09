@@ -308,9 +308,9 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 		?>
   
     <div class="hide-for-medium-down">
-      <div class="page-navigation">
+      <div class="page-navigation panel">
         <ul>
-          <li class="button small"><a href="#page1"><?php echo Yii::t("app", "Page"); ?> 1</a></li>
+          <li><a  href="#page1"><?php echo Yii::t("app", "Page"); ?> 1</a></li>
         </ul>
       </div>
     </div>

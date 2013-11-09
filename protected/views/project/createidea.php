@@ -50,7 +50,7 @@
 <?php if($step == 2){ ?>
 <div class="row">
   <div class="columns edit-header">
-    <div class="edit-floater">
+    <div class="right">
       <?php if(!isset($candidate)){ ?>
       <a class="small button radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl('project/create?step=2&candidate=new'); ?>"><?php echo Yii::t('app','Add new') ?>
         <span class="icon-plus"></span>
