@@ -78,7 +78,7 @@
 				<?php } ?>
         </div><!-- end card-abstract -->
         <div class="card-floater">
-          <a class="small button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>" target="_blank"><?php echo Yii::t('app','details').'...'; ?></a>
+          <a class="tiny button success radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>" target="_blank"><?php echo Yii::t('app','details').'...'; ?></a>
         </div>
 		  </div>
 	  </div>

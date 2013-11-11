@@ -86,7 +86,7 @@ $user = $data['user'];
 			</div>
 		</div>
 
-		<div  class="row">
+		<div  class="">
 
 
 			<div class="columns skills"  >
@@ -155,17 +155,17 @@ $user = $data['user'];
 						<?php 
 						foreach ($user['link'] as $link) {
 						 ?>
-							<p><a href="<?php echo "http://".$link['url']; ?>" target="_blank"><?php echo $link['title']; ?> <span class="icon-external-link"></span> </a></p><?php 
+							<p><a href="<?php echo add_http($link['url']); ?>" target="_blank"><?php echo $link['title']; ?> <span class="icon-external-link"></span> </a></p><?php 
 							}
 						?>
 					
 				<?php } ?>
-
+                  <br />
 			</div>
 			
-			<div class="large-6 column "  >
+			<div class="large-7 columns"  >
 				<?php if (count($user['idea']) > 0) { ?>
-				<p class="meta-field"><?php echo Yii::t('app', 'Involved in <a>{n}</a> project|Involved in <a>{n}</a> projects', array(count($user['idea']))) ?>:</p>
+				<p class="meta-field"><?php echo Yii::t('app', 'Involved in {n} project|Involved in {n} projects', array(count($user['idea']))) ?>:</p>
 				
 				<?php
 				if (is_array($user['idea']))

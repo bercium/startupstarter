@@ -111,13 +111,16 @@
     <?php echo '<label for="skill">'.Yii::t('app','Skill')."</label>";  ?> 
     <span class="description" >
        <?php echo Yii::t('msg','Name of skill you posess. You can write multiple skills for the same industry separated by commas.'); ?>
+      <br />
+      <strong><?php echo Yii::t('msg','Write only skills within the same industry. Later you can add more under different industry.'); ?>
+      </strong>
     </span>
     <?php echo CHtml::textField("skill","", array('maxlength' => 128,'class'=>'skill')); ?>
   
  
     <?php echo CHtml::label(Yii::t('app','Industry'),''); ?>
     <span class="description">
-       <?php echo Yii::t('msg','Select group which represents your skill the closest.'); ?>
+       <?php echo Yii::t('msg','Select group which represents your skills the closest.'); ?>
     </span>
     <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none', 'class'=>'skillset')); ?>
   
@@ -285,7 +288,7 @@
       <div class="linkList">
         <?php foreach ($data['user']['link'] as $link){ ?>
         <div data-alert class="alert-box radius secondary" id="link_div_<?php echo $link['id']; ?>">
-          <?php echo $link['title']; ?>: <a href="http://<?php echo $link['url']; ?>" target="_blank"><?php echo $link['url']; ?></a>
+          <?php echo $link['title']; ?>: <a href="<?php echo add_http($link['url']); ?>" target="_blank"><?php echo $link['url']; ?></a>
           <a href="#" class="close" onclick="removeLink(<?php echo $link['id']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteLink"); ?>')">&times;</a>
         </div>
         <?php } ?>

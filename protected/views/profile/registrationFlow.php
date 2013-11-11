@@ -22,11 +22,17 @@
     <?php } ?>
 
 <p>
-<?php echo Yii::t('msg','Thank you for your registration. You will shortly receive our confirmation email.'); ?>
-<br /><br />
 <strong>
-<?php echo Yii::t('msg','While you wait for our confirmation email fill in some of your profile information.'); ?>
-</strong>
+    <?php echo Yii::t('msg','Thank you for your registration. You will shortly receive our confirmation email.'); ?>
+</strong>  
+<br /><br />
+
+<?php echo Yii::t('msg','While you wait for confirmation email try filling up your profile information. Full profiles are more CREDIBLE and have more visibility.'); ?>
+<br />
+<?php echo Yii::t('msg','If you do not wish to do this right now you can browse some interestnig projects'); ?>
+<a href="<?php echo Yii::app()->createUrl("site/index"); ?>">
+<?php echo Yii::t('msg','here'); ?>
+</a>
 </p>
 <br />
 
@@ -39,7 +45,7 @@
   <?php echo CHtml::activeLabelEx($match,'available'); ?>
   <span class="description"><?php echo Yii::t('msg','Select how much time you have to work on projects.'); ?></span>
     
-  <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listDataEx(Available::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+  <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listDataEx(Available::model()->findAllTranslated(),"id","name"), array('empty' => '&nbsp;','style'=>'display:none')); ?>
 
     <?php echo "<label>".Yii::t('app','Collaboration preferences')."</label>"; ?>
 
@@ -141,18 +147,26 @@
     <?php echo '<label for="skill">'.Yii::t('app','Skill');  ?> 
     <?php echo '</label>'; ?>
 
-    <span class="description"><?php echo Yii::t('msg','Name of skill you posess. You can write multiple skills for the same industry separated by commas.') ?></span>
+    <span class="description">
+      <?php echo Yii::t('msg','Name of skill you posess. You can write multiple skills for the same industry separated by commas.') ?>
+      <br />
+      <strong><?php echo Yii::t('msg','Write only skills within the same industry. Later you can add more under different industry.'); ?>
+      </strong>
+    </span>
     <?php echo CHtml::textField("skill","", array('maxlength' => 128,'class'=>'skill')); ?>
   
  
     <?php echo CHtml::label(Yii::t('app','Industry'),''); ?>
-    <span class="description"><?php echo Yii::t('msg','Select group which represents your skill the closest.'); ?></span>
+    <span class="description"><?php echo Yii::t('msg','Select group which represents your skills the closest.'); ?></span>
     <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAll(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none', 'class'=>'skillset')); ?>
   
     <?php echo CHtml::submitButton(Yii::t("app","Add skill"),
                     array('class'=>"button small success radius",
                         'onclick'=>'addSkill(\''.Yii::app()->createUrl("profile/addSkill",array("key"=>substr($user->activkey,0,10),"email"=>$user->email)).'\');')
                 ); ?>
+    <span class="description">
+       <?php echo Yii::t('msg','Add more skills by selecting different industry.'); ?>
+    </span>
       
   
     <div class="skillList">

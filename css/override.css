@@ -1,6 +1,11 @@
 body{
   /*font-size:120%;*/
+  font-family: Arial, sans-serif; 
 }
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Arial, sans-serif;  }
 
 .ui-autocomplete {
   max-height: 200px;
@@ -157,3 +162,4 @@ form.custom .custom.checkbox.checked:before{
   border-color: transparent transparent #f8f8fb transparent;
   top: -10px; 
 }
+

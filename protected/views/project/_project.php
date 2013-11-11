@@ -92,7 +92,7 @@
           else if ($idea['days_updated'] == 1) echo Yii::t('app','Updated yesterday');
           else echo Yii::t('app','Updated {n} day ago|Updated {n} days ago',array($idea['days_updated'])); ?></small>
           <div class="card-floater">
-            <a class="small button radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("project/".$idea['id']); ?>" target="_blank"><?php echo Yii::t('app','details').'...'; ?></a>
+            <a class="tiny button radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("project/".$idea['id']); ?>" target="_blank"><?php echo Yii::t('app','details').'...'; ?></a>
           </div>
         </div>
         </div>
