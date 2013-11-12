@@ -107,6 +107,7 @@
 
 <div class="row" style="margin-top:20px;">
 	<div class="columns edit-header">
+    <a id="privacy" class="anchor-link"></a>
 		<h1>Privacy Policy</h1>
 	</div>
   <div class="columns panel edit-content">
@@ -128,7 +129,7 @@
     <p>
       Any of the information we collect from you may be used in one of the following ways: 
       <br />
-      <ul>
+      <ul style="list-style-position:outside; padding-left:20px;">
         <li>To personalize your experience
 (your information helps us to better respond to your individual needs)</li>
         <li>To improve our website

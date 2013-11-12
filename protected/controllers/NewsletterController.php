@@ -87,17 +87,19 @@ class NewsletterController extends GxController {
 	}
   
 	public function actionMailSystem() {
+    Yii::app()->clientScript->reset();
     $this->layout = 'blank';
-    $content = '';
+    $content = '<strong>HERE GOES CONTENT</strong> (write your test content in URL "content" parameter)';
     if (isset($_GET['content'])) $content = $_GET['content'];
-    $this->render('//mailTemplates/system',array('content'=>$content));
+    $this->render('//layouts/mail/system',array('content'=>$content));
   }
 
 	public function actionMailNews(){
+    Yii::app()->clientScript->reset();
     $this->layout = 'blank';
-    $content = '';
+    $content = '<strong>HERE GOES CONTENT</strong> (write your test content in URL "content" parameter)';
     if (isset($_GET['content'])) $content = $_GET['content'];
-    $this->render('//mailTemplates/newsletter',array('content'=>$content));
+    $this->render('//layouts/mail/newsletter',array('content'=>$content));
   }
   
 }

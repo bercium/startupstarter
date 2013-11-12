@@ -1,5 +1,4 @@
-    <br/>
-      <a class="button radius small right" href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"Custom links"); ?> 
+      <a class="button radius small left" href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"Custom links"); ?> 
         <span class="icon-plus"></span>
       </a>
 <br />

@@ -26,7 +26,7 @@ body{
 ================================================== */
 
 body, h1, h2, h3, h4, h5, h6 {
-  /*font-family: Arial, sans-serif;*/
+  font-family: Arial, sans-serif;
   font-weight: normal;
 }
 
@@ -124,10 +124,79 @@ body, h1, h2, h3, h4, h5, h6 {
     font-weight: 100;
 }
 
+.panel .label { font-weight: bold;}
+
  .section-container section.active .title,
     .section-container .section.active .title, .section-container.auto section.active .title,
     .section-container.auto .section.active .title {
       background: #ddd; }
+
+
+
+/* Progress Bar */
+.progress {
+  background-color: transparent;
+  height: 1.5625em;
+  border: 1px solid #cccccc;
+  padding: 0.125em;
+  margin-bottom: 0.625em; }
+  .progress .meter {
+    background: #4469a6;
+  background: -moz-linear-gradient(top, #5e9be5 0%, #4469a6 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5e9be5), color-stop(100%,#4469a6)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #5e9be5 0%,#4469a6 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #5e9be5 0%,#4469a6 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #5e9be5 0%,#4469a6 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #5e9be5 0%,#4469a6 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5e9be5', endColorstr='#4469a6',GradientType=0 ); /* IE6-9 */
+    height: 100%;
+    display: block; }
+  .progress.secondary .meter {
+    background: #e9e9e9; 
+  background: -moz-linear-gradient(top, #ffffff 0%, #e9e9e9 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e9e9e9)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #ffffff 0%,#e9e9e9 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #ffffff 0%,#e9e9e9 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #ffffff 0%,#e9e9e9 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #ffffff 0%,#e9e9e9 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e9e9e9',GradientType=0 ); /* IE6-9 */
+    height: 100%;
+    display: block; }
+  .progress.success .meter {
+    background: #89b561;
+  background: -moz-linear-gradient(top, #b2ea8a 0%, #89b561 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b2ea8a), color-stop(100%,#89b561)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #b2ea8a 0%,#89b561 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #b2ea8a 0%,#89b561 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #b2ea8a 0%,#89b561 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #b2ea8a 0%,#89b561 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b2ea8a', endColorstr='#89b561',GradientType=0 ); /* IE6-9 */
+    height: 100%;
+    display: block; }
+  .progress.alert .meter {
+    background: #cd3438;  
+background: -moz-linear-gradient(top, #ff7072 0%, #cd3438 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff7072), color-stop(100%,#cd3438)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #ff7072 0%,#cd3438 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #ff7072 0%,#cd3438 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #ff7072 0%,#cd3438 100%); /* IE10+ */
+background: linear-gradient(to bottom, #ff7072 0%,#cd3438 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7072', endColorstr='#cd3438',GradientType=0 ); /* IE6-9 */
+    height: 100%;
+    display: block; }
+  .progress.radius {
+    -webkit-border-radius: 3px;
+    border-radius: 3px; }
+    .progress.radius .meter {
+      -webkit-border-radius: 2px;
+      border-radius: 2px; }
+  .progress.round {
+    -webkit-border-radius: 1000px;
+    border-radius: 1000px; }
+    .progress.round .meter {
+      -webkit-border-radius: 999px;
+      border-radius: 999px; }
+
 
 
 
@@ -183,9 +252,10 @@ a:hover, a:focus { color: #3c76d6; }
 	background-color: #8CA1C6;
 	/*box-shadow: 0 1px 0 0px #6d83a9;*/
 	color: #fff;
+  padding: 0.4em 0.6em 0.4em;
 }
 
-z
+
 .button{
   -webkit-box-shadow:none;
 }

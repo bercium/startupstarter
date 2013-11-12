@@ -60,7 +60,7 @@
                   <td class="icons">
                     
                     <?php if ($user['num_of_rows']) { ?>
-                    <span class="icon-lightbulb ico-awesome"></span>'
+                    <span class="icon-lightbulb ico-awesome"></span>
                   </td>
                   <td>
                     <?php echo Yii::t('app','{n} project|{n} projects',array($user['num_of_rows'])) ?>
@@ -110,7 +110,7 @@
               </table>     
         
         <div class="card-floater">
-          <a class="tiny button right radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>" target="_blank"><?php echo Yii::t('app','details').' <span class="icon-angle-right"></span>'; ?></a>
+          <a class="tiny button secondary right radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>" target="_blank"><?php echo Yii::t('app','details').' <span class="icon-angle-right"></span>'; ?></a>
         </div>
 		  </div>
 	  </div>
