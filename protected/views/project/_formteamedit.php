@@ -87,6 +87,9 @@
     <span class="description">
        <?php echo Yii::t('msg','Select group which represents skills above the closest.'); ?>
     </span>
+
+    <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none','class'=>'skillset')); ?>
+
       
     <?php echo '<label for="skill">'.Yii::t('app','Skill')."</label>";  ?> 
     <span class="description" >
@@ -96,9 +99,6 @@
       </strong>      
     </span>
     <?php echo CHtml::textField("skill","", array('maxlength' => 128,'class'=>'skill')); ?>
-  
-
-    <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none','class'=>'skillset')); ?>
   
     <?php echo CHtml::submitButton(Yii::t("app","Add skill"),
                     array('class'=>"button small success radius",
