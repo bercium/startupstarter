@@ -74,7 +74,7 @@ class MessageController extends Controller
       $message->view = 'system';
       // send to sender
       $message->subject = "New message from ".$sender->name." ".$sender->surname;
-      $content = "This message was sent trough cofinder by ".$sender->name." ".$sender->surname.'. '.
+      $content = "This message was sent to you trough Cofinder by ".$sender->name." ".$sender->surname.'. '.
                  'To check his profile or to replay <a href="'.Yii::app()->createAbsoluteUrl('/person/view',array('id'=>Yii::app()->user->id)).'">click here</a>.<br /><br /><br />'.
                  GxHtml::encode($_POST['message']);
       $message->setBody(array("content"=>$content), 'text/html');
@@ -88,7 +88,7 @@ class MessageController extends Controller
       $message_self->view = 'system';
       // send to self
       $message_self->subject = "Message send to ".$receiver->name." ".$receiver->surname;
-      $content = "You send this message trough cofinder to ".$receiver->name." ".$receiver->surname.'. '.
+      $content = "You have sent this message trough Cofinder to ".$receiver->name." ".$receiver->surname.'. '.
                  'To check his profile <a href="'.Yii::app()->createAbsoluteUrl('/person/view',array('id'=>$receiver->id)).'">click here</a>.<br /><br /><br />'.
                  GxHtml::encode($_POST['message']);
       $message_self->setBody(array("content"=>$content), 'text/html');
