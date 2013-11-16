@@ -43,21 +43,27 @@ class NewsletterController extends GxController {
         
         $message = new YiiMailMessage;
         $message->view = 'newsletter';
-        $message->setBody(array("content"=>$model->newsletter,), 'text/html');
         $message->subject = $model->newsletterTitle;
+        $message->from = Yii::app()->params['adminEmail'];
         
-        // get all users
-        $criteria = new CDbCriteria();
-        $criteria->condition = 'newsletter=1';
-        $users = User::model()->findAll($criteria);
+        // get all users with newsletter on
+        $users = User::model()->findAllByAttributes(array('newsletter'=>'1'));
         foreach ($users as $user){
-          $message->addTo($user->email);
+          $message->setBody(array("content"=>$model->newsletter,"activkey"=>$user->activkey), 'text/html');
+          $message->setTo($user->email);
+          Yii::app()->mail->send($message);
         }
         
-        $message->from = Yii::app()->params['adminEmail'];
-        Yii::app()->mail->batchSend($message);
+        // send newsletter to all in waiting list
+        $invites = Invite::model()->findAll();
+        foreach ($invites as $user){
+          $message->setBody(array("content"=>$model->newsletter,"email"=>$user->email), 'text/html');
+          $message->setTo($user->email);
+          Yii::app()->mail->send($message);
+        }
         
 				setFlash('newsletter',Yii::t('msg',"Newsletter sent succesfully."));
+        $this->refresh();
 			}
 		}
 		$this->render('index',array('model'=>$model));

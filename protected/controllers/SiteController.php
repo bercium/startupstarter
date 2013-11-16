@@ -25,7 +25,7 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow', // allow all users to perform actions
-        'actions'=>array("index",'error','logout','about','terms','notify','notifyFacebook','suggestCountry','suggestSkill','suggestCity','removeInvite'),
+        'actions'=>array("index",'error','logout','about','terms','notify','notifyFacebook','suggestCountry','suggestSkill','suggestCity','unbsucribeFromNews'),
 				'users'=>array('*'),
 			),
 			/*array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -195,6 +195,8 @@ class SiteController extends Controller
             Yii::app()->mail->send($message);
       
             setFlash("interestMessage",Yii::t('msg',"Your email ({email}) was succesfully saved in our database.",array('{email}'=>$_POST['email'])));
+          }else{
+            setFlash("interestMessage",Yii::t('msg',"Something went wrong while saving your ({email}) in our database.",array('{email}'=>$_POST['email'])),"alert");
           }
         }
       }
@@ -209,8 +211,20 @@ class SiteController extends Controller
   }
   
   
-  public function actionRemoveInvite(){
-    
+  public function actionUnbsucribeFromNews(){
+    $this->pageTitle = "Unsubscription";
+    if (!empty($_GET['email'])){
+      Invite::model()->deleteAll("email = :email",array(':email' => $_GET['email']));
+    }else
+    if (!empty($_GET['id'])){
+      $user = User::model()->findByAttributes(array('activkey'=>$_GET['id'],'newsletter'=>'1'));
+      if ($user){
+        $user->newsletter = 0;
+        $user->activkey = md5(microtime().$_GET['id']);
+        $user->save();
+      }
+    }
+    $this->render('message',array('title'=>'Unsubscribe','content'=>Yii::t('msg','You have successfully unsubscribed from our newsletter.')));
   }
   
 	

@@ -118,8 +118,10 @@
             
 						<p class="links">
 							<a href="http://cofinder.eu/site/terms">Terms</a> |
-							<a href="http://cofinder.eu/site/terms#privacy">Privacy</a> |
-							<a href="#"><unsubscribe>Unsubscribe</unsubscribe></a>
+							<a href="http://cofinder.eu/site/terms#privacy">Privacy</a>
+              <?php if (isset($email) || isset($activkey)){ ?> |
+              <a href="http://localhost/startupstarter/site/unbsucribeFromNews?<?php if (isset($email)) echo "email=".$email; else echo "id=".$activkey; ?>"><unsubscribe>Unsubscribe</unsubscribe></a>
+              <?php } ?>
 						</p>
 					</td>
 				</tr>
