@@ -4,7 +4,7 @@
 // Any writable CConsoleApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'My Console Application',
+	'name'=>'Cofinder console application',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -49,6 +49,8 @@ return array(
   ),
 	// application components
 	'components'=>array(
+    'request' => require(dirname(__FILE__) . '/local-console-request.php'),
+      
 		/*'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		),*/
