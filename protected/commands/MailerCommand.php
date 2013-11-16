@@ -49,5 +49,30 @@ class MailerCommand extends CConsoleCommand{
 
     $message->from = Yii::app()->params['adminEmail'];
     Yii::app()->mail->send($message);
-	}  
+	}
+  
+  
+  // do this every first of month
+  public function actionNotifyToJoin(){
+    $message = new YiiMailMessage;
+    $message->view = 'system';
+    $message->subject = "Cofinder invitation reminder";
+    $message->from = Yii::app()->params['noreplyEmail'];
+    
+    // send newsletter to all in waiting list
+    $invites = Invite::model()->findAll("NOT ISNULL(`key`)");
+    foreach ($invites as $user){
+      
+      $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$user->key.'">Register here</a>';
+      $content = "This is just a friendly reminder to activate your account on Cofinder.
+                  </br><br>
+                  Cofinder is a web platform through which you can share your ideas with the like minded entrepreneurs, search for people to join your project or join an interesting project yourself.
+                  <br /><br />If we got your attention you can ".$activation_url."!";
+      
+      $message->setBody(array("content"=>$content,"email"=>$user->email), 'text/html');
+      $message->setTo($user->email);
+      Yii::app()->mail->send($message);
+    }
+
+  }
 }

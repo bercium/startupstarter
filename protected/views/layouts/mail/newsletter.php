@@ -1,46 +1,137 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>cofinder</title>
-</head>
+<!-- If you delete this meta tag, Half Life 3 will never be released. -->
+<meta name="viewport" content="width=device-width" />
 
-<body style="-webkit-text-size-adjust: none;margin: 0;padding: 0; background: none; background-color: #E8E0DC; width: 100% !important;">
-<table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
-  <tr>
-    <td align="left" valign="top"  bgcolor="#f1f69d" style="background-color:#FFF; padding:20px;">
-    <a href="http://www.cofinder.eu/" style="text-decoration: none;">
-      <img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/mail-logo.png" alt="cofinder" title="cofinder" style="border: 0;height: auto;line-height: 100%;outline: none;text-decoration: none;display: inline;margin: 0;padding: 0; float:left;" border="0" height="38" width="40"></img>
-      <div style="color:#9a9a9a; font-weight: bold; text-decoration: none; font-size: 38px;  font-family:Sans,Helvetica,Arial,sans-serif; margin-top:9px;">
-        co<span style="color:#89b561">finder</span>
-      </div>
-    </a>
-    </td>
-  </tr>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>cofinder newsletter</title>
+	
+<style>
+  <?php echo @file_get_contents("css/email.css"); ?>
+</style>
+
+</head>
+ 
+<body bgcolor="#FFF">
+
+<!-- HEADER -->
+<table class="head-wrap" bgcolor="#FFF">
+	<tr>
+		<td></td>
+		<td class="header container" >
+				
+				<div class="content">
+				<table bgcolor="#FFFFFF">
+					<tr>
+						<td>
+              <a href="http://www.cofinder.eu/" style="text-decoration: none;">
+                <img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/mail-logo.png" alt="cofinder" title="cofinder" style="border: 0;vertical-align: -40%;" border="0" height="38" width="40"></img>
+                <span class="logo">
+                  co<span>finder</span>
+                </span>
+              </a>
+            </td>
+						<td align="right">
+              
+            </td>
+					</tr>
+				</table>
+				</div>
+				
+		</td>
+		<td></td>
+	</tr>
   <tr style="border-top: 1px solid #E8E0DC; ">
-    <td align="center" valign="top" bgcolor="#f1f69d" style="background-color:#F0F0F0; font-size:10px;line-height:10px; height:10px; padding:0; margin:0;">
+    <td></td>
+    <td align="center" valign="top" bgcolor="#F0F0F0" class="separator">
       &nbsp;
     </td>
+    <td></td>
   </tr>
-  <tr style="border-top: 1px solid #E8E0DC; ">
-    <td valign="top" bgcolor="#f1f69d" style="background-color:#FFF; padding:20px 15px; ">
-      <p style="font-family:Helvetica,Arial,sans-serif; font-size:12px; color:#222;">
-        <?php echo $content; ?>
-      </p>
-    </td>
-  </tr>
-  <tr>
-    <td align="left" valign="top" bgcolor="#89b561" style="background-color:#89b561;">
-      <table width="100%" border="0" cellspacing="0" cellpadding="15" style="background-color:#89b561; border:0; margin:0;">
-      <tr style="background-color:#89b561; border:0;">
-        <td align="center" valign="top" bgcolor="#89b561" style="color:#ffffff; font-family:Helvetica,Arial,sans-serif; font-size:11px; text-align: center;">
-          
-          This e-mail was sent from <a href="http://www.cofinder.eu"><strong>www.cofinder.eu</strong></a>
-        </td>
-      </tr>
-    </table>
-    </td>
-  </tr>
-</table>
+  
+</table><!-- /HEADER -->
+
+
+<!-- BODY -->
+<table class="body-wrap">
+	<tr>
+		<td></td>
+		<td class="container" bgcolor="#FFFFFF">
+
+			<div class="content">
+			<table>
+				<tr>
+					<td>
+            <?php echo $content; ?>
+												
+						<!-- social & contact -->
+					</td>
+				</tr>
+			</table>
+			</div><!-- /content -->
+									
+		</td>
+		<td></td>
+	</tr>
+</table><!-- /BODY -->
+
+<!-- FOOTER -->
+<table class="footer-wrap">
+	<tr>
+		<td></td>
+		<td class="container">
+			
+				<!-- content -->
+				<div class="content">
+				<table>
+				<tr>
+					<td align="center">
+            
+            <table class="social" width="100%">
+							<tr>
+								<td>
+									
+									<!-- column 1 -->
+									<table align="left" class="column-wrap">
+										<tr>
+											<td>
+                        <p class="social-icons">
+                          <a href="https://www.facebook.com/cofinder.eu" class="soc-btn fb">f</a>
+                          <a href="https://www.linkedin.com/company/cofinder" class="soc-btn in">in</a> 
+                        </p>
+                        <center style="padding-top:5px;">
+												<p>
+                          This email was sent from <strong><a href="http://www.cofinder.eu">www.cofinder.eu</a></strong>
+                        </p>
+                        </center>
+											</td>
+										</tr>
+									</table><!-- /column 1 -->	
+				
+									
+									<span class="clear"></span>	
+									
+								</td>
+							</tr>
+						</table><!-- /social & contact -->
+            
+						<p class="links">
+							<a href="http://cofinder.eu/site/terms">Terms</a> |
+							<a href="http://cofinder.eu/site/terms#privacy">Privacy</a>
+              <?php if (isset($email) || isset($activkey)){ ?> |
+              <a href="http://localhost/startupstarter/site/unbsucribeFromNews?<?php if (isset($email)) echo "email=".$email; else echo "id=".$activkey; ?>"><unsubscribe>Unsubscribe</unsubscribe></a>
+              <?php } ?>
+						</p>
+					</td>
+				</tr>
+			</table>
+				</div><!-- /content -->
+				
+		</td>
+		<td></td>
+	</tr>
+</table><!-- /FOOTER -->
+
 </body>
 </html>

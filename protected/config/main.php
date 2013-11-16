@@ -170,6 +170,7 @@ return array(
     'version'=>require(dirname(__FILE__) . '/version.php'),
 		'adminEmail'=>array('no-reply@cofinder.eu'=>'Cofinder'), //!!! must decide if usefull seperate mail
     'noreplyEmail'=>array('no-reply@cofinder.eu'=>'Cofinder'),
+      
     'tempFolder'=>'temp/',
     'avatarFolder'=>'uploads/avatars/',
     'ideaGalleryFolder'=>'uploads/ideagalleries/',

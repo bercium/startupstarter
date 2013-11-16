@@ -183,7 +183,7 @@ class SiteController extends Controller
 
           if ($invitation->save()){
             $message = new YiiMailMessage;
-            $message->view = 'system';      
+            $message->view = 'system';
 
             $message->subject = "Requested invtation for cofinder";
             $content = 'Thank you for your interest in joining <a href="http://www.cofinder.eu">cofinder</a>!
