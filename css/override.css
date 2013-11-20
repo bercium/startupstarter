@@ -131,7 +131,45 @@ body, h1, h2, h3, h4, h5, h6 {
     .section-container.auto .section.active .title {
       background: #ddd; }
 
+/* Sections */
+.section-container.auto > section > .title a, .section-container.auto > .section > .title a {
+  font-size: 0.5em;
+ 
+}
 
+.section-container.tabs > section > .title, .section-container.tabs > .section > .title{
+  background: #F9F9F7;
+}
+.section-container.tabs > section > .title:hover, .section-container.tabs > .section > .title:hover  {
+  background: #F2F2EA;  
+}
+
+
+.section-container.tabs > section .content, .section-container.tabs > .section .content {
+  padding-top:  8px;
+}
+
+.section-container.tabs > section > .title a, .section-container.tabs > .section > .title a {
+   padding: 8px 10px;
+}
+
+.section-container section, .section-container .section, .section-container.auto section, .section-container.auto .section {
+  border: none;
+}
+
+.section-container.tabs > section .content, .section-container.tabs > .section .content {
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+.section-container.tabs > section.active > .title, .section-container.tabs > .section.active > .title {
+  border-top: 1px solid #89B561;
+}
+
+
+.section-container.tabs > section.active > .title:hover, .section-container.tabs > .section.active > .title:hover  {
+  background: #fff;
+}
 
 /* Progress Bar */
 .progress {

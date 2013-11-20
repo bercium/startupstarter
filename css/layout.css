@@ -17,6 +17,8 @@ body {
 }
 
 
+
+
 .header-wrap {
 	background: url(../images/header-wrap_bg.png);	
 	background: #FFF;
@@ -45,19 +47,21 @@ body {
   height:70px;  
   margin-left: 10px;
   margin-bottom: 15px; 
+
 }
 
 
 .title-area .logo {
 	margin-right: 70px;
+	margin-top:-1px; 
 }
 
 
 .private-beta {
-	margin-top: 24px;
+	margin-top: 32px;
 	position: absolute;
 	z-index: 1000;
-	left: 195px;
+	left: 115px;
 }
 
 /* ==========================================================================
@@ -200,6 +204,12 @@ margin-right: 20px;
   @ Front page - card person
    ========================================================================== */
 
+.card-person{
+  padding-left: 13px;
+  padding-right: 13px;
+  min-height: 255px;
+}
+
 
 .card-person, .card-idea, .sidebar, .cwrap {
   /*margin-right:0.9375em; */
@@ -210,6 +220,30 @@ margin-right: 20px;
   box-shadow: 0 0 0 1px #fff, 0 0 0 2px #ccc, 0 2px 0 1px #bbb;
   
 }
+
+.card-person-footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background: #F9F9F7;
+	border-top: 1px solid #ddd;
+	padding: 13px 10px 10px 10px;
+	right: 0;
+}
+
+.card-person-footer .left {
+  left: 10px;
+  padding-top: 2px;
+  padding-left: 10px;
+}
+
+.card-person-footer .right {
+	right: 0px;
+}
+
+
+
+
 
 /****** @ searchpanel ******/
 
@@ -281,12 +315,13 @@ margin-right: 20px;
 }
 
 .card-person .card-person-title h5 {
-margin-bottom: 0;
+margin-bottom: 10px;
     }
 
 
 .card-person .card-content {
 	position: relative;
+	
 	
 }
 
@@ -642,6 +677,11 @@ img.card-avatar {
 /* #Special Styles
 ================================================== */
 
+
+.btop {
+	border-top: 1px solid #ddd;
+}
+
 .header-margin{
   margin-top:40px;  /* nastavljeno pri vseh straneh, če ni so strani potisnjene pod  bomo odmaknili ko gremo ven iz bete*/
 }
@@ -905,26 +945,24 @@ img.card-avatar {
 	margin-bottom: 15px;
 }
 
-.card-idea .stageinfo {	
-	background-color:#f9f9f7;
-	padding: 4px 0 4px 0;
-	border-top:1px solid #ddd;   
-	border-bottom: 1px solid #ddd;
-	margin-bottom: 0.3em;
-}	
 
-.card-idea .stageinfo small {
-	padding-left: 10px;
+
+
+.card-idea .stageinfo {
+	padding-bottom: 10px;
 }
 
-.card-idea .foundicon-graph,
+.card-idea .stageinfo .icon-globe {
+	margin-right: 10px;
+}
+
 .card-idea .icon-signal {
 	margin-top: 9px;
 	font-size: 1.2em;
 	position: absolute;
 	line-height: 0;	
 	color: #444;
-	left: 13px;
+	left: 20px;
 }
 
 .card-idea .stage {
@@ -1260,10 +1298,7 @@ h6.title-field {
   margin-top:40px;
 }
 
-.card-person{
-  padding-left: 13px;
-  padding-right: 13px;
-}
+
 
 .profile {
 	margin-left: 30px;
