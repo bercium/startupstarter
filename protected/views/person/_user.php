@@ -28,16 +28,10 @@
                   	
 		  </div>
 	  </div>
-    
     <div  class="row">
 
-
-
-
       <div class="columns card-content"  >
-        
-              
-                    
+                                         
                   <?php 
                       $skills = array();
                       $c = 0;
@@ -67,7 +61,7 @@
                     <?php 
                      foreach ($skills as $skillset=>$skill){
                           ?>
-                    <span class="label radius success-alt meta_tags"<?php if(count($skill)) echo " data-tooltip title='".implode("<br />",$skill)."'"; ?>><?php echo $skillset; ?></span>
+                    <span class="label radius meta_tags"<?php if(count($skill)) echo " data-tooltip title='".implode("<br />",$skill)."'"; ?>><?php echo $skillset; ?></span>
                             <?php 
                           }
                         }

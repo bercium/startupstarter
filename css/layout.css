@@ -204,10 +204,57 @@ margin-right: 20px;
   @ Front page - card person
    ========================================================================== */
 
+
+
 .card-person{
   padding-left: 13px;
   padding-right: 13px;
   min-height: 255px;
+}
+
+.card-person hr, .card-idea hr{
+  margin-top:5px;
+  margin-bottom:0.9375em;
+}
+
+.card-person p, .card-idea p{
+  margin-top:5px;
+  margin-bottom:5px;
+}
+
+.card-person-title {
+  padding-top:0.35em; 
+  padding-bottom:0.35em; 
+  margin-bottom: 0.8em !important;
+  border-bottom:1px solid #ddd; 
+  background-color:#f9f9f7;
+  }
+
+
+.card-person table .icons {
+	width: 15px;
+	text-align: center;
+}
+
+.card-person table td {
+ 	padding: 4px 10px;
+}
+
+.card-person table .icons .ico-awesome {
+	color: #444;
+	font-size: 1.2em;
+	background: #fff;	
+}
+
+
+
+  .card-person-title {
+  	background: #f9f9f7;
+  }
+
+div[onclick].panel,
+div[onclick].card-person-title, div[onclick].card-idea-title{
+  cursor: pointer;
 }
 
 
@@ -444,6 +491,36 @@ sidebar .section-container.auto .section {
 	
 
 
+/* ==========================================================================
+   internal pages
+   ========================================================================== */
+
+.wrapped-content .item {
+	border-bottom:  1px solid #ddd;
+	margin-bottom: 15px;
+	padding-bottom: 5px;
+}
+
+ .wrapped-content {
+	background: #fff;
+ }
+
+/****** @font ******/
+.wrapped-content .main h3 {
+	font-size: 16px;
+}
+
+.wrapped-content .side {
+	font-size: 12px;
+}
+
+
+.wrapped-content h4 {
+	display: inline-block;
+	font-size: 12px;
+	text-transform: uppercase;
+	font-weight: 600 !important;	
+}
 
 
 
@@ -493,8 +570,6 @@ sidebar .section-container.auto .section {
 
 }
 
-/****** @ avatar edit ******/
-
 
 
 
@@ -516,13 +591,7 @@ f-line {
 }
 
 
-.person-data h3 {
-	font-size: 1.25em;
-	border: 1px solid #ddd;
-	padding: 5px 0;	
-	background: #F9F9F7;
 
-}
 
 .person-data h3 .ico-awesome {
 	margin-right: 10px;
@@ -598,50 +667,7 @@ f-line {
   margin-bottom: 12px;
 }
 
-.card-person hr, .card-idea hr{
-  margin-top:5px;
-  margin-bottom:0.9375em;
-}
 
-.card-person p, .card-idea p{
-  margin-top:5px;
-  margin-bottom:5px;
-}
-
-.card-person-title {
-  padding-top:0.35em; 
-  padding-bottom:0.35em; 
-  margin-bottom: 0.8em !important;
-  border-bottom:1px solid #ddd; 
-  background-color:#f9f9f7;
-  }
-
-
-.card-person table .icons {
-	width: 15px;
-	text-align: center;
-}
-
-.card-person table td {
- 	padding: 4px 10px;
-}
-
-.card-person table .icons .ico-awesome {
-	color: #444;
-	font-size: 1.2em;
-	background: #fff;	
-}
-
-
-
-  .card-person-title {
-  	background: #f9f9f7;
-  }
-
-div[onclick].panel,
-div[onclick].card-person-title, div[onclick].card-idea-title{
-  cursor: pointer;
-}
 
 
 
@@ -676,6 +702,8 @@ img.card-avatar {
 
 /* #Special Styles
 ================================================== */
+
+
 
 
 .btop {
@@ -1180,10 +1208,7 @@ h6.title-field {
 	margin: 30px 0;
 }
 
-.idea-details .meta-field {
-	margin: 10px 0 10px 0;
-	font-size: 0.8em;
-}
+
 
 .idea-details .meta-field  p {
 	display: inline;
@@ -1294,9 +1319,8 @@ h6.title-field {
    ========================================================================== */
 
 
-.person-details{
-  margin-top:40px;
-}
+
+
 
 
 
@@ -1319,7 +1343,7 @@ h6.title-field {
 }
 
 .person-details h1{
-	font-size: 1.5em;
+	font-size: 1.6em;
 	line-height: 1.2em;
 	margin: 20px 0 20px 0 ;	
 	/*text-transform: capitalize;*/
@@ -1484,8 +1508,6 @@ border-right: none;
 
 
 
-
-
 .myprojects .edit-content .idea-panel h5 {
 	font-weight: 100;
 	line-height: 1.2em;
@@ -1506,6 +1528,18 @@ border-right: none;
 .myprojects .edit-content p {
 	margin-bottom: 0.5em;
 }
+
+
+.jobs .label { 
+	display: ;
+
+}
+.jobs .skillset-wrap {
+	margin-bottom:  20px;
+}
+
+
+
 
 /* #EDIT IDEA PAGE
 ================================================== */
