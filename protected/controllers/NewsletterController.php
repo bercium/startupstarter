@@ -46,20 +46,30 @@ class NewsletterController extends GxController {
         $message->subject = $model->newsletterTitle;
         $message->from = Yii::app()->params['adminEmail'];
         
-        // get all users with newsletter on
-        $users = User::model()->findAllByAttributes(array('newsletter'=>'1'));
-        foreach ($users as $user){
-          $message->setBody(array("content"=>$model->newsletter,"activkey"=>$user->activkey), 'text/html');
-          $message->setTo($user->email);
-          Yii::app()->mail->send($message);
-        }
-        
-        // send newsletter to all in waiting list
-        $invites = Invite::model()->findAll();
-        foreach ($invites as $user){
-          $message->setBody(array("content"=>$model->newsletter,"email"=>$user->email), 'text/html');
-          $message->setTo($user->email);
-          Yii::app()->mail->send($message);
+        // send to specific emails
+        if ($model->newsletterEmails){
+          $users = explode(",", $model->newsletterEmails);
+          foreach ($users as $user){
+            $message->setBody(array("content"=>$model->newsletter), 'text/html');
+            $message->setTo(trim($user));
+            Yii::app()->mail->send($message);
+          }
+        }else{
+          // get all users with newsletter on
+          $users = User::model()->findAllByAttributes(array('newsletter'=>'1'));
+          foreach ($users as $user){
+            $message->setBody(array("content"=>$model->newsletter,"activkey"=>$user->activkey), 'text/html');
+            $message->setTo($user->email);
+            Yii::app()->mail->send($message);
+          }
+
+          // send newsletter to all in waiting list
+          $invites = Invite::model()->findAll();
+          foreach ($invites as $user){
+            $message->setBody(array("content"=>$model->newsletter,"email"=>$user->email), 'text/html');
+            $message->setTo($user->email);
+            Yii::app()->mail->send($message);
+          }
         }
         
 				setFlash('newsletter',Yii::t('msg',"Newsletter sent succesfully."));

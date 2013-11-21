@@ -6,7 +6,16 @@
       <?php echo CHtml::beginForm('','post',array('class'=>"custom")); ?>
 
       <?php echo CHtml::errorSummary($model,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
-
+      
+      <a onclick="$('#showNewsletterEmails').show();"><?php echo Yii::t('app','Custom emails'); ?></a><br /><br />
+      <div style="display:none" id="showNewsletterEmails">
+      <?php echo CHtml::activeLabelEx($model,'newsletterEmails'); ?>
+      <span class="description">
+        <?php echo Yii::t('msg','Separate emails with commas'); ?>
+      </span>        
+      <?php echo CHtml::activeTextField($model,'newsletterEmails'); ?>
+      </div>
+        
       <?php echo CHtml::activeLabelEx($model,'newsletterTitle'); ?>
       <?php echo CHtml::activeTextField($model,'newsletterTitle'); ?>
 

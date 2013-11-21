@@ -9,6 +9,7 @@ class NewsletterForm extends CFormModel
 {
 	public $newsletter;
 	public $newsletterTitle;
+	public $newsletterEmails;
 
 	/**
 	 * Declares the validation rules.
@@ -18,6 +19,7 @@ class NewsletterForm extends CFormModel
 		return array(
 			// name, email, subject and body are required
 			array('newsletter, newsletterTitle', 'required'),
+      array('newsletterEmails', 'safe'),
 			// verifyCode needs to be entered correctly
 			//array('verifyCode', 'captcha', 'allowEmpty'=>!CCaptcha::checkRequirements()),
 		);
@@ -31,8 +33,9 @@ class NewsletterForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'newsletter'=>'Newsletter',
-			'newsletterTitle'=>'Newsletter Title',
+			'newsletter'=>Yii::t('app', 'Newsletter'),
+			'newsletterTitle'=>Yii::t('app', 'Newsletter title'),
+			'newsletterEmails'=>Yii::t('app', 'Newsletter emails'),
 		);
 	}
 }
