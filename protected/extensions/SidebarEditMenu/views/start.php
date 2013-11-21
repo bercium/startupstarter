@@ -7,7 +7,7 @@
       <a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>"><span class="icon-lightbulb"></span>
         <?php echo Yii::t('app','Projects'); ?>
       </a>
-    </p>
+    </p><?php /* ?>
     <div class="content ideas-aside">
       <small><a class="button success large-12" href="<?php echo Yii::app()->createUrl("project/create"); ?>" class="ideas-aside-new <?php echo isMenuItemActive("create"); ?>">
         <?php echo Yii::t('app','Create a new project').' <span class="right icon-plus"></span>'; ?>
@@ -25,7 +25,7 @@
         </div>
         </a>
       <?php } ?>
-    </p></div>
+    </p></div> <?php */ ?>
   </section>
   <section class="section <?php echo isMenuItemActive("account"); ?>">
     <p class="title"><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><span class="icon-wrench"></span><?php echo Yii::t('app','Settings'); ?></a></p>
