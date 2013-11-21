@@ -1,4 +1,4 @@
-<div class="section-container profile-info  edit-content edit-content-top radius panel">
+<div class="sidebar profile-info  edit-content radius panel">
   <?php echo Yii::t('app',"Profile completeness"); ?>: 
   <a href="<?php echo Yii::app()->createUrl("profile/completeness"); ?>">
   <div class="progress <?php echo $percClass; ?> round">

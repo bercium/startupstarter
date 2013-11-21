@@ -3,12 +3,13 @@
 ?>
 
 
-<div class="row" style="margin-top:20px;">
-	<div class="columns">
-		<h1><?php echo Yii::t('app','What is cofinder'); ?></h1>
-	</div>
-  <div class="  columns panel radius edit-content">
+<div class="row about" style="margin-top:20px;">
+	
+  <div class=" columns ball wrapped-content">
+   
    <div class="large-8  columns">
+    <h1><?php echo Yii::t('app','What is cofinder'); ?></h1>
+    
 		 
 		<p>
 		<?php 
@@ -24,7 +25,7 @@
 		
     </div>
 
-    <div class="large-4 columns">
+    <div class="large-4 columns side">
       <?php if ($idea)  $this->renderPartial('//project/_project', array('idea' => $idea));  ?>
     </div>
   
@@ -34,20 +35,15 @@
 
 
 <div class="row">
-	<div class="  columns">
-    		
-		<h1><?php echo Yii::t('app','Who is behind cofinder'); ?></h1>
-  </div>
-  <div class="  columns panel radius edit-content">
-    <div class="large-5  columns hide-for-small">
-      <img id="team_image" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team.jpg" alt="cofinder team" title="cofinder team">
-      <div style="top:30px;left:70px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('zb');" onmouseout="hidePerson('zb')"></div>
-      <div style="top:200px;left:90px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('bb');" onmouseout="hidePerson('bb')"></div>
-      <div style="top:100px;left:240px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('jr');" onmouseout="hidePerson('jr')"></div>
-    </div>
-    <div class="large-7 columns ">
-      <div class="row" onmouseover="showPerson('zb');" onmouseout="hidePerson('zb')">
-        <div class="small-4 columns show-for-small">
+	  <div class="columns panel radius wrapped-content">
+      
+    
+    <div class="large-12 columns">
+      <h1><?php echo Yii::t('app','Who is behind cofinder'); ?></h1>
+      
+      <div class="row">
+        <div class="large-6 item small-12 columns" onmouseover="showPerson('zb');" onmouseout="hidePerson('zb')">
+        <div class="small-4 columns">
         <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-ziga.jpg" alt="Žiga Berce" title="Žiga Berce">
         </div>
         <div class="small-8 large-12 columns">
@@ -72,8 +68,8 @@
         <?php */ ?>
       </div>
       
-      <div class="row" onmouseover="showPerson('bb');" onmouseout="hidePerson('bb')">
-        <div class="small-4 columns show-for-small">
+      <div class="large-6 item small-12 columns" onmouseover="showPerson('bb');" onmouseout="hidePerson('bb')">
+        <div class="small-4 columns ">
           <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-blaz.jpg" alt="Blaž Beuermann" title="Blaž Beuermann">
         </div>
         <div class="small-8 large-12 columns">
@@ -94,9 +90,11 @@
           </blockquote>
         </div><?php */ ?>
       </div>
-      
-      <div class="row" onmouseover="showPerson('jr');" onmouseout="hidePerson('jr')">
-        <div class="small-4 columns show-for-small">
+      </div>
+
+      <div class="row">      
+      <div class="large-6 item small-12 columns" onmouseover="showPerson('jr');" onmouseout="hidePerson('jr')">
+        <div class="small-4 columns ">
         <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-jure.jpg" alt="Jure Ravlič" title="Jure Ravlič">
         </div>
         <div class="small-8 large-12 columns">
@@ -119,8 +117,8 @@
       </div>
 
       
-      <div class="row">
-        <div class="small-4 columns show-for-small">
+      <div class="large-6 item small-12 columns">
+        <div class="small-4 columns ">
         <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-jureg.jpg" alt="Jure Grahek" title="Jure Grahek" >
         </div>
         <div class="small-8 large-12 columns">
@@ -141,10 +139,11 @@
           </blockquote>
         </div><?php */ ?>
       </div>
-      
-      
-      <div class="row">
-        <div class="small-4 columns show-for-small">
+      </div>
+
+      <div clasS="row">      
+      <div class="large-6 item small-12 columns">
+        <div class="small-4 columns ">
         <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-jernejm.jpg" alt="Jernej Mirt" title="Jernej Mirt" >
         </div>
         <div class="small-8 large-12 columns">
@@ -164,7 +163,8 @@
           <blockquote style="font-size: 0.9em">
           </blockquote>
         </div><?php */ ?>
-      </div>      
+      </div> 
+      </div>     
       
 
     </div>
@@ -172,11 +172,9 @@
   </div>
 </div>
 
-<div class="row">
-	<div class="columns">
-		<h1><?php echo Yii::t('app','Our supporters'); ?></h1>
-	</div>
+<div class="large-6 item small-12 columns">	
   <div class="radius columns panel edit-content">
+    <h1><?php echo Yii::t('app','Our supporters'); ?></h1>
   </div>
 </div>
 

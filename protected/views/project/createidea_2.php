@@ -35,7 +35,7 @@
   <div class="columns edit-header">
     <div class="right">
       <?php if(!isset($candidate)){ ?>
-      <a class="small button radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl('project/create',array('step'=>2,'candidate'=>'new')); ?>">
+      <a class="small button abtn secondary radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl('project/create',array('step'=>2,'candidate'=>'new')); ?>">
         <?php echo Yii::t('app','Add new') ?>
         <span class="icon-plus"></span>
       </a>

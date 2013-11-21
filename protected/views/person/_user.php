@@ -1,4 +1,4 @@
-<div class="columns radius panel card-person">
+<div class="columns radius card-person">
     <div class="row card-person-title" onclick="window.open('<?php echo Yii::app()->createUrl("person/".$user['id']); ?>','_blank')">
       <div class="columns" >
         <img src="<?php echo avatar_image($user['avatar_link'],$user['id'],60); ?>" style="height:64px; margin-right: 10px; float:left; margin-top:5px;" />

@@ -31,7 +31,7 @@ body {
   margin:0px 0px !important;
   color:#888;
   text-shadow: 1px 1px 2px rgba(0,0,0,.3);
-  font-size:3.6em;
+  
   line-height: 0;
   padding-top: 10px;
 }
@@ -210,6 +210,7 @@ margin-right: 20px;
   padding-left: 13px;
   padding-right: 13px;
   min-height: 255px;
+  border-radius: 3px;
 }
 
 .card-person hr, .card-idea hr{
@@ -260,7 +261,7 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 
 .card-person, .card-idea, .sidebar, .cwrap {
   /*margin-right:0.9375em; */
-  padding-top: 0;
+  
   background-color: #FFF;
   border: 1px solid #fff;
   /*box-shadow: 0 0 0 1px #fff, 0 0 0 2px #bbbbbb, 0 0 0 3px #ddd, 0 0 0 4px #ddd;*/
@@ -352,6 +353,7 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 	border: 1px solid #fff;
 	box-shadow: 0 0 0 1px #ddd;
 	border-radius: 2px; 
+	border-radius: 100%;
 }
 
 
@@ -423,15 +425,6 @@ sidebar .section-container.auto .section {
 	overflow: hidden;
 }
 
-.sidebar-wrap .edit-content-top {
-	margin-bottom: 4px;	
-	border-radius: 3px 3px 0 0;
-}
-.sidebar-wrap .edit-content-bottom {
-	
-	border-radius: 0 0 3px 3px;
-}
-
 .ideas-aside {
 	padding: 0 !important;
 }
@@ -495,24 +488,35 @@ sidebar .section-container.auto .section {
    internal pages
    ========================================================================== */
 
+
 .wrapped-content .item {
 	border-bottom:  1px solid #ddd;
 	margin-bottom: 15px;
 	padding-bottom: 5px;
+
+
 }
 
  .wrapped-content {
 	background: #fff;
+	border-radius: 3px;
+	padding: 10px 20px 50px 20px;
+	margin-bottom: 50px; 
+
+
  }
 
 /****** @font ******/
-.wrapped-content .main h3 {
-	font-size: 16px;
+
+.wrapped-content .main .item {
+	font-size: 1em;
 }
 
-.wrapped-content .side {
-	font-size: 12px;
-}
+ .wrapped-content .side .item {
+ 	font-size: 14px;
+ }
+
+
 
 
 .wrapped-content h4 {
@@ -522,6 +526,15 @@ sidebar .section-container.auto .section {
 	font-weight: 600 !important;	
 }
 
+
+
+/* ==========================================================================
+  @ about page
+   ========================================================================== */
+
+.about .side {
+	margin-top:  80px;
+}
 
 
 /* ==========================================================================
@@ -536,14 +549,28 @@ sidebar .section-container.auto .section {
  margin-left: 20px;
 }
 
-.edit-header{
-  background-color: #f9f9f7;
-  border: 1px solid #fff;
-  box-shadow: 0 0 0 1px #bbbbbb, 0 0 0 3px #ddd;
-  border-radius: 3px 3px 0 0;
-  margin-bottom: 4px;
-  padding: 4px 10px;
+.edit-header {
+   
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 4px 0 0;
+    margin-bottom: -1px;
+    padding: 4px 10px;
+     background-color: #F9F9F7; /* Old browsers */
+background: -moz-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(242,242,242,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(249,249,249,1)), color-stop(100%,rgba(242,242,242,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, rgba(249,249,249,1) 0%,rgba(242,242,242,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, rgba(249,249,249,1) 0%,rgba(242,242,242,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, rgba(249,249,249,1) 0%,rgba(242,242,242,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom, rgba(249,249,249,1) 0%,rgba(242,242,242,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f9f9', endColorstr='#f2f2f2',GradientType=0 ); /* IE6-9 */
 }
+
+.edit-header > .button,
+.edit-header .abtn {
+	position: absolute;
+	right: 5px;
+}
+
 
 .settings-title { 
 	
@@ -557,20 +584,17 @@ sidebar .section-container.auto .section {
 	background: #f9f9f7;	
 }
 
-
 .edit-header h3,
 .edit-header h1 {
 	
 	margin: 0;
 	color: inherit;
 	font-weight: normal;
-	font-size: 1.6em;
-	display: inline;
+	font-size: 1.4em;
+	display: inline-block;
 
 
 }
-
-
 
 
 f-line {
@@ -581,22 +605,29 @@ f-line {
 	height: 100%;
 }
 
+.edit-content {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 0 0 4px 4px;
+    margin-bottom: 33px;
+    padding-top: 30px;
+    padding-bottom: 50px;
 
-.edit-content{	
-  border: 1px solid #fff;
-  box-shadow: 0 0 0 1px #bbbbbb, 0 0 0 3px #ddd;
-  margin-bottom: 33px;
-  border-radius: 0 0 3px 3px;
-  background: #fff;
 }
 
+.sidebar-wrap .accordion {
+	padding-top:  0;
+	padding-bottom: 0;
+}
 
-
+.sidebar-wrap .profile-info {
+	  padding-top: 20px;
+  padding-bottom: 20px;
+}
 
 .person-data h3 .ico-awesome {
 	margin-right: 10px;
 }
-
 
 
 .skills .ico-awesome,
@@ -626,7 +657,6 @@ f-line {
     margin-left: 1px;
     margin-right: 5px;
     margin-top: -4px;
-
 }
 
 
@@ -677,9 +707,12 @@ f-line {
 
 
 
-img.card-avatar {
+img.card-avatar,
+.mini-avatar {
 	height: 24px;
+	border-radius: 2px;
 	position: static;
+	border-radius: 100%;
 }
 
 .card-avatar, .card-icons{
@@ -703,11 +736,17 @@ img.card-avatar {
 /* #Special Styles
 ================================================== */
 
+.ml20 {
+	margin-left:  20px;
+}
 
 
 
 .btop {
 	border-top: 1px solid #ddd;
+}
+.ball {
+	border: 1px solid #ddd;	
 }
 
 .header-margin{
@@ -953,6 +992,7 @@ img.card-avatar {
 .card-idea {
 	/*font-size: 0.9em;*/
 	min-height: 420px;
+	border-radius:  3px;
 }
 
 .card-idea .card-abstract {
@@ -1241,9 +1281,8 @@ h6.title-field {
 }
 
 .idea-details .pitch {
-	margin: 5px 0 25px 0;
-	font-weight: 600;
-	font-size: 0.9em;
+	font-style: italic;
+	
 }
 
 .idea-sidebar .person-skills {
@@ -1319,15 +1358,6 @@ h6.title-field {
    ========================================================================== */
 
 
-
-
-
-
-
-.profile {
-	margin-left: 30px;
-}
-
 .profile .card-floater a.button {
 	margin: 0;
 }
@@ -1342,12 +1372,26 @@ h6.title-field {
 	margin-top: 0.875em;
 }
 
-.person-details h1{
-	font-size: 1.6em;
-	line-height: 1.2em;
-	margin: 20px 0 20px 0 ;	
-	/*text-transform: capitalize;*/
+
+.side .edit-content-title {
+    background: #F9F9F7;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px 4px 0 0;
+
 }
+
+.side .edit-content-title h1 {
+	margin-bottom: 0;
+}
+
+
+.side .contact-me {
+	border-radius: 0 0 3px 3px;
+}
+
 
 .person-details .card-person {
 	
@@ -1387,13 +1431,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444', endCol
 
 
 
-.person-details img.card-avatar {
+.side img.card-avatar {
 	box-shadow: none;
-	
+	border: 10px solid #89B561;
     margin-top: 5px;
-    width: 220px;
+    width: 70%;
     height: auto;
-    border-radius: 3px;
+    
     
 }
 
@@ -1401,94 +1445,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444', endCol
     float: right;
     width: 47.5%;
 }
-
-
-.person-details .card-person .meta-field {
-	display: block;
-}
-
-	 .meta-field span {
-	margin-bottom: 8px;
-}
-
-.person-details .card-person .card-floater {
- margin-top:  20px;  
-}
-.person-details .card-person .card-floater a {
-	margin-bottom: 0;
-}
-
-.person-details .card-person span.foundicon-idea {
-	border-right: 1px solid #ddd;
-	padding-right: 10px;
-	margin-right: 10px;
-}
-
-.person-details .card-person .panel {
-background-color: #f9f9f7;
-border-right: none;
-
-}
-
-.person-details .about-me {
-	margin-bottom: 33px;
-
-}
-
-.person-details .overview div {
-	border: none;
-}
-
-.person-details .collaboration .card-person-title {
-	background: #afbdd3;
-}
-
-
-
-.person-details .collaboration p {
-	
-}
-
-.person-details .collaboration p.active {
-	
-	color: inherit;
-}
-
-
-
-.person-details .available p span {
-	text-align: center;
-}
-
-
-
-
-
-.person-details .idea-list p  {
-	margin:0;
-	margin-bottom: 1px;
-}
-
-
-.person-details .idea-list p a {
-	display: block;	
-	padding: 6px 0 0 12px;
-	border-bottom: 1px solid #f9f9f7;
-}
-
-.person-details .idea-list p a span {
-	 left: 16px;
-    margin-top: 4px;
-    position: absolute;
-}
-
-
-.person-details .available-time {
-	float: left;
-	margin-right: 20px;
-	margin-top: 10px;
-}
-
 
 
 

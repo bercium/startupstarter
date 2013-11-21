@@ -18,7 +18,7 @@
 
     
     <h3><?php echo Yii::t('app', 'Profile details'); ?></h3>
-    <a class="button radius  right secondary tiny" href="person/<?php echo $user['id']; ?>" target="_blank"><?php echo Yii::t('app',"Preview"); ?> 
+    <a class="button radius small  right secondary" href="person/<?php echo $user['id']; ?>" target="_blank"><?php echo Yii::t('app',"Preview"); ?> 
       </a>
   </div>
   <div class="columns panel edit-content">
@@ -85,7 +85,7 @@
 
     <h3><?php echo Yii::t('app', 'My skills'); ?></h3>
     
-      <a class="button radius small right" href="#" onclick="$('.addSkils').toggle(); return false;"><?php echo Yii::t('app',"Add skills"); ?> 
+      <a class="button secondary radius small right" href="#" onclick="$('.addSkils').toggle(); return false;"><?php echo Yii::t('app',"Add skills"); ?> 
         <span class="icon-plus"></span>
       </a>
     
@@ -240,7 +240,7 @@
       <hr>
 			<p>
       <?php /* ?><a href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My custom links"); ?> +</a> <?php */ ?>
-      <a class="button radius small" href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My links"); ?> 
+      <a class="button radius secondary small" href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My links"); ?> 
         <span class="icon-plus"></span>
       </a>
 <br />

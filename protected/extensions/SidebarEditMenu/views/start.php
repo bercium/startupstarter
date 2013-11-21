@@ -1,4 +1,4 @@
-<div class="section-container sidebar accordion edit-content edit-content-bottom" data-section>
+<div class="section-container sidebar accordion edit-content" data-section>
   <section class="section <?php echo isMenuItemActive('index'); ?>">
     <p class="title"><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><span class="icon-user"></span><?php echo Yii::t('app','Profile'); ?></a></p>
   </section>

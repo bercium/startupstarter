@@ -20,20 +20,33 @@ $user = $data['user'];
 	?>
 	</div>
 </div>
-<div class="row person-details wrapped-content panel" style="margin-top:50px; padding-top: 35px; padding-bottom:60px;">
-<div class="large-12 columns">
-<?php if (Yii::app()->user->id == $user['id']) { ?>
-<a class="button tiny  radius secondary edit-profile right" href="<?php echo Yii::app()->createUrl("profile"); ?>"><?php echo Yii::t('app', 'Edit profile') ?><span class="ico-awesome icon-wrench"></span></a>
-<?php } ?>
-</div>
-<div class="large-3 columns profile ">
+<div class="row wrapped-content ball" style="margin-top:50px; padding-top: 35px; padding-bottom:60px;">
+
+<div class="large-4 columns profile side">
 	<div class="edit-content-title">
 	<img class="card-avatar" src="<?php echo avatar_image($user['avatar_link'], $user['id'], false); ?>" />
+		<br>
+	<h4 style="color: #89B561;">Online</h4>
 	<h1><?php echo $user['name'] . " " . $user['surname']; ?></h1>
+	
+	<div class="">		
+		<p>		
+		<?php if ($user['available_name']) { ?>
+		<h4 class=""> <?php echo Yii::t('app', 'Available') ?>:</h4>
+		<?php echo $user['available_name']; ?>
+		<?php } ?>
+		</p>
 	</div>
+	</div>
+
+	<div class="">
+	<a class="button contact-me success large-12 small-12 radius" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact me') ?></a>
+	</div>
+
+	<div class="item">
 	<p>
 	<?php if ($user['city'] || $user['country'] || $user['address']) { ?>
-	<span class="icon-map-marker ico-awesome"></span>			<small class="meta" data-tooltip title="<img src='<?php echo getGMap($user['country'], $user['city'], $user['address']); ?>'>">
+	<span class="icon-map-marker ico-awesome"></span><a><span class="" data-tooltip title="<img src='<?php echo getGMap($user['country'], $user['city'], $user['address']); ?>'>">
 	<?php echo $user['address']; ?>
 	<?php
 	echo $user['city'];
@@ -42,45 +55,41 @@ $user = $data['user'];
 	echo $user['country'];
 	?>
 	<?php //echo $user['address'];  ?>
-	</small>	
+	</span>	</a>
 	<?php } ?>
 	</p>
+	</div>
+
+	<div class="item">
 	<p>
-	<span class="icon-user ico-awesome"></span>
-	<small class="meta"><!-- <?php // echo Yii::t('app', 'Member since') ?>:  -->
-	<?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($user['create_at']), "long", null); ?></small>
+	<h4><?php echo Yii::t('app', 'Registered') ?>:</h4>
+	<span class="meta"><!-- <?php // echo Yii::t('app', 'Member since') ?>:  -->
+	<?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($user['create_at']), "long", null); ?></span>
 	</p>
+	</div>
+
 	<?php if (count($user['link']) > 0) { ?>
+	
 	<!-- <p class="meta-field"><?php // echo Yii::t('app', 'My links') ?>:</p> -->
 	<?php 
 	foreach ($user['link'] as $link) {
 	?>
+	<div class="item">
 	<p><span class="icon-external-link ico-awesome"></span>
-	<small class="meta"><a href="<?php echo add_http($link['url']); ?>" target="_blank">
+	<span class="meta"><a href="<?php echo add_http($link['url']); ?>" target="_blank">
 	<img src="<?php echo getLinkIcon($link['url']); ?>">
-	<?php echo $link['title']; ?>  </a></small>
-	</p><?php 
+	<?php echo $link['title']; ?>  </a></span>
+	</p>
+	</div><?php 
 	}
 	?>
 	<?php } ?>
-	<p>
-	<small class="">
-	<?php if ($user['available_name']) { ?>
-	
-	<span class="meta"> <?php echo Yii::t('app', 'Available') ?>:</span>
-	
-	<?php echo $user['available_name']; ?>
-	<?php } ?>
-	
-</p>
+		
 
-	</small>
-	<br>
-	<div class="large-12">
-	<a class="button success large-12 radius" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact me') ?></a>
-	</div>
-</div>
-<div class="large-8 right main person-data">
+		
+
+		</div>
+<div class="large-8 right main">
 <div class="skills large-12 columns radius"  >
 <h3 class="edit-content-title">
 <?php	echo Yii::t('app', 'Skilled in');?>:
@@ -92,8 +101,10 @@ foreach ($user['skillset'] as $skillset){
 foreach ($skillset['skill'] as $skill){
 ?>
 <p class="label radius meta_tags" data-tooltip title='"<?php echo $skillset['skillset']; ?>' ><?php echo $skill['skill']; ?></p>
+
 <?php
 }
+
 }
 
 /*foreach ($user['skill'] as $skill) {
@@ -103,34 +114,37 @@ foreach ($skillset['skill'] as $skill){
 <?php
 }*/
 ?>
-</p>
+
 <!-- <hr> -->
 <br>
 </div>
 
-<div class="large-3 columns radius  collaboration" >				
+<div class="large-12 columns radius  collaboration" >				
 <?php if (count($user['collabpref']) > 0) { ?>
 <h3 class="edit-content-title">
 <?php echo Yii::t('app', 'Collaboration') ?>:
 </h3>
 <p class="">
-<span class="icon-angle-right"></span>
+
 <?php
 $firsttime = true;
-if (is_array($user['collabpref']))
+if (is_array($user['collabpref'])) ?>
+
+<?php
 foreach ($user['collabpref'] as $collab) {
 if (!$collab['active']) continue;
 if (!$firsttime)
-echo "<br><span class='icon-angle-right'></span> ";
-$firsttime = false;
-echo $collab['name']; 
+echo "";
+$firsttime = false;?>
+
+<?php echo '<span class="label secondary radius small disabled">' .  $collab['name'] . "</span>"; 
 }
 ?>
 </p>
 <?php } ?>	
 <br>
 </div>
-<div class="large-9 columns radius   about-me"  >
+<div class="large-12 columns radius   about-me"  >
 <!-- <hr> -->
 <h3 class="edit-content-title">
 Nekaj o meni:
@@ -150,7 +164,7 @@ Lorem Ipsum je slepi tekst, ki se uporablja pri razvoju tipografij in pri pripra
 <?php
 if (is_array($user['idea']))
 foreach ($user['idea'] as $idea_data) {
-?><div class="idea-list"><p><a class="" href="<?php echo Yii::app()->createUrl("project/" . $idea_data['id']); ?>"><span class="icon-angle-right"></span><?php echo $idea_data['title']; ?></a></p></div><?php 
+?><div class="idea-list panel"><p><a class="" href="<?php echo Yii::app()->createUrl("project/" . $idea_data['id']); ?>"><span class="icon-angle-right"></span> <?php echo $idea_data['title']; ?></a></p></div><?php 
 }
 ?>
 <?php } ?>

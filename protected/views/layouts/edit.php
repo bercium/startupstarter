@@ -13,8 +13,9 @@
   
   <div class="large-3 sidebar-wrap columns">
     
-    <?php $this->widget('ext.ProfileInfo.WProfileInfo',array("style"=>"sidebar")); ?> 
+    
     <?php $this->widget('ext.SidebarEditMenu.WEditSidebar',array("ideas"=>(isset($ideas)?$ideas:array()))); ?>
+    <?php $this->widget('ext.ProfileInfo.WProfileInfo',array("style"=>"sidebar")); ?> 
     
   </div>
   <div class="large-9 columns">

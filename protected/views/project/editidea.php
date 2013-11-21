@@ -8,20 +8,33 @@
   var citySuggest_url = '<?php echo Yii::app()->createUrl("site/suggestCity",array("ajax"=>1)) ?>';
 </script>
 
+
+
+
+
 <div class="row createidea">
-  <div class="columns edit-header">
-   
+     
+  <div class="">   
+
+          <ul class="button-group radius" style="float: left">
+            <li><a class="button small secondary"  href="<?php echo Yii::app()->createUrl("project/translate",array("id"=>$id)); ?>"><?php echo Yii::t('app', 'New translation'); ?></a></li>
+            <li><?php if (count($ideadata['translation_other'])){ ?>
     
       
-    <h3 style="display:inline;">
-      <?php echo Yii::t('app', 'Project presentation'); ?>
-    </h3>
-    <div class="right" style="margin: 10px 15px 0 0;">
-      
         <?php 
+        echo CHtml::link(Yii::t("app","Delete this translation"),Yii::app()->createUrl('project/deleteTranslation',array('id'=>$idea['id'],'lang'=>$ideadata['language_code'])),
+                  array('class'=>"button small secondary",
+                        'confirm'=>Yii::t("msg","You are about to delete this translation!\nAre you sure?"),
+                        'onclick'=>"$(document).stopPropagation();",
+                      )
+              );
+        ?></li>
+          </ul>
+    
+              <?php 
           if($isOwner){
         echo CHtml::link(Yii::t("app","Delete project"),Yii::app()->createUrl('project/deleteIdea',array('id'=>$idea['id'])),
-                  array('class'=>"button tiny alert radius",
+                  array('class'=>"button small right alert radius",
                         'confirm'=>Yii::t("msg","You are about to delete this project!\nAre you sure?"),
                         'onclick'=>"$(document).stopPropagation();",
                       )
@@ -29,52 +42,51 @@
       <?php 
       }else{
       echo CHtml::link(Yii::t("app","Leave project"),Yii::app()->createUrl('project/leaveIdeas',array('id'=>$idea['id'])),
-                  array('class'=>"button tiny alert radius",
+                  array('class'=>"button small alert radius",
                         'confirm'=>Yii::t("msg","You are about to leave this project!\nYou will have to be re invited to be a member.\nAre you sure?"),
                         'onclick'=>"$(document).stopPropagation();",
                       )
               ); 
       }      
       ?>
-      </div>
-    <hr>
-    <div class="columns languages" style="margin-bottom: 10px;">
-        <span style="float:left; margin-right: 8px; margin-top:5px;"><?php echo Yii::t('app','Languages'); ?>:</span> 
-        <ul class="button-group radius left">
-          <li><a class="button tiny"><?php echo $ideadata['language']; ?></a></li>
-          <?php 
-           if (count($ideadata['translation_other'])){ 
-              foreach ($ideadata['translation_other'] as $trans){
-                echo '<li><a href="?lang='.$trans['language_code'].'" class="button tiny secondary">'.$trans['language']."</a></li>";
-              }
-            
-            }
-           ?>
-          
-          </ul>
-          <a class="button success radius tiny right"  href="<?php echo Yii::app()->createUrl("project/translate",array("id"=>$id)); ?>"><?php echo Yii::t('app', 'New translation'); ?></a>
-          
-    </div>
+    
+   
       
      
   </div>
+  
+  <div class="edit-header columns">
+    <h3>
+      <?php echo Yii::t('app', 'Project presentation'); ?>
+    </h3>
 
+  </div>
+
+ 
   <div class="columns panel edit-content">
+
+    <div class="columns">
+        <p style=""><?php echo Yii::t('app','Languages'); ?>:</p> 
+        <ul class="button-group radius">
+          <li><a class="button small"><?php echo $ideadata['language']; ?></a></li>
+          <?php 
+           if (count($ideadata['translation_other'])){ 
+              foreach ($ideadata['translation_other'] as $trans){
+                echo '<li><a href="?lang='.$trans['language_code'].'" class="button small secondary">'.$trans['language']."</a></li>";
+              }
+            
+            }
+           ?>          
+          </ul>  
+          
+
+    </div>
     
-   
-    <?php if (count($ideadata['translation_other'])){ ?>
-    <div class="edit-floater">
-      
-        <?php 
-        echo CHtml::link(Yii::t("app","Delete this translation"),Yii::app()->createUrl('project/deleteTranslation',array('id'=>$idea['id'],'lang'=>$ideadata['language_code'])),
-                  array('class'=>"button tiny alert radius",
-                        'confirm'=>Yii::t("msg","You are about to delete this translation!\nAre you sure?"),
-                        'onclick'=>"$(document).stopPropagation();",
-                      )
-              );
-        ?>
-    </div> 
-    <br /><br />
+
+    <hr>
+    
+    
+    
     <?php } ?>
     
     <?php
@@ -124,7 +136,7 @@
       
     <div class="right">
       <?php if(!isset($candidate)){ ?>
-      <a class="small button radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl('project/edit',array('id'=>$id,'lang'=>$lang,'candidate'=>'new')); ?>#link_position">
+      <a class="small abtn secondary button radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl('project/edit',array('id'=>$id,'lang'=>$lang,'candidate'=>'new')); ?>#link_position">
         <?php echo Yii::t('app','Add new') ?>
         <span class="icon-plus"></span>
       </a>

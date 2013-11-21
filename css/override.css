@@ -22,6 +22,7 @@ body{
 
 
 
+
 /* #   $foundation overrides & fixes
 ================================================== */
 
@@ -29,6 +30,27 @@ body, h1, h2, h3, h4, h5, h6 {
   font-family: Arial, sans-serif;
   font-weight: normal;
 }
+
+h1 {
+  font-size: 1.6875em; }
+
+h2 {
+  font-size: 1.375em; }
+
+h3 {
+  font-size: 1.125em; }
+
+h4 {
+  font-size: 1.125em; }
+
+h5 {
+  font-size: 1em; }
+
+
+h6 {
+  font-size: 0.8em; }
+
+
 
 
 .top-bar-holder{
@@ -124,7 +146,8 @@ body, h1, h2, h3, h4, h5, h6 {
     font-weight: 100;
 }
 
-.panel .label { font-weight: bold;}
+
+
 
  .section-container section.active .title,
     .section-container .section.active .title, .section-container.auto section.active .title,
@@ -242,38 +265,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7072', end
   @ edit profile
    ========================================================================== */
 
-.alert-box {
-  font-weight: normal;
-  padding: 15px 10px;
-  color: #134C5B;
-  text-shadow: 1px 1px rgba(255,255,255,0.2);
-}
 
-.alert-box a {
-  color: #fff;
-  text-shadow: 1px 1px rgba(0,0,0,0.2);
-}
-
-.alert-box .action {}
-
-.alert-box .close {
-  margin-top: 0px;
- color: rgba(0,0,0,0.6) !important;
-}
-
-.alert-box .close:hover {
-   color: rgba(0,0,0,0.8) !important;
-}
-
-
-.alert-box.success {
-  /*color: ;*/
-}
-
-.alert-box.alert {
-  background-color: #A83C3C;
-  text-shadow: 1px 1px rgba(0,0,0,0.3);
-}
 
 .errorSummary .alert-box ul{
   list-style: none;
@@ -291,6 +283,7 @@ a:hover, a:focus { color: #3c76d6; }
 	/*box-shadow: 0 1px 0 0px #6d83a9;*/
 	color: #fff;
   padding: 0.4em 0.6em 0.4em;
+  font-weight: normal;
 }
 
 
@@ -346,7 +339,7 @@ form.custom .custom.checkbox.checked:before{
 
 
 
-.top-bar-section li.desc a{
+.top-bar-section li.desc a {
   line-height: 30px;
   height:45px;
 }
