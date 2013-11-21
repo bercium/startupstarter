@@ -25,7 +25,7 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow', // allow all users to perform actions
-        'actions'=>array("index",'error','logout','about','terms','notify','notifyFacebook','suggestCountry','suggestSkill','suggestCity','unbsucribeFromNews'),
+        'actions'=>array("index",'error','logout','about','terms','notify','notifyFacebook','suggestCountry','suggestSkill','suggestCity','unbsucribeFromNews','cookies'),
 				'users'=>array('*'),
 			),
 			/*array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -279,6 +279,12 @@ class SiteController extends Controller
 		}
 		$this->render('contact',array('model'=>$model));
 	}
+  
+  
+  public function actionCookies(){
+    $this->layout = 'card';
+    $this->render('cookies');
+  }
 
 
 	/**
