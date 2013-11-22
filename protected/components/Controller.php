@@ -31,6 +31,7 @@ class Controller extends CController
     $baseUrl = Yii::app()->baseUrl; 
     $cs = Yii::app()->getClientScript();
   
+    
     $cs->registerCssFile($baseUrl.'/css/foundation.css'.getVersionID());
     $cs->registerCssFile($baseUrl.'/css/normalize.css'.getVersionID()); 
     $cs->registerCssFile($baseUrl.'/css/layout.css'.getVersionID());   

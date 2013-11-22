@@ -27,7 +27,7 @@ body{
 ================================================== */
 
 body, h1, h2, h3, h4, h5, h6 {
-  font-family: Arial, sans-serif;
+  font-family: 'Open Sans', Arial, sans-serif;
   font-weight: normal;
 }
 
@@ -284,6 +284,13 @@ a:hover, a:focus { color: #3c76d6; }
 	color: #fff;
   padding: 0.4em 0.6em 0.4em;
   font-weight: normal;
+  margin-right: 5px;
+    border-bottom: 1px solid #8D94A0;
+
+}
+
+.secondary.label  {
+  border-bottom: 1px solid #bbb;
 }
 
 
@@ -293,23 +300,23 @@ a:hover, a:focus { color: #3c76d6; }
 
 button, .button {
   background-color: #4469a6;
-  border-color: #355282;
+  border-color: #4469a6;
   box-shadow:none;
 }
 button:hover, button:focus, .button:hover, .button:focus { background-color: #355282; }
 button.success, .button.success {
     background-color: #89b561;
-    border-color: #6a9446; 
+    border-color: #89b561; 
 }
 button.success:hover, button.success:focus, .button.success:hover, .button.success:focus { background-color: #6a9446; }
 button.alert, .button.alert {
     background-color: #A83C3C;
-    border-color: #a5292c;
+    border-color: #A83C3C;
 }
 button.alert:hover, button.alert:focus, .button.alert:hover, .button.alert:focus { background-color: #a5292c; }
 button.disabled, button[disabled], .button.disabled, .button[disabled] {
     background-color: #4469a6;
-    border-color: #355282;
+    border-color: #4469a6;
 }
 button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
       background-color: #355282; }
@@ -392,13 +399,15 @@ form.custom .custom.checkbox.checked:before{
 
 .tooltip  {
   box-shadow: 0 0 0 1px #fff, 0 0 2px #87878e,  0 0 3px 3px rgba(0,0,0,0.3);
-  background: #f8f8fb;
+  background: #F9F9F7;
   border-radius: 2px;
   -webkit-border-radius: 2px;
   color: #666;
+  font-weight: normal;
   text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
   /*font-weight: normal !important;*/
   font-size: 0.8em;
+  padding: 5px;
 }
 
 .tooltip > .nub{
@@ -408,8 +417,9 @@ form.custom .custom.checkbox.checked:before{
   width: 0;
   height: 0;
   border: solid 5px;
-  border-color: transparent transparent #f8f8fb transparent;
+  border-color: transparent transparent #F9F9F7 transparent;  
   top: -10px; 
+
 }
 
 
@@ -470,6 +480,7 @@ form.custom .custom.dropdown{
 	border: none; 
   width: 100%;
 	background: #fff;
+  border-radius: 3px;
   
 }
 .qq-upload-button:hover {
@@ -479,8 +490,8 @@ form.custom .custom.dropdown{
 .avatar {
   transition: 0.5s;
 	border: 1px dashed #bbb;	
-	border-bottom: none;
-	border-radius: 3px 3px 0 0;
+	
+	border-radius: 3px;
 	width: 100%;
 }
 
@@ -524,7 +535,13 @@ form.custom .custom.dropdown{
 	border: 1px dashed #999;
 	border-radius: 3px;
   color:#FFF;
-  font-weight: bold;
+
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
 
 .qq-uploader{

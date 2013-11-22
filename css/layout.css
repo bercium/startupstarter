@@ -151,7 +151,7 @@ margin-right: 20px;
 }
 
 .exp_srch {
-	margin-right: 20px;
+	margin-right: 26px;
 	margin-top: 5px;
 }
 
@@ -327,9 +327,8 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 	font-family: arial, sans-serif;
     font-size: 0.7em;
     letter-spacing: 0.05em;
-    line-height: 0.7em;
-    text-transform: uppercase;
-    margin: 2px 2px 2px 0;
+    line-height: 0.7em;    
+    margin: 2px 4px 1px 0;
 }
 
 .card-content .meta_tags .label {
@@ -353,7 +352,7 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 	border: 1px solid #fff;
 	box-shadow: 0 0 0 1px #ddd;
 	border-radius: 2px; 
-	border-radius: 100%;
+	border-radius: 3px;
 }
 
 
@@ -488,23 +487,21 @@ sidebar .section-container.auto .section {
    internal pages
    ========================================================================== */
 
+.wrapped-content {
+	background: #fff;
+	border-radius: 4px;
+	padding: 10px 20px 50px 20px;
+	margin-bottom: 50px; 
+ }
+
 
 .wrapped-content .item {
 	border-bottom:  1px solid #ddd;
 	margin-bottom: 15px;
 	padding-bottom: 5px;
-
-
 }
 
- .wrapped-content {
-	background: #fff;
-	border-radius: 3px;
-	padding: 10px 20px 50px 20px;
-	margin-bottom: 50px; 
-
-
- }
+ 
 
 /****** @font ******/
 
@@ -549,12 +546,34 @@ sidebar .section-container.auto .section {
  margin-left: 20px;
 }
 
+.linkList li {
+	list-style-type: none;
+	margin-bottom: 10px;
+}
+
+.profile-skills {
+ 	margin-bottom: 10px;
+
+}
+
+
+
+
+.skill-industry {
+	display: block;
+	width: 100%;	
+	margin-top: 4px;
+	padding: 2px 0 0 0;
+	color: #000;
+	border-top: 1px solid rgba(255,255,255,0.2);
+}
+
 .edit-header {
    
     border: 1px solid #DDDDDD;
     border-radius: 4px 4px 0 0;
     margin-bottom: -1px;
-    padding: 4px 10px;
+    padding: 10px;
      background-color: #F9F9F7; /* Old browsers */
 background: -moz-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(242,242,242,1) 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(249,249,249,1)), color-stop(100%,rgba(242,242,242,1))); /* Chrome,Safari4+ */
@@ -568,7 +587,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f9f9', end
 .edit-header > .button,
 .edit-header .abtn {
 	position: absolute;
-	right: 5px;
+	right: 10px;
 }
 
 
@@ -712,7 +731,7 @@ img.card-avatar,
 	height: 24px;
 	border-radius: 2px;
 	position: static;
-	border-radius: 100%;
+	border-radius: 3px;
 }
 
 .card-avatar, .card-icons{
@@ -730,11 +749,31 @@ img.card-avatar,
 }
 
 #image .secondary {
-	border: 1px dashed #888;
+	margin-top: 20px;
 }
 
 /* #Special Styles
 ================================================== */
+
+.success-gradient.button {
+	background: rgb(200,249,134); /* Old browsers */
+	border: 1px solid  rgb(200,249,134); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(200,249,134,1) 0%, rgba(120,150,81,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(200,249,134,1)), color-stop(100%,rgba(120,150,81,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, rgba(200,249,134,1) 0%,rgba(120,150,81,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, rgba(200,249,134,1) 0%,rgba(120,150,81,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, rgba(200,249,134,1) 0%,rgba(120,150,81,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom, rgba(200,249,134,1) 0%,rgba(120,150,81,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', endColorstr='#789651',GradientType=0 ); /* IE6-9 */
+}
+
+
+
+
+
+.link-icon {
+	margin-bottom: 4px; 
+}
 
 .ml20 {
 	margin-left:  20px;
@@ -1174,10 +1213,7 @@ img.card-avatar,
 
 
 
-	.profile-skils{
-		padding-right: 30px;
-		margin-right:8px;
-	}
+	
 
 
 
@@ -1374,7 +1410,15 @@ h6.title-field {
 
 
 .side .edit-content-title {
-    background: #F9F9F7;
+    background: #F9F9F7;   
+
+background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(249,249,247,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(249,249,247,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(249,249,247,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(249,249,247,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(249,249,247,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(249,249,247,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f9f9f7',GradientType=0 ); /* IE6-9 */
     text-align: center;
     padding-top: 20px;
     padding-bottom: 5px;
@@ -1433,7 +1477,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444', endCol
 
 .side img.card-avatar {
 	box-shadow: none;
-	border: 10px solid #89B561;
+	border: 10px solid #fff;
     margin-top: 5px;
     width: 70%;
     height: auto;
@@ -1486,10 +1530,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444', endCol
 }
 
 
-.jobs .label { 
-	display: ;
 
-}
 .jobs .skillset-wrap {
 	margin-bottom:  20px;
 }
@@ -1523,7 +1564,8 @@ textarea#IdeaTranslation_description {
   font-size: 0.8em; 
   font-style: italic;
   display: block;
-  margin-bottom: 5px;
+  margin: 5px 0; 
+
 }
 
 label{

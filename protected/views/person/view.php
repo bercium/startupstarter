@@ -22,28 +22,15 @@ $user = $data['user'];
 </div>
 <div class="row wrapped-content ball" style="margin-top:50px; padding-top: 35px; padding-bottom:60px;">
 
+
 <div class="large-4 columns profile side">
 	<div class="edit-content-title">
 	<img class="card-avatar" src="<?php echo avatar_image($user['avatar_link'], $user['id'], false); ?>" />
 		<br>
 	<h4 style="color: #89B561;">Online</h4>
 	<h1><?php echo $user['name'] . " " . $user['surname']; ?></h1>
-	
-	<div class="">		
-		<p>		
-		<?php if ($user['available_name']) { ?>
-		<h4 class=""> <?php echo Yii::t('app', 'Available') ?>:</h4>
-		<?php echo $user['available_name']; ?>
-		<?php } ?>
-		</p>
-	</div>
-	</div>
 
 	<div class="">
-	<a class="button contact-me success large-12 small-12 radius" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact me') ?></a>
-	</div>
-
-	<div class="item">
 	<p>
 	<?php if ($user['city'] || $user['country'] || $user['address']) { ?>
 	<span class="icon-map-marker ico-awesome"></span><a><span class="" data-tooltip title="<img src='<?php echo getGMap($user['country'], $user['city'], $user['address']); ?>'>">
@@ -59,6 +46,23 @@ $user = $data['user'];
 	<?php } ?>
 	</p>
 	</div>
+	</div>
+
+
+
+	<div class="">
+	<a class="button contact-me success-gradient large-12 small-12 radius" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact me') ?></a>
+	</div>
+
+	
+	<div class="">		
+		<p>		
+		<?php if ($user['available_name']) { ?>
+		<h4 class=""> <?php echo Yii::t('app', 'Available') ?>:</h4>
+		<?php echo $user['available_name']; ?>
+		<?php } ?>
+		</p>
+	</div>
 
 	<div class="item">
 	<p>
@@ -71,20 +75,20 @@ $user = $data['user'];
 	<?php if (count($user['link']) > 0) { ?>
 	
 	<!-- <p class="meta-field"><?php // echo Yii::t('app', 'My links') ?>:</p> -->
+	<div class="item">
 	<?php 
 	foreach ($user['link'] as $link) {
 	?>
-	<div class="item">
-	<p><span class="icon-external-link ico-awesome"></span>
-	<span class="meta"><a href="<?php echo add_http($link['url']); ?>" target="_blank">
-	<img src="<?php echo getLinkIcon($link['url']); ?>">
+	
+	<p><span class="meta"><a href="<?php echo add_http($link['url']); ?>" target="_blank">
+	<img class="link-icon" src="<?php echo getLinkIcon($link['url']); ?>">
 	<?php echo $link['title']; ?>  </a></span>
 	</p>
-	</div><?php 
+	<?php 
 	}
 	?>
 	<?php } ?>
-		
+	</div>	
 
 		
 
@@ -94,13 +98,20 @@ $user = $data['user'];
 <h3 class="edit-content-title">
 <?php	echo Yii::t('app', 'Skilled in');?>:
 </h3>
-<p class="meta-field">
+
 <?php 
 foreach ($user['skillset'] as $skillset){
 //echo "<br />".$skillset['skillset']." with skills in<br />";
 foreach ($skillset['skill'] as $skill){
 ?>
-<p class="label radius meta_tags" data-tooltip title='"<?php echo $skillset['skillset']; ?>' ><?php echo $skill['skill']; ?></p>
+
+
+<span data-alert class="label radius profile-skills" id="skill_<?php echo $skill['id']; ?>">
+<?php echo $skill['skill']."<small class='skill-industry'>".$skillset['skillset']."</small>"; ?>
+</span>
+
+
+
 
 <?php
 }
@@ -122,8 +133,20 @@ foreach ($skillset['skill'] as $skill){
 <div class="large-12 columns radius  collaboration" >				
 <?php if (count($user['collabpref']) > 0) { ?>
 <h3 class="edit-content-title">
+
 <?php echo Yii::t('app', 'Collaboration') ?>:
 </h3>
+
+
+<ul class="large-block-grid-5">
+  <li><span class="label secondary radius">Paid work</span></li>
+  <li><span class="label secondary radius">Sweat equity</span></li>
+  <li><span class="label secondary radius">Equal investors</span></li>
+  <li><span class="label secondary radius">Sole investor</span></li>
+  <li><span class="label secondary radius">Volunteer</span></li>  
+</ul>
+
+
 <p class="">
 
 <?php
