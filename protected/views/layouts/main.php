@@ -103,13 +103,14 @@
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","person"); ?> desc">
-                <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>"><?php echo Yii::t('app','Find {bs}talent{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
+                <a <?php if (!Yii::app()->user->isGuest){ echo 'href="'.Yii::app()->createUrl("person/discover").'"'; } else echo ' title="'.Yii::t('msg','Please login to use this functionality!').'" data-tooltip'; ?>>
+                  <?php echo Yii::t('app','Find {bs}talent{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","project"); ?> desc">
-                <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>"><?php echo Yii::t('app','Discover {bs}projects{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
-                
+                <a <?php if (!Yii::app()->user->isGuest){ echo 'href="'.Yii::app()->createUrl("project/discover").'"'; } else echo ' title="'.Yii::t('msg','Please login to use this functionality!').'" data-tooltip'; ?>>
+                  <?php echo Yii::t('app','Discover {bs}projects{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
               </li>
               <li class="divider"></li>
@@ -170,11 +171,12 @@
                 <li>
                   <a href="#" data-dropdown="drop-login"><?php echo Yii::t('app','Login'); ?></a>
                 </li>
-              <li class="divider"></li>
+              <?php /* ?><li class="divider"></li>
                 <li>
-                  <?php /* ?><a href="<?php echo Yii::app()->createUrl("user/registration"); ?>"><?php echo Yii::t('app','Register'); ?></a><?php */ ?>
-                  <a href="<?php echo Yii::app()->createUrl("site/notify"); ?>"><?php echo Yii::t('app','Invitations'); ?></a>
+                  <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>"><?php echo Yii::t('app','Register'); ?></a>
                 </li>
+               
+               <?php */ ?>
               <?php } ?>
               <li class="divider"></li>
               <li class="desc">

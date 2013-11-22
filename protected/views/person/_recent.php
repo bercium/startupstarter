@@ -13,6 +13,7 @@
 		<?php } ?>
   </ul>
 
+ <?php if (!Yii::app()->user->isGuest){ ?>
 	<div class="pagination-centered">
 		<small class="hide-for-small"><a href="<?php echo Yii::app()->createUrl("person/recent/1"); ?>"  class="right button small secondary"><?php echo Yii::t('app','show all'); ?></a></small>
 		
@@ -38,3 +39,25 @@
 	<small class="show-for-small">
 		<a href="<?php echo Yii::app()->createUrl("person/recent/1"); ?>"  class="button large secondary expand secondary"><?php echo Yii::t('app','show all'); ?></a>
 	</small>
+
+  <?php }else{ ?>
+	<div class="pagination-centered">
+		<small class="hide-for-small">
+      <a class="right button small secondary disabled" data-tooltip title="<?php echo Yii::t('msg','Please login to use this functionality!'); ?>"><?php echo Yii::t('app','show all'); ?></a>
+    </small>
+		
+		<ul class="pagination hide-for-small">
+      <li class="arrow unavailable"><a class="button small secondary disabled" data-tooltip title="<?php echo Yii::t('msg','Please login to use this functionality!'); ?>"><span class="icon-angle-left"></span>
+      </a></li>
+			
+      <li class="arrow unavailable"><a class="button small secondary disabled" data-tooltip title="<?php echo Yii::t('msg','Please login to use this functionality!'); ?>"><span class="icon-angle-right"></span>
+      </a></li>
+		</ul>
+		
+	</div>
+
+	<small class="show-for-small">
+		<a class="button large secondary expand disabled secondary" data-tooltip title="<?php echo Yii::t('msg','Please login to use this functionality!'); ?>"><?php echo Yii::t('app','show all'); ?></a>
+	</small>
+
+<?php } ?>

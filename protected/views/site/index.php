@@ -14,13 +14,13 @@
 
 <?php //if (!Yii::app()->user->getState('fpi')){ ?>
 
-<?php if (Yii::app()->user->isGuest){ ?>
+<?php /* if (Yii::app()->user->isGuest){ ?>
 <div  class="row" >
   <div class="column hide-for-small">
     <img class="logo image-beta" alt="Invite" title="invite" src="<?php echo Yii::app()->request->baseUrl; ?>/images/invite-<?php echo Yii::app()->getLanguage(); ?>.png" style="position: absolute; top: -4px; right:-10px; z-index: 98;" />
   </div>
 </div>
-<?php } ?>
+<?php } */ ?>
 
 
 <div class="intro" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
@@ -36,22 +36,45 @@
       </p><br />
     </div>
     
+    <?php if (!Yii::app()->user->isGuest){  ?>
     <div class="center columns hide-for-small">
-      <div class="right">
-      <?php if (Yii::app()->user->isGuest){ ?>
-      <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" class="button radius success" ><?php echo Yii::t('app','Find talent'); ?></a> 
-      <span style="margin-right:20px;"> <?php echo Yii::t('app','or'); ?> </span>
-      <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" class="button radius " ><?php echo Yii::t('app','Discover projects'); ?> </a>
-      <?php }else{ ?>
-      <h4 >
-      <?php echo Yii::t('msg',"{username} welcome to cofinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
-      </h4>
-      <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" class="button radius success" ><?php echo Yii::t('app','Find a cofounder'); ?></a> 
-      <span style="margin:0 13px 0 0px;"> <?php echo Yii::t('app','or'); ?> </span>
-      <a href="<?php echo Yii::app()->createUrl("project/create"); ?>" class="button radius" ><?php echo Yii::t('app','Create your project'); ?> </a>
-      <?php } ?>
+      <div class="right large-5">
+        <h4 >
+        <?php echo Yii::t('msg',"{username} welcome to cofinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
+        </h4>
+        <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" class="button radius success" ><?php echo Yii::t('app','Find a cofounder'); ?></a> 
+        <span style="margin:0 13px 0 0px;"> <?php echo Yii::t('app','or'); ?> </span>
+        <a href="<?php echo Yii::app()->createUrl("project/create"); ?>" class="button radius" ><?php echo Yii::t('app','Create your project'); ?> </a>
+        
       </div>
     </div>
+    <?php }else{ ?>
+    
+   <div class="center columns">
+      <div class="right large-5 small-12">
+        
+        <?php echo CHtml::beginForm(Yii::app()->createUrl("site/notify"),'post',array("style"=>"margin-bottom:0;")); ?>
+        
+        <h3 style="margin-bottom:5px;">
+        <?php echo CHtml::label(Yii::t('app','Want to get invited?'),'email'); ?>
+        </h3>
+        <span class="description">
+        <?php echo Yii::t('app','Leave us your email and we will get back to you. '); ?>
+        </span>
+        <div class="row collapse">
+          <div class="small-9 columns">
+            <?php echo CHtml::textField("email") ?>
+          </div>
+          <div class="small-3 columns">
+             <?php echo CHtml::submitButton(Yii::t("app","YES"),array("class"=>"postfix button radius success")); ?>
+          </div>
+        </div>  
+
+        <?php echo CHtml::endForm(); ?>
+
+      </div>
+    </div>
+    <?php } ?>
     
   </div>
 </div>
@@ -92,9 +115,9 @@ $("#showhide").click(function() {
 			<?php $this->renderPartial('//project/_recent', array('ideas' => $data['idea'],"page"=>1,"maxPage"=>$maxPageIdea)); ?>
 		</div>
 
-	<?php } ?>
-<hr>
-<?php 
+	<?php } 
+  if (!Yii::app()->user->isGuest) echo "<hr>";
+  
 Yii::log(arrayLog($data['idea']), CLogger::LEVEL_INFO, 'custom.info.idea'); 
 Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user'); 
 
@@ -102,9 +125,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 
 
 
-
-
-
+<?php if (!Yii::app()->user->isGuest){ ?>
 
 
 <div class="row panel searchpanel radius" style="margin-top: 40px;">
@@ -299,10 +320,6 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 
 
 
-
-
-
-
 <?php if ($filter->checkSearchForm()){ ?>
 <div class="row" id="recent_projects">
 	<?php
@@ -348,5 +365,8 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 	
 	<?php } ?>
 </div>	
-<?php } ?>
+<?php } 
+
+}
+?>
 
