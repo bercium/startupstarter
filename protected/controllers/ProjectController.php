@@ -25,13 +25,17 @@ class ProjectController extends GxController {
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("view","recent","discover","embed"),
+        'actions'=>array("view","discover","embed"),
 				'users'=>array('*'),
 			),
 	    array('allow',
 		        'actions'=>array('create','edit','leaveIdea','deleteIdea','addMember','deleteMember','sAddSkill','sDeleteSkill','sAddLink','sDeleteLink', 'addLink','deleteLink', 'translate','deleteTranslation'),
 		        'users'=>array("@"),
 		    ),
+			array('allow', 
+        'actions'=>array("recent","discover"),  // remove after demo
+				'users'=>array('@'),
+			),
 			array('allow', // allow admins only
 				'users'=>Yii::app()->getModule('user')->getAdmins(),
 			),
