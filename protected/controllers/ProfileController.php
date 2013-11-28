@@ -315,7 +315,7 @@ class ProfileController extends GxController {
 			if (isset($_POST['UserChangePassword'])) {
 				$form2->attributes = $_POST['UserChangePassword'];
 				if ($form2->validate()) {
-					$find->password = UserModule::encrypting($form2->password);
+					$find->password = UserModule::createHash($form2->password);
 					$find->activkey = UserModule::encrypting(microtime() . $form2->password);
 					if ($find->status == 0) {
 						$find->status = 1;

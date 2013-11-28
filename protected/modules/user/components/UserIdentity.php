@@ -29,7 +29,7 @@ class UserIdentity extends CUserIdentity
       if($user===null)
 				$this->errorCode=self::ERROR_EMAIL_INVALID;
       
-		else if(Yii::app()->getModule('user')->encrypting($this->password)!==$user->password)
+		else if(!Yii::app()->getModule('user')->validate($this->password,$user->password))
 			$this->errorCode=self::ERROR_PASSWORD_INVALID;
 		else if($user->status==0&&Yii::app()->getModule('user')->loginNotActiv==false)
 			$this->errorCode=self::ERROR_STATUS_NOTACTIV;
