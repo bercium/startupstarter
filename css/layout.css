@@ -567,6 +567,9 @@ sidebar .section-container.auto .section {
 	padding: 2px 0 0 0;
 	color: #000;
 	border-top: 1px solid rgba(255,255,255,0.2);
+	text-shadow: 1px 0 rgba(255,255,255,0.26);
+	box-shadow: 0 -1px rgba(0,0,0,0.13);
+	margin-top: 7px;
 }
 
 .edit-header {
@@ -768,6 +771,11 @@ background: linear-gradient(to bottom, rgba(200,249,134,1) 0%,rgba(120,150,81,1)
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', endColorstr='#789651',GradientType=0 ); /* IE6-9 */
 }
 
+
+.fancy.panel {
+	box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.7);
+
+}
 
 
 
@@ -1417,16 +1425,20 @@ h6.title-field {
     padding-bottom: 5px;
     border: 1px solid #ddd;
     border-radius: 4px 4px 0 0;
+    margin-bottom: 1px; 
+
+
 
 }
 
 .side .edit-content-title h1 {
-	margin-bottom: 0;
+	margin-bottom: 0.4em;
 }
 
 
 .side .contact-me {
 	border-radius: 0 0 3px 3px;
+	box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.7);
 }
 
 
@@ -1482,6 +1494,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444', endCol
     float: right;
     width: 47.5%;
 }
+
+
+
 
 
 

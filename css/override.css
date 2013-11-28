@@ -147,6 +147,9 @@ h6 {
 }
 
 
+.panel {
+  background: #F9F9F7; 
+}
 
 
  .section-container section.active .title,
@@ -280,12 +283,13 @@ a:hover, a:focus { color: #3c76d6; }
 
 .label{
 	background-color: #8CA1C6;
+  box-shadow: 0 5px 7px -5px rgba(0, 0, 0, 0.7);
 	/*box-shadow: 0 1px 0 0px #6d83a9;*/
 	color: #fff;
   padding: 0.4em 0.6em 0.4em;
   font-weight: normal;
   margin-right: 5px;
-    border-bottom: 1px solid #8D94A0;
+    border-bottom: 1px solid #727f94;
 
 }
 

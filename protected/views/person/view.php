@@ -27,7 +27,7 @@ $user = $data['user'];
 	<div class="edit-content-title">
 	<img class="card-avatar" src="<?php echo avatar_image($user['avatar_link'], $user['id'], false); ?>" />
 		<br>
-	<h4 style="color: #89B561;">Online</h4>
+	
 	<h1><?php echo $user['name'] . " " . $user['surname']; ?></h1>
 
 	<div class="">
@@ -129,6 +129,7 @@ foreach ($skillset['skill'] as $skill){
 
 <!-- <hr> -->
 <br>
+<br>
 </div>
 
 <div class="large-12 columns radius  collaboration" >				
@@ -138,7 +139,7 @@ foreach ($skillset['skill'] as $skill){
 <?php echo Yii::t('app', 'Collaboration') ?>:
 </h3>
 
-<p class="">
+
 		<?php
 		$firsttime = true;
 		if (is_array($user['collabpref'])) ?>
@@ -153,19 +154,24 @@ foreach ($skillset['skill'] as $skill){
 		<?php echo '<span class="label secondary radius small disabled">' .  $collab['name'] . "</span>"; 
 		}
 		?>
-</p>
+
 <?php } ?>	
+<br>
 <br>
 </div>
 <div class="large-12 columns radius   about-me"  >
+<br>
 <!-- <hr> -->
-<h3 class="edit-content-title">
-Nekaj o meni:
-</h3>
-<p class="meta-field">
-Pri cofinderju skrbim za motivacijo ekipe in nemoten razvoj. Trudim pa se k sodelovanju privabiti čimveč ljudi. 
-Lorem Ipsum je slepi tekst, ki se uporablja pri razvoju tipografij in pri pripravi za tisk. Lorem Ipsum je v uporabi že več kot petsto let saj je to kombinacijo znakov neznani tiskar združil v vzorčno knjigo že v začetku 16. stoletja.
-</p>
+	
+		<h3 class="edit-content-title">
+		Nekaj o meni:
+		</h3>
+	<div class="panel radius">
+		<p class="meta-field">
+		Pri cofinderju skrbim za motivacijo ekipe in nemoten razvoj. Trudim pa se k sodelovanju privabiti čimveč ljudi. 
+		Lorem Ipsum je slepi tekst, ki se uporablja pri razvoju tipografij in pri pripravi za tisk. Lorem Ipsum je v uporabi že več kot petsto let saj je to kombinacijo znakov neznani tiskar združil v vzorčno knjigo že v začetku 16. stoletja.
+		</p>
+	</div> 
 </div> 
 <div class="large-12 columns radius  involved-in "  >
 <!-- <hr> -->
@@ -177,7 +183,7 @@ Lorem Ipsum je slepi tekst, ki se uporablja pri razvoju tipografij in pri pripra
 <?php
 if (is_array($user['idea']))
 foreach ($user['idea'] as $idea_data) {
-?><div class="idea-list panel"><p><a class="" href="<?php echo Yii::app()->createUrl("project/" . $idea_data['id']); ?>"><span class="icon-angle-right"></span> <?php echo $idea_data['title']; ?></a></p></div><?php 
+?><div class="idea-list radius panel"><p><a class="" href="<?php echo Yii::app()->createUrl("project/" . $idea_data['id']); ?>"><span class="icon-angle-right"></span> <?php echo $idea_data['title']; ?></a></p></div><?php 
 }
 ?>
 <?php } ?>
