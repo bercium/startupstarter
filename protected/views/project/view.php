@@ -32,8 +32,8 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact",array("id"=>$idea[
 </div>
 </div>
 
-<div class="row idea-details" style="margin-top:50px;">
-  <div class="columns ball wrapped-content">
+<div class="row idea-details">
+  <div class="columns ball wrapped-content"  style="margin-top:10px; padding-top: 35px; padding-bottom:60px; padding-left: 30px; padding-right: 30px;">
   <div class="row">
   <div class="large-8 columns main" >
     <h1 class=""><?php echo $idea['title']; ?></h1>
@@ -129,9 +129,7 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact",array("id"=>$idea[
     </div><!-- jobs end -->
         <?php } ?>
         <?php } ?>
-        <?php } ?>
-
-        
+        <?php } ?>        
 
     </div><!-- large-8 end -->
 
@@ -245,9 +243,6 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact",array("id"=>$idea[
             } ?>
         </div>
     </div><!-- large-4 side -->
-
-
-
 
 </div><!-- end row -->
 

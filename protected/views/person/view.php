@@ -35,6 +35,7 @@ $user = $data['user'];
 	<?php if ($user['city'] || $user['country'] || $user['address']) { ?>
 	<span class="icon-map-marker ico-awesome"></span><a><span class="" data-tooltip title="<img src='<?php echo getGMap($user['country'], $user['city'], $user['address']); ?>'>">
 	<?php echo $user['address']; ?>
+	<br>
 	<?php
 	echo $user['city'];
 	if ($user['city'] && $user['country'])
@@ -50,12 +51,12 @@ $user = $data['user'];
 
 
 
-	<div class="">
-	<a class="button contact-me success-gradient large-12 small-12 radius" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact me') ?></a>
-	</div>
+	<div class="item">
+	<a class="button contact-me success large-12 small-12 radius" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact me') ?></a>
+	
 
 	
-	<div class="">		
+			
 		<p>		
 		<?php if ($user['available_name']) { ?>
 		<h4 class=""> <?php echo Yii::t('app', 'Available') ?>:</h4>
@@ -137,32 +138,21 @@ foreach ($skillset['skill'] as $skill){
 <?php echo Yii::t('app', 'Collaboration') ?>:
 </h3>
 
-
-<ul class="large-block-grid-5">
-  <li><span class="label secondary radius">Paid work</span></li>
-  <li><span class="label secondary radius">Sweat equity</span></li>
-  <li><span class="label secondary radius">Equal investors</span></li>
-  <li><span class="label secondary radius">Sole investor</span></li>
-  <li><span class="label secondary radius">Volunteer</span></li>  
-</ul>
-
-
 <p class="">
+		<?php
+		$firsttime = true;
+		if (is_array($user['collabpref'])) ?>
 
-<?php
-$firsttime = true;
-if (is_array($user['collabpref'])) ?>
+		<?php
+		foreach ($user['collabpref'] as $collab) {
+		if (!$collab['active']) continue;
+		if (!$firsttime)
+		echo "";
+		$firsttime = false;?>
 
-<?php
-foreach ($user['collabpref'] as $collab) {
-if (!$collab['active']) continue;
-if (!$firsttime)
-echo "";
-$firsttime = false;?>
-
-<?php echo '<span class="label secondary radius small disabled">' .  $collab['name'] . "</span>"; 
-}
-?>
+		<?php echo '<span class="label secondary radius small disabled">' .  $collab['name'] . "</span>"; 
+		}
+		?>
 </p>
 <?php } ?>	
 <br>
