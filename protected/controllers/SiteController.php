@@ -150,7 +150,7 @@ class SiteController extends Controller
 	{
     if (!Yii::app()->user->isGuest) $this->redirect("index"); //loged in no need to send notifications
     
-    if (isset($_POST['email']) && !empty($_POST['email'])){
+    if (!empty($_POST['email'])){
       
       $invitee = User::model()->findByAttributes(array("email"=>$_POST['email']));
       if ($invitee){
@@ -180,6 +180,8 @@ class SiteController extends Controller
 
           $invitation = new Invite();
           $invitation->email = $_POST['email'];
+          
+          if (!empty($_GET['code'])) $invitation->code = $_GET['code'];
 
           if ($invitation->save()){
             $message = new YiiMailMessage;
@@ -214,7 +216,7 @@ class SiteController extends Controller
   public function actionUnbsucribeFromNews(){
     $this->pageTitle = "Unsubscription";
     if (!empty($_GET['email'])){
-      Invite::model()->deleteAll("email = :email",array(':email' => $_GET['email']));
+      Invite::model()->deleteAll("email = :email AND registered = :registered",array(':email' => $_GET['email'],':registered'=>false));
     }else
     if (!empty($_GET['id'])){
       $user = User::model()->findByAttributes(array('activkey'=>$_GET['id'],'newsletter'=>'1'));

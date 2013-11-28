@@ -16,7 +16,7 @@ class RegistrationForm extends User {
             'message' => Yii::t('msg','You must agree to the terms and conditions' )),
 			array('surname', 'safe'),
 			//array('username', 'length', 'max'=>20, 'min' => 3,'message' => Yii::t('msg',"Incorrect username (length between 3 and 20 characters).")),
-			array('password', 'length', 'max'=>128, 'min' => 4,'message' => Yii::t('msg',"Incorrect password (minimal length 4 symbols).")),
+			array('password', 'length', 'max'=>128, 'min' => 6,'message' => Yii::t('msg',"Incorrect password (minimal length 6 symbols).")),
 			array('email', 'email'),
 			//array('username', 'unique', 'message' => Yii::t('msg',"This user's name already exists.")),
 			array('email', 'unique', 'message' => Yii::t('msg',"This user's email address already exists.")),

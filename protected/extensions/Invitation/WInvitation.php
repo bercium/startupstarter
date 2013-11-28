@@ -57,7 +57,7 @@ class WInvitation extends CWidget
                   if ($invite){
                     //if self invited already
                     if (!$invite->key){
-                      // invit
+                      // invite
                       $invitation->sender_id = Yii::app()->user->id;
                       $invitation->key = md5(microtime().$invitation->email);
                     }

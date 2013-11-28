@@ -27,7 +27,7 @@ $this->pageTitle = Yii::t('app', 'Registration');
 	<?php echo $form->labelEx($model,'password'); ?>
 	<?php echo $form->passwordField($model,'password'); ?>
 	<p class="hint">
-	<?php echo Yii::t('msg',"Minimal password length 4 symbols."); ?>
+	<?php echo Yii::t('msg',"Minimal password length 6 symbols."); ?>
 	</p>
 	
 	<?php echo $form->labelEx($model,'verifyPassword'); ?>

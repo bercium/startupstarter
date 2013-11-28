@@ -64,7 +64,7 @@ class NewsletterController extends GxController {
           }
 
           // send newsletter to all in waiting list
-          $invites = Invite::model()->findAll();
+          $invites = Invite::model()->findAll('registered = 0 AND ISNULL(idea_id)'); // only unregistered and not invited to any ideas
           foreach ($invites as $user){
             $message->setBody(array("content"=>$model->newsletter,"email"=>$user->email), 'text/html');
             $message->setTo($user->email);

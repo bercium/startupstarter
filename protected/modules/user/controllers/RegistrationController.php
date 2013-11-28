@@ -74,8 +74,12 @@ class RegistrationController extends Controller
                         $message->from = Yii::app()->params['noreplyEmail'];
                         Yii::app()->mail->send($message);
                         
-                        // delete invite
-                        $invited->delete();
+                        
+                        //$invited->delete(); // delete invite (depreched)
+                        $invited->key = null;
+                        $invited->receiver_id = $model->id;
+                        $invited->registered = 1;
+                        $invited->save();
                         
                         $this->redirect(Yii::app()->createUrl("profile/registrationFlow",array("key"=>substr($model->activkey,0, 10),"email"=>$model->email)));
 

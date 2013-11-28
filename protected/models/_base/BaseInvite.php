@@ -15,6 +15,8 @@
  * @property string $email
  * @property string $idea_id
  * @property string $receiver_id
+ * @property string $code
+ * @property string $registered
  *
  * @property User $idSender
  * @property Idea $idIdea
@@ -50,7 +52,8 @@ abstract class BaseInvite extends GxActiveRecord {
         )),        
 			array('sender_id, idea_id, receiver_id', 'length', 'max'=>11),
 			array('key, email', 'length', 'max'=>50),
-			array('key, idea_id, receiver_id, sender_id', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('key, idea_id, receiver_id, sender_id, code', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('registered', 'default', 'setOnEmpty' => true, 'value' => false),
 			array('time_invited', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
 			array('id, sender_id, key, email, idea_id, receiver_id', 'safe', 'on'=>'search'),
 		);
@@ -81,6 +84,8 @@ abstract class BaseInvite extends GxActiveRecord {
 			'ideaId' => null,
 			'receiverId' => null,
 			'time_invited' => null,
+      'code'=>null,
+      'registered'=>null,
 		);
 	}
 
@@ -94,6 +99,8 @@ abstract class BaseInvite extends GxActiveRecord {
 		$criteria->compare('idea_id', $this->idea_id);
 		$criteria->compare('receiver_id', $this->receiver_id);
 		$criteria->compare('time_invited', $this->time_invited);
+		$criteria->compare('code', $this->code);
+		$criteria->compare('registered', $this->registered);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
