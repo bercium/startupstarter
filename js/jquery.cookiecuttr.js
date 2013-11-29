@@ -126,20 +126,20 @@
                 }
                 //add appropriate CSS depending on position chosen
                 if (cookieDiscreetPosition == "topleft") {
-                    $('div.alert-box .cc-cookies').css("top", "0");
-                    $('div.alert-box .cc-cookies').css("left", "0");
+                    $('div .cc-cookies').css("top", "0");
+                    $('div .cc-cookies').css("left", "0");
                 }
                 if (cookieDiscreetPosition == "topright") {
-                    $('div.alert-box .cc-cookies').css("top", "0");
-                    $('div.alert-box .cc-cookies').css("right", "0");
+                    $('div .cc-cookies').css("top", "0");
+                    $('div .cc-cookies').css("right", "0");
                 }
                 if (cookieDiscreetPosition == "bottomleft") {
-                    $('div.alert-box .cc-cookies').css("bottom", "0");
-                    $('div.alert-box .cc-cookies').css("left", "0");
+                    $('div .cc-cookies').css("bottom", "0");
+                    $('div .cc-cookies').css("left", "0");
                 }
                 if (cookieDiscreetPosition == "bottomright") {
-                    $('div.alert-box .cc-cookies').css("bottom", "0");
-                    $('div.alert-box .cc-cookies').css("right", "0");
+                    $('div .cc-cookies').css("bottom", "0");
+                    $('div .cc-cookies').css("right", "0");
                 }
             } else if (cookieResetButton) {
                 if (appOrPre) {
@@ -162,20 +162,20 @@
                 }
                 //add appropriate CSS depending on position chosen
                 if (cookieDiscreetPosition == "topleft") {
-                    $('div.alert-box .cc-cookies').css("top", "0");
-                    $('div.alert-box .cc-cookies').css("left", "0");
+                    $('div .cc-cookies').css("top", "0");
+                    $('div .cc-cookies').css("left", "0");
                 }
                 if (cookieDiscreetPosition == "topright") {
-                    $('div.alert-box .cc-cookies').css("top", "0");
-                    $('div.alert-box .cc-cookies').css("right", "0");
+                    $('div .cc-cookies').css("top", "0");
+                    $('div .cc-cookies').css("right", "0");
                 }
                 if (cookieDiscreetPosition == "bottomleft") {
-                    $('div.alert-box .cc-cookies').css("bottom", "0");
-                    $('div.alert-box .cc-cookies').css("left", "0");
+                    $('div .cc-cookies').css("bottom", "0");
+                    $('div .cc-cookies').css("left", "0");
                 }
                 if (cookieDiscreetPosition == "bottomright") {
-                    $('div.alert-box .cc-cookies').css("bottom", "0");
-                    $('div.alert-box .cc-cookies').css("right", "0");
+                    $('div .cc-cookies').css("bottom", "0");
+                    $('div .cc-cookies').css("right", "0");
                 }
             } else if (cookieAnalytics) { // show analytics overlay
                 if (appOrPre) {
@@ -206,12 +206,12 @@
         }
         // if bottom is true, switch div to bottom if not in discreet mode
         if ((cookieNotificationLocationBottom) && (!cookieDiscreetLink)) {
-            $('div.alert-box .cc-cookies').css("top", "auto");
-            $('div.alert-box .cc-cookies').css("bottom", "0");
+            $('div .cc-cookies').css("top", "auto");
+            $('div .cc-cookies').css("bottom", "0");
         }
         if ((cookieNotificationLocationBottom) && (cookieDiscreetLink) && (cookiePolicyPage)) {
-            $('div.alert-box .cc-cookies').css("top", "auto");
-            $('div.alert-box .cc-cookies').css("bottom", "0");
+            $('div .cc-cookies').css("top", "auto");
+            $('div .cc-cookies').css("bottom", "0");
         }
         // setting the cookies
 
@@ -254,7 +254,7 @@
                     path: '/'
                 });
             }
-            $(".alert-box .cc-cookies").fadeOut(function () {
+            $(" .cc-cookies").fadeOut(function () {
                 // reload page to activate cookies
                 location.reload();
             });
@@ -268,13 +268,13 @@
             $.cookie("cc_cookie_decline", null, {
                 path: '/'
             });
-            $(".alert-box .cc-cookies").fadeOut(function () {
+            $(" .cc-cookies").fadeOut(function () {
                 // reload page to activate cookies
                 location.reload();
             });
         });
         //cookie error accept
-        $('.alert-box .cc-cookies-error a.cc-cookie-accept').click(function (g) {
+        $(' .cc-cookies-error a.cc-cookie-accept').click(function (g) {
             g.preventDefault();
             $.cookie("cc_cookie_accept", "cc_cookie_accept", {
                 expires: cookieExpires,
