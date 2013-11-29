@@ -17,7 +17,7 @@ foreach($user['idea'] AS $key => $idea){
         <div class="edit-floater">
           
       <?php  echo CHtml::link(Yii::t("app","Delete"),Yii::app()->createUrl('project/deleteIdea',array('id'=>$idea['id'])),
-                  array('class'=>"button tiny alert radius",
+                  array('class'=>"button small alert radius",
                         'confirm'=>Yii::t("msg","You are about to delete this project!\nAre you sure?"),
                         'onclick'=>"$(document).stopPropagation();",
                       )
@@ -65,7 +65,7 @@ foreach($user['idea'] AS $key => $idea){
         <div class="edit-floater">
           
       <?php  echo CHtml::link(Yii::t("app","Leave project"),Yii::app()->createUrl('project/leaveIdea',array('id'=>$idea['id'])),
-                  array('class'=>"button tiny alert radius",
+                  array('class'=>"button small  secondary radius",
                         'confirm'=>Yii::t("msg","You are about to leave this project!\nYou will have to be re invited to be a member.\nAre you sure?"),
                         'onclick'=>"$(document).stopPropagation();",
                       )

@@ -143,7 +143,7 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact",array("id"=>$idea[
         }
         }
         if ($canEdit) { ?>
-        <a class="button secondary tiny  radius right" href="<?php echo Yii::app()->createUrl("project/edit",array("id"=>$idea['id'])); ?>"><?php echo Yii::t('app', 'Edit project') ?> <span class="ico-awesome icon-wrench"></span></a>
+        <a class="button secondary small  radius right" href="<?php echo Yii::app()->createUrl("project/edit",array("id"=>$idea['id'])); ?>"><?php echo Yii::t('app', 'Edit project') ?> <span class="ico-awesome icon-wrench"></span></a>
         <div class="" style="margin-top:5px;"><h4><?php echo Yii::t('app','viewed {n} time|viewed {n} times' . '<h4>' ,array($idea['num_of_clicks'])); ?></div>
         <?php }else{ ?>
         <a class="button success radius large-12 small-6" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact members') ?></a>

@@ -31,7 +31,7 @@
     <p class="title"><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><span class="icon-wrench"></span><?php echo Yii::t('app','Settings'); ?></a></p>
   </section>
   <?php //if(Yii::app()->user->isAdmin()){ ?>
-  <section class="section <?php echo isMenuItemActive("notification"); ?>">
+  <section class="section nob <?php echo isMenuItemActive("notification"); ?>">
     <p class="title"><a href="<?php echo Yii::app()->createUrl("profile/notification"); ?>"><span class="icon-flag"></span><?php echo Yii::t('app','Notifications'); ?></a></p>
   </section><?php //} ?>
 

@@ -28,7 +28,7 @@ $user = $data['user'];
 	<img class="card-avatar" src="<?php echo avatar_image($user['avatar_link'], $user['id'], false); ?>" />
 		<br>
 	
-	<h1><?php echo $user['name'] . " " . $user['surname']; ?></h1>
+	<h1 class=""><?php echo $user['name'] . " " . $user['surname']; ?></h1>
 
 	<div class="">
 	<p>
@@ -52,7 +52,7 @@ $user = $data['user'];
 
 
 	<div class="item">
-	<a class="button contact-me success large-12 small-12 radius" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact me') ?></a>
+	<a class="button contact-me success large large-12 small-12 radius" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact me') ?></a>
 	
 
 	
@@ -134,10 +134,10 @@ foreach ($skillset['skill'] as $skill){
 
 <div class="large-12 columns radius  collaboration" >				
 <?php if (count($user['collabpref']) > 0) { ?>
-<h3 class="edit-content-title">
 
-<?php echo Yii::t('app', 'Collaboration') ?>:
-</h3>
+
+<?php echo "<h3 class='edit-content-title'>" . Yii::t('app', 'Collaboration') . ':</h3>' ?>
+
 
 
 		<?php
@@ -163,15 +163,16 @@ foreach ($skillset['skill'] as $skill){
 <br>
 <!-- <hr> -->
 	
+		
+	
 		<h3 class="edit-content-title">
 		Nekaj o meni:
 		</h3>
-	<div class="panel radius">
 		<p class="meta-field">
 		Pri cofinderju skrbim za motivacijo ekipe in nemoten razvoj. Trudim pa se k sodelovanju privabiti čimveč ljudi. 
 		Lorem Ipsum je slepi tekst, ki se uporablja pri razvoju tipografij in pri pripravi za tisk. Lorem Ipsum je v uporabi že več kot petsto let saj je to kombinacijo znakov neznani tiskar združil v vzorčno knjigo že v začetku 16. stoletja.
 		</p>
-	</div> 
+	 
 </div> 
 <div class="large-12 columns radius  involved-in "  >
 <!-- <hr> -->

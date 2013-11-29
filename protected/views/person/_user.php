@@ -17,7 +17,7 @@
 						</small><br></a>
 					<?php } ?>		
                   
-                 <small><?php echo Yii::t('app','Available') ?>:
+                 <small><span data-tooltip title="<?php echo Yii::t('app','Available') ?>" class="icon-time"></span>
                   <?php if ($user['available_name']) { ?>
                      
                   

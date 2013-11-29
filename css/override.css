@@ -80,12 +80,13 @@ h6 {
 
 
   .top-bar-section .dropdown li  a:hover     {
-    background: #f0f0f0;
+    background: #F9F9F7;
   }
 
  
  .top-bar-section .dropdown li a.altli  {
-  background: #f0f0f0;
+  background: #F9F9F7;
+   box-shadow: 0 5px 6px rgba(0, 0, 0, 0.06) inset;
  }
 
 .top-bar-section .dropdown li a.altli:hover {
@@ -148,7 +149,7 @@ h6 {
 
 
 .panel {
-  background: #F9F9F7; 
+  background: #e5e3df; 
 }
 
 
@@ -196,6 +197,29 @@ h6 {
 .section-container.tabs > section.active > .title:hover, .section-container.tabs > .section.active > .title:hover  {
   background: #fff;
 }
+/* Accordion */
+.section-container > section > .title, .section-container > .section > .title, .section-container.auto > section > .title, .section-container.auto > .section > .title {
+  background: #F9F9F7;
+  border-bottom: 1px solid #ddd;
+}
+
+
+.sidebar .nob p {
+  border-bottom: none !important;
+}
+
+
+.section-container section.active .title, .section-container .section.active .title, .section-container.auto section.active .title, .section-container.auto .section.active .title,
+.section-container > section > .title:hover, .section-container > .section > .title:hover, .section-container.auto > section > .title:hover, .section-container.auto > .section > .title:hover  {
+   background-color: #EEE; 
+   }
+
+
+.section-container > section.active > .title a, .section-container > .section.active > .title a, .section-container.auto > section.active > .title a, .section-container.auto > .section.active > .title a,
+.section-container > section.active > .title a span, .section-container > .section.active > .title a span, .section-container.auto > section.active > .title a span, .section-container.auto > .section.active > .title a span  {
+  color: #89B561;
+}
+
 
 /* Progress Bar */
 .progress {
@@ -282,9 +306,7 @@ a:hover, a:focus { color: #3c76d6; }
 
 
 .label{
-	background-color: #8CA1C6;
-  box-shadow: 0 5px 7px -5px rgba(0, 0, 0, 0.7);
-	/*box-shadow: 0 1px 0 0px #6d83a9;*/
+	background-color: #8CA1C6;  
 	color: #fff;
   padding: 0.4em 0.6em 0.4em;
   font-weight: normal;
@@ -294,7 +316,16 @@ a:hover, a:focus { color: #3c76d6; }
 }
 
 .secondary.label  {
+  background: #F9F9F7;
+  border: 1px solid #ddd;
   border-bottom: 1px solid #bbb;
+  
+}
+
+.success.label {
+  border-bottom: #546d40;
+  box-shadow: 0 5px 7px -5px #546d40;
+
 }
 
 
@@ -304,6 +335,7 @@ a:hover, a:focus { color: #3c76d6; }
 
 button, .button {
   background-color: #4469a6;
+  box-shadow: 0 0 3px 0 #4469a6;
   border-color: #4469a6;
   box-shadow:none;
 }
@@ -374,8 +406,8 @@ form.custom .custom.checkbox.checked:before{
   background: #333333;
   height: 45px;
 }
-.top-bar-section ul li > a:hover { background: #f0f0f0; }
-.top-bar-section ul li.active a, .top-bar-section ul li.hover > a { background: #f0f0f0; color:#222; }
+.top-bar-section ul li > a:hover { background: #F9F9F7; }
+.top-bar-section ul li.active a, .top-bar-section ul li.hover > a { background: #F9F9F7; color:#222; }
 .top-bar-section .has-dropdown > a:after { border-color: transparent transparent transparent rgba(0, 0, 0, 0.5); }
 .top-bar-section .dropdown { box-shadow: 0 4px 4px rgba(0,0,0,0.3); }
 .top-bar-section .dropdown li a { border-top: 1px solid #ddd; line-height: 2em; padding-left: 40px; height: 40px; }
@@ -403,6 +435,7 @@ form.custom .custom.checkbox.checked:before{
 
 .tooltip  {
   box-shadow: 0 0 0 1px #fff, 0 0 2px #87878e,  0 0 3px 3px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   background: #F9F9F7;
   border-radius: 2px;
   -webkit-border-radius: 2px;
@@ -426,8 +459,13 @@ form.custom .custom.checkbox.checked:before{
 
 }
 
+/* ==========================================================================
+  grid
+   ========================================================================== */
 
-
+.large-block-grid-3 > li {
+  padding: 0 0.8em 2em;
+}
 
 
 /* #   CUSTOM DROPDOWN
