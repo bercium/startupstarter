@@ -1,3 +1,8 @@
+ $(document).ready(function () {
+$.cookieCuttr();
+}); 
+
+
 ;(function ($, window, undefined) {
   $(document).foundation();
   

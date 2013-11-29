@@ -35,7 +35,7 @@ body, h1, h2, h3, h4, h5, h6 {
   background: none repeat scroll 0 0 #111111; 
   border-bottom: 1px solid #000; 
   box-shadow:0 2px 2px 0px rgba(0, 0, 0, .25); 
-  border-top: 1px solid #333;
+  
 }
 
 .top-bar-avatar{
@@ -204,38 +204,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7072', end
   @ edit profile
    ========================================================================== */
 
-.alert-box {
-  font-weight: normal;
-  padding: 15px 10px;
-  color: #134C5B;
-  text-shadow: 1px 1px rgba(255,255,255,0.2);
-}
-
-.alert-box a {
-  color: #fff;
-  text-shadow: 1px 1px rgba(0,0,0,0.2);
-}
-
-.alert-box .action {}
-
-.alert-box .close {
-  margin-top: 0px;
- color: rgba(0,0,0,0.6) !important;
-}
-
-.alert-box .close:hover {
-   color: rgba(0,0,0,0.8) !important;
-}
 
 
-.alert-box.success {
-  /*color: ;*/
-}
-
-.alert-box.alert {
-  background-color: #A83C3C;
-  text-shadow: 1px 1px rgba(0,0,0,0.3);
-}
 
 .errorSummary .alert-box ul{
   list-style: none;
