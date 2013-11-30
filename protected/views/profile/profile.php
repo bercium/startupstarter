@@ -12,9 +12,7 @@
  
 <div class="">
 
-  <div class="columns edit-header">
-
-    
+  <div class="columns edit-header">   
 
     
     <h3><?php echo Yii::t('app', 'Profile details'); ?></h3>
@@ -83,7 +81,7 @@
     
     
 
-    <h3><?php echo Yii::t('app', 'My skills'); ?></h3>
+    <h3 id="sec2"><?php echo Yii::t('app', 'My skills'); ?></h3>
     
       <a class="button secondary radius small right" href="#" onclick="$('.addSkils').toggle(); return false;"><?php echo Yii::t('app',"Add skills"); ?> 
         <span class="icon-plus"></span>

@@ -265,7 +265,7 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
   background-color: #FFF;
   border: 1px solid #fff;
   /*box-shadow: 0 0 0 1px #fff, 0 0 0 2px #bbbbbb, 0 0 0 3px #ddd, 0 0 0 4px #ddd;*/
-  box-shadow: 0 0 0 1px #FFFFFF, 0 0 0 2px #ddd, 0 12px 6px -9px #777777;
+  box-shadow: 0 0 0 1px #FFFFFF, 0 0 0 2px #DDDDDD, 0 12px 6px -9px #777777, 0 -3px 7px rgba(0,0,0,0.1);
   
 }
 
@@ -423,6 +423,12 @@ sidebar .section-container.auto .section {
 	line-height: 0;
 }
 
+
+.magellan {width: 240px}
+
+  .magellan {position: static !important; width: 100%}
+
+
 .sidebar-wrap .edit-content {
 	border-radius: 3px;
 	overflow: hidden;
@@ -492,7 +498,7 @@ sidebar .section-container.auto .section {
    ========================================================================== */
 
 .wrapped-content {
-	background: #fff;
+	background: #fff;	
 	border-radius: 4px;
 	padding: 10px 20px 50px 20px;
 	margin-bottom: 50px; 
@@ -816,6 +822,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 }
 
 
+.clearbox {
+	clear: both;
+}
+
 .hide-text {
 	text-indent: 100%;
 	white-space: nowrap;
@@ -851,13 +861,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 
 
 .footer{
-  padding-bottom:13px; 
-  padding-top:30px;
+  padding-bottom:23px; 
+  padding-top:25px;
   margin-top:50px;
   position: relative;
   border-top: 1px solid #ddd; 
   background-color: #fff;
   text-transform: uppercase;
+  border-top:3px solid #89B561;
 
 
 }
@@ -1097,12 +1108,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
   padding-right: 13px;
 }
 
-.card-idea .idea-info {
-	position: absolute;
-	bottom: 0px;
-	width: 100%;
-	display: block;
-}
+
 
 .card-idea .idea-info .ico-awesome,
 .card-idea .idea-info .general {
@@ -1115,15 +1121,28 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 	
 }
 
-.card-idea .idea-info  .subinfo  {
-	background: #f9f9f7;
-	padding-bottom: 11px;
+.card-idea .subinfo {
+	 position: absolute;
+	bottom: 0px;
+	width: 100%;
 	padding-top: 13px;
 	border-top: 1px solid #DDDDDD;
 	padding-right: 11px;
   margin-top: 5px;
   margin-left: 2px;
+  padding-bottom: 11px;
+
+}
+
+.subinfo  {
+	background: #f9f9f7;
+	
+
+	
   box-shadow: 0 5px 6px rgba(0, 0, 0, 0.06) inset;
+  border-top: 2px solid #89B561;
+ 
+	display: block;
 }
 
 
@@ -1405,9 +1424,13 @@ h6.title-field {
 }
 
 /* ==========================================================================
-  @ PROFILE VIEW
+  @ PROFILE page
    ========================================================================== */
 
+
+.profile-wrap {
+	border-top: 5px solid #89B561;
+}
 
 .profile .card-floater a.button {
 	margin: 0;
@@ -1468,6 +1491,12 @@ h6.title-field {
 	border: none;	
 }
 
+.idea-list.card-idea {
+	min-height: auto !important;
+	height: auto !important;
+}
+
+
 
 .person-details h3.card-person-title {
 	
@@ -1509,6 +1538,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444', endCol
 
 /* #MY PROJECT PAGE
 ================================================== */
+
+.project-title {
+	border-bottom: 2px solid #89B561;
+	padding-bottom: 30px;
+	margin-top: -10px;
+}
 
 .myprojects .edit-header {
 

@@ -20,7 +20,7 @@ $user = $data['user'];
 	?>
 	</div>
 </div>
-<div class="row wrapped-content ball" style="margin-top:50px; padding-top: 35px; padding-bottom:60px;">
+<div class="row wrapped-content ball profile-wrap" style="margin-top:50px; padding-top: 35px; padding-bottom:60px;">
 
 
 <div class="large-4 columns profile side">
@@ -94,7 +94,7 @@ $user = $data['user'];
 		
 
 		</div>
-<div class="large-8 right main">
+<div class="large-8 right main ">
 <div class="skills large-12 columns radius"  >
 <h3 class="edit-content-title">
 <?php	echo Yii::t('app', 'Skilled in');?>:
@@ -184,7 +184,19 @@ foreach ($skillset['skill'] as $skill){
 <?php
 if (is_array($user['idea']))
 foreach ($user['idea'] as $idea_data) {
-?><div class="idea-list radius panel"><p><a class="" href="<?php echo Yii::app()->createUrl("project/" . $idea_data['id']); ?>"><span class="icon-angle-right"></span> <?php echo $idea_data['title']; ?></a></p></div><?php 
+?><div class="idea-list radius panel"><a class="" href="<?php echo Yii::app()->createUrl("project/" . $idea_data['id']); ?>"><h5><span class="icon-angle-right"></span> <?php echo $idea_data['title']; ?></h5></a>
+
+<div class="columns">
+        <small class="meta left">Posodobljeno 8 dni nazaj</small>
+        <div class="right">
+          <a target="_blank" href="/yii/startupstarter/project/5" class="tiny button secondary radius">podrobnosti <span class="icon-angle-right"></span></a>
+        </div>
+      </div>
+      <div class="clearbox"></div>
+
+
+
+</div><?php 
 }
 ?>
 <?php } ?>

@@ -149,7 +149,11 @@ h6 {
 
 
 .panel {
-  background: #e5e3df; 
+  background: #F9F9F7; 
+}
+
+.lb.panel {
+  border-left: 3px solid #89B561;
 }
 
 
@@ -197,6 +201,12 @@ h6 {
 .section-container.tabs > section.active > .title:hover, .section-container.tabs > .section.active > .title:hover  {
   background: #fff;
 }
+
+
+.section-container > section .content, .section-container > .section .content, .section-container.auto > section .content, .section-container.auto > .section .content {
+  font-size: 0.8em;
+}
+
 /* Accordion */
 .section-container > section > .title, .section-container > .section > .title, .section-container.auto > section > .title, .section-container.auto > .section > .title {
   background: #F9F9F7;
