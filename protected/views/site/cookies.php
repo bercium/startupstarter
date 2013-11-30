@@ -85,7 +85,7 @@
 <br>
 <br>
 <p>
-	You can change your settings regarding the use of cookies on our website at any time by clicking on this button <a class="button small radius" href="#">change cookie settings</a>
+	You can change your settings regarding the use of cookies on our website at any time by clicking on this button <div class="cookiereset"></div>
 </p>
 
 <p>

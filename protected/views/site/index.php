@@ -26,6 +26,7 @@
 <div class="intro" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
   <div  class="row" >
     <div class="large-10 columns large-centered">
+    	
 
 <!-- Content if guest -->
       <h1><?php echo Yii::t('msg','With the <span>right team</span> any <span>idea</span> can</br> change your life'); ?></h1>
@@ -364,9 +365,12 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 	<h3><?php echo Yii::t('msg','No results found with this filters.') ?></h3>
 	
 	<?php } ?>
+
 </div>	
 <?php } 
 
 }
 ?>
+
+
 

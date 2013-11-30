@@ -37,6 +37,7 @@ class Controller extends CController
     $cs->registerCssFile($baseUrl.'/css/font-awesome-mini.css'.getVersionID());    
     $cs->registerCssFile($baseUrl.'/css/chosen/chosen.min.css'.getVersionID());
     $cs->registerCssFile($baseUrl.'/css/ui/jquery-ui-1.10.3.custom.min.css'.getVersionID());
+    $cs->registerCssFile($baseUrl.'/css/cookiecuttr.css'.getVersionID());
     
     
     new JsTrans('js',Yii::app()->language);  // js translation
@@ -51,6 +52,9 @@ class Controller extends CController
     $cs->registerScriptFile($baseUrl.'/js/jquery.infinitescroll.min.js');  // infinite scroll
     $cs->registerScriptFile($baseUrl.'/js/chosen.jquery.min.js');  // new dropdown
     $cs->registerScriptFile($baseUrl.'/js/jquery-ui-1.10.3.custom.min.js');
+    $cs->registerScriptFile($baseUrl.'/js/jquery.cookie.js');
+    $cs->registerScriptFile($baseUrl.'/js/jquery.cookiecuttr.js');
+
     //$cs->registerCoreScript($baseUrl.'jquery.ui');
     //$cs->registerCoreScript($baseUrl.'autocomplete');
             
