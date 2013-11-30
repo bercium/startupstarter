@@ -69,7 +69,7 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact",array("id"=>$idea[
       </p>
     </div>
  
-  <pre>
+  
     <?php if (count($idea['candidate']) > 0){ ?>
     <div class="jobs large-6">
         <h3><?php echo Yii::t('app','Looking for {n} candidate|Looking for {n} candidates',array(count($idea['candidate']))); ?>:</h3>
@@ -124,14 +124,15 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact",array("id"=>$idea[
         echo "<h7 class='meta-title'>".$collab['name']."</h7> <br/>";
         }
         ?>
+        <?php } ?>
         </div><!-- panel end -->
        
     </div><!-- jobs end -->
-        <?php } ?>
+        
         <?php } ?>
         <?php } ?>        
 
-</pre>
+
     </div><!-- large-8 end -->
 
     <div class="large-4 columns side">

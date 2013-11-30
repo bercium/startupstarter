@@ -51,18 +51,8 @@ body {
 }
 
 
-.title-area .logo {
-	margin-right: 70px;
-	margin-top:-1px; 
-}
 
 
-.private-beta {
-	margin-top: 32px;
-	position: absolute;
-	z-index: 1000;
-	left: 115px;
-}
 
 /* ==========================================================================
   @ INTRO

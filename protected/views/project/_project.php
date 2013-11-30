@@ -10,7 +10,7 @@
 	  </div> 
     <div  class="row">
       <div class="card-content">
-        <div class="section-container tabs" data-section>
+        <div class="section-container tabs" data-section="tabs">
           <section class="active">
           <p class="title" data-section-title><a href="#panel1">Section 1</a></p>
             <div class="content" data-section-content>
