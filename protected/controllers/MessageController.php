@@ -165,7 +165,7 @@ class MessageController extends Controller
       $myideaid .= "'".$idea->idea_id."'";
     }
     
-    $all_my_msgs = Message::model()->findAll('user_from_id = :myid OR user_to_id = :myid OR idea_to_id IN ('.$myideaid.')',
+    $all_my_msgs = Message::model()->findAll('user_from_id = :myid OR user_to_id = :myid OR idea_to_id IN ('.$myideaid.') ORDER BY time_sent DESC',
                               array(':myid'=>$user_id));
     
     $msgList = array('users'=>null,'projects'=>null);
@@ -218,8 +218,8 @@ class MessageController extends Controller
     }
     
     $this->render('view',array('msgList'=>$msgList,"chatList"=>$chatList,"group"=>$group));
-    print_r($msgList);
-    print_r($chatList);
+    //print_r($msgList);
+    //print_r($chatList);
   }
   
   
