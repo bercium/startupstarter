@@ -19,8 +19,8 @@ $idea = $data['idea'];
       break;
     }
   }*/
-  echo CHtml::beginForm(Yii::app()->createUrl("message/contact",array("id"=>$idea['id'])),'post',array("class"=>"custom")); ?>
-
+  echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("class"=>"custom")); ?>
+      <?php echo CHtml::hiddenField("project",$idea['id']); ?>
       <?php echo CHtml::label(Yii::t('app','Message').":",'message'); ?>
       <?php echo CHtml::textArea('message') ?>
       <?php echo CHtml::hiddenField('project','1') ?>
