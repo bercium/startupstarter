@@ -39,7 +39,7 @@
     
     <?php if (!Yii::app()->user->isGuest){  ?>
     <div class="center columns hide-for-small">
-      <div class="right large-5">
+      <div class="right">
         <h4 >
         <?php echo Yii::t('msg',"{username} welcome to cofinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
         </h4>

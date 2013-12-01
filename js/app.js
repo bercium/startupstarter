@@ -1,7 +1,3 @@
- $(document).ready(function () {
-$.cookieCuttr();
-}); 
-
 
 ;(function ($, window, undefined) {
   $(document).foundation();
@@ -82,6 +78,8 @@ $.cookieCuttr();
     });
 
     $('select').chosen({no_results_text: Yii.t('js','Oops, nothing found!'), allow_single_deselect: true, width:'100%' });
+    
+    $.cookieCuttr();
 })(jQuery, this);
 
 
