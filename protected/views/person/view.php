@@ -105,17 +105,19 @@ $user = $data['user'];
 				<p class="meta-field">
 
 				<?php 
-				foreach ($user['skillset'] as $skillset){
-				//echo "<br />".$skillset['skillset']." with skills in<br />";
-				foreach ($skillset['skill'] as $skill){
-				?>
-				<p class="label radius success-alt meta_tags" data-tooltip title='<?php echo $skillset['skillset']; ?>' ><?php echo $skill['skill']; ?></p>
+        if (isset($user['skillset'])){
+          foreach ($user['skillset'] as $skillset){
+          //echo "<br />".$skillset['skillset']." with skills in<br />";
+            foreach ($skillset['skill'] as $skill){
+            ?>
+            <p class="label radius success-alt meta_tags" data-tooltip title='<?php echo $skillset['skillset']; ?>' ><?php echo $skill['skill']; ?></p>
 
 
-				
-				<?php
-				}
-				}
+
+            <?php
+            }
+          }
+        }
 
 				/*foreach ($user['skill'] as $skill) {
 				?>
