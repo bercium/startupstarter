@@ -1,12 +1,19 @@
 <div id="drop-msg" class="f-dropdown content medium" data-dropdown-content>
   <div class="contact-form">
     
-  <?php echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("class"=>"custom")); ?>
+  <?php echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("class"=>"customs")); ?>
 
       <?php echo CHtml::hiddenField("user",''); ?>
       <?php echo CHtml::hiddenField("project",''); ?>
       <?php echo CHtml::label(Yii::t('app','Message').":",'message'); ?>
-      <?php echo CHtml::textArea('message') ?>
+      <?php echo CHtml::textArea('message'); ?>
+      <br />
+      
+      <label for="notify_me">
+        <?php echo CHtml::checkBox('notify_me',true); ?>
+        <?php echo Yii::t('app','Send me a copy'); ?>
+      </label>
+      
       <br />
       <div class="login-floater">
       <?php echo CHtml::submitButton(Yii::t("app","Send"),array("class"=>"button small radius")); ?>

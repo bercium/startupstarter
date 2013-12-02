@@ -19,11 +19,16 @@ $idea = $data['idea'];
       break;
     }
   }*/
-  echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("class"=>"custom")); ?>
+  echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("class"=>"customs")); ?>
       <?php echo CHtml::hiddenField("project",$idea['id']); ?>
       <?php echo CHtml::label(Yii::t('app','Message').":",'message'); ?>
       <?php echo CHtml::textArea('message') ?>
-      <?php echo CHtml::hiddenField('project','1') ?>
+      <br />
+      
+      <label for="notify_me">
+        <?php echo CHtml::checkBox('notify_me',true); ?>
+        <?php echo Yii::t('app','Send me a copy'); ?>
+      </label>    
       <br />
       <div class="login-floater">
       <?php echo CHtml::submitButton(Yii::t("app","Send"),array("class"=>"button small radius")); ?>

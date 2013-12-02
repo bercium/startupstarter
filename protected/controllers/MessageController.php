@@ -103,13 +103,15 @@ class MessageController extends Controller
       Yii::app()->mail->send($message);
       
       
-      $message_self->view = 'system';
-      // send to self
-      $message_self->setBody(array("content"=>$content), 'text/html');
-      //$message->setBody(array("content"=>$_POST['message'],"senderMail"=>$sender->email), 'text/html');
-      $message_self->addTo($sender->email);
-      $message_self->from = Yii::app()->params['adminEmail'];
-      Yii::app()->mail->send($message_self);
+      if (isset($_POST['notify_me']) && $_POST['notify_me'] = 1){
+        $message_self->view = 'system';
+        // send to self
+        $message_self->setBody(array("content"=>$content), 'text/html');
+        //$message->setBody(array("content"=>$_POST['message'],"senderMail"=>$sender->email), 'text/html');
+        $message_self->addTo($sender->email);
+        $message_self->from = Yii::app()->params['adminEmail'];
+        Yii::app()->mail->send($message_self);
+      }
       
       // notify
       setFlash('contactPerson', Yii::t("msg","Your message was sent."));

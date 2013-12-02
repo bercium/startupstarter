@@ -12,10 +12,16 @@ $user = $data['user'];
  if (Yii::app()->user->isGuest) echo Yii::t('msg','You must be loged in to contact this person.'); 
  else { ?>    
     
-  <?php echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("class"=>"custom")); ?>
+  <?php echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("class"=>"customs")); ?>
       <?php echo CHtml::hiddenField("user",$user['id']); ?>
       <?php echo CHtml::label(Yii::t('app','Message').":",'message'); ?>
       <?php echo CHtml::textArea('message') ?>
+      <br />
+      
+      <label for="notify_me">
+        <?php echo CHtml::checkBox('notify_me',true); ?>
+        <?php echo Yii::t('app','Send me a copy'); ?>
+      </label>
       <br />
       <div class="login-floater">
       <?php echo CHtml::submitButton(Yii::t("app","Send"),array("class"=>"button small radius")); ?>
