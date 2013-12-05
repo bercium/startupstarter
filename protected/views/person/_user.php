@@ -55,20 +55,20 @@
                     <?php
                       if (count($skills) > 0){
                         echo Yii::t('app','Skilled in')
-                        ?>:<br>
+                        ?>:</small><br>
                        
-                  
+                    
                     <?php 
                      foreach ($skills as $skillset=>$skill){
                           ?>
-                    <span class="label radius meta_tags"<?php if(count($skill)) echo " data-tooltip title='".implode("<br />",$skill)."'"; ?>><?php echo $skillset; ?></span>
+                    <span class="label success radius meta_tags"<?php if(count($skill)) echo " data-tooltip title='".implode("<br />",$skill)."'"; ?>><?php echo $skillset; ?></span>
                             <?php 
                           }
                         }
                     
                     ?> 
 
-                  </small>      
+                        
        
 		  </div>
        <div class="card-person-footer">

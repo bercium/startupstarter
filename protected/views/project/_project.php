@@ -14,7 +14,7 @@
           <section class="active">
           <p class="title" data-section-title><a href="#panel1">Section 1</a></p>
             <div class="content" data-section-content>
-              <div class="stageinfo"><small class="meta" data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>"> <span class="ico-awesome icon-signal" title="stage"></span><a class="stage"><?php echo $idea['status']; ?></a></small>
+              <div class="stageinfo"><span class="meta" data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>"> <span class="ico-awesome icon-signal" title="stage"></span><a class="stage"><?php echo $idea['status']; ?></a></span>
                 <div class="right meta">
                   <?php if ($idea['website']){ ?>
                   <span class="ico-awesome icon-globe" data-tooltip title="<?php  echo Yii::t('msg','Project has a presentational web page'); ?>" ></span>
@@ -36,7 +36,8 @@
           <section>
             <p class="title" data-section-title><a href="#panel2"><strong>3 </strong><?php echo Yii::t('app','Positions') ?></a></p>
               <div class="content" data-section-content>
-                <small class="meta idea-skills">
+                <div class="idea-skills">
+                  
                   <?php
                   if (is_array($idea['candidate']) && count($idea['candidate']) > 0){
                   $skills = array();
@@ -61,7 +62,7 @@
                   if (count($skills) > 0){
                   //echo " ".Yii::t('app','with skill|with skills',array($c)).":<br />";
                   //echo " ".Yii::t('app','skilled in').":<br />";
-                  echo Yii::t('app','Looking for <a>{n} person</a> skilled in|Looking for <a>{n} people</a> skilled in',array(count($idea['candidate']))).": <br />";
+                  echo Yii::t('app','Looking for <span class="label success radius">{n}</span> person skilled in|Looking for <a>{n} people</a> skilled in',array(count($idea['candidate']))).": <br />";
                   foreach ($skills as $skillset=>$skill){
                   ?>
                   <span class="label radius meta_tags" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
@@ -70,7 +71,7 @@
                   }else echo Yii::t('app','Looking for <a>{n} person</a>|Looking for <a>{n} people</a>',array(count($idea['candidate'])));
                   }
                   ?> 
-                </small>
+                </div>
               </div>
           </section>
 

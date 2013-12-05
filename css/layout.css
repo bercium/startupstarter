@@ -315,15 +315,16 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 /*****************/
 .card-content .meta_tags {
 	letter-spacing: 0px;
-	font-family: arial, sans-serif;
-    font-size: 0.7em;
+	
+    font-size: 12px;
     letter-spacing: 0.05em;
     line-height: 0.7em;    
-    margin: 2px 4px 1px 0;
+    margin: 2px 4px 4px 0;
 }
 
 .card-content .meta_tags .label {
 	padding: 3px;
+
 }
 
 
@@ -495,7 +496,7 @@ sidebar .section-container.auto .section {
  }
 
 
-.wrapped-content .item {
+.item {
 	border-bottom:  1px solid #ddd;
 	margin-bottom: 15px;
 	padding-bottom: 5px;
@@ -505,20 +506,31 @@ sidebar .section-container.auto .section {
 
 /****** @font ******/
 
-.wrapped-content .main .item {
+.main .item {
 	font-size: 1em;
 }
 
+.main h3 {
+
+    font-size: 1em;
+    font-weight: 600;
+    text-transform: uppercase;
+      
+
+
+}
+
  
- .wrapped-content .side {
+ .side {
  	font-size: 14px;
  }
 
 
 
-
-.wrapped-content h4 {
-	display: inline-block;
+.side h4,
+.main h4,
+.panel-top h4 {
+	
 	font-size: 12px;
 	text-transform: uppercase;
 	font-weight: 600 !important;	
@@ -564,7 +576,7 @@ sidebar .section-container.auto .section {
 	padding: 2px 0 0 0;
 	color: #000;
 	border-top: 1px solid rgba(255,255,255,0.2);
-	text-shadow: 1px 0 rgba(255,255,255,0.26);
+	
 	
 	margin-top: 7px;
 }
@@ -856,9 +868,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
   margin-top:50px;
   position: relative;
   border-top: 1px solid #ddd; 
-  background-color: #fff;
+  background-color: #333;
   text-transform: uppercase;
-  border-top:3px solid #89B561;
+  border-top:1px solid #111;
 
 
 }
@@ -875,13 +887,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 
 
 .footer a {
-	color: #444;
+	color: #89B561;
 	font-size: 0.8em;
 
 }
 
 .footer a:hover {
-	color: #111;
+	color: #89b561;
 }
 
 .footer img.logo-mini {
@@ -1019,6 +1031,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 
 
 
+/****** @ project card ******/ 
+
+
+.card-idea .section-container.tabs > section > .title a, .section-container.tabs > .section > .title a {
+  font-size: 0.7em;
+}
+
 
  .card-idea .card-idea-title {
   padding-top:0.5em; 
@@ -1062,7 +1081,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 
 
 .card-idea .card-content p {
-	font-size: 0.8em;
+	
 	margin-bottom: 15px;
 }
 
@@ -1419,7 +1438,7 @@ h6.title-field {
 
 
 .profile-wrap {
-	border-top: 5px solid #89B561;
+	
 }
 
 .profile .card-floater a.button {
@@ -1438,13 +1457,7 @@ h6.title-field {
 
 
 .side .edit-content-title {
-    background: #F9F9F7;   
-    text-align: center;
-    padding-top: 20px;
-    padding-bottom: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px 4px 0 0;
-    margin-bottom: 1px; 
+   
 }
 
 .side .edit-content-title h1 {
@@ -1530,8 +1543,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444', endCol
 ================================================== */
 
 .project-title {
-	border-bottom: 2px solid #89B561;
-	padding-bottom: 30px;
+	
+	
 	margin-top: -10px;
 }
 
@@ -1643,3 +1656,73 @@ label{
   margin-bottom: 0px;
   margin-top: 5px;
 }
+
+/* ==========================================================================
+   $ LAYOUTS
+   ========================================================================== */
+
+	.l-block {
+		display: block;
+	}
+
+	.l-iblock {
+		display: inline-block;
+	}
+	.l-inline {
+		display: inline;
+	}
+
+/* ==========================================================================
+  $ MODULES
+   ========================================================================== */
+
+	/****** @ panel-top ******/
+
+	.panel-top {
+    background: #F5F2F0 !important;
+    box-shadow: 0 0px 1px rgba(0,0,0,0.3) inset;
+    border-bottom: 1px solid #fff !important;
+}
+
+	/****** @ main panel ******/
+
+
+	.main > .columns > .panel,
+	.main > .panel {
+		background: #fff;
+	}
+
+
+
+	/****** @ panel-avatar ******/
+	.panel .panel-avatar {
+    width: 90%;
+    margin: 5%;
+
+}
+ 
+
+   .panel-content {
+   	padding: 0;
+   	margin: 0;
+   	margin: 10%;
+   	width: 70%;
+   	text-align: center;
+   }
+
+
+	
+
+	/****** $ skillgroup ******/
+   .skillgroup {
+
+   	width: 100%;
+   	height: 100%;
+   	padding: 4px;
+
+   }
+
+   .skillgroup h4 {
+   	
+   	display: block;
+   }

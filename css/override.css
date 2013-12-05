@@ -312,25 +312,26 @@ a:hover, a:focus { color: #3c76d6; }
 
 
 .label{
-	background-color: #8CA1C6;  
+  
+	background-color: #d05c15;
 	color: #fff;
   padding: 0.4em 0.6em 0.4em;
   font-weight: normal;
   margin-right: 5px;
-    border-bottom: 1px solid #727f94;
+   
 
 }
 
 .secondary.label  {
   background: #F9F9F7;
   border: 1px solid #ddd;
-  border-bottom: 1px solid #bbb;
   
+ 
 }
 
 .success.label {
-  border-bottom: #546d40;
-  box-shadow: 0 5px 7px -5px #546d40;
+  
+  
 
 }
 
@@ -472,6 +473,26 @@ form.custom .custom.checkbox.checked:before{
 .large-block-grid-3 > li {
   padding: 0 0.8em 2em;
 }
+
+
+
+/* Image Thumbnails */
+.th {
+  line-height: 0;
+  display: inline-block;
+  border: solid 4px white;
+  -webkit-box-shadow: 0 0 0 1px #ddd;  
+  box-shadow: 0 0 0 1px #ddd;  
+  -webkit-transition: all 200ms ease-out;
+  -moz-transition: all 200ms ease-out;
+  transition: all 200ms ease-out; }
+  .th:hover, .th:focus {
+    -webkit-box-shadow: 0 0 6px 1px rgba(43, 166, 203, 0.5);
+    box-shadow: 0 0 6px 1px rgba(43, 166, 203, 0.5); }
+  .th.radius {
+    -webkit-border-radius: 3px;
+    border-radius: 3px; }
+
 
 
 /* #   CUSTOM DROPDOWN
