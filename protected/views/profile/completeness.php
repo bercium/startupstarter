@@ -1,50 +1,30 @@
 <?php $this->pageTitle = Yii::t('app','Completeness of profile'); ?>
 
 
-<div class="row myprojects">
+<?php foreach ($data as $gname => $group){ ?>
+<div class="row myprojects" style="margin-bottom:20px;">
   <div class="columns edit-header">
-    <h3><?php echo Yii::t('app', 'Profile'); ?></h3>
+    <h3><?php echo $gname; ?></h3>
   </div>
-    
     <div class="columns edit-content middle">
-
-
-      <a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><h5>
-        <span class="gen-enclosed foundicon-checkmark" style="color: #89B561"></span> </h5>
+      <?php foreach ($group as $row){ ?>
+      <a href="<?php echo $row['action']; ?>">
+        <h5>
+          
+        <?php if ($row['active']){ ?>
+          <span class="right icon-smile icon-2x" style="color:#89B561"></span>
+        <?php }else{ ?>
+          <span class="right icon-frown icon-2x" style="color:#A5292C"></span>
+        <?php } ?>
+        
+        <?php echo $row['name']; ?></h5>
+        <small class="meta">
+        <?php echo $row['hint']; ?>
+        </small>
       </a>
-      <a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><h5><span class="gen-enclosed foundicon-remove" style="color: #CD3438"></span> hehe</h5></a>
-      <a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><h5><span class="gen-enclosed foundicon-checkmark" style="color: #89B561"></span> hehe</h5></a>
+      <?php } ?>
+      
     </div>
     
 </div>
-
-<div class="row myprojects" style="margin-top:20px;">
-  <div class="columns edit-header">
-    <h3><?php echo Yii::t('app', 'Projects'); ?></h3>
-  </div>
-    
-    <div class="columns edit-content middle">
-
-      <a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><h5><span class="gen-enclosed foundicon-checkmark" style="color: #89B561"></span> hehe</h5></a>
-    </div>
-    
-</div>
-
-
-<div class="row myprojects" style="margin-top:20px;">
-  <div class="columns edit-header">
-    <h3><?php echo Yii::t('app', 'Settings'); ?></h3>
-  </div>
-    
-    <div class="columns edit-content middle">
-
-
-      <a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><h5><span class="gen-enclosed foundicon-checkmark" style="color: #89B561"></span> hehe
-      <small class="meta">
-        opis
-      </small>
-          </h5>
-        </a>
-    </div>
-    
-</div>
+<?php } ?>

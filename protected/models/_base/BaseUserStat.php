@@ -11,7 +11,7 @@
  *
  * @property string $id
  * @property string $user_id
- * @property integer $completenes
+ * @property integer $completeness
  * @property integer $invites_send
  * @property integer $invites_registered
  * @property integer $reputation
@@ -39,10 +39,10 @@ abstract class BaseUserStat extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('user_id', 'required'),
-			array('completenes, invites_send, invites_registered, reputation', 'numerical', 'integerOnly'=>true),
+			array('completeness, invites_send, invites_registered, reputation', 'numerical', 'integerOnly'=>true),
 			array('user_id', 'length', 'max'=>10),
-			array('completenes, invites_send, invites_registered, reputation', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, user_id, completenes, invites_send, invites_registered, reputation', 'safe', 'on'=>'search'),
+			array('completeness, invites_send, invites_registered, reputation', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, user_id, completeness, invites_send, invites_registered, reputation', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,7 +61,7 @@ abstract class BaseUserStat extends GxActiveRecord {
 		return array(
 			'id' => Yii::t('app', 'ID'),
 			'user_id' => null,
-			'completenes' => Yii::t('app', 'Completenes'),
+			'completeness' => Yii::t('app', 'completeness'),
 			'invites_send' => Yii::t('app', 'Invites Send'),
 			'invites_registered' => Yii::t('app', 'Invites Registered'),
 			'reputation' => Yii::t('app', 'Reputation'),
@@ -74,7 +74,7 @@ abstract class BaseUserStat extends GxActiveRecord {
 
 		$criteria->compare('id', $this->id, true);
 		$criteria->compare('user_id', $this->user_id);
-		$criteria->compare('completenes', $this->completenes);
+		$criteria->compare('completeness', $this->completeness);
 		$criteria->compare('invites_send', $this->invites_send);
 		$criteria->compare('invites_registered', $this->invites_registered);
 		$criteria->compare('reputation', $this->reputation);

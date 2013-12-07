@@ -830,13 +830,16 @@ class ProfileController extends GxController {
    }
    
   public function actionCompleteness() {
-    $user_id = Yii::app()->user->id;
-    $user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
-
-    $filter['user_id'] = $user_id;
-    $sqlbuilder = new SqlBuilder;
-    $ideas = $sqlbuilder->load_array("user", $filter);
-    $ideas = $ideas['idea'];
-     $this->render('completeness',array('user' => $user, 'ideas'=>$ideas, "invites"=>$invites));
+    $comp = new Completeness();
+    $ungrouped = $comp->init();
+    
+    //echo $comp->setPercentage();
+    
+    $data = array();
+    foreach ($ungrouped as $row){
+      $data[$row['group']][] = $row;
+    }
+    
+    $this->render('completeness',array('data' => $data));
   }
 }

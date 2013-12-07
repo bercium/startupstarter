@@ -394,7 +394,7 @@ class SqlBuilder {
           "LEFT JOIN `user_stat` AS us ".
           "ON u.id = us.user_id ".
 
-					"WHERE m.user_id > 0 AND u.status = 1 AND us.completenes >= ".PROFILE_COMPLETENESS_MIN." ".
+					"WHERE m.user_id > 0 AND u.status = 1 AND us.completeness >= ".PROFILE_COMPLETENESS_MIN." ".
 					"ORDER BY u.create_at DESC ".
 					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". $filter['per_page'];
 
@@ -455,7 +455,7 @@ class SqlBuilder {
            INNER JOIN `user_match` AS m ON u.id = m.user_id
           LEFT JOIN `user_stat` AS us ON u.id = us.user_id
 
-           WHERE m.user_id > 0  AND u.status = 1 AND us.completenes >= ".PROFILE_COMPLETENESS_MIN;
+           WHERE m.user_id > 0  AND u.status = 1 AND us.completeness >= ".PROFILE_COMPLETENESS_MIN;
 		} elseif( $type == 'search' ){
 
 			$sql=	"SELECT m.id AS match_id, ".

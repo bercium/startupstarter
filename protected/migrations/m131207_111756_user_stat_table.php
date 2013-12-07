@@ -8,7 +8,7 @@ class m131207_111756_user_stat_table extends CDbMigration
       CREATE TABLE IF NOT EXISTS `user_stat` (
         `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
         `user_id` int(10) unsigned NOT NULL,
-        `completenes` int(11) NOT NULL DEFAULT '0',
+        `completeness` int(11) NOT NULL DEFAULT '0',
         `invites_send` int(11) NOT NULL DEFAULT '0',
         `invites_registered` int(11) NOT NULL DEFAULT '0',
         `reputation` int(11) NOT NULL DEFAULT '0',

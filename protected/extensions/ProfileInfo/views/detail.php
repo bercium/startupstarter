@@ -13,9 +13,10 @@
     <?php echo Yii::t('app',"Member since"); ?>: </span>
     <?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($memberDate),"long",null); ?></p>
 
+  <a class="button radius small-12 small secondary"  href="<?php echo Yii::app()->createUrl("profile/completeness"); ?>" ><?php echo Yii::t('app','Profile details'); ?></a>
 
   <?php if ($invites > 0){ ?>
-  <a class="button radius large-12"  href="#" data-dropdown="drop-invitation-msg"><?php echo Yii::t('app','Send invitation ({n})',array($invites)); ?></a>
+  <a class="button radius small-12"  href="#" data-dropdown="drop-invitation-msg"><?php echo Yii::t('app','Send invitation ({n})',array($invites)); ?></a>
   <?php } ?>
 
 

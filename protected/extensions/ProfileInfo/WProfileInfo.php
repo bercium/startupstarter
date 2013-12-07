@@ -6,14 +6,21 @@ class WProfileInfo extends CWidget
   
     public function init()
     {
-      $perc = Yii::app()->user->getState('percentage');
+      $comp = new Completeness();
+      
+      $perc = $comp->getPercentage();
+      //$perc = Yii::app()->user->getState('percentage');
       if ($perc < PROFILE_COMPLETENESS_MIN) $percClass = 'alert';
       else if ($perc < PROFILE_COMPLETENESS_OK) $percClass = '';
       else $percClass = 'success';
       
       if ($this->style == 'sidebar'){
         $user = User::model()->findByPk(Yii::app()->user->id);
-        if (!Yii::app()->user->hasFlash('WProfileInfoHint')) $this->calculatePerc();
+        if (!Yii::app()->user->hasFlash('WProfileInfoHint')){
+          $hint = $comp->getHint();
+          if ($hint !== false) setFlash('WProfileInfoHint',array('msg'=>$hint['hint'].' %s <span class="icon-long-arrow-right"></span>','actions'=>array(array('hint'=>Yii::t("app",'Do it now!'),'action'=>$hint['action']))), "info", false);
+          //$this->calculatePerc();
+        }
 
         $views = ClickUser::model()->count("user_id = :userID",array(":userID"=>Yii::app()->user->id));
         
@@ -25,8 +32,11 @@ class WProfileInfo extends CWidget
                                      "invites"=>$user->invitations));
         
       }else if ($this->style == 'hint'){
-        if (!Yii::app()->user->hasFlash('WProfileInfoHint')) $this->calculatePerc();
-        $this->render("hint",array());
+        if (!Yii::app()->user->hasFlash('WProfileInfoHint')){
+          $hint = $comp->getHint();
+          if ($hint !== false) setFlash('WProfileInfoHint',array('msg'=>$hint['hint'].' %s <span class="icon-long-arrow-right"></span>','actions'=>array(array('hint'=>Yii::t("app",'Do it now!'),'action'=>$hint['action']))), "info", false);
+          //$this->calculatePerc();
+        }
       }
       else $this->render("simple",array("perc"=>$perc,"percClass"=>$percClass));
     }
@@ -36,6 +46,7 @@ class WProfileInfo extends CWidget
         // this method is called by CController::endWidget()
     }
     
+    /*
     public static function calculatePerc(){
       $perc = 0; //rand(1,100);
 
@@ -50,6 +61,7 @@ class WProfileInfo extends CWidget
               "hint"=>"",
               "action"=>"",
               "active"=>false,
+              "weight"=>0
               )
         ID
         GROUP
@@ -57,7 +69,7 @@ class WProfileInfo extends CWidget
         HINT
         ACTION
         ACTIVE
-        */
+        * /
 
         if ($user->surname != '') $perc+=10;
         else $messages[] = array("hint"=>Yii::t('msg',"Try filling up your personal information."),
@@ -157,6 +169,6 @@ class WProfileInfo extends CWidget
         setFlash('WProfileInfoHint',array('msg'=>$messages[$rand]['hint'].' %s <span class="icon-long-arrow-right"></span>','actions'=>array(array('hint'=>Yii::t("app",'Do it now!'),'action'=>$messages[$rand]['action']))), "info", false);
         //Yii::app()->user->setFlash('WProfileInfoHint',$messages[$rand]);
       }
-    }
+    }*/
     
 }
