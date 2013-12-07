@@ -1527,7 +1527,7 @@ label{
 
 
 .flashes{
-  z-index: 10000;
+  z-index: 1;
   position: fixed;
   width:100%;
   max-width:62.5em; /* not cool on mobile */
