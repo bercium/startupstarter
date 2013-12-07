@@ -7,8 +7,8 @@ class WProfileInfo extends CWidget
     public function init()
     {
       $perc = Yii::app()->user->getState('percentage');
-      if ($perc < 40) $percClass = 'alert';
-      else if ($perc < 80) $percClass = '';
+      if ($perc < PROFILE_COMPLETENESS_MIN) $percClass = 'alert';
+      else if ($perc < PROFILE_COMPLETENESS_OK) $percClass = '';
       else $percClass = 'success';
       
       if ($this->style == 'sidebar'){
