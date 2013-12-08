@@ -40,3 +40,5 @@ Ideje:<br/>
 <a href="<?php echo Yii::app()->createUrl("backendIdeaMember"); ?>">Ideas Members</a><br />
 
 <br/>
+
+<a href="<?php echo Yii::app()->createUrl("site/recalcPerc"); ?>">Calculate percentage</a><br />

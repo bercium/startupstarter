@@ -46,10 +46,14 @@ class WInvitation extends CWidget
             }else{
               // invite outside the system
               
-              if (Yii::app()->user->isAdmin()){
+              if ($user->invitations > 0){
                 if ($invitation->save()){
                   $user->invitations = $user->invitations-1;
                   $user->save();
+                  
+                  $stat = UserStat::model()->findByAttributes(array('user_id'=>$user->id));
+                  $stat->invites_send = $stat->invites_send+1;
+                  $stat->save();
 
                   $idea = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$invitation->idea_id),array('order' => 'FIELD(language_id, 40) DESC'));
 
@@ -80,7 +84,7 @@ class WInvitation extends CWidget
                   setFlash("invitationMessage",Yii::t('msg','Invitation to add new member send.'));
 
                 }else setFlash("invitationMessage",Yii::t('msg','Unable to send invitation! Eather user is already invited or the email you provided is incorrect.'),'alert');
-              }else setFlash("invitationMessage",Yii::t('msg','Currently only users in the system can be invited to join projects.'),'alert');
+              }else setFlash("invitationMessage",Yii::t('msg','You can invite only users in the system to join projects.'),'alert');
             }
 
             

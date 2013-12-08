@@ -81,6 +81,14 @@ class RegistrationController extends Controller
                         $invited->registered = 1;
                         $invited->save();
                         
+                        if ($invited->sender_id){
+                          // whoever invited user add him a registered bonus
+                          $stat = UserStat::model()->findByAttributes(array('user_id'=>$invited->sender_id));
+                          $stat->invites_registered = $stat->invites_registered+1;
+                          $stat->save();
+                        }
+                        
+                        
                         $this->redirect(Yii::app()->createUrl("profile/registrationFlow",array("key"=>substr($model->activkey,0, 10),"email"=>$model->email)));
 
                         $this->render('/user/message',array('title'=>Yii::t('app','Registration'),"content"=>Yii::t('msg','Thank you for your registration. Please check your email.')));

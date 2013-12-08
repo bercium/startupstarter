@@ -33,7 +33,7 @@ class SiteController extends Controller
 				'users'=>array('@'),
 			),*/
 			array('allow', // allow admin user to perform actions:
-				'actions'=>array('list'),
+				'actions'=>array('list','recalcPerc'),
 				'users'=>Yii::app()->getModule('user')->getAdmins(),
 			),
 			array('deny',  // deny all users
@@ -423,5 +423,17 @@ class SiteController extends Controller
 		echo json_encode($response);
 		Yii::app()->end();
 	}
+  
+  // recalculate percentage for all users
+  public function actionRecalcPerc(){
+    $comp = new Completeness();
+    
+    $users = User::model()->findAll();
+    foreach ($users as $user){
+      $comp->init($user->id);
+      $comp->setPercentage($user->id);
+    }
+    $this->render("list");
+  }
 	
 }

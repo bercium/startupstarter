@@ -62,8 +62,10 @@ class WebUser extends CWebUser
         foreach ($userAttributes as $attrName=>$attrValue) {
             $this->setState($attrName,$attrValue);
         }
-        Yii::import("ext.ProfileInfo.WProfileInfo");
-        WProfileInfo::calculatePerc();
+        /*Yii::import("ext.ProfileInfo.WProfileInfo");
+        WProfileInfo::calculatePerc();*/
+        $c = new Completeness();
+        $c->setPercentage();
         
         // set user language
         if ($user->language_id !== null){

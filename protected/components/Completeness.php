@@ -50,7 +50,7 @@ class Completeness{
             "hint"=>Yii::t('msg',"Try filling up your personal information."),
             "action"=>Yii::app()->createUrl("profile")."#link_personal",
             "active"=>($user->address != ''),
-            "weight"=>7,
+            "weight"=>0,
             );      
 
       $this->details[] = array(
@@ -67,10 +67,10 @@ class Completeness{
             "group"=>Yii::t('app',"Personal information"),
             "name"=>Yii::t('app',"Bio"),
             "value"=>"",
-            "hint"=>Yii::t('msg',"Tel others something interesting about yourself."),
+            "hint"=>Yii::t('msg',"Tell others something interesting about yourself."),
             "action"=>Yii::app()->createUrl("profile")."#link_personal",
             "active"=>($user->bio != ''),
-            "weight"=>3,
+            "weight"=>0,
             );        
 
       //******************************************************************
@@ -112,8 +112,6 @@ class Completeness{
             "weight"=>7,
             );
 
-      $perc+=1;
-      $idMatch = $userMatch->id;
 
       $this->details[] = array(
             "group"=>Yii::t('app',"Profile details"),
@@ -121,11 +119,11 @@ class Completeness{
             "value"=>$userMatch->available,
             "hint"=>Yii::t('msg',"Fill up your profile details."),
             "action"=>Yii::app()->createUrl("profile"),
-            "active"=>($userMatch->available != ''),
-            "weight"=>15,
+            "active"=>($userMatch->available != 0),
+            "weight"=>10,
             );        
 
-      $count = UserCollabpref::Model()->count("match_id=:matchID", array("matchID" => $idMatch));
+      $count = UserCollabpref::Model()->count("match_id=:matchID", array("matchID" => $userMatch->id));
       $this->details[] = array(
             "group"=>Yii::t('app',"Profile details"),
             "name"=>Yii::t('app',"Collaboration"),
@@ -136,7 +134,7 @@ class Completeness{
             "weight"=>10,
             );
 
-      $count = UserSkill::Model()->count("match_id=:matchID", array("matchID" => $idMatch));
+      $count = UserSkill::Model()->count("match_id=:matchID", array("matchID" => $userMatch->id));
       $this->details[] = array(
             "group"=>Yii::t('app',"Profile details"),
             "name"=>Yii::t('app',"Skills"),
@@ -147,7 +145,7 @@ class Completeness{
             "weight"=>20,
             );
 
-      $ideaMember = IdeaMember::Model()->findAll("match_id=:matchID", array("matchID" => $idMatch));
+      $ideaMember = IdeaMember::Model()->findAll("match_id=:matchID", array("matchID" => $userMatch->id));
       $owner = 0;
       $member = 0;
       if ($ideaMember){

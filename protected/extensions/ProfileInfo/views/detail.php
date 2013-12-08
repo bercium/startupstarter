@@ -19,8 +19,6 @@
   <a class="button radius small-12"  href="#" data-dropdown="drop-invitation-msg"><?php echo Yii::t('app','Send invitation ({n})',array($invites)); ?></a>
   <?php } ?>
 
-
-
 </div>
 
 

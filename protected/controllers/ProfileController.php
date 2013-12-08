@@ -193,6 +193,8 @@ class ProfileController extends GxController {
 			            }
 
 						if ($match->save()) {
+              $c = new Completeness();
+              $c->setPercentage();
 							setFlash('personalMessage', Yii::t('msg',"Personal information saved."));
 							/* if (Yii::app()->getRequest()->getIsAjaxRequest())
 							  Yii::app()->end();
@@ -222,6 +224,8 @@ class ProfileController extends GxController {
           if (($c == 0) && ($match->save())) {
             if (Yii::app()->user->isGuest) setFlash('profileMessage', Yii::t('msg',"Profile details saved. Please check your mail for activation code."));
             else setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
+            $c = new Completeness();
+            $c->setPercentage();
           }else{
             setFlash('profileMessage', Yii::t('msg',"Unable to save profile details."),'alert');
           }
@@ -294,6 +298,8 @@ class ProfileController extends GxController {
 						$lang = Language::Model()->findByAttributes(array('id' => $user->language_id));
 						ELangPick::setLanguage($lang->language_code);
 					}
+          $c = new Completeness();
+          $c->setPercentage();
 
 					/* if (Yii::app()->getRequest()->getIsAjaxRequest())
 					  Yii::app()->end();
@@ -365,6 +371,8 @@ class ProfileController extends GxController {
 			if ($allgood) {
 				$return['message'] = Yii::t('msg', "Project removed successfully!");
 				$return['status'] = 0;
+        $c = new Completeness();
+        $c->setPercentage();
 			} else {
 				$return['message'] = Yii::t('msg', "Unable to remove project from your account.");
 				$return['status'] = 1;
@@ -410,6 +418,9 @@ class ProfileController extends GxController {
 				if ($allgood) {
 					$return['message'] = Yii::t('msg', "Successfully updated collaboration preferences!");
 					$return['status'] = 0;
+          
+          $c = new Completeness();
+          $c->setPercentage();
 				} else {
 					$return['message'] = Yii::t('msg', "Unable to update collaboration preferences.");
 					$return['status'] = 1;
@@ -488,7 +499,9 @@ class ProfileController extends GxController {
             }
 
             if ($user_skill->save()){
-
+              $c = new Completeness();
+              $c->setPercentage();
+              
               $skillset = Skillset::model()->findByPk($_POST['skillset']);
 
               $language = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
@@ -565,6 +578,9 @@ class ProfileController extends GxController {
 			if ($skill->delete()) { //delete
 				$return['message'] = '';
 				$return['status'] = 0;
+        
+        $c = new Completeness();
+        $c->setPercentage();        
 			} else {
 				$return['message'] = Yii::t('msg', "Unable to remove skill.");
 				$return['status'] = 1;
@@ -641,6 +657,9 @@ class ProfileController extends GxController {
 					$link->url = $linkURL;
 
 					if ($link->save()) {
+            $c = new Completeness();
+            $c->setPercentage();
+
 						$response = array("data" => array("title" => $_POST['UserLink']['title'],
 										"url" => $linkURL,
 										"id" => $link->id,
@@ -677,6 +696,9 @@ class ProfileController extends GxController {
 			$link = UserLink::Model()->findByAttributes(array('id' => $link_id,'user_id' => $user_id));
 
 			if ($link->delete()) {
+        $c = new Completeness();
+        $c->setPercentage();
+        
 				$response = array("data" => array("id" => $link_id),
 						"status" => 0,
 						"message" => "Link successfully removed from profile.");
