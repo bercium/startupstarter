@@ -3,8 +3,11 @@
 
 <div id="drop-invitation-msg" class="f-dropdown content small" data-dropdown-content>
   <div class="invitation-form">
-  <?php echo CHtml::beginForm('','post',array("class"=>"custom")); ?>
-
+  <?php echo CHtml::beginForm('','post',array("style"=>"margin-bottom:0;")); ?>
+      <strong class="description">
+      <?php echo Yii::t('msg','Remeber: people you invite will add to your overall credibility so be selective!'); ?>
+      </strong>
+      <br />
       <?php echo CHtml::label(Yii::t('app','Email'),'message'); ?>
       <div class="row collapse">
         <div class="small-9 columns">
