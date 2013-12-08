@@ -133,6 +133,10 @@ class WInvitation extends CWidget
               $user->invitations = $user->invitations-1;
               $user->save();
 
+              $stat = UserStat::model()->findByAttributes(array('user_id'=>$user->id));
+              $stat->invites_send = $stat->invites_send+1;
+              $stat->save();
+
               $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'">Register here</a>';
               $this->sendMail($invitation->email,
                               "You have been invited to join cofinder", 
