@@ -214,6 +214,7 @@
         <div class="social-links">
           <a href="https://www.facebook.com/cofinder.eu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-facebook.png"></a>
           <a href="https://www.linkedin.com/company/cofinder" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-linkedin.png"></a>
+          <a href="https://plus.google.com/+CofinderEu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-gplus.png"></a>
         </div>
         
 				<ul class="inline-list">
