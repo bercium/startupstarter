@@ -281,7 +281,10 @@ class ProfileController extends GxController {
 		$user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
 		//$fpi = !Yii::app()->user->getState('fpi'); // sinc it is not defined default value is 0 and it must be visible
 
-		
+    $us = UserStat::model()->findByAttributes(array("user_id"=>$user_id));
+        // set only if has invited at least 3 other people
+    $allowVanityURL = (($user->vanityURL != '') || ($us->invites_send > 2));
+        
 		if ($user) {
 
 			if (isset($_POST['UserEdit'])) {
@@ -291,9 +294,23 @@ class ProfileController extends GxController {
 
 				//unset($_POST['UserEdit']['fpi']); // since we don't have it in our user model
 				$_POST['UserEdit']['email'] = $user->email; // can't change email at this time!!!
+        
+        // set only if has invited at least 3 other people
+        if (!$allowVanityURL && ($_POST['UserEdit']['vanityURL'] != '')) $_POST['UserEdit']['vanityURL'] = '';
+        else{
+          // check validity of vanity URL in projects
+          if ($_POST['UserEdit']['vanityURL'] != $user->vanityURL){
+            $ideaURL = Idea::model()->findByAttributes(array('vanityURL'=>$_POST['UserEdit']['vanityURL']));
+            if ($ideaURL){
+              echo "b";
+              $user->addError('vanityURL', Yii::t('msg',"This custom URL already exists."));
+            }
+          }
+        }
+        
 				$user->setAttributes($_POST['UserEdit']);
-
-				if ($user->save()) {
+        
+				if (!$user->hasErrors() && $user->save()) {
 					if ($user->language_id !== null) {
 						$lang = Language::Model()->findByAttributes(array('id' => $user->language_id));
 						ELangPick::setLanguage($lang->language_code);
@@ -337,7 +354,7 @@ class ProfileController extends GxController {
 			$data['user'] = $sqlbuilder->load_array("user", $filter);
 			//$this->ideas = $data['user']['idea'];
 
-			$this->render('account', array('user' => $user, "passwordForm" => $form2, /*"fpi" => $fpi,*/ 'ideas'=>$data['user']['idea']));
+			$this->render('account', array('user' => $user, "passwordForm" => $form2, /*"fpi" => $fpi,*/ 'ideas'=>$data['user']['idea'],'allowVanityURL'=>$allowVanityURL));
 		}
 	}
 

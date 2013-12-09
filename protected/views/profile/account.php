@@ -36,6 +36,16 @@
         <span></span>
       </div>
     
+      <label for="UserEdit_vanityURL"><?php echo Yii::t('app',"Public name"); ?></label>
+      <?php if (!$allowVanityURL){ ?>
+        <span class="description"><?php echo Yii::t('msg',"Invite at least 3 people to get to chose your own personal URL."); ?><br />http://cofinder.eu/PUBLIC_NAME</span>
+        <?php echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary readonly","disabled"=>true)); ?>
+      <?php }else{ ?>
+        <span class="description"><?php echo Yii::t('msg',"Chose your own personal URL."); ?><br />http://cofinder.eu/PUBLIC_NAME</span>
+        <?php echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary")); ?>
+      <?php } ?>
+        
+        
       <?php /* echo CHtml::label(Yii::t("app","First page intro"),"fpi"); ?>
       <div class="switch small round small-4 large-3">
         <input id="fpi_0" name="UserEdit[fpi]" type="radio" value="0" <?php if (!$fpi) echo 'checked="checked"' ?>>

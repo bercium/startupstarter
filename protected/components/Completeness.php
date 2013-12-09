@@ -60,7 +60,7 @@ class Completeness{
             "hint"=>Yii::t('msg',"Selecting an avatar will make you more recognizable."),
             "action"=>Yii::app()->createUrl("profile")."#link_personal",
             "active"=>($user->avatar_link != ''),
-            "weight"=>12,
+            "weight"=>15,
             );
 
       $this->details[] = array(
@@ -89,7 +89,7 @@ class Completeness{
             "hint"=>Yii::t('msg',"Add some links."),
             "action"=>Yii::app()->createUrl("profile")."#link_personal",
             "active"=>($count > 0),
-            "weight"=>7,
+            "weight"=>5,
             );      
       
       $this->details[] = array(
@@ -131,7 +131,7 @@ class Completeness{
             "hint"=>Yii::t('msg',"What is your prefered Collaboration."),
             "action"=>Yii::app()->createUrl("profile"),
             "active"=>($count > 0),
-            "weight"=>10,
+            "weight"=>5,
             );
 
       $count = UserSkill::Model()->count("match_id=:matchID", array("matchID" => $userMatch->id));

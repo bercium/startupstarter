@@ -163,7 +163,7 @@
       <?php echo CHtml::errorSummary($user,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
       <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
     
-    <div class="">
+
       <div class="large-4 small-4 right columns">
       <?php 
        //echo Yii::app()->getBaseUrl(true)."/".Yii::app()->params['tempFolder'];
@@ -223,17 +223,20 @@
       <?php echo CHtml::activeTextField($match, 'city', array("class"=>"city")); ?>
 
       <?php echo CHtml::activeLabelEx($user,'address'); ?>
-      <?php echo CHtml::activetextField($user, 'address', array('maxlength' => 128)); ?>
+      <?php echo CHtml::activeTextField($user, 'address', array('maxlength' => 128)); ?>
 
-      <?php echo CHtml::activeLabelEx($user,'bio'); ?>
-      <?php echo CHtml::activetextField($user, 'bio', array()); ?>
 
-    
-      <?php echo CHtml::submitButton(Yii::t("app","Save"),
-            array('class'=>"button small success radius")
-        ); ?>
-      <?php echo CHtml::endForm(); ?>
     </div>
+    
+      <div class="columns">      
+        <?php echo CHtml::activeLabelEx($user,'bio'); ?>
+        <?php echo CHtml::activeTextArea($user, 'bio', array()); ?>
+        <br />
+
+        <?php echo CHtml::submitButton(Yii::t("app","Save"),
+              array('class'=>"button small success radius")
+          ); ?>
+        <?php echo CHtml::endForm(); ?>
       </div>
       
    
