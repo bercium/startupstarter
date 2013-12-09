@@ -71,13 +71,17 @@ class TranslationController extends Controller
     if (isset($_POST['language']) && isset($_POST['codelist'])){
       
       if (isset($_POST['Translations'])){
-        foreach ($_POST['Translations'] as $id=>$trans){
+        foreach ($_POST['Translations'] as $id => $trans){
           if ($trans){
-            $meta=new Translation;
-            $meta->language_id = $_POST['language'];
-            $meta->table = $_POST['codelist'];
-
-            $meta->row_id = $id;
+            $meta = Translation::model()->findByAttributes(array('language_id'=>$_POST['language'],
+                                                                 'table'=>$_POST['codelist'],
+                                                                 'row_id'=>$id));
+            if (!$meta){
+              $meta = new Translation;
+              $meta->language_id = $_POST['language'];
+              $meta->table = $_POST['codelist'];
+              $meta->row_id = $id;
+            }
             $meta->translation = $trans;
             $meta->save();
           }
