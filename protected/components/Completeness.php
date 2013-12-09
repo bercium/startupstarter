@@ -178,6 +178,38 @@ class Completeness{
             "weight"=>5,
             );
 
+      //*********************************************************************
+      // SETTINGS
+      //*********************************************************************
+      
+      $this->details[] = array(
+            "group"=>Yii::t('app',"Settings"),
+            "name"=>Yii::t('app',"Page language"),
+            "value"=>"", //Yii::t('app',"{n} skills|{n} skills",array($count)),
+            "hint"=>Yii::t('msg',"Set your prefered language."),
+            "action"=>Yii::app()->createUrl("profile/account"),
+            "active"=>($user->language_id),
+            "weight"=>0,
+            );      
+      $this->details[] = array(
+            "group"=>Yii::t('app',"Settings"),
+            "name"=>Yii::t('app',"Newsletter"),
+            "value"=>"", //Yii::t('app',"{n} skills|{n} skills",array($count)),
+            "hint"=>Yii::t('msg',"We can keep you updated"),
+            "action"=>Yii::app()->createUrl("profile/account"),
+            "active"=>$user->newsletter,
+            "weight"=>5,
+            );      
+      $this->details[] = array(
+            "group"=>Yii::t('app',"Settings"),
+            "name"=>Yii::t('app',"Public name"),
+            "value"=>"", //Yii::t('app',"{n} skills|{n} skills",array($count)),
+            "hint"=>Yii::t('msg',"You will be more easyly accesed"),
+            "action"=>Yii::app()->createUrl("profile/account"),
+            "active"=>($user->vanityURL != ''),
+            "weight"=>0,
+            );      
+      
       return $this->details;
     }
   }

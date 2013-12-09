@@ -377,7 +377,7 @@ function writeFlashes(){
     }
     $html .= '</div></div>';
     if ($nh > 0){
-      $html .= '<div class="flashes-margin" style="height:'.($nh*30-20).'px;"></div>';
+      $html .= '<div class="flashes-margin" style="height:'.($nh*30-15).'px;"></div>';
     }
     if ($i > 0){ 
       echo $html;
