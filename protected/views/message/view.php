@@ -43,7 +43,7 @@
             ?>
             <div class="section-container sidebar accordion" data-section>
               <?php foreach ($msgList['users'] as $listPeople){ ?>
-              <section class="section <?php if (($listPeople['id'] == $_GET['id']) && ($group == "user"))  echo "active"; ?>">
+              <section class="section <?php if (isset($_GET['id']) && ($listPeople['id'] == $_GET['id']) && ($group == "user"))  echo "active"; ?>">
                 <p class="title"><a href="<?php echo Yii::app()->createUrl("message/view",array("id"=>$listPeople['id'],"group"=>'user')); ?>"><?php echo $listPeople['name']; ?></a></p>
               </section>
               <?php } ?>
@@ -63,7 +63,7 @@
             ?>
             <div class="section-container sidebar accordion" data-section>
               <?php foreach ($msgList['projects'] as $listProject){ ?>
-              <section class="section <?php if (($listProject['id'] == $_GET['id']) && ($group == "project"))  echo "active"; ?>">
+              <section class="section <?php if (isset($_GET['id']) && ($listProject['id'] == $_GET['id']) && ($group == "project"))  echo "active"; ?>">
                 <p class="title"><a href="<?php echo Yii::app()-> createUrl("message/view",array("id"=>$listProject['id'],"group"=>'project')); ?>"><?php echo $listProject['name']; ?></a></p>
               </section>
               <?php } ?>
@@ -81,7 +81,7 @@
     
   </div>
   <div class="large-8 columns">
-    <?php if ($chatList['name']){ ?>
+    <?php if (isset($_GET['id']) && $chatList['name']){ ?>
       <div class="columns edit-header">
         
         <?php if ($group == 'user'){ ?>
