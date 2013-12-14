@@ -23,7 +23,7 @@
         <section class="section <?php echo isMenuItemActive(array("create","projects","edit")); ?>">
           <p class="title">
             <a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>"><span class="icon-lightbulb"></span>
-              <?php echo Yii::t('app','Projects'); ?>
+              <?php echo Yii::t('app','My projects'); ?>
             </a>
           </p>
         </section>
@@ -31,7 +31,7 @@
           <p class="title"><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><span class="icon-wrench"></span><?php echo Yii::t('app','Settings'); ?></a></p>
         </section>
         <section class="section <?php echo isMenuItemActive("message"); ?>">
-          <p class="title"><a href="<?php echo Yii::app()->createUrl("message/view"); ?>"><span class="icon-flag"></span><?php echo Yii::t('app','Messages'); ?></a></p>
+          <p class="title"><a href="<?php echo Yii::app()->createUrl("message/view"); ?>"><span class="icon-flag"></span><?php echo Yii::t('app','Message history'); ?></a></p>
         </section>
         
         <?php //if(Yii::app()->user->isAdmin()){ ?>
