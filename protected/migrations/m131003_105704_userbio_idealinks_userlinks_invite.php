@@ -24,11 +24,11 @@ class m131003_105704_userbio_idealinks_userlinks_invite extends CDbMigration
 		$this->execute('ALTER TABLE  `invite` CHANGE  `id_sender`  `sender_id` INT( 11 ) UNSIGNED NOT NULL');
 		$this->execute('ALTER TABLE  `invite` CHANGE  `id_idea`  `idea_id` INT( 11 ) UNSIGNED NULL DEFAULT NULL');
 		$this->execute('ALTER TABLE  `invite` CHANGE  `id_receiver`  `receiver_id` INT( 11 ) UNSIGNED NULL DEFAULT NULL');
-		$this->execute('ALTER TABLE  `invite` ADD FOREIGN KEY (  `sender_id` ) REFERENCES  `slocoworking`.`user` (
+		$this->execute('ALTER TABLE  `invite` ADD FOREIGN KEY (  `sender_id` ) REFERENCES  `user` (
 		`id`) ON DELETE CASCADE ON UPDATE CASCADE');
-		$this->execute('ALTER TABLE  `invite` ADD FOREIGN KEY (  `idea_id` ) REFERENCES  `slocoworking`.`idea` (
+		$this->execute('ALTER TABLE  `invite` ADD FOREIGN KEY (  `idea_id` ) REFERENCES  `idea` (
 		`id`) ON DELETE CASCADE ON UPDATE CASCADE');
-		$this->execute('ALTER TABLE  `invite` ADD FOREIGN KEY (  `receiver_id` ) REFERENCES  `slocoworking`.`user` (
+		$this->execute('ALTER TABLE  `invite` ADD FOREIGN KEY (  `receiver_id` ) REFERENCES  `user` (
 		`id`) ON DELETE CASCADE ON UPDATE CASCADE');
 	}
 

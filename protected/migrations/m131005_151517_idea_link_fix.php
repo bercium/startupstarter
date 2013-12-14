@@ -4,13 +4,13 @@ class m131005_151517_idea_link_fix extends CDbMigration
 {
 	public function up()
 	{
-    $this->execute('ALTER TABLE `slocoworking`.`invite` DROP INDEX `id_sender` ,
+    $this->execute('ALTER TABLE `invite` DROP INDEX `id_sender` ,
                     ADD INDEX `sender_id` ( `sender_id` )');
 
-    $this->execute('ALTER TABLE `slocoworking`.`invite` DROP INDEX `id_idea` ,
+    $this->execute('ALTER TABLE `invite` DROP INDEX `id_idea` ,
                     ADD INDEX `idea_id` ( `idea_id` )');
 
-    $this->execute('ALTER TABLE `slocoworking`.`invite` DROP INDEX `id_receiver` ,
+    $this->execute('ALTER TABLE `invite` DROP INDEX `id_receiver` ,
                     ADD INDEX `receiver_id` ( `receiver_id` ) ');
 	}
 

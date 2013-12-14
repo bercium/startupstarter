@@ -19,7 +19,7 @@ class m131207_111756_user_stat_table extends CDbMigration
       `user_id`
       )");
     
-    $this->execute("ALTER TABLE `user_stat` ADD FOREIGN KEY ( `user_id` ) REFERENCES `slocoworking`.`user` (
+    $this->execute("ALTER TABLE `user_stat` ADD FOREIGN KEY ( `user_id` ) REFERENCES `user` (
       `id`
       ) ON DELETE CASCADE ON UPDATE CASCADE ;");
     
