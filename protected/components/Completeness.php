@@ -221,7 +221,7 @@ class Completeness{
     if ($user_id == null) $user_id = Yii::app()->user->id;
     $stat = UserStat::model()->findByAttributes(array("user_id"=>$user_id));
     
-    if ($stat->completeness) return $stat->completeness;
+    if ($stat && $stat->completeness) return $stat->completeness;
     else return 4;
   }
   
