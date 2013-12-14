@@ -38,13 +38,29 @@
     
       <label for="UserEdit_vanityURL"><?php echo Yii::t('app',"Public name"); ?></label>
       <?php if (!$allowVanityURL){ ?>
-        <span class="description"><?php echo Yii::t('msg',"Invite at least 3 people to get to chose your own personal URL."); ?><br />http://cofinder.eu/PUBLIC_NAME</span>
-        <?php echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary readonly","disabled"=>true)); ?>
+        <span class="description"><?php echo Yii::t('msg',"Invite at least 3 people to get to chose your own personal URL."); ?></span>
       <?php }else{ ?>
-        <span class="description"><?php echo Yii::t('msg',"Chose your own personal URL."); ?><br />http://cofinder.eu/PUBLIC_NAME</span>
-        <?php echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary")); ?>
+        <span class="description"><?php echo Yii::t('msg',"Chose your own personal URL."); ?></span>
+        
       <?php } ?>
         
+        <div class="row collapse">
+    <div class="small-5 columns">
+      <span class="prefix">www.cofinder.eu/</span>
+    </div>
+    <div class="small-7 columns">
+      <?php if (!$allowVanityURL) {
+         echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary readonly","disabled"=>true)); 
+        }else{ 
+          echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary")); 
+        }?>
+    </div>        
+      <?php /*if (!$allowVanityURL){ ?>
+        <div class="small-2 columns">
+          <a data-dropdown="drop-invitation-msg" href="#" class="postfix button radius">Invite</a>
+        </div>
+      <?php } */ ?>
+    </div>
         
       <?php /* echo CHtml::label(Yii::t("app","First page intro"),"fpi"); ?>
       <div class="switch small round small-4 large-3">
