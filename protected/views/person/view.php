@@ -193,12 +193,11 @@ $user = $data['user'];
 					<!-- <hr> -->
 
 					<h3 class="edit-content-title">
-				<span class="icon-info ico-awesome"></span> Nekaj o meni:
+				<span class="icon-info ico-awesome"></span> <?php echo Yii::t('app','My personal bio'); ?>
 				</h3>
 
 				<p class="meta-field">
-					Pri cofinderju skrbim za motivacijo ekipe in nemoten razvoj. Trudim pa se k sodelovanju privabiti čimveč ljudi. 
-					Lorem Ipsum je slepi tekst, ki se uporablja pri razvoju tipografij in pri pripravi za tisk. Lorem Ipsum je v uporabi že več kot petsto let saj je to kombinacijo znakov neznani tiskar združil v vzorčno knjigo že v začetku 16. stoletja.
+          <?php echo $user['bio']; ?>
 				</p>
 			 
 			

@@ -1,5 +1,5 @@
  <div class="columns radius panel card-idea">
-    <div class="row card-idea-title" onclick="window.open('<?php echo Yii::app()->createUrl("project/".$idea['id']); ?>','_blank')">
+    <div class="row card-idea-title" onclick="location.href='<?php echo Yii::app()->createUrl("project",array("id"=>$idea['id'])); ?>';">
       <div class="columns" >
         <h5><?php echo trim_text($idea['title'],60); ?></h5>
         
@@ -69,7 +69,7 @@
               foreach ($idea['member'] as $member){
                 $i++; if ($i > 3) break;
               ?>
-                <a href="<?php echo Yii::app()->createUrl("person/".$member['id']); ?>">
+                <a href="<?php echo Yii::app()->createUrl("person",array("id"=>$member['id'])); ?>">
                   <img src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" data-tooltip title="<?php echo $member['name']." ".$member['surname']; ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="card-avatar" />
                 </a>
               <?php } 
@@ -92,7 +92,7 @@
           else if ($idea['days_updated'] == 1) echo Yii::t('app','Updated yesterday');
           else echo Yii::t('app','Updated {n} day ago|Updated {n} days ago',array($idea['days_updated'])); ?></small>
           <div class="card-floater">
-            <a class="tiny button secondary radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("project/".$idea['id']); ?>" target="_blank"><?php echo Yii::t('app','details').' <span class="icon-angle-right"></span>'; ?></a>
+            <a class="tiny button secondary radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("project",array("id"=>$idea['id'])); ?>" target=""><?php echo Yii::t('app','details').' <span class="icon-angle-right"></span>'; ?></a>
           </div>
         </div>
         </div>

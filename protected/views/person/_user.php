@@ -1,5 +1,5 @@
 <div class="columns radius panel card-person">
-    <div class="row card-person-title" onclick="window.open('<?php echo Yii::app()->createUrl("person/".$user['id']); ?>','_blank')">
+    <div class="row card-person-title" onclick="location.href='<?php echo Yii::app()->createUrl("person",array("id"=>$user['id'])); ?>';">
       <div class="columns" >
         <img src="<?php echo avatar_image($user['avatar_link'],$user['id'],60); ?>" style="height:36px; margin-right: 10px; float:left; margin-top:5px;" />
         <h5><?php echo $user['name']." ".$user['surname']; ?></h5>
@@ -110,7 +110,7 @@
               </table>     
         
         <div class="card-floater">
-          <a class="tiny button secondary right radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>" target="_blank"><?php echo Yii::t('app','details').' <span class="icon-angle-right"></span>'; ?></a>
+          <a class="tiny button secondary right radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person",array("id"=>$user['id'])); ?>" target=""><?php echo Yii::t('app','details').' <span class="icon-angle-right"></span>'; ?></a>
         </div>
 		  </div>
 	  </div>
