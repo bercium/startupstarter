@@ -49,7 +49,9 @@
                   echo Yii::t('app','Looking for <a>{n} person</a> skilled in|Looking for <a>{n} people</a> skilled in',array(count($idea['candidate']))).": <br />";
 									foreach ($skills as $skillset=>$skill){
 										?>
+                    <?php if ($skillset != '...') { ?><a href="<?php echo Yii::app()->createURL("person/discover",array("SearchForm"=>array("skill"=>$skillset))); ?>"><?php } ?>
 										<span class="label radius meta_tags" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
+                    <?php if ($skillset != '...') { ?></a><?php } ?>
 										<?php 
 									}
 								}else echo Yii::t('app','Looking for <a>{n} person</a>|Looking for <a>{n} people</a>',array(count($idea['candidate'])));

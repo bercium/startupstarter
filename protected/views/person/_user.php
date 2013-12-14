@@ -98,7 +98,9 @@
                     <?php 
                      foreach ($skills as $skillset=>$skill){
                           ?>
-                    <span class="label radius success-alt meta_tags"<?php if(count($skill)) echo " data-tooltip title='".implode("<br />",$skill)."'"; ?>><?php echo $skillset; ?></span>
+                          <?php if ($skillset != '...'){ ?><a href="<?php echo Yii::app()->createURL("person/discover",array("SearchForm"=>array("skill"=>$skillset))); ?>"><?php } ?>
+                          <span class="label radius success-alt meta_tags"<?php if(count($skill)) echo " data-tooltip title='".implode("<br />",$skill)."'"; ?>><?php echo $skillset; ?></span>
+                          <?php if ($skillset != '...') { ?></a><?php } ?>
                             <?php 
                           }
                         }
