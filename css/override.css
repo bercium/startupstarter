@@ -86,7 +86,7 @@ h6 {
  
  .top-bar-section .dropdown li a.altli  {
   background: #F9F9F7;
-   box-shadow: 0 5px 6px rgba(0, 0, 0, 0.06) inset;
+   
  }
 
 .top-bar-section .dropdown li a.altli:hover {
@@ -313,12 +313,12 @@ a:hover, a:focus { color: #3c76d6; }
 
 .label{
   
-	background-color: #d05c15;
+	background-color: #999999;
 	color: #fff;
-  padding: 0.4em 0.6em 0.4em;
+  padding: 0.3em 0.6em 0.4em 0.6em;
   font-weight: normal;
   margin-right: 5px;
-   
+  font-size: 12px; 
 
 }
 
@@ -336,16 +336,25 @@ a:hover, a:focus { color: #3c76d6; }
 }
 
 
+button.secondary, .button.secondary {
+    background-color: #F9F9F7;
+    border-color: #D0D0D0;
+    color: #333333;
+}
+
 .button{
   -webkit-box-shadow:none;
+
+
 }
 
 button, .button {
   background-color: #4469a6;
   box-shadow: 0 0 3px 0 #4469a6;
   border-color: #4469a6;
-  box-shadow:none;
+  box-shadow:none;  
 }
+
 button:hover, button:focus, .button:hover, .button:focus { background-color: #355282; }
 button.success, .button.success {
     background-color: #89b561;

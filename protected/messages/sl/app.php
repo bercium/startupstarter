@@ -289,7 +289,7 @@ return array (
   'Your email' => 'Vaš email',
   'are required' => 'so obvezna',
   'created on' => 'ustvarjeno dne',
-  'details' => 'podrobnosti',
+  'details' => 'podrobno',
   'email' => 'email',
   'has <span>{n} member</span>| has <span>{n} members</span>' => '',
   'or' => 'ali',

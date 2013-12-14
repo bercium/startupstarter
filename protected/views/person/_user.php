@@ -61,7 +61,7 @@
                     <?php 
                      foreach ($skills as $skillset=>$skill){
                           ?>
-                    <span class="label success radius meta_tags"<?php if(count($skill)) echo " data-tooltip title='".implode("<br />",$skill)."'"; ?>><?php echo $skillset; ?></span>
+                    <span class="label radius"<?php if(count($skill)) echo " data-tooltip title='".implode("<br />",$skill)."'"; ?>><?php echo $skillset; ?></span>
                             <?php 
                           }
                         }

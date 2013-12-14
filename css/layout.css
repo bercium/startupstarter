@@ -267,7 +267,7 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 	border-top: 1px solid #ddd;
 	padding: 13px 10px 10px 10px;
 	right: 0;
-	box-shadow: 0 5px 6px rgba(0, 0, 0, 0.06) inset;
+	
 }
 
 .card-person-footer .left {
@@ -313,14 +313,7 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 
 /* $card general */
 /*****************/
-.card-content .meta_tags {
-	letter-spacing: 0px;
-	
-    font-size: 12px;
-    letter-spacing: 0.05em;
-    line-height: 0.7em;    
-    margin: 2px 4px 4px 0;
-}
+
 
 .card-content .meta_tags .label {
 	padding: 3px;
@@ -782,6 +775,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 }
 
 
+.expose {
+	background: 
+}
+
+
 .fancy.panel {
 	box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.7);
 
@@ -1144,13 +1142,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 }
 
 .subinfo  {
-	background: #f9f9f7;
-	
-
-	
-  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.06) inset;
-  border-top: 2px solid #89B561;
- 
+	background: #f9f9f7; 
+    border-top: 2px solid #89B561; 
 	display: block;
 }
 
@@ -1159,14 +1152,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 	line-height: 0;
 }
 
-
-
-
 .card-summary p{
   font-size: 0.9em;
   margin-bottom: 10px;
 }
-
 
 
 .bottom-section {

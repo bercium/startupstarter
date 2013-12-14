@@ -29,9 +29,7 @@ $user = $data['user'];
 		<br>
 	
 	
-	</div>
 
-	<div class="panel">
 		<h1 class=""><?php echo $user['name'] . " " . $user['surname']; ?></h1>
 
 	<div class="item">
@@ -67,24 +65,19 @@ $user = $data['user'];
 
 	
 
-	<div class="panel">
-	<p>
-	<h4><?php echo Yii::t('app', 'Registered') ?>:</h4>
-	<span class="meta"><!-- <?php // echo Yii::t('app', 'Member since') ?>:  -->
-	<?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($user['create_at']), "long", null); ?></span>
-	</p>
-	</div>
+	
 
 	<?php if (count($user['link']) > 0) { ?>
 	
 	<!-- <p class="meta-field"><?php // echo Yii::t('app', 'My links') ?>:</p> -->
 	<div class="panel">
+		<div class="item">
 		<h4 class=""> <?php echo Yii::t('app', 'Links') ?>:</h4>
 	<?php 
 	foreach ($user['link'] as $link) {
 	?>
 	
-	<p><span class="meta"><a href="<?php echo add_http($link['url']); ?>" target="_blank">
+	<p><span class=""><a href="<?php echo add_http($link['url']); ?>" target="_blank">
 	<img class="link-icon" src="<?php echo getLinkIcon($link['url']); ?>">
 	<?php echo $link['title']; ?>  </a></span>
 	</p>
@@ -92,7 +85,16 @@ $user = $data['user'];
 	}
 	?>
 	<?php } ?>
-	</div>	
+	</div>
+
+	
+	<p>
+	<h4><?php echo Yii::t('app', 'Registered') ?>:</h4>
+	<span class=""><!-- <?php // echo Yii::t('app', 'Member since') ?>:  -->
+	<?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($user['create_at']), "long", null); ?></span>
+	</p>
+	</div>
+
 
 		
 
@@ -106,10 +108,10 @@ $user = $data['user'];
 		<hr>
 		<?php 
 		foreach ($user['skillset'] as $skillset){
-		echo "<div class='skillgroup'><h4>".$skillset['skillset'].":</h4> ";
+		echo "<div class='panel radius'><h4>".$skillset['skillset'].":</h4> ";
 		foreach ($skillset['skill'] as $skill){ ?>
 
-		<span data-alert class="label success  radius profile-skills" id="skill_<?php echo $skill['id']; ?>">
+		<span data-alert class="label radius profile-skills" id="skill_<?php echo $skill['id']; ?>">
 		<?php echo $skill['skill'].""; ?>
 		</span>
 
@@ -157,7 +159,7 @@ $user = $data['user'];
 
 		<?php }  {
 			?>
-			<div class="alert-box"><?php  echo Yii::t('app','Bummer. User doesnt have this filled out yet.');  ?></div>
+			<div class="description"><?php  echo Yii::t('app','User doesn\'t have this filled out yet.');  ?></div>
 
 			<?php } ?>	
 		
@@ -186,18 +188,12 @@ $user = $data['user'];
 		<?php
 		if (is_array($user['idea']))
 		foreach ($user['idea'] as $idea_data) {
-		?><div class="idea-list radius panel"><a class="" href="<?php echo Yii::app()->createUrl("project/" . $idea_data['id']); ?>"><h5><span class="icon-angle-right"></span> <?php echo $idea_data['title']; ?></h5></a>
+		?><div class="idea-list radius panel"><a class="" href="<?php echo Yii::app()->createUrl("project/" . $idea_data['id']); ?>"><h5><?php echo $idea_data['title']; ?></h5></a>
 
 			
-		<br>
+		
 
-		<div class="">
-		        <small class="meta left">Posodobljeno 8 dni nazaj</small>
-		        <div class="right">
-		          <a target="_blank" href="/yii/startupstarter/project/5" class="tiny button secondary radius">podrobnosti <span class="icon-angle-right"></span></a>
-		        </div>
-		      </div>
-		      <div class="clearbox"></div>
+				      <div class="clearbox"></div>
 
 
 

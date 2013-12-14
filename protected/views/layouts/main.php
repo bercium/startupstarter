@@ -95,20 +95,15 @@
               </li>
               <li class="divider"></li>
               <?php */ ?>
-              <li class="<?php echo isMenuItemActive("about"); ?> desc">
-                <a href="<?php echo Yii::app()->createUrl("site/about"); ?>">
-                <?php echo Yii::t('app','What is {bs}cofinder{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
-                </a>
-                
-              </li>
-              <li class="divider"></li>
+             
+             
               <li class="<?php echo isMenuItemActive("discover","person"); ?> desc">
-                <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>"><?php echo Yii::t('app','Find {bs}talent{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
+                <a class="expose" href="<?php echo Yii::app()->createUrl("person/discover"); ?>"><?php echo Yii::t('app','Find {bs}talent{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","project"); ?> desc">
-                <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>"><?php echo Yii::t('app','Discover {bs}projects{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
+                <a class"expose" href="<?php echo Yii::app()->createUrl("project/discover"); ?>"><?php echo Yii::t('app','Discover {bs}projects{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 
                 </a>
               </li>

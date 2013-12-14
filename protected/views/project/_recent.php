@@ -14,7 +14,7 @@
   </ul>
 
 	<div class="pagination-centered">
-		<small class="hide-for-small"><a href="<?php echo Yii::app()->createUrl("project/recent"); ?>" class="right button small secondary"><?php echo Yii::t('app','show all'); ?> </a></small>
+		<small class="hide-for-small"><a href="<?php echo Yii::app()->createUrl("project/recent"); ?>" class="right button radius small secondary"><?php echo Yii::t('app','show all'); ?> </a></small>
 		
 		<ul class="pagination hide-for-small">
 			<?php if ($page > 1){ ?>

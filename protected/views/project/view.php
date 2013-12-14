@@ -226,18 +226,10 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact",array("id"=>$idea[
         <?php } ?>
         </div>
 
-        <div class="panel"><h4 class="l-iblock"><?php echo Yii::t('app','Author'). ":</h4>"  ; ?>
-            <a href="<?php echo Yii::app()->createUrl("person/".$member['id']); ?>">
-            <img src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" data-tooltip title="<?php echo $member['name']." ".$member['surname']; ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="mini-avatar" />
-            </a>
-        </div>
+        
 
        
-         <div class="panel">
-            <span class="icon-refresh"></span>
-            <h4 class="l-iblock">
-            <?php echo Yii::t('app','Last updated').": </h4> ".Yii::app()->dateFormatter->formatDateTime(strtotime($idea['date_updated']),"long",null); ?>
-        </div>          
+                  
 
         <?php if ($idea['website']){ ?>        
         <div class="panel">
@@ -274,6 +266,11 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact",array("id"=>$idea[
         </div>
         <?php ?>  
 
+        <div class="panel">
+            
+            <h4 class="l-block"><span class="icon-refresh"></span>
+            <?php echo Yii::t('app','Last updated').": </h4><p>".Yii::app()->dateFormatter->formatDateTime(strtotime($idea['date_updated']),"long",null); ?></p>
+        </div> 
               
         
     </div><!-- large-4 side -->

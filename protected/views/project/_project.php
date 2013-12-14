@@ -65,7 +65,7 @@
                   echo Yii::t('app','Looking for <span class="label success radius">{n}</span> person skilled in|Looking for <a>{n} people</a> skilled in',array(count($idea['candidate']))).": <br />";
                   foreach ($skills as $skillset=>$skill){
                   ?>
-                  <span class="label radius meta_tags" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
+                  <span class="label radius" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
                   <?php 
                   }
                   }else echo Yii::t('app','Looking for <a>{n} person</a>|Looking for <a>{n} people</a>',array(count($idea['candidate'])));
