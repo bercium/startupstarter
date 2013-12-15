@@ -22,13 +22,35 @@ body{
 
 
 
+
 /* #   $foundation overrides & fixes
 ================================================== */
 
 body, h1, h2, h3, h4, h5, h6 {
-  font-family: Arial, sans-serif;
+  font-family: 'Open Sans', Arial, sans-serif;
   font-weight: normal;
 }
+
+h1 {
+  font-size: 1.6875em; }
+
+h2 {
+  font-size: 1.375em; }
+
+h3 {
+  font-size: 1.125em; }
+
+h4 {
+  font-size: 1.125em; }
+
+h5 {
+  font-size: 1em; }
+
+
+h6 {
+  font-size: 0.8em; }
+
+
 
 
 .top-bar-holder{
@@ -58,12 +80,13 @@ body, h1, h2, h3, h4, h5, h6 {
 
 
   .top-bar-section .dropdown li  a:hover     {
-    background: #f0f0f0;
+    background: #F9F9F7;
   }
 
  
  .top-bar-section .dropdown li a.altli  {
-  background: #f0f0f0;
+  background: #F9F9F7;
+   
  }
 
 .top-bar-section .dropdown li a.altli:hover {
@@ -119,12 +142,16 @@ body, h1, h2, h3, h4, h5, h6 {
   color: #221E1D;
 }
 
-.panel h1, .panel h2, .panel h3, .panel h4, .panel h5, .panel h6, .panel p {
-    
-    font-weight: 100;
+
+
+.panel {
+  background: #F9F9F7; 
 }
 
-.panel .label { font-weight: bold;}
+.lb.panel {
+  border-left: 3px solid #89B561;
+}
+
 
 .section-container > section.active > .title, 
 .section-container > .section.active > .title, 
@@ -132,6 +159,73 @@ body, h1, h2, h3, h4, h5, h6 {
 .section-container.auto > .section.active > .title {
       background: #ddd; }
 
+/* Sections */
+.section-container.auto > section > .title a, .section-container.auto > .section > .title a {
+  font-size: 0.5em;
+ 
+}
+
+.section-container.tabs > section > .title, .section-container.tabs > .section > .title{
+  background: #F9F9F7;
+}
+.section-container.tabs > section > .title:hover, .section-container.tabs > .section > .title:hover  {
+  background: #F2F2EA;  
+}
+
+
+.section-container.tabs > section .content, .section-container.tabs > .section .content {
+  padding-top:  8px;
+}
+
+.section-container.tabs > section > .title a, .section-container.tabs > .section > .title a {
+   padding: 8px 10px;
+}
+
+.section-container section, .section-container .section, .section-container.auto section, .section-container.auto .section {
+  border: none;
+}
+
+.section-container.tabs > section .content, .section-container.tabs > .section .content {
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+.section-container.tabs > section.active > .title, .section-container.tabs > .section.active > .title {
+  border-top: 1px solid #89B561;
+}
+
+
+.section-container.tabs > section.active > .title:hover, .section-container.tabs > .section.active > .title:hover  {
+  background: #fff;
+}
+
+
+.section-container > section .content, .section-container > .section .content, .section-container.auto > section .content, .section-container.auto > .section .content {
+  font-size: 0.8em;
+}
+
+/* Accordion */
+.section-container > section > .title, .section-container > .section > .title, .section-container.auto > section > .title, .section-container.auto > .section > .title {
+  background: #F9F9F7;
+  border-bottom: 1px solid #ddd;
+}
+
+
+.sidebar .nob p {
+  border-bottom: none !important;
+}
+
+
+.section-container section.active .title, .section-container .section.active .title, .section-container.auto section.active .title, .section-container.auto .section.active .title,
+.section-container > section > .title:hover, .section-container > .section > .title:hover, .section-container.auto > section > .title:hover, .section-container.auto > .section > .title:hover  {
+   background-color: #EEE; 
+   }
+
+
+.section-container > section.active > .title a, .section-container > .section.active > .title a, .section-container.auto > section.active > .title a, .section-container.auto > .section.active > .title a,
+.section-container > section.active > .title a span, .section-container > .section.active > .title a span, .section-container.auto > section.active > .title a span, .section-container.auto > .section.active > .title a span  {
+  color: #89B561;
+}
 
 
 /* Progress Bar */
@@ -220,36 +314,63 @@ a:hover, a:focus { color: #3c76d6; }
 
 
 .label{
-	background-color: #8CA1C6;
-	/*box-shadow: 0 1px 0 0px #6d83a9;*/
+  
+	background-color: #999999;
 	color: #fff;
-  padding: 0.4em 0.6em 0.4em;
+  padding: 0.3em 0.6em 0.4em 0.6em;
+  font-weight: normal;
+  margin-right: 5px;
+  font-size: 12px; 
+
+}
+
+.secondary.label  {
+  background: #F9F9F7;
+  border: 1px solid #ddd;
+  
+ 
+}
+
+.success.label {
+  
+  
+
 }
 
 
+button.secondary, .button.secondary {
+    background-color: #F9F9F7;
+    border-color: #D0D0D0;
+    color: #333333;
+}
+
 .button{
   -webkit-box-shadow:none;
+
+
 }
 
 button, .button {
   background-color: #4469a6;
-  border-color: #355282;
-  box-shadow:none;
+  box-shadow: 0 0 3px 0 #4469a6;
+  border-color: #4469a6;
+  box-shadow:none;  
 }
+
 button:hover, button:focus, .button:hover, .button:focus { background-color: #355282; }
 button.success, .button.success {
     background-color: #89b561;
-    border-color: #6a9446; 
+    border-color: #89b561; 
 }
 button.success:hover, button.success:focus, .button.success:hover, .button.success:focus { background-color: #6a9446; }
 button.alert, .button.alert {
     background-color: #A83C3C;
-    border-color: #a5292c;
+    border-color: #A83C3C;
 }
 button.alert:hover, button.alert:focus, .button.alert:hover, .button.alert:focus { background-color: #a5292c; }
 button.disabled, button[disabled], .button.disabled, .button[disabled] {
     background-color: #4469a6;
-    border-color: #355282;
+    border-color: #4469a6;
 }
 button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus {
       background-color: #355282; }
@@ -279,7 +400,7 @@ form.custom .custom.checkbox.checked:before{
 
 
 
-.top-bar-section li.desc a{
+.top-bar-section li.desc a {
   line-height: 30px;
   height:45px;
 }
@@ -303,8 +424,8 @@ form.custom .custom.checkbox.checked:before{
   background: #333333;
   height: 45px;
 }
-.top-bar-section ul li > a:hover { background: #f0f0f0; }
-.top-bar-section ul li.active a, .top-bar-section ul li.hover > a { background: #f0f0f0; color:#222; }
+.top-bar-section ul li > a:hover { background: #F9F9F7; }
+.top-bar-section ul li.active a, .top-bar-section ul li.hover > a { background: #F9F9F7; color:#222; }
 .top-bar-section .has-dropdown > a:after { border-color: transparent transparent transparent rgba(0, 0, 0, 0.5); }
 .top-bar-section .dropdown { box-shadow: 0 4px 4px rgba(0,0,0,0.3); }
 .top-bar-section .dropdown li a { border-top: 1px solid #ddd; line-height: 2em; padding-left: 40px; height: 40px; }
@@ -332,13 +453,16 @@ form.custom .custom.checkbox.checked:before{
 
 .tooltip  {
   box-shadow: 0 0 0 1px #fff, 0 0 2px #87878e,  0 0 3px 3px rgba(0,0,0,0.3);
-  background: #f8f8fb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  background: #F9F9F7;
   border-radius: 2px;
   -webkit-border-radius: 2px;
   color: #666;
+  font-weight: normal;
   text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
   /*font-weight: normal !important;*/
   font-size: 0.8em;
+  padding: 5px;
 }
 
 .tooltip > .nub{
@@ -348,11 +472,37 @@ form.custom .custom.checkbox.checked:before{
   width: 0;
   height: 0;
   border: solid 5px;
-  border-color: transparent transparent #f8f8fb transparent;
+  border-color: transparent transparent #F9F9F7 transparent;  
   top: -10px; 
+
+}
+
+/* ==========================================================================
+  grid
+   ========================================================================== */
+
+.large-block-grid-3 > li {
+  padding: 0 0.8em 2em;
 }
 
 
+
+/* Image Thumbnails */
+.th {
+  line-height: 0;
+  display: inline-block;
+  border: solid 4px white;
+  -webkit-box-shadow: 0 0 0 1px #ddd;  
+  box-shadow: 0 0 0 1px #ddd;  
+  -webkit-transition: all 200ms ease-out;
+  -moz-transition: all 200ms ease-out;
+  transition: all 200ms ease-out; }
+  .th:hover, .th:focus {
+    -webkit-box-shadow: 0 0 6px 1px rgba(43, 166, 203, 0.5);
+    box-shadow: 0 0 6px 1px rgba(43, 166, 203, 0.5); }
+  .th.radius {
+    -webkit-border-radius: 3px;
+    border-radius: 3px; }
 
 
 
@@ -410,6 +560,7 @@ form.custom .custom.dropdown{
 	border: none; 
   width: 100%;
 	background: #fff;
+  border-radius: 3px;
   
 }
 .qq-upload-button:hover {
@@ -419,8 +570,8 @@ form.custom .custom.dropdown{
 .avatar {
   transition: 0.5s;
 	border: 1px dashed #bbb;	
-	border-bottom: none;
-	border-radius: 3px 3px 0 0;
+	
+	border-radius: 3px;
 	width: 100%;
 }
 
@@ -464,7 +615,13 @@ form.custom .custom.dropdown{
 	border: 1px dashed #999;
 	border-radius: 3px;
   color:#FFF;
-  font-weight: bold;
+
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
 
 .qq-uploader{

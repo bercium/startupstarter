@@ -3,12 +3,13 @@
 ?>
 
 
-<div class="row" style="margin-top:20px;">
-	<div class="columns">
-		<h1><?php echo Yii::t('app','What is cofinder'); ?></h1>
-	</div>
-  <div class="  columns panel radius edit-content">
+<div class="row about" style="margin-top:20px;">
+	
+  <div class=" columns ball wrapped-content">
+   
    <div class="large-8  columns">
+    <h1><?php echo Yii::t('app','What is cofinder'); ?></h1>
+    
 		 
 		<p>
 		<?php 
@@ -24,7 +25,7 @@
 		
     </div>
 
-    <div class="large-4 columns">
+    <div class="large-4 columns side">
       <?php if ($idea)  $this->renderPartial('//project/_project', array('idea' => $idea));  ?>
     </div>
   
@@ -115,11 +116,9 @@
   </div>
 </div>
 
-<div class="row">
-	<div class="columns">
-		<h1><?php echo Yii::t('app','Our supporters'); ?></h1>
-	</div>
+<div class="large-6 item small-12 columns">	
   <div class="radius columns panel edit-content">
+    <h1><?php echo Yii::t('app','Our supporters'); ?></h1>
   </div>
 </div>
 

@@ -1,4 +1,4 @@
-<div class="section-container sidebar accordion edit-content edit-content-bottom" data-section>
+<div class="section-container sidebar accordion edit-content" data-section>
   <section class="section <?php echo isMenuItemActive('index'); ?>">
     <p class="title"><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><span class="icon-user"></span><?php echo Yii::t('app','Profile'); ?></a></p>
   </section>
@@ -31,7 +31,7 @@
     <p class="title"><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><span class="icon-wrench"></span><?php echo Yii::t('app','Settings'); ?></a></p>
   </section>
   <?php //if(Yii::app()->user->isAdmin()){ ?>
-  <section class="section <?php echo isMenuItemActive("notification"); ?>">
+  <section class="section nob <?php echo isMenuItemActive("notification"); ?>">
     <p class="title"><a href="<?php echo Yii::app()->createUrl("profile/notification"); ?>"><span class="icon-flag"></span><?php echo Yii::t('app','Notifications'); ?></a></p>
   </section><?php //} ?>
 

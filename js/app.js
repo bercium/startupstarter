@@ -102,6 +102,6 @@ function addPageToList(e){
   //alert('da');
   pageNavCount++;
   $(".page-navigation").fadeIn('normal');
-  $(".page-navigation ul").append('<li><a href="#page'+pageNavCount+'">'+Yii.t('js','Page')+' '+pageNavCount+'</a></li>');
+  $(".page-navigation ul").append('<li><a class="button secondary small" href="#page'+pageNavCount+'">'+Yii.t('js','Page')+' '+pageNavCount+'</a></li>');
   e.loading.msg.fadeOut('normal');
 }

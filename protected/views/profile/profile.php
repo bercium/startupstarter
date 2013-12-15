@@ -12,13 +12,11 @@
  
 <div class="">
 
-  <div class="columns edit-header">
-
-    
+  <div class="columns edit-header">   
 
     
     <h3><?php echo Yii::t('app', 'Profile details'); ?></h3>
-    <a class="button radius  right secondary tiny" href="person/<?php echo $user['id']; ?>" target="_blank"><?php echo Yii::t('app',"Preview"); ?> 
+    <a class="button radius small  right secondary" href="person/<?php echo $user['id']; ?>" target="_blank"><?php echo Yii::t('app',"Preview"); ?> 
       </a>
   </div>
   <div class="columns panel edit-content">
@@ -83,9 +81,9 @@
     
     
 
-    <h3><?php echo Yii::t('app', 'My skills'); ?></h3>
+    <h3 id="sec2"><?php echo Yii::t('app', 'My skills'); ?></h3>
     
-      <a class="button radius small right" href="#" onclick="$('.addSkils').toggle(); return false;"><?php echo Yii::t('app',"Add skills"); ?> 
+      <a class="button secondary radius small right" href="#" onclick="$('.addSkils').toggle(); return false;"><?php echo Yii::t('app',"Add skills"); ?> 
         <span class="icon-plus"></span>
       </a>
     
@@ -133,9 +131,11 @@
             foreach ($skillset['skill'] as $skill){
               ?>
 
-      <span data-alert class="label radius secondary profile-skils" id="skill_<?php echo $skill['id']; ?>">
-          <?php echo $skill['skill']."<br /><small class='meta'>".$skillset['skillset']."</small>"; ?>
-          <a href="#" class="close" onclick="removeSkill(<?php echo $skill['id']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteSkill"); ?>')">&times;</a>
+      <span data-alert class="label radius profile-skills" id="skill_<?php echo $skill['id']; ?>"><a href="#" class="close right" onclick="removeSkill(<?php echo $skill['id']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteSkill"); ?>')">&times;</a>
+          
+          <?php echo $skill['skill']."<small class='skill-industry'>".$skillset['skillset']."</small>"; ?>
+
+          
      </span>
     <?php }}} ?>
     </div>
@@ -163,8 +163,8 @@
       <?php echo CHtml::errorSummary($user,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
       <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
     
-
-      <div class="large-4 small-4 right columns">
+    <div class="">
+      <div class="large-4 small-6 right columns small-centered large-uncentered">
       <?php 
        //echo Yii::app()->getBaseUrl(true)."/".Yii::app()->params['tempFolder'];
          //echo "<img class='avatar' src='".avatar_image($user->avatar_link, $user->id)."'>";
@@ -179,7 +179,8 @@
                      '<div class="qq-upload-button">
                        <div class="avatar-loading"><span class="qq-upload-spinner"></span></div>
                        <img class="avatar" src="'.avatar_image($user->avatar_link, $user->id, false).'" >
-                      <div class=" button disabled secondary radius small avatar-change">'.Yii::t('app','Change image').' <span class="icon-upload"></div> 
+                      <div class="button secondary radius small avatar-change">'.Yii::t('app','Change image').' <span class="icon-upload"></span></div> 
+                      <span class="icon-info-sign" style="color: inherit"></span><span class="description">'.Yii::t('app','To change drag new image on top or click this button').'</span>
                       </div>' .
                      '<div class="qq-upload-list" style="display:none"></div>' .
                   '</div>',
@@ -239,13 +240,17 @@
         <?php echo CHtml::endForm(); ?>
       </div>
       
-   
-      <hr>
-			<p>
+      
+      
+		
+      
+  </div><!-- edit-content end -->
+
+  <div class="edit-header columns"><h3><?php echo Yii::t('app',"My links"); ?></h3></div>
+  <div class="edit-content columns">      
+          
       <?php /* ?><a href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My custom links"); ?> +</a> <?php */ ?>
-      <a class="button radius small" href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My links"); ?> 
-        <span class="icon-plus"></span>
-      </a>
+      <a class="button radius secondary small" href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"Add links"); ?> <span class="icon-link"></span></a>
 <br />
       <div class="addLinks" style="display:none">
 
@@ -278,18 +283,18 @@
           <?php $this->endWidget(); ?>        
         
       </div>
-			</p>
-      <div class="linkList">
+      
+      <ul class="linkList">
         <?php foreach ($data['user']['link'] as $link){ ?>
-        <div data-alert class="label radius secondary" id="link_div_<?php echo $link['id']; ?>">
+        <li><div data-alert class="label radius secondary" id="link_div_<?php echo $link['id']; ?>">
           <img src="<?php echo getLinkIcon($link['url']); ?>">
           <?php echo $link['title']; ?>: <a href="<?php echo add_http($link['url']); ?>" target="_blank"><?php echo $link['url']; ?></a>
           <a href="#" class="close" onclick="removeLink(<?php echo $link['id']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteLink"); ?>')">&times;</a>
-        </div>
+        </div></li>
         <?php } ?>
-      </div>
+      </ul>
 
-      
+
   </div>
 </div>
 

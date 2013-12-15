@@ -33,7 +33,7 @@
 		
   <link rel="shortcut icon" type="image/x-icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/iphone.png">
   <link rel="icon" type="image/ico" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico">
-  
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700,700italic,600italic,600,400italic,300italic,300&subset=latin,cyrillic-ext,greek-ext,greek,latin-ext,cyrillic,vietnamese' rel='stylesheet' type='text/css'>
 
 	<title><?php echo Yii::app()->name; if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) echo " - ".$this->pageTitle; ?></title>
 </head>
@@ -64,7 +64,7 @@
                <div class="hide-for-small">
 								 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
 									<img class="logo" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png" />
-								 <img class="private-beta" alt="beta" title="beta" src="<?php echo Yii::app()->request->baseUrl; ?>/images/beta.png" />
+								 
                  </a>
                  
 							 </div>

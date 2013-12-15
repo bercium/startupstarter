@@ -24,7 +24,7 @@
           
              <?php
           echo CHtml::link(Yii::t("app","Decline"),Yii::app()->createUrl('/profile/declineInvitation',array('id'=>$row['id'])),
-              array('class'=>"button tiny alert radius",
+              array('class'=>"button small abtn radius",
                     'confirm'=>Yii::t("msg","You are about to remove your invitation!\nAre you sure?"),
                     'onclick'=>"$(document).stopPropagation();",
                   )
