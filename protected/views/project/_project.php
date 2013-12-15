@@ -1,5 +1,5 @@
  <div class="columns radius card-idea">
-    <div class="row card-idea-title" onclick="window.open('<?php echo Yii::app()->createUrl("project/".$idea['id']); ?>','_blank')">
+    <div class="row card-idea-title" onclick="location.href='<?php echo Yii::app()->createUrl("project",array("id"=>$idea['id'])); ?>';">
       <div class="columns" >
         <h5><?php echo trim_text($idea['title'],60); ?></h5>
         
@@ -44,21 +44,22 @@
                   $c = 0;
                   foreach ($idea['candidate'] as $candidate){
                   if (is_array($candidate['skillset']))
-                  foreach ($candidate['skillset'] as $skillset){
-                  if(isset($skillset['skill'])){
-                  foreach ($skillset['skill'] as $skill){
-                  $c++;
-                  $tmp_skils = $skills;
-                  $tmp_skils[$skillset['skillset']][] = $skill['skill'];
-                  if (count($tmp_skils) > 3) $skills['...'][$skillset['skillset']] = $skillset['skillset'];
-                  else $skills = $tmp_skils;
-                  }
-                  }
-                  }
-                  }
-                  //                echo Yii::t('app','Looking for <a>{n} person</a>|Looking for <a>{n} people</a>',array(count($idea['candidate'])));
-                  //echo Yii:: (app','Looking for').' <a>'.Yii:: ('app','{n} person|{n} people',array(count($idea['candidate']))).'</a>';
-
+                    foreach ($candidate['skillset'] as $skillset){
+                      if(isset($skillset['skill'])){
+                        foreach ($skillset['skill'] as $skill){
+                          $c++;
+                          $tmp_skils = $skills;
+                          $tmp_skils[$skillset['skillset']][] = $skill['skill'];
+                          if (count($tmp_skils) > 3) $skills['...'][$skillset['skillset']] = $skillset['skillset'];
+                          else $skills = $tmp_skils;
+                        }
+                      }
+                    }
+                }
+								
+//								echo Yii::t('app','Looking for <a>{n} person</a>|Looking for <a>{n} people</a>',array(count($idea['candidate'])));
+								//echo Yii:: (app','Looking for').' <a>'.Yii:: ('app','{n} person|{n} people',array(count($idea['candidate']))).'</a>';
+								
                   if (count($skills) > 0){
                   //echo " ".Yii::t('app','with skill|with skills',array($c)).":<br />";
                   //echo " ".Yii::t('app','skilled in').":<br />";
@@ -84,9 +85,9 @@
                 if(isset($idea['member'])){
                 foreach ($idea['member'] as $member){
                 $i++; if ($i > 3) break;
-                ?>
-                <a href="<?php echo Yii::app()->createUrl("person/".$member['id']); ?>">
-                <img src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" data-tooltip title="<?php echo $member['name']." ".$member['surname']; ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="card-avatar" />
+              ?>
+                <a href="<?php echo Yii::app()->createUrl("person",array("id"=>$member['id'])); ?>">
+                  <img src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" data-tooltip title="<?php echo $member['name']." ".$member['surname']; ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="card-avatar" />
                 </a>
                 <?php } 
                 // extra members
@@ -99,14 +100,16 @@
       </div>
       <div class="idea-info">
         <div class="columns subinfo">
-        <small class="meta"><?php 
-        if ($idea['days_updated'] == 0) echo Yii::t('app','Updated today');
-        else if ($idea['days_updated'] == 1) echo Yii::t('app','Updated yesterday');
-        else echo Yii::t('app','Updated {n} day ago|Updated {n} days ago',array($idea['days_updated'])); ?></small>
-        <div class="card-floater">
-          <a class="tiny button secondary radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("project/".$idea['id']); ?>" target="_blank"><?php echo Yii::t('app','details').' <span class="icon-angle-right"></span>'; ?></a>
+          
+          <small class="meta"><?php 
+          if ($idea['days_updated'] == 0) echo Yii::t('app','Updated today');
+          else if ($idea['days_updated'] == 1) echo Yii::t('app','Updated yesterday');
+          else echo Yii::t('app','Updated {n} day ago|Updated {n} days ago',array($idea['days_updated'])); ?></small>
+          <div class="card-floater">
+            <a class="tiny button secondary radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("project",array("id"=>$idea['id'])); ?>" target=""><?php echo Yii::t('app','details').' <span class="icon-angle-right"></span>'; ?></a>
+          </div>
         </div>
       </div>
       </div>
 	  </div><!-- end row -->
-</div>
+

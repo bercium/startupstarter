@@ -13,7 +13,7 @@
   
   <div class="large-4 sidebar-wrap columns">
     
-    <?php $this->widget('ext.ProfileInfo.WProfileInfo',array("style"=>"sidebar")); ?> 
+    
     
     
       <div class="section-container sidebar accordion edit-content edit-content-bottom" data-section>
@@ -39,6 +39,8 @@
           <p class="title"><a href="<?php echo Yii::app()->createUrl("profile/notification"); ?>"><span class="icon-flag"></span><?php echo Yii::t('app','Notifications'); ?></a></p>
         </section><?php //} ?>
       </div>
+
+      <?php $this->widget('ext.ProfileInfo.WProfileInfo',array("style"=>"sidebar")); ?> 
     
     <?php //$this->widget('ext.SidebarEditMenu.WEditSidebar',array("ideas"=>(isset($ideas)?$ideas:array()))); ?>
     

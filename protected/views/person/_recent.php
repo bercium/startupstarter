@@ -1,23 +1,12 @@
-<h4 class="meta-title"><?php echo Yii::t('app','Recent users'); ?></h4>
+<h4 class="meta-title l-inline"><?php echo Yii::t('app','Recent users'); ?></h4>
 	
-  <ul class="small-block-grid-1 large-block-grid-3">
-		<?php 
-		//$i = 0;
-		//$page = 1;
-		//$maxPage = 3;
-		foreach ($users as $user){
-			?>
-			<li>
-			<?php  $this->renderPartial('//person/_user', array('user' => $user));  ?>
-			</li>
-		<?php } ?>
-  </ul>
+  
 
  <?php if (!Yii::app()->user->isGuest){ ?>
-	<div class="pagination-centered">
-		<small class="hide-for-small"><a href="<?php echo Yii::app()->createUrl("person/recent/1"); ?>"  class="right button radius small secondary radius"><?php echo Yii::t('app','show all'); ?></a></small>
+	<div class="right">
 		
-		<ul class="pagination hide-for-small">
+		
+		<ul class="right l-inline pagination hide-for-small">
 			<?php if ($page > 1){ ?>
 			<li class="arrow"><a class="button small secondary radius" href="#" onclick="recentUsersPage('<?php echo Yii::app()->createUrl("person/recent",array("id"=>$page-1)); ?>'); return false;"><span class="icon-angle-left"></span></a></li>
 			<?php }else{ ?>
@@ -32,6 +21,7 @@
       <li class="arrow unavailable"><a class="button small secondary radius disabled"><span class="icon-angle-right"></span>
 </a></li>
 			<?php } ?>
+			<li><a href="<?php echo Yii::app()->createUrl("person/recent/1"); ?>"  class="right button radius small secondary radius"><?php echo Yii::t('app','show all'); ?></a></li>
 		</ul>
 		
 	</div>
@@ -61,3 +51,17 @@
 	</small>
 
 <?php } ?>
+
+
+<ul class="small-block-grid-1 large-block-grid-3">
+		<?php 
+		//$i = 0;
+		//$page = 1;
+		//$maxPage = 3;
+		foreach ($users as $user){
+			?>
+			<li>
+			<?php  $this->renderPartial('//person/_user', array('user' => $user));  ?>
+			</li>
+		<?php } ?>
+  </ul>

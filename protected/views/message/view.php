@@ -88,25 +88,29 @@
         <a href="<?php echo Yii::app()-> createUrl("person/view",array("id"=>$_GET['id'])); ?>" >
           <h3><?php echo $chatList['name']; ?></h3>
         </a>
-        <a class="button radius right secondary tiny" href="#" data-dropdown="drop-msg" onclick="setReplayID('<?php echo $_GET['id']; ?>','');"><?php echo Yii::t('app',"Send message"); ?></a>
+        <a class="button radius right secondary small" href="#" data-dropdown="drop-msg" onclick="setReplayID('<?php echo $_GET['id']; ?>','');"><?php echo Yii::t('app',"Send message"); ?></a>
         <?php }else{ ?>
         <a href="<?php echo Yii::app()-> createUrl("project/view",array("id"=>$_GET['id'])); ?>" >
           <h3><?php echo $chatList['name']; ?></h3>
         </a>
-        <a class="button radius right secondary tiny" href="#" data-dropdown="drop-msg" onclick="setReplayID('','<?php echo $_GET['id']; ?>');" ><?php echo Yii::t('app',"Group message"); ?></a>
+        <a class="button radius right secondary small" href="#" data-dropdown="drop-msg" onclick="setReplayID('','<?php echo $_GET['id']; ?>');" ><?php echo Yii::t('app',"Group message"); ?></a>
         <?php } ?>
       </div>
     
       <div class="columns panel edit-content">
         <?php foreach ($chatList['messages'] as $msg){ ?>
         
-          <strong><?php echo $msg['from']; ?></strong>
+          <strong><img class="th th-small" class="left" src="http://127.0.0.1/yii/startupstarter/images/dummy-avatar-3.png" /> <?php echo $msg['from']; ?></strong>
           <?php if (($msg['from_id'] != Yii::app()->user->id) && ($group == 'project')){ ?>
-            <a class="button radius right secondary tiny" href="#" data-dropdown="drop-msg" onclick="setReplayID('<?php echo $msg['from_id']; ?>','');"><?php echo Yii::t('app',"PM"); ?></a>
-            <a class="button radius right secondary tiny" href="#" data-dropdown="drop-msg" onclick="setReplayID('<?php echo $msg['from_id']; ?>','<?php echo $_GET['id']; ?>');"><?php echo Yii::t('app',"Replay"); ?></a>
+            
+            <ul class="button-group radius right">
+            <li><a class="button  secondary small" href="#" data-dropdown="drop-msg" onclick="setReplayID('<?php echo $msg['from_id']; ?>','');"><?php echo Yii::t('app',"PM"); ?></a></li>
+            <li><a class="button  secondary small" href="#" data-dropdown="drop-msg" onclick="setReplayID('<?php echo $msg['from_id']; ?>','<?php echo $_GET['id']; ?>');"><?php echo Yii::t('app',"Replay"); ?></a></li>
+          </ul>
           <?php } ?>
           <br />
           <span class="description"><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($msg['time']),"medium","short"); ?></span><br />
+          <br />
           <p><?php echo $msg['content']; ?></p>
           <hr>
           

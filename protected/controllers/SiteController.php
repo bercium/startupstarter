@@ -149,7 +149,7 @@ class SiteController extends Controller
 	public function actionNotify()
 	{
     if (!Yii::app()->user->isGuest) $this->redirect("index"); //loged in no need to send notifications
-    
+    $savedToDB = false;
     if (!empty($_POST['email'])){
       
       $invitee = User::model()->findByAttributes(array("email"=>$_POST['email']));
@@ -184,6 +184,7 @@ class SiteController extends Controller
           if (!empty($_GET['code'])) $invitation->code = $_GET['code'];
 
           if ($invitation->save()){
+            $savedToDB = true;
             $message = new YiiMailMessage;
             $message->view = 'system';
 
@@ -204,7 +205,7 @@ class SiteController extends Controller
       }
       $this->refresh();
     }
-		$this->render('notify');
+		$this->render('notify',array("saved"=>$savedToDB));
 	}
   
   public function actionNotifyFacebook(){

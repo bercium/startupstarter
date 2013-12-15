@@ -1,21 +1,10 @@
-<h4 class="meta-title"><?php echo Yii::t('app','Recent projects'); ?></h4>
+<h4 class="meta-title l-inline"><?php echo Yii::t('app','Recent projects'); ?></h4>
 	
-  <ul class="small-block-grid-1 large-block-grid-3">
-		<?php 
-		//$i = 0;
-		//$page = 1;
-		//$maxPage = 3;
-		foreach ($ideas as $idea){
-			?>
-			<li>
-			<?php  $this->renderPartial('//project/_project', array('idea' => $idea));  ?>
-			</li>
-		<?php } ?>
-  </ul>
+ 
 
  <?php if (!Yii::app()->user->isGuest){ ?>
-	<div class="pagination-centered">
-		<small class="hide-for-small"><a href="<?php echo Yii::app()->createUrl("project/recent"); ?>" class="right button radius small secondary"><?php echo Yii::t('app','show all'); ?> </a></small>
+	<div class="right l-inline">
+		
 		
 		<ul class="pagination hide-for-small">
 			<?php if ($page > 1){ ?>
@@ -32,7 +21,12 @@
 			<?php }else{ ?>
       <li class="arrow unavailable"><a class="button small radius secondary disabled"><span class="icon-angle-right"></span>
 </a></li>
+
+
+
 			<?php } ?>
+
+			<li><a href="<?php echo Yii::app()->createUrl("project/recent"); ?>" class="right button radius small secondary"><?php echo Yii::t('app','show all'); ?> </a></li>
 		</ul>
 	
 	</div>
@@ -61,3 +55,17 @@
 	</small>
 
 <?php } ?>
+
+
+ <ul class="small-block-grid-1 large-block-grid-3">
+		<?php 
+		//$i = 0;
+		//$page = 1;
+		//$maxPage = 3;
+		foreach ($ideas as $idea){
+			?>
+			<li>
+			<?php  $this->renderPartial('//project/_project', array('idea' => $idea));  ?>
+			</li>
+		<?php } ?>
+  </ul>

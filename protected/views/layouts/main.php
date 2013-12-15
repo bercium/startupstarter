@@ -202,31 +202,7 @@
 <?php if (!isset($this->justContent) || !$this->justContent){ ?>
 
 
-	<div class="footer">
-		<div class="row">
-			 <div class="large-3 columns">
-
-				 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
-					 <img class="logo-mini" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-mini.png" />
-				 </a>
-			</div>
-			<div class="large-9 columns footer-links">
-        <div class="social-links">
-          <a href="https://www.facebook.com/cofinder.eu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-facebook.png"></a>
-          <a href="https://www.linkedin.com/company/cofinder" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-linkedin.png"></a>
-          <a href="https://plus.google.com/+CofinderEu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-gplus.png"></a>
-        </div>
-        
-				<ul class="inline-list">
-          <?php /* ?><li><a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo Yii::t('app','Our team'); ?></a></li> <?php */ ?>
-					<li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo Yii::t('app','About'); ?></a></li>
-					<li><a href="#" onclick="contact(this);"><?php echo Yii::t('app','Contact'); ?></a></li>
-					<li><a href="<?php echo Yii::app()->createUrl("site/terms"); ?>"><?php echo Yii::t('app','Terms of service'); ?></a></li>
-					<li><a href="<?php echo Yii::app()->createUrl("site/cookies"); ?>"><?php echo Yii::t('app','Cookies'); ?></a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
+	
  
 <!-- page -->
 <div id="langselect" class="f-dropdown content" data-dropdown-content>
@@ -272,7 +248,35 @@
 
 <?php } ?>
 
-</div>
+<div class="push"></div>
+
+</div><!-- container end -->
+
+<div class="footer">
+    <div class="row">
+       <div class="large-3 columns">
+
+         <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
+           <img class="logo-mini" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-mini.png" />
+         </a>
+      </div>
+      <div class="large-9 columns footer-links">
+        <div class="social-links">
+          <a href="https://www.facebook.com/cofinder.eu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-facebook.png"></a>
+          <a href="https://www.linkedin.com/company/cofinder" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-linkedin.png"></a>
+          <a href="https://plus.google.com/+CofinderEu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-gplus.png"></a>
+        </div>
+        
+        <ul class="inline-list">
+          <?php /* ?><li><a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo Yii::t('app','Our team'); ?></a></li> <?php */ ?>
+          <li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo Yii::t('app','About'); ?></a></li>
+          <li><a href="#" onclick="contact(this);"><?php echo Yii::t('app','Contact'); ?></a></li>
+          <li><a href="<?php echo Yii::app()->createUrl("site/terms"); ?>"><?php echo Yii::t('app','Terms of service'); ?></a></li>
+          <li><a href="<?php echo Yii::app()->createUrl("site/cookies"); ?>"><?php echo Yii::t('app','Cookies'); ?></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
 <!-- userreport.com snippet -->
 <script type="text/javascript">

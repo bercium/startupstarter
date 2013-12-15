@@ -1,6 +1,7 @@
-body{
-  /*font-size:120%;*/
+html {
+  background: none;
 }
+
 
 
 /* #   JQUERY  UI-lib
@@ -315,12 +316,12 @@ a:hover, a:focus { color: #3c76d6; }
 
 .label{
   
-	background-color: #999999;
-	color: #fff;
-  padding: 0.3em 0.6em 0.4em 0.6em;
-  font-weight: normal;
-  margin-right: 5px;
-  font-size: 12px; 
+   background-color: #666666;
+    color: #C9EAAB;
+    font-size: 12px;
+    font-weight: normal;
+    margin-right: 5px;
+    padding: 0.3em 0.6em 0.4em;
 
 }
 

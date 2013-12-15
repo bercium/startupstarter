@@ -131,9 +131,16 @@ margin-right: 20px;
   text-shadow: none;
 }
 
+
+
+
+
 .container .searchpanel {
 	z-index: 1;
 }
+
+
+
 
 .toggle_search {
 	margin-right: 25px;
@@ -249,7 +256,7 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 }
 
 
-.card-person, .card-idea, .sidebar, .cwrap {
+.card-person, .card-idea {
   /*margin-right:0.9375em; */
   
   background-color: #FFF;
@@ -634,7 +641,7 @@ f-line {
     background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #DDDDDD;
     border-radius: 0 0 4px 4px;
-    margin-bottom: 33px;
+    margin-bottom: 1.25em;
     padding-top: 30px;
     padding-bottom: 50px;
 
@@ -761,6 +768,9 @@ img.card-avatar,
 /* #Special Styles
 ================================================== */
 
+.th-small {height:64px; margin-right: 10px; float:left; }
+
+
 
 .success-gradient.button {
 	background: rgb(200,249,134); /* Old browsers */
@@ -861,10 +871,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 
 
 .footer{
-  padding-bottom:23px; 
-  padding-top:25px;
-  margin-top:50px;
-  position: relative;
+  
+   position: relative;
   border-top: 1px solid #ddd; 
   background-color: #333;
   text-transform: uppercase;
@@ -1715,3 +1723,28 @@ label{
    	
    	display: block;
    }
+
+
+
+
+html, body {
+height: 100%;
+}
+
+.container {
+min-height: 100%;
+height: auto !important;
+height: 100%;
+margin: 0 auto -4em;
+}
+
+.push {
+	clear: both;
+}
+
+.footer, .push {
+height: 6em;
+padding-bottom:23px; 
+  padding-top:25px;
+}
+
