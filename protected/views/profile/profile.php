@@ -239,6 +239,8 @@
           ); ?>
         <?php echo CHtml::endForm(); ?>
       </div>
+       </div>
+
       
       
       
@@ -246,12 +248,16 @@
       
   </div><!-- edit-content end -->
 
-  <div class="edit-header columns"><h3><?php echo Yii::t('app',"My links"); ?></h3></div>
+  <div class="edit-header columns"><h3><?php echo Yii::t('app',"My links"); ?></h3>
+
+   <?php /* ?><a href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My custom links"); ?> +</a> <?php */ ?>
+      <a class="button radius secondary small" href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"Add links"); ?> <span class="icon-link"></span></a>
+
+
+  </div>
   <div class="edit-content columns">      
           
-      <?php /* ?><a href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My custom links"); ?> +</a> <?php */ ?>
-      <a class="button radius secondary small" href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"Add links"); ?> <span class="icon-link"></span></a>
-<br />
+     
       <div class="addLinks" style="display:none">
 
           <?php $form=$this->beginWidget('CActiveForm', array(
