@@ -1,4 +1,4 @@
- <div class="columns radius panel card-idea">
+ <div class="columns radius card-idea">
     <div class="row card-idea-title" onclick="location.href='<?php echo Yii::app()->createUrl("project",array("id"=>$idea['id'])); ?>';">
       <div class="columns" >
         <h5><?php echo trim_text($idea['title'],60); ?></h5>
@@ -60,23 +60,6 @@
 //								echo Yii::t('app','Looking for <a>{n} person</a>|Looking for <a>{n} people</a>',array(count($idea['candidate'])));
 								//echo Yii:: (app','Looking for').' <a>'.Yii:: ('app','{n} person|{n} people',array(count($idea['candidate']))).'</a>';
 								
-								if (count($skills) > 0){
-									//echo " ".Yii::t('app','with skill|with skills',array($c)).":<br />";
-									//echo " ".Yii::t('app','skilled in').":<br />";
-                  echo Yii::t('app','Looking for <a>{n} person</a> skilled in|Looking for <a>{n} people</a> skilled in',array(count($idea['candidate']))).": <br />";
-									foreach ($skills as $skillset=>$skill){
-										?>
-                    <?php if ($skillset != '...') { ?><a href="<?php echo Yii::app()->createURL("person/discover",array("SearchForm"=>array("skill"=>$skillset))); ?>"><?php } ?>
-										<span class="label radius meta_tags" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
-                    <?php if ($skillset != '...') { ?></a><?php } ?>
-										<?php 
-									}
-								}else echo Yii::t('app','Looking for <a>{n} person</a>|Looking for <a>{n} people</a>',array(count($idea['candidate'])));
-							}
-            ?> 
-          </small>
-        </div>
-
                   if (count($skills) > 0){
                   //echo " ".Yii::t('app','with skill|with skills',array($c)).":<br />";
                   //echo " ".Yii::t('app','skilled in').":<br />";
@@ -129,4 +112,4 @@
       </div>
       </div>
 	  </div><!-- end row -->
-</div>
+

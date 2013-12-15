@@ -1,14 +1,18 @@
 <?php
 	$this->pageTitle = Yii::t('app','Invitations');
 ?>
+<p>
+  
 
 <?php if (true || $saved){ ?>
+  Tukaj bo bla bla bla da se pofockaj na FB TWT Lin...
+  <br /><br />
 <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.cofinder.eu" target="_blank">
  Share on Facebook
 </a>
-<?php } ?>
-
-<p>
+  <br /><br />
+<?php } ?>  
+  
   <strong>
     <?php echo Yii::t('msg',"Thank you for your interest!"); ?>
   </strong>

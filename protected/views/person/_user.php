@@ -1,4 +1,4 @@
-<div class="columns radius panel card-person">
+<div class="columns radius card-person">
     <div class="row card-person-title" onclick="location.href='<?php echo Yii::app()->createUrl("person",array("id"=>$user['id'])); ?>';">
       <div class="columns" >
         <img src="<?php echo avatar_image($user['avatar_link'],$user['id'],60); ?>" style="height:64px; margin-right: 10px; float:left; margin-top:5px;" />
@@ -62,7 +62,7 @@
                      foreach ($skills as $skillset=>$skill){
                           ?>
                           <?php if ($skillset != '...'){ ?><a href="<?php echo Yii::app()->createURL("person/discover",array("SearchForm"=>array("skill"=>$skillset))); ?>"><?php } ?>
-                          <span class="label radius success-alt meta_tags"<?php if(count($skill)) echo " data-tooltip title='".implode("<br />",$skill)."'"; ?>><?php echo $skillset; ?></span>
+                          <span class="label radius"<?php if(count($skill)) echo " data-tooltip title='".implode("<br />",$skill)."'"; ?>><?php echo $skillset; ?></span>
                           <?php if ($skillset != '...') { ?></a><?php } ?>
                             <?php 
                           }

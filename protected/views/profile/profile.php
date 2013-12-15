@@ -239,7 +239,7 @@
           ); ?>
         <?php echo CHtml::endForm(); ?>
       </div>
-      
+   </div>
       
       
 		
