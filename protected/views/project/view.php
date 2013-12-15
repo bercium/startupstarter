@@ -121,13 +121,14 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("cla
 
             <?php if ($candidate['available_name']) { ?>
             <div class="item">
-                <h4 class="l-iblock"><?php echo Yii::t('app', 'Available') ?>:</h4>
+                <h4 class="l-iblock"><?php echo Yii::t('app', 'Available') ?>:
                 <?php echo $candidate['available_name']; ?>
+                </h4>
             </div>
             <?php } ?>
             <?php if ($candidate['city'] || $candidate['country']){ ?>
             <div class="">
-                <h4 class="l-iblock"><?php echo Yii::t('app', 'Location') ?>:</h4>
+                <h4 class="l-iblock"><?php echo Yii::t('app', 'Location') ?>:
                 <a>
                     <span class="" data-tooltip title="<img src='<?php echo getGMap($candidate['country'],$candidate['city']); ?>'>">
                     <?php
@@ -138,6 +139,7 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("cla
                     <?php //echo $candidate['address']; ?>
                     </span>
                 </a>
+                </h4>
             </div>
         <?php } ?>            
 
