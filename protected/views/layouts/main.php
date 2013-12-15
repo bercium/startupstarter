@@ -17,8 +17,9 @@
   <!-- FB -->
   <meta property="og:title" content="<?php echo Yii::app()->name; ?>" />
   <meta property="og:description" content="<?php echo $this->pageDesc; ?>" />
-  <meta property="og:image" content="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/fb-logo.png" />
+  <meta property="og:image" content="<?php echo Yii::app()->request->baseUrl; ?>/images/ipad.png" />
   <meta property="og:url" content="http://www.cofinder.eu"/>
+  <meta property="og:image:secure_url" content="<?php echo Yii::app()->request->baseUrl; ?>/images/ipad.png" />
   
   <!-- M$ -->
   <meta name="application-name" content="<?php echo Yii::app()->name; ?>" />

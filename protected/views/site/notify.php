@@ -2,6 +2,11 @@
 	$this->pageTitle = Yii::t('app','Invitations');
 ?>
 
+<?php if (true || $saved){ ?>
+<a href="https://www.facebook.com/sharer/sharer.php?u=http://www.cofinder.eu" target="_blank">
+ Share on Facebook
+</a>
+<?php } ?>
 
 <p>
   <strong>
