@@ -126,7 +126,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 
 
 
-<?php if (!Yii::app()->user->isGuest){ ?>
+<?php if ( false && !Yii::app()->user->isGuest){ ?>
 
 
 <div class="row panel searchpanel radius" style="margin-top: 40px;">
@@ -374,3 +374,17 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 
 
 
+<div class="quote" style="background-color: #FFF;">
+  
+<div  class="row" >
+  <div class="columns">
+    <h2>
+      Quote
+    </h2>
+    <p>
+      "nek quote ki mislimo da je cool"
+    </p>
+  </div>  
+</div>  
+  
+</div>

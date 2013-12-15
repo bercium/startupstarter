@@ -198,12 +198,13 @@
  writeFlashes();
 
 } ?>
-<?php echo $content; ?>  
+<?php echo $content; ?>
+  
+
+<div class="push"></div>
+
+  
 <?php if (!isset($this->justContent) || !$this->justContent){ ?>
-
-
-	
- 
 <!-- page -->
 <div id="langselect" class="f-dropdown content" data-dropdown-content>
   <ul class="side-nav" style="padding:0;">
@@ -247,8 +248,6 @@
 </div>
 
 <?php } ?>
-
-<div class="push"></div>
 
 </div><!-- container end -->
 

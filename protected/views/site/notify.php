@@ -7,11 +7,15 @@
 <?php if (true || $saved){ ?>
   Tukaj bo bla bla bla da se pofockaj na FB TWT Lin...
   <br /><br />
-<a href="https://www.facebook.com/sharer/sharer.php?u=http://www.cofinder.eu" target="_blank">
- Share on Facebook
-</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.cofinder.eu" target="_blank">
+     <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-fb.jpg">
+     <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-tw.jpg">
+     <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-gp.jpg">
+     <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-li.jpg">
+    </a>
+  
   <br /><br />
-<?php } ?>  
+<?php }else{ ?>  
   
   <strong>
     <?php echo Yii::t('msg',"Thank you for your interest!"); ?>
@@ -37,3 +41,4 @@
 </div>
 </div>
 
+<?php } ?>
