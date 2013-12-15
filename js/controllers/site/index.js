@@ -30,6 +30,7 @@
           data = JSON.parse(indata);
 					if (!data.status){
 						$('#recent_projects').html(data.data);
+             $('#recent_projects').foundation('section', 'reflow');
           }
 					if (data.message) alert(data.message);
         },

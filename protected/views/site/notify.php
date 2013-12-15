@@ -20,9 +20,16 @@
 
 <?php echo CHtml::beginForm('','post',array("class"=>"custom large-6")); ?>
 
-  <?php echo CHtml::label(Yii::t('app','Your email'),'email'); ?>
-  <?php echo CHtml::textField("email") ?>
 
-  <p><?php echo CHtml::submitButton(Yii::t('app',"Notify me"),array("class"=>"button radius small success")); ?></p>
+<div class="row collapse">
 
-<?php echo CHtml::endForm(); ?>
+  <div class="columns">
+  <h3><label for="email"><?php echo CHtml::label(Yii::t('app','Your email'),'email'); ?></label></h3>
+  </div>
+  <div class="columns small-8"><?php echo CHtml::textField("email") ?></div>
+<div class="columns small-4">
+ <?php echo CHtml::submitButton(Yii::t('app',"Notify me"),array("class"=>"button radius postfix success")); ?>
+ <?php echo CHtml::endForm(); ?>
+</div>
+</div>
+

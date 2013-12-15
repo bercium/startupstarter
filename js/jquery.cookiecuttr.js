@@ -27,21 +27,21 @@
             cookieCutter: false, // you'd like to enable the div/section/span etc. hide feature? change this to true
             cookieCutterDeclineOnly: false, // you'd like the CookieCutter to only hide when someone has clicked declined set this to true
             cookieAnalytics: true, // just using a simple analytics package? change this to true
-            cookieDeclineButton: true, // this will disable non essential cookies
+            cookieDeclineButton: false, // this will disable non essential cookies
             cookieAcceptButton: true, // this will disable non essential cookies
-            cookieResetButton: true,
+            cookieResetButton: false,
             cookieOverlayEnabled: false, // don't want a discreet toolbar? Fine, set this to true
-            cookiePolicyLink: 'cofinder.eu/cookies', // if applicable, enter the link to your privacy policy here...
+            cookiePolicyLink: '/privacy-policy/', // if applicable, enter the link to your privacy policy here...
             cookieMessage: 'We use cookies on this website, you can <a href="{{cookiePolicyLink}}" title="read about our cookies">read about them here</a>. To use the website as intended please...',
-            cookieAnalyticsMessage: 'Na spletni strani uporabljamo piškotke.  Nekateri piškotki zagotavljajo normalno delovanje strani, druge uporabljamo za štetje števila obiskovalcev.<br> Če boste nadaljevali, pomeni da ste uporabo teh piškotkov sprejeli.',
+            cookieAnalyticsMessage: 'We use cookies, just to track visits to our website, we store no personal details.',
             cookieErrorMessage: "We\'re sorry, this feature places cookies in your browser and has been disabled. <br>To continue using this functionality, please",
-            cookieWhatAreTheyLink: "/cookies",
+            cookieWhatAreTheyLink: "http://www.allaboutcookies.org/",
             cookieDisable: '',
             cookieExpires: 365,
-            cookieAcceptButtonText: "CONTINUE",
+            cookieAcceptButtonText: "ACCEPT COOKIES",
             cookieDeclineButtonText: "DECLINE COOKIES",
             cookieResetButtonText: "RESET COOKIES FOR THIS WEBSITE",
-            cookieWhatAreLinkText: "More about cookies <span class='icon-long-arrow-right'></span>",
+            cookieWhatAreLinkText: "What are cookies?",
             cookieNotificationLocationBottom: false, // top or bottom - they are your only options, so true for bottom, false for top            
             cookiePolicyPage: false,
             cookiePolicyPageMessage: 'Please read the information below and then choose from the following options',
@@ -94,7 +94,7 @@
         };
         // write cookie accept button
         if (cookieAcceptButton) {
-            var cookieAccept = ' <a href="#accept" class="button small success radius">' + cookieAcceptButtonText + '</a> ';
+            var cookieAccept = ' <a href="#accept" class="cc-cookie-accept">' + cookieAcceptButtonText + '</a> ';
         } else {
             var cookieAccept = "";
         }
@@ -120,32 +120,32 @@
             // write cookie reset button
             if ((cookieResetButton) && (cookieDiscreetReset)) {
                 if (appOrPre) {
-                    $('body .cookiereset').append('<a class="button small secondary" href="#" title="' + cookieResetButtonText + '">' + cookieResetButtonText + '</a>');
+                    $('body').append('<div class="cc-cookies cc-discreet"><a class="cc-cookie-reset" href="#" title="' + cookieResetButtonText + '">' + cookieResetButtonText + '</a></div>');
                 } else {
-                    $('body .cookiereset').prepend('<a class="button small secondary" href="#" title="' + cookieResetButtonText + '">' + cookieResetButtonText + '</a>');
+                    $('body').prepend('<div class="cc-cookies cc-discreet"><a class="cc-cookie-reset" href="#" title="' + cookieResetButtonText + '">' + cookieResetButtonText + '</a></div>');
                 }
                 //add appropriate CSS depending on position chosen
                 if (cookieDiscreetPosition == "topleft") {
-                    $('div .cc-cookies').css("top", "0");
-                    $('div .cc-cookies').css("left", "0");
+                    $('div.cc-cookies').css("top", "0");
+                    $('div.cc-cookies').css("left", "0");
                 }
                 if (cookieDiscreetPosition == "topright") {
-                    $('div .cc-cookies').css("top", "0");
-                    $('div .cc-cookies').css("right", "0");
+                    $('div.cc-cookies').css("top", "0");
+                    $('div.cc-cookies').css("right", "0");
                 }
                 if (cookieDiscreetPosition == "bottomleft") {
-                    $('div .cc-cookies').css("bottom", "0");
-                    $('div .cc-cookies').css("left", "0");
+                    $('div.cc-cookies').css("bottom", "0");
+                    $('div.cc-cookies').css("left", "0");
                 }
                 if (cookieDiscreetPosition == "bottomright") {
-                    $('div .cc-cookies').css("bottom", "0");
-                    $('div .cc-cookies').css("right", "0");
+                    $('div.cc-cookies').css("bottom", "0");
+                    $('div.cc-cookies').css("right", "0");
                 }
             } else if (cookieResetButton) {
                 if (appOrPre) {
-                    $('body .cookiereset').append('<a href="#" class="button small secondary">' + cookieResetButtonText + '</a>');
+                    $('body').append('<div class="cc-cookies"><a href="#" class="cc-cookie-reset">' + cookieResetButtonText + '</a></div>');
                 } else {
-                    $('body .cookiereset').prepend('<a href="#" class="button small secondary">' + cookieResetButtonText + '</a>');
+                    $('body').prepend('<div class="cc-cookies"><a href="#" class="cc-cookie-reset">' + cookieResetButtonText + '</a></div>');
                 }
             } else {
                 var cookieResetButton = "";
@@ -156,62 +156,62 @@
                 // show no link on any pages APART from the policy page
             } else if ((cookieDiscreetLink) && (!cookiePolicyPage)) { // show discreet link
                 if (appOrPre) {
-                    $('body').append('<div class="alert-box secondary cc-cookies cc-discreet"><a href="' + cookiePolicyLinkIn + '" title="' + cookieDiscreetLinkText + '">' + cookieDiscreetLinkText + '</a></div>');
+                    $('body').append('<div class="cc-cookies cc-discreet"><a href="' + cookiePolicyLinkIn + '" title="' + cookieDiscreetLinkText + '">' + cookieDiscreetLinkText + '</a></div>');
                 } else {
-                    $('body').prepend('<div class="alert-box secondary cc-cookies cc-discreet"><a href="' + cookiePolicyLinkIn + '" title="' + cookieDiscreetLinkText + '">' + cookieDiscreetLinkText + '</a></div>');
+                    $('body').prepend('<div class="cc-cookies cc-discreet"><a href="' + cookiePolicyLinkIn + '" title="' + cookieDiscreetLinkText + '">' + cookieDiscreetLinkText + '</a></div>');
                 }
                 //add appropriate CSS depending on position chosen
                 if (cookieDiscreetPosition == "topleft") {
-                    $('div .cc-cookies').css("top", "0");
-                    $('div .cc-cookies').css("left", "0");
+                    $('div.cc-cookies').css("top", "0");
+                    $('div.cc-cookies').css("left", "0");
                 }
                 if (cookieDiscreetPosition == "topright") {
-                    $('div .cc-cookies').css("top", "0");
-                    $('div .cc-cookies').css("right", "0");
+                    $('div.cc-cookies').css("top", "0");
+                    $('div.cc-cookies').css("right", "0");
                 }
                 if (cookieDiscreetPosition == "bottomleft") {
-                    $('div .cc-cookies').css("bottom", "0");
-                    $('div .cc-cookies').css("left", "0");
+                    $('div.cc-cookies').css("bottom", "0");
+                    $('div.cc-cookies').css("left", "0");
                 }
                 if (cookieDiscreetPosition == "bottomright") {
-                    $('div .cc-cookies').css("bottom", "0");
-                    $('div .cc-cookies').css("right", "0");
+                    $('div.cc-cookies').css("bottom", "0");
+                    $('div.cc-cookies').css("right", "0");
                 }
             } else if (cookieAnalytics) { // show analytics overlay
                 if (appOrPre) {
-                    $('body').append('<div class="alert-box secondary cc-cookies ' + cookieOverlay + '">' + cookieAnalyticsMessage + cookieAccept + cookieDecline + '<a href="' + cookieWhatAreTheyLink + '" title="Visit All about cookies (External link)">' + cookieWhatAreLinkText + '</a></div>');
+                    $('body').append('<div class="cc-cookies ' + cookieOverlay + '">' + cookieAnalyticsMessage + cookieAccept + cookieDecline + '<a href="' + cookieWhatAreTheyLink + '" title="Visit All about cookies (External link)">' + cookieWhatAreLinkText + '</a></div>');
                 } else {
-                    $('body').prepend('<div class="alert-box secondary cc-cookies ' + cookieOverlay + '">' + cookieAnalyticsMessage + cookieAccept + cookieDecline + '<a href="' + cookieWhatAreTheyLink + '" title="Visit All about cookies (External link)">' + cookieWhatAreLinkText + '</a></div>');
+                    $('body').prepend('<div class="cc-cookies ' + cookieOverlay + '">' + cookieAnalyticsMessage + cookieAccept + cookieDecline + '<a href="' + cookieWhatAreTheyLink + '" title="Visit All about cookies (External link)">' + cookieWhatAreLinkText + '</a></div>');
                 }
             }
             if (cookiePolicyPage) { // show policy page overlay
                 if (appOrPre) {
-                    $('body').append('<div class="alert-box secondary cc-cookies ' + cookieOverlay + '">' + cookiePolicyPageMessage + " " + ' <a href="#accept" class="button small success radius">' + cookieAcceptButtonText + '</a> ' + ' <a href="#decline" class="cc-cookie-decline">' + cookieDeclineButtonText + '</a> ' + '</div>');
+                    $('body').append('<div class="cc-cookies ' + cookieOverlay + '">' + cookiePolicyPageMessage + " " + ' <a href="#accept" class="cc-cookie-accept">' + cookieAcceptButtonText + '</a> ' + ' <a href="#decline" class="cc-cookie-decline">' + cookieDeclineButtonText + '</a> ' + '</div>');
                 } else {
-                    $('body').prepend('<div class="alert-box secondary cc-cookies ' + cookieOverlay + '">' + cookiePolicyPageMessage + " " + ' <a href="#accept" class="button small success radius">' + cookieAcceptButtonText + '</a> ' + ' <a href="#decline" class="cc-cookie-decline">' + cookieDeclineButtonText + '</a> ' + '</div>');
+                    $('body').prepend('<div class="cc-cookies ' + cookieOverlay + '">' + cookiePolicyPageMessage + " " + ' <a href="#accept" class="cc-cookie-accept">' + cookieAcceptButtonText + '</a> ' + ' <a href="#decline" class="cc-cookie-decline">' + cookieDeclineButtonText + '</a> ' + '</div>');
                 }
             } else if ((!cookieAnalytics) && (!cookieDiscreetLink)) { // show privacy policy option
                 if (appOrPre) {
-                    $('body').append('<div class="alert-box secondary cc-cookies ' + cookieOverlay + '">' + cookieMessage + cookieAccept + cookieDecline + '</div>');
+                    $('body').append('<div class="cc-cookies ' + cookieOverlay + '">' + cookieMessage + cookieAccept + cookieDecline + '</div>');
                 } else {
-                    $('body').prepend('<div class="alert-box secondary cc-cookies ' + cookieOverlay + '">' + cookieMessage + cookieAccept + cookieDecline + '</div>');
+                    $('body').prepend('<div class="cc-cookies ' + cookieOverlay + '">' + cookieMessage + cookieAccept + cookieDecline + '</div>');
                 }
             }
         }
         if ((cookieCutter) && (!cookieCutterDeclineOnly) && (($cookieDeclined) || (!$cookieAccepted))) {
-            $(cookieDisable).html('<div class="alert-box secondary cc-cookies-error">' + cookieErrorMessage + ' <a href="#accept" class="button small success radius">' + cookieAcceptButtonText + '</a> ' + '</div>');
+            $(cookieDisable).html('<div class="cc-cookies-error">' + cookieErrorMessage + ' <a href="#accept" class="cc-cookie-accept">' + cookieAcceptButtonText + '</a> ' + '</div>');
         }
         if ((cookieCutter) && (cookieCutterDeclineOnly) && ($cookieDeclined)) {
-            $(cookieDisable).html('<div class="alert-box secondary .cc-cookies-error">' + cookieErrorMessage + ' <a href="#accept" class="button small success radius">' + cookieAcceptButtonText + '</a> ' + '</div>');
+            $(cookieDisable).html('<div class="cc-cookies-error">' + cookieErrorMessage + ' <a href="#accept" class="cc-cookie-accept">' + cookieAcceptButtonText + '</a> ' + '</div>');
         }
         // if bottom is true, switch div to bottom if not in discreet mode
         if ((cookieNotificationLocationBottom) && (!cookieDiscreetLink)) {
-            $('div .cc-cookies').css("top", "auto");
-            $('div .cc-cookies').css("bottom", "0");
+            $('div.cc-cookies').css("top", "auto");
+            $('div.cc-cookies').css("bottom", "0");
         }
         if ((cookieNotificationLocationBottom) && (cookieDiscreetLink) && (cookiePolicyPage)) {
-            $('div .cc-cookies').css("top", "auto");
-            $('div .cc-cookies').css("bottom", "0");
+            $('div.cc-cookies').css("top", "auto");
+            $('div.cc-cookies').css("bottom", "0");
         }
         // setting the cookies
 
@@ -254,13 +254,13 @@
                     path: '/'
                 });
             }
-            $(" .cc-cookies").fadeOut(function () {
+            $(".cc-cookies").fadeOut(function () {
                 // reload page to activate cookies
                 location.reload();
             });
         });
         //reset cookies
-        $('a.button').click(function (f) {
+        $('a.cc-cookie-reset').click(function (f) {
             f.preventDefault();
             $.cookie("cc_cookie_accept", null, {
                 path: '/'
@@ -268,13 +268,13 @@
             $.cookie("cc_cookie_decline", null, {
                 path: '/'
             });
-            $(" .cc-cookies").fadeOut(function () {
+            $(".cc-cookies").fadeOut(function () {
                 // reload page to activate cookies
                 location.reload();
             });
         });
         //cookie error accept
-        $(' .cc-cookies-error a.cc-cookie-accept').click(function (g) {
+        $('.cc-cookies-error a.cc-cookie-accept').click(function (g) {
             g.preventDefault();
             $.cookie("cc_cookie_accept", "cc_cookie_accept", {
                 expires: cookieExpires,

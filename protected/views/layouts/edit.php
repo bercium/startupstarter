@@ -11,7 +11,7 @@
     <!-- here moved alert-box from \protected\views\profile\profile.php -->
   </div><?php //*/ ?>
   
-  <div class="large-3 sidebar-wrap columns">
+  <div class="large-4 sidebar-wrap columns">
     
     <?php $this->widget('ext.ProfileInfo.WProfileInfo',array("style"=>"sidebar")); ?> 
     
@@ -43,7 +43,7 @@
     <?php //$this->widget('ext.SidebarEditMenu.WEditSidebar',array("ideas"=>(isset($ideas)?$ideas:array()))); ?>
     
   </div>
-  <div class="large-9 columns">
+  <div class="large-8 columns">
     
     <?php echo $content; ?>
   </div>

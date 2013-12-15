@@ -110,14 +110,14 @@
 
 <div class="row">
   <div class="columns edit-header">
-    <div class="edit-floater">
+    <h3><?php echo Yii::t('app', 'Deactivate account'); ?></h3>
           <?php echo CHtml::submitButton(Yii::t("app","Open"),
                 array('class'=>"button small secondary radius",
                       'onclick'=>"$('#deactivate').show();"
                     )
             ); ?>
-    </div>
-    <h3><?php echo Yii::t('app', 'Deactivate account'); ?></h3>
+    
+    
   </div>
   <div class="columns panel edit-content" id="deactivate" style="display:none;">
     <p>

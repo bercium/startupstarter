@@ -13,8 +13,10 @@
 
 body {
 	background: url(../images/body_bg.png);
-	height: 100%;
+		height: 100%;
 }
+
+
 
 
 .header-wrap {
@@ -29,7 +31,7 @@ body {
   margin:0px 0px !important;
   color:#888;
   text-shadow: 1px 1px 2px rgba(0,0,0,.3);
-  font-size:3.6em;
+  
   line-height: 0;
   padding-top: 10px;
 }
@@ -45,20 +47,12 @@ body {
   height:70px;  
   margin-left: 10px;
   margin-bottom: 15px; 
+
 }
 
 
-.title-area .logo {
-	margin-right: 70px;
-}
 
 
-.private-beta {
-	margin-top: 24px;
-	position: absolute;
-	z-index: 1000;
-	left: 195px;
-}
 
 /* ==========================================================================
   @ INTRO
@@ -147,7 +141,7 @@ margin-right: 20px;
 }
 
 .exp_srch {
-	margin-right: 20px;
+	margin-right: 26px;
 	margin-top: 5px;
 }
 
@@ -201,15 +195,94 @@ margin-right: 20px;
    ========================================================================== */
 
 
+
+.card-person{
+  padding-left: 13px;
+  padding-right: 13px;
+  min-height: 255px;
+  border-radius: 3px;
+}
+
+.card-person hr, .card-idea hr{
+  margin-top:5px;
+  margin-bottom:0.9375em;
+}
+
+.card-person p, .card-idea p{
+  margin-top:5px;
+  margin-bottom:5px;
+}
+
+.card-person-title {
+  padding-top:0.35em; 
+  padding-bottom:0.35em; 
+  margin-bottom: 0.8em !important;
+  border-bottom:1px solid #ddd; 
+  background-color:#f9f9f7;
+  }
+
+
+.card-person table .icons {
+	width: 15px;
+	text-align: center;
+}
+
+.card-person table td {
+ 	padding: 4px 10px;
+}
+
+.card-person table .icons .ico-awesome {
+	color: #444;
+	font-size: 1.2em;
+	background: #fff;	
+}
+
+
+
+  .card-person-title {
+  	background: #f9f9f7;
+  }
+
+div[onclick].panel,
+div[onclick].card-person-title, div[onclick].card-idea-title{
+  cursor: pointer;
+}
+
+
 .card-person, .card-idea, .sidebar, .cwrap {
   /*margin-right:0.9375em; */
-  padding-top: 0;
+  
   background-color: #FFF;
   border: 1px solid #fff;
   /*box-shadow: 0 0 0 1px #fff, 0 0 0 2px #bbbbbb, 0 0 0 3px #ddd, 0 0 0 4px #ddd;*/
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #ccc, 0 2px 0 1px #bbb;
+  box-shadow: 0 0 0 1px #FFFFFF, 0 0 0 2px #DDDDDD, 0 12px 6px -9px #777777, 0 -3px 7px rgba(0,0,0,0.1);
   
 }
+
+.card-person-footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background: #F9F9F7;
+	border-top: 1px solid #ddd;
+	padding: 13px 10px 10px 10px;
+	right: 0;
+	
+}
+
+.card-person-footer .left {
+  left: 10px;
+  padding-top: 2px;
+  padding-left: 10px;
+}
+
+.card-person-footer .right {
+	right: 0px;
+}
+
+
+
+
 
 /****** @ searchpanel ******/
 
@@ -240,18 +313,11 @@ margin-right: 20px;
 
 /* $card general */
 /*****************/
-.card-content .meta_tags {
-	letter-spacing: 0px;
-	font-family: arial, sans-serif;
-    font-size: 0.7em;
-    letter-spacing: 0.05em;
-    line-height: 0.7em;
-    text-transform: uppercase;
-    margin: 2px 2px 2px 0;
-}
+
 
 .card-content .meta_tags .label {
 	padding: 3px;
+
 }
 
 
@@ -267,10 +333,15 @@ margin-right: 20px;
 	
 }
 
+.card-person .label {
+	box-shadow: none;
+}
+
 .card-person .card-person-title img {
 	border: 1px solid #fff;
 	box-shadow: 0 0 0 1px #ddd;
 	border-radius: 2px; 
+	border-radius: 3px;
 }
 
 
@@ -281,12 +352,13 @@ margin-right: 20px;
 }
 
 .card-person .card-person-title h5 {
-margin-bottom: 0;
+margin-bottom: 6px;
     }
 
 
 .card-person .card-content {
 	position: relative;
+	
 	
 }
 
@@ -327,27 +399,23 @@ sidebar .section-container.auto .section {
 .sidebar .icon-lightbulb,
 .sidebar .icon-wrench {
 	color: #444;
-	text-shadow: 1px 1px #fff;
+	text-shadow: 1px 1px rgba(255,255,255,0.3);
 	font-size: 1.1em;
-	padding-right: 10px;
-	
+	padding-right: 10px;	
 	margin-right: 15px;
 	margin-bottom: -5px;		
 	line-height: 0;
 }
 
+
+.magellan {width: 240px}
+
+  .magellan {position: static !important; width: 100%}
+
+
 .sidebar-wrap .edit-content {
 	border-radius: 3px;
 	overflow: hidden;
-}
-
-.sidebar-wrap .edit-content-top {
-	margin-bottom: 4px;	
-	border-radius: 3px 3px 0 0;
-}
-.sidebar-wrap .edit-content-bottom {
-	
-	border-radius: 0 0 3px 3px;
 }
 
 .ideas-aside {
@@ -409,7 +477,67 @@ sidebar .section-container.auto .section {
 	
 
 
+/* ==========================================================================
+   internal pages
+   ========================================================================== */
 
+.wrapped-content {
+	background: #fff;	
+	border-radius: 4px;
+	padding: 10px 20px 50px 20px;
+	margin-bottom: 50px; 
+ }
+
+
+.item {
+	border-bottom:  1px solid #ddd;
+	margin-bottom: 15px;
+	padding-bottom: 5px;
+}
+
+ 
+
+/****** @font ******/
+
+.main .item {
+	font-size: 1em;
+}
+
+.main h3 {
+
+    font-size: 1em;
+    font-weight: 600;
+    text-transform: uppercase;
+      
+
+
+}
+
+ 
+ .side {
+ 	font-size: 14px;
+ }
+
+
+
+.side h4,
+.main h4,
+.panel-top h4 {
+	
+	font-size: 12px;
+	text-transform: uppercase;
+	font-weight: 600 !important;	
+}
+
+
+
+/* ==========================================================================
+  @ about page
+   ========================================================================== */
+
+.about .side {
+	margin-top:  80px;
+}
 
 
 /* ==========================================================================
@@ -424,14 +552,50 @@ sidebar .section-container.auto .section {
  margin-left: 20px;
 }
 
-.edit-header{
-  background-color: #f9f9f7;
-  border: 1px solid #fff;
-  box-shadow: 0 0 0 1px #bbbbbb, 0 0 0 3px #ddd;
-  border-radius: 3px 3px 0 0;
-  margin-bottom: 4px;
-  padding: 4px 10px;
+.linkList li {
+	list-style-type: none;
+	margin-bottom: 10px;
 }
+
+.profile-skills {
+ 	margin-bottom: 10px;
+
+}
+
+.skill-industry {
+	display: block;
+	width: 100%;	
+	margin-top: 4px;
+	padding: 2px 0 0 0;
+	color: #000;
+	border-top: 1px solid rgba(255,255,255,0.2);
+	
+	
+	margin-top: 7px;
+}
+
+.edit-header {
+   
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 4px 0 0;
+    margin-bottom: -1px;
+    padding: 10px;
+     background-color: #F9F9F7; /* Old browsers */
+background: -moz-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(242,242,242,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(249,249,249,1)), color-stop(100%,rgba(242,242,242,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, rgba(249,249,249,1) 0%,rgba(242,242,242,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, rgba(249,249,249,1) 0%,rgba(242,242,242,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, rgba(249,249,249,1) 0%,rgba(242,242,242,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom, rgba(249,249,249,1) 0%,rgba(242,242,242,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f9f9', endColorstr='#f2f2f2',GradientType=0 ); /* IE6-9 */
+}
+
+.edit-header > .button,
+.edit-header .abtn {
+	position: absolute;
+	right: 10px;
+}
+
 
 .settings-title { 
 	
@@ -445,22 +609,17 @@ sidebar .section-container.auto .section {
 	background: #f9f9f7;	
 }
 
-
 .edit-header h3,
 .edit-header h1 {
 	
 	margin: 0;
 	color: inherit;
 	font-weight: normal;
-	font-size: 1.6em;
-	display: inline;
+	font-size: 1.4em;
+	display: inline-block;
 
 
 }
-
-/****** @ avatar edit ******/
-
-
 
 
 f-line {
@@ -471,28 +630,29 @@ f-line {
 	height: 100%;
 }
 
+.edit-content {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 0 0 4px 4px;
+    margin-bottom: 33px;
+    padding-top: 30px;
+    padding-bottom: 50px;
 
-.edit-content{	
-  border: 1px solid #fff;
-  box-shadow: 0 0 0 1px #bbbbbb, 0 0 0 3px #ddd;
-  margin-bottom: 33px;
-  border-radius: 0 0 3px 3px;
-  background: #fff;
 }
 
+.sidebar-wrap .accordion {
+	padding-top:  0;
+	padding-bottom: 0;
+}
 
-.person-data h3 {
-	font-size: 1.25em;
-	border: 1px solid #ddd;
-	padding: 5px 0;	
-	background: #F9F9F7;
-
+.sidebar-wrap .profile-info {
+	  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .person-data h3 .ico-awesome {
 	margin-right: 10px;
 }
-
 
 
 .skills .ico-awesome,
@@ -522,7 +682,6 @@ f-line {
     margin-left: 1px;
     margin-right: 5px;
     margin-top: -4px;
-
 }
 
 
@@ -563,50 +722,7 @@ f-line {
   margin-bottom: 12px;
 }
 
-.card-person hr, .card-idea hr{
-  margin-top:5px;
-  margin-bottom:0.9375em;
-}
 
-.card-person p, .card-idea p{
-  margin-top:5px;
-  margin-bottom:5px;
-}
-
-.card-person-title {
-  padding-top:0.35em; 
-  padding-bottom:0.35em; 
-  margin-bottom: 0.8em !important;
-  border-bottom:1px solid #ddd; 
-  background-color:#f9f9f7;
-  }
-
-
-.card-person table .icons {
-	width: 15px;
-	text-align: center;
-}
-
-.card-person table td {
- 	padding: 4px 10px;
-}
-
-.card-person table .icons .ico-awesome {
-	color: #444;
-	font-size: 1.2em;
-	background: #fff;	
-}
-
-
-
-  .card-person-title {
-  	background: #f9f9f7;
-  }
-
-div[onclick].panel,
-div[onclick].card-person-title, div[onclick].card-idea-title{
-  cursor: pointer;
-}
 
 
 
@@ -616,9 +732,12 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 
 
 
-img.card-avatar {
+img.card-avatar,
+.mini-avatar {
 	height: 24px;
+	border-radius: 2px;
 	position: static;
+	border-radius: 3px;
 }
 
 .card-avatar, .card-icons{
@@ -636,11 +755,55 @@ img.card-avatar {
 }
 
 #image .secondary {
-	border: 1px dashed #888;
+	margin-top: 20px;
 }
 
 /* #Special Styles
 ================================================== */
+
+
+.success-gradient.button {
+	background: rgb(200,249,134); /* Old browsers */
+	border: 1px solid  rgb(200,249,134); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(200,249,134,1) 0%, rgba(120,150,81,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(200,249,134,1)), color-stop(100%,rgba(120,150,81,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, rgba(200,249,134,1) 0%,rgba(120,150,81,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, rgba(200,249,134,1) 0%,rgba(120,150,81,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, rgba(200,249,134,1) 0%,rgba(120,150,81,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom, rgba(200,249,134,1) 0%,rgba(120,150,81,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', endColorstr='#789651',GradientType=0 ); /* IE6-9 */
+}
+
+
+.expose {
+	background: 
+}
+
+
+.fancy.panel {
+	box-shadow: 0 12px 5px -10px rgba(0, 0, 0, 0.7);
+
+}
+
+
+
+
+.link-icon {
+	margin-bottom: 4px; 
+}
+
+.ml20 {
+	margin-left:  20px;
+}
+
+
+
+.btop {
+	border-top: 1px solid #ddd;
+}
+.ball {
+	border: 1px solid #ddd;	
+}
 
 .header-margin{
   margin-top:40px;  /* nastavljeno pri vseh straneh, če ni so strani potisnjene pod  bomo odmaknili ko gremo ven iz bete*/
@@ -658,6 +821,10 @@ img.card-avatar {
 
 }
 
+
+.clearbox {
+	clear: both;
+}
 
 .hide-text {
 	text-indent: 100%;
@@ -685,6 +852,8 @@ img.card-avatar {
    color: #fff;
 }
 
+.label .close {margin-left:10px;}
+
 .anchor-link{
   position: absolute; 
   top:-60px;
@@ -692,13 +861,14 @@ img.card-avatar {
 
 
 .footer{
-  padding-bottom:13px; 
-  padding-top:30px;
+  padding-bottom:23px; 
+  padding-top:25px;
   margin-top:50px;
   position: relative;
   border-top: 1px solid #ddd; 
-  background-color: #fff;
+  background-color: #333;
   text-transform: uppercase;
+  border-top:1px solid #111;
 
 
 }
@@ -715,13 +885,13 @@ img.card-avatar {
 
 
 .footer a {
-	color: #444;
+	color: #89B561;
 	font-size: 0.8em;
 
 }
 
 .footer a:hover {
-	color: #111;
+	color: #89b561;
 }
 
 .footer img.logo-mini {
@@ -859,6 +1029,13 @@ img.card-avatar {
 
 
 
+/****** @ project card ******/ 
+
+
+.card-idea .section-container.tabs > section > .title a, .section-container.tabs > .section > .title a {
+  font-size: 0.7em;
+}
+
 
  .card-idea .card-idea-title {
   padding-top:0.5em; 
@@ -885,6 +1062,7 @@ img.card-avatar {
 .card-idea {
 	/*font-size: 0.9em;*/
 	min-height: 420px;
+	border-radius:  3px;
 }
 
 .card-idea .card-abstract {
@@ -901,30 +1079,28 @@ img.card-avatar {
 
 
 .card-idea .card-content p {
-	font-size: 0.8em;
+	
 	margin-bottom: 15px;
 }
 
-.card-idea .stageinfo {	
-	background-color:#f9f9f7;
-	padding: 4px 0 4px 0;
-	border-top:1px solid #ddd;   
-	border-bottom: 1px solid #ddd;
-	margin-bottom: 0.3em;
-}	
 
-.card-idea .stageinfo small {
-	padding-left: 10px;
+
+
+.card-idea .stageinfo {
+	padding-bottom: 10px;
 }
 
-.card-idea .foundicon-graph,
+.card-idea .stageinfo .icon-globe {
+	margin-right: 10px;
+}
+
 .card-idea .icon-signal {
 	margin-top: 9px;
 	font-size: 1.2em;
 	position: absolute;
 	line-height: 0;	
 	color: #444;
-	left: 13px;
+	left: 20px;
 }
 
 .card-idea .stage {
@@ -939,12 +1115,7 @@ img.card-avatar {
   padding-right: 13px;
 }
 
-.card-idea .idea-info {
-	position: absolute;
-	bottom: 0px;
-	width: 100%;
-	display: block;
-}
+
 
 .card-idea .idea-info .ico-awesome,
 .card-idea .idea-info .general {
@@ -957,13 +1128,23 @@ img.card-avatar {
 	
 }
 
-.card-idea .idea-info  .subinfo  {
-	background: #f9f9f7;
-	padding-bottom: 11px;
+.card-idea .subinfo {
+	 position: absolute;
+	bottom: 0px;
+	width: 100%;
 	padding-top: 13px;
 	border-top: 1px solid #DDDDDD;
 	padding-right: 11px;
   margin-top: 5px;
+  margin-left: 2px;
+  padding-bottom: 11px;
+
+}
+
+.subinfo  {
+	background: #f9f9f7; 
+    border-top: 2px solid #89B561; 
+	display: block;
 }
 
 
@@ -971,14 +1152,10 @@ img.card-avatar {
 	line-height: 0;
 }
 
-
-
-
 .card-summary p{
   font-size: 0.9em;
   margin-bottom: 10px;
 }
-
 
 
 .bottom-section {
@@ -1068,10 +1245,7 @@ img.card-avatar {
 
 
 
-	.profile-skils{
-		padding-right: 30px;
-		margin-right:8px;
-	}
+	
 
 
 
@@ -1142,10 +1316,7 @@ h6.title-field {
 	margin: 30px 0;
 }
 
-.idea-details .meta-field {
-	margin: 10px 0 10px 0;
-	font-size: 0.8em;
-}
+
 
 .idea-details .meta-field  p {
 	display: inline;
@@ -1178,9 +1349,8 @@ h6.title-field {
 }
 
 .idea-details .pitch {
-	margin: 5px 0 25px 0;
-	font-weight: 600;
-	font-size: 0.9em;
+	font-style: italic;
+	
 }
 
 .idea-sidebar .person-skills {
@@ -1252,21 +1422,12 @@ h6.title-field {
 }
 
 /* ==========================================================================
-  @ PROFILE VIEW
+  @ PROFILE page
    ========================================================================== */
 
 
-.person-details{
-  margin-top:40px;
-}
-
-.card-person{
-  padding-left: 13px;
-  padding-right: 13px;
-}
-
-.profile {
-	margin-left: 30px;
+.profile-wrap {
+	
 }
 
 .profile .card-floater a.button {
@@ -1283,12 +1444,24 @@ h6.title-field {
 	margin-top: 0.875em;
 }
 
-.person-details h1{
-	font-size: 1.5em;
-	line-height: 1.2em;
-	margin: 20px 0 20px 0 ;	
-	/*text-transform: capitalize;*/
+
+.side .edit-content-title {
+   
 }
+
+.side .edit-content-title h1 {
+	margin:25px 0 0.4em 0;
+	padding: 10px 0 0;
+
+}
+
+
+.side .contact-me {
+	
+	text-align: center;
+	border-radius:  0 0 3px 3px;
+}
+
 
 .person-details .card-person {
 	
@@ -1310,6 +1483,12 @@ h6.title-field {
 	border: none;	
 }
 
+.idea-list.card-idea {
+	min-height: auto !important;
+	height: auto !important;
+}
+
+
 
 .person-details h3.card-person-title {
 	
@@ -1328,13 +1507,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444', endCol
 
 
 
-.person-details img.card-avatar {
+.side img.card-avatar {
 	box-shadow: none;
-	
+	border: 10px solid #fff;
     margin-top: 5px;
-    width: 220px;
+    width: 70%;
     height: auto;
-    border-radius: 3px;
+    
     
 }
 
@@ -1344,91 +1523,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444', endCol
 }
 
 
-.person-details .card-person .meta-field {
-	display: block;
-}
-
-	 .meta-field span {
-	margin-bottom: 8px;
-}
-
-.person-details .card-person .card-floater {
- margin-top:  20px;  
-}
-.person-details .card-person .card-floater a {
-	margin-bottom: 0;
-}
-
-.person-details .card-person span.foundicon-idea {
-	border-right: 1px solid #ddd;
-	padding-right: 10px;
-	margin-right: 10px;
-}
-
-.person-details .card-person .panel {
-background-color: #f9f9f7;
-border-right: none;
-
-}
-
-.person-details .about-me {
-	margin-bottom: 33px;
-
-}
-
-.person-details .overview div {
-	border: none;
-}
-
-.person-details .collaboration .card-person-title {
-	background: #afbdd3;
-}
-
-
-
-.person-details .collaboration p {
-	
-}
-
-.person-details .collaboration p.active {
-	
-	color: inherit;
-}
-
-
-
-.person-details .available p span {
-	text-align: center;
-}
-
-
-
-
-
-.person-details .idea-list p  {
-	margin:0;
-	margin-bottom: 1px;
-}
-
-
-.person-details .idea-list p a {
-	display: block;	
-	padding: 6px 0 0 12px;
-	border-bottom: 1px solid #f9f9f7;
-}
-
-.person-details .idea-list p a span {
-	 left: 16px;
-    margin-top: 4px;
-    position: absolute;
-}
-
-
-.person-details .available-time {
-	float: left;
-	margin-right: 20px;
-	margin-top: 10px;
-}
 
 
 
@@ -1436,6 +1530,12 @@ border-right: none;
 
 /* #MY PROJECT PAGE
 ================================================== */
+
+.project-title {
+	
+	
+	margin-top: -10px;
+}
 
 .myprojects .edit-header {
 
@@ -1446,8 +1546,6 @@ border-right: none;
   padding-top: 2px;
   padding-bottom: 10px;
 }
-
-
 
 
 
@@ -1471,6 +1569,15 @@ border-right: none;
 .myprojects .edit-content p {
 	margin-bottom: 0.5em;
 }
+
+
+
+.jobs .skillset-wrap {
+	margin-bottom:  20px;
+}
+
+
+
 
 /* #EDIT IDEA PAGE
 ================================================== */
@@ -1498,7 +1605,8 @@ textarea#IdeaTranslation_description {
   font-size: 0.8em; 
   font-style: italic;
   display: block;
-  margin-bottom: 5px;
+  margin: 5px 0; 
+
 }
 
 label{
@@ -1537,3 +1645,73 @@ label{
   margin-bottom: 0px;
   margin-top: 5px;
 }
+
+/* ==========================================================================
+   $ LAYOUTS
+   ========================================================================== */
+
+	.l-block {
+		display: block;
+	}
+
+	.l-iblock {
+		display: inline-block;
+	}
+	.l-inline {
+		display: inline;
+	}
+
+/* ==========================================================================
+  $ MODULES
+   ========================================================================== */
+
+	/****** @ panel-top ******/
+
+	.panel-top {
+    background: #F5F2F0 !important;
+    box-shadow: 0 0px 1px rgba(0,0,0,0.3) inset;
+    border-bottom: 1px solid #fff !important;
+}
+
+	/****** @ main panel ******/
+
+
+	.main > .columns > .panel,
+	.main > .panel {
+		background: #fff;
+	}
+
+
+
+	/****** @ panel-avatar ******/
+	.panel .panel-avatar {
+    width: 90%;
+    margin: 5%;
+
+}
+ 
+
+   .panel-content {
+   	padding: 0;
+   	margin: 0;
+   	margin: 10%;
+   	width: 70%;
+   	text-align: center;
+   }
+
+
+	
+
+	/****** $ skillgroup ******/
+   .skillgroup {
+
+   	width: 100%;
+   	height: 100%;
+   	padding: 4px;
+
+   }
+
+   .skillgroup h4 {
+   	
+   	display: block;
+   }

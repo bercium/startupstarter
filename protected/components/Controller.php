@@ -31,6 +31,7 @@ class Controller extends CController
     $baseUrl = Yii::app()->baseUrl; 
     $cs = Yii::app()->getClientScript();
   
+    
     $cs->registerCssFile($baseUrl.'/css/foundation.css'.getVersionID());
     $cs->registerCssFile($baseUrl.'/css/normalize.css'.getVersionID()); 
     $cs->registerCssFile($baseUrl.'/css/layout.css'.getVersionID());   
@@ -53,7 +54,7 @@ class Controller extends CController
     $cs->registerScriptFile($baseUrl.'/js/chosen.jquery.min.js');  // new dropdown
     $cs->registerScriptFile($baseUrl.'/js/jquery-ui-1.10.3.custom.min.js');
     $cs->registerScriptFile($baseUrl.'/js/jquery.cookie.js');
-    //$cs->registerScriptFile($baseUrl.'/js/jquery.cookiecuttr.js');  // some stuff not working because of this... MUST FIX!!!
+    $cs->registerScriptFile($baseUrl.'/js/jquery.cookiecuttr.js');  // some stuff not working because of this... MUST FIX!!!
 
     //$cs->registerCoreScript($baseUrl.'jquery.ui');
     //$cs->registerCoreScript($baseUrl.'autocomplete');
