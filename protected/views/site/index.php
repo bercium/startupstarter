@@ -380,10 +380,10 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
   
 <div  class="row" >
   <div class="columns">
-    <h2>Quote</h2>
-    <p>
-      "nek quote ki mislimo da je cool"
-    </p>
+    <h2><?php echo Yii::t('app','Quote from {who}',array("{who}"=>"Biome3cs d.o.o")) ?></h2>
+    <blockquote style="font-style: italic;">
+      "V podjetju Biome3cs d.o.o, smo se podobno kot številna druga start-up podjetja srečali s problemom pomanjkanja specifičnega kadra. S pomočjo platforme cofinder smo uspešno našli manjkajoče člene v naši ekipi, s katerimi še vedno uspešno sodelujemo. S platformo cofinder smo zelo zadovoljni in jo priporočamo vsem, ki želijo na najbolj enostaven in hiter način najti ljudi, ki bi jim pomagali uresničiti svojo idejo."
+    </blockquote>
   </div>  
 </div>  
   

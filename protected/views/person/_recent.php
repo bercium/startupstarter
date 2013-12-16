@@ -1,4 +1,4 @@
-<h4 class="meta-title l-inline"><?php echo Yii::t('app','Recent users'); ?></h4>
+<h2 class="meta-title l-inline"><?php echo Yii::t('app','Recent users'); ?></h2>
 	
   
 
