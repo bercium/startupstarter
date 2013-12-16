@@ -57,7 +57,9 @@
         <?php echo CHtml::beginForm(Yii::app()->createUrl("site/notify"),'post',array("style"=>"margin-bottom:0;")); ?>
         
         <h2 style="margin-bottom:5px;">
-        <?php echo CHtml::label(Yii::t('app','Want to get invited?'),'email'); ?>
+          <label for="email" style="font-size:1em;">
+            <?php echo Yii::t('app','Want to get invited?'); ?>
+          </label>
         </h2>
         <span class="description">
         <?php echo Yii::t('app','Leave us your email and we will get back to you. '); ?>
@@ -378,9 +380,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
   
 <div  class="row" >
   <div class="columns">
-    <h2>
-      Quote
-    </h2>
+    <h2>Quote</h2>
     <p>
       "nek quote ki mislimo da je cool"
     </p>
