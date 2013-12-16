@@ -1,3 +1,11 @@
+// if cookie alert is visible set margin to intro h1
+$(function() {
+  if ($('.cc-cookies').length > 0) { 
+      $('.intro h1').css('margin-top','50px');
+  }
+});
+
+
 
 ;(function ($, window, undefined) {
   $(document).foundation();
