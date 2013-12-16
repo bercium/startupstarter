@@ -238,7 +238,7 @@ margin-right: 20px;
  	padding: 4px 10px;
 }
 
-.card-person table .icons .ico-awesome {
+.card-person table .icons .icon-awesome {
 	color: #444;
 	font-size: 1.2em;
 	background: #fff;	
@@ -400,11 +400,21 @@ sidebar .section-container.auto .section {
 	
 }
 
+
+.sidebar .side-nav li a {
+  color: inherit;
+  font-size: 1.2em;
+  padding: 0.3em 0;
+}
+
+
+
 .sidebar .general,
 .sidebar .icon-user,
 .sidebar .icon-flag,
 .sidebar .icon-lightbulb,
-.sidebar .icon-wrench {
+.sidebar .icon-wrench,
+.sidebar .icon-awesome {
 	color: #444;
 	text-shadow: 1px 1px rgba(255,255,255,0.3);
 	font-size: 1.1em;
@@ -446,7 +456,7 @@ sidebar .section-container.auto .section {
 
 }
 
-.ideas-aside .ico-awesome {
+.ideas-aside .icon-awesome {
 	margin-left: 10px;
 }
 
@@ -497,7 +507,7 @@ sidebar .section-container.auto .section {
 
 
 .item {
-	border-bottom:  1px solid #ddd;
+	
 	margin-bottom: 15px;
 	padding-bottom: 5px;
 }
@@ -657,16 +667,16 @@ f-line {
   padding-bottom: 20px;
 }
 
-.person-data h3 .ico-awesome {
+.person-data h3 .icon-awesome {
 	margin-right: 10px;
 }
 
 
-.skills .ico-awesome,
-.available .ico-awesome,
-.collaboration .ico-awesome,
-.involved-in .ico-awesome,
-.about-me .ico-awesome {
+.skills .icon-awesome,
+.available .icon-awesome,
+.collaboration .icon-awesome,
+.involved-in .icon-awesome,
+.about-me .icon-awesome {
  background: none repeat scroll 0 0 #fff;
     border-radius: 3px 0 0 3px;
     color: #444;
@@ -684,7 +694,7 @@ f-line {
 
 
 
-.person-details .ico-awesome {
+.person-details .icon-awesome {
     font-size: 0.8em;
     margin-left: 1px;
     margin-right: 5px;
@@ -806,6 +816,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 	margin-left:  20px;
 }
 
+.mr15 {
+	margin-right:  15px;
+}
 
 
 .btop {
@@ -1125,7 +1138,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 
 
 
-.card-idea .idea-info .ico-awesome,
+.card-idea .idea-info .icon-awesome,
 .card-idea .idea-info .general {
 	float: right;
 	margin-left: 10px;
@@ -1696,36 +1709,10 @@ label{
     width: 90%;
     margin: 5%;
 
-}
- 
-
-   .panel-content {
-   	padding: 0;
-   	margin: 0;
-   	margin: 10%;
-   	width: 70%;
-   	text-align: center;
-   }
+    }
 
 
-	
-
-	/****** $ skillgroup ******/
-   .skillgroup {
-
-   	width: 100%;
-   	height: 100%;
-   	padding: 4px;
-
-   }
-
-   .skillgroup h4 {
-   	
-   	display: block;
-   }
-
-
-
+/****** $ footer sticky hack ******/
 
 html, body {
 height: 100%;

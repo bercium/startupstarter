@@ -208,7 +208,7 @@ h6 {
   font-size: 0.8em;
 }
 
-/* Accordion */
+/* Accordion 
 .section-container > section > .title, .section-container > .section > .title, .section-container.auto > section > .title, .section-container.auto > .section > .title {
   background: #F9F9F7;
   border-bottom: 1px solid #ddd;
@@ -231,6 +231,7 @@ h6 {
   color: #89B561;
 }
 
+*/
 
 /* Progress Bar */
 .progress {
@@ -240,7 +241,7 @@ h6 {
   padding: 0.125em;
   margin-bottom: 0.625em; }
   .progress .meter {
-    background: #4469a6;
+   background: #4469a6;
   background: -moz-linear-gradient(top, #5e9be5 0%, #4469a6 100%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5e9be5), color-stop(100%,#4469a6)); /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(top, #5e9be5 0%,#4469a6 100%); /* Chrome10+,Safari5.1+ */
@@ -451,8 +452,7 @@ form.custom .custom.checkbox.checked:before{
   .top-bar-section ul{ background: #fff; }
 }
 
-.progress.success .meter { background: #89b561; }
-.progress.alert .meter { background: #A83C3C; }
+
 
 
 .tooltip  {

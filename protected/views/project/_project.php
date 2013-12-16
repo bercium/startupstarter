@@ -14,14 +14,14 @@
           <section class="active">
           <p class="title" data-section-title><a href="#panel1">Section 1</a></p>
             <div class="content" data-section-content>
-              <div class="stageinfo"><span class="meta" data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>"> <span class="ico-awesome icon-signal" title="stage"></span><a class="stage"><?php echo $idea['status']; ?></a></span>
+              <div class="stageinfo"><span class="meta" data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>"> <span class="icon-awesome icon-signal" title="stage"></span><a class="stage"><?php echo $idea['status']; ?></a></span>
                 <div class="right meta">
                   <?php if ($idea['website']){ ?>
-                  <span class="ico-awesome icon-globe" data-tooltip title="<?php  echo Yii::t('msg','Project has a presentational web page'); ?>" ></span>
+                  <span class="icon-awesome icon-globe" data-tooltip title="<?php  echo Yii::t('msg','Project has a presentational web page'); ?>" ></span>
                   <?php } ?>
                   <?php if ($idea['video_link']){ ?>
                   <!-- <img src="<?php //echo Yii::app()->request->baseUrl; ?>/images/video.png" data-tooltip title="<?php // echo Yii::t('app','Has video'); ?>" alt="<?php // echo Yii::t('app','Has video'); ?>" class="card-icons" /> -->
-                  <span class="icon-film ico-awesome" data-tooltip title="<?php  echo Yii::t('msg','Project has a video'); ?>" ></span>
+                  <span class="icon-film icon-awesome" data-tooltip title="<?php  echo Yii::t('msg','Project has a video'); ?>" ></span>
                   <?php } ?>   
                 </div>
               </div>

@@ -34,20 +34,20 @@
   <div class="large-4 sidebar-wrap columns">
     
         
-     <div class="section-container sidebar tabs" data-section="tabs">
+     <div class="section-container sidebar accordion edit-content edit-content-bottom" data-section="accordion">
       <section class="<?php if ($group == 'user') echo "active"; ?>">
-        <p class="title"><a href="#p1"><span class="icon-user"></span><?php echo Yii::t('app','People'); ?></a></p>
+        <p class="title" data-section-title><a href="#p1"><span class="icon-user icon-awesome"></span><?php echo Yii::t('app','People'); ?></a></p>
 
-        <div class="content" data-slug="p1">
+        <div class="content" data-section-content>
           <?php if (is_array($msgList['users'])){
             ?>
-            <div class="section-container sidebar accordion" data-section>
+            <ul class="side-nav">
               <?php foreach ($msgList['users'] as $listPeople){ ?>
-              <section class="section <?php if (isset($_GET['id']) && ($listPeople['id'] == $_GET['id']) && ($group == "user"))  echo "active"; ?>">
-                <p class="title"><a href="<?php echo Yii::app()->createUrl("message/view",array("id"=>$listPeople['id'],"group"=>'user')); ?>"><?php echo $listPeople['name']; ?></a></p>
-              </section>
+              <li class="<?php if (isset($_GET['id']) && ($listPeople['id'] == $_GET['id']) && ($group == "user"))  echo "active"; ?>">
+               <a href="<?php echo Yii::app()->createUrl("message/view",array("id"=>$listPeople['id'],"group"=>'user')); ?>"><?php echo $listPeople['name']; ?></a>
+              </li>
               <?php } ?>
-            </div>
+            </ul>
             <?php
           }else{ ?>
             <p><?php echo Yii::t('app','No contacted people.'); ?></p>
@@ -57,17 +57,18 @@
 
 
       <section class="<?php if ($group == 'project') echo "active"; ?>">
-        <p class="title"><a href="#p2"><span class="icon-lightbulb"></span><?php echo Yii::t('app','Projects'); ?></a></p>
-        <div class="content" data-slug="p2">
+        <p class="title" data-section-title><a href="#p2"><span class="icon-lightbulb"></span><?php echo Yii::t('app','Projects'); ?></a></p>
+       
+        <div class="content" data-section-content>
           <?php if (is_array($msgList['projects'])){
             ?>
-            <div class="section-container sidebar accordion" data-section>
+            <ul class="side-nav">
               <?php foreach ($msgList['projects'] as $listProject){ ?>
-              <section class="section <?php if (isset($_GET['id']) && ($listProject['id'] == $_GET['id']) && ($group == "project"))  echo "active"; ?>">
-                <p class="title"><a href="<?php echo Yii::app()-> createUrl("message/view",array("id"=>$listProject['id'],"group"=>'project')); ?>"><?php echo $listProject['name']; ?></a></p>
-              </section>
+              <li class="<?php if (isset($_GET['id']) && ($listProject['id'] == $_GET['id']) && ($group == "project"))  echo "active"; ?>">
+                <a href="<?php echo Yii::app()-> createUrl("message/view",array("id"=>$listProject['id'],"group"=>'project')); ?>"><?php echo $listProject['name']; ?></a>
+              </li>
               <?php } ?>
-            </div>
+            </ul>
             <?php
           }else{ ?>
             <p><?php echo Yii::t('app','No contacted projects.'); ?></p>
