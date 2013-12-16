@@ -153,7 +153,7 @@
                   <li><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><?php echo Yii::t('app','Profile'); ?><span class="icon-user"></span></a></li>
                   <li><a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>"><?php echo Yii::t('app','My projects'); ?><span class="icon-lightbulb"></span></a></li>
                   <li><a href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo Yii::t('app','Create new project'); ?><span class="icon-plus"></span></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("message"); ?>"><?php echo Yii::t('app','Message history'); ?><span class="icon-plus"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("message"); ?>"><?php echo Yii::t('app','Message history'); ?><span class="icon-envelope"></span></a></li>
                   <li><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><?php echo Yii::t('app','Settings'); ?><span class="icon-wrench"></span></a></li>
                   
                   <li><a class="altli" href="<?php echo Yii::app()->createUrl(Yii::app()->getModule('user')->logoutUrl[0]); ?>"><?php echo Yii::t('app','Logout'); ?></a></li>
@@ -198,13 +198,12 @@
  writeFlashes();
 
 } ?>
-<?php echo $content; ?>
-  
-
-<div class="push"></div>
-
-  
+<?php echo $content; ?>  
 <?php if (!isset($this->justContent) || !$this->justContent){ ?>
+
+
+	
+ 
 <!-- page -->
 <div id="langselect" class="f-dropdown content" data-dropdown-content>
   <ul class="side-nav" style="padding:0;">
@@ -248,6 +247,8 @@
 </div>
 
 <?php } ?>
+
+<div class="push"></div>
 
 </div><!-- container end -->
 

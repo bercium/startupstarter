@@ -3,12 +3,13 @@
 ?>
 
 
-<div class="row about" style="margin-top:20px;">
+<div class="row about" style="margin-top:50px;">
 	
-  <div class=" columns ball wrapped-content">
+  <div class="columns main ball wrapped-content">
    
    <div class="large-8  columns">
     <h1><?php echo Yii::t('app','What is cofinder'); ?></h1>
+    <h2><?php echo Yii::t('app','Introduction'); ?></h2>
     
 		 
 		<p>
@@ -18,7 +19,7 @@
 		</p>
 	
 		
-		<h4><?php echo Yii::t('app','Brief history'); ?></h4>
+		<h2><?php echo Yii::t('app','Brief history'); ?></h2>
 		<p>
       <?php echo Yii::t('msg',"The idea was born during the conversation that happened in October 2012 at PopUp home. Talking to one of the founders of Slovenia coworking made me realise that online platform could open up the concept of coworking to a broader community. It will help solving a problem of finding the right team to build new products and services. In mid December Blaž joined me. He's been facing the same problem. It was difficult for him to find a realiable team of people outside his social circles. Soon after the third member joined our team. In late February 2013 the three of us developed and presented our concept to Slovenia's coworking community. Positive feedback gave us more than enough motivation to go on with the development of the web platform. Soon after our presentation the fourth member joined the team and the developement process."); ?>
 		</p> 
@@ -29,31 +30,23 @@
       <?php if ($idea)  $this->renderPartial('//project/_project', array('idea' => $idea));  ?>
     </div>
   
-  </div>
-  
-</div>
 
-
-<div class="row">
-	<div class="columns">
-    <div class="edit-floater">
-      <a href="#" class="button small radius success right" onclick="contact(this);"><?php echo Yii::t('app','Contact us'); ?></a>
-    </div>
+    <div class="columns">
+      <br><br> 
+    <h2><?php echo Yii::t('app','Who is behind cofinder'); ?></h2>
     
-		<h1><?php echo Yii::t('app','Who is behind cofinder'); ?></h1>
   </div>
-  <div class="columns panel radius edit-content">
-    
-      
-      <ul class="small-block-grid-2"> 
+  <div class="columns">
+          
+      <ul class="small-block-grid-1 large-block-grid-2"> 
         <li>
           <div class="row">
             <div class="small-4 columns">
-              <p><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-ziga.jpg" alt="Žiga Berce" title="Žiga Berce">
+              <p><img class="th" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-ziga.jpg" alt="Žiga Berce" title="Žiga Berce">
                 </p>
             </div>
             <div class="small-8 columns">
-              <h4 >Žiga Berce</h4>
+              <h3>Žiga Berce</h3>
               <p>
                 <?php echo Yii::t('msg',"Within cofinder I take care of development while motivating the team and try to engage others to join our project."); ?>
               </p>
@@ -64,11 +57,11 @@
         <li>        
           <div class="row">
             <div class="small-4 columns">
-              <p><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-blaz.jpg" alt="Blaž Beuermann" title="Blaž Beuermann">
+              <p><img class="th" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-blaz.jpg" alt="Blaž Beuermann" title="Blaž Beuermann">
                 </p>
             </div>
             <div class="small-8 columns">
-              <h4>Blaž Beuermann</h4>
+              <h3>Blaž Beuermann</h3>
               <p>
                 <?php echo Yii::t('msg',"My designation at cofinder is to take care of our online foundations."); ?>
               </p>
@@ -80,11 +73,11 @@
         <li>
           <div class="row">
           <div class="small-4 columns">
-            <p><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-jure.jpg" alt="Jure Ravlič" title="Jure Ravlič">
+            <p><img class="th" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-jure.jpg" alt="Jure Ravlič" title="Jure Ravlič">
               </p>
           </div>
           <div class="small-8 columns">
-            <h4>Jure Ravlič</h4>
+            <h3>Jure Ravlič</h3>
             <p>
               <?php echo Yii::t('msg',"Taking care of overall design is my primary focus here on cofinder."); ?>
             </p>
@@ -96,11 +89,11 @@
         <li>
         <div class="row">
           <div class="small-4 columns">
-            <p><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-jernejm.jpg" alt="Jernej Mirt" title="Jernej Mirt">
+            <p><img class="th" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-jernejm.jpg" alt="Jernej Mirt" title="Jernej Mirt">
               </p>
           </div>
           <div class="small-8 columns">
-            <h4>Jernej Mirt</h4>
+            <h3>Jernej Mirt</h3>
             <p>
               <?php echo Yii::t('msg',"Managing social marketing."); ?>
             </p>
@@ -110,15 +103,23 @@
         
       </ul>
 
-    <h4><?php echo Yii::t('app',"Others that helped us a lot"); ?></h4>
-    <h5>Jure Grahek</h5>
+      <a href="#" class="button radius success" onclick="contact(this);"><?php echo Yii::t('app','Contact us'); ?></a>
+
+    <h2><?php echo Yii::t('app',"Others that helped us a lot"); ?></h2>
+    <p>Jure Grahek</p>
       
+
+      <h2><?php echo Yii::t('app','Supporters'); ?></h2>
   </div>
+
+   
+  
+  </div>
+  
 </div>
 
-<div class="large-6 item small-12 columns">	
-  <div class="radius columns panel edit-content">
-    <h1><?php echo Yii::t('app','Our supporters'); ?></h1>
-  </div>
-</div>
+
+
+	
+
 
