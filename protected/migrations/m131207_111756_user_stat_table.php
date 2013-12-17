@@ -15,13 +15,9 @@ class m131207_111756_user_stat_table extends CDbMigration
         PRIMARY KEY (`id`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
     
-    $this->execute("ALTER TABLE `user_stat` ADD UNIQUE (
-      `user_id`
-      )");
+    $this->execute("ALTER TABLE `user_stat` ADD UNIQUE (`user_id`)");
     
-    $this->execute("ALTER TABLE `user_stat` ADD FOREIGN KEY ( `user_id` ) REFERENCES `user` (
-      `id`
-      ) ON DELETE CASCADE ON UPDATE CASCADE ;");
+    $this->execute("ALTER TABLE `user_stat` ADD FOREIGN KEY ( `user_id` ) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE ;");
     
 	}
 
