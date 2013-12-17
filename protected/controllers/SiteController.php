@@ -203,7 +203,7 @@ class SiteController extends Controller
           }
         }
       }
-      $this->refresh();
+      //$this->refresh();
     }
 		$this->render('notify',array("saved"=>$savedToDB));
 	}

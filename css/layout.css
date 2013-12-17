@@ -957,6 +957,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
   display: none;
 }
 
+
+.main-quote{
+  background-color: #FFF; 
+  margin-top:20px; 
+  padding: 20px 0; 
+  border-top: 1px solid #ccc;
+}
+
+.main-quote blockquote{
+  font-style: italic;
+}
+
 /* #login PAGE
 ================================================== */
 .loginbox {

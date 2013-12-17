@@ -9,7 +9,7 @@
     $summary = urlencode(Yii::t('msg','With the right team any idea can change your life!'));
     $summaryTwt = urlencode(Yii::t('msg','With the right #team any #idea can change your life at http://www.cofinder.eu #cofinder'));
     
-    echo Yii::t('msg','Thank you for applying. As we wish to maintain a certain level of quality we let our comunity chose apropriate candidates. This can take some time but don\'t worry we will keep you posted on what\'s happening and when we go public.');
+    echo Yii::t('msg','Thank you for applying. As we wish to maintain a certain level of quality we let our comunity chose apropriate candidates. This can take some time but don\'t worry we will keep you posted on what\'s happening and will notify you when we go public.');
     ?>
     <br /><br /><br />
 
@@ -48,7 +48,7 @@
   <?php echo Yii::t('msg','If you wish to be invited or notified on changes we make please leave your email address below.'); ?>
 </p>
 
-<?php echo CHtml::beginForm('','post',array("class"=>"custom large-6")); ?>
+<?php echo CHtml::beginForm('','post',array("class"=>"custom large-7")); ?>
 
 
 <div class="row collapse">
@@ -57,10 +57,10 @@
   <h3><label for="email"><?php echo CHtml::label(Yii::t('app','Your email'),'email'); ?></label></h3>
   </div>
   <div class="columns small-8"><?php echo CHtml::textField("email") ?></div>
-<div class="columns small-4">
- <?php echo CHtml::submitButton(Yii::t('app',"Notify me"),array("class"=>"button radius postfix success")); ?>
- <?php echo CHtml::endForm(); ?>
-</div>
+    <div class="columns small-4">
+     <?php echo CHtml::submitButton(Yii::t('app',"Notify me"),array("class"=>"button radius postfix success")); ?>
+     <?php echo CHtml::endForm(); ?>
+    </div>
 </div>
 
 <?php } ?>
