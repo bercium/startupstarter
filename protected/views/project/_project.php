@@ -12,16 +12,28 @@
       <div class="card-content">
         <div class="section-container tabs" data-section="tabs">
           <section class="active">
-          <p class="title" data-section-title><a href="#panel1">Section 1</a></p>
+          <p class="title" data-section-title><a href="#panel1"><?php echo Yii::t('app','Overview') ?></a></p>
             <div class="content" data-section-content>
-              <div class="stageinfo"><span class="meta" data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>"> <span class="icon-awesome icon-signal" title="stage"></span><a class="stage"><?php echo $idea['status']; ?></a></span>
+              <div class="stageinfo">
+                
+                <span class="meta" data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>"> 
+                  <a class="stage" href="<?php echo Yii::app()->createURL("project/discover",array("SearchForm"=>array("stage"=>$idea['status_id']))); ?>">
+                  <span class="icon-awesome icon-signal" title="<?php echo Yii::t('app',"Stage of project"); ?>"></span>
+                    <?php echo $idea['status']; ?>
+                  </a>
+                </span>
+                
                 <div class="right meta">
                   <?php if ($idea['website']){ ?>
-                  <span class="icon-awesome icon-globe" data-tooltip title="<?php  echo Yii::t('msg','Project has a presentational web page'); ?>" ></span>
+                    <a href="<?php echo add_http($idea['website']); ?>" target="_blank">
+                      <span class="icon-awesome icon-globe" data-tooltip title="<?php  echo Yii::t('msg','Project has a presentational web page'); ?>" ></span>
+                    </a>
                   <?php } ?>
                   <?php if ($idea['video_link']){ ?>
                   <!-- <img src="<?php //echo Yii::app()->request->baseUrl; ?>/images/video.png" data-tooltip title="<?php // echo Yii::t('app','Has video'); ?>" alt="<?php // echo Yii::t('app','Has video'); ?>" class="card-icons" /> -->
-                  <span class="icon-film icon-awesome" data-tooltip title="<?php  echo Yii::t('msg','Project has a video'); ?>" ></span>
+                    <a href="<?php echo add_http($idea['video_link']); ?>" target="_blank">
+                      <span class="icon-film icon-awesome" data-tooltip title="<?php  echo Yii::t('msg','Project has a video'); ?>" ></span>
+                    </a>
                   <?php } ?>   
                 </div>
               </div>
@@ -34,7 +46,8 @@
           </section>
 
           <section>
-            <p class="title" data-section-title><a href="#panel2"><strong>3 </strong><?php echo Yii::t('app','Positions') ?></a></p>
+            <?php if(isset($idea['candidate'])) $cd = count($idea['candidate']); else $cd = 0; ?>
+            <p class="title" data-section-title><a href="#panel2"><?php echo Yii::t('app','{n} Positions',array("{n}"=>'<strong>'.$cd.'</strong>')); ?></a></p>
               <div class="content" data-section-content>
                 <div class="idea-skills">
                   
@@ -50,7 +63,7 @@
                           $c++;
                           $tmp_skils = $skills;
                           $tmp_skils[$skillset['skillset']][] = $skill['skill'];
-                          if (count($tmp_skils) > 3) $skills['...'][$skillset['skillset']] = $skillset['skillset'];
+                          if (count($tmp_skils) > 8) $skills['...'][$skillset['skillset']] = $skillset['skillset'];
                           else $skills = $tmp_skils;
                         }
                       }
@@ -59,17 +72,26 @@
 								
 //								echo Yii::t('app','Looking for <a>{n} person</a>|Looking for <a>{n} people</a>',array(count($idea['candidate'])));
 								//echo Yii:: (app','Looking for').' <a>'.Yii:: ('app','{n} person|{n} people',array(count($idea['candidate']))).'</a>';
+                  echo Yii::t('app','Looking for {sb}{n}{se} person skilled in|Looking for {sb}{n}{se} people skilled in',array(count($idea['candidate']),'{sb}'=>'<strong>','{se}'=>'</strong>')).": <br />";
 								
                   if (count($skills) > 0){
                   //echo " ".Yii::t('app','with skill|with skills',array($c)).":<br />";
                   //echo " ".Yii::t('app','skilled in').":<br />";
-                  echo Yii::t('app','Looking for <span class="label success radius">{n}</span> person skilled in|Looking for <a>{n} people</a> skilled in',array(count($idea['candidate']))).": <br />";
                   foreach ($skills as $skillset=>$skill){
                   ?>
-                  <span class="label radius" data-tooltip title="<?php echo implode("<br />",$skill) ?>"><?php echo $skillset; ?></span>
-                  <?php 
-                  }
-                  }else echo Yii::t('app','Looking for <a>{n} person</a>|Looking for <a>{n} people</a>',array(count($idea['candidate'])));
+                    <?php if ($skillset != '...'){ ?>
+                      <a href="<?php echo Yii::app()->createURL("project/discover",array("SearchForm"=>array("skill"=>$skillset))); ?>">
+                    <?php } ?>
+
+                      <span class="label radius"<?php if(count($skill)) echo " data-tooltip title='".implode("<br />",$skill)."'"; ?>><?php echo $skillset; ?></span>
+                      
+                    <?php if ($skillset != '...') { ?>
+                      </a>
+                      <br />
+                      <?php } ?>
+                      <?php 
+                      }
+                    }
                   }
                   ?> 
                 </div>
@@ -77,7 +99,8 @@
           </section>
 
           <section>
-            <p class="title" data-section-title><a href="#panel3"><strong>3 </strong><?php echo Yii::t('app','Members') ?></a></p>
+            <?php if(isset($idea['member'])) $cm = count($idea['member']); else $cm = 0; ?>
+            <p class="title" data-section-title><a href="#panel3"><?php echo Yii::t('app','{n} Members',array('{n}'=>'<strong>'.$cm.'</strong>')); ?></a></p>
               <div class="content" data-section-content>
                 <?php 
                 $i = 0;

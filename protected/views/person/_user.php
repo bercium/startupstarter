@@ -17,12 +17,12 @@
 						</small><br></a>
 					<?php } ?>		
                   
-                 <small><span data-tooltip title="<?php echo Yii::t('app','Available') ?>" class="icon-time"></span>
+                 <small>
                   <?php if ($user['available_name']) { ?>
-                     
+                     <span data-tooltip title="<?php echo Yii::t('app','Available') ?>" class="icon-time"></span>
                   
                     <?php echo $user['available_name']; ?>
-                    <?php } ?>               
+                    <?php } ?>
                     </small>
 
                   	
@@ -61,8 +61,11 @@
                     <?php 
                      foreach ($skills as $skillset=>$skill){
                           ?>
-                          <?php if ($skillset != '...'){ ?><a href="<?php echo Yii::app()->createURL("person/discover",array("SearchForm"=>array("skill"=>$skillset))); ?>"><?php } ?>
-                          <span class="label radius"<?php if(count($skill)) echo " data-tooltip title='".implode("<br />",$skill)."'"; ?>><?php echo $skillset; ?></span>
+                          <?php if ($skillset != '...'){ ?>
+                            <a href="<?php echo Yii::app()->createURL("person/discover",array("SearchForm"=>array("skill"=>$skillset))); ?>">
+                          <?php } ?>
+                              
+                            <span class="label radius"<?php if(count($skill)) echo " data-tooltip title='".implode("<br />",$skill)."'"; ?>><?php echo $skillset; ?></span>
                           <?php if ($skillset != '...') { ?></a><?php } ?>
                             <?php 
                           }
@@ -74,10 +77,10 @@
        
 		  </div>
        <div class="card-person-footer">
-          <div class="left"><small>  
-            <?php echo Yii::t('app','Working on') ?>
+          <div class="left">
+            <small class="meta">
             <?php if ($user['num_of_rows']) { ?>
-            <?php echo Yii::t('app','{n} project|{n} projects',array($user['num_of_rows'])) ?>
+              <?php echo Yii::t('app','Working on {n} project|Working on {n} projects',array($user['num_of_rows'])) ?>
             <?php } ?>
             </small>
           </div>
