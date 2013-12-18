@@ -4,7 +4,7 @@
         <img src="<?php echo avatar_image($user['avatar_link'],$user['id'],60); ?>" style="height:64px; margin-right: 10px; float:left; margin-top:5px;" />
         <h5><?php echo $user['name']." ".$user['surname']; ?></h5>
 				<?php	if ($user['city'] || $user['country']){ ?>
-
+            <span class="l-inline  icon-map-marker"></span>
 						<a href=""><small class="" data-tooltip title="<img src='<?php echo getGMap($user['country'],$user['city'],$user['address']); ?>'>">
            
              

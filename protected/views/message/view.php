@@ -31,6 +31,13 @@
   </div><?php //*/ ?>
   
 <div class="row header-margin">
+<div class="columns">
+  <ul class="breadcrumbs">
+   <li><a href="http://cofinder.eu"><?php echo Yii::t('app','Home'); ?></a> 
+  <li><?php echo Yii::t('app','Message history'); ?></li>
+
+  </ul>
+</div>
   <div class="large-4 sidebar-wrap columns">
     
         

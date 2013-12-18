@@ -61,7 +61,7 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("cla
 
             <div class="right">
                 <?php if (count($idea['translation_other'])){ ?>
-                <div class="">
+                <div class=""><span class="right ml8 icon-info-sign" data-tooltip title="<?php echo Yii::t('app', 'View project in other languages by clicking on the dropdown') ?>"></span>
                   <a href="#"  data-dropdown="data1" class="tiny secondary radius button dropdown"><?php echo Yii::t('app','Other languages'); ?>: </a>
                   <br> 
 

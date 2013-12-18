@@ -6,8 +6,8 @@
     </span>
   </div>
   </a>
-<br>
-  <a class="button radius small-12 secondary" href="<?php echo Yii::app()->createUrl("profile/completeness"); ?>" ><?php echo Yii::t('app','Profile points'); ?></a>
+
+  <a class="button radius small-12 secondary" href="<?php echo Yii::app()->createUrl("profile/completeness"); ?>" ><?php echo Yii::t('app','Improve your profile'); ?></a>
 
   </div>
 

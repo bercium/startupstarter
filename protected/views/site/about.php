@@ -4,6 +4,7 @@
 
 
 <div class="row about" style="margin-top:50px;">
+  <div class="columns">
 	
   <div class="columns main ball wrapped-content">
    
@@ -31,9 +32,14 @@
     </div>
   
 
+  </div>
+
+    <div class="columns main ball wrapped-content">
+
+
     <div class="columns">
-      <br><br> 
-    <h2><?php echo Yii::t('app','Who is behind cofinder'); ?></h2>
+      
+    <h1><?php echo Yii::t('app','Who is behind cofinder'); ?></h1>
     
   </div>
   <div class="columns">
@@ -105,17 +111,22 @@
 
       <a href="#" class="button radius success" onclick="contact(this);"><?php echo Yii::t('app','Contact us'); ?></a>
 
-    <h2><?php echo Yii::t('app',"Others that helped us a lot"); ?></h2>
+   
+  </div>  
+  
+  </div>
+
+   <div class="columns main ball wrapped-content">
+    <div class="columns">
+     <h1><?php echo Yii::t('app',"Others that helped us a lot"); ?></h1>
     <p>Jure Grahek</p>
       
 
       <h2><?php echo Yii::t('app','Supporters'); ?></h2>
-  </div>
-
-   
-  
+      </div>
   </div>
   
+   </div>
 </div>
 
 

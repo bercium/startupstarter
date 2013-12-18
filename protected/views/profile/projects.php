@@ -6,6 +6,7 @@
    
 		
     <h3><?php echo Yii::t('app', 'My projects'); ?></h3>
+    <a class="button small radius secondary" href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo Yii::t('app','Create new project'); ?> <span class="icon-plus"></span></a>
   </div>
     
 <?php
@@ -26,14 +27,14 @@ foreach($user['idea'] AS $key => $idea){
 
         <p class="mt-10"><a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><?php echo $idea['title'];?></a></p>
         <small class="mb-10 block">
-          <span class="meta"><?php echo Yii::t('app', 'created on'); ?> </span><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($idea['time_registered']),"long",null); ?> | 
-          <?php echo Yii::t('app', '<span class="meta">has</span> {n} member| has {n} members',count($idea['member'])); ?> | 
-          <?php echo Yii::t('app', '<span class="meta">viewed</span> {n} time| viewed {n} times',$idea['num_of_clicks']); ?>
+          <span class=""><?php echo Yii::t('app', 'created on'); ?> </span><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($idea['time_registered']),"long",null); ?> | 
+          <?php echo Yii::t('app', '<span class="">has</span> {n} member| has {n} members',count($idea['member'])); ?> | 
+          <?php echo Yii::t('app', '<span class="">viewed</span> {n} time| viewed {n} times',$idea['num_of_clicks']); ?>
            </small>
            <small>
           <?php 
            if (isset($idea['translation_other']) && count($idea['translation_other'])){ ?>
-           <span class="meta">translations: </span>
+           <span class="">translations: </span>
           <?php foreach ($idea['translation_other'] as $trans){ ?>
             <a href="<?php echo Yii::app()->createUrl("project/edit/{$key}?lang={$trans['language_code']}"); ?>"><?php echo $trans['language'];?></a>
           <?php }          
@@ -73,7 +74,7 @@ foreach($user['idea'] AS $key => $idea){
         </div>
 
         <p class="mt-10"><a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><?php echo $idea['title'];?></a></p>
-        <small class="meta">
+        <small class="">
           <p><?php echo Yii::t('app', 'created on'); ?> <?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($idea['time_registered']),"long",null); ?> | 
           <?php echo Yii::t('app', 'has <span>{n} member</span>| has <span>{n} members</span>',count($idea['member'])); ?> | 
           <?php echo Yii::t('app', 'viewed <span>{n} time</span>| viewed <span>{n} times</span>',$idea['num_of_clicks']); ?>

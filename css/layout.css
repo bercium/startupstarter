@@ -22,7 +22,7 @@ body {
 .header-wrap {
 	background: url(../images/header-wrap_bg.png);	
 	background: #FFF;
-	border-top: 3px solid #111;
+	
 	background-attachment: fixed;
 }
 
@@ -37,9 +37,10 @@ body {
 }
 
 
-.header h1 span{
+h1 span{
   color:#89b561;
 }
+
 
 
 .header .logo{
@@ -223,7 +224,7 @@ margin-right: 20px;
 .card-person-title {
   padding-top:0.35em; 
   padding-bottom:0.35em; 
-  margin-bottom: 0.8em !important;
+  margin-bottom: 0.5em !important;
   border-bottom:1px solid #ddd; 
   background-color:#f9f9f7;
   }
@@ -298,7 +299,7 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 	padding: 0;
 }
 .searchpanel {
-	margin:50px auto;
+	margin:0 auto;
 	/*background: url(../images/f_bg.png);*/
 	color: #fff !important;
 	border-radius: 10px !important;
@@ -344,6 +345,11 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 	box-shadow: none;
 }
 
+.card-person a .label {
+    margin-bottom: 0.1em;
+}
+
+
 .card-person .card-person-title img {
 	border: 1px solid #fff;
 	box-shadow: 0 0 0 1px #ddd;
@@ -359,7 +365,7 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 }
 
 .card-person .card-person-title h5 {
-margin-bottom: 6px;
+margin-bottom: 2px;
     }
 
 
@@ -652,8 +658,8 @@ f-line {
     border: 1px solid #DDDDDD;
     border-radius: 0 0 4px 4px;
     margin-bottom: 1.25em;
-    padding-top: 30px;
-    padding-bottom: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 
 }
 
@@ -667,39 +673,49 @@ f-line {
   padding-bottom: 20px;
 }
 
-.person-data h3 .icon-awesome {
-	margin-right: 10px;
+.label.label-collaboration {
+	font-size: 1em;
+	background: #fff;
+	padding-top: 1em;
+	padding-bottom: 1em;
+	transition: 0.2s;
+	
 }
 
 
-.skills .icon-awesome,
-.available .icon-awesome,
-.collaboration .icon-awesome,
-.involved-in .icon-awesome,
-.about-me .icon-awesome {
- background: none repeat scroll 0 0 #fff;
-    border-radius: 3px 0 0 3px;
-    color: #444;
-    display: block;
-    float: left;
-    font-size: 0.75em !important;
-    min-width: 30px;
-    padding: 6px 8px;
-    min-width: 30px;
-    text-align: center;
-    text-shadow: 0 1px rgba(255, 255, 255, 0.6);
-    border-right: 1px solid #ddd;   
-    
+.label.label-Paid {
+	border-bottom:1px solid #89B561;
+	
 }
 
-
-
-.person-details .icon-awesome {
-    font-size: 0.8em;
-    margin-left: 1px;
-    margin-right: 5px;
-    margin-top: -4px;
+.label.label-Sweat {
+	border-bottom:1px solid #389ABF;
+	
 }
+
+.label.label-Equal {
+	border-bottom:1px solid #DA8817;
+	
+}
+.label.label-Sole {
+	border-bottom:1px solid #D43E3F;
+	
+}
+
+.label.label-Volunteer  {
+	border-bottom:1px solid #bbb;
+	
+	 }
+
+
+
+.icon-custom {
+	display: block;
+	width: 100%;
+	background: pink;
+	height: 30px;
+}
+
 
 
 
@@ -778,7 +794,11 @@ img.card-avatar,
 /* #Special Styles
 ================================================== */
 
-.th-small {height:64px; margin-right: 10px; float:left; }
+
+
+
+
+.th-small {height:46px; margin-right: 10px; float:left; }
 
 
 
@@ -818,6 +838,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 
 .mr15 {
 	margin-right:  15px;
+}
+
+.ml8 {
+	margin-left: 8px;
 }
 
 
@@ -869,11 +893,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 		color: #888 !important;
 }
 
-.label.success-alt {
-	background-color: #97b27b;
-   /*	box-shadow: 0 1px 0 0px #6e8b50;*/
-   color: #fff;
-}
 
 .label .close {margin-left:10px;}
 
@@ -1025,6 +1044,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 
 .mt-10 {
 	margin-top: 10px;
+}
+
+.mb20 {
+	margin-bottom: 20px;
+}
+
+.mb40 {
+	margin-bottom:40px;
 }
 
 
@@ -1685,15 +1712,25 @@ label{
    ========================================================================== */
 
 	.l-block {
-		display: block;
+		display: block !important;
 	}
 
 	.l-iblock {
-		display: inline-block;
+		display: inline-block !important;
 	}
 	.l-inline {
-		display: inline;
+		display: inline !important;
 	}
+
+/* ==========================================================================
+   $ Typography
+   ========================================================================== */
+
+	.font-black {
+		font-weight: 900;
+	}	
+
+
 
 /* ==========================================================================
   $ MODULES
@@ -1701,11 +1738,16 @@ label{
 
 	/****** @ panel-top ******/
 
-	.panel-top {
-    background: #F5F2F0 !important;
-    box-shadow: 0 0px 1px rgba(0,0,0,0.3) inset;
-    border-bottom: 1px solid #fff !important;
+	.panel-top {   
+    
+    border-bottom: 1px solid #ddd !important;
+    margin-top: 0;
+    background: #F9F9F7;
+    
 }
+
+
+
 
 	/****** @ main panel ******/
 

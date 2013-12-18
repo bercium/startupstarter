@@ -109,9 +109,11 @@
                 foreach ($idea['member'] as $member){
                 $i++; if ($i > 3) break;
               ?>
-                <a href="<?php echo Yii::app()->createUrl("person",array("id"=>$member['id'])); ?>">
-                  <img src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" data-tooltip title="<?php echo $member['name']." ".$member['surname']; ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="card-avatar" />
+                <div class="l-block"><a href="<?php echo Yii::app()->createUrl("person",array("id"=>$member['id'])); ?>">
+                  <img  src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="card-avatar" />
+                  <?php echo $member['name']." ".$member['surname']; ?>
                 </a>
+              </div>
                 <?php } 
                 // extra members
                 if (count($idea['member']) > 3) echo '<font class="meta">+'.(count($idea['member'])-3).'</font>';

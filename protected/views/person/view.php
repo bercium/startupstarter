@@ -107,12 +107,12 @@ $user = $data['user'];
 		<h3 class="edit-content-title">
 		<?php	echo Yii::t('app', 'Skilled in'); ?>
 		</h3>
-		
+		<hr>
 		<?php
 		if (isset($user['skillset'])){
 		foreach ($user['skillset'] as $skillset){
       
-  		echo "<div class='panel radius'><h4>".$skillset['skillset']."</h4> ";
+  		echo "<div class='item'><h4>".$skillset['skillset']."</h4> ";
       foreach ($skillset['skill'] as $skill){ ?>
 
       <span data-alert class="label radius profile-skills" id="skill_<?php echo $skill['id']; ?>">
@@ -142,34 +142,42 @@ $user = $data['user'];
 
 </div>
 
-<div class="large-12 columns  collaboration" >				
+<div class="large-12 columns  collaboration" >
+
 	<div class="panel radius">
+
 		<?php if (count($user['collabpref']) > 0) { ?>
     <h3 class='edit-content-title'>
 		<?php echo Yii::t('app', 'Collaboration'); ?>
-    </h3>
+    </h3>	
+ 		
 		
+	      <?php
+	      $firsttime = true;
+	      if (is_array($user['collabpref'])){ ?>
 
-      <?php
-      $firsttime = true;
-      if (is_array($user['collabpref'])){ ?>
+					<?php
+					foreach ($user['collabpref'] as $collab) {
+					if (!$collab['active']) continue;
+					if (!$firsttime) echo "";
+					$firsttime = false;
+	        ?>
+	      
+	     		
+	      	<p class="label label-collaboration label-<?php echo $collab['name']; ?>" data-tooltip title="This is a description of this collaboration. Its short and sweat">
+				
+	      	<span class="icon-custom icon-<?php echo $collab['name']; ?>"></span><?php echo $collab['name']; ?></p>
+	      
+	      			
+	     	      <?php } ?>
 
-				<?php
-				foreach ($user['collabpref'] as $collab) {
-				if (!$collab['active']) continue;
-				if (!$firsttime) echo "";
-				$firsttime = false;
-        ?>
-        
-      <span class="label secondary radius">
-				<?php echo $collab['name']; ?>
-      </span>
-      <?php } ?>
+			<?php }else{ ?>
+				<div class="description"><?php  echo Yii::t('msg','User doesn\'t have this filled out yet.');  ?></div>
 
-		<?php }else{ ?>
-			<div class="description"><?php  echo Yii::t('msg','User doesn\'t have this filled out yet.');  ?></div>
-  	<?php }
-    } ?>	
+	  	<?php }
+
+	    } ?>	
+
 		
 	</div>
 </div>

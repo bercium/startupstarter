@@ -87,6 +87,7 @@ h6 {
  
  .top-bar-section .dropdown li a.altli  {
   background: #F9F9F7;
+
    
  }
 
@@ -351,6 +352,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7072', end
     color: #6d6d51; }
 
 
+/*breadcrumbs*/
+ .breadcrumbs > * a,
+    .breadcrumbs > * span {
+      text-transform: uppercase;
+      color: #4469A6; }
+
 /* ==========================================================================
   @ edit profile
    ========================================================================== */
@@ -372,15 +379,15 @@ a { color: #4469a6;}
 a:hover, a:focus { color: #3c76d6; }
 
 
-.label{
-  
-   background-color: #999;
-   border-radius: 1.5px;
-    color: #fff;
-    font-size: 12px;
-    font-weight: normal;
-    margin-right: 5px;
-    padding: 0.25em 0.6em 0.4em;
+.label {
+  background-color: #999;   
+  border-radius: 1.5px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: normal;
+  margin-right: 5px;
+  padding: 0.25em 0.6em 0.4em;
+  margin-bottom:0.5em;
 
 }
 
@@ -391,18 +398,9 @@ a:hover, a:focus { color: #3c76d6; }
  
 }
 
-.success.label {
-  
-  
-
-}
 
 
-button.secondary, .button.secondary {
-    background-color: #F9F9F7;
-    border-color: #D0D0D0;
-    color: #333333;
-}
+
 
 .button{
   -webkit-box-shadow:none;
@@ -513,12 +511,12 @@ form.custom .custom.checkbox.checked:before{
 .tooltip  {
   box-shadow: 0 0 0 1px #fff, 0 0 2px #87878e,  0 0 3px 3px rgba(0,0,0,0.3);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  background: #F9F9F7;
+  background: #555;
   border-radius: 2px;
   -webkit-border-radius: 2px;
-  color: #666;
+  color: #B1DB8A;
   font-weight: normal;
-  text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
+  
   /*font-weight: normal !important;*/
   font-size: 0.8em;
   padding: 5px;
@@ -531,7 +529,7 @@ form.custom .custom.checkbox.checked:before{
   width: 0;
   height: 0;
   border: solid 5px;
-  border-color: transparent transparent #F9F9F7 transparent;  
+  border-color: transparent transparent #555 transparent;  
   top: -10px; 
 
 }
@@ -557,8 +555,8 @@ form.custom .custom.checkbox.checked:before{
   -moz-transition: all 200ms ease-out;
   transition: all 200ms ease-out; }
   .th:hover, .th:focus {
-    -webkit-box-shadow: 0 0 6px 1px rgba(43, 166, 203, 0.5);
-    box-shadow: 0 0 6px 1px rgba(43, 166, 203, 0.5); }
+   -webkit-box-shadow: 0 0 0 1px #ddd;  
+  box-shadow: 0 0 0 1px #ddd;   }
   .th.radius {
     -webkit-border-radius: 3px;
     border-radius: 3px; }

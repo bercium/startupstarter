@@ -25,19 +25,21 @@
   </div>
 </div>
 
-<div class="row pannel radius" style="margin-top: 40px;">
-  <div class="columns">
-    <h4><?php echo Yii::t('app','Find'); ?></h4>
-    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[collabPref]'=>'3', 'Category'=>'collabpref')); ?>" class="button round success" style="margin-left:20px;"><?php echo Yii::t("app","Cofounder"); ?></a>
-    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[collabPref]'=>'4', 'Category'=>'collabpref')); ?>" class="button round success" style="margin-left:20px;"><?php echo Yii::t("app","Investors"); ?></a>
-    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[available]'=>'8', 'Category'=>'available')); ?>" class="button round success" style="margin-left:20px;"><?php echo Yii::t("app","Weekend hackers"); ?></a>
-    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[available]'=>'40', 'Category'=>'available')); ?>" class="button round success" style="margin-left:20px;"><?php echo Yii::t("app","Workoholics"); ?></a>
-    <a href="#" data-dropdown="drop-local-project" onclick="$('#search_local').focus()" class="button round success" style="margin-left:20px;"><?php echo Yii::t("app","Local people"); ?></a>
-  </div>
-</div>
+<div class="panel-top mb20">
+	<div class="row">
+  
+    <h1><span><?php echo Yii::t('app','Find talent'); ?></span></h1>
+    <p class="description"><?php echo Yii::t('app','Click on the prefered group that best represent your needs or search by panel bellow to find your match.'); ?></p>
+    
+    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[collabPref]'=>'3', 'Category'=>'collabpref')); ?>" class="button  radius success small"><?php echo Yii::t("app","Cofounder"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[collabPref]'=>'4', 'Category'=>'collabpref')); ?>" class="button  radius success small" ><?php echo Yii::t("app","Investors"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[available]'=>'8', 'Category'=>'available')); ?>" class="button  radius success small" ><?php echo Yii::t("app","Weekend hackers"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[available]'=>'40', 'Category'=>'available')); ?>" class="button  radius success small" ><?php echo Yii::t("app","Workoholics"); ?></a>
+    <a href="#" data-dropdown="drop-local-project" onclick="$('#search_local').focus()" class="button  radius success small" ><?php echo Yii::t("app","Local people"); ?></a>
+	</div>
 
 
-<div class="row panel searchpanel radius" style="margin-top: 40px;">
+	<div class="row panel searchpanel radius mt20 mb40" >
 	<div class="columns search_content edit-header">
     <a class="anchor-link" id="filter_search"></a>
     
@@ -120,12 +122,18 @@
 	
 	</div>
 </div>
+
+ 
+</div>
+
+
+
   
 
 
 
 
-<div class="row" id="recent_projects">
+<div class="row" id="recent_projects" class="mb40">
 	<?php
 	if (!empty($searchResult['data']) && count($searchResult['data']) > 0){
 		Yii::log(arrayLog($searchResult), CLogger::LEVEL_INFO, 'custom.info.search_result'); 
@@ -144,7 +152,7 @@
       <div class="list-items">
         <a id="page<?php echo $searchResult['page']; ?>" class="anchor-link"></a>
         
-        <h5><?php echo Yii::t("app","Page")." ".$searchResult['page']; ?></h5>
+        <p class="breadcrumbs l-iblock"><?php echo Yii::t("app","Page")." ".$searchResult['page']; ?></p>
         <ul class="small-block-grid-1 large-block-grid-3">
           <?php 
           foreach ($searchResult['data'] as $result){ ?>
@@ -165,3 +173,5 @@
 	
 	<?php } ?>
 </div>	
+
+
