@@ -78,7 +78,7 @@ class ProfileController extends GxController {
 			$thumb = new EPhpThumb();
 			$thumb->init(); //this is needed
 			$thumb->create($folder . $fileName)
-							->adaptiveResize(150, 150)
+							->adaptiveResize(250, 250)
 							->save($folder . $fileName);
 		}
 

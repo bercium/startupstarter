@@ -111,15 +111,15 @@ $("#showhide").click(function() {
 
 	<?php } ?>
 
-
 	<?php if (isset($data['idea'])){ ?>
+<br />
 
 		<div class="row" id="recent_projects">
 			<?php $this->renderPartial('//project/_recent', array('ideas' => $data['idea'],"page"=>1,"maxPage"=>$maxPageIdea)); ?>
 		</div>
 
 	<?php } 
-  if (!Yii::app()->user->isGuest) echo "<hr>";
+  //if (!Yii::app()->user->isGuest) echo "<hr>";
   
 Yii::log(arrayLog($data['idea']), CLogger::LEVEL_INFO, 'custom.info.idea'); 
 Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user'); 

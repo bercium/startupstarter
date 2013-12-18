@@ -25,7 +25,8 @@ class ProjectController extends GxController {
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("view","discover","embed"),
+//        'actions'=>array("view","discover","embed"),
+        'actions'=>array("view","embed"),
 				'users'=>array('*'),
 			),
 	    array('allow',

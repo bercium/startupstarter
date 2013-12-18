@@ -24,7 +24,7 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("cla
       
       <label for="notify_me">
         <?php echo CHtml::checkBox('notify_me',true); ?>
-        <?php echo Yii::t('app','Send me a copy'); ?>
+        <?php echo Yii::t('app','Send me a copy by email'); ?>
       </label>    
       <br />
       <div class="login-floater">
@@ -53,26 +53,26 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("cla
                
 
                  <h4 class="l-inline mt10">
-                <?php echo Yii::t('app','Stage').": "; ?>          
+                <?php echo Yii::t('app','Stage'); ?>          
                 </h4>
                 <a style="font-size:14px;" data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>">
                 <?php echo $idea['status']; ?>
                 </a>
 
-                <div class="right">
+            <div class="right">
                 <?php if (count($idea['translation_other'])){ ?>
                 <div class="">
-                <a href="#"  data-dropdown="data1" class="tiny secondary radius button dropdown"><?php echo Yii::t('app','Other languages'); ?>: </a>
-                <br> 
+                  <a href="#"  data-dropdown="data1" class="tiny secondary radius button dropdown"><?php echo Yii::t('app','Other languages'); ?>: </a>
+                  <br> 
 
-                <ul id="data1" data-dropdown-content class="f-dropdown">
-                <li><a style="font-weight: bold;"><?php echo $idea['language']; ?></a></li>
-                <?php 
-                foreach ($idea['translation_other'] as $trans){
-                echo '<li><a href="'.Yii::app()->createUrl("project/view",array("id"=>$idea['id'],'lang'=>$trans['language_code'])).'" >'.$trans['language']."</a></li>";
-                }
-                ?>
-                </ul>
+                  <ul id="data1" data-dropdown-content class="f-dropdown">
+                    <li><a style="font-weight: bold;"><?php echo $idea['language']; ?></a></li>
+                    <?php 
+                    foreach ($idea['translation_other'] as $trans){
+                    echo '<li><a href="'.Yii::app()->createUrl("project/view",array("id"=>$idea['id'],'lang'=>$trans['language_code'])).'" >'.$trans['language']."</a></li>";
+                    }
+                    ?>
+                  </ul>
 
 
                 </div>
@@ -98,7 +98,7 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("cla
     <div class="panel radius">
     <?php if (count($idea['candidate']) > 0){ ?>
     <div class="jobs large-12">
-        <h3><?php echo Yii::t('app','Looking for {n} candidate|Looking for {n} candidates',array(count($idea['candidate']))); ?>:</h3>
+        <h3><?php echo Yii::t('app','Looking for {n} candidate|Looking for {n} candidates',array(count($idea['candidate']))); ?></h3>
 
         <?php
         $cnum = 0;
@@ -106,6 +106,9 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("cla
         $cnum++; 
         ?>
         <div class="panel inside-panel radius">
+          <h4>
+          <?php echo Yii::t('app','Candidate {n}',array($cnum)) ?>
+          </h4>
             <div class="skillset-wrap">
                 <?php
                 foreach ($candidate['skillset'] as $skillset){
@@ -120,15 +123,15 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("cla
             </div><!-- skillset-wrap end -->
 
             <?php if ($candidate['available_name']) { ?>
-            <div class="item">
-                <h4 class="l-iblock"><?php echo Yii::t('app', 'Available') ?>:
-                <?php echo $candidate['available_name']; ?>
+            <div class="">
+                <h4 class="l-iblock"><?php echo Yii::t('app', 'Available') ?>
+                <a><?php echo $candidate['available_name']; ?></a>
                 </h4>
             </div>
             <?php } ?>
             <?php if ($candidate['city'] || $candidate['country']){ ?>
             <div class="">
-                <h4 class="l-iblock"><?php echo Yii::t('app', 'Location') ?>:
+                <h4 class="l-iblock"><?php echo Yii::t('app', 'Location') ?>
                 <a>
                     <span class="" data-tooltip title="<img src='<?php echo getGMap($candidate['country'],$candidate['city']); ?>'>">
                     <?php
@@ -185,48 +188,53 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("cla
         <div class="panel">
             <?php
             if(isset($idea['gallery'])){
-            //cover photo is first
-            //edit the following line to get a thumbnail out. i have predicted thumbnails of 30, 60, 150px. replace the thumbnail_size with those numbers
-            //idea_image($idea['gallery'][0]['url'], $idea['id'], thumbnail_size);
-            if(isset($idea['gallery'][0])){
-            ?>
+              //cover photo is first
+              //edit the following line to get a thumbnail out. i have predicted thumbnails of 30, 60, 150px. replace the thumbnail_size with those numbers
+              //idea_image($idea['gallery'][0]['url'], $idea['id'], thumbnail_size);
+              if(isset($idea['gallery'][0])){
+              ?>
 
-            <img class="th panel-avatar" src="<?php echo idea_image($idea['gallery'][0]['url'], $idea['id'], 0);?>" />
-            <?php
-            }
+              <img class="th panel-avatar" src="<?php echo idea_image($idea['gallery'][0]['url'], $idea['id'], 0);?>" />
+              <?php
+              }
 
-            foreach($idea['gallery'] AS $key => $value){
-            if($key > 0){
-            ?>
-            <img class="th panel-avatar"  src="<?php echo idea_image($value['url'], $idea['id'], 0);?>" />
-            <?php
-            }
-            }
+              foreach($idea['gallery'] AS $key => $value){
+                if($key > 0){
+                ?>
+                <img class="th panel-avatar"  src="<?php echo idea_image($value['url'], $idea['id'], 0);?>" />
+                <?php
+                }
+              }
             }
             ?>
 
       
             <div class="item">
-                  <h4 class="l-iblock"><?php 
-            echo Yii::t('app','Members').":</h4> ";
+              <h4 class="">
+                <?php echo Yii::t('app','Members'); ?>
+              </h4>
+            <?php
             $i = 0;
             // show first 4 members
             if(isset($idea['member'])){
-            foreach ($idea['member'] as $member){
-            $i++; 
-            //if ($i > 3) break;
-            ?>
-            <a href="<?php echo Yii::app()->createUrl("person/".$member['id']); ?>">
-            <img src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" data-tooltip title="<?php echo $member['name']." ".$member['surname']; ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="mini-avatar" />
-            </a>
-            <?php } 
+              foreach ($idea['member'] as $member){
+                $i++; 
+                //if ($i > 3) break;
+                ?>
+                <a href="<?php echo Yii::app()->createUrl("person/".$member['id']); ?>">
+                <img src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" data-tooltip title="<?php echo $member['name']." ".$member['surname']; ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="mini-avatar" />
+                </a>
+              <?php }
             // extra members
             //if (count($idea['member']) > 3) echo '<font class="meta">+'.(count($idea['member'])-3).'</font>';
             }
             ?>  
             </div>
              <?php if ($canEdit) { ?>
-        <a class="button secondary small  radius right" href="<?php echo Yii::app()->createUrl("project/edit",array("id"=>$idea['id'])); ?>"><?php echo Yii::t('app', 'Edit project') ?> <span class="icon-awesome icon-wrench"></span></a>
+        <a class="button secondary small  radius right" href="<?php echo Yii::app()->createUrl("project/edit",array("id"=>$idea['id'])); ?>">
+        <?php echo Yii::t('app', 'Edit project') ?> <span class="icon-awesome icon-wrench"></span>
+        </a>
+            
         <div class="" style="margin-top:5px;"><h4><?php echo Yii::t('app','viewed {n} time|viewed {n} times' . '<h4>' ,array($idea['num_of_clicks'])); ?></div>
         <?php }else{ ?>
         <a class="button success radius large-12 small-6" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact members') ?></a>
@@ -234,49 +242,62 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("cla
         </div>
 
         
-
-       
-                  
-
-        <?php if ($idea['website']){ ?>        
         <div class="panel">
+          <?php if ($idea['website']){ ?>
            <div class="item">
-            <h4 class="l-block">
-            <?php
-            echo Yii::t('app',"Official web page")?>:</h4> <img src="<?php echo getLinkIcon($idea['website']); ?>"> <?php echo '<a href="'.add_http($idea['website']).'" target="_blank">'.$idea['website']."</a>";
-            }?>
+              <h4 class="l-block">
+              <?php echo Yii::t('app',"Official web page")?>
+              </h4>
 
-        <?php if ($idea['video_link']){ 
-        if (!$idea['website']) echo ""; ?>
+              <img src="<?php echo getLinkIcon($idea['website']); ?>"> <?php echo '<a href="'.add_http($idea['website']).'" target="_blank">'.$idea['website']."</a>"; ?>
+              </div>
+              
+            <?php }?>
 
+        <?php if (!$idea['website']) echo ""; ?>
+
+        
+        
+        <?php if ($idea['video_link']){  ?>
+        <div class="item">
+          <h4 class="l-block">
+          <?php echo Yii::t('app',"Link to video")?>
+          </h4> 
+          <img src="<?php echo getLinkIcon($idea['video_link']); ?>"><?php echo ' <a href="'.add_http($idea['video_link']).'" target="_blank">'.$idea['video_link']."</a>";?>
         </div>
-        <div class="">
-            <h4 class="l-block">
-            <?php  
-            echo Yii::t('app',"Link to video")?>:</h4> <img src="<?php echo getLinkIcon($idea['video_link']); ?>"><?php echo ' <a href="'.add_http($idea['video_link']).'" target="_blank">'.$idea['video_link']."</a>";
-            } ?>
+      <?php } ?>
 
-            <?php
-            // show links
-            if(isset($idea['link'])){
-            foreach ($idea['link'] as $link){
-            $i++; 
-            //if ($i > 3) break;
-            ?>
-            <a href="<?php echo $link['url']; ?>"><?php echo $link['title']; ?></a><br/>
-            <?php } 
-            // extra members
-            //if (count($idea['member']) > 3) echo '<font class="meta">+'.(count($idea['member'])-3).'</font>';
-            } ?>
-        </div>
+      <?php if ($idea['link']){  ?>
+      <div class="item">
+        <h4 class="l-block">
+        <?php echo Yii::t('app',"Other links"); ?>
+        </h4> 
 
-        </div>
-        <?php ?>  
+        <?php
+        // show links
+        if(isset($idea['link'])){
+          foreach ($idea['link'] as $link){
+          $i++; 
+          //if ($i > 3) break;
+          ?>
+          <img src="<?php echo getLinkIcon($link['url']); ?>"><?php echo ' <a href="'.add_http($link['url']).'" target="_blank">'.$link['url']."</a>"; ?>
+          <br/>
+          <?php } 
+        // extra members
+        //if (count($idea['member']) > 3) echo '<font class="meta">+'.(count($idea['member'])-3).'</font>';
+        }
+          ?> 
+       </div>
+      <?php } ?>
+
+      </div>
 
         <div class="panel">
-            
-            <h4 class="l-block"><span class="icon-refresh"></span>
-            <?php echo Yii::t('app','Last updated').": </h4><p>".Yii::app()->dateFormatter->formatDateTime(strtotime($idea['date_updated']),"long",null); ?></p>
+            <h4 class="l-block">
+            <?php echo Yii::t('app','Last updated'); ?>
+            </h4><p>
+              <?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($idea['date_updated']),"long",null); ?>
+            </p>
         </div> 
               
         
