@@ -43,8 +43,8 @@ $user = $data['user'];
 	<div class="item">
 	<p>
 	<?php if ($user['city'] || $user['country'] /*|| $user['address']*/) { ?>
-	<a><span class="" data-tooltip title="<img src='<?php echo getGMap($user['country'], $user['city'], $user['address']); ?>'>">
-  <span class="icon-map-marker icon-awesome"></span>
+	<span class="icon-map-marker icon-awesome"></span><a><span class="" data-tooltip title="<img src='<?php echo getGMap($user['country'], $user['city'], $user['address']); ?>'>">
+  
 	<?php if ($user['address']) echo $user['address']."<br />"; ?>
 	<?php
 	echo $user['city'];

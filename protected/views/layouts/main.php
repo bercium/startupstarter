@@ -44,7 +44,15 @@
 
   <?php if (!isset($this->justContent) || !$this->justContent){ ?>
   
-
+  <div class="header-wrap show-for-small">
+    <div class="row header">
+      <div>
+        <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
+           <img alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title-mobile.png" />
+        </a>
+      </div>
+    </div>
+  </div><!-- end header-wrap -->
   
   <div class="top-bar-holder sticky">
       <div class="row">
@@ -62,14 +70,7 @@
 							 </div>
                
                <?php if (!Yii::app()->user->isGuest){ ?>
-
                 <div class="show-for-small" style="margin-left:8px">
-                   <div class="show-for-small"><!-- mobile logo -->
-    <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
-           <img alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title-mobile.png" />
-        </a>
-  </div><!-- end mobile logo -->
-
                   <a href="<?php echo Yii::app()->createUrl("profile"); ?>">
                     <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
                   </a>

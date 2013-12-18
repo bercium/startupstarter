@@ -1055,6 +1055,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 }
 
 
+.pall {
+	padding: 5px;
+}
+
+
 /* #Pagin Styles
 ================================================== */
 .paginRight {
@@ -1746,7 +1751,7 @@ label{
     
 }
 
-
+	
 
 
 	/****** @ main panel ******/
@@ -1761,8 +1766,8 @@ label{
 
 	/****** @ panel-avatar ******/
 	.panel .panel-avatar {
-    width: 90%;
-    margin: 5%;
+    width: 150px;
+    margin: 10px 10px 10px 0;
 
     }
 
@@ -1790,3 +1795,13 @@ html, body {
 	
 	
 }
+
+
+@media only screen and (max-width: 767px) {
+  
+ .top-bar-holder {
+    box-shadow: none !important;
+    padding-top: 5px;
+  }
+
+   }

@@ -1,1 +1,8 @@
 
+ .top-bar-holder {
+    box-shadow: none;
+  }
+
+  body {
+  	display: none !important;
+  }
