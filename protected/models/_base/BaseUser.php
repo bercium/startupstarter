@@ -95,7 +95,7 @@ abstract class BaseUser extends GxActiveRecord {
 			'avatar_link' => Yii::t('app', 'Avatar link'),
 			'language_id' => Yii::t('app', 'Language'),
 			'newsletter' => Yii::t('app', 'Newsletter'),
-			'bio' => Yii::t('app', 'Bio'),
+			'bio' => Yii::t('app', 'Personal pitch'),
 			'clickIdeas' => null,
 			'clickUsers' => null,
 			'clickUsers1' => null,

@@ -11,11 +11,13 @@
         success:function(indata){
           data = JSON.parse(indata);
 					if (!data.status){
-            skill = '<span data-alert class="label alert-box radius secondary profile-skils" id="skill_'+data.data.id+'">';
+            skill = '<span data-alert class="label radius secondary profile-skils" id="skill_'+data.data.id+'">';
             skill += data.data.title+"<br /><small class='meta'>"+data.data.desc+"</small>";
             if (data.data.multi == 1) skill += '<a href="#" class="close" onclick="removeSkill('+data.data.id+')">&times;</a>';
             skill += '</div>';
             $('.skillList').append(skill);
+            $('#skill').val('');
+            $('#skill').focus();
           }
 					if (data.message) alert(data.message);
         },
@@ -72,7 +74,8 @@ function removeSkill(skill_id){
 				minLength: 2,
         source: function( request, response ) {
 					
-          var term = extractLast( request.term );
+          //var term = extractLast( request.term );
+          var term = request.term;
           if ( term in cache ) {
             response( cache[ term ] );
             return;
@@ -93,24 +96,26 @@ function removeSkill(skill_id){
           }
         },*/
         focus: function( event, ui ) {
-          $( "#project" ).val( ui.item.skill );
+          //$('.skillset').val( ui.item.skill );
           // prevent value inserted on focus
           return false;
         },
         select: function( event, ui ) {
-          var terms = splitComa( this.value );
+          //var terms = splitComa( this.value );
+          
           // remove the current input
-          terms.pop();
+          //terms.pop();
           // add the selected item
-          terms.push( ui.item.skill );
+          //terms.push( ui.item.skill );
+          this.value = ui.item.skill;
 
       		$('.skillset').val(ui.item.skillset_id); 
     			//Foundation.libs.forms.refresh_custom_select($('.skillset'),true);
           $(".skillset").trigger("liszt:updated");
           //$( "#project-id" ).val( ui.item.id );
           // add placeholder to get the comma-and-space at the end
-          terms.push( "" );
-          this.value = terms.join( ", " );
+          //terms.push( "" );
+          //this.value = terms.join( ", " );
           return false;
         }
       })
@@ -144,3 +149,11 @@ function removeSkill(skill_id){
       });    
     
   });
+
+
+function selectIndustry(id){
+  $('.skillset').val(id); 
+  //Foundation.libs.forms.refresh_custom_select($('.skillset'),true);
+  $(".skillset").trigger("liszt:updated");
+  $('#customSkills').show();
+}

@@ -1,5 +1,5 @@
 <?php 
-  $this->pageTitle = Yii::t('app', 'Registration finished');
+  $this->pageTitle = Yii::t('app', 'Thank you for your registration');
 ?>
 
 <script>
@@ -10,22 +10,28 @@
 
 
 <p>
-<strong>
-<?php echo Yii::t('msg','Thank you for your registration. You will shortly receive our confirmation email.'); ?>
-</strong>
-<br /><br />
-<?php echo Yii::t('msg','While you wait for confirmation email try filling up your profile information. Full profiles are more CREDIBLE and have more visibility.'); ?>
-<br />
-<?php echo Yii::t('msg','If you do not wish to do this right now you can browse some interestnig projects'); ?>
-<a href="<?php echo Yii::app()->createUrl("site/index"); ?>">
-<?php echo Yii::t('msg','here'); ?>
-</a>
-
+  <strong>
+  <?php echo Yii::t('msg','You will shortly receive our confirmation email.'); ?>
+  </strong>
+  <br /><br />
+  <?php echo Yii::t('msg','While you wait for confirmation email try filling up your profile information. Full profiles are more CREDIBLE and have more visibility.'); ?>
+  <br />
+  <?php echo Yii::t('msg','If you do not wish to do this right now you can browse some interestnig projects'); ?>
+  
+  <a onclick="$('#profileInput').show()" class="button success radius small">
+    <?php echo Yii::t('msg','Fill your profile'); ?>
+  </a>
+  or
+  <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" class="button radius small secondary">
+    <?php echo Yii::t('msg','Do this later'); ?>
+  </a>
+  
 </p>
+
+<div id="profileInput" class="hide">
 <br />
 
-
-  <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6",'id'=>'after_register_form')); ?>
+  <?php echo CHtml::beginForm('','post',array('class'=>"custom",'id'=>'after_register_form')); ?>
   <p>
 
   <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
@@ -38,20 +44,29 @@
     <?php echo "<label>".Yii::t('app','Collaboration preferences')."</label>"; ?>
 
     <span class="description">
-       <?php echo Yii::t('msg','What kind of Collaboration do you prefer when working on a project. Paid work - get paid for your work, Sweat equity - will work for a share in company, Equal investors - prepared to invest equal share of money, Sole investor - want to invest only, Volunteer - just want to help'); ?>
+       <?php echo Yii::t('msg','What kind of Collaboration do you prefer when working on a projects.'); ?>
     </span>
   <?php foreach ($data['user']['collabpref'] as $colabpref){ ?>
     <label for="CollabPref_<?php echo $colabpref['collab_id']; ?>">
-      <?php echo CHtml::checkBox('CollabPref['.$colabpref['collab_id'].']',$colabpref['active'],array('style'=>'display:none')); ?>
+     <?php echo CHtml::checkBox('CollabPref['.$colabpref['collab_id'].']',$colabpref['active'],array('style'=>'display:none')); ?>
      <?php echo $colabpref['name'] ?></label>
+    <span class="description">
+       <?php 
+       switch ($colabpref['collab_id']){
+         case 1:echo Yii::t('msg','Get paid for your work'); break;
+         case 2:echo Yii::t('msg','Are prepered to work for a share in company'); break;
+         case 3:echo Yii::t('msg','Will work and invest equaly'); break;
+         case 4:echo Yii::t('msg','Want to invest in interesting projects only'); break;
+         case 5:echo Yii::t('msg','Just want to help'); break;
+       }
+        ?>
+    </span>
+  
      <?php
   }
 
-  ?>
+  ?><br />
   </p>
-  
-  
-  
   
   <div class="row">
       <div class="large-4 right columns">
@@ -66,10 +81,11 @@
                  'allowedExtensions'=>array("jpg", "jpeg", "png"),
                  'template'=> '<div class="qq-uploader">' .
                      '<div class="qq-upload-drop-area avatar-drop-area"><span>'.Yii::t('msg','Drop file here to change your profile picture.').'</span></div>' .
-                     '<div class="qq-upload-button avatar-button">
+                     '<div class="qq-upload-button">
                        <div class="avatar-loading"><span class="qq-upload-spinner"></span></div>
                        <img class="avatar" src="'.avatar_image($user->avatar_link, $user->id, false).'" >
-                       <div class="avatar-change">'.Yii::t('app','Change image').' <span class="general foundicon-photo"></div>
+                      <div class="button secondary radius small avatar-change">'.Yii::t('app','Change image').' <span class="icon-upload"></span></div> 
+                      <span class="icon-info-sign" style="color: inherit"></span><span class="description">'.Yii::t('app','To change drag new image on top or click this button').'</span>
                       </div>' .
                      '<div class="qq-upload-list" style="display:none"></div>' .
                   '</div>',
@@ -111,71 +127,75 @@
       <?php echo CHtml::activeTextField($match, 'city', array("class"=>"city")); ?>
 
       <?php echo CHtml::activeLabelEx($user,'address'); ?>
-      <?php echo CHtml::activetextField($user, 'address', array('maxlength' => 128)); ?>
+      <?php echo CHtml::activeTextField($user, 'address', array('maxlength' => 128)); ?>
 
       <?php echo CHtml::activeLabelEx($user,'bio'); ?>
-      <?php echo CHtml::activetextField($user, 'bio', array()); ?>
-
-    
-    </div>
-      </div>
+      <span class="description"><?php echo Yii::t('msg','Tell people something interesting about yourself.'); ?></span>
       
+      <?php echo CHtml::activeTextArea($user, 'bio', array()); ?>
 
+    </div>
+    
+   </div>
 <?php echo CHtml::endForm(); ?>		
     
     
-          <?php $form=$this->beginWidget('CActiveForm', array(
+      <?php $form=$this->beginWidget('CActiveForm', array(
               'id'=>'SkillForm',
 //             'enableClientValidation'=>true,
                'htmlOptions'=>array(
-                              'class'=>'custom large-6',
+                              'class'=>'custom large-8',
                               'onsubmit'=>"return false;",/* Disable normal form submit */
                               //'onkeypress'=>" if(event.keyCode == 13){ addSkill('".Yii::app()->createUrl("profile/addSkill")."'); } " /* Do ajax call when user presses enter key */
                               ),
           )); ?>
-    
-   
-    <?php echo '<label for="skill">'.Yii::t('app','Skill');  ?> 
-    <?php echo '</label>'; ?>
 
-    <span class="description"><?php echo Yii::t('msg','Name of skill you posess. You can write multiple skills for the same industry separated by commas.') ?></span>
-    <?php echo CHtml::textField("skill","", array('maxlength' => 128,'class'=>'skill')); ?>
+    <label><?php echo Yii::t('app','Where do you see yourself'); ?></label>
+    <a onclick="selectIndustry(25);" class="button radius small secondary"><?php echo Yii::t('app','Programming'); ?></a>
+    <a onclick="selectIndustry(83);" class="button radius small secondary"><?php echo Yii::t('app','Designing'); ?></a>
+    <a onclick="selectIndustry(33);" class="button radius small secondary"><?php echo Yii::t('app','Marketing'); ?></a>
+    <a onclick="$('#customSkills').show();" class="button radius small secondary"><?php echo Yii::t('app','Other'); ?></a>
   
- 
-    <?php echo CHtml::label(Yii::t('app','Industry'),''); ?>
-    <span class="description"><?php echo Yii::t('msg','Select group which represents your skill the closest.'); ?></span>
-    <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAll(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none', 'class'=>'skillset')); ?>
-  
-    <?php echo CHtml::submitButton(Yii::t("app","Add skill"),
-                    array('class'=>"button small success radius",
-                        'onclick'=>'addSkill(\''.Yii::app()->createUrl("profile/addSkill",array("key"=>substr($user->activkey,0,10),"email"=>$user->email)).'\');')
-                ); ?>
-    <span class="description">
-       <?php echo Yii::t('msg','Add more skills by selecting different industry.'); ?>
-    </span>
+    <div id="customSkills" class="hide">
+      <?php echo CHtml::label(Yii::t('app','Industry'),''); ?>
+      <span class="description"><?php echo Yii::t('msg','Chose a group that best represents skills you are about to add.'); ?></span>
+      <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAll(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none', 'class'=>'skillset')); ?>
+
+      
+      <?php echo '<label for="skill">'.Yii::t('app','What are you good at');  ?> 
+      <?php echo '</label>'; ?>
+
+      <span class="description"><?php echo Yii::t('msg','Tell others what are you good at in selected industry. Add one skill at a time.') ?></span>
+      <?php echo CHtml::textField("skill","", array('maxlength' => 128,'class'=>'skill')); ?>
+      <span class="description"><strong><?php echo Yii::t('msg','Switch industry to diversity your skillset') ?></strong></span>
+
+      <?php echo CHtml::submitButton(Yii::t("app","Add skill"),
+                      array('class'=>"button small  radius",
+                          'onclick'=>'addSkill(\''.Yii::app()->createUrl("profile/addSkill",array("key"=>substr($user->activkey,0,10),"email"=>$user->email)).'\');')
+                  ); ?>
+      
       
   
-    <div class="skillList">
-    
-    <?php if(isset($data['user']['skillset'])){
-          foreach ($data['user']['skillset'] as $skillset){
-            foreach ($skillset['skill'] as $skill){
-              ?>
+      <div class="skillList">
+        <?php if(isset($data['user']['skillset'])){
+              foreach ($data['user']['skillset'] as $skillset){
+                foreach ($skillset['skill'] as $skill){
+                  ?>
 
-      <span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $skill['id']; ?>">
-          <?php echo $skill['skill']."<br /><small class='meta'>".$skillset['skillset']."</small>"; ?>
-          <a href="#" class="close" onclick="removeSkill(<?php echo $skill['id']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteSkill"); ?>')">&times;</a>
-     </span>
-    <?php }}} ?>    
-    
-
-    </div>  
+          <span data-alert class="label radius secondary profile-skils" id="skill_<?php echo $skill['id']; ?>">
+              <?php echo $skill['skill']."<br /><small class='meta'>".$skillset['skillset']."</small>"; ?>
+              <a href="#" class="close" onclick="removeSkill(<?php echo $skill['id']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteSkill"); ?>')">&times;</a>
+         </span>
+        <?php }}} ?>    
+      </div>
+    </div>
     
     <?php $this->endWidget(); ?>     
 
     
     <hr>
-    
-        <?php echo CHtml::button(Yii::t("app","Save"),
-          array('class'=>"button small success radius",'onclick'=>"$('#after_register_form').submit();")
+    <?php echo CHtml::button(Yii::t("app","Save your profile"),
+      array('class'=>"button small success radius",'onclick'=>"$('#after_register_form').submit();")
       ); ?>
+
+  </div>

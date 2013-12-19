@@ -105,7 +105,7 @@
     
     <?php echo '<label for="skill">'.Yii::t('app','Skill')."</label>";  ?> 
     <span class="description" >
-       <?php echo Yii::t('msg','Name of skill you posess. You can write multiple skills for the same industry separated by commas.'); ?>
+       <?php echo Yii::t('msg','Name of skill you posess.'); ?>
     </span>
     <?php echo CHtml::textField("skill","", array('maxlength' => 128,'class'=>'skill')); ?>
   
@@ -229,7 +229,7 @@
 
     </div>
     
-      <div class="columns">      
+      <div class="columns">
         <?php echo CHtml::activeLabelEx($user,'bio'); ?>
         <?php echo CHtml::activeTextArea($user, 'bio', array()); ?>
         <br />
