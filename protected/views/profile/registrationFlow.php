@@ -183,11 +183,14 @@
                   ?>
 
           <span data-alert class="label radius secondary profile-skils" id="skill_<?php echo $skill['id']; ?>">
-              <?php echo $skill['skill']."<br /><small class='meta'>".$skillset['skillset']."</small>"; ?>
-              <a href="#" class="close" onclick="removeSkill(<?php echo $skill['id']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteSkill"); ?>')">&times;</a>
+              
+              <a href="#" class="close right" onclick="removeSkill(<?php echo $skill['id']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteSkill"); ?>')">&times;</a>
+              <?php echo $skill['skill']."<small class='skill-industry'>".$skillset['skillset']."</small>"; ?>
          </span>
         <?php }}} ?>    
-      </div>
+      </div> 
+
+      
     </div>
     
     <?php $this->endWidget(); ?>     

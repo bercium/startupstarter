@@ -1,9 +1,68 @@
-$.getScript(fullURL+"/js/includes/skill.js");
+function addSkill(inUrl)
+ {
+ 
+   var data=$("#SkillForm").serialize()+'&ajax=1';
+
+	$.ajax({
+   type: 'POST',
+   url: inUrl,
+   data:data,
+        success:function(indata){
+          data = JSON.parse(indata);
+					if (!data.status){
+            skill = '<span data-alert class="label radius secondary profile-skils" id="skill_'+data.data.id+'">';
+            skill += data.data.title+"<br /><small class='meta'>"+data.data.desc+"</small>";
+            if (data.data.multi == 1) skill += '<a href="#" class="close" onclick="removeSkill('+data.data.id+')">&times;</a>';
+            skill += '</div>';
+            $('.skillList').append(skill);
+            $('#skill').val('');
+            $('#skill').focus();
+          }
+					if (data.message) alert(data.message);
+        },
+        error: function(data,e,t) { // if error occured
+           alert(e+': '+t);
+           //alert(data);
+        },
+ 
+  dataType:'html'
+  });
+ 
+}
+
+function removeSkill(skill_id){
+    $.ajax({
+   type: 'POST',
+   url: skillRemove_url,
+   data:{ id: skill_id, ajax: 1},
+        success:function(indata){
+          data = JSON.parse(indata);
+          if (data.message != '') alert(data.message);
+          else {
+            //$('#link_div_'+data.data.id).fadeOut('slow');
+          }
+        },
+        error: function(data,e,t) { // if error occured
+           alert(e+': '+t);
+        },
+ 
+  dataType:'html'
+  });
+
+}
+
+function selectIndustry(id){
+  $('.skillset').val(id); 
+  //Foundation.libs.forms.refresh_custom_select($('.skillset'),true);
+  $(".skillset").trigger("liszt:updated");
+  $('#customSkills').show();
+}
 
 
-	//var skillSuggest_url = 'profile/suggestSkill';
-	
-  $(function() {
+var cache = {};
+var cityCache = {};
+  
+$(function() {
     
     if ($('.skill').length != 0)
     $( ".skill" )
@@ -70,28 +129,5 @@ $.getScript(fullURL+"/js/includes/skill.js");
         .appendTo( ul );
     };
     
-    if ($('.city').length != 0)
-    $( ".city" )
-      // don't navigate away from the field on tab when selecting an item
-      .bind( "keydown", function( event ) {
-        if ( event.keyCode === $.ui.keyCode.TAB &&
-            $( this ).data( "ui-autocomplete" ).menu.active ) {
-          event.preventDefault();
-        }
-      })
-			.autocomplete({
-				delay:300,
-				minLength: 2,
-        source: function( request, response ) {
-					
-					$.getJSON( citySuggest_url, { term: extractLast( request.term ) }, function( data, status, xhr ) {
-						if (data.status == 0){
-							cityCache[ extractLast( request.term ) ] = data.data;
-							response( data.data );
-						}else alert(data.message);
-					});
-        }
-      });    
-    
+   
   });
-
