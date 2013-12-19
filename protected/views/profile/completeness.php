@@ -2,8 +2,6 @@
 
 <div class="row hide-for-small">
   <div class="columns edit-content">
-    <br />
-    
     <div style="float:left; margin-left:120px;">
       <strong>
         <?php echo Yii::t('msg','Profiles with {n}% or less will not be shown in the results.',array(PROFILE_COMPLETENESS_MIN)) ?>

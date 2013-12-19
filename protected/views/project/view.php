@@ -4,46 +4,42 @@ $this->pageTitle="";
 $idea = $data['idea'];
 ?>
 <div id="drop-msg" class="f-dropdown content medium" data-dropdown-content>
-<div class="contact-form">
-<?php
-if (Yii::app()->user->isGuest) echo Yii::t('msg','You must be loged in to contact this person.'); 
-else { ?>    
-<?php 
-/*$user_id = '';
-foreach ($idea['member'] as $member){
-if ($member['type_id'] == 1){
-$user_id = $member['id'];
-break;
-}
-}*/
-echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("class"=>"customs")); ?>
-      <?php echo CHtml::hiddenField("project",$idea['id']); ?>
-      <?php echo CHtml::label(Yii::t('app','Message').":",'message'); ?>
-      <?php echo CHtml::textArea('message') ?>
-      <br />
-      
-      <label for="notify_me">
-        <?php echo CHtml::checkBox('notify_me',true); ?>
-        <?php echo Yii::t('app','Send me a copy by email'); ?>
-      </label>    
-      <br />
-      <div class="login-floater">
-      <?php echo CHtml::submitButton(Yii::t("app","Send"),array("class"=>"button small radius")); ?>
-      </div>
+  <div class="contact-form">
+  <?php
+  if (Yii::app()->user->isGuest) echo Yii::t('msg','You must be loged in to contact this person.'); 
+  else { ?>    
+  <?php 
+  /*$user_id = '';
+  foreach ($idea['member'] as $member){
+  if ($member['type_id'] == 1){
+  $user_id = $member['id'];
+  break;
+  }
+  }*/
+  echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("class"=>"customs")); ?>
+        <?php echo CHtml::hiddenField("project",$idea['id']); ?>
+        <?php echo CHtml::label(Yii::t('app','Message').":",'message'); ?>
+        <?php echo CHtml::textArea('message') ?>
+        <br />
 
-  <?php echo CHtml::endForm();
-}
-?>
-</div>
+        <label for="notify_me">
+          <?php echo CHtml::checkBox('notify_me',true); ?>
+          <?php echo Yii::t('app','Send me a copy by email'); ?>
+        </label>    
+        <br />
+        <div class="login-floater">
+        <?php echo CHtml::submitButton(Yii::t("app","Send"),array("class"=>"button small radius")); ?>
+        </div>
+
+    <?php echo CHtml::endForm();
+  }
+  ?>
+  </div>
 </div>
 
 
 <div class="row idea-details">
-
-
      
-  <div class="">
-  <div class="">
   <div class="large-8 columns main" >
 
         <div class="panel radius">
@@ -209,6 +205,12 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("cla
             ?>
 
       
+          <?php if ($canEdit) { ?>
+            <a class="button secondary small small-12 radius" href="<?php echo Yii::app()->createUrl("project/edit",array("id"=>$idea['id'])); ?>">
+            <?php echo Yii::t('app', 'Edit project') ?> <span class="icon-awesome icon-wrench"></span>
+            </a>
+          <?php } ?>
+                
             <div class="item">
               <h4 class="">
                 <?php echo Yii::t('app','Members'); ?>
@@ -230,15 +232,11 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("cla
             }
             ?>  
             </div>
-             <?php if ($canEdit) { ?>
-        <a class="button secondary small  radius right" href="<?php echo Yii::app()->createUrl("project/edit",array("id"=>$idea['id'])); ?>">
-        <?php echo Yii::t('app', 'Edit project') ?> <span class="icon-awesome icon-wrench"></span>
-        </a>
-            
-        <div class="" style="margin-top:5px;"><h4><?php echo Yii::t('app','viewed {n} time|viewed {n} times' . '<h4>' ,array($idea['num_of_clicks'])); ?></div>
-        <?php }else{ ?>
-        <a class="button success radius large-12 small-6" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact members') ?></a>
-        <?php } ?>
+          <?php if (!$canEdit) { ?>
+            <a class="button success radius small-12" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact members') ?></a>
+          <?php }else{ ?>
+             <div class="" style="margin-top:5px;"><h4><?php echo Yii::t('app','viewed {n} time|viewed {n} times' . '<h4>' ,array($idea['num_of_clicks'])); ?></div>
+           <?php } ?>
         </div>
 
         
@@ -305,7 +303,4 @@ echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("cla
 
 </div><!-- end row -->
 
-</div>
-</div>
 <?php Yii::log(arrayLog($idea), CLogger::LEVEL_INFO, 'custom.info.idea');
-

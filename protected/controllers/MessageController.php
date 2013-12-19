@@ -180,11 +180,15 @@ class MessageController extends Controller
         $msgList['projects'][$msg->idea_to_id] = array("id"=>$msg->idea_to_id,
                                     "name"=>trim_text($ideaTranslation->title,40));
         
+        if ($id == 0) $id = $msg->idea_to_id;
+        if ($group == '') $group = 'project';
+        
         if ($group == 'project' && $id == $msg->idea_to_id){
           
           $chatList['name'] = $ideaTranslation->title;
           $chatList['messages'][] = array("from"=>$msg->userFrom->name." ".$msg->userFrom->surname,
                               "from_id"=>$msg->userFrom->id,
+                              "avatar_link"=>$msg->userFrom->avatar_link,
                               "time"=>$msg->time_sent,
                               "content"=>$msg->message);
         }
@@ -195,31 +199,39 @@ class MessageController extends Controller
           $msgList['users'][$msg->user_from_id] = array("id"=>$msg->user_from_id,
                                       "name"=>$msg->userFrom->name." ".$msg->userFrom->surname);
           
+          if ($id == 0) $id = $msg->user_from_id;
+          if ($group == '') $group = 'user';
+          
           if ($group == 'user' && $id == $msg->user_from_id){
             $chatList['name'] = $msg->userFrom->name." ".$msg->userFrom->surname;
             $chatList['messages'][] = array("from"=>$msg->userFrom->name." ".$msg->userFrom->surname,
                                 "from_id"=>$msg->userFrom->id,
+                                "avatar_link"=>$msg->userFrom->avatar_link,
                                 "time"=>$msg->time_sent,
                                 "content"=>$msg->message);
           }
         }else{
-            // I have send somebody a msg
-            $msgList['users'][$msg->user_to_id] = array("id"=>$msg->user_to_id,
-                                        "name"=>$msg->userTo->name." ".$msg->userTo->surname);
-            
-            if ($group == 'user' && $id == $msg->user_to_id){
-              $chatList['name'] = $msg->userTo->name." ".$msg->userTo->surname;
-              $chatList['messages'][] = array("from"=>$msg->userFrom->name." ".$msg->userFrom->surname,
-                                  "from_id"=>$msg->userFrom->id,
-                                  "time"=>$msg->time_sent,
-                                  "content"=>$msg->message);
-            }
+          // I have send somebody a msg
+          $msgList['users'][$msg->user_to_id] = array("id"=>$msg->user_to_id,
+                                      "name"=>$msg->userTo->name." ".$msg->userTo->surname);
+
+          if ($id == 0) $id = $msg->user_to_id;
+          if ($group == '') $group = 'user';
+
+          if ($group == 'user' && $id == $msg->user_to_id){
+            $chatList['name'] = $msg->userTo->name." ".$msg->userTo->surname;
+            $chatList['messages'][] = array("from"=>$msg->userFrom->name." ".$msg->userFrom->surname,
+                                "from_id"=>$msg->userFrom->id,
+                                "avatar_link"=>$msg->userFrom->avatar_link,
+                                "time"=>$msg->time_sent,
+                                "content"=>$msg->message);
           }
         }
-      
+          
+      } //end else idea to
     }
     
-    $this->render('view',array('msgList'=>$msgList,"chatList"=>$chatList,"group"=>$group));
+    $this->render('view',array('id'=>$id,'msgList'=>$msgList,"chatList"=>$chatList,"group"=>$group));
     //print_r($msgList);
     //print_r($chatList);
   }

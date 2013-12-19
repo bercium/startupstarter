@@ -41,6 +41,7 @@
         </section><?php //} ?>
       </div>
 
+    <?php /* ?>
      <div class="panel">
       <!--
         <div class="item">
@@ -56,10 +57,10 @@
         </div>
         <?php if ($invites > 0){ ?>
         <a class="button radius small-12"  href="#" data-dropdown="drop-invitation-msg"><?php echo Yii::t('app','Send invitation <span class="label round secondary">{n}</span>',array($invites)); ?></a>
-        <?php }  */ ?>
+        <?php }  * / ?>
 
       -->
-     </div>
+     </div><?php */ ?>
     
     <?php //$this->widget('ext.SidebarEditMenu.WEditSidebar',array("ideas"=>(isset($ideas)?$ideas:array()))); ?>
     
