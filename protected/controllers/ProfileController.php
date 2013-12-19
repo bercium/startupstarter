@@ -194,7 +194,7 @@ class ProfileController extends GxController {
 
 						if ($match->save()) {
               $c = new Completeness();
-              $c->setPercentage();
+              $c->setPercentage($user_id);
 							setFlash('personalMessage', Yii::t('msg',"Personal information saved."));
 							/* if (Yii::app()->getRequest()->getIsAjaxRequest())
 							  Yii::app()->end();
@@ -225,7 +225,7 @@ class ProfileController extends GxController {
             if (Yii::app()->user->isGuest) setFlash('profileMessage', Yii::t('msg',"Profile details saved. Please check your mail for activation code."));
             else setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
             $c = new Completeness();
-            $c->setPercentage();
+            $c->setPercentage($user_id);
           }else{
             setFlash('profileMessage', Yii::t('msg',"Unable to save profile details."),'alert');
           }
@@ -316,7 +316,7 @@ class ProfileController extends GxController {
 						ELangPick::setLanguage($lang->language_code);
 					}
           $c = new Completeness();
-          $c->setPercentage();
+          $c->setPercentage($user_id);
 
 					/* if (Yii::app()->getRequest()->getIsAjaxRequest())
 					  Yii::app()->end();
@@ -389,7 +389,7 @@ class ProfileController extends GxController {
 				$return['message'] = Yii::t('msg', "Project removed successfully!");
 				$return['status'] = 0;
         $c = new Completeness();
-        $c->setPercentage();
+        $c->setPercentage($user_id);
 			} else {
 				$return['message'] = Yii::t('msg', "Unable to remove project from your account.");
 				$return['status'] = 1;
@@ -437,7 +437,7 @@ class ProfileController extends GxController {
 					$return['status'] = 0;
           
           $c = new Completeness();
-          $c->setPercentage();
+          $c->setPercentage($user_id);
 				} else {
 					$return['message'] = Yii::t('msg', "Unable to update collaboration preferences.");
 					$return['status'] = 1;
@@ -471,6 +471,7 @@ class ProfileController extends GxController {
 		$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
 		$match_id = $match->id;
 
+    $response = '';
 		//check for permission
 		if ($user_id > 0) {
 
@@ -517,7 +518,7 @@ class ProfileController extends GxController {
 
             if ($user_skill->save()){
               $c = new Completeness();
-              $c->setPercentage();
+              $c->setPercentage($user_id);
               
               $skillset = Skillset::model()->findByPk($_POST['skillset']);
 
@@ -543,11 +544,11 @@ class ProfileController extends GxController {
                 "message" => Yii::t('msg', "Problem saving skill. Please check fields for correct values."));
               break;
             }
-          }/*else{
+          }else{
               $response = array("data" => null,
                 "status" => 1,
                 "message" => Yii::t('msg', "You already have this skill."));
-          }*/
+          }
 
         }
         echo json_encode($response);
@@ -597,7 +598,7 @@ class ProfileController extends GxController {
 				$return['status'] = 0;
         
         $c = new Completeness();
-        $c->setPercentage();        
+        $c->setPercentage($user_id);        
 			} else {
 				$return['message'] = Yii::t('msg', "Unable to remove skill.");
 				$return['status'] = 1;
@@ -675,7 +676,7 @@ class ProfileController extends GxController {
 
 					if ($link->save()) {
             $c = new Completeness();
-            $c->setPercentage();
+            $c->setPercentage($user_id);
 
 						$response = array("data" => array("title" => $_POST['UserLink']['title'],
 										"url" => $linkURL,
@@ -714,7 +715,7 @@ class ProfileController extends GxController {
 
 			if ($link->delete()) {
         $c = new Completeness();
-        $c->setPercentage();
+        $c->setPercentage($user_id);
         
 				$response = array("data" => array("id" => $link_id),
 						"status" => 0,
@@ -872,7 +873,7 @@ class ProfileController extends GxController {
     $comp = new Completeness();
     $ungrouped = $comp->init();
     
-    //echo $comp->setPercentage();
+    //echo $comp->setPercentage($user_id);
     
     $data = array();
     foreach ($ungrouped as $row){

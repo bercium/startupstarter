@@ -79,6 +79,8 @@ class Completeness{
 
 
       $userMatch = UserMatch::model()->find('user_id=:userID', array(':userID'=>$user_id));
+      
+      if (!$userMatch) return $this->details; 
 
       $count = UserLink::Model()->count("user_id=:userID", array("userID" => $user_id));
 
@@ -241,7 +243,9 @@ class Completeness{
       if ($detail["active"]) $realVal += $detail["weight"];
     }
     
-    $perc = round($realVal/$maxVal*100);
+    $perc = 0;
+    if ($maxVal) $perc = round($realVal/$maxVal*100);
+    
     $stat = UserStat::model()->findByAttributes(array("user_id"=>$user_id));
     if ($stat == null){
       $stat = new UserStat();

@@ -111,18 +111,16 @@
 
       <a href="#" class="button radius success" onclick="contact(this);"><?php echo Yii::t('app','Contact us'); ?></a>
 
-   
+    <h2><?php echo Yii::t('app',"Others that helped us a lot"); ?></h2>
+    <p>Jure Grahek</p>
+
   </div>  
   
   </div>
 
    <div class="columns main ball wrapped-content">
     <div class="columns">
-     <h1><?php echo Yii::t('app',"Others that helped us a lot"); ?></h1>
-    <p>Jure Grahek</p>
-      
-
-      <h2><?php echo Yii::t('app','Supporters'); ?></h2>
+      <h1><?php echo Yii::t('app','Supporters'); ?></h1>
       </div>
   </div>
   

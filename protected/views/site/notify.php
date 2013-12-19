@@ -1,5 +1,7 @@
 <?php
-	$this->pageTitle = Yii::t('app','Invitations');
+
+	if ($saved) $this->pageTitle = Yii::t('app','Thank you for applying, you are avesome');
+  else $this->pageTitle = Yii::t('app','Invitation');
 ?>
 <p>
   
@@ -9,7 +11,7 @@
     $summary = urlencode(Yii::t('msg','With the right team any idea can change your life!'));
     $summaryTwt = urlencode(Yii::t('msg','With the right #team any #idea can change your life at http://www.cofinder.eu #cofinder'));
     
-    echo Yii::t('msg','Thank you for applying. As we wish to maintain a certain level of quality we let our comunity chose apropriate candidates. This can take some time but don\'t worry we will keep you posted on what\'s happening and will notify you when we go public.');
+    echo Yii::t('msg','As we wish to maintain a certain level of quality we let our comunity chose apropriate candidates. This can take some time but don\'t worry we will keep you posted on what\'s happening and will notify you when we go public.');
     ?>
     <br /><br /><br />
 

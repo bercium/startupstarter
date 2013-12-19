@@ -123,6 +123,8 @@ class User extends BaseUser
 			'language_id' => Yii::t('app', 'Language'),
 			'newsletter' => Yii::t('app', 'Newsletter'),
       'invitations' => Yii::t('app', 'Invitations'),
+			'bio' => Yii::t('app', 'Personal pitch'),
+      'vanityURL' => Yii::t('app', 'Public name'),        
 		);
 
     
