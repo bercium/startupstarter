@@ -59,7 +59,7 @@ class User extends BaseUser
 		return ((get_class(Yii::app())=='CConsoleApplication' || (get_class(Yii::app())!='CConsoleApplication' && Yii::app()->getModule('user')->isAdmin()))?array(
 			array('email', 'email'),
 			array('email', 'unique', 'message' => Yii::t('msg',"This user's email address already exists.")),
-			array('password', 'length', 'max'=>128, 'min' => 4,'message' => Yii::t('msg',"Incorrect password (minimal length 4 symbols).")),
+			array('password', 'length', 'max'=>128, 'min' => 6,'message' => Yii::t('msg',"Incorrect password (minimal length 6 symbols).")),
 			array('status', 'in', 'range'=>array(self::STATUS_NOACTIVE,self::STATUS_ACTIVE,self::STATUS_BANNED)),
 			array('superuser', 'in', 'range'=>array(0,1)),
       array('create_at', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
@@ -117,7 +117,7 @@ class User extends BaseUser
 			'status' => Yii::t('app', 'Status'),
         
 			'name' => Yii::t('app', 'First name'),
-			'surname' => Yii::t('app', 'Last name'),
+			'surname' => Yii::t('app', 'Last name *'),
 			'address' => Yii::t('app', 'Address'),
 			'avatar_link' => Yii::t('app', 'Avatar link'),
 			'language_id' => Yii::t('app', 'Language'),
