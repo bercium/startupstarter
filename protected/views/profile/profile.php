@@ -117,7 +117,8 @@
 </div>
  
 <div class="">
-  <div class="columns edit-header">   
+  <div class="columns edit-header">
+    <a id="link_profile_details" class="anchor-link"></a>
     <h3><?php echo Yii::t('app', 'Profile details'); ?></h3>
     
   </div>
@@ -187,10 +188,7 @@
 
 <div class="">
   <div class="columns edit-header">
-    <a id="link_skill" class="anchor-link"></a>
-    
-    
-
+    <a id="link_skills" class="anchor-link"></a>
     <h3 id="sec2"><?php echo Yii::t('app', 'My skills'); ?></h3>
     
       <a class="button secondary radius small right" href="#" onclick="$('.addSkils').toggle(); return false;"><?php echo Yii::t('app',"Add skills"); ?> 
@@ -270,7 +268,10 @@
 
 <div>
 
-  <div class="edit-header columns"><h3><?php echo Yii::t('app',"My links"); ?></h3>
+  <div class="edit-header columns">
+    
+    <a id="link_links" class="anchor-link"></a>
+    <h3><?php echo Yii::t('app',"My links"); ?></h3>
 
    <?php /* ?><a href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"My custom links"); ?> +</a> <?php */ ?>
       <a class="button radius secondary small" href="#" onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app',"Add links"); ?> <span class="icon-link"></span></a>

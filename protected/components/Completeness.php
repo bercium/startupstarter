@@ -65,7 +65,7 @@ class Completeness{
 
       $this->details[] = array(
             "group"=>Yii::t('app',"Personal information"),
-            "name"=>Yii::t('app',"Bio"),
+            "name"=>Yii::t('app',"Personal pitch"),
             "value"=>"",
             "hint"=>Yii::t('msg',"Tell others something interesting about yourself."),
             "action"=>Yii::app()->createUrl("profile")."#link_personal",
@@ -89,7 +89,7 @@ class Completeness{
             "name"=>Yii::t('app',"Links"),
             "value"=>Yii::t('app',"{n} link|{n} links",array($count)),
             "hint"=>Yii::t('msg',"Add some links."),
-            "action"=>Yii::app()->createUrl("profile")."#link_personal",
+            "action"=>Yii::app()->createUrl("profile")."#link_links",
             "active"=>($count > 0),
             "weight"=>5,
             );      
@@ -120,7 +120,7 @@ class Completeness{
             "name"=>Yii::t('app',"Availability"),
             "value"=>$userMatch->available,
             "hint"=>Yii::t('msg',"Fill up your profile details."),
-            "action"=>Yii::app()->createUrl("profile"),
+            "action"=>Yii::app()->createUrl("profile")."#link_profile_details",
             "active"=>($userMatch->available != 0),
             "weight"=>10,
             );        
@@ -131,7 +131,7 @@ class Completeness{
             "name"=>Yii::t('app',"Collaboration"),
             "value"=>"",
             "hint"=>Yii::t('msg',"What is your prefered Collaboration."),
-            "action"=>Yii::app()->createUrl("profile"),
+            "action"=>Yii::app()->createUrl("profile")."#link_profile_details",
             "active"=>($count > 0),
             "weight"=>5,
             );
@@ -142,7 +142,7 @@ class Completeness{
             "name"=>Yii::t('app',"Skills"),
             "value"=>"", //Yii::t('app',"{n} skills|{n} skills",array($count)),
             "hint"=>Yii::t('msg',"Adding more skills will improve your profile visibility. Add at least 5."),
-            "action"=>Yii::app()->createUrl("profile")."#link_skill",
+            "action"=>Yii::app()->createUrl("profile")."#link_skills",
             "active"=>($count > 5),
             "weight"=>20,
             );
