@@ -28,7 +28,7 @@
 <div class="panel-top mb20">
 	<div class="row">
   
-    <h1><span><?php echo Yii::t('app','Find talent'); ?></span></h1>
+    <h1><?php echo Yii::t('app','Find talent'); ?></h1>
     <p class="description"><?php echo Yii::t('app','Click on the prefered group that best represent your needs or search by panel bellow to find your match.'); ?></p>
     
     <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[collabPref]'=>'3', 'Category'=>'collabpref')); ?>" class="button  radius success small"><?php echo Yii::t("app","Cofounder"); ?></a>
