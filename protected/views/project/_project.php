@@ -1,5 +1,5 @@
- <div class="columns radius card-idea">
-    <div class="row card-idea-title" onclick="location.href='<?php echo Yii::app()->createUrl("project",array("id"=>$idea['id'])); ?>';">
+ <div class="columns radius m-card">
+    <div class="row m-card-title" onclick="location.href='<?php echo Yii::app()->createUrl("project",array("id"=>$idea['id'])); ?>';">
       <div class="columns" >
         <h5><?php echo trim_text($idea['title'],60); ?></h5>
         
@@ -32,7 +32,7 @@
                   <?php if ($idea['video_link']){ ?>
                   <!-- <img src="<?php //echo Yii::app()->request->baseUrl; ?>/images/video.png" data-tooltip title="<?php // echo Yii::t('app','Has video'); ?>" alt="<?php // echo Yii::t('app','Has video'); ?>" class="card-icons" /> -->
                     <a href="<?php echo add_http($idea['video_link']); ?>" target="_blank">
-                      <span class="icon-film icon-awesome" data-tooltip title="<?php  echo Yii::t('msg','Project has a video'); ?>" ></span>
+                      <span class="icon-film icon-awesome ml10" data-tooltip title="<?php  echo Yii::t('msg','Project has a video'); ?>" ></span>
                     </a>
                   <?php } ?>   
                 </div>
@@ -110,7 +110,7 @@
                 $i++; if ($i > 7) break;
               ?>
                 <div class="l-block"><a href="<?php echo Yii::app()->createUrl("person",array("id"=>$member['id'])); ?>">
-                  <img  src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="card-avatar" />
+                  <img  src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="card-avatar mb8" />
                   <?php echo $member['name']." ".$member['surname']; ?>
                 </a>
               </div>

@@ -95,12 +95,12 @@
         
         <?php if ($group == 'user'){ ?>
         <a href="<?php echo Yii::app()-> createUrl("person/view",array("id"=>$id)); ?>" >
-          <h3><?php echo $chatList['name']; ?></h3>
+          <h3 class="large-8"><?php echo $chatList['name']; ?></h3>
         </a>
         <a class="button radius right secondary small" href="#" data-dropdown="drop-msg" onclick="setReplayID('<?php echo $id; ?>','');"><?php echo Yii::t('app',"Send message"); ?></a>
         <?php }else{ ?>
         <a href="<?php echo Yii::app()-> createUrl("project/view",array("id"=>$id)); ?>" >
-          <h3><?php echo $chatList['name']; ?></h3>
+          <h3 class="large-8"><?php echo $chatList['name']; ?></h3>
         </a>
         <a class="button radius right secondary small" href="#" data-dropdown="drop-msg" onclick="setReplayID('','<?php echo $id; ?>');" ><?php echo Yii::t('app',"Group message"); ?></a>
         <?php } ?>

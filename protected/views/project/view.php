@@ -55,25 +55,7 @@ $idea = $data['idea'];
                 <?php echo $idea['status']; ?>
                 </a>
 
-            <div class="right">
-                <?php if (count($idea['translation_other'])){ ?>
-                <div class=""><span class="right ml8 icon-info-sign" data-tooltip title="<?php echo Yii::t('app', 'View project in other languages by clicking on the dropdown') ?>"></span>
-                  <a href="#"  data-dropdown="data1" class="tiny secondary radius button dropdown"><?php echo Yii::t('app','Other languages'); ?>: </a>
-                  <br> 
-
-                  <ul id="data1" data-dropdown-content class="f-dropdown">
-                    <li><a style="font-weight: bold;"><?php echo $idea['language']; ?></a></li>
-                    <?php 
-                    foreach ($idea['translation_other'] as $trans){
-                    echo '<li><a href="'.Yii::app()->createUrl("project/view",array("id"=>$idea['id'],'lang'=>$trans['language_code'])).'" >'.$trans['language']."</a></li>";
-                    }
-                    ?>
-                  </ul>
-
-
-                </div>
-                <?php } ?>
-            </div>
+            
             </div>            
             <hr>
             <p class="pitch">
@@ -101,7 +83,7 @@ $idea = $data['idea'];
         foreach ($idea['candidate'] as $candidate){
         $cnum++; 
         ?>
-        <div class="panel inside-panel radius">
+        <div class="panel radius">
           <h4>
           <?php echo Yii::t('app','Candidate {n}',array($cnum)) ?>
           </h4>
@@ -120,9 +102,9 @@ $idea = $data['idea'];
 
             <?php if ($candidate['available_name']) { ?>
             <div class="">
-                <h4 class="l-iblock"><?php echo Yii::t('app', 'Available') ?>
-                <a><?php echo $candidate['available_name']; ?></a>
-                </h4>
+                <h4 class="l-inline"><?php echo Yii::t('app', 'Available') ?></h4>
+                <p class="l-inline"><?php echo $candidate['available_name']; ?></p>
+                
             </div>
             <?php } ?>
             <?php if ($candidate['city'] || $candidate['country']){ ?>
@@ -164,12 +146,12 @@ $idea = $data['idea'];
     </div>
     <!-- jobs end -->
 
-            
+          
 
 
     </div><!-- large-8 end -->
 
-    <div class="large-4 columns side">
+    <div class="large-4 columns side side-profile">
         <?php 
         $canEdit = false;
         foreach ($idea['member'] as $member){
@@ -223,9 +205,12 @@ $idea = $data['idea'];
                 $i++; 
                 //if ($i > 3) break;
                 ?>
+                <div class="l-block mb10">
                 <a href="<?php echo Yii::app()->createUrl("person/".$member['id']); ?>">
-                <img src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" data-tooltip title="<?php echo $member['name']." ".$member['surname']; ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="mini-avatar" />
+                <img src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" data-tooltip title="<?php echo $member['name']." ".$member['surname']; ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="mini-avatar mr8" />
+                <?php echo $member['name']." ".$member['surname']; ?>
                 </a>
+                </div>
               <?php }
             // extra members
             //if (count($idea['member']) > 3) echo '<font class="meta">+'.(count($idea['member'])-3).'</font>';
@@ -234,10 +219,34 @@ $idea = $data['idea'];
             </div>
           <?php if (!$canEdit) { ?>
             <a class="button success radius small-12" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact members') ?></a>
-          <?php }else{ ?>
-             <div class="" style="margin-top:5px;"><h4><?php echo Yii::t('app','viewed {n} time|viewed {n} times' . '<h4>' ,array($idea['num_of_clicks'])); ?></div>
+          
+           
            <?php } ?>
         </div>
+
+
+                <?php if (count($idea['translation_other'])){ ?>
+                <div class="panel">
+                  <div class="item bbottom">  
+                  <h4><?php echo Yii::t('app','languages'); ?></h4>
+                  <p class="l-inline"><?php echo Yii::t('app','You are viewing this in'); ?> <?php echo $idea['language']; ?></p>
+                  </div>
+                  <p  data-dropdown="data1" class="small dropdown secondary radius button"><?php echo Yii::t('app','Other languages'); ?></a>
+                   
+
+                  <ul id="data1" data-dropdown-content class="f-dropdown">
+                    <li><a style="font-weight: bold;"><?php echo $idea['language']; ?></a></li>
+                    <?php 
+                    foreach ($idea['translation_other'] as $trans){
+                    echo '<li><a href="'.Yii::app()->createUrl("project/view",array("id"=>$idea['id'],'lang'=>$trans['language_code'])).'" >'.$trans['language']."</a></li>";
+                    }
+                    ?>
+                  </ul>
+
+
+                </div>
+                <?php } ?>
+            
 
         
         <div class="panel">
@@ -296,6 +305,14 @@ $idea = $data['idea'];
             </h4><p>
               <?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($idea['date_updated']),"long",null); ?>
             </p>
+            <hr>
+             <?php if (!$canEdit) { ?>
+           
+          <?php }else{ ?>
+             <div class="" style="margin-top:5px;"><h4><?php echo Yii::t('app','viewed {n} time|viewed {n} times' . '<h4>' ,array($idea['num_of_clicks'])); ?></div>
+           <?php } ?>
+        </div>
+
         </div> 
               
         

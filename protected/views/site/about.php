@@ -8,7 +8,7 @@
 	
   <div class="columns main ball wrapped-content">
    
-   <div class="large-8  columns">
+   <div class="large-7  columns">
     <h1><?php echo Yii::t('app','What is cofinder'); ?></h1>
     <h2><?php echo Yii::t('app','Introduction'); ?></h2>
     
@@ -27,8 +27,12 @@
 		
     </div>
 
-    <div class="large-4 columns side">
+    <div class="large-5 columns side">
+
+      <ul class="small-block-grid-1 large-block-grid-1">
+        <li>
       <?php if ($idea)  $this->renderPartial('//project/_project', array('idea' => $idea));  ?>
+    </li>
     </div>
   
 

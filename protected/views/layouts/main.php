@@ -125,7 +125,7 @@
                   <?php if(!Yii::app()->user->isGuest){  ?><li><a href="<?php echo Yii::app()->createUrl("profile/createInvitation"); ?>"><?php echo Yii::t('app','Create invitation'); ?></a></li>
                   <?php } ?>
                   <li><a href="<?php echo Yii::app()->createUrl("backendAuditTrail"); ?>"><?php echo Yii::t('app','Logs'); ?></a></li>
-                  <li clasS="has-dropdown">
+                  <li class="has-dropdown">
                      <a href="#"><?php echo Yii::t('app','Mail styles'); ?></a>
                      <ul class="dropdown">
                       <li><a href="<?php echo Yii::app()->createUrl("newsletter/mailSystem"); ?>"><?php echo Yii::t('app','System mail'); ?></a></li>
@@ -140,7 +140,7 @@
 
             <ul class="right">
               <?php if (!Yii::app()->user->isGuest){ ?>
-              <li class="has-dropdown">
+              <li class="has-dropdown minwidth200">
                 <a href="#" style="height:45px">
                   <div class="hide-for-small">
                   <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>

@@ -25,8 +25,8 @@ foreach($user['idea'] AS $key => $idea){
               );?>
         </div>        
 
-        <p class="mt-10"><a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><?php echo $idea['title'];?></a></p>
-        <small class="mb-10 block">
+        <p class="mt10"><a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><?php echo $idea['title'];?></a></p>
+        <small class="mb10 block">
           <span class=""><?php echo Yii::t('app', 'created on'); ?> </span><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($idea['time_registered']),"long",null); ?> | 
           <?php echo Yii::t('app', '<span class="">has</span> {n} member| has {n} members',count($idea['member'])); ?> | 
           <?php echo Yii::t('app', '<span class="">viewed</span> {n} time| viewed {n} times',$idea['num_of_clicks']); ?>
@@ -73,7 +73,7 @@ foreach($user['idea'] AS $key => $idea){
               ); ?>
         </div>
 
-        <p class="mt-10"><a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><?php echo $idea['title'];?></a></p>
+        <p class="mt10"><a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><?php echo $idea['title'];?></a></p>
         <small class="">
           <p><?php echo Yii::t('app', 'created on'); ?> <?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($idea['time_registered']),"long",null); ?> | 
           <?php echo Yii::t('app', 'has <span>{n} member</span>| has <span>{n} members</span>',count($idea['member'])); ?> | 

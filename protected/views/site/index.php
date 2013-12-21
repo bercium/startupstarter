@@ -344,6 +344,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
         <a id="page<?php echo $searchResult['page']; ?>" class="anchor-link"></a>
         
         <h5><?php echo Yii::t("app","Page")." ".$searchResult['page']; ?></h5>
+        <p>some text</p>
         <ul class="small-block-grid-1 large-block-grid-3">
           <?php
           if(is_array($searchResult['data']) > 0){

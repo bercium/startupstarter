@@ -13,6 +13,7 @@
 
 body {
 	background: url(../images/body_bg.png);
+	
 		height: 100%;
 }
 
@@ -151,6 +152,7 @@ margin-right: 20px;
 .exp_srch {
 	margin-right: 26px;
 	margin-top: 5px;
+
 }
 
 
@@ -211,12 +213,12 @@ margin-right: 20px;
   border-radius: 3px;
 }
 
-.card-person hr, .card-idea hr{
+.card-person hr, .m-card hr{
   margin-top:5px;
   margin-bottom:0.9375em;
 }
 
-.card-person p, .card-idea p{
+.card-person p, .m-card p{
   margin-top:5px;
   margin-bottom:5px;
 }
@@ -252,12 +254,12 @@ margin-right: 20px;
   }
 
 div[onclick].panel,
-div[onclick].card-person-title, div[onclick].card-idea-title{
+div[onclick].card-person-title, div[onclick].m-card-title{
   cursor: pointer;
 }
 
 
-.card-person, .card-idea {
+.card-person, .m-card {
   /*margin-right:0.9375em; */
   
   background-color: #FFF;
@@ -299,22 +301,17 @@ div[onclick].card-person-title, div[onclick].card-idea-title{
 	padding: 0;
 }
 .searchpanel {
-	margin:0 auto;
-	/*background: url(../images/f_bg.png);*/
-	color: #fff !important;
-	border-radius: 10px !important;
-	border: none;
-	border: 1px solid #fff;
-	box-shadow: 0 0 0 1px #fff, 0 0 0 2px #bbbbbb, 0 0 0 3px #ddd, 0 0 0 4px #ddd;
-}
+	margin:0 auto;	
+	color: #fff !important;	
+	
+	background: #ddd;
+}	
 
 .searchpanel .search_content {
-	background: #f9f9f7;
-	border: 1px solid #fff;
-	box-shadow: 0 0 0 1px #ddd;
-	padding: 15px 20px 0 20px;
-	z-index: 1;
-	border-radius: 6px;
+	
+	padding: 15px 20px 20px 20px;
+	z-index: 1;	
+	
 	color: #794a93;	
 }
 
@@ -509,6 +506,7 @@ sidebar .section-container.auto .section {
 	border-radius: 4px;
 	padding: 10px 20px 50px 20px;
 	margin-bottom: 50px; 
+	border-top: 1px solid #bbb !important;
  }
 
 
@@ -531,22 +529,20 @@ sidebar .section-container.auto .section {
     font-size: 1em;
     font-weight: 600;
     text-transform: uppercase;
+    margin-bottom: 20px;
       
 
 
 }
 
- 
- .side {
- 	font-size: 14px;
- }
-
+.side-profile {
+	font-size: 0.8em;
+}
 
 
 .side h4,
 .main h4,
-.panel-top h4 {
-	
+.panel-top h4 {	
 	font-size: 12px;
 	text-transform: uppercase;
 	font-weight: 600 !important;	
@@ -674,41 +670,45 @@ f-line {
 }
 
 .label.label-collaboration {
-	font-size: 1em;
+	
 	background: #fff;
 	padding-top: 1em;
 	padding-bottom: 1em;
 	transition: 0.2s;
+	color: inherit;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	
+	border-top:2px solid #888;
 	
 }
 
-
+/*
 .label.label-Paid {
-	border-bottom:1px solid #89B561;
+	border-top:2px solid #89B561;
 	
 }
 
 .label.label-Sweat {
-	border-bottom:1px solid #389ABF;
+	border-top:2px solid #389ABF;
 	
 }
 
 .label.label-Equal {
-	border-bottom:1px solid #DA8817;
+	border-top:2px solid #DA8817;
 	
 }
 .label.label-Sole {
-	border-bottom:1px solid #D43E3F;
+	border-top:2px solid #D43E3F;
 	
 }
 
 .label.label-Volunteer  {
-	border-bottom:1px solid #bbb;
+	border-top:2px solid #bbb;
 	
 	 }
 
-
-
+*/
 .icon-custom {
 	display: block;
 	width: 100%;
@@ -795,8 +795,14 @@ img.card-avatar,
 ================================================== */
 
 
+.minwidth200 {
+	min-width: 200px;
+}
 
-
+.altbg {background: #F9F9F7;}
+.top {
+	margin-top: 0 !important;
+}
 
 .th-small {height:40px; margin-right: 10px; float:left; }
 
@@ -832,6 +838,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 	margin-bottom: 4px; 
 }
 
+ml8 {
+	margin-left: 8px;
+}
+
+.ml10 {
+	margin-left: 10px;
+}
+
 .ml20 {
 	margin-left:  20px;
 }
@@ -847,6 +861,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 
 .btop {
 	border-top: 1px solid #ddd;
+}
+
+.bbottom {
+	border-bottom: 1px solid #ddd;
 }
 .ball {
 	border: 1px solid #ddd;	
@@ -1038,11 +1056,26 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 	display: block;
 }
 
-.mb-10 {
+.mr8 {
+	margin-right: 8px;
+}
+
+.mr10 {
+	margin-right:  10px;
+}
+
+.mb0 {
+	margin-bottom: 0 !important;
+}
+
+.mb8 {
+	margin-bottom: 8px;
+}
+.mb10 {
 	margin-bottom: 10px;
 }
 
-.mt-10 {
+.mt10 {
 	margin-top: 10px;
 }
 
@@ -1098,69 +1131,66 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 /****** @ project card ******/ 
 
 
-.card-idea .section-container.tabs > section > .title a, .section-container.tabs > .section > .title a {
+.m-card .section-container.tabs > section > .title a, .section-container.tabs > .section > .title a {
   font-size: 0.7em;
 }
 
 
- .card-idea .card-idea-title {
+ .m-card .m-card-title {
   padding-top:0.5em; 
   padding-bottom:0.1em; 
   height: 70px; 
   }
 
-  .card-idea .card-idea-title .columns {
+  .m-card .m-card-title .columns {
   	display: table !important;
   	height: 70px;
   }
 
-.card-idea .card-idea-title h5 {
+.m-card .m-card-title h5 {
 	display: table-cell !important;
 	line-height: 1.4em;
 	vertical-align: middle !important;
 	padding-bottom: 17px;
 }
 
-.card-idea .card-floater {
+.m-card .card-floater {
 	float: right;
 }
 
-.card-idea {
+.m-card {
 	/*font-size: 0.9em;*/
 	min-height: 420px;
 	border-radius:  3px;
 }
 
-.card-idea .card-abstract {
+.m-card .card-abstract {
 	min-height: 150px;
 
 }
-.card-idea .card-abstract p {
+.m-card .card-abstract p {
 		line-height: 1.4em;
 }
 
-.card-idea .card-content {
+.m-card .card-content {
 	position: relative;
 	}
 
 
-.card-idea .card-content p {
+.m-card .card-content p {
 	
 	margin-bottom: 15px;
 }
 
 
 
-
-.card-idea .stageinfo {
+.m-card .stageinfo {
 	padding-bottom: 10px;
 }
 
-.card-idea .stageinfo .icon-globe {
-	margin-right: 10px;
-}
 
-.card-idea .icon-signal {
+
+.m-card .icon-signal {
 	margin-top: 9px;
 	font-size: 1.2em;
 	position: absolute;
@@ -1169,22 +1199,24 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 	left: 20px;
 }
 
-.card-idea .stage {
+.m-card .stage {
 	padding-left: 28px;
 }
 
+.m-card .icon-awesome {
+	font-size: 1.2em;
+}
 
 
-
-.card-idea{
+.m-card{
   padding-left: 13px;
   padding-right: 13px;
 }
 
 
 
-.card-idea .idea-info .icon-awesome,
-.card-idea .idea-info .general {
+.m-card .idea-info .icon-awesome,
+.m-card .idea-info .general {
 	float: right;
 	margin-left: 10px;
 	font-size: 1.2em;
@@ -1194,7 +1226,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 	
 }
 
-.card-idea .subinfo {
+.m-card .subinfo {
 	 position: absolute;
 	bottom: 0px;
 	width: 100%;
@@ -1214,7 +1246,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 }
 
 
-.card-idea .idea-info hr {
+.m-card .idea-info hr {
 	line-height: 0;
 }
 
@@ -1303,7 +1335,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 }
 
 
-.card-idea .meta_tags ul li, .card-person .meta_tags ul li {
+.m-card .meta_tags ul li, .card-person .meta_tags ul li {
 	display: inline-block;
 	font-size: 0.9em;
 }
@@ -1341,6 +1373,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 
 .idea-details {
 	margin-top: 40px;
+	margin-bottom: 40px;
 }
 
 .idea-details .title-field h1 {
@@ -1549,7 +1582,7 @@ h6.title-field {
 	border: none;	
 }
 
-.idea-list.card-idea {
+.idea-list.m-card {
 	min-height: auto !important;
 	height: auto !important;
 }
@@ -1573,15 +1606,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444', endCol
 
 
 
-.side img.card-avatar {
-	box-shadow: none;
-	border: 10px solid #fff;
-    margin-top: 5px;
-    width: 70%;
-    height: auto;
-    
-    
-}
+
 
 .lbf1 {
     float: right;
@@ -1608,9 +1633,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444', endCol
 }
 
 .myprojects .edit-content.middle  {
-  margin-bottom: 0;
+  margin-bottom: -1px;
   padding-top: 2px;
   padding-bottom: 10px;
+  
+  border-radius: 0;
 }
 
 
@@ -1735,6 +1762,10 @@ label{
 		font-weight: 900;
 	}	
 
+	.jobs p {
+		font-size:12px;
+	}
+
 
 
 /* ==========================================================================
@@ -1744,10 +1775,11 @@ label{
 	/****** @ panel-top ******/
 
 	.panel-top {   
-    
-    border-bottom: 1px solid #ddd !important;
-    margin-top: 0;
     background: #F9F9F7;
+    border-bottom: 1px solid #ddd;
+   
+    margin-top: 0;
+   
     
 }
 
@@ -1760,7 +1792,29 @@ label{
 	.main > .columns > .panel,
 	.main > .panel {
 		background: #fff;
+		border-top: 1px solid #4469A6;
+		
 	}
+
+
+	.main > .columns > .panel.success,
+	.main > .panel.success {
+		background: #fff;
+		border-top: 1px solid #89B561;
+		
+	}
+
+	.main > .columns > .panel.secondary,
+	.main > .panel.secondary {
+		background: #fff;
+		border-top: 1px solid #bbb;
+		
+	}
+
+
+
+
+
 
 
 
