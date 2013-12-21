@@ -62,8 +62,10 @@ $user = $data['user'];
         <?php } ?>
         </p>
       </div>
-      <a class="button success small-12 radius" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact me') ?></a>
-
+      
+      <?php if ($user['id'] != Yii::app()->user->id){ ?>
+        <a class="button success small-12 radius" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact me') ?></a>
+      <?php } ?>
     </div>
 
 

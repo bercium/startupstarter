@@ -150,12 +150,16 @@
                               ),
           )); ?>
 
+    <p>
+    <?php echo Yii::t('msg','We know you have some awesome skills so why not show them to others. Add all the things you are really good at don\'t limit yourself to formal education or job specific subjects only.'); ?>
+    </p>
     <label><?php echo Yii::t('app','Where do you see yourself'); ?></label>
     <a onclick="selectIndustry(25);" class="button radius small secondary"><?php echo Yii::t('app','Programming'); ?></a>
     <a onclick="selectIndustry(33);" class="button radius small secondary"><?php echo Yii::t('app','Designing'); ?></a>
     <a onclick="selectIndustry(83);" class="button radius small secondary"><?php echo Yii::t('app','Marketing'); ?></a>
     <a onclick="$('#customSkills').show();" class="button radius small secondary"><?php echo Yii::t('app','Other'); ?></a>
-  
+    
+    
     <div id="customSkills" class="hide">
       <?php echo CHtml::label(Yii::t('app','Industry'),''); ?>
       <span class="description"><?php echo Yii::t('msg','Chose a group that best represents skills you are about to add.'); ?></span>
