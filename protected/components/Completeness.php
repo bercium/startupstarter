@@ -143,7 +143,7 @@ class Completeness{
             "value"=>"", //Yii::t('app',"{n} skills|{n} skills",array($count)),
             "hint"=>Yii::t('msg',"Adding more skills will improve your profile visibility. Add at least 5."),
             "action"=>Yii::app()->createUrl("profile")."#link_skills",
-            "active"=>($count > 5),
+            "active"=>($count >= 5),
             "weight"=>20,
             );
 

@@ -213,8 +213,8 @@
       
       <label><?php echo Yii::t('app','Some examples'); ?></label>
       <a onclick="selectIndustry(25);" class="button radius small secondary"><?php echo Yii::t('app','Programming'); ?></a>
-      <a onclick="selectIndustry(83);" class="button radius small secondary"><?php echo Yii::t('app','Design'); ?></a>
-      <a onclick="selectIndustry(33);" class="button radius small secondary"><?php echo Yii::t('app','Marketing'); ?></a>
+      <a onclick="selectIndustry(33);" class="button radius small secondary"><?php echo Yii::t('app','Design'); ?></a>
+      <a onclick="selectIndustry(83);" class="button radius small secondary"><?php echo Yii::t('app','Marketing'); ?></a>
 
       <?php echo CHtml::label(Yii::t('app','Industry'),''); ?>
       <span class="description"><?php echo Yii::t('msg','Chose a group that best represents skills you are about to add.'); ?></span>

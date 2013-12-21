@@ -141,7 +141,7 @@
             <ul class="right">
               <?php if (!Yii::app()->user->isGuest){ ?>
               <li class="has-dropdown">
-                <a href="#" style="height:45px">
+                <a href="<?php echo Yii::app()->createUrl("profile"); ?>" style="height:45px">
                   <div class="hide-for-small">
                   <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
                   </div>

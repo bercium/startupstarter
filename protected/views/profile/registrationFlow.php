@@ -152,8 +152,8 @@
 
     <label><?php echo Yii::t('app','Where do you see yourself'); ?></label>
     <a onclick="selectIndustry(25);" class="button radius small secondary"><?php echo Yii::t('app','Programming'); ?></a>
-    <a onclick="selectIndustry(83);" class="button radius small secondary"><?php echo Yii::t('app','Designing'); ?></a>
-    <a onclick="selectIndustry(33);" class="button radius small secondary"><?php echo Yii::t('app','Marketing'); ?></a>
+    <a onclick="selectIndustry(33);" class="button radius small secondary"><?php echo Yii::t('app','Designing'); ?></a>
+    <a onclick="selectIndustry(83);" class="button radius small secondary"><?php echo Yii::t('app','Marketing'); ?></a>
     <a onclick="$('#customSkills').show();" class="button radius small secondary"><?php echo Yii::t('app','Other'); ?></a>
   
     <div id="customSkills" class="hide">
