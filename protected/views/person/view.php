@@ -31,7 +31,7 @@ $user = $data['user'];
 
 <div class="row idea-details">
 
-  <div class="large-4 columns profile side">
+  <div class="large-4 columns profile side side-profile">
     <div class="panel">
       <?php if ($user['id'] == Yii::app()->user->id){ ?>
         <a class="button secondary small small-12 radius" href="<?php echo Yii::app()->createURL('profile'); ?>"><?php echo Yii::t('app', 'Edit profile') ?>
@@ -105,8 +105,8 @@ $user = $data['user'];
 
   <div class="large-8 right main">
     <div class="skills large-12 columns"  >
-        <div class="panel radius">
-          <h3 class="edit-content-title">
+        <div class="panel radius secondary">
+          <h3 class="edit-content-title mb20">
             <?php	echo Yii::t('app', 'Skilled in'); ?>
           </h3>
           <hr>
@@ -137,10 +137,10 @@ $user = $data['user'];
 
 
     <div class="large-12 columns  collaboration" >
-      <div class="panel radius">
+      <div class="item radius">
 
         <?php if (count($user['collabpref']) > 0) { ?>
-        <h3 class='edit-content-title'>
+        <h3 class='l-inline mr10'>
         <?php echo Yii::t('app', 'Collaboration'); ?>
         </h3>
 
@@ -154,10 +154,10 @@ $user = $data['user'];
                 if (!$firsttime) echo "";
                 $firsttime = false;
                 ?>
-                <p class="label label-collaboration label-<?php echo $collab['name']; ?>" data-tooltip title="<?php Yii::t('msg','This is a description of this collaboration. Its short and sweet'); ?>">
+                <span class="label label-collaboration label-<?php echo $collab['name']; ?>" data-tooltip title="<?php Yii::t('msg','This is a description of this collaboration. Its short and sweet'); ?>">
                   <span class="icon-custom icon-<?php echo $collab['name']; ?>"></span>
                   <?php echo $collab['name']; ?>
-                </p>
+                </span>
               <?php } ?>
           <?php }
 
@@ -171,7 +171,7 @@ $user = $data['user'];
 
     <?php if ($user['bio']){ ?>
     <div class="large-12 columns about-me"  >
-      <div class="panel radius">
+      <div class="panel radius success">
         <h3 class="edit-content-title">
         <?php echo Yii::t('app','Something about me'); ?>
         </h3>

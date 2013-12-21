@@ -25,106 +25,118 @@
   </div>
 </div>
 
-<div class="panel-top mb20">
-	<div class="row">
-  
-    <h1><span><?php echo Yii::t('app','Find talent'); ?></span></h1>
-    <p class="description"><?php echo Yii::t('app','Click on the prefered group that best represent your needs or search by panel bellow to find your match.'); ?></p>
+<div class="panel-top mb20"><!-- panel-top -->
+	<div class="row">  
+    <h1><?php echo Yii::t('app','Find talent'); ?></h1>
+   
+
     
-    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[collabPref]'=>'3', 'Category'=>'collabpref')); ?>" class="button  radius success small"><?php echo Yii::t("app","Cofounder"); ?></a>
-    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[collabPref]'=>'4', 'Category'=>'collabpref')); ?>" class="button  radius success small" ><?php echo Yii::t("app","Investors"); ?></a>
-    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[available]'=>'8', 'Category'=>'available')); ?>" class="button  radius success small" ><?php echo Yii::t("app","Weekend hackers"); ?></a>
-    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[available]'=>'40', 'Category'=>'available')); ?>" class="button  radius success small" ><?php echo Yii::t("app","Workoholics"); ?></a>
-    <a href="#" data-dropdown="drop-local-project" onclick="$('#search_local').focus()" class="button  radius success small" ><?php echo Yii::t("app","Local people"); ?></a>
-	</div>
+    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[skill]'=>'Designer, GraphicDesigner', 'Category'=>'skill')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("app","People that are skilled in design.") ?>"><?php echo Yii::t("app","Designer"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[skill]'=>'Business developer', 'Category'=>'skill')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("app","People that can help you develop your business.") ?>"><?php echo Yii::t("app","Business developer"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[skill]'=>'Coder', 'Category'=>'skill')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("app","People that speak the language of programming.") ?>"><?php echo Yii::t("app","Coder"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[skill]'=>'Engineer', 'Category'=>'skill')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("app","People that are have great engineering skills.") ?>"><?php echo Yii::t("app","Engineer"); ?></a>
+       
+    
+    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[available]'=>'8', 'Category'=>'available')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("app","People that are available on weekends will be shown first!") ?>" ><?php echo Yii::t("app","Weekend hackers"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[available]'=>'40', 'Category'=>'available')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("app","People that are available full time will be shown first!") ?>" ><?php echo Yii::t("app","Full timers"); ?></a>   
+    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[available]'=>'60', 'Category'=>'available')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("app","People that are available all the time will be shown first!
+    	<br>
+") ?>" ><?php echo Yii::t("app","Workaholics"); ?></a>   
+    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[collabPref]'=>'1', 'Category'=>'collabpref')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("app","People that will work for money will be shown first!") ?>" ><?php echo Yii::t("app","Employees"); ?></a>    
+    <a href="#" data-dropdown="drop-local-project" onclick="$('#search_local').focus()" class="button success dropdown radius small" ><?php echo Yii::t("app","Local people"); ?></a>
+
+	
+	<hr>
+	
+	<p class="l-inline"><?php echo Yii::t('app','Or use advanced search'); ?>:</p><a class="button ml10 small secondary radius" href="#" onclick="$('.searchpanel').slideToggle(); return false;"><span class="icon-plus"></span></a>
+      
+	</div> 
+
+	<div class="searchpanel" <?php if (!$filter->checkAdvanceForm()) echo "style='display:none'"; ?> >
+		<div class="search_content">
+	    <a class="anchor-link" id="filter_search"></a>
+	    
+			<div class="row">
+			  <div class="large-3 columns">
+	    		
+	      </div>
+			 
+			</div>
+			
+	    <?php echo CHtml::beginForm(Yii::app()->createUrl("person/discover")."#filter_search",'get',array('class'=>"custom","style"=>"margin-bottom:0;")); ?>
+			
+				<div class="row filter_people" <?php if ($filter->isProject) echo 'style="display:none"'; ?>>
+
+					<div class="large-6 columns">
+					<label><?php echo Yii::t('app','Skill'); ?></label>
+					<?php echo CHtml::textField('SearchForm[skill]',$filter->skill,array("class"=>"skill")); ?>
+					</div>
+
+					<div class="large-3 columns left">
+					<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
+
+					<?php echo CHtml::label(Yii::t('app','Collaboration'),''); ?>
+					<?php echo CHtml::dropDownList('SearchForm[collabPref]',$filter->collabPref, 
+					//GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
+					CHtml::listData(Collabpref::model()->findAllTranslated(),"id","name")
+					, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
+					</div>
+
+					
 
 
-	<div class="row panel searchpanel radius mt20 mb40" >
-	<div class="columns search_content edit-header">
-    <a class="anchor-link" id="filter_search"></a>
-    
-		<div class="row">
-		  <div class="large-3 columns">
-    		<h4 class="meta-title"><?php echo Yii::t('app','Sort your search by'); ?> </h4>
-      </div>
-		  <div class="large-9 columns">
+				</div>			
 				
-			<a class="exp_srch button small secondary right radius" href="#" onclick="$('.advance').toggle(); return false;"><?php echo Yii::t('app','Advanced search'); ?> <span class="icon-caret-down"></span></a>
-        
-      </div>
-		</div>
-		
-    <?php echo CHtml::beginForm(Yii::app()->createUrl("person/discover")."#filter_search",'get',array('class'=>"custom","style"=>"margin-bottom:0;")); ?>
-		
-		<div class="row filter_people" <?php if ($filter->isProject) echo 'style="display:none"'; ?>>
-			<div class="large-3 columns">
-				<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
-				
-				<?php echo CHtml::label(Yii::t('app','Collaboration'),''); ?>
-				<?php echo CHtml::dropDownList('SearchForm[collabPref]',$filter->collabPref, 
-              //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
-              CHtml::listData(Collabpref::model()->findAllTranslated(),"id","name")
-							, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
-				
-				
-			</div>
-			<div class="large-3 columns">
-				<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
-				
-				<?php echo CHtml::label(Yii::t('app','Availability'),''); ?>
-				<?php echo CHtml::dropDownList('SearchForm[available]',$filter->available, 
-              //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
-              CHtml::listData(Available::model()->findAllTranslated(),"id","name")
-							, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
-			</div>
-			<?php /* ?>
-			<div class="large-3 columns">
-				<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
-				
-				<?php echo CHtml::label(Yii::t('app','Country'),''); ?>
-				<?php echo CHtml::dropDownList('SearchForm[country]','', 
-              //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
-              CHtml::listData(Country::model()->findAll(),"id","name")
-							, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
-			</div><?php */ ?>
-			<div class="large-3 columns">
-				<label><?php echo Yii::t('app','Country'); ?></label>
-				<?php echo CHtml::textField('SearchForm[country]',$filter->country,array("class"=>"country")); ?>
-			</div>
-			
-			
-			<div class="large-3 columns"  style="text-align: center;  padding-top: 16px;">
-					<?php echo CHtml::submitButton(Yii::t("app","Search"),
-							array('class'=>"button small radius")
-					); ?>
-				 &nbsp; 
-					<?php echo CHtml::button(Yii::t("app","Reset"),
-								array('class'=>"button small radius secondary")
-						); ?>
-	    </div>
-			
-			<div class="advance" <?php if (!$filter->checkAdvanceForm()) echo "style='display:none'"; ?>>
-		      <hr>
+				<div class="row">
+
+					<div class="large-3 columns">
+					<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
+
+					<?php echo CHtml::label(Yii::t('app','Availability'),''); ?>
+					<?php echo CHtml::dropDownList('SearchForm[available]',$filter->available, 
+					//GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
+					CHtml::listData(Available::model()->findAllTranslated(),"id","name")
+					, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
+					</div>	     
 
 					<div class="large-3 columns">
 						<label><?php echo Yii::t('app','City'); ?></label>
 						<?php echo CHtml::textField('SearchForm[city]',$filter->city,array("class"=>"city")); ?>
 					</div>
 
-					<div class="large-9 columns">
-						<label><?php echo Yii::t('app','Skill'); ?></label>
-						<?php echo CHtml::textField('SearchForm[skill]',$filter->skill,array("class"=>"skill")); ?>
+					<?php /* ?>
+					<div class="large-3 columns">
+						<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
+						
+						<?php echo CHtml::label(Yii::t('app','Country'),''); ?>
+						<?php echo CHtml::dropDownList('SearchForm[country]','', 
+		              //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
+		              CHtml::listData(Country::model()->findAll(),"id","name")
+									, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
+					</div><?php */ ?>
+					<div class="large-3 columns">
+						<label><?php echo Yii::t('app','Country'); ?></label>
+						<?php echo CHtml::textField('SearchForm[country]',$filter->country,array("class"=>"country")); ?>
 					</div>
-			</div>
-		</div>
-      
-    <?php echo CHtml::endForm(); ?>
-	
-	</div>
-</div>
 
+					<div class="large-3 columns mt10">
+							<?php echo CHtml::submitButton(Yii::t("app","Search"),
+									array('class'=>"button small radius")
+							); ?>
+						 &nbsp; 
+							<?php echo CHtml::button(Yii::t("app","Reset"),
+										array('class'=>"button small radius secondary")
+								); ?>
+			    	</div>
+						
+				</div>		
+	      
+	    <?php echo CHtml::endForm(); ?>
+		
+		</div>
+	</div>
  
-</div>
+</div><!-- panel-top end -->
 
 
 
@@ -142,7 +154,7 @@
     <div class="hide-for-medium-down">
       <div class="page-navigation">
         <ul>
-          <li><a href="#page1"><?php echo Yii::t("app", "Page"); ?> 1</a></li>
+          <li><a class="button secondary small" href="#page1"><?php echo Yii::t("app", "Page"); ?> 1</a></li>
         </ul>
       </div>
     </div>
@@ -152,7 +164,7 @@
       <div class="list-items">
         <a id="page<?php echo $searchResult['page']; ?>" class="anchor-link"></a>
         
-        <p class="breadcrumbs l-iblock"><?php echo Yii::t("app","Page")." ".$searchResult['page']; ?></p>
+        <h5><?php echo Yii::t("app","Page")." ".$searchResult['page']; ?></h5>
         <ul class="small-block-grid-1 large-block-grid-3">
           <?php 
           foreach ($searchResult['data'] as $result){ ?>

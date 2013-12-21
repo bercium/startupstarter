@@ -153,6 +153,13 @@ h6 {
   background: #F9F9F7; 
 }
 
+
+.panel h1, .panel h2, .panel h3, .panel h4, .panel h5, .panel h6 {
+  line-height: 1.3em;
+}
+
+
+
 .lb.panel {
   border-left: 3px solid #89B561;
 }
