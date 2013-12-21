@@ -138,7 +138,7 @@ margin-right: 20px;
 
 
 .container .searchpanel {
-	z-index: 1;
+	/*z-index: 1;*/
 }
 
 
@@ -304,13 +304,13 @@ div[onclick].card-person-title, div[onclick].m-card-title{
 	margin:0 auto;	
 	color: #fff !important;	
 	
-	background: #ddd;
+	background: url("../images/gridme.png") repeat scroll center 0 rgba(0, 0, 0, 0)
 }	
 
 .searchpanel .search_content {
 	
 	padding: 15px 20px 20px 20px;
-	z-index: 1;	
+	/*z-index: 1;	*/
 	
 	color: #794a93;	
 }
@@ -680,7 +680,6 @@ f-line {
 	border-radius: 3px;
 	
 	border-top:2px solid #888;
-	
 }
 
 /*
@@ -1795,7 +1794,7 @@ label{
 	.main > .columns > .panel,
 	.main > .panel {
 		background: #fff;
-		border-top: 1px solid #4469A6;
+		/*border-top: 1px solid #4469A6;*/
 		
 	}
 
@@ -1803,14 +1802,14 @@ label{
 	.main > .columns > .panel.success,
 	.main > .panel.success {
 		background: #fff;
-		border-top: 1px solid #89B561;
+		/*border-top: 1px solid #89B561;*/
 		
 	}
 
 	.main > .columns > .panel.secondary,
 	.main > .panel.secondary {
 		background: #fff;
-		border-top: 1px solid #bbb;
+		/*border-top: 1px solid #bbb;*/
 		
 	}
 

@@ -140,7 +140,7 @@
 
             <ul class="right">
               <?php if (!Yii::app()->user->isGuest){ ?>
-              <li class="has-dropdown">
+              <li class="has-dropdown minwidth20">
                 <a href="<?php echo Yii::app()->createUrl("profile"); ?>" style="height:45px">
                   <div class="hide-for-small">
                   <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
@@ -164,7 +164,7 @@
                 <?php if ($this->getNotifications()){ ?>
                 <li class="divider"></li>
                 <li class="desc">
-                  <a href="<?php echo Yii::app()->createUrl("profile/notification"); ?>" style="padding-top: 13px; background-color: #89B561;">
+                  <a href="<?php echo Yii::app()->createUrl("profile/notification"); ?>" style="padding-top: 13px; background-color: #89B561;" data-tooltip title="<?php echo Yii::t("msg","You have been invited to a project.") ?>">
                     <span class="icon-flag" style="cursor: pointer; color: /*#CD3438*/ #FFF;font-size: 1.4em;"> <?php echo $this->getNotifications(); ?></span>
                   </a>
                 </li>

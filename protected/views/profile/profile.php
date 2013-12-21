@@ -44,7 +44,7 @@
                        <div class="avatar-loading"><span class="qq-upload-spinner"></span></div>
                        <img class="avatar" src="'.avatar_image($user->avatar_link, $user->id, false).'" >
                       <div class="button secondary radius small avatar-change">'.Yii::t('app','Change image').' <span class="icon-upload"></span></div> 
-                      <span class="icon-info-sign" style="color: inherit"></span><span class="description">'.Yii::t('app','To change drag new image on top or click on the button').'</span>
+                      <span class="icon-info-sign" style="color: inherit"></span><span class="description">'.Yii::t('msg','To change drag new image on top or click on the button').'</span>
                       </div>' .
                      '<div class="qq-upload-list" style="display:none"></div>' .
                   '</div>',

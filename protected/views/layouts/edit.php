@@ -41,26 +41,6 @@
         </section><?php //} ?>
       </div>
 
-    <?php /* ?>
-     <div class="panel">
-      <!--
-        <div class="item">
-        <h4 class="l-inline">
-        <?php /* echo Yii::t('app',"Profile viewed"); ?>: </h4>
-        <p class="l-inline"> <?php echo Yii::t('app',"{n} time|{n} times",$views); ?></p>
-        </div>
-        <div class="item">
-        <h4 class="l-iblock">
-        <?php echo Yii::t('app',"Member since"); ?>: </h4>
-        <?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($memberDate),"long",null); ?>
-
-        </div>
-        <?php if ($invites > 0){ ?>
-        <a class="button radius small-12"  href="#" data-dropdown="drop-invitation-msg"><?php echo Yii::t('app','Send invitation <span class="label round secondary">{n}</span>',array($invites)); ?></a>
-        <?php }  * / ?>
-
-      -->
-     </div><?php */ ?>
     
     <?php //$this->widget('ext.SidebarEditMenu.WEditSidebar',array("ideas"=>(isset($ideas)?$ideas:array()))); ?>
     

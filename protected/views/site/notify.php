@@ -1,6 +1,6 @@
 <?php
 
-	if ($saved) $this->pageTitle = Yii::t('app','Thank you for applying, you are avesome');
+	if ($saved) $this->pageTitle = Yii::t('app','Thank you for applying, you are awesome');
   else $this->pageTitle = Yii::t('app','Invitation');
 ?>
 <p>
@@ -8,16 +8,16 @@
 
 <?php if ($saved){ ?>
   <?php 
-    $summary = urlencode(Yii::t('msg','With the right team any idea can change your life!'));
-    $summaryTwt = urlencode(Yii::t('msg','With the right #team any #idea can change your life at http://www.cofinder.eu #cofinder'));
+    $summary = urlencode('With the right team any idea can change your life!');
+    $summaryTwt = urlencode('With the right #team any #idea can change your life at http://www.cofinder.eu #cofinder');
     
-    echo Yii::t('msg','As we wish to maintain a certain level of quality we let our comunity chose apropriate candidates. This can take some time but don\'t worry we will keep you posted on what\'s happening and will notify you when we go public.');
+    echo Yii::t('msg','As we wish to maintain a certain level of quality we let our community chose appropriate candidates. This can take some time but don\'t worry we will keep you posted on what is happening and will notify you when we go public.');
     ?>
     <br /><br /><br />
 
   <strong><?php echo Yii::t('app','Skip the queue'); ?></strong><br />
   <?php
-    echo Yii::t('msg','Share Cofinder on these social networks and we might take some time to review your request ourselves.');
+    echo Yii::t('msg','Share Cofinder on these social networks and we will speed up your application process and review your request sooner.');
   ?>
   
   <br /><br />

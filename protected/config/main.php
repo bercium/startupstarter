@@ -158,8 +158,8 @@ return array(
           ),require(dirname(__FILE__) . '/local-mail.php')
         ),*/
         'viewPath' => 'application.views.layouts.mail',
-        'logging' => true,
-        'dryRun' => true
+        'logging' => YII_DEBUG,
+        'dryRun' => YII_DEBUG
     ),
 	),
 

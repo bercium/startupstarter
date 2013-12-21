@@ -15,7 +15,7 @@
           
       <?php 
           echo CHtml::link(Yii::t("app","Accept"),Yii::app()->createUrl('/profile/acceptInvitation',array('id'=>$row['id'])),
-              array('class'=>"button tiny success radius",
+              array('class'=>"button small success radius",
                     'confirm'=>Yii::t("msg","You are about to join this project!\nAre you sure?"),
                     'onclick'=>"$(document).stopPropagation();",
                   )
@@ -24,7 +24,7 @@
           
              <?php
           echo CHtml::link(Yii::t("app","Decline"),Yii::app()->createUrl('/profile/declineInvitation',array('id'=>$row['id'])),
-              array('class'=>"button small abtn radius",
+              array('class'=>"button small secondary radius",
                     'confirm'=>Yii::t("msg","You are about to remove your invitation!\nAre you sure?"),
                     'onclick'=>"$(document).stopPropagation();",
                   )
