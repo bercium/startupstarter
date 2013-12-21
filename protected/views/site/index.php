@@ -57,7 +57,7 @@
         <?php echo CHtml::beginForm(Yii::app()->createUrl("site/notify"),'post',array("style"=>"margin-bottom:0;")); ?>
         
         <h2 style="margin-bottom:5px;">
-          <label for="email" style="font-size:1em; font-weight: 900;">
+          <label for="email" style="font-size:1em; font-weight: bold;">
             <?php echo Yii::t('app','Want to get invited?'); ?>
           </label>
         </h2>
