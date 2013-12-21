@@ -140,7 +140,7 @@
 
             <ul class="right">
               <?php if (!Yii::app()->user->isGuest){ ?>
-              <li class="has-dropdown minwidth200">
+              <li class="has-dropdown minwidth20">
                 <a href="#" style="height:45px">
                   <div class="hide-for-small">
                   <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>

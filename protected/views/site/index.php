@@ -57,12 +57,12 @@
         <?php echo CHtml::beginForm(Yii::app()->createUrl("site/notify"),'post',array("style"=>"margin-bottom:0;")); ?>
         
         <h2 style="margin-bottom:5px;">
-          <label for="email" style="font-size:1em;">
+          <label for="email" style="font-size:1em; font-weight: 900;">
             <?php echo Yii::t('app','Want to get invited?'); ?>
           </label>
         </h2>
         <span class="description">
-        <?php echo Yii::t('app','Leave us your email and we will get back to you. '); ?>
+        <?php echo Yii::t('app','Leave us your email and we\'ll get back to you. '); ?>
         </span>
         <div class="row collapse">
           <div class="small-9 columns">
@@ -344,7 +344,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
         <a id="page<?php echo $searchResult['page']; ?>" class="anchor-link"></a>
         
         <h5><?php echo Yii::t("app","Page")." ".$searchResult['page']; ?></h5>
-        <p>some text</p>
+
         <ul class="small-block-grid-1 large-block-grid-3">
           <?php
           if(is_array($searchResult['data']) > 0){
@@ -380,10 +380,14 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 <div class="main-quote">
   
   <div class="row" >
-    <div class="columns">
-      <h2><?php echo Yii::t('app','{who} says',array("{who}"=>"Biome3cs d.o.o")) ?></h2>
-      <blockquote class="columns large-10 large-centered">
-        "V podjetju Biome3cs d.o.o, smo se podobno kot številna druga start-up podjetja srečali s problemom pomanjkanja specifičnega kadra. S pomočjo platforme cofinder smo uspešno našli manjkajoče člene v naši ekipi, s katerimi še vedno uspešno sodelujemo. S platformo cofinder smo zelo zadovoljni in jo priporočamo vsem, ki želijo na najbolj enostaven in hiter način najti ljudi, ki bi jim pomagali uresničiti svojo idejo."
+    <div class="columns large-centered">
+    	<h2><?php echo Yii::t('app','What others are saying:'); ?></h2>
+    	<div class="large-2 columns">
+<img class="mt20" src='<?php echo Yii::app()->request->baseUrl; ?>/images/logo-biome3cs.png'>
+</div>
+      <blockquote class="columns large-10">
+      	<span class="icon-quote-left large"></span>
+        V podjetju Biome3cs d.o.o, smo se podobno kot številna druga start-up podjetja srečali s problemom pomanjkanja specifičnega kadra. S pomočjo platforme cofinder smo uspešno našli manjkajoče člene v naši ekipi, s katerimi še vedno uspešno sodelujemo. S platformo cofinder smo zelo zadovoljni in jo priporočamo vsem, ki želijo na najbolj enostaven in hiter način najti ljudi, ki bi jim pomagali uresničiti svojo idejo <span class="icon-quote-right large"></span>
       </blockquote>
     </div>  
   </div>  
