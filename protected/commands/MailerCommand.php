@@ -1,7 +1,11 @@
+
 <?php
 
 class MailerCommand extends CConsoleCommand{
 
+	public function actionTest(){
+    echo "Test succeded on ".date("d M Y H:i:s");
+	}  
   
   /**
    * generates weekly reports for users that want them
@@ -63,7 +67,7 @@ class MailerCommand extends CConsoleCommand{
     $invites = Invite::model()->findAll("NOT ISNULL(`key`)");
     foreach ($invites as $user){
       
-      $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$user->key.'">Register here</a>';
+      $activation_url = '<a href="'.absoluteURL()."/user/registration?id=".$user->key.'">Register here</a>';
       $content = "This is just a friendly reminder to activate your account on Cofinder.
                   </br><br>
                   Cofinder is a web platform through which you can share your ideas with the like minded entrepreneurs, search for people to join your project or join an interesting project yourself.
@@ -73,6 +77,6 @@ class MailerCommand extends CConsoleCommand{
       $message->setTo($user->email);
       Yii::app()->mail->send($message);
     }
-
+    return 0;
   }
 }

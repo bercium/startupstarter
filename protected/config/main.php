@@ -176,5 +176,6 @@ return array(
     'ideaGalleryFolder'=>'uploads/ideagalleries/',
     'mapsFolder'=>'uploads/maps/',
     'iconsFolder'=>'uploads/icons/',
+    'dbbackup'=>'backup/',
 	),
 );

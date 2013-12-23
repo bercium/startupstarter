@@ -229,7 +229,7 @@ $idea = $data['idea'];
                 <div class="panel">
                   <div class="item bbottom">  
                   <h4><?php echo Yii::t('app','languages'); ?></h4>
-                  <p class="l-inline"><?php echo Yii::t('app','You are viewing this in'); ?> <?php echo $idea['language']; ?></p>
+                  <?php /* ?><p class="l-inline"><?php echo Yii::t('app','You are viewing this in'); ?> <?php echo $idea['language']; ?></p><?php */ ?>
                   </div>
                   <p  data-dropdown="data1" class="small dropdown secondary radius button"><?php echo Yii::t('app','Other languages'); ?></a>
                    

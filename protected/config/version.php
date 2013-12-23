@@ -1,4 +1,4 @@
 <?php
 
 // VERSION  SUB-VERSION  BUILD-VERSION
-return "1.1.0";
+return "1.2.0";
