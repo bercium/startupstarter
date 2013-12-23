@@ -5,6 +5,7 @@ class MailerCommand extends CConsoleCommand{
 
 	public function actionTest(){
     echo "Test succeded on ".date("d M Y H:i:s");
+    return 0;
 	}  
   
   /**

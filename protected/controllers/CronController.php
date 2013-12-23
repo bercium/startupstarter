@@ -78,7 +78,7 @@ class CronController extends Controller
    * 
    */
 	public function actionDbBackup(){
-    echo $this->consoleCommand('dbBackup','backup');
+    echo $this->consoleCommand('dbbackup','backup');
   }
   
 }
