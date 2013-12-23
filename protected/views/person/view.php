@@ -79,7 +79,7 @@ $user = $data['user'];
     <!-- <p class="meta-field"><?php // echo Yii::t('app', 'My links') ?>:</p> -->
     <div class="panel">
     <?php if (count($user['link']) > 0) { ?>
-      <div class="item">
+      <div class="item bbottom">
         <h4 class=""> <?php echo Yii::t('app', 'Links') ?></h4>
         <?php foreach ($user['link'] as $link) { ?>
 
@@ -94,7 +94,7 @@ $user = $data['user'];
     <?php } ?>
 
 
-    <h4><?php echo Yii::t('app', 'Registered') ?></h4>
+    <h4 class="l-inline"><?php echo Yii::t('app', 'Registered') ?></h4>
     <span class=""><!-- <?php // echo Yii::t('app', 'Member since') ?>:  -->
     <?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($user['create_at']), "long", null); ?></span>
     </div>
@@ -193,6 +193,29 @@ $user = $data['user'];
         if (is_array($user['idea']))
           foreach ($user['idea'] as $idea_data) {
           ?><div class="idea-list radius panel">
+             
+              <?php
+            if(isset($idea['gallery'])){
+              //cover photo is first
+              //edit the following line to get a thumbnail out. i have predicted thumbnails of 30, 60, 150px. replace the thumbnail_size with those numbers
+              //idea_image($idea['gallery'][0]['url'], $idea['id'], thumbnail_size);
+              if(isset($idea['gallery'][0])){
+              ?>
+
+              <img class="th panel-avatar" src="<?php echo idea_image($idea['gallery'][0]['url'], $idea['id'], 0);?>" />
+              <?php
+              }
+
+              foreach($idea['gallery'] AS $key => $value){
+                if($key > 0){
+                ?>
+                <img class="th panel-avatar"  src="<?php echo idea_image($value['url'], $idea['id'], 0);?>" />
+                <?php
+                }
+              }
+            }
+            ?>  
+
             <a class="" href="<?php echo Yii::app()->createUrl("project/" . $idea_data['id']); ?>">
               <h5><?php echo $idea_data['title']; ?></h5></a>
             <div class="description"><?php echo trim_text($idea_data['pitch'],100); ?></div>

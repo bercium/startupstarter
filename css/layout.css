@@ -524,7 +524,8 @@ sidebar .section-container.auto .section {
 	font-size: 1em;
 }
 
-.main h3 {
+.main h3
+{
 
     font-size: 1em;
     font-weight: 600;
@@ -1680,6 +1681,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444', endCol
 .formidea label {
 	margin-top: 50px;
 	margin-bottom: 10px;
+	font-weight: bold;
+	text-transform: uppercase;
 }
 .formidea label:first-child {
 	margin-top: 0px;
@@ -1795,28 +1798,9 @@ label{
 	.main > .columns > .panel,
 	.main > .panel {
 		background: #fff;
-		border-top: 1px solid #4469A6;
+
 		
 	}
-
-
-	.main > .columns > .panel.success,
-	.main > .panel.success {
-		background: #fff;
-		border-top: 1px solid #89B561;
-		
-	}
-
-	.main > .columns > .panel.secondary,
-	.main > .panel.secondary {
-		background: #fff;
-		border-top: 1px solid #bbb;
-		
-	}
-
-
-
-
 
 
 
