@@ -62,16 +62,19 @@ $user = $data['user'];
         <?php } ?>
         </p>
       </div>
-      <a class="button success small-12 radius" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact me') ?></a>
-
+      
+      <?php if ($user['id'] != Yii::app()->user->id){ ?>
+        <a class="button success small-12 radius" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact me') ?></a>
+      <?php } ?>
     </div>
 
 
     <?php if ($user['available_name']) { ?>
       <div class="panel">
         <h4 class="l-iblock"> <?php echo Yii::t('app', 'Available') ?></h4>
-        <h1 style="margin-top:3px;" ><span class="icon-time" style="margin-right:10px;"></span><?php echo $user['available_name']; ?>
-        </h1>
+        <h2 style="margin-top:3px;" >
+          <span class="icon-time" style="margin-right:10px;"></span><?php echo $user['available_name']; ?>
+        </h2>
       </div>
     <?php } ?>
 
@@ -135,10 +138,10 @@ $user = $data['user'];
 
 
     <div class="large-12 columns  collaboration" >
-      <div class="item radius">
+      <div class="panel radius">
 
         <?php if (count($user['collabpref']) > 0) { ?>
-        <h3 class='l-inline mr10'>
+        <h3 class=''>
         <?php echo Yii::t('app', 'Collaboration'); ?>
         </h3>
 
@@ -152,9 +155,9 @@ $user = $data['user'];
                 if (!$firsttime) echo "";
                 $firsttime = false;
                 ?>
-                <span class="label label-collaboration label-<?php echo $collab['name']; ?>" data-tooltip title="<?php Yii::t('msg','This is a description of this collaboration. Its short and sweet'); ?>">
-                  <span class="icon-custom icon-<?php echo $collab['name']; ?>"></span>
-                  <?php echo $collab['name']; ?>
+                <span class="label radius success">
+                  <?php /* ?><span class="icon-custom icon-<?php echo $collab['name']; ?>"></span><?php */ ?>
+                  <strong><?php echo $collab['name']; ?></strong>
                 </span>
               <?php } ?>
           <?php }

@@ -14,16 +14,17 @@
   <?php echo Yii::t('msg','You will shortly receive our confirmation email.'); ?>
   </strong>
   <br /><br />
-  <?php echo Yii::t('msg','While you wait for confirmation email try filling up your profile information. Full profiles are more CREDIBLE and have more visibility.'); ?>
+  <?php echo Yii::t('msg','We are really happy you have decided to join our community. While you wait for email you can either try filling out the rest of your profile information OR skip this step and do this latter. But remember, full profiles are more CREDIBLE and have more visibility.'); ?>
+     
   <br />
-  <?php echo Yii::t('msg','If you do not wish to do this right now you can browse some interestnig projects'); ?>
+  <?php echo Yii::t('msg','Fill out the rest of'); ?>
   
   <a onclick="$('#profileInput').show()" class="button success radius small">
-    <?php echo Yii::t('msg','Fill your profile'); ?>
+    <?php echo Yii::t('app','your profile'); ?>
   </a>
-  or
+  <?php echo Yii::t('app','or') ?>
   <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" class="button radius small secondary">
-    <?php echo Yii::t('msg','Do this later'); ?>
+    <?php echo Yii::t('app','do this later'); ?>
   </a>
   
 </p>
@@ -85,7 +86,7 @@
                        <div class="avatar-loading"><span class="qq-upload-spinner"></span></div>
                        <img class="avatar" src="'.avatar_image($user->avatar_link, $user->id, false).'" >
                       <div class="button secondary radius small avatar-change">'.Yii::t('app','Change image').' <span class="icon-upload"></span></div> 
-                      <span class="icon-info-sign" style="color: inherit"></span><span class="description">'.Yii::t('app','To change drag new image on top or click on the button').'</span>
+                      <span class="icon-info-sign" style="color: inherit"></span><span class="description">'.Yii::t('msg','To change drag new image on top or click on the button').'</span>
                       </div>' .
                      '<div class="qq-upload-list" style="display:none"></div>' .
                   '</div>',
@@ -150,12 +151,16 @@
                               ),
           )); ?>
 
+    <p>
+    <?php echo Yii::t('msg','We know you have some awesome skills so why not show them to others. Add all the things you are really good at don\'t limit yourself to formal education or job specific subjects only.'); ?>
+    </p>
     <label><?php echo Yii::t('app','Where do you see yourself'); ?></label>
     <a onclick="selectIndustry(25);" class="button radius small secondary"><?php echo Yii::t('app','Programming'); ?></a>
-    <a onclick="selectIndustry(83);" class="button radius small secondary"><?php echo Yii::t('app','Designing'); ?></a>
-    <a onclick="selectIndustry(33);" class="button radius small secondary"><?php echo Yii::t('app','Marketing'); ?></a>
+    <a onclick="selectIndustry(33);" class="button radius small secondary"><?php echo Yii::t('app','Designing'); ?></a>
+    <a onclick="selectIndustry(83);" class="button radius small secondary"><?php echo Yii::t('app','Marketing'); ?></a>
     <a onclick="$('#customSkills').show();" class="button radius small secondary"><?php echo Yii::t('app','Other'); ?></a>
-  
+    
+    
     <div id="customSkills" class="hide">
       <?php echo CHtml::label(Yii::t('app','Industry'),''); ?>
       <span class="description"><?php echo Yii::t('msg','Chose a group that best represents skills you are about to add.'); ?></span>

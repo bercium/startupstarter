@@ -26,7 +26,7 @@ class Completeness{
             "group"=>Yii::t('app',"Personal information"),
             "name"=>Yii::t('app',"First name"),
             "value"=>$user->name,
-            "hint"=>Yii::t('msg',"Try filling up your personal information."),
+            "hint"=>Yii::t('msg',"A full name will give you more credibility."),
             "action"=>Yii::app()->createUrl("profile")."#link_personal",
             "active"=>($user->name != ''),
             "weight"=>0, // weight 0 won't affect your percentage score
@@ -36,7 +36,7 @@ class Completeness{
             "group"=>Yii::t('app',"Personal information"),
             "name"=>Yii::t('app',"Last name"),
             "value"=>$user->surname,
-            "hint"=>Yii::t('msg',"Try filling up your personal information."),
+            "hint"=>Yii::t('msg',"A full name will give you more credibility."),
             "action"=>Yii::app()->createUrl("profile")."#link_personal",
             "active"=>($user->surname != ''),
             "weight"=>10,
@@ -47,7 +47,7 @@ class Completeness{
             "group"=>Yii::t('app',"Personal information"),
             "name"=>Yii::t('app',"Address"),
             "value"=>$user->address,
-            "hint"=>Yii::t('msg',"Try filling up your personal information."),
+            "hint"=>Yii::t('msg',"Let people know where they can find you by filling your address."),
             "action"=>Yii::app()->createUrl("profile")."#link_personal",
             "active"=>($user->address != ''),
             "weight"=>0,
@@ -88,7 +88,7 @@ class Completeness{
             "group"=>Yii::t('app',"Profile details"),
             "name"=>Yii::t('app',"Links"),
             "value"=>Yii::t('app',"{n} link|{n} links",array($count)),
-            "hint"=>Yii::t('msg',"Add some links."),
+            "hint"=>Yii::t('msg',"Add some links to your favourite pages."),
             "action"=>Yii::app()->createUrl("profile")."#link_links",
             "active"=>($count > 0),
             "weight"=>5,
@@ -98,7 +98,7 @@ class Completeness{
             "group"=>Yii::t('app',"Personal information"),
             "name"=>Yii::t('app',"Country"),
             "value"=>$userMatch->country,
-            "hint"=>Yii::t('msg',"Try filling up your personal information."),
+            "hint"=>Yii::t('msg',"You will connect with people from same area easier by filling up your country."),
             "action"=>Yii::app()->createUrl("profile")."#link_personal",
             "active"=>($userMatch->country != ''),
             "weight"=>7,
@@ -108,7 +108,7 @@ class Completeness{
             "group"=>Yii::t('app',"Personal information"),
             "name"=>Yii::t('app',"City"),
             "value"=>$userMatch->city,
-            "hint"=>Yii::t('msg',"Try filling up your personal information."),
+            "hint"=>Yii::t('msg',"You will connect with people from same area easier by filling up your city."),
             "action"=>Yii::app()->createUrl("profile")."#link_personal",
             "active"=>($userMatch->city != ''),
             "weight"=>7,
@@ -130,7 +130,7 @@ class Completeness{
             "group"=>Yii::t('app',"Profile details"),
             "name"=>Yii::t('app',"Collaboration"),
             "value"=>"",
-            "hint"=>Yii::t('msg',"What is your prefered Collaboration."),
+            "hint"=>Yii::t('msg',"Tell others how much time you can spend on other projects."),
             "action"=>Yii::app()->createUrl("profile")."#link_profile_details",
             "active"=>($count > 0),
             "weight"=>5,
@@ -141,9 +141,9 @@ class Completeness{
             "group"=>Yii::t('app',"Profile details"),
             "name"=>Yii::t('app',"Skills"),
             "value"=>"", //Yii::t('app',"{n} skills|{n} skills",array($count)),
-            "hint"=>Yii::t('msg',"Adding more skills will improve your profile visibility. Add at least 5."),
+            "hint"=>Yii::t('msg',"We know you have some awesome skills so why not show them to others. Add at least 5 skills."),
             "action"=>Yii::app()->createUrl("profile")."#link_skills",
-            "active"=>($count > 5),
+            "active"=>($count >= 5),
             "weight"=>20,
             );
 
@@ -163,14 +163,14 @@ class Completeness{
 
       $this->details[] = array(
             "group"=>Yii::t('app',"Projects"),
-            "name"=>Yii::t('app',"Owner of a project"),
+            "name"=>Yii::t('app',"Owner or a member of a project"),
             "value"=>"", //Yii::t('app',"{n} skills|{n} skills",array($count)),
             "hint"=>Yii::t('msg',"Create or take part in a project."),
             "action"=>Yii::app()->createUrl("profile/projects"),
-            "active"=>($member > 0),
+            "active"=>(($member > 0) || ($owner > 0)),
             "weight"=>5,
             );        
-      $this->details[] = array(
+      /*$this->details[] = array(
             "group"=>Yii::t('app',"Projects"),
             "name"=>Yii::t('app',"Member of a project"),
             "value"=>"", //Yii::t('app',"{n} skills|{n} skills",array($count)),
@@ -178,7 +178,7 @@ class Completeness{
             "action"=>Yii::app()->createUrl("profile/projects"),
             "active"=>($owner > 0),
             "weight"=>5,
-            );
+            );*/
 
       //*********************************************************************
       // SETTINGS
@@ -197,7 +197,7 @@ class Completeness{
             "group"=>Yii::t('app',"Settings"),
             "name"=>Yii::t('app',"Newsletter"),
             "value"=>"", //Yii::t('app',"{n} skills|{n} skills",array($count)),
-            "hint"=>Yii::t('msg',"We can keep you updated"),
+            "hint"=>Yii::t('msg',"We can keep you updated if you let us send you newsletters."),
             "action"=>Yii::app()->createUrl("profile/account"),
             "active"=>$user->newsletter,
             "weight"=>5,
@@ -206,7 +206,7 @@ class Completeness{
             "group"=>Yii::t('app',"Settings"),
             "name"=>Yii::t('app',"Public name"),
             "value"=>"", //Yii::t('app',"{n} skills|{n} skills",array($count)),
-            "hint"=>Yii::t('msg',"You will be more easyly accesed"),
+            "hint"=>Yii::t('msg',"Chose your own personal link so others can remember it easily."),
             "action"=>Yii::app()->createUrl("profile/account"),
             "active"=>($user->vanityURL != ''),
             "weight"=>0,

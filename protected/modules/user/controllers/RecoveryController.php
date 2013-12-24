@@ -60,7 +60,7 @@ class RecoveryController extends Controller
                 
                 
 			    			//UserModule::sendMail($user->email,$subject,$message);
-  							setFlash('recoveryMessage',Yii::t('msg'," Please check your email. <br />Instructions were sent to your email address."));
+  							setFlash('recoveryMessage',Yii::t('msg',"Please check your email. <br />Instructions were sent to your email address."));
 			    			$this->refresh();
 			    		}
 			    	}

@@ -312,7 +312,7 @@ function decodeFlashMsg($msg){
     
     if (isset($msg['actions'])){
       foreach ($msg['actions'] as $action){
-        $actions[] = '<a href="'.$action['action'].'" class="action" style="margin-bottom: 0;" alt="'.$action['hint'].'" title="'.$action['hint'].'">'.
+        $actions[] = '<a href="'.$action['action'].'" class="action button radius tiny secondary" style="margin-bottom: 0;" alt="'.$action['hint'].'" title="'.$action['hint'].'">'.
                      $action['hint'].
                      '</a>';
       }
@@ -390,6 +390,13 @@ function writeFlashes(){
   }
 }
 
+
+function absoluteURL(){
+  $host = require(dirname(__FILE__) . '/../config/local-console-request.php');
+  
+  echo $host;
+  return $host['hostInfo'];
+}
 
 /**
  * will return you to previously called action

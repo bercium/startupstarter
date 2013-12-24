@@ -44,7 +44,7 @@
                        <div class="avatar-loading"><span class="qq-upload-spinner"></span></div>
                        <img class="avatar" src="'.avatar_image($user->avatar_link, $user->id, false).'" >
                       <div class="button secondary radius small avatar-change">'.Yii::t('app','Change image').' <span class="icon-upload"></span></div> 
-                      <span class="icon-info-sign" style="color: inherit"></span><span class="description">'.Yii::t('app','To change drag new image on top or click on the button').'</span>
+                      <span class="icon-info-sign" style="color: inherit"></span><span class="description">'.Yii::t('msg','To change drag new image on top or click on the button').'</span>
                       </div>' .
                      '<div class="qq-upload-list" style="display:none"></div>' .
                   '</div>',
@@ -155,8 +155,8 @@
        <?php 
        switch ($colabpref['collab_id']){
          case 1:echo Yii::t('msg','Get paid for your work'); break;
-         case 2:echo Yii::t('msg','Are prepered to work for a share in company'); break;
-         case 3:echo Yii::t('msg','Will work and invest equaly'); break;
+         case 2:echo Yii::t('msg','Work for a share in company'); break;
+         case 3:echo Yii::t('msg','Will work and invest equaly in company'); break;
          case 4:echo Yii::t('msg','Want to invest in interesting projects only'); break;
          case 5:echo Yii::t('msg','Just want to help'); break;
        }
@@ -211,10 +211,13 @@
                               ),
           )); ?>
       
+      <p>
+      <?php echo Yii::t('msg','We know you have some awesome skills so why not show them to others. Add all the things you are really good at don\'t limit yourself to formal education or job specific subjects only.'); ?>
+      </p>
       <label><?php echo Yii::t('app','Some examples'); ?></label>
       <a onclick="selectIndustry(25);" class="button radius small secondary"><?php echo Yii::t('app','Programming'); ?></a>
-      <a onclick="selectIndustry(83);" class="button radius small secondary"><?php echo Yii::t('app','Design'); ?></a>
-      <a onclick="selectIndustry(33);" class="button radius small secondary"><?php echo Yii::t('app','Marketing'); ?></a>
+      <a onclick="selectIndustry(33);" class="button radius small secondary"><?php echo Yii::t('app','Design'); ?></a>
+      <a onclick="selectIndustry(83);" class="button radius small secondary"><?php echo Yii::t('app','Marketing'); ?></a>
 
       <?php echo CHtml::label(Yii::t('app','Industry'),''); ?>
       <span class="description"><?php echo Yii::t('msg','Chose a group that best represents skills you are about to add.'); ?></span>

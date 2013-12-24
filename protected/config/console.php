@@ -78,16 +78,21 @@ return array(
           ),require(dirname(__FILE__) . '/local-mail.php')
         ),*/
         'viewPath' => 'application.views.mailTemplates',
-        'logging' => true,
-        'dryRun' => true
+        'logging' => YII_DEBUG,
+        'dryRun' => YII_DEBUG
     ),   
 	),
 	'params'=>array(
 		// this is used in contact page
+    'version'=>require(dirname(__FILE__) . '/version.php'),
 		'adminEmail'=>array('no-reply@cofinder.eu'=>'Cofinder'), //!!! must decide if usefull seperate mail
     'noreplyEmail'=>array('no-reply@cofinder.eu'=>'Cofinder'),
+      
     'tempFolder'=>'temp/',
     'avatarFolder'=>'uploads/avatars/',
+    'ideaGalleryFolder'=>'uploads/ideagalleries/',
     'mapsFolder'=>'uploads/maps/',
+    'iconsFolder'=>'uploads/icons/',
+    'dbbackup'=>'backup/',
 	),    
 );

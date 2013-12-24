@@ -17,15 +17,14 @@ foreach($user['idea'] AS $key => $idea){
       <div class="columns edit-content middle">
         <div class="edit-floater">
           
-      <?php  echo CHtml::link(Yii::t("app","Delete"),Yii::app()->createUrl('project/deleteIdea',array('id'=>$idea['id'])),
-                  array('class'=>"button small alert radius",
-                        'confirm'=>Yii::t("msg","You are about to delete this project!\nAre you sure?"),
+      <?php  echo CHtml::link(Yii::t("app","Edit"),Yii::app()->createUrl('project/edit',array('id'=>$idea['id'])),
+                  array('class'=>"button small radius",
                         'onclick'=>"$(document).stopPropagation();",
                       )
               );?>
         </div>        
 
-        <p class="mt10"><a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><?php echo $idea['title'];?></a></p>
+        <p class="mt10"><a href="<?php echo Yii::app()->createUrl("project",array('id'=>$key)); ?>"><?php echo $idea['title'];?></a></p>
         <small class="mb10 block">
           <span class=""><?php echo Yii::t('app', 'created on'); ?> </span><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($idea['time_registered']),"long",null); ?> | 
           <?php echo Yii::t('app', '<span class="">has</span> {n} member| has {n} members',count($idea['member'])); ?> | 
@@ -34,9 +33,9 @@ foreach($user['idea'] AS $key => $idea){
            <small>
           <?php 
            if (isset($idea['translation_other']) && count($idea['translation_other'])){ ?>
-           <span class="">translations: </span>
+           <span class=""><?php echo Yii::t('app','Translations'); ?></span>:
           <?php foreach ($idea['translation_other'] as $trans){ ?>
-            <a href="<?php echo Yii::app()->createUrl("project/edit/{$key}?lang={$trans['language_code']}"); ?>"><?php echo $trans['language'];?></a>
+            <a href="<?php echo Yii::app()->createUrl("project/edit",array('id'=>$key,'lang'=>$trans['language_code'])); ?>"><?php echo $trans['language'];?></a> | 
           <?php }          
             }
           ?>
@@ -71,16 +70,30 @@ foreach($user['idea'] AS $key => $idea){
                         'onclick'=>"$(document).stopPropagation();",
                       )
               ); ?>
+      <?php  echo CHtml::link(Yii::t("app","Edit"),Yii::app()->createUrl('project/edit',array('id'=>$idea['id'])),
+                  array('class'=>"button small radius",
+                        'onclick'=>"$(document).stopPropagation();",
+                      )
+              );?>          
         </div>
 
-        <p class="mt10"><a href="<?php echo Yii::app()->createUrl("project/edit/{$key}"); ?>"><?php echo $idea['title'];?></a></p>
+        <p class="mt10"><a href="<?php echo Yii::app()->createUrl("project",array('id'=>$key)); ?>"><?php echo $idea['title'];?></a></p>
         <small class="">
           <p><?php echo Yii::t('app', 'created on'); ?> <?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($idea['time_registered']),"long",null); ?> | 
           <?php echo Yii::t('app', 'has <span>{n} member</span>| has <span>{n} members</span>',count($idea['member'])); ?> | 
           <?php echo Yii::t('app', 'viewed <span>{n} time</span>| viewed <span>{n} times</span>',$idea['num_of_clicks']); ?>
           </p>
         </small>
-
+        <small>
+          <?php 
+           if (isset($idea['translation_other']) && count($idea['translation_other'])){ ?>
+           <span class=""><?php echo Yii::t('app','Translations'); ?></span>:
+          <?php foreach ($idea['translation_other'] as $trans){ ?>
+            <a href="<?php echo Yii::app()->createUrl("project/edit",array('id'=>$key,'lang'=>$trans['language_code'])); ?>"><?php echo $trans['language'];?></a> | 
+          <?php }          
+            }
+          ?>
+        </small>
     </div>
 <?php
 }

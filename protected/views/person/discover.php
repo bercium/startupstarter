@@ -26,33 +26,30 @@
 </div>
 
 <div class="panel-top mb20"><!-- panel-top -->
-	<div class="row">  
+	<div class="row">
     <h1><?php echo Yii::t('app','Find talent'); ?></h1>
-   
 
     
-    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[skill]'=>'Designer, GraphicDesigner', 'Category'=>'skill')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("app","People that are skilled in design.") ?>"><?php echo Yii::t("app","Designer"); ?></a>
-    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[skill]'=>'Business developer', 'Category'=>'skill')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("app","People that can help you develop your business.") ?>"><?php echo Yii::t("app","Business developer"); ?></a>
-    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[skill]'=>'Coder', 'Category'=>'skill')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("app","People that speak the language of programming.") ?>"><?php echo Yii::t("app","Coder"); ?></a>
-    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[skill]'=>'Engineer', 'Category'=>'skill')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("app","People that are have great engineering skills.") ?>"><?php echo Yii::t("app","Engineer"); ?></a>
-       
-    
-    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[available]'=>'8', 'Category'=>'available')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("app","People that are available on weekends will be shown first!") ?>" ><?php echo Yii::t("app","Weekend hackers"); ?></a>
-    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[available]'=>'40', 'Category'=>'available')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("app","People that are available full time will be shown first!") ?>" ><?php echo Yii::t("app","Full timers"); ?></a>   
-    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[available]'=>'60', 'Category'=>'available')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("app","People that are available all the time will be shown first!
-    	<br>
-") ?>" ><?php echo Yii::t("app","Workaholics"); ?></a>   
-    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[collabPref]'=>'1', 'Category'=>'collabpref')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("app","People that will work for money will be shown first!") ?>" ><?php echo Yii::t("app","Employees"); ?></a>    
+    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[skill]'=>'Designer, GraphicDesigner', 'Category'=>'skill')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("msg","Search for designers") ?>"><?php echo Yii::t("app","Designers"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[skill]'=>'Business developer', 'Category'=>'skill')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("msg","Search for people that can help you develop your business.") ?>"><?php echo Yii::t("app","Business developers"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[skill]'=>'Programming, Computer Software', 'Category'=>'skill')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("msg","People that speak the language of programming.") ?>"><?php echo Yii::t("app","Programmers"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[skill]'=>'Engineer', 'Category'=>'skill')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("msg","People that are have great engineering skills.") ?>"><?php echo Yii::t("app","Engineers"); ?></a>
+    <br />
+    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[available]'=>'8','SearchForm[skill]'=>'Programming, Computer Software, Computer Hardware', 'Category'=>'available')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("msg","Computer wizs that work on wikends.") ?>" ><?php echo Yii::t("app","Weekend hackers"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[available]'=>'60', 'Category'=>'available')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("msg","People that just can't stop working.") ?>" ><?php echo Yii::t("app","Workaholics"); ?></a>   
+    <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[collabPref]'=>'1', 'SearchForm[available]'=>'60', 'Category'=>'collabpref')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("msg","People searching for regular jobs.") ?>" ><?php echo Yii::t("app","Employees"); ?></a>    
     <a href="#" data-dropdown="drop-local-project" onclick="$('#search_local').focus()" class="button success dropdown radius small" ><?php echo Yii::t("app","Local people"); ?></a>
 
-	
-	<hr>
-	
-	<p class="l-inline"><?php echo Yii::t('app','Or use advanced search'); ?>:</p><a class="button ml10 small secondary radius" href="#" onclick="$('.searchpanel').slideToggle(); return false;"><span class="icon-plus"></span></a>
-      
-	</div> 
+	</div>
+  
+  <div class="searchpanel">
+    <div class="row">
+    <?php echo Yii::t('app',''); ?>
+    <a class="button small radius secondary" href="#" style="margin-top:15px;" onclick="$('#searchpanel').slideToggle(); return false;"><?php echo Yii::t('app','Show search options'); ?></a>
+    </div>
+  </div>
 
-	<div class="searchpanel" <?php if (!$filter->checkAdvanceForm()) echo "style='display:none'"; ?> >
+	<div id="searchpanel" class="searchpanel" <?php if (!$filter->checkSearchForm()) echo "style='display:none'"; ?> >
 		<div class="search_content">
 	    <a class="anchor-link" id="filter_search"></a>
 	    
@@ -145,7 +142,7 @@
 
 
 
-<div class="row" id="recent_projects" class="mb40">
+<div class="row mb40" id="recent_projects">
 	<?php
 	if (!empty($searchResult['data']) && count($searchResult['data']) > 0){
 		Yii::log(arrayLog($searchResult), CLogger::LEVEL_INFO, 'custom.info.search_result'); 
@@ -184,6 +181,6 @@
 	<h3><?php echo Yii::t('msg','No results found with this filters.') ?></h3>
 	
 	<?php } ?>
-</div>	
+</div>
 
 

@@ -1,137 +1,199 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<!-- If you delete this meta tag, Half Life 3 will never be released. -->
-<meta name="viewport" content="width=device-width" />
+<html><head>
+      
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      
+       <title>Newsletter</title>
+		
+	<style type="text/css">
+		#outlook a{
+			padding:0;
+		}
+        #newsletterBody a {
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>cofinder newsletter</title>
+            color: #222;
+        }
+		body{
+			width:100% !important;
+            color: #222;
+            background-color: #dddddd;
+		}
 	
-<style>
-  <?php echo @file_get_contents("css/email.css"); ?>
-</style>
-
-</head>
- 
-<body bgcolor="#FFF">
-
-<!-- HEADER -->
-<table class="head-wrap" bgcolor="#FFF">
-	<tr>
-		<td></td>
-		<td class="header container" >
-				
-				<div class="content">
-				<table bgcolor="#FFFFFF">
-					<tr>
-						<td>
-              <a href="http://www.cofinder.eu/" style="text-decoration: none;">
-                <img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/mail-logo.png" alt="cofinder" title="cofinder" style="border: 0;vertical-align: -40%;" border="0" height="38" width="40"></img>
-                <span class="logo">
-                  co<span>finder</span>
-                </span>
-              </a>
-            </td>
-						<td align="right">
-              
-            </td>
-					</tr>
-				</table>
-				</div>
-				
-		</td>
-		<td></td>
-	</tr>
-  <tr style="border-top: 1px solid #E8E0DC; ">
-    <td></td>
-    <td align="center" valign="top" bgcolor="#F0F0F0" class="separator">
-      &nbsp;
-    </td>
-    <td></td>
-  </tr>
-  
-</table><!-- /HEADER -->
-
-
-<!-- BODY -->
-<table class="body-wrap">
-	<tr>
-		<td></td>
-		<td class="container" bgcolor="#FFFFFF">
-
-			<div class="content">
-			<table>
-				<tr>
-					<td>
-            <?php echo $content; ?>
-												
-						<!-- social & contact -->
-					</td>
-				</tr>
-			</table>
-			</div><!-- /content -->
-									
-		</td>
-		<td></td>
-	</tr>
-</table><!-- /BODY -->
-
-<!-- FOOTER -->
-<table class="footer-wrap">
-	<tr>
-		<td></td>
-		<td class="container">
+		body{
+			-webkit-text-size-adjust:none;
+		}
+		body{
+			margin:0;
+			padding:0;
+		}
+		img{
+			border:0;
+			height:auto;
+			line-height:100%;
+			outline:none;
+			text-decoration:none;
+			display:inline;
+			margin:0;
+			padding:0;
+		}
+      	table td{
+			border-collapse:collapse;
+			font-family:Helvetica, Arial;
+			font-weight:300;
+		}
+		#bgTable{
+			height:100% !important;
+			margin:0;
+			padding:0;
+			width:100% !important;
+		}
+		body,#bgTable{
+			background-color:#dddddd;			
+			background-repeat:repeat-x;
+			background-position:left top;
+		}
+		#NContainer{
 			
-				<!-- content -->
-				<div class="content">
-				<table>
-				<tr>
-					<td align="center">
-            
-            <table class="social" width="100%">
-							<tr>
-								<td>
-									
-									<!-- column 1 -->
-									<table align="left" class="column-wrap">
-										<tr>
-											<td>
-                        <p class="social-icons">
-                          <a href="https://www.facebook.com/cofinder.eu" class="soc-btn fb">f</a>
-                          <a href="https://www.linkedin.com/company/cofinder" class="soc-btn in">in</a> 
-                        </p>
-                        <center style="padding-top:5px;">
-												<p>
-                          This email was sent from <strong><a href="http://www.cofinder.eu">www.cofinder.eu</a></strong>
-                        </p>
-                        </center>
-											</td>
-										</tr>
-									</table><!-- /column 1 -->	
-				
-									
-									<span class="clear"></span>	
-									
-								</td>
-							</tr>
-						</table><!-- /social & contact -->
-            
-						<p class="links">
-							<a href="http://cofinder.eu/site/terms">Terms</a> |
-							<a href="http://cofinder.eu/site/terms#privacy">Privacy</a>
-              <?php if (isset($email) || isset($activkey)){ ?> |
-              <a href="http://localhost/startupstarter/site/unbsucribeFromNews?<?php if (isset($email)) echo "email=".$email; else echo "id=".$activkey; ?>"><unsubscribe>Unsubscribe</unsubscribe></a>
-              <?php } ?>
-						</p>
-					</td>
-				</tr>
-			</table>
-				</div><!-- /content -->
-				
-		</td>
-		<td></td>
-	</tr>
-</table><!-- /FOOTER -->
+			margin:0;
+			padding:0;			
+		}		
+		
+</style>       
+</head>
+    
+    <body leftmargin="0" topmargin="0" offset="0" style="-webkit-text-size-adjust: none;margin: 0;padding: 0;background-color: #dddddd; width: 100% !important;" marginheight="0" marginwidth="0">
+    	<center>
+        	<table id="bgTable" style="margin: 0;padding: 0;background-color:#dddddd; height: 100% !important;width: 100% !important;" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+            	<tbody><tr>
+                	<td style="border-collapse: collapse; font-family: Helvetica, Arial;font-weight: 300;" align="center" valign="top">
+                       
+                        <table id="NContainer" style="margin: 0;padding: 0; background-color: #ffffff; " border="0" cellpadding="0" cellspacing="0" width="650">
+                        	<tbody>
+                                <tr>
+                            	<td style=" border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;" align="center" valign="top">
+                                	<!-- // Begin Static Header \\ -->
+                                	<table id="staticHeader" style="background-color:#dddddd;margin: 0;padding: 0;" border="0" cellpadding="0" cellspacing="0" width="650">
+                                        <tbody>
+                                            <tr><td><center style="color: #222;display: block;font-family: Helvetica, Arial, sans-serif; font-size: 12px;font-weight: normal;line-height: 130%; margin-top: 10px;margin-right: 0; margin-bottom: 0; margin-left: 0;text-align: center;">Ne vidite celotnega sporočila? <a style="color: #222; font-family: Helvetica, Arial, sans-serif; font-size: 12px;font-weight: normal;line-height: 130%; margin-top: 10px;margin-right: 0; margin-bottom: 0; margin-left: 0;" href="#"> Kliknite tukaj</a></center></td></tr>
+                                             <tr height="10"><td><!-- divider --></td></tr>
+                                        <tr>
+                                        	<td bgcolor="#ffffff" style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;">
+                                            	<table style="border-bottom: 3px solid #ddd;" id="logoLinks" border="0" cellpadding="0" cellspacing="0" width="650">
+                                                	<tbody>
+                                                        <tr>
+                                                            <td align="left" valign="top"  bgcolor="#f1f69d" style="background-color:#FFF; padding:20px;">
+                                                            <a href="http://www.cofinder.eu/" style="text-decoration: none;">
+                                                            <img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/mail-logo.png" alt="cofinder" title="cofinder" style="border: 0;height: auto;line-height: 100%;outline: none;text-decoration: none;display: inline;margin: 0;padding: 0; float:left; margin-top:10px;" border="0" height="38" width="40"></img>
+                                                            <div style="color:#9a9a9a; font-weight: bold; text-decoration: none; font-size: 38px;  font-family:Sans,Helvetica,Arial,sans-serif; margin-top:9px;">co<span style="color:#89b561">finder</span>
+                                                            </div>
+                                                            </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            
+                                            </td>
+                                        </tr>
+                                    </tbody></table>
+                                </td>
+                            </tr>
+                        	
+                        	<?php echo $content; ?>
 
-</body>
-</html>
+                        	<tr>
+                            	<td  style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;" align="center" valign="top">
+                                    <!-- // Begin Wrap Footer \\ -->
+                                	<table id="newsletterFooter" style="background-color: transparent;" border="0" cellpadding="10" cellspacing="0" width="650">
+                                    	<tbody>
+                                            <tr>
+                                        	<td  bgcolor="#333333" class="footerContent" style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;padding: 10px 0;" valign="top">
+                                            
+                                                <!-- // BeginFooter \\ -->
+                                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding:10px 0;">
+                                                    <tbody>
+                                                        <tr>
+                                                         <td>
+                                                           
+                                                         </td>
+                                                        </tr>   
+                                                        <tr>
+                                                        	<td colspan="2" style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;"><img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/newsletter/divider.png" style="border: 0;height: 10px; line-height: 100%;outline: none;text-decoration: none;display: inline;margin: 0;padding: 0;" height="10" width="100%"></td>
+
+                                                    	
+                                                        <td style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;">
+                                                        	<div style="color: #89B561;font-family: Helvetica, Arial;font-size: 14px;line-height: 100%;text-align: right;">
+                                                            	 <p style="margin-top: 3px; margin-bottom: 0;  font-family: Helvetica, Arial;font-size: 14px;line-height: 130%;text-align: left;">This email was sent from <a style="color: #ffffff; text-decoration: none;" href="cofiner.eu">cofinder.eu</a>  </p>
+   														    </div>
+                                                        </td>
+                                                        <td>
+																<p style="text-align:right;" >
+										                          <a href="https://www.facebook.com/cofinder.eu"><img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/bottom-facebook.png"></a>
+										                          <a href="https://www.linkedin.com/company/cofinder"><img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/bottom-linkedin.png"></a> 
+										                          <a href="https://plus.google.com/+CofinderEu/posts"><img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/bottom-gplus.png"></a> 
+										                        </p>
+                                                        </td>
+                                                        <td colspan="2" style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;"><img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/newsletter/divider.png" style="border: 0;height: 10px; line-height: 100%;outline: none;text-decoration: none;display: inline;margin: 0;padding: 0;" height="10" width="100%"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                                <!-- // End  Footer \\ -->
+                                            
+                                            </td>
+                                        </tr>
+                                    </tbody></table>
+                                    <!-- // End newsletter Footer \\ -->
+                                </td>
+                            </tr>
+                            <tr>
+                            	<td  style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;" align="center" valign="top">
+                                    <!-- // Begin Wrap after Footer \\ -->
+                                	<table id="newsletterFooter" style="background-color: transparent;" border="0" cellpadding="10" cellspacing="0" width="650">
+                                    	<tbody>
+                                            <tr>
+                                        	<td  bgcolor="#ddd" class="footerContent" style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;padding: 0px 0;" valign="top">
+                                            
+                                                <!-- // Begin after Footer \\ -->
+                                                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding:0px 0;">
+                                                    <tbody>
+                                                        <tr>
+                                                         <td>
+                                                           
+                                                         </td>
+                                                        </tr>   
+                                                        <tr>
+                                                    	
+                                                        <td style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;">
+                                                        	<div style="color: #89B561;font-family: Helvetica, Arial;font-size: 14px;line-height: 100%;text-align: right;">
+                                                            	
+                                                            <center>                                                            
+                                                                <p class="links">
+																		<a style="color: #333; text-decoration: none;" href="http://cofinder.eu/site/terms">Terms</a> |
+																		<a style="color: #333; text-decoration: none;" href="http://cofinder.eu/site/terms#privacy">Privacy</a>
+															              <?php if (isset($email) || isset($activkey)){ ?> |
+															              <a href="http://localhost/startupstarter/site/unbsucribeFromNews?<?php if (isset($email)) echo "email=".$email; else echo "id=".$activkey; ?>"><unsubscribe>Unsubscribe</unsubscribe></a>
+															              <?php } ?>
+																</p>                                                                   
+                                                        	</center>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                                <!-- // End after  Footer \\ -->
+                                            
+                                            </td>
+                                        </tr>
+                                    </tbody></table>
+                                    <!-- // End newsletter after Footer \\ -->
+                                </td>
+                            </tr>
+                        </tbody></table>
+                        <br>
+                    </td>
+                </tr>
+            </tbody></table>
+        </center>
+        
+
+</body></html>

@@ -158,8 +158,8 @@ return array(
           ),require(dirname(__FILE__) . '/local-mail.php')
         ),*/
         'viewPath' => 'application.views.layouts.mail',
-        'logging' => true,
-        'dryRun' => true
+        'logging' => YII_DEBUG,
+        'dryRun' => YII_DEBUG
     ),
 	),
 
@@ -176,5 +176,6 @@ return array(
     'ideaGalleryFolder'=>'uploads/ideagalleries/',
     'mapsFolder'=>'uploads/maps/',
     'iconsFolder'=>'uploads/icons/',
+    'dbbackup'=>'backup/',
 	),
 );
