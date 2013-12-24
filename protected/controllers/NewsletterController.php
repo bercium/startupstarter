@@ -32,6 +32,16 @@ class NewsletterController extends GxController {
 		);
 	}
   
+  protected function beforeAction($action){
+    if ($action->id == 'mailSystem' || $action->id == 'mailNews')
+      foreach (Yii::app()->log->routes as $route){
+        //if ($route instanceof CWebLogRoute){
+          $route->enabled = false;
+        //}
+      }
+    return true;
+  }
+  
   /**
    * Show form for writing a newsletter and sending it to all subscribers
    */

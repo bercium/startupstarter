@@ -74,8 +74,10 @@
                                 	<!-- // Begin Static Header \\ -->
                                 	<table id="staticHeader" style="background-color:#dddddd;margin: 0;padding: 0;" border="0" cellpadding="0" cellspacing="0" width="650">
                                         <tbody>
+                                          <?php /* ?>
                                             <tr><td><center style="color: #222;display: block;font-family: Helvetica, Arial, sans-serif; font-size: 12px;font-weight: normal;line-height: 130%; margin-top: 10px;margin-right: 0; margin-bottom: 0; margin-left: 0;text-align: center;">Ne vidite celotnega sporočila? <a style="color: #222; font-family: Helvetica, Arial, sans-serif; font-size: 12px;font-weight: normal;line-height: 130%; margin-top: 10px;margin-right: 0; margin-bottom: 0; margin-left: 0;" href="#"> Kliknite tukaj</a></center></td></tr>
                                              <tr height="10"><td><!-- divider --></td></tr>
+                                             <?php */ ?>
                                         <tr>
                                         	<td bgcolor="#ffffff" style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;">
                                             	<table style="border-bottom: 3px solid #ddd;" id="logoLinks" border="0" cellpadding="0" cellspacing="0" width="650">
@@ -97,9 +99,11 @@
                                     </tbody></table>
                                 </td>
                             </tr>
-                        	
-                        	<?php echo $content; ?>
-
+                        	<tr>
+                            <td>
+                              <?php echo $content; ?>
+                            </td>
+                          </tr>
                         	<tr>
                             	<td  style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;" align="center" valign="top">
                                     <!-- // Begin Wrap Footer \\ -->
@@ -122,7 +126,7 @@
                                                     	
                                                         <td style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;">
                                                         	<div style="color: #89B561;font-family: Helvetica, Arial;font-size: 14px;line-height: 100%;text-align: right;">
-                                                            	 <p style="margin-top: 3px; margin-bottom: 0;  font-family: Helvetica, Arial;font-size: 14px;line-height: 130%;text-align: left;">This email was sent from <a style="color: #ffffff; text-decoration: none;" href="cofiner.eu">cofinder.eu</a>  </p>
+                                                            	 <p style="margin-top: 3px; margin-bottom: 0;  font-family: Helvetica, Arial;font-size: 14px;line-height: 130%;text-align: left;">This email was sent from <a style="color: #ffffff; text-decoration: none;" href="http://www.cofiner.eu">www.cofinder.eu</a>  </p>
    														    </div>
                                                         </td>
                                                         <td>
@@ -167,10 +171,10 @@
                                                             	
                                                             <center>                                                            
                                                                 <p class="links">
-																		<a style="color: #333; text-decoration: none;" href="http://cofinder.eu/site/terms">Terms</a> |
-																		<a style="color: #333; text-decoration: none;" href="http://cofinder.eu/site/terms#privacy">Privacy</a>
+																		<a style="color: #333; text-decoration: none;" href="http://www.cofinder.eu/site/terms">Terms</a> |
+																		<a style="color: #333; text-decoration: none;" href="http://www.cofinder.eu/site/terms#privacy">Privacy</a>
 															              <?php if (isset($email) || isset($activkey)){ ?> |
-															              <a href="http://localhost/startupstarter/site/unbsucribeFromNews?<?php if (isset($email)) echo "email=".$email; else echo "id=".$activkey; ?>"><unsubscribe>Unsubscribe</unsubscribe></a>
+															              <a href="<?php echo absoluteURL(); ?>/site/unbsucribeFromNews?<?php if (isset($email)) echo "email=".$email; else echo "id=".$activkey; ?>"><unsubscribe>Unsubscribe</unsubscribe></a>
 															              <?php } ?>
 																</p>                                                                   
                                                         	</center>
