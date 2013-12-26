@@ -231,7 +231,7 @@
 																		<a style="color: #333; text-decoration: none;" href="http://www.cofinder.eu/site/terms">Terms</a> |
 																		<a style="color: #333; text-decoration: none;" href="http://www.cofinder.eu/site/terms#privacy">Privacy</a>
 															              <?php if (isset($email) || isset($activkey)){ ?> |
-															              <a href="<?php echo absoluteURL(); ?>/site/unbsucribeFromNews?<?php if (isset($email)) echo "email=".$email; else echo "id=".$activkey; ?>"><unsubscribe>Unsubscribe</unsubscribe></a>
+															              <a style="color: #333; text-decoration: none;" href="<?php echo absoluteURL(); ?>/site/unbsucribeFromNews?<?php if (isset($email)) echo "email=".$email; else echo "id=".$activkey; ?>">Unsubscribe</a>
 															              <?php } ?>
 																</p>                                                                   
                                                         	</center>

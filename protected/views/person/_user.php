@@ -16,7 +16,8 @@
                   echo $user['country']; 
                   ?>
 						<?php //echo $user['address']; ?>
-						</a><br></small>
+						</a><br>
+            </small>
 					<?php } ?>		
                   
                  <small>
@@ -25,7 +26,7 @@
                   
                     <?php echo $user['available_name']; ?>
                     <?php } ?>
-                    </small>
+                  </small>
 
                   	
 		  </div>
@@ -53,13 +54,13 @@
                       }
                       
                       //echo Yii::t('app','Skill|Skills',array($c)).":"; 
-                    ?><small>
+                    ?>
                     <?php
                       if (count($skills) > 0){
                         echo Yii::t('app','Skilled in')
-                        ?>:</small><br>
+                        ?>:<br>
                        
-                    
+                    <small>
                     <?php 
                      foreach ($skills as $skillset=>$skill){
                           ?>
@@ -71,9 +72,16 @@
                           <?php if ($skillset != '...') { ?></a><?php } ?>
                             <?php 
                           }
+                          
+                         ?> </small><?php
+                        }else{
+                          ?>  
+                        <span class="description"><?php echo Yii::t('msg','User did not set any skills'); ?></span>
+                        <?php
                         }
                     
                     ?> 
+                       
 
                         
        

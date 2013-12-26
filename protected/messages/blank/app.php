@@ -74,7 +74,7 @@ return array (
   'Create - step 3' => '',
   'Create a new project' => '',
   'Create invitation' => '',
-  'Create new project' => '',
+  'Create a new project' => '',
   'Create user' => '',
   'Create your project' => '',
   'Created at' => '',

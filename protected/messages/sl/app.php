@@ -74,7 +74,7 @@ return array (
   'Create - step 3' => 'Ustvari - korak 3',
   'Create a new project' => 'Ustvari nov projekt',
   'Create invitation' => 'Ustvari povabilo',
-  'Create new project' => 'Ustvari nov projekt',
+  'Create a new project' => 'Ustvari nov projekt',
   'Create user' => 'Ustvari uporabnika',
   'Create your project' => 'Ustvari svoj projekt',
   'Created at' => 'Ustvarjen',

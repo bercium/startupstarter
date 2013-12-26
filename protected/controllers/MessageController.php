@@ -71,7 +71,7 @@ class MessageController extends Controller
       // send to sender
       $message->subject = "New message from ".$sender->name." ".$sender->surname;
       $content = "This message was sent to you trough Cofinder by ".$sender->name." ".$sender->surname.'. '.
-                 'To check his profile <a href="'.Yii::app()->createAbsoluteUrl('/person/view',array('id'=>Yii::app()->user->id)).'">click here</a>.<br />
+                 '<br />To check his profile <a href="'.Yii::app()->createAbsoluteUrl('/person/view',array('id'=>Yii::app()->user->id)).'">click here</a>. 
                   To replay <a href="'.Yii::app()->createAbsoluteUrl('/message/view',$replayParams).'">click here</a>.<br /><br /><br />'.
                  GxHtml::encode($_POST['message']);
       $message->setBody(array("content"=>$content), 'text/html');
@@ -86,7 +86,7 @@ class MessageController extends Controller
         
         $message_self->subject = "Message send to project";
         $content = "You have sent this message trough Cofinder to ".$project->title.'. '.
-                   'To check project <a href="'.Yii::app()->createAbsoluteUrl('/project/view',array('id'=>$_POST['project'])).'">click here</a>.<br /><br /><br />'.
+                   '<br />To check project <a href="'.Yii::app()->createAbsoluteUrl('/project/view',array('id'=>$_POST['project'])).'">click here</a>.<br /><br /><br />'.
                    GxHtml::encode($_POST['message']);
       }else{
         //$db_message->user_to_id = $_POST['user'];
@@ -94,7 +94,7 @@ class MessageController extends Controller
         
         $message_self->subject = "Message send to ".$receiver->name." ".$receiver->surname;
         $content = "You have sent this message trough Cofinder to ".$receiver->name." ".$receiver->surname.'. '.
-                   'To check his profile <a href="'.Yii::app()->createAbsoluteUrl('/person/view',array('id'=>$receiver->id)).'">click here</a>.<br /><br /><br />'.
+                   '<br />To check his profile <a href="'.Yii::app()->createAbsoluteUrl('/person/view',array('id'=>$receiver->id)).'">click here</a>.<br /><br /><br />'.
                    GxHtml::encode($_POST['message']);
       }
       
@@ -167,7 +167,9 @@ class MessageController extends Controller
       $myideaid .= "'".$idea->idea_id."'";
     }
     
-    $all_my_msgs = Message::model()->findAll('user_from_id = :myid OR user_to_id = :myid OR idea_to_id IN ('.$myideaid.') ORDER BY time_sent DESC',
+    if ($myideaid) $myideaid = "OR idea_to_id IN (".$myideaid.")";
+    
+    $all_my_msgs = Message::model()->findAll('user_from_id = :myid OR user_to_id = :myid '.$myideaid.' ORDER BY time_sent DESC',
                               array(':myid'=>$user_id));
     
     $msgList = array('users'=>null,'projects'=>null);

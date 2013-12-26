@@ -6,7 +6,7 @@
    
 		
     <h3><?php echo Yii::t('app', 'My projects'); ?></h3>
-    <a class="button small radius secondary" href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo Yii::t('app','Create new project'); ?> <span class="icon-plus"></span></a>
+    <a class="button small radius secondary" href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo Yii::t('app','Create a new project'); ?> <span class="icon-plus"></span></a>
   </div>
     
 <?php
@@ -47,7 +47,7 @@ foreach($user['idea'] AS $key => $idea){
     
 </div>
  
-     <!-- <a class="small button success radius" style="margin-bottom:0;" href="<?php //echo  Yii::app()->createUrl("project/create"); ?>"><?php // echo Yii::t('app','Create new project') ?></a> -->
+     <!-- <a class="small button success radius" style="margin-bottom:0;" href="<?php //echo  Yii::app()->createUrl("project/create"); ?>"><?php // echo Yii::t('app','Create a new project') ?></a> -->
    
 
 <div class="row myprojects" style="margin-top:20px;">

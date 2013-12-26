@@ -394,7 +394,7 @@ function writeFlashes(){
 function absoluteURL(){
   $host = require(dirname(__FILE__) . '/../config/local-console-request.php');
   
-  echo $host;
+  //echo $host;
   return $host['hostInfo'];
 }
 

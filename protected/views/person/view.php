@@ -96,6 +96,9 @@ $user = $data['user'];
       </div>
     <?php } ?>
 
+    <div class="item bbottom">
+      <h4><?php echo Yii::t('app', 'Vouched') ?></h4>
+    </div>
 
     <h4 class="l-inline"><?php echo Yii::t('app', 'Registered') ?></h4>
     <span class=""><!-- <?php // echo Yii::t('app', 'Member since') ?>:  -->
@@ -112,7 +115,7 @@ $user = $data['user'];
           </h3>
           <hr>
           <?php
-          if (isset($user['skillset'])){
+          if (isset($user['skillset']) && count($user['skillset'])){
           foreach ($user['skillset'] as $skillset){
             ?>
             <div class='item'>
@@ -184,16 +187,15 @@ $user = $data['user'];
     </div>
     <?php } ?>
 
+    <?php if (is_array($user['idea']) && (count($user['idea']) > 0)) { ?>
     <div class="large-12 columns"  >
       <div class="panel radius inside-panel">
         <!-- <hr> -->
-        <?php if (count($user['idea']) > 0) { ?>
         <h3 class="edit-content-title">
         <?php echo Yii::t('app', 'Involved in {n} project|Involved in {n} projects', array(count($user['idea']))) ?>
         </h3>
 
         <?php
-        if (is_array($user['idea']))
           foreach ($user['idea'] as $idea_data) {
           ?><div class="idea-list radius panel">
              
@@ -225,10 +227,11 @@ $user = $data['user'];
           </div><?php 
           }
           ?>
-        <?php } ?>
+        
       </div>
     </div>
-  
+  <?php } ?>
+    
   </div>
 </div>
 
