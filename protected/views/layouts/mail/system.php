@@ -101,7 +101,66 @@
                             </tr>
                         	<tr>
                             <td>
-                              <?php echo $content; ?>
+                            
+                             <!-- // Content \\ -->
+                                                <table border="0" cellpadding="0" cellspacing="0" width="650">
+                                                    <tbody>
+                                                                                                    
+                                                        <tr height="10"> 
+                                                             <td><!-- divider -->
+                                                               
+                                                             </td>
+                                                       </tr>
+                                                    
+
+                                                      <!-- single Article -->    
+                                                        <tr>
+                                                        <td style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;" valign="top">
+                                                            <table mc:repeatable="repeat_2" class="subContentContainer" mc:repeatindex="0" border="0" cellpadding="0" cellspacing="0" width="650">
+                                                                <tbody>                                                                  
+                                                                <tr>
+
+                                                                    <td>
+                                                                        <img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/newsletter/divider.png" style="border: 0; height: 10px; width:15px; outline: none; text-decoration: none;display: inline;margin: 0;padding: 0;" height="10px" width="15">
+                                                                    </td>
+                                                                    
+                                                                  
+                                                                    <td style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;" valign="top" width="100%">
+                                                                   
+                                                                        <!-- content goes here: -->
+                                                                         
+                                                                        <?php echo $content; ?>
+
+
+                                                                    </td>
+                                                                     <td>
+                                                                        <img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/newsletter/divider.png" style="border: 0; height: 10px; width:15px; outline: none; text-decoration: none;display: inline;margin: 0;padding: 0;" height="10px" width="15">
+                                                                    </td>
+
+                                                                </tr>
+                                                                                                                              
+                                                            </tbody></table     
+
+
+                                                        </td>
+                                                    </tr> <!-- end single-Article -->
+                                                       <tr height="20"> 
+                                                             <td><!-- divider -->
+                                                               
+                                                             </td>
+                                                       </tr>
+                                                          <!-- single Article -->                                                          
+
+
+
+                                                       <tr height="20"> 
+                                                             <td><!-- divider --></td>
+                                                       </tr>
+                                                </tbody>
+
+
+                                            </table><!-- end Content -->  
+
                             </td>
                           </tr>
                         	<tr>
