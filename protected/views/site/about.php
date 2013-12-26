@@ -15,14 +15,14 @@
 		 
 		<p>
 		<?php 
-			echo Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the like minded entrepreneurs and search for interesting projects to join.');
+			echo Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the like minded entrepreneurs, find the right people and search for interesting projects to join.');
 		?>
 		</p>
 	
 		
 		<h2><?php echo Yii::t('app','Brief history'); ?></h2>
 		<p>
-      <?php echo Yii::t('msg',"The idea was born during the conversation that happened in October 2012 at PopUp home. Talking to one of the founders of Slovenia coworking made me realise that online platform could open up the concept of coworking to a broader community. It will help solving a problem of finding the right team to build new products and services. In mid December Blaž joined me. He's been facing the same problem. It was difficult for him to find a realiable team of people outside his social circles. Soon after the third member joined our team. In late February 2013 the three of us developed and presented our concept to Slovenia's coworking community. Positive feedback gave us more than enough motivation to go on with the development of the web platform. Soon after our presentation the fourth member joined the team and the developement process."); ?>
+      <?php echo Yii::t('msg',"The idea was born during the conversation that happened in October 2012 at PopUp home. Talking to one of the founders of Slovenia coworking made me realise that online platform could open up the concept of coworking to a broader community. It will help solving a problem of finding the right team to build new products and services. In mid December Blaž joined me who’s been facing the same problem. We saw this as an opportunity to take this idea further. Together with the third member, three of us developed and presented our concept to Slovenia's coworking community in late February 2013 the. Positive feedback gave us more than enough motivation to go on with the development of the actual web platform. Soon after our presentation Jure joined the team. In the beginning of March we were already in full motion."); ?>
 		</p> 
 		
     </div>

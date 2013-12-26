@@ -38,7 +38,7 @@
     <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[available]'=>'8','SearchForm[skill]'=>'Programming, Computer Software, Computer Hardware', 'Category'=>'available')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("msg","Computer wizs that work on wikends.") ?>" ><?php echo Yii::t("app","Weekend hackers"); ?></a>
     <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[available]'=>'60', 'Category'=>'available')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("msg","People that just can't stop working.") ?>" ><?php echo Yii::t("app","Workaholics"); ?></a>   
     <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[collabPref]'=>'1', 'SearchForm[available]'=>'60', 'Category'=>'collabpref')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("msg","People searching for regular jobs.") ?>" ><?php echo Yii::t("app","Employees"); ?></a>    
-    <a href="#" data-dropdown="drop-local-project" onclick="$('#search_local').focus()" class="button success dropdown radius small" ><?php echo Yii::t("app","Local people"); ?></a>
+    <a href="#" data-dropdown="drop-local-project" onclick="$('#search_local').focus()" class="button success dropdown radius small" data-tooltip title="<?php echo Yii::t('app','People that are available in a specific area will be shown first!');?>" ><?php echo Yii::t("app","Local people"); ?></a>
 
 	</div>
   
