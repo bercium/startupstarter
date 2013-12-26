@@ -97,6 +97,7 @@
     </div>
   </div>
 
+     <?php /* ?>
       <div class="large-4 small-4 columns">
       <?php 
        //echo Yii::app()->getBaseUrl(true)."/".Yii::app()->params['tempFolder'];
@@ -138,7 +139,7 @@
 
        ?>
       <input name="IdeaGallery[url]" id="IdeaImage_avatar_link" type="hidden" value="<?php echo $ideagallery;?>" />
-      </div>
+      </div><?php */ ?>
 </div>
     
     

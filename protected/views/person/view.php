@@ -97,7 +97,21 @@ $user = $data['user'];
     <?php } ?>
 
     <div class="item bbottom">
-      <h4><?php echo Yii::t('app', 'Vouched') ?></h4>
+      <h4><?php echo Yii::t('app', 'Vouched by') ?></h4>
+      <?php if ($vouched){ ?>
+      
+        <div class="l-block">
+          <a href="<?php echo Yii::app()->createUrl("person",array("id"=>$vouched['id'])); ?>">
+            <img  src="<?php echo avatar_image($vouched['avatar_link'],$vouched['id']); ?>" alt="<?php echo $vouched['name']." ".$vouched['surname']; ?>" class="card-avatar mb8" />
+            <?php echo $vouched['name']." ".$vouched['surname']; ?>
+          </a>
+        </div>      
+      
+      <?php }else{ ?>
+        <div class="l-block">
+            Cofinder
+        </div> 
+      <?php } ?>
     </div>
 
     <h4 class="l-inline"><?php echo Yii::t('app', 'Registered') ?></h4>
@@ -181,7 +195,7 @@ $user = $data['user'];
         </h3>
 
         <p class="meta-field">
-          <?php echo $user['bio']; ?>
+          <?php echo strip_tags($user['bio']); ?>
         </p>
        </div>
     </div>

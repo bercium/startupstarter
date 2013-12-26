@@ -59,12 +59,12 @@ $idea = $data['idea'];
             </div>            
             <hr>
             <p class="pitch">
-                <?php echo $idea['pitch']; ?>
+                <?php echo  strip_tags($idea['pitch']); ?>
                 </p>             
               
             <div class=""><p>
                 <?php 
-                if ($idea['description_public']) echo $idea['description'];
+                if ($idea['description_public']) echo  strip_tags($idea['description']);
                 else Yii::t('msg',"Description isn't published!");
                 ?>
               </p>

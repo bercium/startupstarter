@@ -188,7 +188,7 @@ class SiteController extends Controller
             $message = new YiiMailMessage;
             $message->view = 'system';
 
-            $message->subject = "Requested invtation for cofinder";
+            $message->subject = "Requested invtation for Cofinder";
             $content = 'Thank you for your interest in joining <a href="http://www.cofinder.eu">cofinder</a>!
                         <br>We will keep you posted on progress we make.';
             $message->setBody(array("content"=>$content), 'text/html');

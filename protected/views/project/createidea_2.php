@@ -9,12 +9,12 @@
 <div class="row createidea">
   <div class="columns edit-header">
     <h3>
-      <?php echo Yii::t('app', 'Team'); ?>
+      <?php echo Yii::t('app', 'Project team'); ?>
     </h3>
 
     <ul class="button-group radius">
        <li><a href="<?php echo Yii::app()->createUrl('project/create',array('step'=>1)); ?>" class="button tiny success">1.<?php echo Yii::t('app', 'Presentation'); ?></a></li>
-       <li><a class="button tiny">2.<?php echo Yii::t('app', 'Team'); ?></a></li>
+       <li><a class="button tiny">2.<?php echo Yii::t('app', 'Project team'); ?></a></li>
        <?php /* ?><li><strong>3.<?php echo Yii::t('app', 'Social'); ?></strong></li> <?php */ ?>
       <li><a  class="button tiny secondary"><?php echo Yii::t('app',"You are done!");?></a></li>
     </ul>

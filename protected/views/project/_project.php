@@ -39,7 +39,7 @@
               </div>
             <div class="card-abstract btop">
             <p>
-            <?php echo trim_text($idea['pitch'], 240); ?>
+            <?php echo trim_text( strip_tags($idea['pitch']), 240); ?>
             </p>
             </div>
             </div>

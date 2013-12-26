@@ -74,12 +74,12 @@ class WInvitation extends CWidget
                   }
                   $invitation->save();
 
-                  $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'">Register here</a>';
+                  $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'"><strong>Register here</strong></a>';
                   $this->sendMail($invitation->email,
                                   "You have been invited to join cofinder", 
                                   "We've been hard at work on our new service called cofinder.
                                                   Cofinder is a web platform through which you can share your ideas with the like minded entrepreneurs, search for people to join your project or join an interesting project yourself. 
-                                                  <br /><br /> ".$user->name." ".$user->surname." thinks you might be the right person to test our private beta.
+                                                  <br /><br /> <strong>".$user->name." ".$user->surname."</strong> thinks you might be the right person to test our private beta.
                                                   <br /><br /> If we got your attention you can ".$activation_url."!");
                   setFlash("invitationMessage",Yii::t('msg','Invitation to add new member send.'));
 
@@ -137,12 +137,12 @@ class WInvitation extends CWidget
               $stat->invites_send = $stat->invites_send+1;
               $stat->save();
 
-              $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'">Register here</a>';
+              $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'"><strong>Register here</strong></a>';
               $this->sendMail($invitation->email,
                               "You have been invited to join cofinder", 
                               "We've been hard at work on our new service called cofinder.
                                               Cofinder is a web platform through which you can share your ideas with the like minded entrepreneurs, search for people to join your project or join an interesting project yourself. 
-                                              <br /><br /> ".$user->name." ".$user->surname." thinks you might be the right person to test our private beta.
+                                              <br /><br /> <strong>".$user->name." ".$user->surname."</strong> thinks you might be the right person to test our private beta.
                                               <br /><br /> If we got your attention you can ".$activation_url."!");
 
               setFlash("invitationMessage",Yii::t('msg','Invitation send.'));

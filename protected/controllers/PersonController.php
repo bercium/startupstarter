@@ -47,8 +47,14 @@ class PersonController extends GxController {
 		$sqlbuilder = new SqlBuilder;
 		$filter = array( 'user_id' => $id);
 		$data['user'] = $sqlbuilder->load_array("user", $filter);
+    
+    $vouched = false;
+    $invited = Invite::model()->findByAttributes(array("receiver_id"=>$id,"registered"=>1));
+    if ($invited){
+      $vouched = $invited->senderId;
+    }
 
-		$this->render('view', array('data' => $data));
+		$this->render('view', array('data' => $data,"vouched"=>$vouched));
 
 		$click = new Click;
 		$click->user($id, Yii::app()->user->id);

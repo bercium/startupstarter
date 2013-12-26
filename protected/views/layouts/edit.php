@@ -19,7 +19,7 @@
     
       <div class="section-container sidebar accordion edit-content edit-content-bottom" data-section>
         <section class="section <?php echo isMenuItemActive('index'); ?>">
-          <p class="title"><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><span class="icon-user"></span><?php echo Yii::t('app','Profile'); ?></a></p>
+          <p class="title"><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><span class="icon-user"></span><?php echo Yii::t('app','Edit profile'); ?></a></p>
         </section>
         <section class="section <?php echo isMenuItemActive(array("create","projects","edit")); ?>">
           <p class="title">

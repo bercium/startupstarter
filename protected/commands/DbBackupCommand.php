@@ -23,7 +23,7 @@ class DbBackupCommand extends CConsoleCommand{
     $files = glob(Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['dbbackup']."dump_*");
     foreach($files as $file) {
         if(is_file($file)
-           && (time() - filemtime($file) > 7*24*60*60)) { // 2 days
+           && (time() - filemtime($file) > 7*24*60*60)) { // 7 days
 //           && (time() - filemtime($file) > 3*60)) { // 2 days
             unlink($file);
         }

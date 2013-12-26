@@ -85,6 +85,7 @@
     </div>
   </div>
 
+      <?php /* ?>
       <div class="large-4 small-4 columns">
       <?php 
        //echo Yii::app()->getBaseUrl(true)."/".Yii::app()->params['tempFolder'];
@@ -127,7 +128,7 @@
        ?>
       <input name="IdeaGallery[url]" id="IdeaImage_avatar_link" type="hidden" value="<?php echo $ideagallery;?>" />
       </div>
-      
+      <?php */ ?>
     
 <hr>
     <?php echo CHtml::submitButton(Yii::t("app","Save"),

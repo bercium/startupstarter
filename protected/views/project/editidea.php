@@ -112,7 +112,7 @@
 <div class="row createidea">
   <div class="columns edit-header">
     <h3>
-      <?php echo Yii::t('app', 'Team'); ?>
+      <?php echo Yii::t('app', 'Project team'); ?>
     </h3>
   </div>
   <div class="columns panel edit-content">

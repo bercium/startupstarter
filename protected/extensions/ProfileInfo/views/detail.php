@@ -1,10 +1,10 @@
 <div class="sidebar profile-info  edit-content radius panel side">
-  <a class="button radius small right secondary" href="<?php echo Yii::app()->createUrl("profile/completeness"); ?>" ><?php echo Yii::t('app', 'View'); ?></a>
+  <a class="button radius small right secondary" href="<?php echo Yii::app()->createUrl("profile/completeness"); ?>" ><?php echo Yii::t('app', 'Details'); ?></a>
   
   <h4 style="margin-top:8px;margin-bottom:12px;"><?php echo Yii::t('app',"Profile completeness"); ?>
   </h4>
-  <a href="<?php echo Yii::app()->createUrl("profile/completeness"); ?>" title="<?php echo Yii::t('msg','Your profile is {n}% completed.',array($perc)); ?>" data-tooltip>
-  <div class="progress <?php echo $percClass; ?> round">
+  <a href="<?php echo Yii::app()->createUrl("profile/completeness"); ?>">
+  <div class="progress <?php echo $percClass; ?> round" title="<?php echo Yii::t('msg','Your profile is {n}% completed.',array($perc)); ?>" data-tooltip>
     <span class="meter" style="width:<?php echo $perc; ?>%;">
     </span>
   </div>

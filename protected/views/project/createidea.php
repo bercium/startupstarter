@@ -6,7 +6,7 @@
   <div class="columns edit-header">
     <h3>
       <?php if($step == 1) echo Yii::t('app', 'Project presentation'); ?>
-      <?php if($step == 2) echo Yii::t('app', 'Team'); ?>
+      <?php if($step == 2) echo Yii::t('app', 'Project team'); ?>
       <?php if($step == 3) echo Yii::t('app', 'Spread the word'); ?>
     </h3>
 
@@ -15,7 +15,7 @@
           echo "<li>1.". Yii::t('app', 'Presentation') ."</li>";
           if($step == 1) echo "</strong>"; ?>     
       <?php if($step == 2) echo "<strong>"; 
-            echo "<li>2.". Yii::t('app', 'Team');
+            echo "<li>2.". Yii::t('app', 'Project team');
             if($step == 2) echo "</li></strong>"; ?>
       |
       <?php /*if($step == 3) echo "<strong>"; 
