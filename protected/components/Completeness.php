@@ -26,7 +26,7 @@ class Completeness{
             "group"=>Yii::t('app',"Personal information"),
             "name"=>Yii::t('app',"First name"),
             "value"=>$user->name,
-            "hint"=>Yii::t('msg',"A full name will give you more credibility."),
+            "hint"=>Yii::t('msg','A full name will give you more credibility.'),
             "action"=>Yii::app()->createUrl("profile")."#link_personal",
             "active"=>($user->name != ''),
             "weight"=>0, // weight 0 won't affect your percentage score
@@ -36,7 +36,7 @@ class Completeness{
             "group"=>Yii::t('app',"Personal information"),
             "name"=>Yii::t('app',"Last name"),
             "value"=>$user->surname,
-            "hint"=>Yii::t('msg',"A full name will give you more credibility."),
+            "hint"=>Yii::t('msg','A full name will give you more credibility.'),
             "action"=>Yii::app()->createUrl("profile")."#link_personal",
             "active"=>($user->surname != ''),
             "weight"=>10,

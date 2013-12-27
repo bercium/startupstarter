@@ -15,7 +15,7 @@
 protected/tests/report/
 uploads/
 temp/
-backup/
+protected/data/backup/
 
 protected/config/local-db.php
 protected/config/local-path.php

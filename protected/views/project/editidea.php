@@ -27,7 +27,7 @@
           if($isOwner){
         echo CHtml::link(Yii::t("app","Delete project"),Yii::app()->createUrl('project/deleteIdea',array('id'=>$idea['id'])),
                   array('class'=>"button small alert radius",
-                        'confirm'=>Yii::t("msg","You are about to delete this project!\nAre you sure?"),
+                        'confirm'=>Yii::t("msg","You are about to delete this project!")."\n".Yii::t("msg","Are you sure?"),
                         'onclick'=>"$(document).stopPropagation();",
                       )
               );?>
@@ -35,7 +35,7 @@
       }else{
       echo CHtml::link(Yii::t("app","Leave project"),Yii::app()->createUrl('project/leaveIdeas',array('id'=>$idea['id'])),
                   array('class'=>"button small alert radius",
-                        'confirm'=>Yii::t("msg","You are about to leave this project!\nYou will have to be re invited to be a member.")."\n".Yii::t("msg","Are you sure?"),
+                        'confirm'=>Yii::t("msg","You are about to leave this project! You will have to be re invited to be a member.")."\n".Yii::t("msg","Are you sure?"),
                         'onclick'=>"$(document).stopPropagation();",
                       )
               ); 
@@ -75,7 +75,7 @@
         <?php 
         echo CHtml::link(Yii::t("app","Delete this translation"),Yii::app()->createUrl('project/deleteTranslation',array('id'=>$idea['id'],'lang'=>$ideadata['language_code'])),
                   array('class'=>"button tiny alert radius",
-                        'confirm'=>Yii::t("msg","You are about to delete this translation!\nAre you sure?"),
+                        'confirm'=>Yii::t("msg","You are about to delete this translation!")."\n".Yii::t("msg","Are you sure?"),
                         'onclick'=>"$(document).stopPropagation();",
                       )
               );
