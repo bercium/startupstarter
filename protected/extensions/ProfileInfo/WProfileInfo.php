@@ -75,11 +75,11 @@ class WProfileInfo extends CWidget
         * /
 
         if ($user->surname != '') $perc+=10;
-        else $messages[] = array("hint"=>Yii::t('msg',"Try filling up your personal information."),
+        else $messages[] = array("hint"=>Yii::t('msg',"We recommend that you fill out your personal information."),
                                   "action"=>Yii::app()->createUrl("profile")."#link_personal");
 
         if ($user->address != '') $perc+=7;
-        else $messages[] = array("hint"=>Yii::t('msg',"Try filling up your personal information."),
+        else $messages[] = array("hint"=>Yii::t('msg',"We recommend that you fill out your personal information."),
                                   "action"=>Yii::app()->createUrl("profile")."#link_personal");
         
         if ($user->avatar_link != '') $perc+=10;
@@ -103,15 +103,15 @@ class WProfileInfo extends CWidget
           $perc+=1;
           $idMatch = $userMatch->id;
           if ($userMatch->available != '') $perc+=10;
-          else $messages[] = array("hint"=>Yii::t('msg',"Fill up your profile details."),
+          else $messages[] = array("hint"=>Yii::t('msg',"Fill out your profile details."),
                                     "action"=>Yii::app()->createUrl("profile")."#link_personal");
           
           if ($userMatch->country != '') $perc+=7;
-          else $messages[] = array("hint"=>Yii::t('msg',"Fill up your profile details."),
+          else $messages[] = array("hint"=>Yii::t('msg',"Fill out your profile details."),
                                     "action"=>Yii::app()->createUrl("profile")."#link_personal");
           
           if ($userMatch->city != '') $perc+=7;
-          else $messages[] = array("hint"=>Yii::t('msg',"Fill up your profile details."),
+          else $messages[] = array("hint"=>Yii::t('msg',"Fill out your profile details."),
                                     "action"=>Yii::app()->createUrl("profile")."#link_personal");
          
 
@@ -149,7 +149,7 @@ class WProfileInfo extends CWidget
           }else $messages[] = array("hint"=>Yii::t('msg',"Create or take part in a project."),
                                     "action"=>Yii::app()->createUrl("profile/projects"));
 
-        }else $messages[] = array("hint"=>Yii::t('msg',"Fill up your profile details."),
+        }else $messages[] = array("hint"=>Yii::t('msg',"Fill out your profile details."),
                                   "action"=>Yii::app()->createUrl("profile"));
         // User:: surname, address, avatar_link
         // UserMatch:: available, country, city

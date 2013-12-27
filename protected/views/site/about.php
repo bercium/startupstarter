@@ -15,14 +15,14 @@
 		 
 		<p>
 		<?php 
-			echo Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the like minded entrepreneurs, find the right people and search for interesting projects to join.');
+			echo Yii::t('con','We are a group of enthusiasts with a mission to help anyone with a great idea to assemble a successful start-up team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the like-minded entrepreneurs and search for interesting projects.');
 		?>
 		</p>
 	
 		
 		<h2><?php echo Yii::t('app','Brief history'); ?></h2>
 		<p>
-      <?php echo Yii::t('msg',"The idea was born during the conversation that happened in October 2012 at PopUp home. Talking to one of the founders of Slovenia coworking made me realise that online platform could open up the concept of coworking to a broader community. It will help solving a problem of finding the right team to build new products and services. In mid December Blaž joined me who’s been facing the same problem. We saw this as an opportunity to take this idea further. Together with the third member, three of us developed and presented our concept to Slovenia's coworking community in late February 2013 the. Positive feedback gave us more than enough motivation to go on with the development of the actual web platform. Soon after our presentation Jure joined the team. In the beginning of March we were already in full motion."); ?>
+      <?php echo Yii::t('con',"The idea was born during the conversation that took place in October, 2012 at PopUp home. Talking to one of the founders of Slovenia co-working made me realise that the concept of co-working could be introduced to a broader community by the online platform. It would help solve a problem of finding the right team to build new products and services. Blaž joined me in the middle of December. He has been facing the same problem, a difficulty finding a reliable team outside his social circles. Soon after that, the third member joined our team. At the end of February, 2013 we developed and presented our concept to Slovenia\'s co-working community. A positive feedback gave us more than enough motivation to proceed with the development of the web platform. The forth member joined our team and the development process soon after that presentation"); ?>
 		</p> 
 		
     </div>
@@ -58,7 +58,7 @@
             <div class="small-8 columns">
               <h3><a href="<?php echo Yii::app()->createUrl("person",array('id'=>1)); ?>">Žiga Berce</a></h3>
               <p>
-                <?php echo Yii::t('msg',"Within cofinder I take care of development while motivating the team and try to engage others to join our project."); ?>
+                <?php echo Yii::t('msg',"I take care of the development, motivate the team and engage others to join our projects."); ?>
               </p>
             </div>
           </div>
@@ -73,7 +73,7 @@
             <div class="small-8 columns">
               <h3><a href="<?php echo Yii::app()->createUrl("person",array('id'=>4)); ?>">Blaž Beuermann</a></h3>
               <p>
-                <?php echo Yii::t('msg',"My designation at cofinder is to take care of our online foundations."); ?>
+                <?php echo Yii::t('msg',"My task at Cofinder is to take care of our online foundations."); ?>
               </p>
             </div>
           </div>
@@ -89,7 +89,7 @@
           <div class="small-8 columns">
             <h3><a href="<?php echo Yii::app()->createUrl("person",array('id'=>6)); ?>">Jure Ravlič</a></h3>
             <p>
-              <?php echo Yii::t('msg',"Taking care of overall design is my primary focus here on cofinder."); ?>
+              <?php echo Yii::t('msg',"My primal focus on Cofinder is to take care of the entire design."); ?>
             </p>
           </div>
         </div>  
@@ -125,7 +125,7 @@
    <div class="columns main ball wrapped-content">
     <div class="columns">
       <h1><?php echo Yii::t('app','Supporters'); ?></h1>
-      </div>
+    </div>
   </div>
   
    </div>

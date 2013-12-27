@@ -14,7 +14,7 @@
   <?php echo Yii::t('msg','You will shortly receive our confirmation email.'); ?>
   </strong>
   <br /><br />
-  <?php echo Yii::t('msg','We are really happy you have decided to join our community. While you wait for email you can either try filling out the rest of your profile information OR skip this step and do this latter. But remember, full profiles are more CREDIBLE and have more visibility.'); ?>
+  <?php echo Yii::t('msg','We are really happy you have decided to join our community. While you are waiting for an email, you can either fill out the rest of your profile information OR skip this step and do it later. But remember, completely filled out profiles are more CREDIBLE and have more visibility.'); ?>
      
   <br />
   <?php echo Yii::t('msg','Fill out the rest of'); ?>
@@ -45,7 +45,7 @@
     <?php echo "<label>".Yii::t('app','Collaboration preferences')."</label>"; ?>
 
     <span class="description">
-       <?php echo Yii::t('msg','What kind of Collaboration do you prefer when working on a projects.'); ?>
+       <?php echo Yii::t('msg','What kind of Collaboration do you prefer when working on projects.'); ?>
     </span>
   <?php foreach ($data['user']['collabpref'] as $colabpref){ ?>
     <label for="CollabPref_<?php echo $colabpref['collab_id']; ?>">
@@ -55,8 +55,8 @@
        <?php 
        switch ($colabpref['collab_id']){
          case 1:echo Yii::t('msg','Get paid for your work'); break;
-         case 2:echo Yii::t('msg','Are prepered to work for a share in company'); break;
-         case 3:echo Yii::t('msg','Will work and invest equaly'); break;
+         case 2:echo Yii::t('msg','Are prepared to work for a share in a company'); break;
+         case 3:echo Yii::t('msg','Will work and invest equally'); break;
          case 4:echo Yii::t('msg','Want to invest in interesting projects only'); break;
          case 5:echo Yii::t('msg','Just want to help'); break;
        }
@@ -86,7 +86,7 @@
                        <div class="avatar-loading"><span class="qq-upload-spinner"></span></div>
                        <img class="avatar" src="'.avatar_image($user->avatar_link, $user->id, false).'" >
                       <div class="button secondary radius small avatar-change">'.Yii::t('app','Change image').' <span class="icon-upload"></span></div> 
-                      <span class="icon-info-sign" style="color: inherit"></span><span class="description">'.Yii::t('msg','To change drag new image on top or click on the button').'</span>
+                      <span class="icon-info-sign" style="color: inherit"></span><span class="description">'.Yii::t('msg','To change your picture, drag a new image on the top or click on the button').'</span>
                       </div>' .
                      '<div class="qq-upload-list" style="display:none"></div>' .
                   '</div>',
@@ -152,7 +152,7 @@
           )); ?>
 
     <p>
-    <?php echo Yii::t('msg','We know you have some awesome skills so why not show them to others. Add all the things you are really good at don\'t limit yourself to formal education or job specific subjects only.'); ?>
+    <?php echo Yii::t('msg','We know you have some awesome skills so why not show them to the others. Add all the things you are really good at and do not limit yourself by writing only formal education or job specific subjects.'); ?>
     </p>
     <label><?php echo Yii::t('app','Where do you see yourself'); ?></label>
     <a onclick="selectIndustry(25);" class="button radius small secondary"><?php echo Yii::t('app','Programming'); ?></a>
@@ -170,7 +170,7 @@
       <?php echo '<label for="skill">'.Yii::t('app','What are you good at');  ?> 
       <?php echo '</label>'; ?>
 
-      <span class="description"><?php echo Yii::t('msg','Tell others what are you good at in selected industry. Add one skill at a time.') ?></span>
+      <span class="description"><?php echo Yii::t('msg','Tell others what you are good at in the selected industry. Add one skill at a time.') ?></span>
       <?php echo CHtml::textField("skill","", array('maxlength' => 128,'class'=>'skill')); ?>
       <span class="description"><strong><?php echo Yii::t('msg','Switch industry to diversity your skillset') ?></strong></span>
 

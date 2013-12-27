@@ -35,7 +35,7 @@
       }else{
       echo CHtml::link(Yii::t("app","Leave project"),Yii::app()->createUrl('project/leaveIdeas',array('id'=>$idea['id'])),
                   array('class'=>"button small alert radius",
-                        'confirm'=>Yii::t("msg","You are about to leave this project!\nYou will have to be re invited to be a member.\nAre you sure?"),
+                        'confirm'=>Yii::t("msg","You are about to leave this project!\nYou will have to be re invited to be a member.")."\n".Yii::t("msg","Are you sure?"),
                         'onclick'=>"$(document).stopPropagation();",
                       )
               ); 

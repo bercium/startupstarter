@@ -66,7 +66,7 @@ foreach($user['idea'] AS $key => $idea){
           
       <?php  echo CHtml::link(Yii::t("app","Leave project"),Yii::app()->createUrl('project/leaveIdea',array('id'=>$idea['id'])),
                   array('class'=>"button small  secondary radius",
-                        'confirm'=>Yii::t("msg","You are about to leave this project!\nYou will have to be re invited to be a member.\nAre you sure?"),
+                        'confirm'=>Yii::t("msg","You are about to leave this project!\nYou will have to be re invited to be a member.")."\n".Yii::t("msg","Are you sure?"),
                         'onclick'=>"$(document).stopPropagation();",
                       )
               ); ?>

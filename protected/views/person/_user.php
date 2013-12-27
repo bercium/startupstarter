@@ -57,8 +57,8 @@
                     ?>
                     <?php
                       if (count($skills) > 0){
-                        echo Yii::t('app','Skilled in')
-                        ?>:<br>
+                        echo "<small>" .Yii::t('app','Skilled in') . "</small>"
+                        ?><br>
                        
                     <small>
                     <?php 

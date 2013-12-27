@@ -129,7 +129,7 @@
                      <a href="#"><?php echo Yii::t('app','Mail styles'); ?></a>
                      <ul class="dropdown">
                       <li><a href="<?php echo Yii::app()->createUrl("newsletter/mailSystem"); ?>"><?php echo Yii::t('app','System mail'); ?></a></li>
-                      <li><a href="<?php echo Yii::app()->createUrl("newsletter/mailNews"); ?>"><?php echo Yii::t('app','News letter mail'); ?></a></li>
+                      <li><a href="<?php echo Yii::app()->createUrl("newsletter/mailNews"); ?>"><?php echo Yii::t('app','Newsletter mail'); ?></a></li>
                      </ul>
                 </ul>
                 

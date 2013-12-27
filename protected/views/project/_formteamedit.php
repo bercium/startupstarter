@@ -1,7 +1,7 @@
     
     <?php if(isset($candidate['id'])){ ?>
     <p>
-      <?php echo Yii::t('msg',"Try to fill as many fields as posible to describe your perfect candidate. If you are not sure or you don't require certain aspects just leave them blank.") ?>
+      <?php echo Yii::t('msg',"Fill out as many fields as possible to describe your perfect candidate. If you are not sure or you do not need some information, leave them blank.") ?>
     </p>
     <?php if($candidate['id'] != 'new' && $candidate['id'] != '' && is_numeric($candidate['id'])){
          echo CHtml::beginForm(Yii::app()->createUrl('project/edit/'.$id.'?lang='.$lang.'&candidate='.$candidate['id']),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
@@ -18,7 +18,7 @@
     <?php echo "<label>".Yii::t('app','Collaboration preferences')."</label>"; ?>
 
     <span class="description">
-       <?php echo Yii::t('msg','What kind of Collaboration do you prefer when working on a project. Paid work - get paid for your work, Sweat equity - will work for a share in company, Equal investors - prepared to invest equal share of money, Sole investor - want to invest only, Volunteer - just want to help'); ?>
+       <?php echo Yii::t('msg','What kind of Collaboration do you prefer when working on a project? Paid work - get paid for your work, Sweat equity - work for a share in a company, Equal investors - invest an equal sum of money, Sole investor – be the only investor, Volunteer - just want to help'); ?>
     </span>
       
     <?php if(isset($candidate['collabpref'])){
@@ -39,7 +39,7 @@
 
     <?php /* extra data ?>
     <?php echo Yii::t('app','Extra information'); ?>
-    <span class="general foundicon-flag" data-tooltip title="<?php echo Yii::t('msg',"Add some extra information like what you can offer..."); ?>"></span>
+    <span class="general foundicon-flag" data-tooltip title="<?php echo Yii::t('msg',"Add some extra information, such as what can you offer..."); ?>"></span>
     
     <?php echo CHtml::textArea("extraInformation"); ?>
     <?php //*/ ?> 
@@ -65,9 +65,9 @@
   
     <?php echo '<label for="skill">'.Yii::t('app','Skill')."</label>";  ?> 
     <span class="description" >
-       <?php echo Yii::t('msg','Name of skill your candidate should posess. You can write multiple skills for the same industry separated by commas.'); ?>
+       <?php echo Yii::t('msg','Name a skill your candidate should posses. You can write multiple skills for the same industry separating them with commas.'); ?>
       <br />
-      <strong><?php echo Yii::t('msg','Write only skills within the same industry. Later you can add more under different industry.'); ?>
+      <strong><?php echo Yii::t('msg','Only write the skills within the same industry. Later you can add more of them under the different industry.'); ?>
       </strong>
     </span>
     <?php echo CHtml::textField("skill","", array('maxlength' => 128,'class'=>'skill')); ?>
@@ -149,7 +149,7 @@ if(is_array($ideadata['candidate'])){
             
         echo CHtml::link(Yii::t("app","Remove"),Yii::app()->createUrl('project/edit',array('id'=>$id,'lang'=>$lang,'delete_candidate'=>$value['match_id']))."#link_position",
                   array('class'=>"button tiny alert radius",
-                        'confirm'=>Yii::t("msg","You are about to remove this candidate!\nAre you sure?"),
+                        'confirm'=>Yii::t("msg","You are about to remove this candidate!")."\n".Yii::t("msg","Are you sure?"),
                         'onclick'=>"$(document).stopPropagation();",
                       )
               );

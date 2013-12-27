@@ -14,7 +14,7 @@ if(is_array($ideadata['member'])){
       <?php  if(($member['type_id'] != 1)){
         echo CHtml::link(Yii::t("app","Remove"),Yii::app()->createUrl('/project/deleteMember',array('id'=>$id,'user_id'=>$member['id'])),
               array('class'=>"button tiny alert radius",
-                    'confirm'=>Yii::t("msg","You are about to remove this member!\nAre you sure?"),
+                    'confirm'=>Yii::t("msg","You are about to remove this member!")."\n".Yii::t("msg","Are you sure?"),
                     'onclick'=>"$(document).stopPropagation();",
                   )
           );
@@ -55,7 +55,7 @@ if(is_array($ideadata['member'])){
   <?php echo CHtml::endForm(); ?>
 
 <?php if ($invitees){ ?>
-<h5><?php echo Yii::t('app','Invited to project'); ?></h5>
+<h5><?php echo Yii::t('app','Invited to the project'); ?></h5>
 <p>
   <?php foreach($invitees as $row){ ?>
   <?php echo $row->email; ?>,

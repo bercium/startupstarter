@@ -7,20 +7,20 @@
 
     <?php echo CHtml::activeLabelEx($translation,'title'); ?>
     <span class="description">
-      <?php echo Yii::t('msg','What are you calling it? One or two words please, you can always change it later.'); ?>
+      <?php echo Yii::t('msg','What do you call it? Write one or two words, please. You can always change it later.'); ?>
     </span>
     <?php echo CHtml::activeTextField($translation,"title", array('maxlength' => 128)); ?>
 
     <?php echo CHtml::activeLabelEx($translation,'pitch'); ?>
     <span class="description">
-        <?php echo Yii::t('msg','This is your pitch. Be short and to the point.'); ?>
+        <?php echo Yii::t('msg','This is your pitch. Be brief and to the point.'); ?>
     </span>
     <?php echo CHtml::activeTextArea($translation,"pitch"); ?>
 
 <br />
     <?php echo CHtml::activeLabelEx($idea,'status_id'); ?>
      <span class="description">
-      <?php echo Yii::t('msg','Status of project.'); ?>
+      <?php echo Yii::t('msg','Status of the project.'); ?>
      </span>
     <?php echo CHtml::activedropDownList($idea, 'status_id', GxHtml::listData(IdeaStatus::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;', 'style' => 'display: none;')); ?>
 
@@ -79,7 +79,7 @@
     <?php echo CHtml::activeLabelEx($idea,'video_link'); ?>
     <div class="lin-hidden">
      <span class="description">
-      <?php echo Yii::t('msg','Link to video presentation of project.'); ?>
+      <?php echo Yii::t('msg','Link of the project\'s video presentation.'); ?>
      </span>
     <?php echo CHtml::activeTextField($idea,"video_link", array('maxlength' => 128,'class'=>'lin-edit')); ?> 
     </div>

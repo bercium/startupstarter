@@ -125,7 +125,7 @@
                                                                     </td>
                                                                     
                                                                   
-                                                                    <td style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;" valign="top" width="100%">
+                                                                    <td style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300; font-size: 14px;" valign="top" width="100%">
                                                                    
                                                                         <!-- content goes here: -->
                                                                          
