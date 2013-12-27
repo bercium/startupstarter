@@ -12,7 +12,7 @@
   
 <?php echo CHtml::submitButton(Yii::t("app","Generate invite"),
             array('class'=>"button small radius",
-                  'confirm'=>Yii::t("msg","This action will create an invitation.\nAre you sure?") )
+                  'confirm'=>Yii::t("msg","This action will create an invitation.")."\n".Yii::t("msg","Are you sure?") )
         ); ?>
   
 <?php echo CHtml::endForm(); ?>

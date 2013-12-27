@@ -21,6 +21,10 @@ CREATE TABLE IF NOT EXISTS `idea_gallery` (
 		  KEY `idea_id` (`idea_id`)
 		) ENGINE=MyIsam DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
+ALTER TABLE  `invite` CHANGE  `id_sender`  `sender_id` INT( 11 ) UNSIGNED NOT NULL;
+ALTER TABLE  `invite` CHANGE  `id_idea`  `idea_id` INT( 11 ) UNSIGNED NULL DEFAULT NULL;
+ALTER TABLE  `invite` CHANGE  `id_receiver`  `receiver_id` INT( 11 ) UNSIGNED NULL DEFAULT NULL;
+    
 ALTER TABLE `invite` DROP INDEX `id_sender` , ADD INDEX `sender_id` ( `sender_id` );
 ALTER TABLE `invite` DROP INDEX `id_idea` , ADD INDEX `idea_id` ( `idea_id` );
 ALTER TABLE `invite` DROP INDEX `id_receiver` , ADD INDEX `receiver_id` ( `receiver_id` );

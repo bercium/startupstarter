@@ -228,7 +228,7 @@ class ProjectController extends GxController {
 							if(!$id)
 								$this->redirect(array('project/create', 'step' => 2));
 						} else {
-							setFlash('projectMessage', Yii::t('msg',"Unable to create project."),'alert');
+							setFlash('projectMessage', Yii::t('msg',"Unable to create a project."),'alert');
 						}
 					}
 				}
@@ -731,7 +731,7 @@ class ProjectController extends GxController {
 
 		 			$language = Language::Model()->findByAttributes(array('id' => $translation->language_id));
 
-		 			setFlash('projectMessage', Yii::t('msg',"Successfully saved project translation!"));
+		 			setFlash('projectMessage', Yii::t('msg',"The translation of the project was successfully saved."));
 
 					$this->redirect(array('edit', 'id' => $id, 'lang' => $language->language_code));
 				} else {
@@ -769,9 +769,9 @@ class ProjectController extends GxController {
 					$time_updated->idea($id);
           setFlash('projectMessage', Yii::t('msg',"Translation successfully removed!"));
 				} else {
-					$return['message'] = Yii::t('msg', "Unable to remove translation from project.");
+					$return['message'] = Yii::t('msg', "Unable to remove translation from the project.");
 					$return['status'] = 1;
-          setFlash('projectMessage', Yii::t('msg',"Unable to remove translation from project."),'alert');
+          setFlash('projectMessage', Yii::t('msg',"Unable to remove translation from the project."),'alert');
 				}
 				
 				if(isset($_GET['ajax'])){
@@ -926,7 +926,7 @@ class ProjectController extends GxController {
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
 					} else {
-						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to add new member to project.");
+						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to add a new member to the project.");
 						$return['status'] = 1;
 					}
 					
@@ -957,10 +957,10 @@ class ProjectController extends GxController {
         $idea->save();
 				//$time_updated = new TimeUpdated;
 				//$time_updated->idea($id);
-        //setFlash("projectMessage", Yii::t('msg','Member removed from project'));
-        setFlash('projectMessage', Yii::t('msg','Member removed from project'));
+        //setFlash("projectMessage", Yii::t('msg','Member removed from the project'));
+        setFlash('projectMessage', Yii::t('msg','Member removed from the project'));
 			} else {
-				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove member from project.");
+				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove member from the project.");
 				$return['status'] = 1;
 			}
 			

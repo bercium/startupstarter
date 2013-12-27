@@ -3,7 +3,7 @@
 
 <div class="row myprojects">
   <div class="columns edit-header">
-    <h3><?php echo Yii::t('app', 'Invites to join a project'); ?></h3>
+    <h3><?php echo Yii::t('app', 'Invitations to projects'); ?></h3>
   </div>
   <div class="columns panel edit-content">
     <?php writeFlash("notificationMessage"); ?>
@@ -16,7 +16,7 @@
       <?php 
           echo CHtml::link(Yii::t("app","Accept"),Yii::app()->createUrl('/profile/acceptInvitation',array('id'=>$row['id'])),
               array('class'=>"button small success radius",
-                    'confirm'=>Yii::t("msg","You are about to join this project!\nAre you sure?"),
+                    'confirm'=>Yii::t("msg","You are about to join this project!")."\n".Yii::t("msg","Are you sure?"),
                     'onclick'=>"$(document).stopPropagation();",
                   )
           );
@@ -25,7 +25,7 @@
              <?php
           echo CHtml::link(Yii::t("app","Decline"),Yii::app()->createUrl('/profile/declineInvitation',array('id'=>$row['id'])),
               array('class'=>"button small secondary radius",
-                    'confirm'=>Yii::t("msg","You are about to remove your invitation!\nAre you sure?"),
+                    'confirm'=>Yii::t("msg","You are about to remove your invitation!")."\n".Yii::t("msg","Are you sure?"),
                     'onclick'=>"$(document).stopPropagation();",
                   )
           );

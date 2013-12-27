@@ -62,7 +62,7 @@ abstract class BaseUserStat extends GxActiveRecord {
 			'id' => Yii::t('app', 'ID'),
 			'user_id' => null,
 			'completeness' => Yii::t('app', 'completeness'),
-			'invites_send' => Yii::t('app', 'Invites Send'),
+			'invites_send' => Yii::t('app', 'Invitations Send'),
 			'invites_registered' => Yii::t('app', 'Invites Registered'),
 			'reputation' => Yii::t('app', 'Reputation'),
 			'user' => null,

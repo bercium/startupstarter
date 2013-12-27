@@ -12,7 +12,7 @@
     </div>
     
     <div style="float:left; margin-left:120px;">
-      <?php echo Yii::t('msg','Profiles below {n}% won\'t get as many hits.',array(PROFILE_COMPLETENESS_OK)) ?>
+      <?php echo Yii::t('msg','Profiles below {n}% will not get as many hits.',array(PROFILE_COMPLETENESS_OK)) ?>
     </div>
     <div class="progress round" style="width:100px; height:15px;">
       <span style="width:67%;" class="meter"></span>
@@ -40,12 +40,12 @@
     <a href="<?php echo $row['action']; ?>" >
       <h5>
       <?php if ($row['active']){ ?>
-        <span class="right icon-smile icon-2x" style="color:#89B561" title="<?php echo Yii::t('msg','Yeey everything good here'); ?>" data-tooltip></span>
+        <span class="right icon-smile icon-2x" style="color:#89B561" title="<?php echo Yii::t('msg','Yeeay, everything is good here'); ?>" data-tooltip></span>
       <?php }else{ ?>
         <?php if ($row['weight'] == 0){ ?>
         <span class="right icon-meh icon-2x" style="color:#4469A6" title="<?php echo Yii::t('msg','Not really needed but it will make you look more serious'); ?>" data-tooltip></span>
         <?php }else{ ?>
-        <span class="right icon-frown icon-2x" style="color:#A5292C" title="<?php echo Yii::t('msg','Consider filling this up since it will help you get more recognizable'); ?>" data-tooltip></span>
+        <span class="right icon-frown icon-2x" style="color:#A5292C" title="<?php echo Yii::t('msg','Consider filling this out since it will help you become more recognizable'); ?>" data-tooltip></span>
       <?php }
         } ?>
 

@@ -11,7 +11,7 @@
 	<?php echo CHtml::activeLabelEx($form,'password'); ?>
 	<?php echo CHtml::activePasswordField($form,'password'); ?>
 	<p class="hint">
-	<?php echo Yii::t('msg',"Minimal password length 6 symbols."); ?>
+	<?php echo Yii::t('msg',"Minimal password length is 6 symbols."); ?>
 	</p>
 	
 	<?php echo CHtml::activeLabelEx($form,'verifyPassword'); ?>

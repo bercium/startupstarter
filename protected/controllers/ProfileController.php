@@ -222,7 +222,7 @@ class ProfileController extends GxController {
           }
           
           if (($c == 0) && ($match->save())) {
-            if (Yii::app()->user->isGuest) setFlash('profileMessage', Yii::t('msg',"Profile details saved. Please check your mail for activation code."));
+            if (Yii::app()->user->isGuest) setFlash('profileMessage', Yii::t('msg',"Profile details saved. Please check your email for activation code."));
             else setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
             $c = new Completeness();
             $c->setPercentage($user_id);
@@ -386,7 +386,7 @@ class ProfileController extends GxController {
 			}
 
 			if ($allgood) {
-				$return['message'] = Yii::t('msg', "Project removed successfully!");
+				$return['message'] = Yii::t('msg', "Project successfully removed!");
 				$return['status'] = 0;
         $c = new Completeness();
         $c->setPercentage($user_id);
@@ -433,7 +433,7 @@ class ProfileController extends GxController {
 				}
 
 				if ($allgood) {
-					$return['message'] = Yii::t('msg', "Successfully updated collaboration preferences!");
+					$return['message'] = Yii::t('msg', "The collaboration preferences were successfully updated.");
 					$return['status'] = 0;
           
           $c = new Completeness();
@@ -764,7 +764,7 @@ class ProfileController extends GxController {
 
         $invitee = User::model()->findByAttributes(array("email"=>$_POST['invite-email']));
         if ($invitee){
-          setFlash("invitationMessage",Yii::t('msg','Invitee is already in the system.'),'info');
+          setFlash("invitationMessage",Yii::t('msg','Person you invited is already in the system.'),'info');
         }else{
           $invitation = Invite::model()->findByAttributes(array('email'=>$_POST['invite-email'],'key'=>null)); // self invited from system
 

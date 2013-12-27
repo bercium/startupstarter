@@ -40,7 +40,7 @@ class WInvitation extends CWidget
                                   $user->name." ".$user->surname." invited you to become a member of a project called '".$idea->title."'".
                                                   "<br /><br />You can accept his invitation inside your cofinder profile or by clicking ".$activation_url."!");
 
-                  setFlash("invitationMessage",Yii::t('msg','Invitation to add new member send.'));
+                  setFlash("invitationMessage",Yii::t('msg','Invitation to add new member sent.'));
                 }else setFlash("invitationMessage",Yii::t('msg','Unable to send invitation! Eather user is already invited or the email you provided is incorrect.'),'alert');
               }
             }else{
@@ -81,7 +81,7 @@ class WInvitation extends CWidget
                                                   Cofinder is a web platform through which you can share your ideas with the like minded entrepreneurs, search for people to join your project or join an interesting project yourself. 
                                                   <br /><br /> <strong>".$user->name." ".$user->surname."</strong> thinks you might be the right person to test our private beta.
                                                   <br /><br /> If we got your attention you can ".$activation_url."!");
-                  setFlash("invitationMessage",Yii::t('msg','Invitation to add new member send.'));
+                  setFlash("invitationMessage",Yii::t('msg','Invitation to add new member sent.'));
 
                 }else setFlash("invitationMessage",Yii::t('msg','Unable to send invitation! Eather user is already invited or the email you provided is incorrect.'),'alert');
               }else setFlash("invitationMessage",Yii::t('msg','You can invite only users in the system to join projects.'),'alert');
@@ -115,7 +115,7 @@ class WInvitation extends CWidget
                                                 <br /><br /> ".$user->name." ".$user->surname." thinks you might be the right person to test our private beta.
                                                 <br /><br /> If we got your attention you can ".$activation_url."!");
               }
-              setFlash("invitationMessage",Yii::t('msg','Invitation to add new member send.'));
+              setFlash("invitationMessage",Yii::t('msg','Invitation to add new member sent.'));
               
             }else setFlash("invitationMessage",Yii::t('msg','Unable to send invitation! Eather user is already invited or the email you provided is incorrect.'),'alert');
             */
@@ -145,8 +145,8 @@ class WInvitation extends CWidget
                                               <br /><br /> <strong>".$user->name." ".$user->surname."</strong> thinks you might be the right person to test our private beta.
                                               <br /><br /> If we got your attention you can ".$activation_url."!");
 
-              setFlash("invitationMessage",Yii::t('msg','Invitation send.'));
-              //Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation send.'));
+              setFlash("invitationMessage",Yii::t('msg','Invitation sent.'));
+              //Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation sent.'));
             }else setFlash("invitationMessage",Yii::t('msg','This user is already invited.','alert'));
           }
         }

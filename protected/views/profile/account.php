@@ -15,7 +15,7 @@
       <label for="UserEdit_email"><?php echo Yii::t('app',"Email"); ?>
       </label>
       <span class="description">
-         <?php echo Yii::t('msg',"Email can't be changed at this time."); ?>
+         <?php echo Yii::t('msg',"Email cannot be changed at the moment."); ?>
       </span>
     
       <?php echo CHtml::activeTextField($user,"email", array("class"=>"small secondary readonly","disabled"=>true)); ?>
@@ -38,7 +38,7 @@
     
       <label for="UserEdit_vanityURL"><?php echo Yii::t('app',"Public name"); ?></label>
       <?php if (!$allowVanityURL){ ?>
-        <span class="description"><?php echo Yii::t('msg',"Invite at least 3 people to get to chose your own personal URL."); ?></span>
+        <span class="description"><?php echo Yii::t('msg',"You must invite at least 3 people to be able to choose your own personal URL."); ?></span>
       <?php }else{ ?>
         <span class="description"><?php echo Yii::t('msg',"Chose your own personal URL."); ?></span>
         
@@ -100,7 +100,7 @@
 
       <?php echo CHtml::submitButton(Yii::t("app","Save"),
                   array('class'=>"button small alert radius",
-                        'confirm'=>Yii::t("msg","This action will change your password!\nAre you sure?") )
+                        'confirm'=>Yii::t("msg","This action will change your password!")."\n".Yii::t("msg","Are you sure?") )
               ); ?>
 
     <?php echo CHtml::endForm(); ?>
@@ -126,7 +126,7 @@
       <?php echo Yii::t('msg', 'We purge all deactivated accounts on first day of each month. You have until then to reactivate it by clicking "Lost Password?" in login form.'); ?>
       
       <div data-alert class='alert-box radius alert'>
-        <span class="icon-warning-sign"></span> <?php echo Yii::t('msg', 'When we purge your account all data connected to it will be removed as well.'); ?>
+        <span class="icon-warning-sign"></span> <?php echo Yii::t('msg', 'When we purge your account all data connected to it will also be removed.'); ?>
       </div>
     </p>
     
@@ -144,7 +144,7 @@
 
     <?php echo CHtml::submitButton(Yii::t("app","Deactivate account"),
                 array('class'=>"button small alert radius",
-                      'confirm'=>Yii::t("msg","This action will deactivate your account.\nAre you sure?") )
+                      'confirm'=>Yii::t("msg","This action will deactivate your account.")."\n".Yii::t("msg","Are you sure?") )
             ); ?>
 
     <?php echo CHtml::endForm(); ?>

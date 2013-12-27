@@ -11,7 +11,7 @@
     $summary = urlencode('With the right team any idea can change your life!');
     $summaryTwt = urlencode('With the right #team any #idea can change your life at http://www.cofinder.eu #cofinder');
     
-    echo Yii::t('msg','As we wish to maintain a certain level of quality we let our community chose appropriate candidates. This can take some time but don\'t worry we will keep you posted on what is happening and will notify you when we go public.');
+    echo Yii::t('msg','As we wish to maintain a certain level of quality, we let our community choose appropriate candidates. This may take some time, but do not worry, we will keep you posted on what is happening and notify you when we go public.');
     ?>
     <br /><br /><br />
 
@@ -45,9 +45,9 @@
     <?php echo Yii::t('msg',"Thank you for your interest!"); ?>
   </strong>
   <br />
-  <?php echo Yii::t('msg',"We are curently in a private beta stage and as such only except registrations with invitations."); ?>
+  <?php echo Yii::t('msg',"We are currently in a private beta stage and, as such, only accept registrations with invitations."); ?>
   <br />
-  <?php echo Yii::t('msg','If you wish to be invited or notified on changes we make please leave your email address below.'); ?>
+  <?php echo Yii::t('msg','If you wish to be invited or notified on changes we make, please write your email address below.'); ?>
 </p>
 
 <?php echo CHtml::beginForm('','post',array("class"=>"custom large-7")); ?>

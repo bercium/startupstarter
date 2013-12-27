@@ -155,7 +155,7 @@ class SiteController extends Controller
       $invitee = User::model()->findByAttributes(array("email"=>$_POST['email']));
       if ($invitee){
         $login = '<a data-dropdown="drop-login" class="button radius small" style="margin-bottom:0;" href="#">'.Yii::t('app','Login').'</a>';
-        setFlash("interestMessage",Yii::t('msg','You have already registered please {login}',array('{login}' => $login)));
+        setFlash("interestMessage",Yii::t('msg','You have already registered. Please {login}',array('{login}' => $login)));
       }else{
       
         $invite = Invite::model()->findByAttributes(array('email' => $_POST['email'],'idea_id'=>null));
@@ -163,7 +163,7 @@ class SiteController extends Controller
           if ($invite->key){
             $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invite->key;
             $button = "<a href='".$activation_url."' class='button radius small' style='margin-bottom: 3px;'>".Yii::t('app',"Register here")."</a>";
-            setFlash("interestMessage",Yii::t('msg',"You already have invitation pending. To join please click {button} or copy this url:<br>{url}",array('{button}'=>$button,"{url}"=>$activation_url)));
+            setFlash("interestMessage",Yii::t('msg',"You already have an invitation pending. To join please click {button} or copy this url:<br>{url}",array('{button}'=>$button,"{url}"=>$activation_url)));
           }else setFlash("interestMessage",Yii::t('msg',"We already have you on our list."),'alert');
         }else{
 

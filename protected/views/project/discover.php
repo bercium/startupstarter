@@ -189,7 +189,7 @@
 		</div>
 	<?php }else{	?>
 	
-	<h3><?php echo Yii::t('msg','No results found with this filters.') ?></h3>
+	<h3><?php echo Yii::t('msg','No results found with these filters.') ?></h3>
 	
 	<?php } ?>
 </div>	

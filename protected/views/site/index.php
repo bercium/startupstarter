@@ -33,7 +33,7 @@
       
 
       <p>
-          <?php echo Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the like minded entrepreneurs, find the right people and search for interesting projects to join.'); ?>
+          <?php echo Yii::t('msg','We are a group of enthusiasts with a mission to help anyone with a great idea to assemble a successful start-up team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the like-minded entrepreneurs and search for interesting projects.'); ?>
       </p><br />
     </div>
     
@@ -41,7 +41,7 @@
     <div class="center columns hide-for-small">
       <div class="right">
         <h4 >
-        <?php echo Yii::t('msg',"{username} welcome to cofinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
+        <?php echo Yii::t('msg',"{username} Welcome to cofinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
         </h4>
         <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" class="button radius success" ><?php echo Yii::t('app','Find a cofounder'); ?></a> 
         <span style="margin:0 13px 0 0px;"> <?php echo Yii::t('app','or'); ?> </span>
@@ -62,7 +62,7 @@
           </label>
         </h2>
         <span class="description">
-        <?php echo Yii::t('msg','Leave us your email and we will get back to you.'); ?>
+        <?php echo Yii::t('msg','Leave your email address and we will get back to you.'); ?>
         </span>
         <div class="row collapse">
           <div class="small-9 columns">
@@ -365,7 +365,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 		</div>
 	<?php }else{	?>
 	
-	<h3><?php echo Yii::t('msg','No results found with this filters.') ?></h3>
+	<h3><?php echo Yii::t('msg','No results found with these filters.') ?></h3>
 	
 	<?php } ?>
 

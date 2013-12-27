@@ -11,7 +11,7 @@
       
       <label for="notify_me">
         <?php echo CHtml::checkBox('notify_me',true); ?>
-        <?php echo Yii::t('app','Send me a copy by email'); ?>
+        <?php echo Yii::t('app','Send me a copy via email'); ?>
       </label>
       
       <br />

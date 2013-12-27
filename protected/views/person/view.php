@@ -16,7 +16,7 @@ $user = $data['user'];
       
       <label for="notify_me">
         <?php echo CHtml::checkBox('notify_me',true); ?>
-        <?php echo Yii::t('app','Send me a copy by email'); ?>
+        <?php echo Yii::t('app','Send me a copy via email'); ?>
       </label>
       <br />
       <div class="login-floater">
@@ -147,7 +147,7 @@ $user = $data['user'];
             </div>
           <?php }
           }else{ ?>
-            <div class="description"><?php  echo Yii::t('msg','User doesn\'t have this filled out yet.');  ?></div>
+            <div class="description"><?php  echo Yii::t('msg','User has not filled this out yet.');  ?></div>
           <?php } ?>
         
       </div>
@@ -181,7 +181,7 @@ $user = $data['user'];
 
           }
           if ($firsttime){ ?>
-            <div class="description"><?php  echo Yii::t('msg','User doesn\'t have this filled out yet.');  ?></div>
+            <div class="description"><?php  echo Yii::t('msg','User has not filled this out yet.');  ?></div>
           <?php } ?>	
 
       </div>
