@@ -116,7 +116,7 @@ $idea = $data['idea'];
                 <?php
                 }
                 } ?> 
-            </div><!-- skillset-wrap end -->
+        </div><!-- skillset-wrap end -->
            
 
            

@@ -52,11 +52,11 @@
         <li>
           <div class="row">
             <div class="small-4 columns">
-              <p><img class="th" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-ziga.jpg" alt="Žiga Berce" title="Žiga Berce">
+              <p><a href="<?php echo Yii::app()->createUrl("person",array('id'=>1)); ?>"><img class="th" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-ziga.jpg" alt="Žiga Berce" title="Žiga Berce"></a>
                 </p>
             </div>
             <div class="small-8 columns">
-              <h3>Žiga Berce</h3>
+              <h3><a href="<?php echo Yii::app()->createUrl("person",array('id'=>1)); ?>">Žiga Berce</a></h3>
               <p>
                 <?php echo Yii::t('msg',"Within cofinder I take care of development while motivating the team and try to engage others to join our project."); ?>
               </p>
@@ -67,11 +67,11 @@
         <li>        
           <div class="row">
             <div class="small-4 columns">
-              <p><img class="th" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-blaz.jpg" alt="Blaž Beuermann" title="Blaž Beuermann">
+              <p><a href="<?php echo Yii::app()->createUrl("person",array('id'=>4)); ?>"><img class="th" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-blaz.jpg" alt="Blaž Beuermann" title="Blaž Beuermann"></a>
                 </p>
             </div>
             <div class="small-8 columns">
-              <h3>Blaž Beuermann</h3>
+              <h3><a href="<?php echo Yii::app()->createUrl("person",array('id'=>4)); ?>">Blaž Beuermann</a></h3>
               <p>
                 <?php echo Yii::t('msg',"My designation at cofinder is to take care of our online foundations."); ?>
               </p>
@@ -83,11 +83,11 @@
         <li>
           <div class="row">
           <div class="small-4 columns">
-            <p><img class="th" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-jure.jpg" alt="Jure Ravlič" title="Jure Ravlič">
+            <p><a href="<?php echo Yii::app()->createUrl("person",array('id'=>6)); ?>"><img class="th" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-jure.jpg" alt="Jure Ravlič" title="Jure Ravlič"></a>
               </p>
           </div>
           <div class="small-8 columns">
-            <h3>Jure Ravlič</h3>
+            <h3><a href="<?php echo Yii::app()->createUrl("person",array('id'=>6)); ?>">Jure Ravlič</a></h3>
             <p>
               <?php echo Yii::t('msg',"Taking care of overall design is my primary focus here on cofinder."); ?>
             </p>
@@ -99,11 +99,11 @@
         <li>
         <div class="row">
           <div class="small-4 columns">
-            <p><img class="th" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-jernejm.jpg" alt="Jernej Mirt" title="Jernej Mirt">
+            <p><a href="<?php echo Yii::app()->createUrl("person",array('id'=>10)); ?>"><img class="th" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-jernejm.jpg" alt="Jernej Mirt" title="Jernej Mirt"></a>
               </p>
           </div>
           <div class="small-8 columns">
-            <h3>Jernej Mirt</h3>
+            <h3><a href="<?php echo Yii::app()->createUrl("person",array('id'=>10)); ?>">Jernej Mirt</a></h3>
             <p>
               <?php echo Yii::t('msg',"Managing social marketing."); ?>
             </p>
