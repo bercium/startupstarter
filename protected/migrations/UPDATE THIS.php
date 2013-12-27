@@ -11,17 +11,6 @@ CREATE TABLE IF NOT EXISTS `idea_link` (
 						  KEY `idea_id` (`idea_id`)
 						) ENGINE=MyIsam DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
             
-ALTER TABLE `idea_link`	ADD CONSTRAINT `idea_link_ibfk_1` FOREIGN KEY (`idea_id`) REFERENCES `idea` (`id`) ON DELETE CASCADE;
-
-ALTER TABLE  `invite` DROP FOREIGN KEY  `invite_ibfk_1`;
-ALTER TABLE  `invite` DROP FOREIGN KEY  `invite_ibfk_2`;
-ALTER TABLE  `invite` DROP FOREIGN KEY  `invite_ibfk_3`;
-ALTER TABLE  `invite` CHANGE  `id_sender`  `sender_id` INT( 11 ) UNSIGNED NOT NULL;
-ALTER TABLE  `invite` CHANGE  `id_idea`  `idea_id` INT( 11 ) UNSIGNED NULL DEFAULT NULL;
-ALTER TABLE  `invite` CHANGE  `id_receiver`  `receiver_id` INT( 11 ) UNSIGNED NULL DEFAULT NULL;
-ALTER TABLE  `invite` ADD FOREIGN KEY (  `sender_id` ) REFERENCES  `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE  `invite` ADD FOREIGN KEY (  `idea_id` ) REFERENCES  `idea` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE  `invite` ADD FOREIGN KEY (  `receiver_id` ) REFERENCES  `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE IF NOT EXISTS `idea_gallery` (
 		  `id` int(9) unsigned NOT NULL AUTO_INCREMENT,
@@ -32,7 +21,6 @@ CREATE TABLE IF NOT EXISTS `idea_gallery` (
 		  KEY `idea_id` (`idea_id`)
 		) ENGINE=MyIsam DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
-ALTER TABLE `idea_gallery` ADD CONSTRAINT `idea_gallery_ibfk_1` FOREIGN KEY (`idea_id`) REFERENCES `idea` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `invite` DROP INDEX `id_sender` , ADD INDEX `sender_id` ( `sender_id` );
 ALTER TABLE `invite` DROP INDEX `id_idea` , ADD INDEX `idea_id` ( `idea_id` );
 ALTER TABLE `invite` DROP INDEX `id_receiver` , ADD INDEX `receiver_id` ( `receiver_id` );
@@ -54,10 +42,6 @@ CREATE TABLE IF NOT EXISTS `message` (
           KEY `user_to_id` (`user_to_id`),
           KEY `idea_to_id` (`idea_to_id`)
         ) ENGINE=MyIsam  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-ALTER TABLE `message`
-      ADD CONSTRAINT `message_ibfk_3` FOREIGN KEY (`idea_to_id`) REFERENCES `idea` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-      ADD CONSTRAINT `message_ibfk_1` FOREIGN KEY (`user_from_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-      ADD CONSTRAINT `message_ibfk_2` FOREIGN KEY (`user_to_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE  `idea_gallery` CHANGE  `front`  `cover` TINYINT( 1 ) NULL DEFAULT NULL;
 
@@ -78,7 +62,6 @@ CREATE TABLE IF NOT EXISTS `user_stat` (
       ) ENGINE=MyIsam DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 ALTER TABLE `user_stat` ADD UNIQUE (`user_id`);
-ALTER TABLE `user_stat` ADD FOREIGN KEY ( `user_id` ) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE ;
 
 
 

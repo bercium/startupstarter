@@ -125,10 +125,26 @@ return array(
 			'routes'=>array(
 				array(
 					//'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
+					'levels'=>'error, warning, trace, info',
 					'class'=>'ext.yii-debug-toolbar.YiiDebugToolbarRoute',
           'ipFilters'=>array('127.0.0.1'),
+          'enabled'=>YII_DEBUG,
 				),
+        array(
+  					'levels'=>'error',
+            'class'=>'CFileLogRoute',
+            'logFile' => 'application.error.log',
+            'enabled'=>!YII_DEBUG,
+            //'enabled'=>YII_DEBUG,
+            /*'categories'=>'system.db.*',*/
+        ),          
+        array(
+  					'levels'=>'warning',
+            'class'=>'CFileLogRoute',
+            'logFile' => 'application.warning.log',
+            'enabled'=>!YII_DEBUG,
+            /*'categories'=>'system.db.*',*/
+        ),          
 				// uncomment the following to show log messages on web pages
 				/*
 				array(
@@ -176,6 +192,6 @@ return array(
     'ideaGalleryFolder'=>'uploads/ideagalleries/',
     'mapsFolder'=>'uploads/maps/',
     'iconsFolder'=>'uploads/icons/',
-    'dbbackup'=>'backup/',
+    'dbbackup'=>'protected/data/backup/',
 	),
 );

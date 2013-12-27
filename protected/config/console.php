@@ -64,6 +64,7 @@ return array(
 				array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',
+          'logFile' => 'console.log',
 				),
 			),
 		),
@@ -93,6 +94,6 @@ return array(
     'ideaGalleryFolder'=>'uploads/ideagalleries/',
     'mapsFolder'=>'uploads/maps/',
     'iconsFolder'=>'uploads/icons/',
-    'dbbackup'=>'backup/',
+    'dbbackup'=>'protected/data/backup/',
 	),    
 );
