@@ -683,32 +683,7 @@ f-line {
 	border-top:2px solid #888;
 }
 
-/*
-.label.label-Paid {
-	border-top:2px solid #89B561;
-	
-}
 
-.label.label-Sweat {
-	border-top:2px solid #389ABF;
-	
-}
-
-.label.label-Equal {
-	border-top:2px solid #DA8817;
-	
-}
-.label.label-Sole {
-	border-top:2px solid #D43E3F;
-	
-}
-
-.label.label-Volunteer  {
-	border-top:2px solid #bbb;
-	
-	 }
-
-*/
 .icon-custom {
 	display: block;
 	width: 100%;
@@ -790,6 +765,14 @@ img.card-avatar,
 #image .secondary {
 	margin-top: 20px;
 }
+
+
+#UserEdit_bio {
+    min-height: 100px;
+}
+
+
+
 
 /* #Special Styles
 ================================================== */
