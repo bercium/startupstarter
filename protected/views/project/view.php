@@ -84,10 +84,28 @@ $idea = $data['idea'];
         $cnum++; 
         ?>
         <div class="panel radius">
-          <h4>
+          <h3 class="mb0">
           <?php echo Yii::t('app','Candidate {n}',array($cnum)) ?>
-          </h4>
-            <div class="skillset-wrap">
+          </h3>
+
+          <?php if ($candidate['city'] || $candidate['country']){ ?>
+            <div class="mb10">
+                
+                <p class="l-inline"><a>
+                    <span class="" data-tooltip title="<img src='<?php echo getGMap($candidate['country'],$candidate['city']); ?>'>">
+                    <?php
+                    echo $candidate['city']; 
+                    if ($candidate['city'] && $candidate['country']) echo ', '; 
+                    echo $candidate['country']; 
+                    ?>
+                    <?php //echo $candidate['address']; ?>
+                    </span>
+                </a></p>
+                
+            </div>
+        <?php } ?> 
+
+        <div class="mb10">
                 <?php
                 foreach ($candidate['skillset'] as $skillset){
                 foreach ($skillset['skill'] as $skill){
@@ -99,42 +117,37 @@ $idea = $data['idea'];
                 }
                 } ?> 
             </div><!-- skillset-wrap end -->
+           
+
+           
 
             <?php if ($candidate['available_name']) { ?>
-            <div class="">
+            <div class="mb10">
                 <h4 class="l-inline"><?php echo Yii::t('app', 'Available') ?></h4>
                 <p class="l-inline"><?php echo $candidate['available_name']; ?></p>
                 
             </div>
             <?php } ?>
-            <?php if ($candidate['city'] || $candidate['country']){ ?>
-            <div class="">
-                <h4 class="l-iblock"><?php echo Yii::t('app', 'Location') ?>
-                <a>
-                    <span class="" data-tooltip title="<img src='<?php echo getGMap($candidate['country'],$candidate['city']); ?>'>">
-                    <?php
-                    echo $candidate['city']; 
-                    if ($candidate['city'] && $candidate['country']) echo ', '; 
-                    echo $candidate['country']; 
-                    ?>
-                    <?php //echo $candidate['address']; ?>
-                    </span>
-                </a>
-                </h4>
-            </div>
-        <?php } ?>            
+
+                    
 
         <?php if (count($candidate['collabpref']) > 0) { ?>
+        <div class="mb10"><h4 class="l-inline"><?php echo Yii::t('app','Collaboration'); ?></h4>
+          <p class="label success">
         <?php
         $firsttime = true;
         if (is_array($candidate['collabpref']))
         foreach ($candidate['collabpref'] as $collab) {
         //if (!$firsttime) echo ", ";
         //$firsttime = false;
-        echo "<h7 class='meta-title'>".$collab['name']."</h7> <br/>";
+        echo $collab['name'];
         }
         ?>
+      </p>
+        </div>
         <?php } ?>
+
+         
 
         </div><!-- panel end -->
        

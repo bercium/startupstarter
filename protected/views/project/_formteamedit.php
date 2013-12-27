@@ -140,7 +140,7 @@ if(is_array($ideadata['candidate'])){
     //if($value['match_id'] != $candidate['id']){
     $cnum++; 
 ?>
-    <div class="row panel idea-panel">
+    <div class="row panel">
 
         <div class="edit-floater">
       

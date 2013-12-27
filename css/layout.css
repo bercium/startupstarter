@@ -505,8 +505,7 @@ sidebar .section-container.auto .section {
 	background: #fff;	
 	border-radius: 4px;
 	padding: 10px 20px 50px 20px;
-	margin-bottom: 50px; 
-	border-top: 1px solid #bbb !important;
+	margin-bottom: 50px; 	
  }
 
 
@@ -1651,9 +1650,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444', endCol
 
 
 
-.jobs .skillset-wrap {
-	margin-bottom:  20px;
-}
+
 
 
 
@@ -1676,7 +1673,7 @@ textarea#IdeaTranslation_pitch {
 }
 
 textarea#IdeaTranslation_description {
-	min-height: 400px;
+	min-height: 350px;
 }
 
 
