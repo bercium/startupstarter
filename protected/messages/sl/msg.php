@@ -217,7 +217,7 @@ return array (
   'Will work and invest equally' => 'Enakovredno delo in investicija',
   'Will work and invest equally in company' => 'Enakovredno delo in investicija v podjetje',
   'With over {n}% you will get much more recognition and better options to be found.' => 'Z več kot {n}% boste bolj prepoznavni in tako imeli več možnosti, da vas kdo najde.',
-  'With the <span>right team</span> any <span>idea</span> can</br> change your life' => 'S <span>pravo ekipo</span> ti lahko <span>ideja</span> </br> spremeni življenje',
+  'With the <span>right team</span> any <span>idea</span> can</br> change your life' => 'S pravo <span>ekipo</span> ti vsaka <span>ideja</span> </br> lahko spremeni življenje',
   'Work for a share in a company' => 'Delo v zameno za lastniški delež',
   'Write an email of team member you wish to add. He will be visible as a part of a team.' => 'Vnesite elektronski naslov osebe, ki jo želite dodati. Ta oseba bo vidna kot član vaše ekipe.',
   'Wrong candidate ID supplied, could not update candidate.' => 'Napačna koda kandidata posredovana zato ga ni bilo možno posodobiti.',

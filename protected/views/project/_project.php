@@ -47,7 +47,7 @@
 
           <section>
             <?php if(isset($idea['candidate'])) $cd = count($idea['candidate']); else $cd = 0; ?>
-            <p class="title" data-section-title><a href="#panel2"><?php echo Yii::t('app','{n} Positions',array("{n}"=>'<strong>'.$cd.'</strong>')); ?></a></p>
+            <p class="title" data-section-title><a href="#panel2"><?php echo Yii::t('app','{n} position|{n} positions',array($cd)); ?></a></p>
               <div class="content" data-section-content>
                 <div class="idea-skills">
                   
@@ -100,7 +100,7 @@
 
           <section>
             <?php if(isset($idea['member'])) $cm = count($idea['member']); else $cm = 0; ?>
-            <p class="title" data-section-title><a href="#panel3"><?php echo Yii::t('app','{n} Members',array('{n}'=>'<strong>'.$cm.'</strong>')); ?></a></p>
+            <p class="title" data-section-title><a href="#panel3"><?php echo Yii::t('app','{n} member|{n} members',array($cm)); ?></a></p>
               <div class="content" data-section-content>
                 <?php 
                 $i = 0;
