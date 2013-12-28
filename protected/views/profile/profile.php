@@ -122,12 +122,12 @@
     <h3><?php echo Yii::t('app', 'Profile details'); ?></h3>
     
   </div>
-  <div class="columns panel edit-content">
+  <div class="columns panel edit-content profile-details">
 
     <!-- moved alert-box success to \protected\views\layouts\edit.php -->
     
     <?php // echo CHtml::beginForm('','post',array('class'=>"custom large-6")); ?>
-    <p>
+    
 			
     <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
     
@@ -139,12 +139,16 @@
 
     <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listDataEx(Available::model()->findAllTranslated(),"id","name"), array('empty' => '&nbsp;','style'=>'display:none')); ?>
     
+    <br><br>
     
-    <?php echo "<label>".Yii::t('app','Collaboration preferences')."</label>"; ?>
+    <?php echo "<h3 class='f-boldup'>".Yii::t('app','Collaboration preferences')."</h3>"; ?>
 
     <span class="description">
        <?php echo Yii::t('msg','What kind of Collaboration do you prefer when working on a project.'); ?>
     </span>
+
+    <br>
+
     
 		<?php foreach ($data['user']['collabpref'] as $colabpref){ ?>
 			<label for="CollabPref_<?php echo $colabpref['collab_id']; ?>">
@@ -154,11 +158,11 @@
     <span class="description">
        <?php 
        switch ($colabpref['collab_id']){
-         case 1:echo Yii::t('msg','Get paid for your work'); break;
-         case 2:echo Yii::t('msg','Work for a share in a company'); break;
-         case 3:echo Yii::t('msg','Will work and invest equally in company'); break;
-         case 4:echo Yii::t('msg','Want to invest in interesting projects only'); break;
-         case 5:echo Yii::t('msg','Just want to help'); break;
+         case 1:echo Yii::t('msg','Get paid for your work'). "<br><br>"; break;
+         case 2:echo Yii::t('msg','Work for a share in a company'). "<br><br>"; break;
+         case 3:echo Yii::t('msg','Will work and invest equally in company'). "<br><br>"; break;
+         case 4:echo Yii::t('msg','Want to invest in interesting projects only'). "<br><br>"; break;
+         case 5:echo Yii::t('msg','Just want to help'). "<br><br>"; break;
        }
         ?>
     </span>      
@@ -174,7 +178,7 @@
     <?php echo CHtml::textArea("extraInformation"); ?>
     <?php //*/ ?> 
           
-		</p>
+		
 		
       <?php /*echo CHtml::submitButton(Yii::t("app","Save"),
             array('class'=>"button small success radius")
