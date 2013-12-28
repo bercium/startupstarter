@@ -161,7 +161,7 @@ $user = $data['user'];
         <h3 class=''>
         <?php echo Yii::t('app', 'Collaboration'); ?>
         </h3>
-
+        <hr>
             <?php
             $firsttime = true;
             if (is_array($user['collabpref'])){ ?>
