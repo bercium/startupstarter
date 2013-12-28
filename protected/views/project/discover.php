@@ -162,7 +162,7 @@
     <div class="hide-for-medium-down">
       <div class="page-navigation">
         <ul class="button-group">
-          <li><a class="button secondary small" href="#page1"><?php echo Yii::t("app", "Page"); ?> 1</a></li>
+          <li><a class="button secondary small radius" href="#page1"><?php echo Yii::t("app", "Page"); ?> 1</a></li>
         </ul>
       </div>
     </div>

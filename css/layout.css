@@ -977,6 +977,27 @@ ml8 {
 }
 
 
+#recent_projects .page-navigation {
+
+
+    background: #efefef;
+    position: fixed !important;
+    left: 0px !important;
+    padding-left: 20px;
+    padding-top: 40px;
+    bottom: 0 !important;
+    padding-right: 10px;
+    width: 120px !important;
+    top: 47px !important;
+    z-index: 0 !important;
+    border-right: 1px solid #ddd;
+
+}
+
+
+
+
+
 .main-quote{
   background-color: #FFF; 
   margin-top:20px; 
