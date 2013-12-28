@@ -23,5 +23,5 @@
 </div>
 <?php } ?>
 
-<?php writeFlash("invitationMessage"); ?>
+<?php //writeFlash("invitationMessage"); ?>
 </div>

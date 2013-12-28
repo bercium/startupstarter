@@ -109,7 +109,7 @@ return array (
   'People searching for regular jobs.' => '',
   'People that just can\'t stop working.' => '',
   'People who have great engineering skills.' => '',
-  'People who understand a programming languages.' => '',
+  'People who understand programming languages.' => '',
   'Person you invited is already in the system.' => '',
   'Personal information saved.' => '',
   'Please check your email. <br />Instructions were sent to your email address.' => '',

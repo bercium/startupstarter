@@ -322,7 +322,7 @@ $idea = $data['idea'];
              <?php if (!$canEdit) { ?>
            
           <?php }else{ ?>
-             <div class="" style="margin-top:5px;"><h4><?php echo Yii::t('app','viewed {n} time|viewed {n} times' . '<h4>' ,array($idea['num_of_clicks'])); ?></div>
+             <div class="" style="margin-top:5px;"><h4><?php echo Yii::t('app','viewed {n} time|viewed {n} times',array($idea['num_of_clicks'])); ?></h4></div>
            <?php } ?>
         </div>
 
