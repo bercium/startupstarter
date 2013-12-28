@@ -766,7 +766,7 @@ class ProfileController extends GxController {
         if ($invitee){
           setFlash("invitationMessage",Yii::t('msg','Person you invited is already in the system.'),'info');
         }else{
-          $invitation = Invite::model()->findByAttributes(array('email'=>$_POST['invite-email'],'key'=>null)); // self invited from system
+          $invitation = Invite::model()->findByAttributes(array('email'=>$_POST['invite-email'],'key'=>null,'registered'=>0)); // self invited from system
 
           if ($invitation){
             // self invitation exists

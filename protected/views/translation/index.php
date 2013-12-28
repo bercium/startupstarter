@@ -28,8 +28,8 @@
 
 <?php 
 foreach ($trans as $id => $row){
-  echo CHtml::label($row['eng']."",'Translations_'.$id);
-  echo CHtml::textField('Translations['.$id.']',$row['trans']);
+  echo "<p>".CHtml::label($row['eng']."",'Translations_'.$id);
+  echo CHtml::textArea('Translations['.$id.']',$row['trans'])."</p>";
 } ?>
 
 <?php echo CHtml::submitButton(Yii::t("app","Save"),array("class"=>"button small success radius")); ?>

@@ -27,8 +27,8 @@ foreach($user['idea'] AS $key => $idea){
         <p class="mt10"><a href="<?php echo Yii::app()->createUrl("project",array('id'=>$key)); ?>"><?php echo $idea['title'];?></a></p>
         <small class="mb10 block">
           <span class=""><?php echo Yii::t('app', 'created on'); ?> </span><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($idea['time_registered']),"long",null); ?> | 
-          <?php echo Yii::t('app', '<span class="">has</span> {n} member| has {n} members',count($idea['member'])); ?> | 
-          <?php echo Yii::t('app', '<span class="">viewed</span> {n} time| viewed {n} times',$idea['num_of_clicks']); ?>
+          <?php echo Yii::t('app', 'has {n} member|has {n} members',count($idea['member'])); ?> | 
+          <?php echo Yii::t('app', 'viewed {n} time|viewed {n} times',$idea['num_of_clicks']); ?>
            </small>
            <small>
           <?php 
@@ -66,7 +66,7 @@ foreach($user['idea'] AS $key => $idea){
           
       <?php  echo CHtml::link(Yii::t("app","Leave project"),Yii::app()->createUrl('project/leaveIdea',array('id'=>$idea['id'])),
                   array('class'=>"button small  secondary radius",
-                        'confirm'=>Yii::t("msg","You are about to leave this project!\nYou will have to be re invited to be a member.")."\n".Yii::t("msg","Are you sure?"),
+                        'confirm'=>Yii::t("msg","You are about to leave this project! You will have to be re invited to be a member.")."\n".Yii::t("msg","Are you sure?"),
                         'onclick'=>"$(document).stopPropagation();",
                       )
               ); ?>

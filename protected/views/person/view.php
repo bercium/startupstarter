@@ -101,15 +101,15 @@ $user = $data['user'];
       <?php if ($vouched){ ?>
       
         <div class="l-block">
-          <a href="<?php echo Yii::app()->createUrl("person",array("id"=>$vouched['id'])); ?>">
+          <p><a href="<?php echo Yii::app()->createUrl("person",array("id"=>$vouched['id'])); ?>">
             <img  src="<?php echo avatar_image($vouched['avatar_link'],$vouched['id']); ?>" alt="<?php echo $vouched['name']." ".$vouched['surname']; ?>" class="card-avatar mb8" />
             <?php echo $vouched['name']." ".$vouched['surname']; ?>
-          </a>
+          </a></p>
         </div>      
       
       <?php }else{ ?>
         <div class="l-block">
-            Cofinder
+            <p>Cofinder</p>
         </div> 
       <?php } ?>
     </div>

@@ -97,20 +97,20 @@
               <li class="divider"></li>
               <?php */ ?>
               <li class="<?php echo isMenuItemActive("about"); ?> desc">
-                <a data-tooltip title="<?php echo Yii::t('app','Find out more about our project!');?>" href="<?php echo Yii::app()->createUrl("site/about"); ?>">
+                <a href="<?php echo Yii::app()->createUrl("site/about"); ?>">
                 <?php echo Yii::t('app','What is {bs}cofinder{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
                 
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","person"); ?> desc">
-                <a <?php if (!Yii::app()->user->isGuest){ echo 'href="'.Yii::app()->createUrl("person/discover").'"'; } else echo ' title="'.Yii::t('msg','Please login to use this functionality!').'"'; ?> data-tooltip title="<?php echo Yii::t('app','Browse between people!');?>">
+                <a <?php if (!Yii::app()->user->isGuest){ echo 'href="'.Yii::app()->createUrl("person/discover").'"'; } else echo ' title="'.Yii::t('msg','Please login to use this functionality!').'" data-tooltip'; ?> >
                   <?php echo Yii::t('app','Find {bs}talent{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","project"); ?> desc">
-                <a <?php if (!Yii::app()->user->isGuest){ echo 'href="'.Yii::app()->createUrl("project/discover").'"'; } else echo ' title="'.Yii::t('msg','Please login to use this functionality!').'"'; ?> data-tooltip title="<?php echo Yii::t('app','Browse between projects!');?>">
+                <a <?php if (!Yii::app()->user->isGuest){ echo 'href="'.Yii::app()->createUrl("project/discover").'"'; } else echo ' title="'.Yii::t('msg','Please login to use this functionality!').'" data-tooltip'; ?>>
                   <?php echo Yii::t('app','Discover {bs}projects{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
               </li>
@@ -182,7 +182,7 @@
               <?php } ?>
               <li class="divider"></li>
               <li class="desc">
-                <a  data-tooltip title="<?php echo Yii::t('app','You can change your language here!');?>" href="#" style="" data-dropdown="langselect"><?php echo Yii::app()->getLanguage(); ?>
+                <a href="#" data-dropdown="langselect"><?php echo Yii::app()->getLanguage(); ?>
                 <br /><small>language</small>
                 </a>
               </li>

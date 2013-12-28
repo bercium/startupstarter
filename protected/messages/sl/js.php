@@ -18,7 +18,7 @@
  */
 return array (
   'Loading...' => 'Nalagam ...',
-  'No more results!' => 'Ni več zadetkov',
-  'Oops, nothing found!' => '',
+  'No more results!' => 'Ni več zadetkov!',
+  'Oops, nothing found!' => 'Ups, nič ni bilo najdeno!',
   'Page' => 'Stran',
 );
