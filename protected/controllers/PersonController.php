@@ -91,7 +91,6 @@ class PersonController extends GxController {
 	}
   
 	/*public function actionContact($id) {
-    $this->redirect(Yii::app()->createUrl("person/view",array("id"=>$id)));
 	}*/
   
   

@@ -22,7 +22,7 @@ if(is_array($ideadata['member'])){
               } ?>
         </div>        
 
-      <a href="<?php echo Yii::app()->createUrl("person/{$member['id']}"); ?>"><h5><img src="<?php echo avatar_image($member['avatar_link'], $member['id']); ?>" width="25"> <?php echo $member['name'] . " ". $member['surname'];?></h5></a>
+      <a href="<?php echo Yii::app()->createUrl("person",array('id'=>$member['id'])); ?>"><h5><img src="<?php echo avatar_image($member['avatar_link'], $member['id']); ?>" width="25"> <?php echo $member['name'] . " ". $member['surname'];?></h5></a>
         
     </div>
 

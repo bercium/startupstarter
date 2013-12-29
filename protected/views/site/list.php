@@ -32,6 +32,7 @@ Users:<br />
 <a href="<?php echo Yii::app()->createUrl("backendUserMatch"); ?>">User Matches</a><br />
 <a href="<?php echo Yii::app()->createUrl("backendUserSkill"); ?>">Users Skills</a><br />
 <a href="<?php echo Yii::app()->createUrl("backendUserCollabpref"); ?>">Users Collabprefs</a><br />
+<a href="<?php echo Yii::app()->createUrl("backendInvite"); ?>">Invites</a><br />
 
 <br />
 Ideje:<br/>

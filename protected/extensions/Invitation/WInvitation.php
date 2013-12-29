@@ -55,26 +55,26 @@ class WInvitation extends CWidget
                   $stat->invites_send = $stat->invites_send+1;
                   $stat->save();
 
-                  $idea = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$invitation->idea_id),array('order' => 'FIELD(language_id, 40) DESC'));
+                  //$idea = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$invitation->idea_id),array('order' => 'FIELD(language_id, 40) DESC'));
 
                   $invite = Invite::model()->findByAttributes(array('email' => $_POST['email'],'idea_id'=>null));
                   if ($invite){
                     //if self invited already
                     if (!$invite->key){
                       // invite
-                      $invitation->sender_id = Yii::app()->user->id;
-                      $invitation->key = md5(microtime().$invitation->email);
+                      $invite->sender_id = Yii::app()->user->id;
+                      $invite->key = md5(microtime().$invitation->email);
                     }
                   }else{
                     // invite user to system
-                    $invitation = new Invite();
-                    $invitation->email = $_POST['invite-email'];
-                    $invitation->sender_id = Yii::app()->user->id;
-                    $invitation->key = md5(microtime().$invitation->email);
+                    $invite = new Invite();
+                    $invite->email = $_POST['invite-email'];
+                    $invite->sender_id = Yii::app()->user->id;
+                    $invite->key = md5(microtime().$invitation->email);
                   }
-                  $invitation->save();
+                  $invite->save();
 
-                  $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'"><strong>Register here</strong></a>';
+                  $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invite->key.'"><strong>Register here</strong></a>';
                   $this->sendMail($invitation->email,
                                   "You have been invited to join cofinder", 
                                   "We've been hard at work on our new service called cofinder.

@@ -235,7 +235,7 @@ $user = $data['user'];
             }
             ?>  
 
-            <a class="" href="<?php echo Yii::app()->createUrl("project/" . $idea_data['id']); ?>">
+            <a class="" href="<?php echo Yii::app()->createUrl("project",array("id"=>$idea_data['id'])); ?>">
               <h5><?php echo $idea_data['title']; ?></h5></a>
             <div class="description"><?php echo trim_text($idea_data['pitch'],100); ?></div>
           </div><?php 

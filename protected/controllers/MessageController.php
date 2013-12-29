@@ -127,7 +127,6 @@ class MessageController extends Controller
     else $this->redirect(Yii::app()->user->returnUrl);      
     //goBackController($this);
     //$this->refresh();
-    //$this->redirect(Yii::app()->createUrl("person/view",array("id"=>$id)));
 	}  
 
 	// Uncomment the following methods and override them if needed

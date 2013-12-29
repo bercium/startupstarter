@@ -32,7 +32,7 @@
       
         ?>
         </div>        
-      <a href="<?php echo Yii::app()->createUrl("project/{$row['id']}"); ?>">
+      <a href="<?php echo Yii::app()->createUrl("project",array("id"=>$row['id'])); ?>">
       <h5>
         <?php echo $row['title']; ?>
       </h5>
