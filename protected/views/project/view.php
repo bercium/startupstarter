@@ -89,7 +89,7 @@ $idea = $data['idea'];
           </h3>
 
           <?php if ($candidate['city'] || $candidate['country']){ ?>
-            <div class="mb10">
+            <div class="">
                 
                 <p class="l-inline"><a>
                     <span class="" data-tooltip title="<img src='<?php echo getGMap($candidate['country'],$candidate['city']); ?>'>">
@@ -105,7 +105,7 @@ $idea = $data['idea'];
             </div>
         <?php } ?> 
 
-        <div class="mb10">
+        <div class="mb10 mt10">
                 <?php
                 foreach ($candidate['skillset'] as $skillset){
                 foreach ($skillset['skill'] as $skill){
@@ -133,17 +133,17 @@ $idea = $data['idea'];
 
         <?php if (count($candidate['collabpref']) > 0) { ?>
         <div class="mb10"><h4 class="l-inline"><?php echo Yii::t('app','Collaboration'); ?></h4>
-          <p class="label success">
+          
         <?php
         $firsttime = true;
         if (is_array($candidate['collabpref']))
         foreach ($candidate['collabpref'] as $collab) {
         //if (!$firsttime) echo ", ";
         //$firsttime = false;
-        echo $collab['name'];
+        echo "<p class='label success'>" . $collab['name'] . "</p>"; 
         }
         ?>
-      </p>
+     
         </div>
         <?php } ?>
 
@@ -261,7 +261,7 @@ $idea = $data['idea'];
                 <?php } ?>
             
 
-        
+        <?php if (($idea['website']) or ($idea['video_link']) or ($idea['link']) ) { ?>
         <div class="panel">
           <?php if ($idea['website']){ ?>
            <div class="item">
@@ -311,6 +311,7 @@ $idea = $data['idea'];
       <?php } ?>
 
       </div>
+       <?php } ?>
 
         <div class="panel">
             <h4 class="l-block">

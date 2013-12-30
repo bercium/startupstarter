@@ -282,7 +282,7 @@
 
 <!-- userreport.com snippet -->
 <script type="text/javascript">
- if (jQuery.cookie('cc_cookie_accept') == "cc_cookie_accept") {
+ 
     var _urq = _urq || [];
     _urq.push(['initSite', 'ff32f930-ced3-4aca-8673-23bef9c3ecc6']);
     (function() {
@@ -290,7 +290,7 @@
     ur.src = 'http://sdscdn.userreport.com/userreport.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
     })();
-    }
+  
 </script> 
 
 

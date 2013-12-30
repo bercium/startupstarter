@@ -187,7 +187,7 @@
                 foreach ($skillset['skill'] as $skill){
                   ?>
 
-          <span data-alert class="label radius secondary profile-skils" id="skill_<?php echo $skill['id']; ?>">
+          <span data-alert class="label radius secondary profile-skills" id="skill_<?php echo $skill['id']; ?>">
               
               <a href="#" class="close right" onclick="removeSkill(<?php echo $skill['id']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteSkill"); ?>')">&times;</a>
               <?php echo $skill['skill']."<small class='skill-industry'>".$skillset['skillset']."</small>"; ?>

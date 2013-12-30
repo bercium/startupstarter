@@ -11,8 +11,8 @@ function addSkill(inUrl)
           data = JSON.parse(indata);
 					if (!data.status){
             skill = '<span data-alert class="label radius secondary profile-skils" id="skill_'+data.data.id+'">';
-            skill += data.data.title+"<br /><small class='meta'>"+data.data.desc+"</small>";
-            if (data.data.multi == 1) skill += '<a href="#" class="close" onclick="removeSkill('+data.data.id+')">&times;</a>';
+            skill += data.data.title+"<br /><small class='skill-industry'>"+data.data.desc+"</small>";
+            if (data.data.multi == 1) skill += '<a href="#" class="close topright" onclick="removeSkill('+data.data.id+')">&times;</a>';
             skill += '</div>';
             $('.skillList').append(skill);
             $('#skill').val('');

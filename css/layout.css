@@ -577,7 +577,7 @@ sidebar .section-container.auto .section {
 	margin-bottom: 10px;
 }
 
-.profile-skills {
+.profile-skils {
  	margin-bottom: 10px;
 
 }
@@ -589,8 +589,8 @@ sidebar .section-container.auto .section {
 	padding: 2px 0 0 0;
 	color: #000;
 	border-top: 1px solid rgba(255,255,255,0.2);
-	
-	
+	text-transform: uppercase;
+	font-weight: bold;
 	margin-top: 7px;
 }
 
@@ -672,14 +672,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f9f9', end
 	border-radius: 3px;
 	
 	border-top:2px solid #888;
-}
-
-
-.icon-custom {
-	display: block;
-	width: 100%;
-	background: pink;
-	height: 30px;
 }
 
 
@@ -768,6 +760,11 @@ img.card-avatar,
 /* #Special Styles
 ================================================== */
 
+.topright {
+    position: absolute;
+    top: 0;
+    right: 5px;
+}
 
 .minwidth200 {
 	min-width: 200px;

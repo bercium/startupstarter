@@ -12,7 +12,7 @@ function addLink(inUrl)
         success:function(indata){
           data = JSON.parse(indata);
 					if (!data.status){
-            link = '<div data-alert class="radius secondary" id="link_div_'+data.data.id+'">';
+            link = '<div data-alert class="radius secondary label" id="link_div_'+data.data.id+'">';
             link += data.data.title+': <a href="http://'+data.data.url+'" target="_blank">'+data.data.url+'</a>';
             link += '<a href="#" class="close" onclick="removeLink('+data.data.id+',\''+data.data.location+'\')">&times;</a>';
             link += '</div>';

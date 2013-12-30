@@ -18,8 +18,14 @@
  position:fixed; width: 100%;
   left: 0; top: 45px; padding: 0.4em 5%;
    z-index: 99999; text-align: center;
+     font-size: 0.9em;
 	line-height: 1.2;
     margin-bottom: 0; text-shadow: none; }
+
+
+.cc-cookies a {
+  font-size: 0.8em;
+}
 
 .cc-cookies a:hover { text-decoration: none; }
 .cc-overlay { height: 100%; padding-top: 25%; }
@@ -43,8 +49,8 @@
   -webkit-border-radius: 3px;
       
         }
-.cc-cookies a.cc-cookie-decline, .cc-cookies-error a.cc-cookie-decline { margin-left: 0.5em; text-transform: lowercase; background: none; border: none;box-shadow: none; }
-.cc-cookies a.cc-cookie-reset { background: #f15b00; }
+.cc-cookies a.cc-cookie-decline, .cc-cookies-error a.cc-cookie-decline { margin-left: 0.5em; text-transform: lowercase; background: none; border:none; color: #4469a6; box-shadow: none; font-weight: normal;   font-size: 0.8em; }
+.cc-cookies a.cc-cookie-reset { background: #f15b00;}
 
 .cc-cookies-error a.cc-cookie-accept, .cc-cookies-error a.cc-cookie-decline { display: block; margin-top: 1em; }
 .cc-cookies.cc-discreet { width: auto; padding: 0.5em 1em; left: auto; top: auto; }
