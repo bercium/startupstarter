@@ -24,6 +24,31 @@
 		<?php echo $form->error($model,'password'); ?>
 		</div><!-- row -->
 		<div class="row">
+		<?php echo $form->labelEx($model,'activkey'); ?>
+		<?php echo $form->textField($model, 'activkey', array('maxlength' => 128)); ?>
+		<?php echo $form->error($model,'activkey'); ?>
+		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'create_at'); ?>
+		<?php echo $form->textField($model, 'create_at'); ?>
+		<?php echo $form->error($model,'create_at'); ?>
+		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'lastvisit_at'); ?>
+		<?php echo $form->textField($model, 'lastvisit_at'); ?>
+		<?php echo $form->error($model,'lastvisit_at'); ?>
+		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'superuser'); ?>
+		<?php echo $form->textField($model, 'superuser'); ?>
+		<?php echo $form->error($model,'superuser'); ?>
+		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'status'); ?>
+		<?php echo $form->textField($model, 'status'); ?>
+		<?php echo $form->error($model,'status'); ?>
+		</div><!-- row -->
+		<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
 		<?php echo $form->textField($model, 'name', array('maxlength' => 128)); ?>
 		<?php echo $form->error($model,'name'); ?>
@@ -54,9 +79,19 @@
 		<?php echo $form->error($model,'newsletter'); ?>
 		</div><!-- row -->
 		<div class="row">
-		<?php echo $form->labelEx($model,'status'); ?>
-		<?php echo $form->textField($model, 'status'); ?>
-		<?php echo $form->error($model,'status'); ?>
+		<?php echo $form->labelEx($model,'invitations'); ?>
+		<?php echo $form->textField($model, 'invitations'); ?>
+		<?php echo $form->error($model,'invitations'); ?>
+		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'bio'); ?>
+		<?php echo $form->textArea($model, 'bio'); ?>
+		<?php echo $form->error($model,'bio'); ?>
+		</div><!-- row -->
+		<div class="row">
+		<?php echo $form->labelEx($model,'vanityURL'); ?>
+		<?php echo $form->textField($model, 'vanityURL', array('maxlength' => 128)); ?>
+		<?php echo $form->error($model,'vanityURL'); ?>
 		</div><!-- row -->
 
 

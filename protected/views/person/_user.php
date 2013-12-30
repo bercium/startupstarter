@@ -94,7 +94,7 @@
             <?php } ?>
             </small>
           </div>
-          <a class="tiny button secondary right radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person/".$user['id']); ?>" target="_blank"><?php echo Yii::t('app','details').' <span class="icon-angle-right"></span>'; ?></a>
+          <a class="tiny button secondary right radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("person".$user['id']); ?>" target="_blank"><?php echo Yii::t('app','details').' <span class="icon-angle-right"></span>'; ?></a>
         </div>
 	  </div>
     

@@ -94,12 +94,12 @@
       <div class="columns edit-header">
         
         <?php if ($group == 'user'){ ?>
-        <a href="<?php echo Yii::app()-> createUrl("person/view",array("id"=>$id)); ?>" >
+        <a href="<?php echo Yii::app()-> createUrl("person",array("id"=>$id)); ?>" >
           <h3 class="large-8"><?php echo $chatList['name']; ?></h3>
         </a>
         <a class="button radius right secondary small" href="#" data-dropdown="drop-msg" onclick="setReplayID('<?php echo $id; ?>','');"><?php echo Yii::t('app',"Send message"); ?></a>
         <?php }else{ ?>
-        <a href="<?php echo Yii::app()-> createUrl("project/view",array("id"=>$id)); ?>" >
+        <a href="<?php echo Yii::app()-> createUrl("project",array("id"=>$id)); ?>" >
           <h3 class="large-8"><?php echo $chatList['name']; ?></h3>
         </a>
         <a class="button radius right secondary small" href="#" data-dropdown="drop-msg" onclick="setReplayID('','<?php echo $id; ?>');" ><?php echo Yii::t('app',"Group message"); ?></a>

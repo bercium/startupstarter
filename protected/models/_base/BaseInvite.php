@@ -45,7 +45,7 @@ abstract class BaseInvite extends GxActiveRecord {
 			array('email', 'required'),
 			array('email', 'email'),
       		array('email', 'unique', 'criteria'=>array(
-            'condition'=>'`idea_id`=:ideaId OR ISNULL(idea_id)',
+            'condition'=>'(`idea_id`=:ideaId OR ISNULL(idea_id)) AND registered = 0',
             'params'=>array(
                 ':ideaId'=>$this->idea_id,
             )
@@ -75,17 +75,17 @@ abstract class BaseInvite extends GxActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => Yii::t('app', 'ID'),
-			'sender_id' => null,
+			'sender_id' => Yii::t('app', 'Sender'),
 			'key' => Yii::t('app', 'Key'),
 			'email' => Yii::t('app', 'Email'),
 			'idea_id' => null,
-			'receiver_id' => null,
+			'receiver_id' => Yii::t('app', 'Receiver'),
 			'senderId' => null,
 			'ideaId' => null,
 			'receiverId' => null,
 			'time_invited' => null,
-      'code'=>null,
-      'registered'=>null,
+      'code'=>Yii::t('app', 'Code'),
+      'registered'=>Yii::t('app', 'Registered'),
 		);
 	}
 

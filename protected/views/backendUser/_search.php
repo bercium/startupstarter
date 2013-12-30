@@ -70,6 +70,21 @@
 		<?php echo $form->dropDownList($model, 'newsletter', array('0' => Yii::t('app', 'No'), '1' => Yii::t('app', 'Yes')), array('prompt' => Yii::t('app', 'All'))); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->label($model, 'invitations'); ?>
+		<?php echo $form->textField($model, 'invitations'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model, 'bio'); ?>
+		<?php echo $form->textArea($model, 'bio'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model, 'vanityURL'); ?>
+		<?php echo $form->textField($model, 'vanityURL', array('maxlength' => 128)); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo GxHtml::submitButton(Yii::t('app', 'Search')); ?>
 	</div>
