@@ -43,7 +43,7 @@ class TranslationController extends Controller
     $file_codeLists = array('app'=>Yii::t('app',"Application strings"),
                        'msg'=>Yii::t('app',"Messages"),
                        'js'=>Yii::t('app',"JS strings"),
-                       'con'=>Yii::t('app',"Content"),);
+                       'cont'=>Yii::t('app',"Content"),);
     
     $translations = array();
     
@@ -93,7 +93,7 @@ class TranslationController extends Controller
     $file_codeLists = array('app'=>Yii::t('app',"Application strings"),
                        'msg'=>Yii::t('app',"Messages"),
                        'js'=>Yii::t('app',"JS strings"),
-                       'con'=>Yii::t('app',"Content"),);    
+                       'cont'=>Yii::t('app',"Content"),);    
     
     if (isset($_POST['language']) && isset($_POST['codelist'])){
       

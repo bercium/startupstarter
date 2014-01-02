@@ -7,26 +7,26 @@
 </h4>
 
 <p>
-  <?php echo Yii::t('con','By accessing this website, you agree to be bound by its Terms and Conditions of Use, all applicable laws and regulations and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this website. The materials contained in it are protected by applicable copyright and trade mark law.');
+  <?php echo Yii::t('cont','By accessing this website, you agree to be bound by its Terms and Conditions of Use, all applicable laws and regulations and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this website. The materials contained in it are protected by applicable copyright and trade mark law.');
   ?>
 </p>
 
 <h4>2. <?php echo Yii::t('app','Cookies'); ?></h4>
 
 <p>
-	<?php echo Yii::t('con','The provider, Cofinder, uses browser cookies (from here on: cookies) at the following website www.cofinder.eu Cookies are text files that are stored on the device of a user visiting a website. When the user returns to the website, the provider can access the information that was saved on the device of the user through the use of cookies.'); ?>
+	<?php echo Yii::t('cont','The provider, Cofinder, uses browser cookies (from here on: cookies) at the following website www.cofinder.eu Cookies are text files that are stored on the device of a user visiting a website. When the user returns to the website, the provider can access the information that was saved on the device of the user through the use of cookies.'); ?>
 </p>
 <p>
-	<?php echo Yii::t('con','The provider may use cookies to ensure that the user receives a smooth and user-friendly experience while browsing and viewing the website. Cookies can also be used to study users, track visitor traffic (for statistical purposes) and improve the efficiency of advertising.<br />	'); ?>
+	<?php echo Yii::t('cont','The provider may use cookies to ensure that the user receives a smooth and user-friendly experience while browsing and viewing the website. Cookies can also be used to study users, track visitor traffic (for statistical purposes) and improve the efficiency of advertising.<br />	'); ?>
 </p>
 <p>
-	<?php echo Yii::t('con','Cookies, and the information gathered with their help, do not offer the details that would allow the provider to identify the user in a way that would violate legislation on the protection of personal data, and do not enable the provider to discover the true identity of visitors. Users can set permissions for blocking or allowing cookies at any time in the web browser they use to access www.cofinder.eu <br />'); ?>
+	<?php echo Yii::t('cont','Cookies, and the information gathered with their help, do not offer the details that would allow the provider to identify the user in a way that would violate legislation on the protection of personal data, and do not enable the provider to discover the true identity of visitors. Users can set permissions for blocking or allowing cookies at any time in the web browser they use to access www.cofinder.eu <br />'); ?>
 </p>
 <p>
-	<?php echo Yii::t('con','Cofinder uses its own cookies at the website www.cofinder.eu  and at the same time enables certain third-parties to install their cookies on the device of the user (i.e. third-party cookies).'); ?>
+	<?php echo Yii::t('cont','Cofinder uses its own cookies at the website www.cofinder.eu  and at the same time enables certain third-parties to install their cookies on the device of the user (i.e. third-party cookies).'); ?>
 </p>
 <p>
-	<?php echo Yii::t('con','Information regarding individual cookies, parties managing the data acquired through the use of cookies, the intended purpose of the collected data, and the duration of each cookie are listed in the following chart:'); ?>
+	<?php echo Yii::t('cont','Information regarding individual cookies, parties managing the data acquired through the use of cookies, the intended purpose of the collected data, and the duration of each cookie are listed in the following chart:'); ?>
 </p>
 
 <table width="100%" cellspacing="0" cellpadding="5" class="tableBorder" style="border-collapse: collapse; border: 1px solid #ddd;">
