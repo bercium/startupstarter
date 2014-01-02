@@ -754,7 +754,7 @@ class ProfileController extends GxController {
   
   
   public function actionCreateInvitation(){
-    $this->layout="//layouts/card";
+    $this->layout="//layouts/none";
     
     if (!empty($_POST['invite-email'])){
     
@@ -801,7 +801,41 @@ class ProfileController extends GxController {
       }
     }
     
-    $this->render('/profile/createInvitation');
+    if (isset($_GET['invite-email'])){
+      $invitation = Invite::model()->findByAttributes(array('email'=>$_GET['invite-email'],'key'=>null,'registered'=>0)); // self invited from system
+      if ($invitation){
+        $invitation->sender_id = Yii::app()->user->id;
+        $invitation->key = md5(microtime().$invitation->email);
+
+        if ($invitation->save()){
+          $user = User::model()->findByPk(Yii::app()->user->id);
+          
+          $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'"><strong>Register here</strong></a>';
+          
+          $message = new YiiMailMessage;
+          $message->view = 'system';      
+
+          $message->subject = "You have been invited to join cofinder";
+          $message->setBody(array("content"=>"We've been hard at work on our new service called cofinder.
+                                          Cofinder is a web platform through which you can share your ideas with the like minded entrepreneurs, search for people to join your project or join an interesting project yourself. 
+                                          <br /><br /> <strong>".$user->name." ".$user->surname."</strong> thinks you might be the right person to test our private beta.
+                                          <br /><br /> If we got your attention you can ".$activation_url."!"), 'text/html');
+
+          $message->addTo($invitation->email);
+          $message->from = Yii::app()->params['noreplyEmail'];
+          Yii::app()->mail->send($message);          
+          
+          
+          setFlash("invitationMessage",Yii::t('msg','Invitation to add new member sent.'));
+
+          $this->refresh();
+        }else setFlash("invitationMessage",Yii::t('msg','Unable to send invitation! Eather user is already invited or the email you provided is incorrect.'),'alert');
+      }
+    }
+    
+    $requests = Invite::model()->findAllByAttributes(array('key'=>null,'registered'=>0,'receiver_id'=>null,'sender_id'=>null),array('order'=>'code, id DESC'));
+    
+    $this->render('/profile/createInvitation',array("requests"=>$requests));
   }
 
   

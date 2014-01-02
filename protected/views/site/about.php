@@ -15,14 +15,14 @@
 		 
 		<p>
 		<?php 
-			echo Yii::t('con','We are a group of enthusiasts with a mission to help anyone with a great idea to assemble a successful start-up team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the like-minded entrepreneurs and search for interesting projects.');
+			echo Yii::t('cont','We are a group of enthusiasts with a mission to help anyone with a great idea to assemble a successful start-up team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the like-minded entrepreneurs and search for interesting projects.');
 		?>
 		</p>
 	
 		
 		<h2><?php echo Yii::t('app','Brief history'); ?></h2>
 		<p>
-      <?php echo Yii::t('con',"The idea was born during the conversation that took place in October, 2012 at PopUp home. Talking to one of the founders of Slovenia co-working made me realise that the concept of co-working could be introduced to a broader community by the online platform. It would help solve a problem of finding the right team to build new products and services. Blaž joined me in the middle of December. He has been facing the same problem, a difficulty finding a reliable team outside his social circles. Soon after that, the third member joined our team. At the end of February, 2013 we developed and presented our concept to Slovenia\'s co-working community. A positive feedback gave us more than enough motivation to proceed with the development of the web platform. The forth member joined our team and the development process soon after that presentation"); ?>
+      <?php echo Yii::t('cont',"The idea was born during the conversation that took place in October, 2012 at PopUp home. Talking to one of the founders of Slovenia co-working made me realise that the concept of co-working could be introduced to a broader community by the online platform. It would help solve a problem of finding the right team to build new products and services. Blaž joined me in the middle of December. He has been facing the same problem, a difficulty finding a reliable team outside his social circles. Soon after that, the third member joined our team. At the end of February, 2013 we developed and presented our concept to Slovenia\'s co-working community. A positive feedback gave us more than enough motivation to proceed with the development of the web platform. The forth member joined our team and the development process soon after that presentation"); ?>
 		</p> 
 		
     </div>

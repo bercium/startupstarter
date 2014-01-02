@@ -73,8 +73,8 @@ $idea = $data['idea'];
  
    
     <!-- jobs -->
+  <?php if (count($idea['candidate']) > 0){ ?>
     <div class="panel radius">
-    <?php if (count($idea['candidate']) > 0){ ?>
     <div class="jobs large-12">
         <h3><?php echo Yii::t('app','Looking for {n} candidate|Looking for {n} candidates',array(count($idea['candidate']))); ?></h3>
 
@@ -154,9 +154,8 @@ $idea = $data['idea'];
         <?php } ?>
     </div>
         
-        
-        <?php } ?>    
     </div>
+  <?php } ?>    
     <!-- jobs end -->
 
           
@@ -219,7 +218,7 @@ $idea = $data['idea'];
                 //if ($i > 3) break;
                 ?>
                 <div class="l-block mb10">
-                <a href="<?php echo Yii::app()->createUrl("person/".$member['id']); ?>">
+                <a href="<?php echo Yii::app()->createUrl("person",array("id"=>$member['id'])); ?>">
                 <img src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" data-tooltip title="<?php echo $member['name']." ".$member['surname']; ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="mini-avatar mr8" />
                 <?php echo $member['name']." ".$member['surname']; ?>
                 </a>
@@ -232,51 +231,46 @@ $idea = $data['idea'];
             </div>
           <?php if (!$canEdit) { ?>
             <a class="button success radius small-12" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact members') ?></a>
-          
-           
            <?php } ?>
         </div>
 
 
-                <?php if (count($idea['translation_other'])){ ?>
-                <div class="panel">
-                  <div class="item bbottom">  
-                  <h4><?php echo Yii::t('app','languages'); ?></h4>
-                  <?php /* ?><p class="l-inline"><?php echo Yii::t('app','You are viewing this in'); ?> <?php echo $idea['language']; ?></p><?php */ ?>
-                  </div>
-                  <p  data-dropdown="data1" class="small dropdown secondary radius button"><?php echo Yii::t('app','Other languages'); ?></a>
-                   
-
-                  <ul id="data1" data-dropdown-content class="f-dropdown">
-                    <li><a style="font-weight: bold;"><?php echo $idea['language']; ?></a></li>
-                    <?php 
-                    foreach ($idea['translation_other'] as $trans){
-                    echo '<li><a href="'.Yii::app()->createUrl("project/view",array("id"=>$idea['id'],'lang'=>$trans['language_code'])).'" >'.$trans['language']."</a></li>";
-                    }
-                    ?>
-                  </ul>
+        <?php if (count($idea['translation_other'])){ ?>
+        <div class="panel">
+          <div class="item bbottom">  
+          <h4><?php echo Yii::t('app','languages'); ?></h4>
+          <?php /* ?><p class="l-inline"><?php echo Yii::t('app','You are viewing this in'); ?> <?php echo $idea['language']; ?></p><?php */ ?>
+          </div>
+          <p  data-dropdown="data1" class="small dropdown secondary radius button"><?php echo Yii::t('app','Other languages'); ?></a>
 
 
-                </div>
-                <?php } ?>
+          <ul id="data1" data-dropdown-content class="f-dropdown">
+            <li><a style="font-weight: bold;"><?php echo $idea['language']; ?></a></li>
+            <?php 
+            foreach ($idea['translation_other'] as $trans){
+            echo '<li><a href="'.Yii::app()->createUrl("project",array("id"=>$idea['id'],'lang'=>$trans['language_code'])).'" >'.$trans['language']."</a></li>";
+            }
+            ?>
+          </ul>
+
+
+        </div>
+        <?php } ?>
             
 
-        <?php if (($idea['website']) or ($idea['video_link']) or ($idea['link']) ) { ?>
-        <div class="panel">
-          <?php if ($idea['website']){ ?>
-           <div class="item">
-              <h4 class="l-block">
-              <?php echo Yii::t('app',"Official web page")?>
-              </h4>
-
-              <img src="<?php echo getLinkIcon($idea['website']); ?>"> <?php echo '<a href="'.add_http($idea['website']).'" target="_blank">'.$idea['website']."</a>"; ?>
-              </div>
-              
-            <?php }?>
-
-        <?php if (!$idea['website']) echo ""; ?>
-
         
+      <?php if ($idea['website'] || $idea['video_link'] || $idea['link']){ ?>
+        <div class="panel">
+        <?php if ($idea['website']){ ?>
+         <div class="item">
+            <h4 class="l-block">
+            <?php echo Yii::t('app',"Official web page")?>
+            </h4>
+
+            <img src="<?php echo getLinkIcon($idea['website']); ?>"> <?php echo '<a href="'.add_http($idea['website']).'" target="_blank">'.$idea['website']."</a>"; ?>
+            </div>
+
+          <?php }?>
         
         <?php if ($idea['video_link']){  ?>
         <div class="item">
@@ -311,7 +305,8 @@ $idea = $data['idea'];
       <?php } ?>
 
       </div>
-       <?php } ?>
+      <?php } ?>
+      
 
         <div class="panel">
             <h4 class="l-block">
