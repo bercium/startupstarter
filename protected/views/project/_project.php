@@ -12,7 +12,7 @@
       <div class="card-content">
         <div class="section-container tabs" data-section="tabs">
           <section class="active">
-          <p class="title" data-section-title><a href="#panel1"><?php echo Yii::t('app','Overview') ?></a></p>
+          <p class="title" data-section-title style="border-left: none;" ><a href="#panel1"><?php echo Yii::t('app','Overview') ?></a></p>
             <div class="content" data-section-content>
               <div class="stageinfo">
                 
