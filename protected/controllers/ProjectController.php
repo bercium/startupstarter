@@ -25,13 +25,18 @@ class ProjectController extends GxController {
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("view","recent","discover","embed"),
+//        'actions'=>array("view","discover","embed"),
+        'actions'=>array("view","embed"),
 				'users'=>array('*'),
 			),
 	    array('allow',
-		        'actions'=>array('create','edit','leaveIdea','deleteIdea','addMember','deleteMember','sAddSkill','sDeleteSkill','translate','deleteTranslation'),
+		        'actions'=>array('create','edit','leaveIdea','deleteIdea','addMember','deleteMember','sAddSkill','sDeleteSkill','sAddLink','sDeleteLink', 'addLink','deleteLink', 'translate','deleteTranslation'),
 		        'users'=>array("@"),
 		    ),
+			array('allow', 
+        'actions'=>array("recent","discover"),  // remove after demo
+				'users'=>array('@'),
+			),
 			array('allow', // allow admins only
 				'users'=>Yii::app()->getModule('user')->getAdmins(),
 			),
@@ -101,6 +106,7 @@ class ProjectController extends GxController {
 			if($step == NULL){
 				$this->sessionReset('idea');
 				$this->sessionReset('candidate');
+				$this->sessionReset('links');
 				$this->redirect(array('project/create', 'step' => 1));
 			}
 			if($step != 1){
@@ -111,6 +117,7 @@ class ProjectController extends GxController {
 		if($id && isset($_SESSION['IdeaCreated']) && $id != $_SESSION['IdeaCreated']){
 			$this->sessionReset('idea');
 			$this->sessionReset('candidate');
+			$this->sessionReset('links');
 			$_SESSION['IdeaCreated'] = $id;
 
 			if($lang){
@@ -152,11 +159,17 @@ class ProjectController extends GxController {
 				$idea = new Idea;
 				$translation = new IdeaTranslation;
 				$member = new IdeaMember;
+				$ideagallery = '';
 
 				//presets
 				if(!isset($_POST['Idea']) AND !isset($_POST['IdeaTranslation'])){
 					$translation->language_id = 40;
 					$translation->description_public = 1;
+				}
+
+				//save posted url early in case the form fails
+				if(isset($_POST['IdeaGallery']['url'])){
+					$ideagallery = $_POST['IdeaGallery']['url'];
 				}
 
 				//idea owner objects
@@ -193,13 +206,29 @@ class ProjectController extends GxController {
 							//set session and go to step 2
 							$_SESSION['IdeaCreated'] = $idea->id;
 
-							Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Project successfully saved."));
+							//save avatar
+							if(isset($_POST['IdeaGallery']['url'])){
+								$this->uploadToGallery($idea->id, $_POST['IdeaGallery']['url'], $cover = true);
+							}
+
+			 				//save links
+			 				if(isset($_SESSION['Links'])){
+			 					foreach($_SESSION['Links'] AS $key => $value){
+			 						$post['IdeaLink']['idea_id'] = $idea->id;
+			 						$post['IdeaLink']['title'] = $value;
+			 						$post['IdeaLink']['url'] = $key;
+			 						$this->actionAddLink($idea->id, $post);
+			 					}
+			 					$this->sessionReset('links');
+			 				}
+
+							setFlash('projectMessage', Yii::t('msg',"Project successfully saved."));
 
 							//redirect
 							if(!$id)
 								$this->redirect(array('project/create', 'step' => 2));
 						} else {
-							Yii::app()->user->setFlash('projectMessageError', Yii::t('msg',"Unable to create project."));
+							setFlash('projectMessage', Yii::t('msg',"Unable to create a project."),'alert');
 						}
 					}
 				}
@@ -214,6 +243,14 @@ class ProjectController extends GxController {
 					$translation = IdeaTranslation::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'language_id' => $language_id, 'deleted' => 0 ) );
 					if($translation == NULL)
 						$translation = IdeaTranslation::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'deleted' => 0 ) );
+
+					//idea gallery cover photo stuff
+					$ideagallery = IdeaGallery::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'cover' => 1 ) );
+          if ($ideagallery) $ideagallery = $ideagallery->url;
+          else $ideagallery = '';
+					if(isset($_POST['IdeaGallery']['url']) && $_POST['IdeaGallery']['url'] != $ideagallery){
+						$ideagallery = $this->uploadToGallery($idea->id, $_POST['IdeaGallery']['url'], $cover = true);
+					}
 
 					if (isset($_POST['Idea']) AND isset($_POST['IdeaTranslation'])) {
 						$_POST['time_updated'] = time();
@@ -230,7 +267,7 @@ class ProjectController extends GxController {
 							//break up keywords and save
 	 						$this->addKeywords($idea->id, $translation->language_id, $_POST['IdeaTranslation']['keywords']);
 						}
-            $idea->time_updated = date('Y-m-d H:i:s');
+            			$idea->time_updated = date('Y-m-d H:i:s');
 						if ($idea->save() && $translation->save()) {
 							//$time_updated = new TimeUpdated;
 							//$time_updated->idea($idea->id);
@@ -239,24 +276,44 @@ class ProjectController extends GxController {
 							if($id){
 								$this->redirect(array('project/edit', 'id' => $id, 'lang' => $lang));
 							} else {
-								$this->redirect(array('project/create', 'step' => 2));
+								//$this->redirect(array('project/create', 'step' => 2));
 							}
 
-							Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Project successfully updated."));
+							setFlash('projectMessage', Yii::t('msg',"Project successfully updated."));
 						} else {
-							Yii::app()->user->setFlash('projectMessageError', Yii::t('msg',"Unable to update project."));
+							setFlash('projectMessage', Yii::t('msg',"Unable to update project."),'alert');
 						}
 					}
 				}
 			}
 
+			//links placeholder
+			$link = new IdeaLink;
+			$links = false;
+
+			if(isset($idea_id)){
+				$links_buffer = new SqlBuilder();
+				$filter['idea_id'] = $idea_id;
+				$links_buffer = $sqlbuilder->link('idea', $filter);
+				foreach($links_buffer AS $key => $value){
+					$links[$value['url']] = $value['title'];
+				}
+			} else {
+				$idea_id = false;
+			}
+
 			//render
-			if(!$id)
-				$this->render('createidea_1', array( 'idea' => $idea, 'translation' => $translation, 'language' => $language, 'ideas'=>$data['user']['idea'] ));
+			if(!$id){
+				if(isset($_SESSION['Links'])){
+					$links = array();
+					$links = $_SESSION['Links'];
+				}
+				$this->render('createidea_1', array( 'idea' => $idea, 'idea_id' => $idea_id, 'translation' => $translation, 'ideagallery' => $ideagallery, 'language' => $language, 'link' => $link, 'links' => $links, 'ideas'=>$data['user']['idea'] ));
+			}
 		}
 		if($step == 2 || $id){
 	      $user = User::model()->findByPk(Yii::app()->user->id);
-	      $invites['data'] = Invite::model()->findAllByAttributes(array("id_idea"=>$id,"id_sender"=>Yii::app()->user->id),'NOT ISNULL(id_idea)');
+	      $invites['data'] = Invite::model()->findAllByAttributes(array("idea_id"=>$id,"sender_id"=>Yii::app()->user->id),'NOT ISNULL(idea_id)');
 	      $invites['count'] = $user->invitations;
 
       
@@ -369,7 +426,7 @@ class ProjectController extends GxController {
 						UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
 						UserSkill::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
 					} else {
-						Yii::app()->user->setFlash('projectPositionMessageError', Yii::t('msg',"Wrong candidate ID supplied, could not update candidate."));
+						setFlash('projectPositionMessage', Yii::t('msg',"Wrong candidate ID supplied, could not update candidate."),'alert');
 					}
 					
 					if($match->save())
@@ -503,12 +560,12 @@ class ProjectController extends GxController {
 				
 				//check if it went okay
 				if ($c == 0 && $s == 0 && $match_saved && $ideamember_saved) {
-					Yii::app()->user->setFlash('projectPositionMessage', Yii::t('msg',"Position successfully opened."));
+					setFlash('projectPositionMessage', Yii::t('msg',"Position successfully opened."));
 					//reset session
 					$candidate_in_edit = false;
 					$this->sessionReset('candidate');
 				}else{
-					Yii::app()->user->setFlash('projectPositionMessageError', Yii::t('msg',"Unable to save open position."));
+					setFlash('projectPositionMessage', Yii::t('msg',"Unable to save open position."),'alert');
 				}
 
 				if($id){
@@ -531,9 +588,9 @@ class ProjectController extends GxController {
 					IdeaMember::Model()->deleteAll("match_id = :match_id", array(':match_id' => $_GET['delete_candidate']));
 					UserMatch::Model()->deleteAll("id = :match_id", array(':match_id' => $_GET['delete_candidate']));
 					
-					Yii::app()->user->setFlash('projectPositionMessage', Yii::t('msg',"Open position deleted."));
+					setFlash('projectPositionMessage', Yii::t('msg',"Open position deleted."));
 				} else {
-					Yii::app()->user->setFlash('projectPositionMessageError', Yii::t('msg',"Could not delete open position."));
+					setFlash('projectPositionMessage', Yii::t('msg',"Could not delete open position."),'alert');
 				}
 
 				if($id){
@@ -582,6 +639,15 @@ class ProjectController extends GxController {
 			if(isset($translation))
 				$data_array['translation'] = $translation;
 
+			if(isset($ideagallery))
+				$data_array['ideagallery'] = $ideagallery;
+
+			if(isset($link))
+				$data_array['link'] = $link;
+
+			if(isset($links))
+				$data_array['links'] = $links;			
+
 			if(isset($language))
 				$data_array['language'] = $language;
 
@@ -594,7 +660,7 @@ class ProjectController extends GxController {
 			if(isset($match))
 				$data_array['match'] = $match;
 
-      $data_array['invite'] = $invites;
+      		$data_array['invite'] = $invites;
       
 			$this->render('editidea', $data_array);
 		}
@@ -665,11 +731,11 @@ class ProjectController extends GxController {
 
 		 			$language = Language::Model()->findByAttributes(array('id' => $translation->language_id));
 
-		 			Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Successfully saved project translation!"));
+		 			setFlash('projectMessage', Yii::t('msg',"The translation of the project was successfully saved."));
 
 					$this->redirect(array('edit', 'id' => $id, 'lang' => $language->language_code));
 				} else {
-					Yii::app()->user->setFlash('projectMessageError', Yii::t('msg',"Could not save project translation."));
+					setFlash('projectMessage', Yii::t('msg',"Could not save project translation."),'alert');
 				}
 			}
 
@@ -701,11 +767,11 @@ class ProjectController extends GxController {
 
 					$time_updated = new TimeUpdated;
 					$time_updated->idea($id);
-          Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Translation successfully removed!"));
+          setFlash('projectMessage', Yii::t('msg',"Translation successfully removed!"));
 				} else {
-					$return['message'] = Yii::t('msg', "Unable to remove translation from project.");
+					$return['message'] = Yii::t('msg', "Unable to remove translation from the project.");
 					$return['status'] = 1;
-          Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Unable to remove translation from project."));
+          setFlash('projectMessage', Yii::t('msg',"Unable to remove translation from the project."),'alert');
 				}
 				
 				if(isset($_GET['ajax'])){
@@ -731,7 +797,7 @@ class ProjectController extends GxController {
 			$idea->deleted = 1;
 				
 			if($idea->save()){
-        Yii::app()->user->setFlash('removeProjectsMessage', Yii::t('msg',"Project successfully removed."));
+        setFlash('removeProjectsMessage', Yii::t('msg',"Project successfully removed."));
 			}
 		}
 
@@ -743,9 +809,9 @@ class ProjectController extends GxController {
 
 	    $ideaMember = IdeaMember::Model()->findByAttributes(array('type_id' => 2,'match_id' => $match->id, 'idea_id' => $id));
 	    if($ideaMember && $ideaMember->delete()){
-	      	Yii::app()->user->setFlash('projectMessage', Yii::t('msg',"Project removed from your account successfully."));
+	      	setFlash('projectMessage', Yii::t('msg',"Project removed from your account successfully."));
 	    } else {
-	    	Yii::app()->user->setFlash('projectMessageError', Yii::t('msg',"Could not remove project from your account."));
+	    	setFlash('projectMessage', Yii::t('msg',"Could not remove project from your account."),'alert');
 	    }
 	    $this->redirect(Yii::app()->createUrl('profile/projects'));
 	}
@@ -860,7 +926,7 @@ class ProjectController extends GxController {
 						$time_updated = new TimeUpdated;
 						$time_updated->idea($id);
 					} else {
-						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to add new member to project.");
+						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to add a new member to the project.");
 						$return['status'] = 1;
 					}
 					
@@ -891,10 +957,10 @@ class ProjectController extends GxController {
         $idea->save();
 				//$time_updated = new TimeUpdated;
 				//$time_updated->idea($id);
-        //setFlash("projectMessage", Yii::t('msg','Member removed from project'));
-        Yii::app()->user->setFlash('projectMessage', Yii::t('msg','Member removed from project'));
+        //setFlash("projectMessage", Yii::t('msg','Member removed from the project'));
+        setFlash('projectMessage', Yii::t('msg','Member removed from the project'));
 			} else {
-				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove member from project.");
+				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove member from the project.");
 				$return['status'] = 1;
 			}
 			
@@ -909,32 +975,226 @@ class ProjectController extends GxController {
 		}else throw new CHttpException(400, Yii::t('msg', 'Your request is invalid.'));
 	}
 
-	//AJAX
-	public function actionRecent($id = 1) {
+	//used before the idea is created
+	public function actionSAddLink() {
+		//check for permission
+		$user_id = Yii::app()->user->id;
 
-		$filter = Yii::app()->request->getQuery('filter', array());
-		$filter['page'] = $id;
+		//idea does not exist yet, no use in checking anything
 
-    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
-    else $filter['per_page'] = 9;
-		
-		$sqlbuilder = new SqlBuilder;
-		$ideas = $sqlbuilder->load_array("recent_updated", $filter);
-		$pagedata = $sqlbuilder->load_array("count_idea", $filter);
+		//status
+		$status = 1;
 
-		$maxPage = ceil($pagedata['num_of_rows'] / $pagedata['filter']['per_page']);
+		if (!empty($_POST['IdeaLink']['title']) && !empty($_POST['IdeaLink']['url'])) {
 
-		if(isset($_GET['ajax'])){
-			$return['data'] = $this->renderPartial('_recent', array("ideas" => $ideas, 'page' => $id, 'maxPage' => $maxPage),true);
-			$return['message'] = '';
+			$key = $_POST['IdeaLink']['url'];
+
+			if(!isset($_SESSION['Links'][$key])){
+
+				$_SESSION['Links'][$key] = $_POST['IdeaLink']['title']; //url -> title
+				$status = 0;
+			} else $status = 1;
+		}
+
+		if($status == 0){
+			$response = array("data" => array("title" => $_POST['IdeaLink']['title'],
+			                                "id" => $key,
+			                                "location" => Yii::app()->createUrl("project/sDeleteLink"),
+			                                "url" => $key,
+			                                "session" => addslashes(serialize($_SESSION)),
+                                      "multi" => 1
+			                ),
+			"status" => 0,
+			"message" => "");
+		} else {
+			$response = array("data" => null,
+							"status" => 1,
+							"message" => Yii::t('msg', "Problem saving link. Please check fields for correct values."));
+		}
+    	echo json_encode($response);
+    	Yii::app()->end();
+	}
+	//used before the idea is created
+	public function actionSDeleteLink() {
+		if (isset($_SESSION['Links'][$_POST['id']])){
+			unset($_SESSION['Links'][$_POST['id']]);
+			$return['message'] = $_POST['id'];
 			$return['status'] = 0;
+		} else {
+			$return['message'] = Yii::t('msg', "Unable to remove link.");
+			$return['status'] = 1;
+		}
+
 			$return = json_encode($return);
 			echo $return; //return array
 			Yii::app()->end();
-		} else {
-			$this->render('recent', array('ideas' => $ideas, 'page' => $id, 'maxPage' => $maxPage));
+	}
+
+	public function actionAddLink($id, $post = false) {
+
+		if($post != false){
+			$_POST = $post;
 		}
-		
+
+		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
+
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $idea->id,'type_id'=>1));
+
+		if($idea && $hasPriviledges){
+
+			$link = new IdeaLink;
+
+			if (isset($_POST['IdeaLink'])) {
+
+				$_POST['IdeaLink']['idea_id'] = $idea->id;
+				$_POST['IdeaLink']['url'] = str_replace("http://", "", $_POST['IdeaLink']['url']);
+
+				$exists = IdeaLink::Model()->findByAttributes(array('idea_id' => $idea->id, 'url' => $_POST['IdeaLink']['url']));
+				if (!$exists) {
+
+					$link->setAttributes($_POST['IdeaLink']);
+
+					if ($link->save()) {
+						$response = array("data" => array("title" => $_POST['IdeaLink']['title'],
+										"url" => $_POST['IdeaLink']['url'],
+										"id" => $_POST['IdeaLink']['url'],
+										"location" => Yii::app()->createUrl("project/deleteLink/".$idea->id)
+								),
+								"status" => 0, // a damo console status kjer je 0 OK vse ostale cifre pa error????
+								"message" => Yii::t('msg', "Link successfully saved to project."));
+					} else {
+						$response = array("data" => null,
+								"status" => 1,
+								"message" => Yii::t('msg', "Problem saving link. Please check fields for correct values."));
+					}
+				} else {
+					$response = array("data" => null,
+							"status" => 1,
+							"message" => Yii::t('msg', "Project already has this link."));
+				}
+
+				if($post == false){
+					echo json_encode($response);
+					Yii::app()->end();
+				} else {
+					return $response;
+				}
+			}
+		}
+	}
+
+	public function actionDeleteLink($id) {
+
+		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
+
+		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $idea->id,'type_id'=>1));
+
+		if($idea && $hasPriviledges){
+
+			$url = 0;
+			if (isset($_POST['id']))
+				$url = $_POST['id'];
+
+			if ($idea->id > 0 && $url) {
+
+				$link = IdeaLink::Model()->findByAttributes(array('url' => $url,'idea_id' => $idea->id));
+
+				if ($link->delete()) {
+					$response = array("data" => array("id" => $link_id),
+							"status" => 0,
+							"message" => "Link successfully removed from project.");
+				} else {
+					$response = array("data" => null,
+							"status" => 1,
+							"message" =>  Yii::t('msg', "Unable to remove link."));
+				}
+			}
+		}
+
+		echo json_encode($response);
+		Yii::app()->end();
+	}
+
+	public function actionUpload() {
+		Yii::import("ext.EAjaxUpload.qqFileUploader");
+
+		$folder = Yii::app()->basePath . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . Yii::app()->params['tempFolder']; // folder for uploaded files
+
+		if (!is_dir($folder)) {
+			mkdir($folder, 0777, true);
+			//mkdir( $folder );
+			//chmod( $folder, 0777 );
+		}
+
+		$allowedExtensions = array("jpg", "jpeg", "png"); //array("jpg","jpeg","gif","exe","mov" and etc...
+		$sizeLimit = 10 * 1024 * 1024; // maximum file size in bytes
+		$uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
+		$result = $uploader->handleUpload($folder);
+		$return = json_encode($result);
+
+		echo $return; // it's array
+	}
+
+	public function uploadToGallery($id, $link, $cover = true){
+
+		/*
+		add to gallery
+			-action to upload image
+		edit gallery
+			-action/view to edit gallery
+		set cover image
+			-action to 
+		remove from gallery
+			-action to unlink image/unset from db
+		*/
+
+		$filename = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . Yii::app()->params['tempFolder'] . $link;
+
+		// if we need to create avatar image
+		if (is_file($filename)) {
+			$newFilePath = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . Yii::app()->params['ideaGalleryFolder'];
+			//$newFilePath = Yii::app()->params['avatarFolder'];
+			if (!is_dir($newFilePath)) {
+				mkdir($newFilePath, 0777, true);
+				//chmod( $newFilePath, 0777 );
+			}
+			$newFileName = str_replace(".", "", microtime(true)) . "." . pathinfo($filename, PATHINFO_EXTENSION);
+
+			if (rename($filename, $newFilePath . $newFileName)) {
+				// make a thumbnail for avatar
+				Yii::import("ext.EPhpThumb.EPhpThumb");
+				$thumb = new EPhpThumb();
+				$thumb->init(); //this is needed
+				$thumb->create($newFilePath . $newFileName)
+								->resize(30, 30)
+								->save($newFilePath . "thumb_30_" . $newFileName);
+				$thumb->create($newFilePath . $newFileName)
+								->resize(60, 60)
+								->save($newFilePath . "thumb_60_" . $newFileName);
+				$thumb->create($newFilePath . $newFileName)
+								->resize(150, 150)
+								->save($newFilePath . "thumb_150_" . $newFileName);
+
+				//insert
+				$idea_gallery = new IdeaGallery;
+				$idea_gallery->cover = 0;
+				if($cover == true){
+					$idea_gallery->cover = 1;
+					IdeaGallery::model()->updateAll(array('cover'=>0),"cover='1' AND idea_id='{$id}'"); 
+				}
+				
+				$idea_gallery->url = $newFileName;
+				$idea_gallery->idea_id = $id;
+
+				$idea_gallery->save();
+
+				return $newFileName;
+			}
+		}
+
+		return false;
 	}
 
 	public function sessionReset($type){
@@ -961,7 +1221,42 @@ class ProjectController extends GxController {
 			
 		} elseif($type == 'idea'){
 			unset($_SESSION['IdeaCreated']);
+		} elseif($type == 'links'){
+			if(isset($_SESSION['Links'])){
+				foreach($_SESSION['Links'] as $key => $value){
+					unset($_SESSION['Links'][$key]);
+				}
+				unset($_SESSION['Links']);
+			}
 		}
+	}
+
+	//AJAX
+	public function actionRecent($id = 1) {
+
+		$filter = Yii::app()->request->getQuery('filter', array());
+		$filter['page'] = $id;
+
+	    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
+	    else $filter['per_page'] = 9;
+		
+		$sqlbuilder = new SqlBuilder;
+		$ideas = $sqlbuilder->load_array("recent_updated", $filter);
+		$pagedata = $sqlbuilder->load_array("count_idea", $filter);
+
+		$maxPage = ceil($pagedata['num_of_rows'] / $pagedata['filter']['per_page']);
+
+		if(isset($_GET['ajax'])){
+			$return['data'] = $this->renderPartial('_recent', array("ideas" => $ideas, 'page' => $id, 'maxPage' => $maxPage),true);
+			$return['message'] = '';
+			$return['status'] = 0;
+			$return = json_encode($return);
+			echo $return; //return array
+			Yii::app()->end();
+		} else {
+			$this->render('recent', array('ideas' => $ideas, 'page' => $id, 'maxPage' => $maxPage));
+		}
+		
 	}
   
   public function actionEmbed($id){

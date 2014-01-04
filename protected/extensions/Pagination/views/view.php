@@ -18,9 +18,11 @@
 
 
 	<?php if ($page < $maxPage){ ?>
-	<li class="arrow"><a href="<?php echo Yii::app()->createUrl($url,array_merge($getParams,array("id"=>$page+1))); ?>">&raquo;</a></li>
+	<li class="arrow"><a href="<?php echo Yii::app()->createUrl($url,array_merge($getParams,array("id"=>$page+1))); ?>"><span class="icon-angle-right"></span>
+</a></li>
 	<?php }else{ ?>
-	<li class="arrow unavailable"><a>&raquo;</a></li>
+	<li class="arrow unavailable"><a><span class="icon-angle-right"></span>
+</a></li>
 	<?php } ?>
 </ul>
 <?php } ?>

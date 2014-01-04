@@ -1,12 +1,6 @@
 <?php
 	$this->pageTitle = ''; // leave this empty
 	$this->pageDesc = '';
-
-  $baseUrl = Yii::app()->baseUrl; 
-  $cs = Yii::app()->getClientScript();
-  
-  $cs->registerCssFile($baseUrl.'/css/ui/jquery-ui-1.10.3.custom.min.css');
-  $cs->registerScriptFile($baseUrl.'/js/jquery-ui-1.10.3.custom.min.js',CClientScript::POS_END);
 ?>
 
 <?php /* ?><div id="intro1" style="background-position: 40% 0px; padding-bottom: 1px; padding-top: 30px;"><?php */ ?>
@@ -20,41 +14,70 @@
 
 <?php //if (!Yii::app()->user->getState('fpi')){ ?>
 
-<?php if (Yii::app()->user->isGuest){ ?>
+<?php /* if (Yii::app()->user->isGuest){ ?>
 <div  class="row" >
   <div class="column hide-for-small">
     <img class="logo image-beta" alt="Invite" title="invite" src="<?php echo Yii::app()->request->baseUrl; ?>/images/invite-<?php echo Yii::app()->getLanguage(); ?>.png" style="position: absolute; top: -4px; right:-10px; z-index: 98;" />
   </div>
 </div>
-<?php } ?>
+<?php } */ ?>
 
 
 <div class="intro" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
   <div  class="row" >
-    <div class="large-10 large-offset-1 columns" style="text-align: center;">
+    <div class="large-10 columns large-centered">
+    	
 
 <!-- Content if guest -->
-      <h1><?php echo Yii::t('msg','With the <span>right team</span> any <span>idea</span> can <br />change your life'); ?></h1>
+      <h1><?php echo Yii::t('msg','With the <span>right team</span> any <span>idea</span> can</br> change your life'); ?></h1>
+      
+
       <p>
-          <?php echo Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the like minded entrepreneurs and search for interesting projects to join.'); ?>
+          <?php echo Yii::t('msg','We are a group of enthusiasts with a mission to help anyone with a great idea to assemble a successful start-up team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the like-minded entrepreneurs and search for interesting projects.'); ?>
       </p><br />
     </div>
+    
+    <?php if (!Yii::app()->user->isGuest){  ?>
     <div class="center columns hide-for-small">
       <div class="right">
-      <?php if (Yii::app()->user->isGuest){ ?>
-      <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" class="button radius success" ><?php echo Yii::t('app','Find talent'); ?></a> 
-      <span style="margin-left:20px;"> <?php echo Yii::t('app','or'); ?> </span>
-      <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" class="button radius " ><?php echo Yii::t('app','Discover projects'); ?> </a>
-      <?php }else{ ?>
-      <h4 >
-      <?php echo Yii::t('msg',"{username} welcome to cofinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
-      </h4>
-      <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" class="button radius success" ><?php echo Yii::t('app','Find a cofounder'); ?></a> 
-      <span style="margin-left:20px;"> <?php echo Yii::t('app','or'); ?> </span>
-      <a href="<?php echo Yii::app()->createUrl("project/create"); ?>" class="button radius" ><?php echo Yii::t('app','Create your project'); ?> </a>
-      <?php } ?>
+        <h4 >
+        <?php echo Yii::t('msg',"{username} Welcome to cofinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
+        </h4>
+        <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" class="button radius success" ><?php echo Yii::t('app','Find a cofounder'); ?></a> 
+        <span style="margin:0 13px 0 0px;"> <?php echo Yii::t('app','or'); ?> </span>
+        <a href="<?php echo Yii::app()->createUrl("project/create"); ?>" class="button radius" ><?php echo Yii::t('app','Create your project'); ?> </a>
+        
       </div>
     </div>
+    <?php }else{ ?>
+    
+   <div class="center columns">
+      <div class="right large-5 small-12">
+        
+        <?php echo CHtml::beginForm(Yii::app()->createUrl("site/notify"),'post',array("style"=>"margin-bottom:0;")); ?>
+        
+        <h2 style="margin-bottom:5px;">
+          <label for="email" style="font-size:1em; font-weight: bold;">
+            <?php echo Yii::t('app','Want to get invited?'); ?>
+          </label>
+        </h2>
+        <span class="description">
+        <?php echo Yii::t('msg','Leave your email address and we will get back to you.'); ?>
+        </span>
+        <div class="row collapse">
+          <div class="small-9 columns">
+            <?php echo CHtml::textField("email") ?>
+          </div>
+          <div class="small-3 columns">
+             <?php echo CHtml::submitButton(Yii::t("app","YES"),array("class"=>"postfix button radius success")); ?>
+          </div>
+        </div>  
+
+        <?php echo CHtml::endForm(); ?>
+
+      </div>
+    </div>
+    <?php } ?>
     
   </div>
 </div>
@@ -88,16 +111,16 @@ $("#showhide").click(function() {
 
 	<?php } ?>
 
-
 	<?php if (isset($data['idea'])){ ?>
+<br />
 
 		<div class="row" id="recent_projects">
 			<?php $this->renderPartial('//project/_recent', array('ideas' => $data['idea'],"page"=>1,"maxPage"=>$maxPageIdea)); ?>
 		</div>
 
-	<?php } ?>
-<hr>
-<?php 
+	<?php } 
+  //if (!Yii::app()->user->isGuest) echo "<hr>";
+  
 Yii::log(arrayLog($data['idea']), CLogger::LEVEL_INFO, 'custom.info.idea'); 
 Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user'); 
 
@@ -105,9 +128,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 
 
 
-
-
-
+<?php /* if ( false && !Yii::app()->user->isGuest){ ?>
 
 
 <div class="row panel searchpanel radius" style="margin-top: 40px;">
@@ -131,11 +152,11 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
       </div>
       
 		  <div class="large-7 columns">
-					<a class="exp_srch button small secondary right round" href="#" onclick="$('.advance').toggle(); return false;"><?php echo Yii::t('app','Advanced search'); ?> <span class="icon-caret-down"></span></a>
+					<a class="exp_srch button small secondary right radius" href="#" onclick="$('.advance').toggle(); return false;"><?php echo Yii::t('app','Advanced search'); ?> <span class="icon-caret-down"></span></a>
       </div>
 		</div>
 
-    <?php echo CHtml::beginForm(Yii::app()->createUrl("site/index")."#filter_search",'get',array('class'=>"custom","style"=>"margin-bottom:0;")); ?>
+    <?php echo CHtml::beginForm(Yii::app()->createUrl("site/index")."#filter_search",'get',array("style"=>"margin-bottom:0;")); ?>
 		<?php echo CHtml::hiddenField("SearchForm[isProject]", "1");  ?>
 		
 		<div class="row filter_projects" <?php if (!$filter->isProject) echo 'style="display:none"'; ?>>
@@ -146,7 +167,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 				<?php echo CHtml::activedropDownList($filter,'stage', 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
               CHtml::listData(IdeaStatus::model()->findAllTranslated(),"id","name")
-							, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
+							, array('empty' => '&nbsp;')); ?>
 			</div>
 
 			<div class="large-3 columns">
@@ -156,7 +177,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 				<?php echo CHtml::activedropDownList($filter,'language', 
 							//GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
 							CHtml::listData(Language::model()->findAllAttributes(null, true),"id","native_name")
-							, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
+							, array('empty' => '&nbsp;')); ?>
 			</div>
 
 			<div class="large-3 columns">
@@ -204,7 +225,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 						<?php echo CHtml::dropDownList('SearchForm[collabPref]',$filter->collabPref, 
 									//GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
 									CHtml::listData(Collabpref::model()->findAllTranslated(),"id","name")
-									, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
+									, array('empty' => '&nbsp;')); ?>
 					</div>
 				
 					<div class="large-3 columns">
@@ -214,15 +235,15 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 						<?php echo CHtml::dropDownList('SearchForm[available]',$filter->available, 
 									//GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
 									CHtml::listData(Available::model()->findAllTranslated(),"id","name")
-									, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
+									, array('empty' => '&nbsp;')); ?>
 					</div>	
 
 					<div class="large-3 extra_detail columns end">
 						<label for="SearchForm_extraDetail">
-							<?php echo CHtml::activeCheckBox($filter,'extraDetail',array("style"=>"display:none")); ?>
+							<?php echo CHtml::activeCheckBox($filter,'extraDetail',array()); ?>
 							<?php echo Yii::t('app','Has extra detail'); ?>
 						</label>
-					</div>			
+          </div>
 					
 				
 			</div>			
@@ -241,7 +262,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 				<?php echo CHtml::dropDownList('SearchForm[collabPref]',$filter->collabPref, 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
               CHtml::listData(Collabpref::model()->findAllTranslated(),"id","name")
-							, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
+							, array('empty' => '&nbsp;')); ?>
 				
 				
 			</div>
@@ -252,7 +273,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 				<?php echo CHtml::dropDownList('SearchForm[available]',$filter->available, 
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
               CHtml::listData(Available::model()->findAllTranslated(),"id","name")
-							, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
+							, array('empty' => '&nbsp;')); ?>
 			</div>
 			<?php /* ?>
 			<div class="large-3 columns">
@@ -263,7 +284,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
               //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
               CHtml::listData(Country::model()->findAll(),"id","name")
 							, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
-			</div><?php */ ?>
+			</div><?php //* / ?>
 			<div class="large-3 columns">
 				<label><?php echo Yii::t('app','Country'); ?></label>
 				<?php echo CHtml::textField('SearchForm[country]',$filter->country,array("class"=>"country")); ?>
@@ -302,10 +323,6 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 
 
 
-
-
-
-
 <?php if ($filter->checkSearchForm()){ ?>
 <div class="row" id="recent_projects">
 	<?php
@@ -314,9 +331,9 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 		?>
   
     <div class="hide-for-medium-down">
-      <div class="page-navigation">
+      <div class="page-navigation panel">
         <ul>
-          <li><a href="#page1"><?php echo Yii::t("app", "Page"); ?> 1</a></li>
+          <li><a  href="#page1"><?php echo Yii::t("app", "Page"); ?> 1</a></li>
         </ul>
       </div>
     </div>
@@ -327,6 +344,7 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
         <a id="page<?php echo $searchResult['page']; ?>" class="anchor-link"></a>
         
         <h5><?php echo Yii::t("app","Page")." ".$searchResult['page']; ?></h5>
+
         <ul class="small-block-grid-1 large-block-grid-3">
           <?php
           if(is_array($searchResult['data']) > 0){
@@ -347,9 +365,33 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 		</div>
 	<?php }else{	?>
 	
-	<h3><?php echo Yii::t('msg','No results found with this filters.') ?></h3>
+	<h3><?php echo Yii::t('msg','No results found with these filters.') ?></h3>
 	
 	<?php } ?>
-</div>	
-<?php } ?>
 
+</div>	
+<?php } 
+
+}
+*/
+?>
+
+
+
+<div class="main-quote">
+  
+  <div class="row" >
+    <div class="columns large-centered">
+    	<h2><?php echo Yii::t('app','What others are saying'); ?></h2>
+    	<div class="large-2 columns">
+        <img class="mt20" src='<?php echo Yii::app()->request->baseUrl; ?>/images/logo-biome3cs.png'>
+      </div>
+      <blockquote class="columns large-10">
+      	<span class="icon-quote-left large"></span>
+        V podjetju Biome3cs d.o.o, smo se podobno kot številna druga start-up podjetja srečali s problemom pomanjkanja specifičnega kadra. S pomočjo platforme cofinder smo uspešno našli manjkajoče člene v naši ekipi, s katerimi še vedno uspešno sodelujemo. S platformo cofinder smo zelo zadovoljni in jo priporočamo vsem, ki želijo na najbolj enostaven in hiter način najti ljudi, ki bi jim pomagali uresničiti svojo idejo 
+        <span class="icon-quote-right large"></span>
+      </blockquote>
+    </div>  
+  </div>  
+  
+</div>

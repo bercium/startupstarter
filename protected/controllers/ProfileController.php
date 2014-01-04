@@ -29,7 +29,7 @@ class ProfileController extends GxController {
 				array('allow',
 						'actions' => array('index', 'view', 'projects', 'account','upload','removeIdea','addIdea', 
                                'addLink','deleteLink','addSkill','deleteSkill','suggestSkill',
-                               'notification','acceptInvitation'),
+                               'notification','acceptInvitation','completeness'),
 						'users' => array("@"),
 				),
 				array('allow', // allow admins only
@@ -78,7 +78,7 @@ class ProfileController extends GxController {
 			$thumb = new EPhpThumb();
 			$thumb->init(); //this is needed
 			$thumb->create($folder . $fileName)
-							->adaptiveResize(150, 150)
+							->adaptiveResize(250, 250)
 							->save($folder . $fileName);
 		}
 
@@ -166,7 +166,7 @@ class ProfileController extends GxController {
 								}
 
 								//if ($user->save()) {
-								//  Yii::app()->user->setFlash('avatarMessage',Yii::t('msg',"Avatar saved."));
+								//  setFlash('avatarMessage',Yii::t('msg',"Avatar saved."));
 								//}
 							}else
 								$user->avatar_link = '';
@@ -193,7 +193,9 @@ class ProfileController extends GxController {
 			            }
 
 						if ($match->save()) {
-							Yii::app()->user->setFlash('personalMessage', Yii::t('msg',"Personal information saved."));
+              $c = new Completeness();
+              $c->setPercentage($user_id);
+							setFlash('personalMessage', Yii::t('msg',"Personal information saved."));
 							/* if (Yii::app()->getRequest()->getIsAjaxRequest())
 							  Yii::app()->end();
 							  else
@@ -220,10 +222,12 @@ class ProfileController extends GxController {
           }
           
           if (($c == 0) && ($match->save())) {
-            if (Yii::app()->user->isGuest) Yii::app()->user->setFlash('profileMessage', Yii::t('msg',"Profile details saved. Please check your mail for activation code."));
-            else Yii::app()->user->setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
+            if (Yii::app()->user->isGuest) setFlash('profileMessage', Yii::t('msg',"Profile details saved. Please check your email for activation code."));
+            else setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
+            $c = new Completeness();
+            $c->setPercentage($user_id);
           }else{
-            Yii::app()->user->setFlash('profileMessageError', Yii::t('msg',"Unable to save profile details."));
+            setFlash('profileMessage', Yii::t('msg',"Unable to save profile details."),'alert');
           }
           
         }
@@ -275,30 +279,49 @@ class ProfileController extends GxController {
 
 		$user_id = Yii::app()->user->id;
 		$user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
-		$fpi = !Yii::app()->user->getState('fpi'); // sinc it is not defined default value is 0 and it must be visible
+		//$fpi = !Yii::app()->user->getState('fpi'); // sinc it is not defined default value is 0 and it must be visible
 
-		
+    $us = UserStat::model()->findByAttributes(array("user_id"=>$user_id));
+        // set only if has invited at least 3 other people
+    $allowVanityURL = (($user->vanityURL != '') || ($us->invites_send > 2));
+        
 		if ($user) {
 
 			if (isset($_POST['UserEdit'])) {
 				//$_POST['UserEdit']['name'] = $user->name;
-				$fpi = $_POST['UserEdit']['fpi'];
-				Yii::app()->user->setState('fpi', !$fpi);
+				//$fpi = $_POST['UserEdit']['fpi'];
+				//Yii::app()->user->setState('fpi', !$fpi);
 
-				unset($_POST['UserEdit']['fpi']); // since we don't have it in our user model
+				//unset($_POST['UserEdit']['fpi']); // since we don't have it in our user model
 				$_POST['UserEdit']['email'] = $user->email; // can't change email at this time!!!
+        
+        // set only if has invited at least 3 other people
+        if (!$allowVanityURL && ($_POST['UserEdit']['vanityURL'] != '')) $_POST['UserEdit']['vanityURL'] = '';
+        else{
+          // check validity of vanity URL in projects
+          if ($_POST['UserEdit']['vanityURL'] != $user->vanityURL){
+            $ideaURL = Idea::model()->findByAttributes(array('vanityURL'=>$_POST['UserEdit']['vanityURL']));
+            if ($ideaURL){
+              echo "b";
+              $user->addError('vanityURL', Yii::t('msg',"This custom URL already exists."));
+            }
+          }
+        }
+        
 				$user->setAttributes($_POST['UserEdit']);
-
-				if ($user->save()) {
+        
+				if (!$user->hasErrors() && $user->save()) {
 					if ($user->language_id !== null) {
 						$lang = Language::Model()->findByAttributes(array('id' => $user->language_id));
 						ELangPick::setLanguage($lang->language_code);
 					}
+          $c = new Completeness();
+          $c->setPercentage($user_id);
 
 					/* if (Yii::app()->getRequest()->getIsAjaxRequest())
 					  Yii::app()->end();
 					  else{ */
-					Yii::app()->user->setFlash('settingsMessage', Yii::t('msg',"Settings saved."));
+					setFlash('settingsMessage', Yii::t('msg',"Settings saved."));
 					//$this->redirect(array('profile/account/'));
 					//}
 				}
@@ -315,13 +338,13 @@ class ProfileController extends GxController {
 			if (isset($_POST['UserChangePassword'])) {
 				$form2->attributes = $_POST['UserChangePassword'];
 				if ($form2->validate()) {
-					$find->password = UserModule::encrypting($form2->password);
+					$find->password = UserModule::createHash($form2->password);
 					$find->activkey = UserModule::encrypting(microtime() . $form2->password);
 					if ($find->status == 0) {
 						$find->status = 1;
 					}
 					$find->save();
-					Yii::app()->user->setFlash('passChangeMessage', Yii::t('msg',"New password is saved."));
+					setFlash('passChangeMessage', Yii::t('msg',"New password is saved."));
 					//$this->redirect(Yii::app()->controller->module->recoveryUrl);
 				}
 			}
@@ -331,7 +354,7 @@ class ProfileController extends GxController {
 			$data['user'] = $sqlbuilder->load_array("user", $filter);
 			//$this->ideas = $data['user']['idea'];
 
-			$this->render('account', array('user' => $user, "passwordForm" => $form2, "fpi" => $fpi, 'ideas'=>$data['user']['idea']));
+			$this->render('account', array('user' => $user, "passwordForm" => $form2, /*"fpi" => $fpi,*/ 'ideas'=>$data['user']['idea'],'allowVanityURL'=>$allowVanityURL));
 		}
 	}
 
@@ -363,8 +386,10 @@ class ProfileController extends GxController {
 			}
 
 			if ($allgood) {
-				$return['message'] = Yii::t('msg', "Project removed successfully!");
+				$return['message'] = Yii::t('msg', "Project successfully removed!");
 				$return['status'] = 0;
+        $c = new Completeness();
+        $c->setPercentage($user_id);
 			} else {
 				$return['message'] = Yii::t('msg', "Unable to remove project from your account.");
 				$return['status'] = 1;
@@ -408,8 +433,11 @@ class ProfileController extends GxController {
 				}
 
 				if ($allgood) {
-					$return['message'] = Yii::t('msg', "Successfully updated collaboration preferences!");
+					$return['message'] = Yii::t('msg', "The collaboration preferences were successfully updated.");
 					$return['status'] = 0;
+          
+          $c = new Completeness();
+          $c->setPercentage($user_id);
 				} else {
 					$return['message'] = Yii::t('msg', "Unable to update collaboration preferences.");
 					$return['status'] = 1;
@@ -443,6 +471,7 @@ class ProfileController extends GxController {
 		$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
 		$match_id = $match->id;
 
+    $response = '';
 		//check for permission
 		if ($user_id > 0) {
 
@@ -488,7 +517,9 @@ class ProfileController extends GxController {
             }
 
             if ($user_skill->save()){
-
+              $c = new Completeness();
+              $c->setPercentage($user_id);
+              
               $skillset = Skillset::model()->findByPk($_POST['skillset']);
 
               $language = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
@@ -513,11 +544,11 @@ class ProfileController extends GxController {
                 "message" => Yii::t('msg', "Problem saving skill. Please check fields for correct values."));
               break;
             }
-          }/*else{
+          }else{
               $response = array("data" => null,
                 "status" => 1,
                 "message" => Yii::t('msg', "You already have this skill."));
-          }*/
+          }
 
         }
         echo json_encode($response);
@@ -565,6 +596,9 @@ class ProfileController extends GxController {
 			if ($skill->delete()) { //delete
 				$return['message'] = '';
 				$return['status'] = 0;
+        
+        $c = new Completeness();
+        $c->setPercentage($user_id);        
 			} else {
 				$return['message'] = Yii::t('msg', "Unable to remove skill.");
 				$return['status'] = 1;
@@ -632,7 +666,6 @@ class ProfileController extends GxController {
 			if (isset($_POST['UserLink'])) {
 
 				$_POST['UserLink']['user_id'] = $user_id;
-//				$linkURL = str_replace("http://", "", $_POST['UserLink']['url']);
 				$linkURL = $_POST['UserLink']['url'];
 
 				$exists = UserLink::Model()->findByAttributes(array('user_id' => $user_id, 'url' => $linkURL));
@@ -642,6 +675,9 @@ class ProfileController extends GxController {
 					$link->url = $linkURL;
 
 					if ($link->save()) {
+            $c = new Completeness();
+            $c->setPercentage($user_id);
+
 						$response = array("data" => array("title" => $_POST['UserLink']['title'],
 										"url" => $linkURL,
 										"id" => $link->id,
@@ -678,6 +714,9 @@ class ProfileController extends GxController {
 			$link = UserLink::Model()->findByAttributes(array('id' => $link_id,'user_id' => $user_id));
 
 			if ($link->delete()) {
+        $c = new Completeness();
+        $c->setPercentage($user_id);
+        
 				$response = array("data" => array("id" => $link_id),
 						"status" => 0,
 						"message" => "Link successfully removed from profile.");
@@ -715,7 +754,7 @@ class ProfileController extends GxController {
   
   
   public function actionCreateInvitation(){
-    $this->layout="//layouts/card";
+    $this->layout="//layouts/none";
     
     if (!empty($_POST['invite-email'])){
     
@@ -723,34 +762,80 @@ class ProfileController extends GxController {
  // send invitations
       if ($user){
 
-        // create invitation
-        $invitation = new Invite();
-        $invitation->email = $_POST['invite-email'];
-        $invitation->id_sender = Yii::app()->user->id;
-        $invitation->key = md5(microtime().$invitation->email);
-        if (!empty($_POST['invite-idea'])){
-          $invitation->id_idea = $_POST['invite-idea']; // invite to idea
-          //$invitee = User::model()->findByPk(Yii::app()->user->id);
-          //$invitation->id_user = 
-        }
-
-        if ($invitation->save()){
-          $user->invitations = $user->invitations-1;
-          $user->save();
-
-          $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key;
-
-          Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation generated: <br /><br />'.$activation_url));
+        $invitee = User::model()->findByAttributes(array("email"=>$_POST['invite-email']));
+        if ($invitee){
+          setFlash("invitationMessage",Yii::t('msg','Person you invited is already in the system.'),'info');
         }else{
-          $invitation = Invite::model()->findByAttributes(array("email"=>$_POST['invite-email']));
-          $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key;
-          Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation already exist: <br /><br />'.$activation_url));
-        }
+          $invitation = Invite::model()->findByAttributes(array('email'=>$_POST['invite-email'],'key'=>null,'registered'=>0)); // self invited from system
 
+          if ($invitation){
+            // self invitation exists
+            $invitation->sender_id = Yii::app()->user->id;
+            $invitation->key = md5(microtime().$invitation->email);
+          }else{
+            // create invitation
+            $invitation = new Invite();
+            $invitation->email = $_POST['invite-email'];
+            $invitation->sender_id = Yii::app()->user->id;
+            $invitation->key = md5(microtime().$invitation->email);
+            if (!empty($_POST['invite-idea'])){
+              $invitation->idea_id = $_POST['invite-idea']; // invite to idea
+              //$invitee = User::model()->findByPk(Yii::app()->user->id);
+              //$invitation->id_user = 
+            }
+          }
+
+          if ($invitation->save()){
+            $user->invitations = $user->invitations-1;
+            $user->save();
+
+            $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key;
+
+            setFlash("invitationMessage",Yii::t('msg','Invitation generated: <br /><br />'.$activation_url));
+          }else{
+            $invitation = Invite::model()->findByAttributes(array("email"=>$_POST['invite-email']));
+            $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key;
+            setFlash("invitationMessage",Yii::t('msg','Invitation already exist: <br /><br />'.$activation_url),'alert');
+          }
+        }// end not in system
       }
     }
     
-    $this->render('/profile/createInvitation');
+    if (isset($_GET['invite-email'])){
+      $invitation = Invite::model()->findByAttributes(array('email'=>$_GET['invite-email'],'key'=>null,'registered'=>0)); // self invited from system
+      if ($invitation){
+        $invitation->sender_id = Yii::app()->user->id;
+        $invitation->key = md5(microtime().$invitation->email);
+
+        if ($invitation->save()){
+          $user = User::model()->findByPk(Yii::app()->user->id);
+          
+          $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'"><strong>Register here</strong></a>';
+          
+          $message = new YiiMailMessage;
+          $message->view = 'system';      
+
+          $message->subject = "You have been invited to join cofinder";
+          $message->setBody(array("content"=>"We've been hard at work on our new service called cofinder.
+                                          Cofinder is a web platform through which you can share your ideas with the like minded entrepreneurs, search for people to join your project or join an interesting project yourself. 
+                                          <br /><br /> <strong>".$user->name." ".$user->surname."</strong> thinks you might be the right person to test our private beta.
+                                          <br /><br /> If we got your attention you can ".$activation_url."!"), 'text/html');
+
+          $message->addTo($invitation->email);
+          $message->from = Yii::app()->params['noreplyEmail'];
+          Yii::app()->mail->send($message);          
+          
+          
+          setFlash("invitationMessage",Yii::t('msg','Invitation to add new member sent.'));
+
+          $this->refresh();
+        }else setFlash("invitationMessage",Yii::t('msg','Unable to send invitation! Eather user is already invited or the email you provided is incorrect.'),'alert');
+      }
+    }
+    
+    $requests = Invite::model()->findAllByAttributes(array('key'=>null,'registered'=>0,'receiver_id'=>null,'sender_id'=>null),array('order'=>'code, id DESC'));
+    
+    $this->render('/profile/createInvitation',array("requests"=>$requests));
   }
 
   
@@ -764,16 +849,16 @@ class ProfileController extends GxController {
     $ideas = $sqlbuilder->load_array("user", $filter);
     $ideas = $ideas['idea'];
 
-    $invite_record = Invite::model()->findAllByAttributes(array(),"(id_receiver = :idReceiver OR email LIKE :email) AND NOT ISNULL(id_idea)",array(":idReceiver"=>$user_id,":email"=>$user->email));
+    $invite_record = Invite::model()->findAllByAttributes(array(),"(receiver_id = :idReceiver OR email LIKE :email) AND NOT ISNULL(idea_id)",array(":idReceiver"=>$user_id,":email"=>$user->email));
     
     $invites = array();
     foreach ($invite_record as $invite){
-      $idea = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$invite->id_idea),array('order' => 'FIELD(language_id, 40) DESC'));
+      $idea = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$invite->idea_id),array('order' => 'FIELD(language_id, 40) DESC'));
 
       if ($idea)
-      $invites[] = array('id' => $invite->id_idea,
+      $invites[] = array('id' => $invite->idea_id,
                          'title' => $idea->title,
-                         'user' => $invite->idSender);
+                         'user' => $invite->senderId);
     }
     
     //$this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea']));
@@ -783,7 +868,7 @@ class ProfileController extends GxController {
    public function actionAcceptInvitation($id){
  		 $user_id = Yii::app()->user->id;
   	 $user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
-     $invite_record = Invite::model()->findByAttributes(array(),"(id_receiver = :idReceiver OR email LIKE :email) AND id_idea = :idIdea",
+     $invite_record = Invite::model()->findByAttributes(array(),"(receiver_id = :idReceiver OR email LIKE :email) AND idea_id = :idIdea",
                                                         array(":idIdea"=>$id, ":idReceiver"=>$user_id,":email"=>$user->email));
      
      if ($invite_record){
@@ -809,7 +894,7 @@ class ProfileController extends GxController {
    public function actionDeclineInvitation($id){
  		 $user_id = Yii::app()->user->id;
   	 $user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
-     $invite_record = Invite::model()->findByAttributes(array(),"(id_receiver = :idReceiver OR email LIKE :email) AND id_idea = :idIdea",
+     $invite_record = Invite::model()->findByAttributes(array(),"(receiver_id = :idReceiver OR email LIKE :email) AND idea_id = :idIdea",
                                                         array(":idIdea"=>$id, ":idReceiver"=>$user_id,":email"=>$user->email));
      
      if ($invite_record) $invite_record->delete();
@@ -817,4 +902,18 @@ class ProfileController extends GxController {
      setFlash("notificationMessage", Yii::t('msg','Invitation removed!'));
      $this->redirect(Yii::app()->createUrl("profile/notification"));
    }
+   
+  public function actionCompleteness() {
+    $comp = new Completeness();
+    $ungrouped = $comp->init();
+    
+    //echo $comp->setPercentage($user_id);
+    
+    $data = array();
+    foreach ($ungrouped as $row){
+      $data[$row['group']][] = $row;
+    }
+    
+    $this->render('completeness',array('data' => $data));
+  }
 }

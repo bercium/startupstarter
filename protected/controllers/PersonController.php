@@ -24,8 +24,12 @@ class PersonController extends GxController {
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("view","recent", "contact","discover","embed"),
+        'actions'=>array("view","embed"),
 				'users'=>array('*'),
+			),
+			array('allow', 
+        'actions'=>array("recent","discover"),  // remove after demo
+				'users'=>array('@'),
 			),
 			array('allow', // allow admins only
 				'users'=>Yii::app()->getModule('user')->getAdmins(),
@@ -43,8 +47,14 @@ class PersonController extends GxController {
 		$sqlbuilder = new SqlBuilder;
 		$filter = array( 'user_id' => $id);
 		$data['user'] = $sqlbuilder->load_array("user", $filter);
+    
+    $vouched = false;
+    $invited = Invite::model()->findByAttributes(array("receiver_id"=>$id,"registered"=>1));
+    if ($invited){
+      $vouched = $invited->senderId;
+    }
 
-		$this->render('view', array('data' => $data));
+		$this->render('view', array('data' => $data,"vouched"=>$vouched));
 
 		$click = new Click;
 		$click->user($id, Yii::app()->user->id);
@@ -80,56 +90,8 @@ class PersonController extends GxController {
 		
 	}
   
-	public function actionContact($id) { 
-    
-		if(isset($_POST['message']) && ($_POST['message']  > '')){
-      
-      if (isset($_POST['project'])){
-        $ideaMember = IdeaMember::model()->findByAttributes(array("idea_id"=>$id,"type_id"=>1));
-        $receiver = User::model()->findByPk($ideaMember->match->user_id);
-      }else{
-        $receiver = User::model()->findByPk($id);
-      }
-      
-      
-// create MAIL
-      $sender = User::model()->findByPk(Yii::app()->user->id);
-      
-      
-      $message = new YiiMailMessage;
-      $message->view = 'system';
-      // send to sender
-      $message->subject = "New message from ".$sender->name." ".$sender->surname;
-      $content = "This message was sent trough cofinder by ".$sender->name." ".$sender->surname.'. '.
-                 'To check his profile or to replay <a href="'.Yii::app()->createAbsoluteUrl('/person/view',array('id'=>Yii::app()->user->id)).'">click here</a>.<br /><br /><br />'.
-                 GxHtml::encode($_POST['message']);
-      $message->setBody(array("content"=>$content), 'text/html');
-      //$message->setBody(array("content"=>$_POST['message'],"senderMail"=>$sender->email), 'text/html');
-      
-      $message->addTo($receiver->email);
-      $message->from = Yii::app()->params['adminEmail'];
-      Yii::app()->mail->send($message);
-      
-      $message_self = new YiiMailMessage;
-      $message_self->view = 'system';
-      // send to self
-      $message_self->subject = "Message send to ".$receiver->name." ".$receiver->surname;
-      $content = "You send this message trough cofinder to ".$receiver->name." ".$receiver->surname.'. '.
-                 'To check his profile <a href="'.Yii::app()->createAbsoluteUrl('/person/view',array('id'=>$receiver->id)).'">click here</a>.<br /><br /><br />'.
-                 GxHtml::encode($_POST['message']);
-      $message_self->setBody(array("content"=>$content), 'text/html');
-      //$message->setBody(array("content"=>$_POST['message'],"senderMail"=>$sender->email), 'text/html');
-      $message_self->addTo($sender->email);
-      $message_self->from = Yii::app()->params['adminEmail'];
-      Yii::app()->mail->send($message_self);      
-      
-      
-      Yii::app()->user->setFlash('contactPersonMessage', Yii::t("msg","Your message was sent."));
-    }else{
-      Yii::app()->user->setFlash('contactPersonError', Yii::t("msg","Message can't be empty!"));
-    }
-    $this->redirect(Yii::app()->createUrl("person/view",array("id"=>$id)));
-	}  
+	/*public function actionContact($id) {
+	}*/
   
   
   public function actionEmbed($id){

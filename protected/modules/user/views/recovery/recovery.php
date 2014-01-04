@@ -1,11 +1,9 @@
 <?php $this->pageTitle=Yii::t('app',"Restore your password");
 ?>
 
-<?php if(Yii::app()->user->hasFlash('recoveryMessage')): ?>
-<div class="success">
-<?php echo Yii::app()->user->getFlash('recoveryMessage'); ?>
-</div>
-<?php else: ?>
+<?php if(Yii::app()->user->hasFlash('recoveryMessage')): 
+  writeFlash("recoveryMessage");
+else: ?>
 
 <?php echo CHtml::beginForm('','post',array("class"=>"custom")); ?>
 

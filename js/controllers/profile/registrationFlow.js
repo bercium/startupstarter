@@ -1,59 +1,6 @@
-
- function addSkill(inUrl)
- {
- 
-   var data=$("#SkillForm").serialize()+'&ajax=1';
-
-	$.ajax({
-   type: 'POST',
-   url: inUrl,
-   data:data,
-        success:function(indata){
-          data = JSON.parse(indata);
-					if (!data.status){
-            skill = '<span data-alert class="label alert-box radius secondary profile-skils" id="skill_'+data.data.id+'">';
-            skill += data.data.title+"<br /><small class='meta'>"+data.data.desc+"</small>";
-            if (data.data.multi == 1) skill += '<a href="#" class="close" onclick="removeSkill('+data.data.id+')">&times;</a>';
-            skill += '</div>';
-            $('.skillList').append(skill);
-          }
-					if (data.message) alert(data.message);
-        },
-        error: function(data,e,t) { // if error occured
-           alert(e+': '+t);
-           //alert(data);
-        },
- 
-  dataType:'html'
-  });
- 
-}
+$.getScript(fullURL+"/js/includes/skill.js");
 
 
-function removeSkill(skill_id){
-    $.ajax({
-   type: 'POST',
-   url: skillRemove_url,
-   data:{ id: skill_id, ajax: 1},
-        success:function(indata){
-          data = JSON.parse(indata);
-          if (data.message != '') alert(data.message);
-          else {
-            //$('#link_div_'+data.data.id).fadeOut('slow');
-          }
-        },
-        error: function(data,e,t) { // if error occured
-           alert(e+': '+t);
-        },
- 
-  dataType:'html'
-  });
-
-}
-
-
-	var cache = {};
-  var cityCache = {};
 	//var skillSuggest_url = 'profile/suggestSkill';
 	
   $(function() {
@@ -72,7 +19,8 @@ function removeSkill(skill_id){
 				minLength: 2,
         source: function( request, response ) {
 					
-          var term = extractLast( request.term );
+          //var term = extractLast( request.term );
+          var term = request.term;
           if ( term in cache ) {
             response( cache[ term ] );
             return;
@@ -93,23 +41,26 @@ function removeSkill(skill_id){
           }
         },*/
         focus: function( event, ui ) {
-          $( "#project" ).val( ui.item.skill );
+          //$('.skillset').val( ui.item.skill );
           // prevent value inserted on focus
           return false;
         },
         select: function( event, ui ) {
-          var terms = splitComa( this.value );
+          //var terms = splitComa( this.value );
+          
           // remove the current input
-          terms.pop();
+          //terms.pop();
           // add the selected item
-          terms.push( ui.item.skill );
+          //terms.push( ui.item.skill );
+          this.value = ui.item.skill;
 
       		$('.skillset').val(ui.item.skillset_id); 
-    			Foundation.libs.forms.refresh_custom_select($('.skillset'),true);
-          $( "#project-id" ).val( ui.item.id );
+    			//Foundation.libs.forms.refresh_custom_select($('.skillset'),true);
+          $(".skillset").trigger("liszt:updated");
+          //$( "#project-id" ).val( ui.item.id );
           // add placeholder to get the comma-and-space at the end
-          terms.push( "" );
-          this.value = terms.join( ", " );
+          //terms.push( "" );
+          //this.value = terms.join( ", " );
           return false;
         }
       })
@@ -143,3 +94,4 @@ function removeSkill(skill_id){
       });    
     
   });
+

@@ -13,5 +13,7 @@
         finishedMsg: Yii.t('js','No more results!'),
         finished:addPageToList
       }
-    });
+    }, function(elements) {
+          $('.card-content').foundation('section', 'reflow');
+      });
  });

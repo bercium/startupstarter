@@ -3,157 +3,136 @@
 ?>
 
 
-<div class="row" style="margin-top:20px;">
-	<div class="columns edit-header">
-		<h1><?php echo Yii::t('app','What is cofinder'); ?></h1>
-	</div>
-  <div class="  columns panel edit-content">
-   <div class="large-8  columns">
+<div class="row about" style="margin-top:50px;">
+  <div class="columns">
+	
+  <div class="columns main ball wrapped-content">
+   
+   <div class="large-7  columns">
+    <h1><?php echo Yii::t('app','What is cofinder'); ?></h1>
+    <h2><?php echo Yii::t('app','Introduction'); ?></h2>
+    
 		 
 		<p>
 		<?php 
-			echo Yii::t('msg','We are a group of enthusiasts on a mission to help anyone with a great idea to assemble a successful startup team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the like minded entrepreneurs and search for interesting projects to join.');
+			echo Yii::t('cont','We are a group of enthusiasts with a mission to help anyone with a great idea to assemble a successful start-up team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the like-minded entrepreneurs and search for interesting projects.');
 		?>
 		</p>
 	
 		
-		<h4><?php echo Yii::t('app','Brief history'); ?></h4>
+		<h2><?php echo Yii::t('app','Brief history'); ?></h2>
 		<p>
-      <?php echo Yii::t('msg',"The idea was born during the conversation that happened in October 2012 at PopUp home. Talking to one of the founders of Slovenia coworking made me realise that online platform could open up the concept of coworking to a broader community. It will help solving a problem of finding the right team to build new products and services. In mid December Blaž joined me. He's been facing the same problem. It was difficult for him to find a realiable team of people outside his social circles. Soon after the third member joined our team. In late February 2013 the three of us developed and presented our concept to Slovenia's coworking community. Positive feedback gave us more than enough motivation to go on with the development of the web platform. Soon after our presentation the fourth member joined the team and the developement process."); ?>
+      <?php echo Yii::t('cont',"The idea was born during the conversation that took place in October, 2012 at PopUp home. Talking to one of the founders of Slovenia co-working made me realise that the concept of co-working could be introduced to a broader community by the online platform. It would help solve a problem of finding the right team to build new products and services. Blaž joined me in the middle of December. He has been facing the same problem, a difficulty finding a reliable team outside his social circles. Soon after that, the third member joined our team. At the end of February, 2013 we developed and presented our concept to Slovenia\'s co-working community. A positive feedback gave us more than enough motivation to proceed with the development of the web platform. The forth member joined our team and the development process soon after that presentation"); ?>
 		</p> 
 		
     </div>
 
-    <div class="large-4 columns">
+    <div class="large-5 columns side">
+
+      <ul class="small-block-grid-1 large-block-grid-1">
+        <li>
       <?php if ($idea)  $this->renderPartial('//project/_project', array('idea' => $idea));  ?>
+    </li>
     </div>
+  
+
+  </div>
+
+    <div class="columns main ball wrapped-content">
+
+
+    <div class="columns">
+      
+    <h1><?php echo Yii::t('app','Who is behind cofinder'); ?></h1>
     
   </div>
-  
-</div>
-
-
-<div class="row">
-	<div class="  columns edit-header">
-    <div class="edit-floater">
-			<a href="#" class="button small radius success" onclick="contact(this);"><?php echo Yii::t('app','Contact us'); ?></a>
-    </div>		
-		<h1><?php echo Yii::t('app','Who is behind cofinder'); ?></h1>
-  </div>
-  <div class="  columns panel edit-content">
-    <div class="large-5  columns hide-for-small">
-      <img id="team_image" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team.jpg" alt="cofinder team" title="cofinder team">
-      <div style="top:30px;left:70px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('zb');" onmouseout="hidePerson('zb')"></div>
-      <div style="top:200px;left:90px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('bb');" onmouseout="hidePerson('bb')"></div>
-      <div style="top:100px;left:240px;position:absolute;width:140px;height:140px;" onmouseover="showPerson('jr');" onmouseout="hidePerson('jr')"></div>
-    </div>
-    <div class="large-7  columns">
-      <div class="row" onmouseover="showPerson('zb');" onmouseout="hidePerson('zb')">
-        <div class="small-4 columns show-for-small">
-        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-ziga.jpg" alt="Žiga Berce" title="Žiga Berce">
-        </div>
-        <div class="small-8 large-12 columns">
-          <h4 id="team_desc_zb">Žiga Berce
-            <div class="login-floater">
-              <a href="<?php echo Yii::app()->getBaseUrl(true); ?>/person/1">
-                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-cofinder.png" alt="Žiga Berce" title="Žiga Berce">
-              </a>
+  <div class="columns">
+          
+      <ul class="small-block-grid-1 large-block-grid-2"> 
+        <li>
+          <div class="row">
+            <div class="small-4 columns">
+              <p><a href="<?php echo Yii::app()->createUrl("person",array('id'=>1)); ?>"><img class="th" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-ziga.jpg" alt="Žiga Berce" title="Žiga Berce"></a>
+                </p>
             </div>
-          </h4>
-          <p >
-            <?php echo Yii::t('msg',"Within cofinder I take care of development while motivating the team and try to engage others to join our project."); ?>
-          </p>
-        </div>
+            <div class="small-8 columns">
+              <h3><a href="<?php echo Yii::app()->createUrl("person",array('id'=>1)); ?>">Žiga Berce</a></h3>
+              <p>
+                <?php echo Yii::t('msg',"I take care of the development, motivate the team and engage others to join our projects."); ?>
+              </p>
+            </div>
+          </div>
+        </li>
         
-        <?php /* ?>
-        <div class="columns">
-          <blockquote style="font-size: 0.9em">
-          <?php echo Yii::t('msg',"The only constant in life is change so it's important not to fall asleep on past successes or to give up at the sight of problems."); ?>
-          </blockquote>
-        </div>
-        <?php */ ?>
-      </div>
-      
-      <div class="row" onmouseover="showPerson('bb');" onmouseout="hidePerson('bb')">
-        <div class="small-4 columns show-for-small">
-          <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-blaz.jpg" alt="Blaž Beuermann" title="Blaž Beuermann">
-        </div>
-        <div class="small-8 large-12 columns">
-          <h4 id="team_desc_bb">Blaž Beuermann
-            <div class="login-floater">
-              <a href="<?php echo Yii::app()->getBaseUrl(true); ?>/person/4">
-                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-cofinder.png" alt="Blaž Beuermann" title="Blaž Beuermann">
-              </a>
+        <li>        
+          <div class="row">
+            <div class="small-4 columns">
+              <p><a href="<?php echo Yii::app()->createUrl("person",array('id'=>4)); ?>"><img class="th" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-blaz.jpg" alt="Blaž Beuermann" title="Blaž Beuermann"></a>
+                </p>
             </div>
-          </h4>
-          <p >
-            <?php echo Yii::t('msg',"My designation at cofinder is to take care of our online foundations."); ?>
-          </p>
-        </div>
-        <?php /* ?>
-        <div class="columns">
-          <blockquote style="font-size: 0.9em">
-          </blockquote>
-        </div><?php */ ?>
-      </div>
-      
-      <div class="row" onmouseover="showPerson('jr');" onmouseout="hidePerson('jr')">
-        <div class="small-4 columns show-for-small">
-        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-jure.jpg" alt="Jure Ravlič" title="Jure Ravlič">
-        </div>
-        <div class="small-8 large-12 columns">
-          <h4 id="team_desc_jr">Jure Ravlič
-            <div class="login-floater">
-              <a href="<?php echo Yii::app()->getBaseUrl(true); ?>/person/6">
-                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-cofinder.png" alt="Jure Ravlič" title="Jure Ravlič">
-              </a>
+            <div class="small-8 columns">
+              <h3><a href="<?php echo Yii::app()->createUrl("person",array('id'=>4)); ?>">Blaž Beuermann</a></h3>
+              <p>
+                <?php echo Yii::t('msg',"My task at Cofinder is to take care of our online foundations."); ?>
+              </p>
             </div>
-          </h4>
-          <p >
-            <?php echo Yii::t('msg',"Taking care of overall design is my primary focus here on cofinder."); ?>
-          </p>
+          </div>
+        </li>
+        
+        
+        <li>
+          <div class="row">
+          <div class="small-4 columns">
+            <p><a href="<?php echo Yii::app()->createUrl("person",array('id'=>6)); ?>"><img class="th" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-jure.jpg" alt="Jure Ravlič" title="Jure Ravlič"></a>
+              </p>
+          </div>
+          <div class="small-8 columns">
+            <h3><a href="<?php echo Yii::app()->createUrl("person",array('id'=>6)); ?>">Jure Ravlič</a></h3>
+            <p>
+              <?php echo Yii::t('msg',"My primal focus on Cofinder is to take care of the entire design."); ?>
+            </p>
+          </div>
+        </div>  
+        </li>
+        
+        
+        <li>
+        <div class="row">
+          <div class="small-4 columns">
+            <p><a href="<?php echo Yii::app()->createUrl("person",array('id'=>10)); ?>"><img class="th" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-jernejm.jpg" alt="Jernej Mirt" title="Jernej Mirt"></a>
+              </p>
+          </div>
+          <div class="small-8 columns">
+            <h3><a href="<?php echo Yii::app()->createUrl("person",array('id'=>10)); ?>">Jernej Mirt</a></h3>
+            <p>
+              <?php echo Yii::t('msg',"Managing social marketing."); ?>
+            </p>
+          </div>
         </div>
-        <?php /* ?>
-        <div class="columns">
-          <blockquote style="font-size: 0.9em">
-          </blockquote>
-        </div><?php */ ?>
-      </div>
+        </li>
+        
+      </ul>
 
-      
-      <div class="row">
-        <div class="small-4 columns show-for-small">
-        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-jureg.jpg" alt="Jure Grahek" title="Jure Grahek" >
-        </div>
-        <div class="small-8 large-12 columns">
-          <h4 id="team_desc_zb">Jure Grahek
-            <div class="login-floater">
-              <a href="<?php echo Yii::app()->getBaseUrl(true); ?>/person/5">
-                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-cofinder.png" alt="Jure Ravlič" title="Jure Grahek">
-              </a>
-            </div>
-          </h4>
-          <p >
-            <?php echo Yii::t('msg',"Helping with the non-technical side of development."); ?>
-          </p>
-        </div>
-        <?php /* ?>
-        <div class="columns">
-          <blockquote style="font-size: 0.9em">
-          </blockquote>
-        </div><?php */ ?>
-      </div>
-      
+      <a href="#" class="button radius success" onclick="contact(this);"><?php echo Yii::t('app','Contact us'); ?></a>
 
+    <h2><?php echo Yii::t('app',"Others that helped us a lot"); ?></h2>
+    <p>Jure Grahek</p>
+
+  </div>  
+  
+  </div>
+
+   <div class="columns main ball wrapped-content">
+    <div class="columns">
+      <h1><?php echo Yii::t('app','Supporters'); ?></h1>
     </div>
   </div>
+  
+   </div>
 </div>
 
-<div class="row">
-	<div class="  columns edit-header">
-		<h1><?php echo Yii::t('app','Our supporters'); ?></h1>
-	</div>
-  <div class="  columns panel edit-content">
-  </div>
-</div>
+
+
+	
+
 

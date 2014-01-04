@@ -24,7 +24,7 @@ abstract class BaseIdeaStatus extends GxActiveRecord {
 	}
 
 	public static function label($n = 1) {
-		return Yii::t('app', 'Project status|Project statuses', $n);
+		return Yii::t('app', 'Project status', $n);
 	}
 
 	public static function representingColumn() {

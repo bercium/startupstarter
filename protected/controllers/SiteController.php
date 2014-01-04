@@ -3,6 +3,7 @@
 class SiteController extends Controller
 {
   public $layout="//layouts/card";
+  public $justContent=false;
   
 	/**
 	 * @return array action filters
@@ -23,16 +24,16 @@ class SiteController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("index",'error','logout','about','terms','notify','suggestCountry','suggestSkill','suggestCity'),
+			array('allow', // allow all users to perform actions
+        'actions'=>array("index",'error','logout','about','terms','notify','notifyFacebook','suggestCountry','suggestSkill','suggestCity','unbsucribeFromNews','cookies'),
 				'users'=>array('*'),
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+			/*array('allow', // allow authenticated user to perform 'create' and 'update' actions
         'actions'=>array(),
 				'users'=>array('@'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('list'),
+			),*/
+			array('allow', // allow admin user to perform actions:
+				'actions'=>array('list','recalcPerc'),
 				'users'=>Yii::app()->getModule('user')->getAdmins(),
 			),
 			array('deny',  // deny all users
@@ -148,24 +149,87 @@ class SiteController extends Controller
 	public function actionNotify()
 	{
     if (!Yii::app()->user->isGuest) $this->redirect("index"); //loged in no need to send notifications
-    
-    if (isset($_POST['email']) && !empty($_POST['email'])){
-      $newFilePath = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "uploads";
-      if (!is_dir($newFilePath)) {
-        mkdir($newFilePath, 0777, true);
-        //chmod( $newFilePath, 0777 );
-      }
-      $filecont = '';
-      $newFilePath = $newFilePath.DIRECTORY_SEPARATOR."emails.txt";
-      if (file_exists($newFilePath)) $filecont = file_get_contents($newFilePath);
-      $filecont = $filecont.$_POST['email'].",\n";
-      file_put_contents($newFilePath,$filecont);
+    $savedToDB = false;
+    if (!empty($_POST['email'])){
       
-      Yii::app()->user->setFlash("interestMessage",Yii::t('msg',"Your email ({email}) was succesfully saved in our database.",array('{email}'=>$_POST['email'])));
-      $this->refresh();
+      $invitee = User::model()->findByAttributes(array("email"=>$_POST['email']));
+      if ($invitee){
+        $login = '<a data-dropdown="drop-login" class="button radius small" style="margin-bottom:0;" href="#">'.Yii::t('app','Login').'</a>';
+        setFlash("interestMessage",Yii::t('msg','You have already registered. Please {login}',array('{login}' => $login)));
+      }else{
+      
+        $invite = Invite::model()->findByAttributes(array('email' => $_POST['email'],'idea_id'=>null));
+        if ($invite){
+          if ($invite->key){
+            $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invite->key;
+            $button = "<a href='".$activation_url."' class='button radius small' style='margin-bottom: 3px;'>".Yii::t('app',"Register here")."</a>";
+            setFlash("interestMessage",Yii::t('msg',"You already have an invitation pending. To join please click {button} or copy this url:<br>{url}",array('{button}'=>$button,"{url}"=>$activation_url)),"info",false);
+          }else setFlash("interestMessage",Yii::t('msg',"We already have you on our list."),'alert');
+        }else{
+
+          /*$newFilePath = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "uploads";
+          if (!is_dir($newFilePath)) {
+            mkdir($newFilePath, 0777, true);
+            //chmod( $newFilePath, 0777 );
+          }
+          $filecont = '';
+          $newFilePath = $newFilePath.DIRECTORY_SEPARATOR."emails.txt";
+          if (file_exists($newFilePath)) $filecont = file_get_contents($newFilePath);
+          $filecont = $filecont.$_POST['email'].",\n";
+          file_put_contents($newFilePath,$filecont);*/
+
+          $invitation = new Invite();
+          $invitation->email = $_POST['email'];
+          
+          if (!empty($_GET['code'])) $invitation->code = $_GET['code'];
+
+          if ($invitation->save()){
+            $savedToDB = true;
+            $message = new YiiMailMessage;
+            $message->view = 'system';
+
+            $message->subject = "Requested invtation for Cofinder";
+            $content = 'Thank you for your interest in joining <a href="http://www.cofinder.eu">cofinder</a>!
+                        <br>We will keep you posted on progress we make.';
+            $message->setBody(array("content"=>$content), 'text/html');
+
+            $message->addTo($_POST['email']);
+            $message->from = Yii::app()->params['noreplyEmail'];
+            Yii::app()->mail->send($message);
+      
+            setFlash("interestMessage",Yii::t('msg',"Your email ({email}) was succesfully saved in our database.",array('{email}'=>$_POST['email'])));
+          }else{
+            setFlash("interestMessage",Yii::t('msg',"Something went wrong while saving your ({email}) in our database.",array('{email}'=>$_POST['email'])),"alert");
+          }
+        }
+      }
+      //$this->refresh();
     }
-		$this->render('notify');
+		$this->render('notify',array("saved"=>$savedToDB));
 	}
+  
+  public function actionNotifyFacebook(){
+    $this->justContent = true;  // show no header and footer
+    $this->actionNotify();
+  }
+  
+  
+  public function actionUnbsucribeFromNews(){
+    $this->pageTitle = "Unsubscription";
+    if (!empty($_GET['email'])){
+      Invite::model()->deleteAll("email = :email AND registered = :registered",array(':email' => $_GET['email'],':registered'=>false));
+    }else
+    if (!empty($_GET['id'])){
+      $user = User::model()->findByAttributes(array('activkey'=>$_GET['id'],'newsletter'=>'1'));
+      if ($user){
+        $user->newsletter = 0;
+        $user->activkey = md5(microtime().$_GET['id']);
+        $user->save();
+      }
+    }
+    $this->render('message',array('title'=>'Unsubscribe','content'=>Yii::t('msg','You have successfully unsubscribed from our newsletter.')));
+  }
+  
 	
 	public function actionTerms()
 	{
@@ -218,6 +282,12 @@ class SiteController extends Controller
 		}
 		$this->render('contact',array('model'=>$model));
 	}
+  
+  
+  public function actionCookies(){
+    $this->layout = 'card';
+    $this->render('cookies');
+  }
 
 
 	/**
@@ -303,7 +373,7 @@ class SiteController extends Controller
 
 			$connection=Yii::app()->db;
 			$data = array();
-      		$dataReader = array();
+      $dataReader = array();
 			
 			$criteria=new CDbCriteria();
 			
@@ -317,9 +387,11 @@ class SiteController extends Controller
 			}
 
 			//$data = array();
-			foreach ($dataReader as $row){
-				$data[] = array("value"=>$row['name']);
-			}
+      if ($dataReader){
+        foreach ($dataReader as $row){
+          $data[] = array("value"=>$row['translation']);
+        }
+      }
 			
 			$criteria->condition = " `name` LIKE :name";
 			$criteria->params = array(":name"=>"%".$_GET['term']."%");
@@ -328,16 +400,20 @@ class SiteController extends Controller
 			$dataReader = Skillset::model()->findAll($criteria);
 
 			//$data = array();
-			foreach ($dataReader as $row){
-				$data[] = array("value"=>$row['name']);
-			}
+      if ($dataReader){
+        foreach ($dataReader as $row){
+          $data[] = array("value"=>$row['name']);
+        }
+      }
 
 			// skills
 			$dataReader = Skill::model()->findAll($criteria);
 			
-			foreach ($dataReader as $row){
-				$data[] = array("value"=>$row['name']);
-			}
+      if ($dataReader){
+        foreach ($dataReader as $row){
+          $data[] = array("value"=>$row['name']);
+        }
+      }
 			
 			
 			$response = array("data" => $data,
@@ -348,5 +424,17 @@ class SiteController extends Controller
 		echo json_encode($response);
 		Yii::app()->end();
 	}
+  
+  // recalculate percentage for all users
+  public function actionRecalcPerc(){
+    $comp = new Completeness();
+    
+    $users = User::model()->findAll();
+    foreach ($users as $user){
+      $comp->init($user->id);
+      $comp->setPercentage($user->id);
+    }
+    $this->render("list");
+  }
 	
 }

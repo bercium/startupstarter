@@ -1,3 +1,12 @@
+// if cookie alert is visible set margin to intro h1
+$(function() {
+  if ($('.cc-cookies').length > 0) { 
+      $('.intro h1').css('margin-top','50px');
+  }
+});
+
+
+
 ;(function ($, window, undefined) {
   $(document).foundation();
   
@@ -76,6 +85,9 @@
       if (!$(this).find(".lin-edit").is(':focus') && $(this).find(".lin-edit").val() == '') $(this).find('.lin-hidden').hide();
     });
 
+    $('select').chosen({no_results_text: Yii.t('js','Oops, nothing found!'), allow_single_deselect: true, width:'100%' });
+    
+    $.cookieCuttr();
 })(jQuery, this);
 
 
@@ -98,6 +110,6 @@ function addPageToList(e){
   //alert('da');
   pageNavCount++;
   $(".page-navigation").fadeIn('normal');
-  $(".page-navigation ul").append('<li><a href="#page'+pageNavCount+'">'+Yii.t('js','Page')+' '+pageNavCount+'</a></li>');
+  $(".page-navigation ul").append('<li><a class="button secondary small radius" href="#page'+pageNavCount+'">'+Yii.t('js','Page')+' '+pageNavCount+'</a></li>');
   e.loading.msg.fadeOut('normal');
 }

@@ -55,11 +55,12 @@ abstract class BaseUser extends GxActiveRecord {
 		return array(
 			array('email, password, create_at, name', 'required'),
 			array('superuser, status, language_id, newsletter, invitations', 'numerical', 'integerOnly'=>true),
-			array('email, password, activkey, name, surname, address, avatar_link', 'length', 'max'=>128),
+			array('email, password, activkey, name, surname, address, avatar_link, vanityURL', 'length', 'max'=>128),
 			array('lastvisit_at', 'safe'),
 			array('activkey, lastvisit_at, superuser, status, surname, address, avatar_link, language_id, newsletter', 'default', 'setOnEmpty' => true, 'value' => null),
-      array('invitations', 'default', 'setOnEmpty' => true, 'value' => '0'),
-			array('id, password, email, activkey, create_at, lastvisit_at, superuser, status, name, surname, address, avatar_link, language_id, newsletter, invitations', 'safe', 'on'=>'search'),
+      array('invitations, vanityURL', 'default', 'setOnEmpty' => true, 'value' => '0'),
+			array('id, password, email, activkey, create_at, lastvisit_at, superuser, status, name, surname, address, avatar_link, language_id, newsletter, bio, invitations', 'safe', 'on'=>'search'),
+      array('vanityURL', 'unique', 'message' => Yii::t('msg',"This public name is already taken.")),        
 		);
 	}
 
@@ -88,18 +89,20 @@ abstract class BaseUser extends GxActiveRecord {
 			'lastvisit_at' => Yii::t('app', 'Last visited'),
 			'superuser' => Yii::t('app', 'Superuser'),
 			'status' => Yii::t('app', 'Status'),
-			'name' => Yii::t('app', 'Name'),
-			'surname' => Yii::t('app', 'Surname'),
+			'name' => Yii::t('app', 'First name'),
+			'surname' => Yii::t('app', 'Last name'),
 			'address' => Yii::t('app', 'Address'),
 			'avatar_link' => Yii::t('app', 'Avatar link'),
 			'language_id' => Yii::t('app', 'Language'),
 			'newsletter' => Yii::t('app', 'Newsletter'),
+			'bio' => Yii::t('app', 'Personal pitch'),
 			'clickIdeas' => null,
 			'clickUsers' => null,
 			'clickUsers1' => null,
 			'userLinks' => null,
 			'userMatches' => null,
-      'invitations' => null,
+   		'invitations' => null,
+      'vanityURL' => Yii::t('app', 'Public name'),
 		);
 	}
 
@@ -118,9 +121,11 @@ abstract class BaseUser extends GxActiveRecord {
 		$criteria->compare('surname', $this->surname, true);
 		$criteria->compare('address', $this->address, true);
 		$criteria->compare('avatar_link', $this->avatar_link, true);
+		$criteria->compare('bio', $this->bio, true);
 		$criteria->compare('language_id', $this->language_id);
 		$criteria->compare('newsletter', $this->newsletter);
 		$criteria->compare('invitations', $this->invitations);
+ 		$criteria->compare('vanityURL', $this->vanityURL);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

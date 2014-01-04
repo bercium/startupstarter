@@ -33,5 +33,9 @@ $this->menu=array(
 'avatar_link',
 'language_id',
 'newsletter:boolean',
+'invitations',
+'bio',
+'vanityURL',
 	),
 )); ?>
+

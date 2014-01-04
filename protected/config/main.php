@@ -1,5 +1,6 @@
 <?php
 require(dirname(__FILE__).DIRECTORY_SEPARATOR.'../helpers/global.php');
+require(dirname(__FILE__).DIRECTORY_SEPARATOR.'constants.php');
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 
@@ -74,6 +75,11 @@ return array(
 
 	// application components
 	'components'=>array(
+    'clientScript'=>array(
+      'coreScriptPosition'=>CClientScript::POS_END,
+      'defaultScriptPosition'=>CClientScript::POS_END,
+      'defaultScriptFilePosition'=>CClientScript::POS_END
+    ),
     //'foundation' => array("class" => "ext.foundation.components.Foundation"),
 		'user'=>array(
 			// enable cookie-based authentication
@@ -87,10 +93,15 @@ return array(
 			'urlFormat'=>'path',
       'showScriptName'=>false,
 			'rules'=>array(
-        'list' => array('site/list', 'caseSensitive'=>false),
+        /*'list' => array('site/list', 'caseSensitive'=>false),*/
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
+				'<controller:\w+>/<id:\d+>/<lang:\w{2}>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+        array(
+          'class' => 'application.components.VanityUrlRule',
+          'connectionID' => 'db',
+        ),
 			),
 		),
 		
@@ -108,15 +119,32 @@ return array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
 		),
+      
 		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
 				array(
 					//'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
+					'levels'=>'error, warning, trace, info',
 					'class'=>'ext.yii-debug-toolbar.YiiDebugToolbarRoute',
           'ipFilters'=>array('127.0.0.1'),
+          'enabled'=>YII_DEBUG,
 				),
+        array(
+  					'levels'=>'error',
+            'class'=>'CFileLogRoute',
+            'logFile' => 'application.error.log',
+            'enabled'=>!YII_DEBUG,
+            //'enabled'=>YII_DEBUG,
+            /*'categories'=>'system.db.*',*/
+        ),          
+        array(
+  					'levels'=>'warning',
+            'class'=>'CFileLogRoute',
+            'logFile' => 'application.warning.log',
+            'enabled'=>!YII_DEBUG,
+            /*'categories'=>'system.db.*',*/
+        ),          
 				// uncomment the following to show log messages on web pages
 				/*
 				array(
@@ -145,9 +173,9 @@ return array(
             'encryption'=>'tls',
           ),require(dirname(__FILE__) . '/local-mail.php')
         ),*/
-        'viewPath' => 'application.views.mailTemplates',
-        'logging' => true,
-        'dryRun' => true
+        'viewPath' => 'application.views.layouts.mail',
+        'logging' => YII_DEBUG,
+        'dryRun' => YII_DEBUG
     ),
 	),
 
@@ -155,10 +183,15 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
+    'version'=>require(dirname(__FILE__) . '/version.php'),
 		'adminEmail'=>array('no-reply@cofinder.eu'=>'Cofinder'), //!!! must decide if usefull seperate mail
     'noreplyEmail'=>array('no-reply@cofinder.eu'=>'Cofinder'),
+      
     'tempFolder'=>'temp/',
     'avatarFolder'=>'uploads/avatars/',
+    'ideaGalleryFolder'=>'uploads/ideagalleries/',
     'mapsFolder'=>'uploads/maps/',
+    'iconsFolder'=>'uploads/icons/',
+    'dbbackup'=>'protected/data/backup/',
 	),
 );

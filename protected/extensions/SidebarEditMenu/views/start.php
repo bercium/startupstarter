@@ -1,5 +1,5 @@
-<div class="section-container sidebar accordion" data-section>
-  <section class="section <?php echo isMenuItemActive(""); ?>">
+<div class="section-container sidebar accordion edit-content" data-section>
+  <section class="section <?php echo isMenuItemActive('index'); ?>">
     <p class="title"><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><span class="icon-user"></span><?php echo Yii::t('app','Profile'); ?></a></p>
   </section>
   <section class="section <?php echo isMenuItemActive(array("create","projects","edit")); ?>">
@@ -7,27 +7,34 @@
       <a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>"><span class="icon-lightbulb"></span>
         <?php echo Yii::t('app','Projects'); ?>
       </a>
-    </p>
+    </p><?php /* ?>
     <div class="content ideas-aside">
-      <a class="idea-new" href="<?php echo Yii::app()->createUrl("project/create"); ?>" class="ideas-aside-new <?php echo isMenuItemActive("create"); ?>">
-        <?php echo Yii::t('app','Create a new project').' +'; ?>
-      </a>
-      <?php foreach ($ideas as $idea){ ?>
+      <small><a class="button success large-12" href="<?php echo Yii::app()->createUrl("project/create"); ?>" class="ideas-aside-new <?php echo isMenuItemActive("create"); ?>">
+        <?php echo Yii::t('app','Create a new project').' <span class="right icon-plus"></span>'; ?>
+      </a></small>
+      <?php
+      if ($ideas)
+        foreach ($ideas as $idea){ ?>
       <a href="<?php echo Yii::app()->createUrl("project/edit/".$idea['id']); ?>" >
-        <div class="idea-each alpha omega" >
-          <span class="alt"><?php echo $idea['title']; ?></span>
-          <small class="meta"><?php echo Yii::t("app","viewed {n} time|viewed {n} times",array($idea['num_of_clicks'])); ?></small>
-          <small class="meta right"><?php if ($idea['type_id'] == 1) echo Yii::t("app","owner"); else echo Yii::t("app","member"); ?></small>
+        <div class="idea-each" ><p>
+          <span class="idealist"><?php echo $idea['title']; ?></span>
+        <div class="meta-wrap">
+           <span class="meta"><?php echo Yii::t("app","viewed {n} time|viewed {n} times",array($idea['num_of_clicks'])); ?></span>
+          <small class="meta right"><?php if ($idea['type_id'] == 1) echo "<span class='label'>".Yii::t("app","owner")."</span>"; else echo Yii::t("app","Member"); ?></small>
+        </div>
         </div>
         </a>
       <?php } ?>
-    </div>
+    </p></div> <?php */ ?>
   </section>
   <section class="section <?php echo isMenuItemActive("account"); ?>">
-    <p class="title"><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><span class="general foundicon-settings"></span><?php echo Yii::t('app','Settings'); ?></a></p>
+    <p class="title"><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><span class="icon-wrench"></span><?php echo Yii::t('app','Settings'); ?></a></p>
   </section>
-  <?php if(yii::app()->user->isAdmin()){ ?>
-  <section class="section <?php echo isMenuItemActive(""); ?>">
+  <?php //if(Yii::app()->user->isAdmin()){ ?>
+  <section class="section nob <?php echo isMenuItemActive("notification"); ?>">
     <p class="title"><a href="<?php echo Yii::app()->createUrl("profile/notification"); ?>"><span class="icon-flag"></span><?php echo Yii::t('app','Notifications'); ?></a></p>
-  </section><?php } ?>
+  </section><?php //} ?>
+
+
+  
 </div>

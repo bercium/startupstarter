@@ -36,7 +36,7 @@ class RegistrationController extends Controller
             $this->redirect(Yii::app()->createUrl('profile'));
         } else {
             $invited = null;
-            if ($id != '') $invited = Invite::model()->findByAttributes(array('key' => $id));
+            if ($id != '') $invited = Invite::model()->findByAttributes(array('key' => $id,'idea_id'=>null));
             
             if ($id == '' || $invited == null) {
               //Yii::log(CVarDumper::dumpAsString($invited));
@@ -54,8 +54,8 @@ class RegistrationController extends Controller
                   {
                       $soucePassword = $model->password;
                       $model->activkey=UserModule::encrypting(microtime().$model->password);
-                      $model->password=UserModule::encrypting($model->password);
-                      $model->verifyPassword=UserModule::encrypting($model->verifyPassword);
+                      $model->password=UserModule::createHash($model->password);
+                      $model->verifyPassword=$model->password;
                       $model->superuser=0;
                       $model->status=((Yii::app()->controller->module->activeAfterRegister)?User::STATUS_ACTIVE:User::STATUS_NOACTIVE);
 
@@ -74,8 +74,20 @@ class RegistrationController extends Controller
                         $message->from = Yii::app()->params['noreplyEmail'];
                         Yii::app()->mail->send($message);
                         
-                        // delete invite
-                        $invited->delete();
+                        
+                        //$invited->delete(); // delete invite (depreched)
+                        $invited->key = null;
+                        $invited->receiver_id = $model->id;
+                        $invited->registered = 1;
+                        $invited->save();
+                        
+                        if ($invited->sender_id){
+                          // whoever invited user add him a registered bonus
+                          $stat = UserStat::model()->findByAttributes(array('user_id'=>$invited->sender_id));
+                          $stat->invites_registered = $stat->invites_registered+1;
+                          $stat->save();
+                        }
+                        
                         
                         $this->redirect(Yii::app()->createUrl("profile/registrationFlow",array("key"=>substr($model->activkey,0, 10),"email"=>$model->email)));
 
@@ -93,13 +105,13 @@ class RegistrationController extends Controller
                                   $this->redirect(Yii::app()->controller->module->returnUrl);
                           } else {
                               if (!Yii::app()->controller->module->activeAfterRegister&&!Yii::app()->controller->module->sendActivationMail) {
-                                  Yii::app()->user->setFlash('registration',Yii::t('msg',"Thank you for your registration. Contact Admin to activate your account."));
+                                  setFlash('registration',Yii::t('msg',"Thank you for your registration. Contact Admin to activate your account."));
                               } elseif(Yii::app()->controller->module->activeAfterRegister&&Yii::app()->controller->module->sendActivationMail==false) {
-                                  Yii::app()->user->setFlash('registration',Yii::t('msg',"Thank you for your registration. Please {login}.",array('{login}'=>CHtml::link(Yii::t('app','Login'),Yii::app()->controller->module->loginUrl))));
+                                  setFlash('registration',Yii::t('msg',"Thank you for your registration. Please {login}.",array('{login}'=>CHtml::link(Yii::t('app','Login'),Yii::app()->controller->module->loginUrl))));
                               } elseif(Yii::app()->controller->module->loginNotActiv) {
-                                  Yii::app()->user->setFlash('registration',Yii::t('msg',"Thank you for your registration. Please check your email or login."));
+                                  setFlash('registration',Yii::t('msg',"Thank you for your registration. Please check your email or login."));
                               } else {
-                                  Yii::app()->user->setFlash('registration',Yii::t('msg',"Thank you for your registration. Please check your email."));
+                                  setFlash('registration',Yii::t('msg',"Thank you for your registration. Please check your email."));
                               }
                               $this->refresh();
                           }*/

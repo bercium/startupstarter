@@ -1,19 +1,24 @@
-<div class="profile-info">
-  <?php echo Yii::t('app',"Profile completeness"); ?>: 
-  <div class="progress <?php echo $percClass; ?> round">
+<div class="sidebar profile-info  edit-content radius panel side">
+  <a class="button radius small right secondary" href="<?php echo Yii::app()->createUrl("profile/completeness"); ?>" ><?php echo Yii::t('app', 'Details'); ?></a>
+  
+  <h4 style="margin-top:8px;margin-bottom:12px;"><?php echo Yii::t('app',"Profile completeness"); ?>
+  </h4>
+  <a href="<?php echo Yii::app()->createUrl("profile/completeness"); ?>">
+  <div class="progress <?php echo $percClass; ?> round" title="<?php echo Yii::t('msg','Your profile is {n}% completed.',array($perc)); ?>" data-tooltip>
     <span class="meter" style="width:<?php echo $perc; ?>%;">
     </span>
   </div>
-    <?php echo Yii::t('app',"Profile viewed"); ?> 
-    <strong><?php echo Yii::t('app',"{n} time|{n} times",$views); ?></strong>
-    <br />
-    <?php echo Yii::t('app',"Member since"); ?>: 
-    <strong><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($memberDate),"long",null); ?></strong>
-</div>
+  </a>
+  <p><span class="meta">
+      <?php echo Yii::t('app', "Profile viewed"); ?> </span>
+    <?php echo Yii::t('app', "{n} time|{n} times", $views); ?></p>
+  <p><span class="meta">
+      <?php echo Yii::t('app', "Member since"); ?>: </span>
+    <?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($memberDate), "long", null); ?></p>
 
 
-<div style="text-align: center;">
-  <?php if ($invites > 0){ ?>
-  <a class="button alert radius small"  href="#" data-dropdown="drop-invitation-msg"><?php echo Yii::t('app','Send invitation ({n})',array($invites)); ?></a>
+  <?php if ($invites > 0) { ?>
+    <a class="button radius small-12" href="#" data-dropdown="drop-invitation-msg"><?php echo Yii::t('app', 'Send invitation ({n})', array($invites)); ?></a>
   <?php } ?>
+
 </div>

@@ -44,6 +44,15 @@
 	<?php echo GxHtml::encode($data->getAttributeLabel('newsletter')); ?>:
 	<?php echo GxHtml::encode($data->newsletter); ?>
 	<br />
+	<?php echo GxHtml::encode($data->getAttributeLabel('invitations')); ?>:
+	<?php echo GxHtml::encode($data->invitations); ?>
+	<br />
+	<?php echo GxHtml::encode($data->getAttributeLabel('bio')); ?>:
+	<?php echo GxHtml::encode($data->bio); ?>
+	<br />
+	<?php echo GxHtml::encode($data->getAttributeLabel('vanityURL')); ?>:
+	<?php echo GxHtml::encode($data->vanityURL); ?>
+	<br />
 	*/ ?>
 
 </div>

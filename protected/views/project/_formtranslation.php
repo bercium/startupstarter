@@ -1,9 +1,3 @@
- <?php if(Yii::app()->user->hasFlash('projectMessage')){ ?>
-    <div data-alert class="alert-box radius success">
-      <?php echo Yii::app()->user->getFlash('projectMessage'); ?>
-      <a href="#" class="close">&times;</a>
-    </div>
-    <?php } ?>    
 
    <?php echo CHtml::beginForm('','post',array('class'=>"custom formidea")); ?>
 
@@ -25,13 +19,13 @@
 
     <?php echo CHtml::activeLabelEx($translation,'title'); ?>
     <span class="description">
-      <?php echo Yii::t('msg','What are you calling it? One or two words please, you can always change it later.'); ?>
+      <?php echo Yii::t('msg','What do you call it? Write one or two words, please. You can always change it later.'); ?>
     </span>
     <?php echo CHtml::activeTextField($translation,"title", array('maxlength' => 128)); ?>
 
     <?php echo CHtml::activeLabelEx($translation,'pitch'); ?>
     <span class="description">
-        <?php echo Yii::t('msg','This is your pitch. Be short and to the point.'); ?>
+        <?php echo Yii::t('msg','This is your pitch. Be brief and to the point.'); ?>
     </span>
     <?php echo CHtml::activeTextArea($translation,"pitch"); ?>
 
@@ -75,7 +69,7 @@
     <div class="meta" id="tweetCount"><?php echo (120-strlen($translation->tweetpitch)) ?></div>
     <br /><br />
      <span class="description">
-      <?php echo Yii::t('msg','At the end we will append link to your project like this <strong>{url}</strong>',array('{url}'=>short_url_google(Yii::app()->createAbsoluteUrl("project/view",array("id"=>0))) )); ?>
+      <?php echo Yii::t('msg','At the end, we will append a link like this <strong>{url}</strong> to your project.',array('{url}'=>short_url_google(Yii::app()->createAbsoluteUrl("project/view",array("id"=>0))) )); ?>
      </span>
     </div>
   </div>         

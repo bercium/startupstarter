@@ -27,7 +27,7 @@ class Available extends BaseAvailable
   
   public function defaultScope(){
     return array(
-       'order'=>'name',
+       'order'=>'id',
     );
   }  
 }

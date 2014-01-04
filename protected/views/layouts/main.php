@@ -33,8 +33,9 @@
 		
   <link rel="shortcut icon" type="image/x-icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/iphone.png">
   <link rel="icon" type="image/ico" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico">
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700,700italic,600italic,600,400italic,300italic,300&subset=latin,cyrillic-ext,greek-ext,greek,latin-ext,cyrillic,vietnamese' rel='stylesheet' type='text/css'>
   
-
+  <script> var fullURL= '<?php echo Yii::app()->request->baseUrl; ?>';</script>
 	<title><?php echo Yii::app()->name; if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) echo " - ".$this->pageTitle; ?></title>
 </head>
 
@@ -42,9 +43,11 @@
 
 <div class="container">
 
+  <?php if (!isset($this->justContent) || !$this->justContent){ ?>
+  
   <div class="header-wrap show-for-small">
     <div class="row header">
-      <div class="" >
+      <div>
         <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
            <img alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title-mobile.png" />
         </a>
@@ -52,7 +55,7 @@
     </div>
   </div><!-- end header-wrap -->
   
-  <div class="top-bar-holder sticky" >
+  <div class="top-bar-holder sticky">
       <div class="row">
         <div class="">
           <nav class="top-bar contain-to-grid">
@@ -62,8 +65,9 @@
                <div class="hide-for-small">
 								 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
 									<img class="logo" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png" />
-								 </a>
-                 <img class="logo image-beta" alt="beta" title="beta" src="<?php echo Yii::app()->request->baseUrl; ?>/images/beta.png" style="position: absolute; bottom: -44px; left:20px;" />
+								 
+                 </a>
+                 
 							 </div>
                
                <?php if (!Yii::app()->user->isGuest){ ?>
@@ -71,6 +75,11 @@
                   <a href="<?php echo Yii::app()->createUrl("profile"); ?>">
                     <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
                   </a>
+                  <?php if ($this->getNotifications()){ ?>
+                    <a href="<?php echo Yii::app()->createUrl("profile/notification"); ?>" style="position:relative;top: 10px;left:20px;">
+                      <span class="icon-flag" style="cursor: pointer; color: /*#CD3438*/ #89B561;font-size: 1.4em;"> <?php echo $this->getNotifications(); ?></span>
+                    </a>
+                  <?php } ?>                  
                 </div>
                <?php } ?>
               </li>
@@ -95,13 +104,16 @@
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","person"); ?> desc">
-                <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>"><?php echo Yii::t('app','Find {bs}talent{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
+                <a <?php if (!Yii::app()->user->isGuest){ echo 'href="'.Yii::app()->createUrl("person/discover").'"'; } 
+                         else echo 'href="'.Yii::app()->createUrl("site/notify").'" title="'.Yii::t('msg','Please login to use this functionality!').'" data-tooltip'; ?> >
+                  <?php echo Yii::t('app','Find {bs}talent{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","project"); ?> desc">
-                <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>"><?php echo Yii::t('app','Discover {bs}projects{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
-                
+                <a <?php if (!Yii::app()->user->isGuest){ echo 'href="'.Yii::app()->createUrl("project/discover").'"'; } 
+                         else echo 'href="'.Yii::app()->createUrl("site/notify").'" title="'.Yii::t('msg','Please login to use this functionality!').'" data-tooltip'; ?> >
+                  <?php echo Yii::t('app','Discover {bs}projects{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
               </li>
               <li class="divider"></li>
@@ -115,6 +127,12 @@
                   <?php if(!Yii::app()->user->isGuest){  ?><li><a href="<?php echo Yii::app()->createUrl("profile/createInvitation"); ?>"><?php echo Yii::t('app','Create invitation'); ?></a></li>
                   <?php } ?>
                   <li><a href="<?php echo Yii::app()->createUrl("backendAuditTrail"); ?>"><?php echo Yii::t('app','Logs'); ?></a></li>
+                  <li class="has-dropdown">
+                     <a href="#"><?php echo Yii::t('app','Mail styles'); ?></a>
+                     <ul class="dropdown">
+                      <li><a href="<?php echo Yii::app()->createUrl("newsletter/mailSystem"); ?>"><?php echo Yii::t('app','System mail'); ?></a></li>
+                      <li><a href="<?php echo Yii::app()->createUrl("newsletter/mailNews"); ?>"><?php echo Yii::t('app','Newsletter mail'); ?></a></li>
+                     </ul>
                 </ul>
                 
               </li>
@@ -124,8 +142,8 @@
 
             <ul class="right">
               <?php if (!Yii::app()->user->isGuest){ ?>
-              <li class="has-dropdown">
-                <a href="#" style="height:45px">
+              <li class="has-dropdown minwidth20">
+                <a href="<?php echo Yii::app()->createUrl("person",array('id'=>Yii::app()->user->id)); ?>" style="height:45px">
                   <div class="hide-for-small">
                   <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
                   </div>
@@ -137,26 +155,36 @@
                 <ul class="dropdown">
                   <li><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><?php echo Yii::t('app','Profile'); ?><span class="icon-user"></span></a></li>
                   <li><a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>"><?php echo Yii::t('app','My projects'); ?><span class="icon-lightbulb"></span></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo Yii::t('app','Create new project'); ?><span class="general foundicon-plus"></span></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><?php echo Yii::t('app','Settings'); ?><span class="general foundicon-settings"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo Yii::t('app','Create a new project'); ?><span class="icon-plus"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("message"); ?>"><?php echo Yii::t('app','Message history'); ?><span class="icon-envelope"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><?php echo Yii::t('app','Settings'); ?><span class="icon-wrench"></span></a></li>
                   
                   <li><a class="altli" href="<?php echo Yii::app()->createUrl(Yii::app()->getModule('user')->logoutUrl[0]); ?>"><?php echo Yii::t('app','Logout'); ?></a></li>
                 </ul>
 
               </li>
+                <?php if ($this->getNotifications()){ ?>
+                <li class="divider"></li>
+                <li class="desc">
+                  <a href="<?php echo Yii::app()->createUrl("profile/notification"); ?>" style="padding-top: 13px; background-color: #89B561;" data-tooltip title="<?php echo Yii::t("msg","You have been invited to a project.") ?>">
+                    <span class="icon-flag" style="cursor: pointer; color: /*#CD3438*/ #FFF;font-size: 1.4em;"> <?php echo $this->getNotifications(); ?></span>
+                  </a>
+                </li>
+                <?php } ?>
               <?php }else{ ?>
                 <li>
                   <a href="#" data-dropdown="drop-login"><?php echo Yii::t('app','Login'); ?></a>
                 </li>
-              <li class="divider"></li>
+              <?php /* ?><li class="divider"></li>
                 <li>
-                  <?php /* ?><a href="<?php echo Yii::app()->createUrl("user/registration"); ?>"><?php echo Yii::t('app','Register'); ?></a><?php */ ?>
-                  <a href="<?php echo Yii::app()->createUrl("site/notify"); ?>"><?php echo Yii::t('app','Invitations'); ?></a>
+                  <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>"><?php echo Yii::t('app','Register'); ?></a>
                 </li>
+               
+               <?php */ ?>
               <?php } ?>
               <li class="divider"></li>
               <li class="desc">
-                <a href="#" style="" data-dropdown="langselect"><?php echo Yii::app()->getLanguage(); ?>
+                <a href="#" data-dropdown="langselect"><?php echo Yii::app()->getLanguage(); ?>
                 <br /><small>language</small>
                 </a>
               </li>
@@ -168,41 +196,16 @@
   </div>
 </div>
 
+<?php 
+
+ writeFlashes();
+
+} ?>
 <?php echo $content; ?>  
+<?php if (!isset($this->justContent) || !$this->justContent){ ?>
 
 
-	<div class="footer">
-		<div class="row">
-			 <div class="large-3 columns">
-
-				 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
-					 <img class="logo-mini" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-mini.png" />
-				 </a>
-			</div>
-			<div class="large-9 columns footer-links">
-
-         <div class="social-links">
-<a href="https://www.facebook.com/cofinder.eu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-facebook.png"></a>
-<a href="https://www.linkedin.com/company/cofinder" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-linkedin.png"></a>
-</div>
-				<ul class="inline-list">
-          <?php /* ?><li><a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo Yii::t('app','Our team'); ?></a></li> <?php */ ?>
-					<li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo Yii::t('app','About'); ?></a></li>
-					<?php if (false && Yii::app()->user->isAdmin()){ ?>
-						<li><a href="<?php echo Yii::app()->createUrl("site/list"); ?>"><?php echo Yii::t('app','Admin'); ?></a></li>
-					<?php } ?>
-					<li><a href="<?php echo Yii::app()->createUrl("site/terms"); ?>"><?php echo Yii::t('app','Terms of service'); ?></a></li>
-					<li><a href="#" onclick="contact(this);"><?php echo Yii::t('app','Contact'); ?></a></li>
-					
-				</ul>
-        
-
-			</div>
-
-		</div>
-	</div>
-
-</div>
+	
  
 <!-- page -->
 <div id="langselect" class="f-dropdown content" data-dropdown-content>
@@ -246,28 +249,70 @@
   </div>
 </div>
 
+<?php } ?>
+
+<div class="push"></div>
+
+</div><!-- container end -->
+
+<div class="footer">
+    <div class="row">
+       <div class="large-3 columns">
+
+         <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
+           <img class="logo-mini" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-mini.png" />
+         </a>
+      </div>
+      <div class="large-9 columns footer-links">
+        <div class="social-links">
+          <a href="https://www.facebook.com/cofinder.eu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-facebook.png"></a>
+          <a href="https://www.linkedin.com/company/cofinder" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-linkedin.png"></a>
+          <a href="https://plus.google.com/+CofinderEu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-gplus.png"></a>
+        </div>
+        
+        <ul class="inline-list">
+          <?php /* ?><li><a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo Yii::t('app','Our team'); ?></a></li> <?php */ ?>
+          <li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo Yii::t('app','About'); ?></a></li>
+          <li><a href="#" onclick="contact(this);"><?php echo Yii::t('app','Contact'); ?></a></li>
+          <li><a href="<?php echo Yii::app()->createUrl("site/terms"); ?>"><?php echo Yii::t('app','Terms of service'); ?></a></li>
+          <li><a href="<?php echo Yii::app()->createUrl("site/cookies"); ?>"><?php echo Yii::t('app','Cookies'); ?></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
 <!-- userreport.com snippet -->
 <script type="text/javascript">
-var _urq = _urq || [];
-_urq.push(['initSite', 'ff32f930-ced3-4aca-8673-23bef9c3ecc6']);
-(function() {
-var ur = document.createElement('script'); ur.type = 'text/javascript'; ur.async = true;
-ur.src = 'http://sdscdn.userreport.com/userreport.js';
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
-})();
+ 
+    var _urq = _urq || [];
+    _urq.push(['initSite', 'ff32f930-ced3-4aca-8673-23bef9c3ecc6']);
+    (function() {
+    var ur = document.createElement('script'); ur.type = 'text/javascript'; ur.async = true;
+    ur.src = 'http://sdscdn.userreport.com/userreport.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
+    })();
+  
 </script> 
 
 
+
+
+<?php if (!YII_DEBUG){ ?>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    if (jQuery.cookie('cc_cookie_accept') == "cc_cookie_accept") {
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-45467622-1', 'cofinder.eu');
-  ga('send', 'pageview');
-
+        ga('create', 'UA-45467622-1', 'cofinder.eu');
+        ga('send', 'pageview');
+    }
 </script>
-
+<?php } ?>
+     
 </body>
-</html>
+</html><?php 
+    // be the last to override any other CSS settings
+    Yii::app()->getClientScript()->registerCssFile(Yii::app()->baseUrl.'/css/override.css'.getVersionID()); 

@@ -4,7 +4,7 @@
 // Any writable CConsoleApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'My Console Application',
+	'name'=>'Cofinder console application',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -49,6 +49,8 @@ return array(
   ),
 	// application components
 	'components'=>array(
+    'request' => require(dirname(__FILE__) . '/local-console-request.php'),
+      
 		/*'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		),*/
@@ -62,6 +64,7 @@ return array(
 				array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',
+          'logFile' => 'console.log',
 				),
 			),
 		),
@@ -75,17 +78,22 @@ return array(
             'encryption'=>'tls',
           ),require(dirname(__FILE__) . '/local-mail.php')
         ),*/
-        'viewPath' => 'application.views.mailTemplates',
-        'logging' => true,
-        'dryRun' => true
+        'viewPath' => 'application.views.layouts.mail',
+        'logging' => YII_DEBUG,
+        'dryRun' => YII_DEBUG
     ),   
 	),
 	'params'=>array(
 		// this is used in contact page
+    'version'=>require(dirname(__FILE__) . '/version.php'),
 		'adminEmail'=>array('no-reply@cofinder.eu'=>'Cofinder'), //!!! must decide if usefull seperate mail
     'noreplyEmail'=>array('no-reply@cofinder.eu'=>'Cofinder'),
+      
     'tempFolder'=>'temp/',
     'avatarFolder'=>'uploads/avatars/',
+    'ideaGalleryFolder'=>'uploads/ideagalleries/',
     'mapsFolder'=>'uploads/maps/',
+    'iconsFolder'=>'uploads/icons/',
+    'dbbackup'=>'protected/data/backup/',
 	),    
 );

@@ -169,6 +169,25 @@ class UserModule extends CWebModule
 		else
 			return hash($hash,$string);
 	}
+  
+	
+	/**
+	 * @return hash string.
+	 */
+	public static function validate($password,$correct_password) {
+    include_once 'PasswordHash.php';
+    if (strpos($correct_password, ":") === false){
+      return (Yii::app()->getModule('user')->encrypting($password) == $correct_password);
+    }else return validate_password($password,$correct_password);
+	}
+  
+	/**
+	 * @return hash string.
+	 */
+	public static function createHash($password) {
+    include_once 'PasswordHash.php';
+    return create_hash($password);
+	}    
 	
 	/**
 	 * @param $place

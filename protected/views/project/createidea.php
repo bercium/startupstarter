@@ -2,11 +2,11 @@
   var skillSuggest_url = '<?php echo Yii::app()->createUrl("profile/suggestSkill",array("ajax"=>1)) ?>';
 </script>
 
-<div class="row createidea">
+<div class="row columns createidea">
   <div class="columns edit-header">
     <h3>
       <?php if($step == 1) echo Yii::t('app', 'Project presentation'); ?>
-      <?php if($step == 2) echo Yii::t('app', 'Team'); ?>
+      <?php if($step == 2) echo Yii::t('app', 'Project team'); ?>
       <?php if($step == 3) echo Yii::t('app', 'Spread the word'); ?>
     </h3>
 
@@ -15,7 +15,7 @@
           echo "<li>1.". Yii::t('app', 'Presentation') ."</li>";
           if($step == 1) echo "</strong>"; ?>     
       <?php if($step == 2) echo "<strong>"; 
-            echo "<li>2.". Yii::t('app', 'Team');
+            echo "<li>2.". Yii::t('app', 'Project team');
             if($step == 2) echo "</li></strong>"; ?>
       |
       <?php /*if($step == 3) echo "<strong>"; 
@@ -50,9 +50,9 @@
 <?php if($step == 2){ ?>
 <div class="row">
   <div class="columns edit-header">
-    <div class="edit-floater">
+    <div class="right">
       <?php if(!isset($candidate)){ ?>
-      <a class="small button radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl('project/create?step=2&candidate=new'); ?>"><?php echo Yii::t('app','Add new') ?>
+      <a class="small button abtn secondary radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl('project/create?step=2&candidate=new'); ?>"><?php echo Yii::t('app','Add new') ?>
         <span class="icon-plus"></span>
       </a>
         <?php } ?>

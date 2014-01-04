@@ -10,11 +10,13 @@
  * followed by relations of table "invite" available as properties of the model.
  *
  * @property integer $id
- * @property string $id_sender
+ * @property string $sender_id
  * @property string $key
  * @property string $email
- * @property string $id_idea
- * @property string $id_receiver
+ * @property string $idea_id
+ * @property string $receiver_id
+ * @property string $code
+ * @property string $registered
  *
  * @property User $idSender
  * @property Idea $idIdea
@@ -40,27 +42,28 @@ abstract class BaseInvite extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('id_sender, email', 'required'),
+			array('email', 'required'),
 			array('email', 'email'),
-      array('email', 'unique', 'criteria'=>array(
-            'condition'=>'`id_idea`=:idIdea OR ISNULL(id_idea)',
+      		array('email', 'unique', 'criteria'=>array(
+            'condition'=>'(`idea_id`=:ideaId OR ISNULL(idea_id)) AND registered = 0',
             'params'=>array(
-                ':idIdea'=>$this->id_idea,
+                ':ideaId'=>$this->idea_id,
             )
         )),        
-			array('id_sender, id_idea, id_receiver', 'length', 'max'=>11),
+			array('sender_id, idea_id, receiver_id', 'length', 'max'=>11),
 			array('key, email', 'length', 'max'=>50),
-			array('key, id_idea, id_receiver', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('key, idea_id, receiver_id, sender_id, code', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('registered', 'default', 'setOnEmpty' => true, 'value' => false),
 			array('time_invited', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
-			array('id, id_sender, key, email, id_idea, id_receiver', 'safe', 'on'=>'search'),
+			array('id, sender_id, key, email, idea_id, receiver_id', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
-			'idSender' => array(self::BELONGS_TO, 'User', 'id_sender'),
-			'idIdea' => array(self::BELONGS_TO, 'Idea', 'id_idea'),
-			'idReceiver' => array(self::BELONGS_TO, 'User', 'id_receiver'),
+			'senderId' => array(self::BELONGS_TO, 'User', 'sender_id'),
+			'ideaId' => array(self::BELONGS_TO, 'Idea', 'idea_id'),
+			'receiverId' => array(self::BELONGS_TO, 'User', 'receiver_id'),
 		);
 	}
 
@@ -72,15 +75,17 @@ abstract class BaseInvite extends GxActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => Yii::t('app', 'ID'),
-			'id_sender' => null,
+			'sender_id' => Yii::t('app', 'Sender'),
 			'key' => Yii::t('app', 'Key'),
 			'email' => Yii::t('app', 'Email'),
-			'id_idea' => null,
-			'id_receiver' => null,
-			'idSender' => null,
-			'idIdea' => null,
-			'idReceiver' => null,
+			'idea_id' => null,
+			'receiver_id' => Yii::t('app', 'Receiver'),
+			'senderId' => null,
+			'ideaId' => null,
+			'receiverId' => null,
 			'time_invited' => null,
+      'code'=>Yii::t('app', 'Code'),
+      'registered'=>Yii::t('app', 'Registered'),
 		);
 	}
 
@@ -88,12 +93,14 @@ abstract class BaseInvite extends GxActiveRecord {
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id);
-		$criteria->compare('id_sender', $this->id_sender);
+		$criteria->compare('sender_id', $this->sender_id);
 		$criteria->compare('key', $this->key, true);
 		$criteria->compare('email', $this->email, true);
-		$criteria->compare('id_idea', $this->id_idea);
-		$criteria->compare('id_receiver', $this->id_receiver);
+		$criteria->compare('idea_id', $this->idea_id);
+		$criteria->compare('receiver_id', $this->receiver_id);
 		$criteria->compare('time_invited', $this->time_invited);
+		$criteria->compare('code', $this->code);
+		$criteria->compare('registered', $this->registered);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

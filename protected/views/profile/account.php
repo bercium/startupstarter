@@ -1,3 +1,4 @@
+<div class="large-12 columns">
 <?php $this->pageTitle = Yii::t('app','Settings'); ?>
 <div class="row">
   <div class="columns edit-header">
@@ -5,12 +6,6 @@
   </div>
   <div class="columns panel edit-content">
     
-    <?php if(Yii::app()->user->hasFlash('settingsMessage')){ ?>
-    <div data-alert class="alert-box radius success">
-      <?php echo Yii::app()->user->getFlash('settingsMessage'); ?>
-      <a href="#" class="close">&times;</a>
-    </div>
-    <?php } ?>    
     
       <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6")); ?>
     
@@ -20,7 +15,7 @@
       <label for="UserEdit_email"><?php echo Yii::t('app',"Email"); ?>
       </label>
       <span class="description">
-         <?php echo Yii::t('msg',"Email can't be changed at this time."); ?>
+         <?php echo Yii::t('msg',"Email cannot be changed at the moment."); ?>
       </span>
     
       <?php echo CHtml::activeTextField($user,"email", array("class"=>"small secondary readonly","disabled"=>true)); ?>
@@ -41,6 +36,32 @@
         <span></span>
       </div>
     
+      <label for="UserEdit_vanityURL"><?php echo Yii::t('app',"Public name"); ?></label>
+      <?php if (!$allowVanityURL){ ?>
+        <span class="description"><?php echo Yii::t('msg',"You must invite at least 3 people to be able to choose your own personal URL."); ?></span>
+      <?php }else{ ?>
+        <span class="description"><?php echo Yii::t('msg',"Chose your own personal URL."); ?></span>
+        
+      <?php } ?>
+        
+        <div class="row collapse">
+    <div class="small-5 columns">
+      <span class="prefix">www.cofinder.eu/</span>
+    </div>
+    <div class="small-7 columns">
+      <?php if (!$allowVanityURL) {
+         echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary readonly","disabled"=>true)); 
+        }else{ 
+          echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary")); 
+        }?>
+    </div>        
+      <?php /*if (!$allowVanityURL){ ?>
+        <div class="small-2 columns">
+          <a data-dropdown="drop-invitation-msg" href="#" class="postfix button radius">Invite</a>
+        </div>
+      <?php } */ ?>
+    </div>
+        
       <?php /* echo CHtml::label(Yii::t("app","First page intro"),"fpi"); ?>
       <div class="switch small round small-4 large-3">
         <input id="fpi_0" name="UserEdit[fpi]" type="radio" value="0" <?php if (!$fpi) echo 'checked="checked"' ?>>
@@ -63,13 +84,6 @@
     <h3><?php echo Yii::t('app', 'Change password'); ?></h3>
   </div>
   <div class="columns panel edit-content">
-
-    <?php if(Yii::app()->user->hasFlash('passChangeMessage')){ ?>
-    <div data-alert class="alert-box radius success">
-      <?php echo Yii::app()->user->getFlash('passChangeMessage'); ?>
-      <a href="#" class="close">&times;</a>
-    </div>
-    <?php } ?>
     
       <?php echo CHtml::beginForm('','post',array('class'=>"custom large-6")); ?>
 
@@ -86,7 +100,7 @@
 
       <?php echo CHtml::submitButton(Yii::t("app","Save"),
                   array('class'=>"button small alert radius",
-                        'confirm'=>Yii::t("msg","This action will change your password!\nAre you sure?") )
+                        'confirm'=>Yii::t("msg","This action will change your password!")."\n".Yii::t("msg","Are you sure?") )
               ); ?>
 
     <?php echo CHtml::endForm(); ?>
@@ -96,14 +110,14 @@
 
 <div class="row">
   <div class="columns edit-header">
-    <div class="edit-floater">
+    <h3><?php echo Yii::t('app', 'Deactivate account'); ?></h3>
           <?php echo CHtml::submitButton(Yii::t("app","Open"),
                 array('class'=>"button small secondary radius",
                       'onclick'=>"$('#deactivate').show();"
                     )
             ); ?>
-    </div>
-    <h3><?php echo Yii::t('app', 'Deactivate account'); ?></h3>
+    
+    
   </div>
   <div class="columns panel edit-content" id="deactivate" style="display:none;">
     <p>
@@ -112,7 +126,7 @@
       <?php echo Yii::t('msg', 'We purge all deactivated accounts on first day of each month. You have until then to reactivate it by clicking "Lost Password?" in login form.'); ?>
       
       <div data-alert class='alert-box radius alert'>
-        <?php echo Yii::t('msg', 'When we purge your account all data connected to it will be removed as well.'); ?>
+        <span class="icon-warning-sign"></span> <?php echo Yii::t('msg', 'When we purge your account all data connected to it will also be removed.'); ?>
       </div>
     </p>
     
@@ -130,12 +144,14 @@
 
     <?php echo CHtml::submitButton(Yii::t("app","Deactivate account"),
                 array('class'=>"button small alert radius",
-                      'confirm'=>Yii::t("msg","This action will deactivate your account.\nAre you sure?") )
+                      'confirm'=>Yii::t("msg","This action will deactivate your account.")."\n".Yii::t("msg","Are you sure?") )
             ); ?>
 
     <?php echo CHtml::endForm(); ?>
   
   </div>
+</div>
+
 </div>
 
 

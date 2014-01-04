@@ -32,6 +32,16 @@ class NewsletterController extends GxController {
 		);
 	}
   
+  protected function beforeAction($action){
+    if ($action->id == 'mailSystem' || $action->id == 'mailNews')
+      foreach (Yii::app()->log->routes as $route){
+        //if ($route instanceof CWebLogRoute){
+          $route->enabled = false;
+        //}
+      }
+    return true;
+  }
+  
   /**
    * Show form for writing a newsletter and sending it to all subscribers
    */
@@ -43,21 +53,37 @@ class NewsletterController extends GxController {
         
         $message = new YiiMailMessage;
         $message->view = 'newsletter';
-        $message->setBody(array("content"=>$model->newsletter,), 'text/html');
         $message->subject = $model->newsletterTitle;
+        $message->from = Yii::app()->params['adminEmail'];
         
-        // get all users
-        $criteria = new CDbCriteria();
-        $criteria->condition = 'newsletter=1';
-        $users = User::model()->findAll($criteria);
-        foreach ($users as $user){
-          $message->addTo($user->email);
+        // send to specific emails
+        if ($model->newsletterEmails){
+          $users = explode(",", $model->newsletterEmails);
+          foreach ($users as $user){
+            $message->setBody(array("content"=>$model->newsletter), 'text/html');
+            $message->setTo(trim($user));
+            Yii::app()->mail->send($message);
+          }
+        }else{
+          // get all users with newsletter on
+          $users = User::model()->findAllByAttributes(array('newsletter'=>'1'));
+          foreach ($users as $user){
+            $message->setBody(array("content"=>$model->newsletter,"activkey"=>$user->activkey), 'text/html');
+            $message->setTo($user->email);
+            Yii::app()->mail->send($message);
+          }
+
+          // send newsletter to all in waiting list
+          $invites = Invite::model()->findAll('registered = 0 AND ISNULL(idea_id)'); // only unregistered and not invited to any ideas
+          foreach ($invites as $user){
+            $message->setBody(array("content"=>$model->newsletter,"email"=>$user->email), 'text/html');
+            $message->setTo($user->email);
+            Yii::app()->mail->send($message);
+          }
         }
         
-        $message->from = Yii::app()->params['adminEmail'];
-        Yii::app()->mail->batchSend($message);
-        
-				Yii::app()->user->setFlash('newsletter',Yii::t('msg',"Newsletter sent succesfully."));
+				setFlash('newsletter',Yii::t('msg',"Newsletter sent succesfully."));
+        $this->refresh();
 			}
 		}
 		$this->render('index',array('model'=>$model));
@@ -87,17 +113,19 @@ class NewsletterController extends GxController {
 	}
   
 	public function actionMailSystem() {
+    Yii::app()->clientScript->reset();
     $this->layout = 'blank';
-    $content = '';
+    $content = '<strong>HERE GOES CONTENT</strong> (write your test content in URL "content" parameter)';
     if (isset($_GET['content'])) $content = $_GET['content'];
-    $this->render('//mailTemplates/system',array('content'=>$content));
+    $this->render('//layouts/mail/system',array('content'=>$content));
   }
 
 	public function actionMailNews(){
+    Yii::app()->clientScript->reset();
     $this->layout = 'blank';
-    $content = '';
+    $content = '<strong>HERE GOES CONTENT</strong> (write your test content in URL "content" parameter)';
     if (isset($_GET['content'])) $content = $_GET['content'];
-    $this->render('//mailTemplates/newsletter',array('content'=>$content));
+    $this->render('//layouts/mail/newsletter',array('content'=>$content));
   }
   
 }

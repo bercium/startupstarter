@@ -51,7 +51,7 @@ class SqlBuilder {
 		$filter['action'] = $action;
 		$this->level = 0;
 
-	//UNSET VARIABLEs
+	//UNSET VARIABLES
 		unset($filter['regflow']);
 
 	//WHICH ACTION IS PERFORMED?
@@ -173,7 +173,7 @@ class SqlBuilder {
 					"ON ist.id = t.row_id ".
 					"AND t.table = 'idea_status' ".
 					"AND t.language_id = {$filter['site_lang']} ".
-
+          
 					"WHERE i.deleted = 0 ".					
 					"ORDER BY im.type_id ASC, i.time_registered DESC";
 
@@ -261,12 +261,16 @@ class SqlBuilder {
 
 				$row['date_updated'] = Yii::app()->dateFormatter->formatDateTime(strtotime($row['time_updated']));
 				$row['days_updated'] = floor( (time() - strtotime($row['time_updated'])) / 86400 );
+				$row['translation_other'] = $this->idea_translation( 'other', $filter );
 				if($type != 'user'){
-					$row['translation_other'] = $this->idea_translation( 'other', $filter );
 					$row['candidate'] = $this->user( 'candidate', $filter );
 					$row['member'] = $this->user( 'member', $filter );
 					$row['num_of_members'] = count($row['member']);
 				}
+				//add link
+				$row['link'] = $this->link( 'idea', $filter );
+				$row['gallery'] = $this->gallery( $filter );
+
 				if($type == 'user' && $this->level < 3){
 					$row['member'] = $this->user( 'member', $filter );
 				}
@@ -343,7 +347,7 @@ class SqlBuilder {
 			//return specific user's data
 			$sql=	"SELECT m.id AS match_id, ".
 					"u.id AS id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, ".
-					"u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, ".
+					"u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, u.bio, ".
 					"l.name AS language, c.name AS country, ci.name AS city, m.country_id, m.city_id, ".
 					"m.available, a.name AS available_name, t.translation AS available_translation FROM ".
 					"`user_match` AS m ".
@@ -386,8 +390,11 @@ class SqlBuilder {
 					"ON a.id = t.row_id ".
 					"AND t.table = 'available' ".
 					"AND t.language_id = {$filter['site_lang']} ".
+                  
+          "LEFT JOIN `user_stat` AS us ".
+          "ON u.id = us.user_id ".
 
-					"WHERE m.user_id > 0 AND u.status = 1 ".
+					"WHERE m.user_id > 0 AND u.status = 1 AND us.completeness >= ".PROFILE_COMPLETENESS_MIN." ".
 					"ORDER BY u.create_at DESC ".
 					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". $filter['per_page'];
 
@@ -446,7 +453,9 @@ class SqlBuilder {
 			$sql=	"SELECT count(u.id) AS count FROM ".
 					"`user` AS u 
            INNER JOIN `user_match` AS m ON u.id = m.user_id
-           WHERE m.user_id > 0  AND u.status = 1";
+          LEFT JOIN `user_stat` AS us ON u.id = us.user_id
+
+           WHERE m.user_id > 0  AND u.status = 1 AND us.completeness >= ".PROFILE_COMPLETENESS_MIN;
 		} elseif( $type == 'search' ){
 
 			$sql=	"SELECT m.id AS match_id, ".
@@ -526,7 +535,7 @@ class SqlBuilder {
 				//add link
 				if($type != 'candidate'){
 					$filter['uid'] = $row['id'];
-					$row['link'] = $this->link( $filter );
+					$row['link'] = $this->link( 'user', $filter );
 				}
 
 				//is it one to one or one to many array?
@@ -644,11 +653,17 @@ class SqlBuilder {
 		return $array;
 	}
 
-	public function link($filter){
+	public function link($type, $filter){
 
-		$sql=		"SELECT ul.* FROM ".
-					"`user_link` AS ul ".
-					"WHERE ul.user_id = '{$filter['uid']}'";
+		if($type == 'user'){
+			$sql=		"SELECT ul.* FROM ".
+						"`user_link` AS ul ".
+						"WHERE ul.user_id = '{$filter['uid']}'";
+		} elseif($type == 'idea'){
+			$sql=		"SELECT il.* FROM ".
+						"`idea_link` AS il ".
+						"WHERE il.idea_id = '{$filter['idea_id']}'";
+		}
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
@@ -657,6 +672,25 @@ class SqlBuilder {
 
 		while(($row=$dataReader->read())!==false) {
 			$array[$row['id']] = $row;
+		}
+
+		return $array;
+	}
+
+	public function gallery($filter){
+
+		$sql=		"SELECT ig.* FROM ".
+					"`idea_gallery` AS ig ".
+					"WHERE ig.idea_id = '{$filter['idea_id']}' ".
+					"ORDER BY ig.cover DESC";
+
+		$connection=Yii::app()->db;
+		$command=$connection->createCommand($sql);
+		$dataReader=$command->query();
+		$array = array();
+
+		while(($row=$dataReader->read())!==false) {
+			$array[] = $row;
 		}
 
 		return $array;

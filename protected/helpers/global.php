@@ -1,5 +1,16 @@
 <?php
 
+
+/**
+ * append this string to files that you wish to force refresh during version changes
+ * it should be used on CSS and JS files that get cached for a long time
+ */
+function getVersionID(){
+  $version = Yii::app()->params['version'];
+  
+  return "?".substr(md5($version),0,5);
+}
+
 /**
  * function to shorten URL with google url shortener
  */
@@ -59,6 +70,31 @@ function avatar_image($filename, $userID = 0, $thumb=30){
 }
 
 /**
+ * will return project avatar or default one
+ */
+function idea_image($filename, $ideaID = false, $thumb = 30){
+
+  if ($thumb) $thumb = "thumb_".$thumb."_";
+  else $thumb = '';
+  if ($filename){
+    //if (file_exists($filename)) return $filename;
+    if($ideaID == false){
+      $pathFileName = Yii::app()->params['tempFolder'].$thumb.$filename; 
+    } else {
+      $pathFileName = Yii::app()->params['ideaGalleryFolder'].$thumb.$filename;
+    }
+    
+
+    if (file_exists(Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.$pathFileName)) 
+            return Yii::app()->getBaseUrl(true)."/".$pathFileName;
+  }
+  
+  $ideaID = ($ideaID % 4); // 3 different default avatars
+  return Yii::app()->getBaseUrl(true)."/images/dummy-avatar-".$ideaID.".png";
+//  return Yii::app()->request->baseUrl."/images/dummy-avatar-".$userID.".png";
+}
+
+/**
  * check if curent action is active and return apropriate CSS class
  */
 function isMenuItemActive($action,$controller = ''){
@@ -68,6 +104,7 @@ function isMenuItemActive($action,$controller = ''){
       if ($act == Yii::app()->controller->action->id) return "active";
   }
   else if ($action == Yii::app()->controller->action->id) return "active";
+  return '';
 }
 
 
@@ -160,6 +197,69 @@ function getGMap($country = '', $city = '', $addr = ''){
   }
 }
 
+
+/**
+ * 
+ */
+//if(!class_exists('elhttpclient'));
+function getLinkIcon($link){
+  //include_once "httpclient.php";
+	//if(!class_exists('elhttpclient')){
+	Yii::import('application.helpers.elHttpClient');
+	//}
+  $httpClient = new elHttpClient();
+  $httpClient->setUserAgent("ff3");
+ 
+  $link =  parse_url("http://".remove_http($link), PHP_URL_HOST);
+  
+  $URL = "http://www.google.com/s2/favicons?domain=".$link;
+ 
+  $filename = $link.".png";
+  $folder = Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['iconsFolder'];
+  
+  if (file_exists($folder.$filename)){
+    return Yii::app()->getBaseUrl(true)."/".Yii::app()->params['iconsFolder'].$filename;
+  }else{
+    //$this->buildRequest($URL, 'GET');
+    //return $this->fetch($URL);
+    $httpClient->setHeaders(array("Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"));
+    //$htmlDataObject = $httpClient->get("maps.googleapis.com");
+    $URL = str_replace(" ", "%20", $URL);
+    $htmlDataObject = $httpClient->get($URL);
+    //change from XML to array
+    $htmlData = $htmlDataObject->httpBody;
+    
+ 		if (!is_dir($folder)) {
+			mkdir($folder, 0777, true);
+		}
+
+    file_put_contents($folder.$filename, $htmlData);
+    return Yii::app()->getBaseUrl(true)."/".Yii::app()->params['iconsFolder'].$filename;
+  }
+}
+
+function add_http($link){
+  //return $link;
+  if ((strpos($link, "http://") === false) && (strpos($link, "https://") === false)){
+    return "http://".$link;
+  }
+  return $link;
+}
+
+
+/**
+ * remove http:// and https://
+ */
+function remove_http($url) {
+   $disallowed = array('http://', 'https://');
+   foreach($disallowed as $d) {
+      if(strpos($url, $d) === 0) {
+         return str_replace($d, '', $url);
+      }
+   }
+   return $url;
+}
+
 /**
  * will convert array data into format useful for logging
  */
@@ -180,34 +280,70 @@ function arrayLog($data, $space = '&nbsp;&nbsp;'){
 	return $string;
 }
 
-function add_http($link){
-    //return $link;
-    if ((strpos($link, "http://") === false) && (strpos($link, "https://") === false)){
-      return "http://".$link;
-    }
-    return $link;
-  }
 
 /**
- * dynamicaly translate si
+ * dynamicaly translate sif
  */
 function sifTrans($value){
   return Yii::t("app",$value);
 }
 
-
-function setFlash($flashName, $flashMessage, $status = 'success'){
-  $flash = array("message"=>$flashMessage, "status"=>$status);
+/**
+ * set flash will set flash with some extra parameters
+ * @value string $flashName - name of ID to show flash for
+ * @value string $flashMesage - string message to show in flash or
+ *                              array in format array(msg='',action=array of actions(hint='',action='')) where message should have %s for replacing actions
+ * @value string $staus - ['success'] status of message shown can be: alert, success or info
+ * @value string $autoHide - weather flash message should be automaticaly hidden after a period of time
+ * 
+ */
+function setFlash($flashName, $flashMessage, $status = 'success', $autoHide = true){
+  $flash = array("message"=>$flashMessage, "status"=>$status, "autoHide" => $autoHide);
   Yii::app()->user->setFlash($flashName, $flash);
 }
 
+/**
+ * will decode message if array or string
+ */
+function decodeFlashMsg($msg){
+  
+  if (is_array($msg) && isset($msg['msg'])){
+    $actions = array();
+    
+    if (isset($msg['actions'])){
+      foreach ($msg['actions'] as $action){
+        $actions[] = '<a href="'.$action['action'].'" class="action button radius tiny secondary" style="margin-bottom: 0;" alt="'.$action['hint'].'" title="'.$action['hint'].'">'.
+                     $action['hint'].
+                     '</a>';
+      }
+    }
+    
+    return vsprintf($msg['msg'],$actions);
+  }else return $msg;
+}
+
+
+/**
+ * will return flash data as a string
+ */
+function getFlashData($flashName){
+  if(Yii::app()->user->hasFlash($flashName)){
+    $flash =  Yii::app()->user->getFlash($flashName);
+    return decodeFlashMsg($flash['message']);
+  }
+  return false;
+}
+
+/**
+ * will return whole flash with styling
+ */
 function getFlash($flashName){
   $html = '';
   if(Yii::app()->user->hasFlash($flashName)){
     $flash = Yii::app()->user->getFlash($flashName);
     
     $html .= '<div data-alert class="alert-box radius '.$flash['status'].'">';
-    $html .= $flash['message'];
+    $html .= decodeFlashMsg($flash['message']);
     $html .= '<a href="#" class="close">&times;</a></div>';
   }
   return $html;
@@ -216,3 +352,59 @@ function getFlash($flashName){
 function writeFlash($flashName){
   echo getFlash($flashName);
 }
+
+/**
+ * will write all the flashes in standard way and assign them a timeout function
+ */
+function writeFlashes(){
+  $flashMessages = Yii::app()->user->getFlashes(false);
+  if ($flashMessages) {
+    $nh = $i = 0;
+    $hide = '';
+    $html = '<div class="row"><div class="large-12 columns flashes">';
+    foreach($flashMessages as $key => $flash) {
+      Yii::app()->user->getFlash($key);
+
+      $html .= '<div data-alert class="alert-box radius '.$flash['status'].' flash-hide-'.$i.' ">';
+      $html .= decodeFlashMsg($flash['message']);
+      $html .= '<a href="#" onclick="$(\'.flashes-margin\').height($(\'.flashes-margin\').height()-30);" class="close">&times;</a></div>';
+
+      if ($flash["autoHide"]){
+        if ($flash['status'] != 'alert') $hide .= '$(".flash-hide-'.$i.'").animate({opacity: 1.0}, '.(3000+$i*500).').fadeOut();';
+        else $hide .= '$(".flash-hide-'.$i.'").animate({opacity: 1.0}, '.(10000+$i*500).').fadeOut();';
+      }else $nh++;
+      $i++;
+    }
+    $html .= '</div></div>';
+    if ($nh > 0){
+      $html .= '<div class="flashes-margin" style="height:'.($nh*30-15).'px;"></div>';
+    }
+    if ($i > 0){ 
+      echo $html;
+      Yii::app()->clientScript->registerScript(
+         'myHideEffect',
+         $hide,
+         CClientScript::POS_READY
+      );
+    }
+  }
+}
+
+
+function absoluteURL(){
+  $host = require(dirname(__FILE__) . '/../config/local-console-request.php');
+  
+  //echo $host;
+  return $host['hostInfo'];
+}
+
+/**
+ * will return you to previously called action
+ */
+/*function goBackController($this){
+  if (Yii::app()->getBaseUrl()."/index.php" === Yii::app()->user->returnUrl)
+    $this->redirect(Yii::app()->controller->module->returnUrl);
+  else 
+    if (strpos(Yii::app()->request->urlReferrer,"user/login") === false) $this->redirect(Yii::app()->request->urlReferrer);
+    else $this->redirect(Yii::app()->user->returnUrl);  
+}*/

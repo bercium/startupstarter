@@ -23,6 +23,8 @@
  * @property string $avatar_link
  * @property integer $language_id
  * @property integer $newsletter
+ * @property string $vanityURL
+ * @property string $bio
  *
  * @property ClickIdea[] $clickIdeas
  * @property ClickUser[] $clickUsers
@@ -53,9 +55,10 @@ abstract class BaseUserEdit extends GxActiveRecord {
 			array('name', 'required'),
 			array('superuser, status, language_id, newsletter', 'numerical', 'integerOnly'=>true),
 			array('email, password, activkey, name, surname, address, avatar_link', 'length', 'max'=>128),
-			array('lastvisit_at', 'safe'),
-			array('activkey, lastvisit_at, superuser, status, surname, address, avatar_link, language_id, newsletter', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, email, password, activkey, create_at, lastvisit_at, superuser, status, name, surname, address, avatar_link, language_id, newsletter', 'safe', 'on'=>'search'),
+			array('lastvisit_at, bio', 'safe'),
+			array('vanityURL', 'unique', 'message' => Yii::t('msg',"This public name is already taken.")),
+			array('activkey, lastvisit_at, superuser, status, surname, address, avatar_link, language_id, newsletter, vanityURL, bio', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, email, password, activkey, create_at, lastvisit_at, superuser, status, name, surname, address, bio, avatar_link, language_id, newsletter', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -84,12 +87,14 @@ abstract class BaseUserEdit extends GxActiveRecord {
 			'lastvisit_at' => Yii::t('app', 'Last visited'),
 			'superuser' => Yii::t('app', 'Superuser'),
 			'status' => Yii::t('app', 'Status'),
-			'name' => Yii::t('app', 'Name'),
-			'surname' => Yii::t('app', 'Surname'),
+			'name' => Yii::t('app', 'First name'),
+			'surname' => Yii::t('app', 'Last name'),
 			'address' => Yii::t('app', 'Address'),
+			'bio' => Yii::t('app', 'Personal pitch'),
 			'avatar_link' => Yii::t('app', 'Avatar link'),
 			'language_id' => Yii::t('app', 'Page language'),
 			'newsletter' => Yii::t('app', 'Newsletter'),
+      'vanityURL' => Yii::t('app', 'Public name'),
 			'clickIdeas' => null,
 			'clickUsers' => null,
 			'clickUsers1' => null,
@@ -112,9 +117,12 @@ abstract class BaseUserEdit extends GxActiveRecord {
 		$criteria->compare('name', $this->name, true);
 		$criteria->compare('surname', $this->surname, true);
 		$criteria->compare('address', $this->address, true);
+		$criteria->compare('bio', $this->bio);
 		$criteria->compare('avatar_link', $this->avatar_link, true);
 		$criteria->compare('language_id', $this->language_id);
 		$criteria->compare('newsletter', $this->newsletter);
+		$criteria->compare('vanityURL', $this->vanityURL);
+    
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

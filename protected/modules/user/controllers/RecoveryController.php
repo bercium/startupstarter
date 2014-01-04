@@ -22,19 +22,20 @@ class RecoveryController extends Controller
 			    		if(isset($_POST['UserChangePassword'])) {
 							$form2->attributes=$_POST['UserChangePassword'];
 							if($form2->validate()) {
-								$find->password = Yii::app()->controller->module->encrypting($form2->password);
+								$find->password = Yii::app()->controller->module->createHash($form2->password);
 								$find->activkey=Yii::app()->controller->module->encrypting(microtime().$form2->password);
 								if ($find->status==0) {
 									$find->status = 1;
 								}
 								$find->save();
-								Yii::app()->user->setFlash('recoveryMessage',Yii::t('msg',"New password is saved.".'<br /><br /><a href="#" data-dropdown="drop-login" class="button radius small" >'.Yii::t('app','Login now').'</a>'));
+								setFlash('recoveryMessage',Yii::t('msg',"New password is saved.").'<br /><br /><a href="#" data-dropdown="drop-login" class="button radius small" >'.Yii::t('app','Login now').'</a>');
+                
 								$this->redirect(Yii::app()->controller->module->recoveryUrl);
 							}
 						} 
 						$this->render('changepassword',array('form'=>$form2));
 		    		} else {
-		    			Yii::app()->user->setFlash('recoveryMessage',Yii::t('msg',"Incorrect recovery link."));
+		    			setFlash('recoveryMessage',Yii::t('msg',"Incorrect recovery link."),'alert');
 						$this->redirect(Yii::app()->controller->module->recoveryUrl);
 		    		}
 		    	} else {
@@ -59,7 +60,7 @@ class RecoveryController extends Controller
                 
                 
 			    			//UserModule::sendMail($user->email,$subject,$message);
-  							Yii::app()->user->setFlash('recoveryMessage',Yii::t('msg'," Please check your email. <br />Instructions were sent to your email address."));
+  							setFlash('recoveryMessage',Yii::t('msg',"Please check your email. <br />Instructions were sent to your email address."));
 			    			$this->refresh();
 			    		}
 			    	}

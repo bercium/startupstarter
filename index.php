@@ -1,5 +1,6 @@
 <?php
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 // change the following paths if necessary
 $yii= dirname(__FILE__).require(dirname(__FILE__).'/protected/config/local-path.php');
 $yii=$yii."yii.php";

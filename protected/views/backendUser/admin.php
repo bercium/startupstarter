@@ -27,7 +27,7 @@ $('.search-form form').submit(function(){
 <h1><?php echo Yii::t('app', 'Manage') . ' ' . GxHtml::encode($model->label(2)); ?></h1>
 
 <p>
-<?php echo Yii::t('msg','You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&gt; or =) at the beginning of each of your search values to specify how the comparison should be done.'); ?>
+You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&gt; or =) at the beginning of each of your search values to specify how the comparison should be done.
 </p>
 
 <?php echo GxHtml::link(Yii::t('app', 'Advanced search'), '#', array('class' => 'search-button')); ?>
@@ -61,6 +61,9 @@ $('.search-form form').submit(function(){
 					'value' => '($data->newsletter === 0) ? Yii::t(\'app\', \'No\') : Yii::t(\'app\', \'Yes\')',
 					'filter' => array('0' => Yii::t('app', 'No'), '1' => Yii::t('app', 'Yes')),
 					),
+		'invitations',
+		'bio',
+		'vanityURL',
 		*/
 		array(
 			'class' => 'CButtonColumn',

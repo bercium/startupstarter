@@ -1322,7 +1322,7 @@ button, .button {
   padding-left: 1.5em;
   font-size: 1em;
   background-color: #2ba6cb;
-  border-color: #2284a1;
+  border-color: #2ba6cb;
   color: white; }
   button:hover, button:focus, .button:hover, .button:focus {
     background-color: #2284a1; }
@@ -1338,7 +1338,7 @@ button, .button {
       color: #333333; }
   button.success, .button.success {
     background-color: #5da423;
-    border-color: #457a1a;
+    border-color: #5da423;
     color: white; }
     button.success:hover, button.success:focus, .button.success:hover, .button.success:focus {
       background-color: #457a1a; }
@@ -1346,7 +1346,7 @@ button, .button {
       color: white; }
   button.alert, .button.alert {
     background-color: #c60f13;
-    border-color: #970b0e;
+    border-color: #c60f13;
     color: white; }
     button.alert:hover, button.alert:focus, .button.alert:hover, .button.alert:focus {
       background-color: #970b0e; }
@@ -3720,7 +3720,7 @@ ul.pagination {
   border-color: #d9d9d9;
   margin-bottom: 1.25em;
   padding: 1.25em;
-  background: #f2f2f2; }
+  background: #F9F9F7; }
   .panel > :first-child {
     margin-top: 0; }
   .panel > :last-child {
