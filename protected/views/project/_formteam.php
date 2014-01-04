@@ -64,6 +64,13 @@
                               ),
           )); ?>
   
+    <?php echo CHtml::label(Yii::t('app','Industry'),''); ?>
+    <span class="description">
+       <?php echo Yii::t('msg','Select group which represents skills above the closest.'); ?>
+    </span>
+    <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none','class'=>'skillset')); ?>
+
+      
     <?php echo '<label for="skill">'.Yii::t('app','Skill')."</label>";  ?> 
     <span class="description" >
        <?php echo Yii::t('msg','Name a skill your candidate should posses. You can write multiple skills for the same industry separating them with commas.'); ?>
