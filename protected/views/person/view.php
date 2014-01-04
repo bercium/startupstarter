@@ -6,8 +6,11 @@ $user = $data['user'];
 <div id="drop-msg" class="f-dropdown content medium" data-dropdown-content>
 	<div class="contact-form">
 	<?php
-	if (Yii::app()->user->isGuest) echo Yii::t('msg','You must be loged in to contact this person.'); 
-	else { ?>    
+  if (Yii::app()->user->isGuest){
+    echo Yii::t('msg','You must be loged in to contact this person.');
+    ?> <a href="<?php echo Yii::app()->createUrl("site/notify"); ?>" class="button tiny radius mt20 mb0"> <?php echo Yii::t('msg','Request invitation');?> </a> <?php
+  }
+  else { ?>    
 	<?php echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("class"=>"customs")); ?>
       <?php echo CHtml::hiddenField("user",$user['id']); ?>
       <?php echo CHtml::label(Yii::t('app','Message').":",'message'); ?>

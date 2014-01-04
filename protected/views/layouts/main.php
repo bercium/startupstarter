@@ -104,13 +104,15 @@
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","person"); ?> desc">
-                <a <?php if (!Yii::app()->user->isGuest){ echo 'href="'.Yii::app()->createUrl("person/discover").'"'; } else echo ' title="'.Yii::t('msg','Please login to use this functionality!').'" data-tooltip'; ?> >
+                <a <?php if (!Yii::app()->user->isGuest){ echo 'href="'.Yii::app()->createUrl("person/discover").'"'; } 
+                         else echo 'href="'.Yii::app()->createUrl("site/notify").'" title="'.Yii::t('msg','Please login to use this functionality!').'" data-tooltip'; ?> >
                   <?php echo Yii::t('app','Find {bs}talent{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","project"); ?> desc">
-                <a <?php if (!Yii::app()->user->isGuest){ echo 'href="'.Yii::app()->createUrl("project/discover").'"'; } else echo ' title="'.Yii::t('msg','Please login to use this functionality!').'" data-tooltip'; ?>>
+                <a <?php if (!Yii::app()->user->isGuest){ echo 'href="'.Yii::app()->createUrl("project/discover").'"'; } 
+                         else echo 'href="'.Yii::app()->createUrl("site/notify").'" title="'.Yii::t('msg','Please login to use this functionality!').'" data-tooltip'; ?> >
                   <?php echo Yii::t('app','Discover {bs}projects{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
               </li>
