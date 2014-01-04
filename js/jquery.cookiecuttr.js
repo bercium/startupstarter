@@ -151,6 +151,7 @@
                 var cookieResetButton = "";
             }
         } else {
+            $('body').css('margin-top', '45px');
             // add message to just after opening body tag
             if ((cookieNoMessage) && (!cookiePolicyPage)) {
                 // show no link on any pages APART from the policy page
@@ -179,9 +180,9 @@
                 }
             } else if (cookieAnalytics) { // show analytics overlay
                 if (appOrPre) {
-                    $('body').append('<div class="cc-cookies ' + cookieOverlay + '">' + cookieAnalyticsMessage + cookieAccept + cookieDecline + '<a href="' + cookieWhatAreTheyLink + '" title="Vse o piškotkih. Zunanja povezava (angleško)">' + cookieWhatAreLinkText + '</a></div>');
+                    $('body').append('<div class="cc-cookies ' + cookieOverlay + '">' + cookieAnalyticsMessage + cookieAccept + cookieDecline + '<a target="_blank" href="' + cookieWhatAreTheyLink + '" title="Vse o piškotkih. Zunanja povezava (angleško)">' + cookieWhatAreLinkText + '</a></div>');
                 } else {
-                    $('body').prepend('<div class="cc-cookies ' + cookieOverlay + '">' + cookieAnalyticsMessage + cookieAccept + cookieDecline + '<a href="' + cookieWhatAreTheyLink + '" title="Vse o piškotkih. Zunanja povezava (angleško)">' + cookieWhatAreLinkText + '</a></div>');
+                    $('body').prepend('<div class="cc-cookies ' + cookieOverlay + '">' + cookieAnalyticsMessage + cookieAccept + cookieDecline + '<a target="_blank" href="' + cookieWhatAreTheyLink + '" title="Vse o piškotkih. Zunanja povezava (angleško)">' + cookieWhatAreLinkText + '</a></div>');
                 }
             }
             if (cookiePolicyPage) { // show policy page overlay
