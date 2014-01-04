@@ -4,6 +4,9 @@
 #VIM swap files
 *.swp
 
+#PHPStorm
+.idea
+
 #Eclipse
 .buildpath
 .project
