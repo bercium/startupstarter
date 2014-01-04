@@ -1,5 +1,7 @@
 #Netbeans project
-/nbproject/private/
+nbproject/private/
+
+.directory
 
 #VIM swap files
 *.swp
@@ -13,8 +15,8 @@
 .settings
 
 #ignore folders
-#assets/
-#protected/runtime/
+assets/
+protected/runtime/
 protected/tests/report/
 uploads/
 temp/
@@ -23,4 +25,4 @@ protected/data/backup/
 protected/config/local-db.php
 protected/config/local-path.php
 protected/config/local-mail.php
-/protected/config/local-console-request.php
+protected/config/local-console-request.php
