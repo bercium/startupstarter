@@ -394,6 +394,5 @@ return array (
   '{n} Members' => '',
   '{n} Positions' => '',
   '{n} link|{n} links' => '',
-  '{n} skills|{n} skills' => '',
   '{n} time|{n} times' => '',
 );

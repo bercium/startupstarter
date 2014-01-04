@@ -140,7 +140,7 @@ class Completeness{
       $this->details[] = array(
             "group"=>Yii::t('app',"Profile details"),
             "name"=>Yii::t('app',"Skills"),
-            "value"=>"", //Yii::t('app',"{n} skills|{n} skills",array($count)),
+            "value"=>"",
             "hint"=>Yii::t('msg',"We know you have some awesome skills so why not show them to the others. Add at least 5 skills."),
             "action"=>Yii::app()->createUrl("profile")."#link_skills",
             "active"=>($count >= 5),
@@ -164,7 +164,7 @@ class Completeness{
       $this->details[] = array(
             "group"=>Yii::t('app',"Projects"),
             "name"=>Yii::t('app',"Owner or a member of a project"),
-            "value"=>"", //Yii::t('app',"{n} skills|{n} skills",array($count)),
+            "value"=>"", 
             "hint"=>Yii::t('msg',"Create or take part in a project."),
             "action"=>Yii::app()->createUrl("profile/projects"),
             "active"=>(($member > 0) || ($owner > 0)),
@@ -173,7 +173,7 @@ class Completeness{
       /*$this->details[] = array(
             "group"=>Yii::t('app',"Projects"),
             "name"=>Yii::t('app',"Member of a project"),
-            "value"=>"", //Yii::t('app',"{n} skills|{n} skills",array($count)),
+            "value"=>"", 
             "hint"=>Yii::t('msg',"Create or take part in a project."),
             "action"=>Yii::app()->createUrl("profile/projects"),
             "active"=>($owner > 0),
@@ -187,7 +187,7 @@ class Completeness{
       $this->details[] = array(
             "group"=>Yii::t('app',"Settings"),
             "name"=>Yii::t('app',"Page language"),
-            "value"=>"", //Yii::t('app',"{n} skills|{n} skills",array($count)),
+            "value"=>"", 
             "hint"=>Yii::t('msg',"Set your preferred language."),
             "action"=>Yii::app()->createUrl("profile/account"),
             "active"=>($user->language_id),
@@ -196,7 +196,7 @@ class Completeness{
       $this->details[] = array(
             "group"=>Yii::t('app',"Settings"),
             "name"=>Yii::t('app',"Newsletter"),
-            "value"=>"", //Yii::t('app',"{n} skills|{n} skills",array($count)),
+            "value"=>"", 
             "hint"=>Yii::t('msg',"We can keep you updated by sending you newsletters."),
             "action"=>Yii::app()->createUrl("profile/account"),
             "active"=>$user->newsletter,
@@ -205,7 +205,7 @@ class Completeness{
       $this->details[] = array(
             "group"=>Yii::t('app',"Settings"),
             "name"=>Yii::t('app',"Public name"),
-            "value"=>"", //Yii::t('app',"{n} skills|{n} skills",array($count)),
+            "value"=>"", 
             "hint"=>Yii::t('msg',"Chose your own personal link so others can remember it easily."),
             "action"=>Yii::app()->createUrl("profile/account"),
             "active"=>($user->vanityURL != ''),

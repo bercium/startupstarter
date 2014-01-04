@@ -393,6 +393,5 @@ return array (
   '{n} member|{n} members' => '{n} član|{n} člana|{n} člani|{n} članov',
   '{n} position|{n} positions' => '{n} pozicija|{n} poziciji|{n} pozicije|{n} pozicij',
   '{n} link|{n} links' => '{n} povezava|{n} povezavi|{n} povezave|{n} povezave|{n} povezav',
-  '{n} skills|{n} skills' => '{n} zananje|{n} zananji|{n} zananja|{n} zananj',
   '{n} time|{n} times' => '{n} krat',
 );
