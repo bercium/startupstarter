@@ -81,9 +81,10 @@
 <br>
 <br>
 <p>
-	<?php echo Yii::t('msg','You can change your settings regarding the use of cookies on our website at any time by clicking on this button'); ?> <div class="cookiereset"></div>
+	<?php echo Yii::t('msg','You can change your settings regarding the use of cookies on our website at any time by clicking on this button'); ?> 
 </p>
 
-<p>
+
+<p class="cookieresetwrap">
 	<?php echo Yii::t('msg','If you decide to decline cookies, a single cookie must be stored on your device to remember your decision.'); ?>
 </p>
