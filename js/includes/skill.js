@@ -30,10 +30,10 @@ function addSkill(inUrl)
  
 }
 
-function removeSkill(skill_id){
+function removeSkill(skill_id, inUrl){
     $.ajax({
    type: 'POST',
-   url: skillRemove_url,
+   url: inUrl,
    data:{ id: skill_id, ajax: 1},
         success:function(indata){
           data = JSON.parse(indata);
