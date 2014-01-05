@@ -17,13 +17,14 @@
   <?php echo Yii::t('msg','We are really happy you have decided to join our community. While you are waiting for an email, you can either fill out the rest of your profile information OR skip this step and do it later. But remember, completely filled out profiles are more CREDIBLE and have more visibility.'); ?>
      
   <br />
+  <br />
   <?php echo Yii::t('msg','Fill out the rest of'); ?>
   
-  <a onclick="$('#profileInput').show()" class="button success radius small">
+  <a onclick="$('#profileInput').show()" class="button success radius small ml10 mr10">
     <?php echo Yii::t('app','your profile'); ?>
   </a>
   <?php echo Yii::t('app','or') ?>
-  <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" class="button radius small secondary">
+  <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" class="button radius small secondary ml10">
     <?php echo Yii::t('app','do this later'); ?>
   </a>
   
