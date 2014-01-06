@@ -24,14 +24,15 @@ class DbBackupCommand extends CConsoleCommand{
   
   public function actionRemoveOld(){
     // remove old backups (older than a week)
-    $files = glob(Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['dbbackup']."dump_*");
+    $files = glob(realpath(Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['dbbackup']).DIRECTORY_SEPARATOR."dump_*");
     foreach($files as $file) {
         if(is_file($file)
            && (time() - filemtime($file) > 7*24*60*60)) { // 7 days
 //           && (time() - filemtime($file) > 3*60)) { // 2 days
-            unlink($file);
+          unlink($file);
         }
     }
+    return 0;
   }
   
   /**

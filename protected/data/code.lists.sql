@@ -37,9 +37,11 @@ CREATE TABLE IF NOT EXISTS `available` (
 --
 
 INSERT INTO `available` (`id`, `name`) VALUES
-(40, 'Full time'),
-(20, 'Part time'),
-(8, 'Weekends');
+(1, 'Don\'t wish to cooporate'),
+(40, 'Full time (40h per week)'),
+(20, 'Part time (20h per week)'),
+(60, 'Every day (60h per week)'),
+(8, 'Weekends (8h per week)');
 
 
 --
