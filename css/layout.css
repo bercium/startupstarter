@@ -793,7 +793,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 
 
 .expose {
-	background: 
+	/*background:*/ 
 }
 
 
@@ -1834,4 +1834,10 @@ html, body {
     padding-top: 5px;
   }
 
+   }
+
+   .supporters{
+     /*height:50px;*/
+     margin:20px 30px;
+     max-height: 80px;
    }

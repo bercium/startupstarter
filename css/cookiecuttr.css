@@ -15,8 +15,8 @@
 	background: rgba(255,255,255,0.8);
 	border-top: 1px solid #ddd;
 	border-bottom: 1px solid #ddd;
- position:absolute; width: 100%;
-  left: 0; top: -45px; padding: 0.4em 5%;
+ position:fixed; width: 100%;
+  left: 0; top: 45px; padding: 0.4em 5%;
    z-index: 99999; text-align: center;
      font-size: 0.9em;
 	line-height: 1.2;

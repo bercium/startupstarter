@@ -125,7 +125,29 @@
    <div class="columns main ball wrapped-content">
     <div class="columns">
       <h1><?php echo Yii::t('app','Supporters'); ?></h1>
-    </div>
+      
+    
+
+       <p>
+         <a href="http://coworking.si/" target="_blank">
+           <img class="supporters" src="<?php echo Yii::app()->request->baseUrl; ?>/images/supporters/slovenia_coworking.png" title="Slovenia coworking" data-tooltip>
+         </a>
+         
+         <a href="http://www.coinvest.si/" target="_blank">
+           <img class="supporters" src="<?php echo Yii::app()->request->baseUrl; ?>/images/supporters/coinvest.png" title="Coinvest" data-tooltip>
+         </a>
+         
+         <a href="http://mladipodjetnik.si" target="_blank">
+           <img class="supporters" src="<?php echo Yii::app()->request->baseUrl; ?>/images/supporters/mladi_podjetnik.png" title="Mladi podjetnik" data-tooltip>
+         </a>
+         
+         <a href="http://www.ustvarjalnik.org/" target="_blank">
+           <img class="supporters" src="<?php echo Yii::app()->request->baseUrl; ?>/images/supporters/ustvarjalnik.png" title="Ustvarjalnik" data-tooltip>
+         </a>
+       </p>
+       
+  </div>
+     
   </div>
   
    </div>

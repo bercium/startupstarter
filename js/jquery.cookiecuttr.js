@@ -151,7 +151,7 @@
                 var cookieResetButton = "";
             }
         } else {
-            $('body').css('margin-top', '45px');
+            //$('body').css('margin-top', '45px');
             // add message to just after opening body tag
             if ((cookieNoMessage) && (!cookiePolicyPage)) {
                 // show no link on any pages APART from the policy page
