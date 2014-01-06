@@ -37,9 +37,9 @@ INSERT INTO `translation` (`id`, `language_id`, `table`, `row_id`, `translation`
 (NULL, 145, 'idea_status', 3, 'Prototip'),
 (NULL, 145, 'idea_status', 4, 'Stranke ki plačujejo'),
 (NULL, 145, 'idea_status', 5, 'Rast'),
-(NULL, 145, 'available', 8, 'Vikendi'),
-(NULL, 145, 'available', 20, 'Polovični delovni čas'),
-(NULL, 145, 'available', 40, 'Polni delovni čas'),
+(NULL, 145, 'available', 8, 'Vikendi (8h na teden)'),
+(NULL, 145, 'available', 20, 'Polovični delovni čas (20h na teden)'),
+(NULL, 145, 'available', 40, 'Polni delovni čas (40h na teden)'),
 (NULL, 145, 'skillset', 1, 'Računovodstvo'),
 (NULL, 145, 'skillset', 2, 'Letalstvo'),
 (NULL, 145, 'skillset', 3, 'Izvensodna poravnava'),
@@ -178,7 +178,10 @@ INSERT INTO `translation` (`id`, `language_id`, `table`, `row_id`, `translation`
 (NULL, 145, 'skillset', 144, 'Prodaja na debelo'),
 (NULL, 145, 'skillset', 145, 'Vino in žganja'),
 (NULL, 145, 'skillset', 146, 'Brezžična omrežja'),
-(NULL, 145, 'skillset', 147, 'Pisateljstvo in uredništvo');
+(NULL, 145, 'skillset', 147, 'Pisateljstvo in uredništvo')
+(NULL, 145, 'collabpref', 5, 'Prostovoljec'),
+(NULL, 145, 'available', 1, 'Ne želim sodelovati'),
+(NULL, 145, 'available', 60, 'Vsak dan (60h na teden)');
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
