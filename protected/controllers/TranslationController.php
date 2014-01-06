@@ -138,7 +138,7 @@ class TranslationController extends Controller
       if (isset($_POST['key'])){
         if (!isset($this->keys[$_POST['language']]) || $this->keys[$_POST['language']] != $_POST['key']){
           $keyOK = false;
-          setFlash("translationSave", "You can only save in language designated to you.".$this->keys[$_POST['language']]." ".$_POST['key'],'alert');
+          setFlash("translationSave", "You can only save in language designated to you.",'alert');
         }
       }
       

@@ -17,8 +17,17 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Cancel' => '',
+  'Drop files here to upload' => '',
+  'Failed' => '',
   'Loading...' => 'Nalagam ...',
   'No more results!' => 'Ni več zadetkov!',
   'Oops, nothing found!' => 'Ups, nič ni bilo najdeno!',
   'Page' => 'Stran',
+  'The files are being uploaded, if you leave now the upload will be cancelled.' => '',
+  'Upload a file' => '',
+  '{file} has invalid extension. Only {extensions} are allowed.' => '',
+  '{file} is empty, please select files again without it.' => '',
+  '{file} is too large, maximum file size is {sizeLimit}.' => '',
+  '{file} is too small, minimum file size is {minSizeLimit}.' => '',
 );
