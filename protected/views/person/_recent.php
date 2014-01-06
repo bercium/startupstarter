@@ -21,13 +21,13 @@
       <li class="arrow unavailable"><a class="button small secondary radius disabled"><span class="icon-angle-right"></span>
 </a></li>
 			<?php } ?>
-			<li><a href="<?php echo Yii::app()->createUrl("person/recent/1"); ?>"  class="right button radius small secondary radius"><?php echo Yii::t('app','show all'); ?></a></li>
+			<li><a href="<?php echo Yii::app()->createUrl("person/discover"); ?>"  class="right button radius small secondary radius"><?php echo Yii::t('app','show all'); ?></a></li>
 		</ul>
 		
 	</div>
 
 	<small class="show-for-small">
-		<a href="<?php echo Yii::app()->createUrl("person/recent/1"); ?>"  class="button large secondary expand secondary"><?php echo Yii::t('app','show all'); ?></a>
+		<a href="<?php echo Yii::app()->createUrl("person/discover"); ?>"  class="button large secondary expand secondary"><?php echo Yii::t('app','show all'); ?></a>
 	</small>
 
   <?php }else{ ?>
