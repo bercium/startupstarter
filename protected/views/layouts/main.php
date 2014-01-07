@@ -311,7 +311,7 @@
     }
 </script>
 <?php } ?>
-     
+
 </body>
 </html><?php 
     // be the last to override any other CSS settings
