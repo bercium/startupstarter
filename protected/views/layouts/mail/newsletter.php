@@ -80,7 +80,7 @@
                                              <?php */ ?>
                                         <tr>
                                         	<td bgcolor="#ffffff" style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;">
-                                            	<table style="border-bottom: 3px solid #ddd;" id="logoLinks" border="0" cellpadding="0" cellspacing="0" width="650">
+                                            	<table style="border-bottom: 1px solid #ddd;" id="logoLinks" border="0" cellpadding="0" cellspacing="0" width="650">
                                                 	<tbody>
                                                         <tr>
                                                             <td align="left" valign="top"  bgcolor="#f1f69d" style="background-color:#FFF; padding:20px;">
