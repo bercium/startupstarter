@@ -39,7 +39,7 @@
             'skin_variant' => "silver",
             'relative_urls' => 'false',
             'convert_urls' => 'false',
-            //'remove_script_host' => 'false',
+            'remove_script_host' => 'false',
             'theme_advanced_buttons1' => "fullscreen,code,preview,|,undo,redo,removeformat,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,outdent,indent,blockquote,|,forecolor,backcolor,styleprops",
             'theme_advanced_buttons2' => "formatselect,fontselect,fontsizeselect,|,link,unlink,image,media,charmap,insertdate,inserttime,|,table,hr,",
             'theme_advanced_buttons3' => "",
@@ -54,9 +54,11 @@
                         'confirm'=>Yii::t("app","Are you sure?") )
               ); ?>
       &nbsp;&nbsp;&nbsp;
-      <?php echo CHtml::button(Yii::t("app","Preview"),
+      <?php echo CHtml::link(Yii::t("app","Preview"),
+                  '#',
                   array('class'=>"button small secondary radius",
-                        'onclick'=>"document.location='".Yii::app()->createUrl("newsletter/mailNews")."?content='+$('#NewsletterForm_newsletter').val();")
+                        'target'=>'_blank',
+                        'onclick'=>"this.href='".Yii::app()->createUrl("newsletter/mailNews")."?content='+$('#NewsletterForm_newsletter').val();")
               ); ?>
 
     <?php echo CHtml::endForm(); ?>
