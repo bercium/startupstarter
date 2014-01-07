@@ -185,7 +185,7 @@
                                                     	
                                                         <td style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;">
                                                         	<div style="color: #89B561;font-family: Helvetica, Arial;font-size: 14px;line-height: 100%;text-align: right;">
-                                                            	 <p style="margin-top: 3px; margin-bottom: 0;  font-family: Helvetica, Arial;font-size: 14px;line-height: 130%;text-align: left;">This email was sent from <a style="color: #ffffff; text-decoration: none;" href="http://www.cofiner.eu">www.cofinder.eu</a>  </p>
+                                                            	 <p style="margin-top: 3px; margin-bottom: 0;  font-family: Helvetica, Arial;font-size: 14px;line-height: 130%;text-align: left;">This email was sent from <a style="color: #ffffff; text-decoration: none;" href="http://www.cofinder.eu">www.cofinder.eu</a>  </p>
    														    </div>
                                                         </td>
                                                         <td>
