@@ -99,7 +99,13 @@
                                     </tbody></table>
                                 </td>
                             </tr>
-                             <?php echo $content; ?>
+                             <tr>
+                                <td style="border-collapse: collapse;" align="center" valign="top" >
+
+                                    <?php echo $content; ?>
+
+                                </td>
+                            </tr>
                         	
                         	<tr>
                             	<td  style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;" align="center" valign="top">
