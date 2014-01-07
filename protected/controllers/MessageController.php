@@ -164,9 +164,11 @@ class MessageController extends Controller
     $match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
     $ideas = IdeaMember::Model()->findAllByAttributes( array( 'match_id' => $match->id ) );
     $myideaid = '';
-    foreach ($ideas as $idea){
-      if ($myideaid) $myideaid .= ',';
-      $myideaid .= "'".$idea->idea_id."'";
+    if ($ideas){
+      foreach ($ideas as $idea){
+        if ($myideaid) $myideaid .= ',';
+        $myideaid .= "'".$idea->idea_id."'";
+      }
     }
     
     if ($myideaid) $myideaid = "OR idea_to_id IN (".$myideaid.")";
