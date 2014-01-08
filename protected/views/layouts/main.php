@@ -1,5 +1,8 @@
 <?php 
-/* @var $this Controller */ ?>
+/* @var $this Controller */
+$fullTitle = Yii::app()->name; 
+if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTitle .= " - ".$this->pageTitle;
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -12,19 +15,27 @@
   <meta name="viewport" content="width=device-width" />
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="language" content="<?php echo Yii::app()->language; ?>" />
-  <meta name="description" content="<?php echo $this->pageDesc; ?>" />
+  <?php if ($this->pageDesc != ''){ ?><meta name="description" content="<?php echo $this->pageDesc; ?>" /> <?php } ?>
 
   <!-- FB -->
-  <meta property="og:title" content="<?php echo Yii::app()->name; ?>" />
+  <meta property="og:title" content="<?php echo $fullTitle; ?>" />
+  <meta property="og:site_name" content="<?php echo Yii::app()->name; ?>" />
   <meta property="og:description" content="<?php echo $this->pageDesc; ?>" />
-  <meta property="og:image" content="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/fb-logo.png" />
+  <meta property="og:image" content="<?php echo Yii::app()->request->baseUrl; ?>/images/fb-logo.png" />
   <meta property="og:url" content="http://www.cofinder.eu"/>
+  <link rel="canonical" href="http://www.cofinder.eu" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
   
   <!-- M$ -->
   <meta name="application-name" content="<?php echo Yii::app()->name; ?>" />
   <meta name="msapplication-tooltip" content="<?php echo $this->pageDesc; ?>" />
   <meta name="msapplication-starturl" content="http://www.cofinder.eu" />
   <meta name="msapplication-navbutton-color" content="#89b561" />
+  
+  <?php /* ?><meta property="fb:admins" content=""/>
+  <meta property="fb:app_id" content=""/>
+  <?php */ ?>
   
   <!-- Mobile icons -->
   <link rel="apple-touch-icon" sizes="114x114" href="<?php echo Yii::app()->request->baseUrl; ?>/images/iphone-retina.png">
@@ -36,7 +47,7 @@
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700,700italic,600italic,600,400italic,300italic,300&subset=latin,cyrillic-ext,greek-ext,greek,latin-ext,cyrillic,vietnamese' rel='stylesheet' type='text/css'>
   
   <script> var fullURL= '<?php echo Yii::app()->request->baseUrl; ?>';</script>
-	<title><?php echo Yii::app()->name; if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) echo " - ".$this->pageTitle; ?></title>
+	<title><?php echo $fullTitle; ?></title>
 </head>
 
 <body>

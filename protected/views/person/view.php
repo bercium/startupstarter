@@ -1,7 +1,8 @@
 <?php
 /* @var $this SiteController */
-$this->pageTitle = "";
 $user = $data['user'];
+$this->pageTitle = $user['name'] . " " . $user['surname'];
+$this->pageDesc=  trim_text(strip_tags($user['bio']), 150);
 ?>
 <div id="drop-msg" class="f-dropdown content medium" data-dropdown-content>
 	<div class="contact-form">

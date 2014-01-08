@@ -8,7 +8,7 @@ require(dirname(__FILE__).DIRECTORY_SEPARATOR.'constants.php');
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'cofinder',
+	'name'=>'Cofinder',
   'sourceLanguage'=>'en',
   /*'language' => "sl",*/
 
