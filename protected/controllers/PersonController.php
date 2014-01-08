@@ -24,11 +24,11 @@ class PersonController extends GxController {
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-        'actions'=>array("view","embed"),
+        'actions'=>array("view","embed","discover"),
 				'users'=>array('*'),
 			),
 			array('allow', 
-        'actions'=>array("recent","discover"),  // remove after demo
+        'actions'=>array("recent"),  // remove after demo
 				'users'=>array('@'),
 			),
 			array('allow', // allow admins only
@@ -112,9 +112,17 @@ class PersonController extends GxController {
     
 		$sqlbuilder = new SqlBuilder;
 		$filter = Yii::app()->request->getQuery('filter', array());
-		$filter['per_page'] = 9;
-    $filter['page'] = $id;
 		
+    if (Yii::app()->user->isGuest){
+      $_GET['SearchForm'] = '';
+      $filter['per_page'] = 3;
+      $filter['page'] = 1;
+      $invite = '<a href="'.Yii::app()->createUrl("site/notify").'" class="button small radius secondary mb0">'.Yii::t('msg','invitation').'</a>';
+      setFlash("discoverPerson", Yii::t('msg','Only recent three results are shown!<br />To get full functionality please login or request {invite}',array('{invite}'=>$invite)), "alert", false);
+    }else{      
+      $filter['per_page'] = 9;
+      $filter['page'] = $id;
+    }    
     
     $searchForm = new SearchForm();
     $searchForm->isProject = false;

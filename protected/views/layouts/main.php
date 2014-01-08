@@ -59,7 +59,7 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
   <div class="header-wrap show-for-small">
     <div class="row header">
       <div>
-        <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
+        <a href="<?php echo Yii::app()->createUrl("/"); ?>" >
            <img alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title-mobile.png" />
         </a>
       </div>
@@ -74,7 +74,7 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
             <!-- Title Area -->
              <li class="name ">
                <div class="hide-for-small">
-								 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
+								 <a href="<?php echo Yii::app()->createUrl("/"); ?>" >
 									<img class="logo" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png" />
 								 
                  </a>
@@ -108,22 +108,20 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
               <li class="divider"></li>
               <?php */ ?>
               <li class="<?php echo isMenuItemActive("about"); ?> desc">
-                <a href="<?php echo Yii::app()->createUrl("site/about"); ?>">
+                <a href="<?php echo Yii::app()->createUrl("site/about"); ?>" title="<?php echo Yii::t('app','What is Cofinder and who is behind it'); ?>">
                 <?php echo Yii::t('app','What is {bs}cofinder{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
                 
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","person"); ?> desc">
-                <a <?php if (!Yii::app()->user->isGuest){ echo 'href="'.Yii::app()->createUrl("person/discover").'"'; } 
-                         else echo 'href="'.Yii::app()->createUrl("site/notify").'" title="'.Yii::t('msg','Please login to use this functionality!').'" data-tooltip'; ?> >
+                <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" title="<?php echo Yii::t('app','Find talent for your project'); ?>" >
                   <?php echo Yii::t('app','Find {bs}talent{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","project"); ?> desc">
-                <a <?php if (!Yii::app()->user->isGuest){ echo 'href="'.Yii::app()->createUrl("project/discover").'"'; } 
-                         else echo 'href="'.Yii::app()->createUrl("site/notify").'" title="'.Yii::t('msg','Please login to use this functionality!').'" data-tooltip'; ?> >
+                <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" title="<?php echo Yii::t('app','Discover interesting projects'); ?>" >
                   <?php echo Yii::t('app','Discover {bs}projects{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
               </li>
@@ -195,7 +193,7 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
               <?php } ?>
               <li class="divider"></li>
               <li class="desc">
-                <a href="#" data-dropdown="langselect"><?php echo Yii::app()->getLanguage(); ?>
+                <a href="#" data-dropdown="langselect" title="<?php echo Yii::t('msg','Select page language'); ?>"><?php echo Yii::app()->getLanguage(); ?>
                 <br /><small>language</small>
                 </a>
               </li>
@@ -270,7 +268,7 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
     <div class="row">
        <div class="large-3 columns">
 
-         <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
+         <a href="<?php echo Yii::app()->createUrl("/"); ?>" >
            <img class="logo-mini" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-mini.png" />
          </a>
       </div>

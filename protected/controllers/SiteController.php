@@ -469,17 +469,17 @@ class SiteController extends Controller
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
     <url>
       <loc>http://www.cofinder.eu/</loc>
-      <changefreq>weekly</changefreq>
+      <changefreq>daily</changefreq>
       <priority>0.90</priority>
     </url>
     <url>
       <loc>http://www.cofinder.eu/person/discover</loc>
-      <changefreq>weekly</changefreq>
+      <changefreq>daily</changefreq>
       <priority>0.90</priority>
     </url>
     <url>
       <loc>http://www.cofinder.eu/project/discover</loc>
-      <changefreq>weekly</changefreq>
+      <changefreq>daily</changefreq>
       <priority>0.90</priority>
     </url>    
     <url>
@@ -532,7 +532,7 @@ EOD;
       $sitemapResponse .= "
       <url>
         <loc>".Yii::app()->createAbsoluteUrl('person',array("id"=>$user['id']))."</loc>
-        <changefreq>monthly</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.".$priority."</priority>
       </url>";
     }
@@ -544,7 +544,7 @@ EOD;
       $sitemapResponse .= "
       <url>
         <loc>".Yii::app()->createAbsoluteUrl('project',array("id"=>$idea['id']))."</loc>
-        <changefreq>monthly</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.".$priority."</priority>
       </url>";
     }    
