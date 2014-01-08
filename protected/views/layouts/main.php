@@ -46,7 +46,7 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
   <link rel="icon" type="image/ico" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico">
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700,700italic,600italic,600,400italic,300italic,300&subset=latin,cyrillic-ext,greek-ext,greek,latin-ext,cyrillic,vietnamese' rel='stylesheet' type='text/css'>
   
-  <script> var fullURL= '<?php echo Yii::app()->request->baseUrl; ?>';</script>
+  <script> var fullURL= '<?php echo Yii::app()->request->baseUrl; ?>'; var debuging = <?php echo YII_DEBUG; ?>;</script>
 	<title><?php echo $fullTitle; ?></title>
 </head>
 
@@ -115,13 +115,13 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","person"); ?> desc">
-                <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" title="<?php echo Yii::t('app','Find talent for your project'); ?>" >
+                <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" trk="top_person_discover" title="<?php echo Yii::t('app','Find talent for your project'); ?>" >
                   <?php echo Yii::t('app','Find {bs}talent{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","project"); ?> desc">
-                <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" title="<?php echo Yii::t('app','Discover interesting projects'); ?>" >
+                <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" trk="top_project_discover" title="<?php echo Yii::t('app','Discover interesting projects'); ?>" >
                   <?php echo Yii::t('app','Discover {bs}projects{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
               </li>

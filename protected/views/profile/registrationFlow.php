@@ -20,11 +20,11 @@
   <br />
   <?php echo Yii::t('msg','Fill out the rest of'); ?>
   
-  <a onclick="$('#profileInput').show()" class="button success radius small ml10 mr10">
+  <a onclick="$('#profileInput').show()" trk="regflow_fill_profile" class="button success radius small ml10 mr10">
     <?php echo Yii::t('app','your profile'); ?>
   </a>
   <?php echo Yii::t('app','or') ?>
-  <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" class="button radius small secondary ml10">
+  <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" trk="regflow_fill_later" class="button radius small secondary ml10">
     <?php echo Yii::t('app','do this later'); ?>
   </a>
   

@@ -38,10 +38,10 @@
 	<div class="right l-inline">
 		
 		<ul class="pagination hide-for-small">
-      <li class="arrow unavailable"><a class="button small secondary disabled" data-tooltip title="<?php echo Yii::t('msg','Please login to use this functionality!'); ?>"><span class="icon-angle-left"></span>
+      <li class="arrow unavailable"><a trk="project_back_disabled" class="button small secondary disabled" data-tooltip title="<?php echo Yii::t('msg','Please login to use this functionality!'); ?>"><span class="icon-angle-left"></span>
       </a></li>
 			
-      <li class="arrow unavailable"><a class="button small secondary disabled" data-tooltip title="<?php echo Yii::t('msg','Please login to use this functionality!'); ?>"><span class="icon-angle-right"></span>
+      <li class="arrow unavailable"><a trk="project_forward_disabled" class="button small secondary disabled" data-tooltip title="<?php echo Yii::t('msg','Please login to use this functionality!'); ?>"><span class="icon-angle-right"></span>
       </a></li>
 		</ul>
 		

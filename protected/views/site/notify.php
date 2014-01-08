@@ -22,19 +22,19 @@
   
   <br /><br />
 
-    <a href="http://www.facebook.com/sharer.php?s=100&p[title]=Cofinder&p[summary]=<?php echo $summary; ?>&p[url]=http://www.cofinder.eu" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+    <a href="http://www.facebook.com/sharer.php?s=100&p[title]=Cofinder&p[summary]=<?php echo $summary; ?>&p[url]=http://www.cofinder.eu" trk="notify_share_fb" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
       <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-fb.jpg" alt="<?php echo Yii::t('app','Share Cofinder on {social}',array("{social}"=>"Facebook")) ?>" title="<?php echo Yii::t('app','Share Cofinder on {social}',array("{social}"=>"Facebook")) ?>" data-tooltip>
     </a>
   &nbsp;
-    <a href="http://twitter.com/share?text=<?php echo $summaryTwt; ?>" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+    <a href="http://twitter.com/share?text=<?php echo $summaryTwt; ?>" trk="notify_share_tw" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
       <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-tw.jpg" alt="<?php echo Yii::t('app','Share Cofinder on {social}',array("{social}"=>"Twitter")) ?>" title="<?php echo Yii::t('app','Share Cofinder on {social}',array("{social}"=>"Twitter")) ?>" data-tooltip>
     </a>
   &nbsp;
-    <a href="https://plus.google.com/share?url=http://www.cofinder.eu&title=Cofinder&summary=<?php echo $summary; ?>" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+    <a href="https://plus.google.com/share?url=http://www.cofinder.eu&title=Cofinder&summary=<?php echo $summary; ?>" trk="notify_share_gp" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
       <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-gp.jpg" alt="<?php echo Yii::t('app','Share Cofinder on {social}',array("{social}"=>"Google+")) ?>" title="<?php echo Yii::t('app','Share Cofinder on {social}',array("{social}"=>"Google+")) ?>" data-tooltip>
     </a>
   &nbsp;
-    <a href="http://www.linkedin.com/shareArticle?mini=true&url=http://www.cofinder.eu&title=Cofinder&summary=<?php echo $summary; ?>&source=Cofinder" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+    <a href="http://www.linkedin.com/shareArticle?mini=true&url=http://www.cofinder.eu&title=Cofinder&summary=<?php echo $summary; ?>&source=Cofinder" trk="notify_share_lin" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
       <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-li.jpg" alt="<?php echo Yii::t('app','Share Cofinder on {social}',array("{social}"=>"Linkedin")) ?>" title="<?php echo Yii::t('app','Share Cofinder on {social}',array("{social}"=>"Linkedin")) ?>" data-tooltip>
     </a>  
   

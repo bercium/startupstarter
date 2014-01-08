@@ -85,9 +85,24 @@ $(function() {
       if (!$(this).find(".lin-edit").is(':focus') && $(this).find(".lin-edit").val() == '') $(this).find('.lin-hidden').hide();
     });
 
-    $('select').chosen({no_results_text: Yii.t('js','Oops, nothing found!'), allow_single_deselect: true, width:'100%' });
-    
-    $.cookieCuttr();
+  $('select').chosen({no_results_text: Yii.t('js','Oops, nothing found!'), allow_single_deselect: true, width:'100%' });
+
+  $.cookieCuttr();
+  
+  //tracking with code
+  $("[trk]").each(function() {
+      var id = $(this).attr("trk");
+      //var target = $(this).attr("target");
+      //var text = $(this).text();
+      var thisEvent = null;
+      if ($(this).is("[onclick]")) thisEvent = $(this).attr("onclick");
+      
+      $(this).click(function(event) { // when someone clicks these links
+        gase('button','click',id,'');
+        if (thisEvent) eval(thisEvent);
+      });
+  });  
+  
 })(jQuery, this);
 
 
@@ -112,4 +127,10 @@ function addPageToList(e){
   $(".page-navigation").fadeIn('normal');
   $(".page-navigation ul").append('<li><a class="button secondary small radius" href="#page'+pageNavCount+'">'+Yii.t('js','Page')+' '+pageNavCount+'</a></li>');
   e.loading.msg.fadeOut('normal');
+  gase('discover','scroll','page',pageNavCount);
+}
+
+// ga function depending on debuging
+function gase(category, action, label, value){
+  if (!debuging) ga('send', 'event', category, action, label, value);
 }
