@@ -24,7 +24,7 @@
                   <?php if ($user['available_name']) { ?>
                      <span data-tooltip title="<?php echo Yii::t('app','Available') ?>" class="icon-time"></span>
                   
-                    <?php echo $user['available_name']; ?>
+                    <?php echo shortenAvailable($user['available_name']); ?>
                     <?php } ?>
                   </small>
 

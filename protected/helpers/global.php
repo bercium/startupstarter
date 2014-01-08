@@ -399,6 +399,19 @@ function absoluteURL(){
 }
 
 /**
+ * shorten available from fulltime (40h / week) => fulltime, with a hint how many hours per week
+ */
+function shortenAvailable($value, $justValue = false){
+  if (strpos($value, "(") !== false){
+    $hint = substr($value, strpos($value, "("), strpos($value, ")"));
+    $value = substr($value, 0, strpos($value, "(")-1);
+    
+    if (!$justValue) $value = '<span title="'.$hint.'" data-tooltip>'.$value.'</span>';
+  }
+  return $value;
+}
+
+/**
  * will return you to previously called action
  */
 /*function goBackController($this){
