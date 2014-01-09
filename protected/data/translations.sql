@@ -178,7 +178,7 @@ INSERT INTO `translation` (`id`, `language_id`, `table`, `row_id`, `translation`
 (NULL, 145, 'skillset', 144, 'Prodaja na debelo'),
 (NULL, 145, 'skillset', 145, 'Vino in žganja'),
 (NULL, 145, 'skillset', 146, 'Brezžična omrežja'),
-(NULL, 145, 'skillset', 147, 'Pisateljstvo in uredništvo')
+(NULL, 145, 'skillset', 147, 'Pisateljstvo in uredništvo'),
 (NULL, 145, 'collabpref', 5, 'Prostovoljec'),
 (NULL, 145, 'available', 1, 'Ne želim sodelovati'),
 (NULL, 145, 'available', 60, 'Vsak dan (60h na teden)');
