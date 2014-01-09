@@ -132,6 +132,7 @@ function addPageToList(e){
 
 // ga function depending on debuging
 function gase(category, action, label, value){
+  //if (jQuery.cookie('cc_cookie_accept') != 'cc_cookie_accept') return;  //cookie compliance
   if (value == '') value = 0;
   ga('send', 'event', category, action, label, value);
 }
