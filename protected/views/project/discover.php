@@ -1,6 +1,6 @@
 <?php
-	$this->pageTitle = 'Discover projects'; // leave this empty
-	$this->pageDesc = '';
+	$this->pageTitle = Yii::t('app','Discover projects'); // leave this empty
+	$this->pageDesc = 'Discover interestnig project';
 ?>
 
 <script>
@@ -185,7 +185,7 @@
 		</div>
 
 		<div class="pagination-centered">
-			<?php $this->widget('ext.Pagination.WPagination',array("url"=>"project/discover","page"=>$searchResult['page'],"maxPage"=>$searchResult['maxPage'],"getParams"=>$_GET)); ?>
+			<?php if (!Yii::app()->user->isGuest) $this->widget('ext.Pagination.WPagination',array("url"=>"project/discover","page"=>$searchResult['page'],"maxPage"=>$searchResult['maxPage'],"getParams"=>$_GET)); ?>
 		</div>
 	<?php }else{	?>
 	

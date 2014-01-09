@@ -1,7 +1,9 @@
 <?php
-$this->pageTitle="";
-
 $idea = $data['idea'];
+$this->pageTitle=$idea['title'];
+
+if ($idea['tweetpitch']) $this->pageDesc=$idea['tweetpitch'];
+else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
 ?>
 <div id="drop-msg" class="f-dropdown content medium" data-dropdown-content>
   <div class="contact-form">

@@ -80,7 +80,7 @@
                                              <?php */ ?>
                                         <tr>
                                         	<td bgcolor="#ffffff" style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;">
-                                            	<table style="border-bottom: 3px solid #ddd;" id="logoLinks" border="0" cellpadding="0" cellspacing="0" width="650">
+                                            	<table style="border-bottom: 1px solid #ddd;" id="logoLinks" border="0" cellpadding="0" cellspacing="0" width="650">
                                                 	<tbody>
                                                         <tr>
                                                             <td align="left" valign="top"  bgcolor="#f1f69d" style="background-color:#FFF; padding:20px;">
@@ -99,68 +99,14 @@
                                     </tbody></table>
                                 </td>
                             </tr>
-                        	<tr>
-                            <td>
-                             <!-- // Content \\ -->
-                                                <table border="0" cellpadding="0" cellspacing="0" width="650">
-                                                    <tbody>
-                                                                                                    
-                                                        <tr height="10"> 
-                                                             <td><!-- divider -->
-                                                               
-                                                             </td>
-                                                       </tr>
-                                                    
+                             <tr>
+                                <td style="border-collapse: collapse;" align="center" valign="top" >
 
-                                                      <!-- single Article -->    
-                                                        <tr>
-                                                        <td style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;" valign="top">
-                                                            <table mc:repeatable="repeat_2" class="subContentContainer" mc:repeatindex="0" border="0" cellpadding="0" cellspacing="0" width="650">
-                                                                <tbody>                                                                  
-                                                                <tr>
+                                    <?php echo $content; ?>
 
-                                                                    <td>
-                                                                        <img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/newsletter/divider.png" style="border: 0; height: 10px; width:15px; outline: none; text-decoration: none;display: inline;margin: 0;padding: 0;" height="10px" width="15">
-                                                                    </td>
-                                                                    
-                                                                  
-                                                                    <td style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300; font-size: 14px;" valign="top" width="100%">
-                                                                   
-                                                                        <!-- content goes here: -->
-                                                                         
-                                                                        <?php echo $content; ?>
-
-
-                                                                    </td>
-                                                                     <td>
-                                                                        <img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/newsletter/divider.png" style="border: 0; height: 10px; width:15px; outline: none; text-decoration: none;display: inline;margin: 0;padding: 0;" height="10px" width="15">
-                                                                    </td>
-
-                                                                </tr>
-                                                                                                                              
-                                                            </tbody></table     
-
-
-                                                        </td>
-                                                    </tr> <!-- end single-Article -->
-                                                       <tr height="20"> 
-                                                             <td><!-- divider -->
-                                                               
-                                                             </td>
-                                                       </tr>
-                                                          <!-- single Article -->                                                          
-
-
-
-                                                       <tr height="20"> 
-                                                             <td><!-- divider --></td>
-                                                       </tr>
-                                                </tbody>
-
-
-                                            </table><!-- end Content -->  
-                            </td>
-                          </tr>
+                                </td>
+                            </tr>
+                        	
                         	<tr>
                             	<td  style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;" align="center" valign="top">
                                     <!-- // Begin Wrap Footer \\ -->
@@ -183,7 +129,7 @@
                                                     	
                                                         <td style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;">
                                                         	<div style="color: #89B561;font-family: Helvetica, Arial;font-size: 14px;line-height: 100%;text-align: right;">
-                                                            	 <p style="margin-top: 3px; margin-bottom: 0;  font-family: Helvetica, Arial;font-size: 14px;line-height: 130%;text-align: left;">This email was sent from <a style="color: #ffffff; text-decoration: none;" href="http://www.cofiner.eu">www.cofinder.eu</a>  </p>
+                                                            	 <p style="margin-top: 3px; margin-bottom: 0;  font-family: Helvetica, Arial;font-size: 14px;line-height: 130%;text-align: left;">This email was sent from <a style="color: #ffffff; text-decoration: none;" href="http://www.cofinder.eu">www.cofinder.eu</a>  </p>
    														    </div>
                                                         </td>
                                                         <td>

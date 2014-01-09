@@ -1,5 +1,8 @@
 <?php 
-/* @var $this Controller */ ?>
+/* @var $this Controller */
+$fullTitle = Yii::app()->name; 
+if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTitle .= " - ".$this->pageTitle;
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -12,19 +15,27 @@
   <meta name="viewport" content="width=device-width" />
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="language" content="<?php echo Yii::app()->language; ?>" />
-  <meta name="description" content="<?php echo $this->pageDesc; ?>" />
+  <?php if ($this->pageDesc != ''){ ?><meta name="description" content="<?php echo $this->pageDesc; ?>" /> <?php } ?>
 
   <!-- FB -->
-  <meta property="og:title" content="<?php echo Yii::app()->name; ?>" />
+  <meta property="og:title" content="<?php echo $fullTitle; ?>" />
+  <meta property="og:site_name" content="<?php echo Yii::app()->name; ?>" />
   <meta property="og:description" content="<?php echo $this->pageDesc; ?>" />
-  <meta property="og:image" content="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/fb-logo.png" />
+  <meta property="og:image" content="<?php echo Yii::app()->request->baseUrl; ?>/images/fb-logo.png" />
   <meta property="og:url" content="http://www.cofinder.eu"/>
+  <link rel="canonical" href="http://www.cofinder.eu" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
   
   <!-- M$ -->
   <meta name="application-name" content="<?php echo Yii::app()->name; ?>" />
   <meta name="msapplication-tooltip" content="<?php echo $this->pageDesc; ?>" />
   <meta name="msapplication-starturl" content="http://www.cofinder.eu" />
   <meta name="msapplication-navbutton-color" content="#89b561" />
+  
+  <?php /* ?><meta property="fb:admins" content=""/>
+  <meta property="fb:app_id" content=""/>
+  <?php */ ?>
   
   <!-- Mobile icons -->
   <link rel="apple-touch-icon" sizes="114x114" href="<?php echo Yii::app()->request->baseUrl; ?>/images/iphone-retina.png">
@@ -35,8 +46,8 @@
   <link rel="icon" type="image/ico" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico">
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700,700italic,600italic,600,400italic,300italic,300&subset=latin,cyrillic-ext,greek-ext,greek,latin-ext,cyrillic,vietnamese' rel='stylesheet' type='text/css'>
   
-  <script> var fullURL= '<?php echo Yii::app()->request->baseUrl; ?>';</script>
-	<title><?php echo Yii::app()->name; if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) echo " - ".$this->pageTitle; ?></title>
+  <script> var fullURL= '<?php echo Yii::app()->request->baseUrl; ?>'; var debuging = <?php echo YII_DEBUG; ?>;</script>
+	<title><?php echo $fullTitle; ?></title>
 </head>
 
 <body>
@@ -48,7 +59,7 @@
   <div class="header-wrap show-for-small">
     <div class="row header">
       <div>
-        <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
+        <a href="<?php echo Yii::app()->createUrl("/"); ?>" >
            <img alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title-mobile.png" />
         </a>
       </div>
@@ -63,7 +74,7 @@
             <!-- Title Area -->
              <li class="name ">
                <div class="hide-for-small">
-								 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
+								 <a href="<?php echo Yii::app()->createUrl("/"); ?>" >
 									<img class="logo" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png" />
 								 
                  </a>
@@ -97,22 +108,20 @@
               <li class="divider"></li>
               <?php */ ?>
               <li class="<?php echo isMenuItemActive("about"); ?> desc">
-                <a href="<?php echo Yii::app()->createUrl("site/about"); ?>">
+                <a href="<?php echo Yii::app()->createUrl("site/about"); ?>" title="<?php echo Yii::t('app','What is Cofinder and who is behind it'); ?>">
                 <?php echo Yii::t('app','What is {bs}cofinder{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
                 
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","person"); ?> desc">
-                <a <?php if (!Yii::app()->user->isGuest){ echo 'href="'.Yii::app()->createUrl("person/discover").'"'; } 
-                         else echo 'href="'.Yii::app()->createUrl("site/notify").'" title="'.Yii::t('msg','Please login to use this functionality!').'" data-tooltip'; ?> >
+                <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" trk="top_person_discover" title="<?php echo Yii::t('app','Find talent for your project'); ?>" >
                   <?php echo Yii::t('app','Find {bs}talent{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","project"); ?> desc">
-                <a <?php if (!Yii::app()->user->isGuest){ echo 'href="'.Yii::app()->createUrl("project/discover").'"'; } 
-                         else echo 'href="'.Yii::app()->createUrl("site/notify").'" title="'.Yii::t('msg','Please login to use this functionality!').'" data-tooltip'; ?> >
+                <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" trk="top_project_discover" title="<?php echo Yii::t('app','Discover interesting projects'); ?>" >
                   <?php echo Yii::t('app','Discover {bs}projects{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
               </li>
@@ -153,7 +162,7 @@
                  </a>
 
                 <ul class="dropdown">
-                  <li><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><?php echo Yii::t('app','Profile'); ?><span class="icon-user"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><?php echo Yii::t('app','Edit profile'); ?><span class="icon-user"></span></a></li>
                   <li><a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>"><?php echo Yii::t('app','My projects'); ?><span class="icon-lightbulb"></span></a></li>
                   <li><a href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo Yii::t('app','Create a new project'); ?><span class="icon-plus"></span></a></li>
                   <li><a href="<?php echo Yii::app()->createUrl("message"); ?>"><?php echo Yii::t('app','Message history'); ?><span class="icon-envelope"></span></a></li>
@@ -184,7 +193,7 @@
               <?php } ?>
               <li class="divider"></li>
               <li class="desc">
-                <a href="#" data-dropdown="langselect"><?php echo Yii::app()->getLanguage(); ?>
+                <a href="#" data-dropdown="langselect" title="<?php echo Yii::t('msg','Select page language'); ?>"><?php echo Yii::app()->getLanguage(); ?>
                 <br /><small>language</small>
                 </a>
               </li>
@@ -259,7 +268,7 @@
     <div class="row">
        <div class="large-3 columns">
 
-         <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
+         <a href="<?php echo Yii::app()->createUrl("/"); ?>" >
            <img class="logo-mini" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-mini.png" />
          </a>
       </div>
@@ -311,7 +320,7 @@
     }
 </script>
 <?php } ?>
-     
+
 </body>
 </html><?php 
     // be the last to override any other CSS settings

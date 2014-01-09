@@ -1,7 +1,42 @@
 <?php
 /* @var $this SiteController */
-$this->pageTitle = "";
 $user = $data['user'];
+$this->pageTitle = $user['name'] . " " . $user['surname'];
+if ($user['bio']) $this->pageDesc = trim_text(strip_tags($user['bio']), 150);
+else {
+  // create automatic personal description if bio is empty
+  $this->pageDesc = "I'm ".$user['name'] . " " . $user['surname'];
+  // where is user from
+  if ($user['city'] || $user['country']){
+    $this->pageDesc .= " from ";
+    if ($user['city']){
+      $this->pageDesc .= $user['city'];
+      if ($user['country']) $this->pageDesc .= ", ";
+    }
+    if ($user['country']) $this->pageDesc .= $user['country'];
+  }
+  $this->pageDesc .= ".";
+  
+  // what kind oc collaboration is he searching and for how much time
+  if ($user['available'] || (count($user['collabpref']) > 0)){
+    $this->pageDesc .= " I'm interested in working ";
+    if ($user['available'] > 1) $this->pageDesc .= $user['available_name'];
+    
+    if (count($user['collabpref']) > 0){
+      $firsttime = '';
+      foreach ($user['collabpref'] as $collab) {
+        if (!$collab['active']) continue;
+        if ($firsttime) $firsttime .= ' or ';
+        $firsttime .=  $collab['name'];
+      }
+      if ($firsttime) $this->pageDesc .= ' as '.$firsttime;
+    }
+    $this->pageDesc .= ".";
+    $this->pageDesc = str_replace("I'm interested in working .", "", $this->pageDesc);
+  }
+      
+  if (count($user['idea']) > 0) $this->pageDesc .= ' I\'m curently working on a project of my own.';
+}
 ?>
 <div id="drop-msg" class="f-dropdown content medium" data-dropdown-content>
 	<div class="contact-form">
@@ -76,7 +111,7 @@ $user = $data['user'];
       <div class="panel">
         <h4 class="l-iblock"> <?php echo Yii::t('app', 'Available') ?></h4>
         <h2 style="margin-top:3px;" >
-          <span class="icon-time" style="margin-right:10px;"></span><?php echo $user['available_name']; ?>
+          <span class="icon-time" style="margin-right:10px;"></span><?php echo shortenAvailable($user['available_name']); ?>
         </h2>
       </div>
     <?php } ?>

@@ -21,23 +21,23 @@
       <li class="arrow unavailable"><a class="button small secondary radius disabled"><span class="icon-angle-right"></span>
 </a></li>
 			<?php } ?>
-			<li><a href="<?php echo Yii::app()->createUrl("person/recent/1"); ?>"  class="right button radius small secondary radius"><?php echo Yii::t('app','show all'); ?></a></li>
+			<li><a href="<?php echo Yii::app()->createUrl("person/discover"); ?>"  class="right button radius small secondary radius"><?php echo Yii::t('app','show all'); ?></a></li>
 		</ul>
 		
 	</div>
 
 	<small class="show-for-small">
-		<a href="<?php echo Yii::app()->createUrl("person/recent/1"); ?>"  class="button large secondary expand secondary"><?php echo Yii::t('app','show all'); ?></a>
+		<a href="<?php echo Yii::app()->createUrl("person/discover"); ?>"  class="button large secondary expand secondary"><?php echo Yii::t('app','show all'); ?></a>
 	</small>
 
   <?php }else{ ?>
 	<div class="right l-inline">
 		
 		<ul class="pagination hide-for-small">
-      <li class="arrow unavailable"><a class="button small secondary disabled" data-tooltip title="<?php echo Yii::t('msg','Please login to use this functionality!'); ?>"><span class="icon-angle-left"></span>
+      <li class="arrow unavailable"><a trk="person_back_disabled" class="button small secondary disabled" data-tooltip title="<?php echo Yii::t('msg','Please login to use this functionality!'); ?>"><span class="icon-angle-left"></span>
       </a></li>
 			
-      <li class="arrow unavailable"><a class="button small secondary disabled" data-tooltip title="<?php echo Yii::t('msg','Please login to use this functionality!'); ?>"><span class="icon-angle-right"></span>
+      <li class="arrow unavailable"><a trk="person_forward_disabled" class="button small secondary disabled" data-tooltip title="<?php echo Yii::t('msg','Please login to use this functionality!'); ?>"><span class="icon-angle-right"></span>
       </a></li>
 		</ul>
 		

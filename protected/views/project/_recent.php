@@ -26,22 +26,22 @@
 
 			<?php } ?>
 
-			<li><a href="<?php echo Yii::app()->createUrl("project/recent"); ?>" class="right button radius small secondary"><?php echo Yii::t('app','show all'); ?> </a></li>
+			<li><a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" class="right button radius small secondary"><?php echo Yii::t('app','show all'); ?> </a></li>
 		</ul>
 	
 	</div>
 		<small class="show-for-small">
-			<a href="<?php echo Yii::app()->createUrl("project/recent/1"); ?>"  class="button secondary large expand"><?php echo Yii::t('app','show all'); ?></a>
+			<a href="<?php echo Yii::app()->createUrl("project/discover"); ?>"  class="button secondary large expand"><?php echo Yii::t('app','show all'); ?></a>
 		</small>
 
   <?php }else{ ?>
 	<div class="right l-inline">
 		
 		<ul class="pagination hide-for-small">
-      <li class="arrow unavailable"><a class="button small secondary disabled" data-tooltip title="<?php echo Yii::t('msg','Please login to use this functionality!'); ?>"><span class="icon-angle-left"></span>
+      <li class="arrow unavailable"><a trk="project_back_disabled" class="button small secondary disabled" data-tooltip title="<?php echo Yii::t('msg','Please login to use this functionality!'); ?>"><span class="icon-angle-left"></span>
       </a></li>
 			
-      <li class="arrow unavailable"><a class="button small secondary disabled" data-tooltip title="<?php echo Yii::t('msg','Please login to use this functionality!'); ?>"><span class="icon-angle-right"></span>
+      <li class="arrow unavailable"><a trk="project_forward_disabled" class="button small secondary disabled" data-tooltip title="<?php echo Yii::t('msg','Please login to use this functionality!'); ?>"><span class="icon-angle-right"></span>
       </a></li>
 		</ul>
 		

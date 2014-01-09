@@ -9,7 +9,7 @@
  * Each array element represents the translation (value) of a message (key).
  * If the value is empty, the message is considered as not translated.
  * Messages that no longer need translation will have their translations
- * enclosed between a pair of '' marks.
+ * enclosed between a pair of '@@' marks.
  *
  * Message string can be used with plural forms format. Check i18n section
  * of the guide for details.
@@ -36,6 +36,7 @@ return array (
   'Chose a name to represent your link.' => 'Izberite ime, ki bo predstavljalo vašo povezavo.',
   'Chose your own personal URL.' => 'Izberi si svojo osebno povezavo',
   'Chose your own personal link so others can remember it easily.' => 'Ustvari povezavo po meri, tako da si jo bodo drugi lažje zapomnili',
+  'Clicking send invite WILL send invitation emails as well!' => '',
   'Computer wizards who work on weekends.' => 'Računalniški čarodej, ki ima čas ob vikendih',
   'Consider filling this out since it will help you become more recognizable' => 'Če boš to izpolnil bo tvoj profil bolj viden',
   'Could not delete open position.' => 'Ni bilo možno odstraniti odprte pozicije.',
@@ -135,6 +136,7 @@ return array (
   'Project successfully saved.' => 'Projekt uspešno shranjen.',
   'Project successfully updated.' => 'Projekt uspešno posodobljen.',
   'Remeber: people you invite will add to your overall credibility so be selective!' => 'Ne pozabi: ljudje, ki jih povabiš na Cofinder, bodo vplivali na tvojo oceno kredibilnosti, tako da bodi previden',
+  'Request invitation' => '',
   'Retype password is incorrect.' => 'Ponovitev gesla napačna.',
   'Search for designers' => 'Išči dizajnerje',
   'Search for people who can help you develop your business.' => 'Poišči ljudi, ki ti lahko pomagajo pri razvoju poslovnega dela ideje',
@@ -170,6 +172,7 @@ return array (
   'This action will change your password!' => 'Ta akcija vam bo spremenila geslo!',
   'This action will create an invitation.' => 'Ta akcija bo ustvarila povabilo.',
   'This action will deactivate your account.' => 'Ta akcija bo deaktivirala vaš račun.',
+  'This action will send invitation email.' => '',
   'This custom URL already exists.' => 'Ta izbran URL naslov že obstaja.',
   'This form will generate an invite for specific email address and return invite address <strong>Invitation email will not be sent!</strong>.' => 'Ta forma bo ustvarila povezavo do povabila za izbran email.<strong>Povabilo ne bo poslano na email.</strong>',
   'This is your pitch. Be brief and to the point.' => 'To je vaš pitch. Bodite kratki in jedernati.',
@@ -229,10 +232,8 @@ return array (
   'You already have an invitation pending. To join please click {button} or copy this url:<br>{url}' => 'Vaše povabilo je že odobreno. Če se želite registrirati kliknite tukaj {button} ali pa v brskalnik prekopirajte to povezavo:<br/>{url}',
   'You already have this link.' => 'To povezavo že imate.',
   'You already have this skill.' => 'To znanje že imate dodano.',
-  'You are about to delete this project!
-Are you sure?' => 'S tem klikom boste izbrisali projekt!',
-  'You are about to delete this translation!
-Are you sure?' => 'Odstranili boste ta prevod!',
+  'You are about to delete this project!' => '',
+  'You are about to delete this translation!' => '',
   'You are about to join this project!' => 'S tem dejanjem se boste pridružili temu projektu',
   'You are about to leave this project! You will have to be re invited to be a member.' => 'S tem dejanjem boste zapustili ta projekt! Za ponovno članstvo boste morali biti zoped povabljeni',
   'You are about to remove this candidate!' => 'S tem dejanjem boste odstranili tega kandidata',
@@ -257,7 +258,6 @@ Are you sure?' => 'Odstranili boste ta prevod!',
   'Your profile is {n}% completed.' => 'Vaš profil je {n}% izpolnjen',
   'Your profile will not be visible to the public because it is only {n}% completed!' => 'Vaš profil ne bo viden javnosti, ker je izpolnjen le {n}%!',
   'Your request is invalid.' => 'Vaša zahteva je neveljavna.',
-  'here' => 'tukaj',
   '{file} has invalid extension. Only {extensions} are allowed.' => '{file} ima neveljavno končnico. Samo {extensions} so dovoljene.',
   '{file} is empty, please select files again without it.' => '{file} je prazna, prosimo izberite ponovno datoteke brez te ki je prazna.',
   '{file} is too large, maximum file size is {sizeLimit}.' => '{file} je prevelika, največja velikost datoteke je lahko {sizeLimit}.',

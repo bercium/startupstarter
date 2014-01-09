@@ -25,7 +25,8 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow', // allow all users to perform actions
-        'actions'=>array("index",'error','logout','about','terms','notify','notifyFacebook','suggestCountry','suggestSkill','suggestCity','unbsucribeFromNews','cookies'),
+        'actions'=>array('index','error','logout','about','terms','notify','notifyFacebook','suggestCountry',
+                         'suggestSkill','suggestCity','unbsucribeFromNews','cookies','sitemap'),
 				'users'=>array('*'),
 			),
 			/*array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -436,5 +437,122 @@ class SiteController extends Controller
     }
     $this->render("list");
   }
+  
+  
+  /**
+   * hide toolbar
+   */
+  protected function beforeAction($action){
+    if ($action->id == 'sitemap')
+      foreach (Yii::app()->log->routes as $route){
+        //if ($route instanceof CWebLogRoute){
+          $route->enabled = false;
+        //}
+      }
+    return true;
+  }
+  
+  /**
+   * create sitemap for the whole site
+   */
+  public function actionSitemap(){
+    // don't allow any other strings before this
+    Yii::app()->clientScript->reset();
+    $this->layout = 'blank'; // template blank
+    
+    $sitemapResponse=<<<EOD
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    <url>
+      <loc>http://www.cofinder.eu/</loc>
+      <changefreq>daily</changefreq>
+      <priority>0.90</priority>
+    </url>
+    <url>
+      <loc>http://www.cofinder.eu/person/discover</loc>
+      <changefreq>daily</changefreq>
+      <priority>0.90</priority>
+    </url>
+    <url>
+      <loc>http://www.cofinder.eu/project/discover</loc>
+      <changefreq>daily</changefreq>
+      <priority>0.90</priority>
+    </url>    
+    <url>
+      <loc>http://www.cofinder.eu/site/about</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.60</priority>
+    </url>
+    <url>
+      <loc>http://www.cofinder.eu/site/notify</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.30</priority>
+    </url>
+    <url>
+      <loc>http://www.cofinder.eu/user/login</loc>
+      <changefreq>yearly</changefreq>
+      <priority>0.30</priority>
+    </url>
+    <url>
+      <loc>http://www.cofinder.eu/user/recovery</loc>
+      <changefreq>yearly</changefreq>
+      <priority>0.20</priority>
+    </url>
+    <url>
+      <loc>http://www.cofinder.eu/site/terms</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.40</priority>
+    </url>
+    <url>
+      <loc>http://www.cofinder.eu/site/cookies</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.40</priority>
+    </url>
+    
+EOD;
+    
+    // get user completeness for setting priority
+    $usersStat = UserStat::model()->findAll();
+    $complete = array();
+    foreach ($usersStat as $us){
+      $complete[$us['user_id']] = $us['completeness'];
+    }
+    
+    // go trough all active users and write them out
+    $users = User::model()->findAllByAttributes(array('status'=>1));
+    foreach ($users as $user){
+      $priority = 60;
+      if (isset($complete[$user['id']])){
+        $priority += round($complete[$user['id']]/5,0);
+      }
+      $sitemapResponse .= "
+      <url>
+        <loc>".Yii::app()->createAbsoluteUrl('person',array("id"=>$user['id']))."</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.".$priority."</priority>
+      </url>";
+    }
+    
+    // go trough all active projects and write them out
+    $ideas = Idea::model()->findAllByAttributes(array('deleted'=>0));
+    foreach ($ideas as $idea){
+      $priority = 70;
+      $sitemapResponse .= "
+      <url>
+        <loc>".Yii::app()->createAbsoluteUrl('project',array("id"=>$idea['id']))."</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.".$priority."</priority>
+      </url>";
+    }    
+    
+    $sitemapResponse .= "\n</urlset>"; // end sitemap
+    
+    $this->render("//layouts/blank",array("content"=>$sitemapResponse));
+  }  
+  
 	
 }
