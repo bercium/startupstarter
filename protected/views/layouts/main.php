@@ -46,7 +46,7 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
   <link rel="icon" type="image/ico" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico">
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700,700italic,600italic,600,400italic,300italic,300&subset=latin,cyrillic-ext,greek-ext,greek,latin-ext,cyrillic,vietnamese' rel='stylesheet' type='text/css'>
   
-  <script> var fullURL= '<?php echo Yii::app()->request->baseUrl; ?>'; var debuging = <?php echo YII_DEBUG; ?>;</script>
+  <script> var fullURL= '<?php echo Yii::app()->request->baseUrl; ?>'; </script>
 	<title><?php echo $fullTitle; ?></title>
 </head>
 
@@ -305,21 +305,6 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
 </script> 
 
 
-
-
-<?php if (!YII_DEBUG){ ?>
-<script>
-    if (jQuery.cookie('cc_cookie_accept') == "cc_cookie_accept") {
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-45467622-1', 'cofinder.eu');
-        ga('send', 'pageview');
-    }
-</script>
-<?php } ?>
 
 </body>
 </html><?php 

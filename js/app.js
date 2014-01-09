@@ -98,10 +98,10 @@ $(function() {
       if ($(this).is("[onclick]")) thisEvent = $(this).attr("onclick");
       
       $(this).click(function(event) { // when someone clicks these links
-        gase('button','click',id,'');
+        gase('button','click',id,0);
         if (thisEvent) eval(thisEvent);
       });
-  });  
+  });
   
 })(jQuery, this);
 
@@ -132,5 +132,6 @@ function addPageToList(e){
 
 // ga function depending on debuging
 function gase(category, action, label, value){
-  if (!debuging) ga('send', 'event', category, action, label, value);
+  if (value == '') value = 0;
+  ga('send', 'event', category, action, label, value);
 }
