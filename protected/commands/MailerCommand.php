@@ -94,7 +94,6 @@ class MailerCommand extends CConsoleCommand{
       $email = $stat->user->email;
       $message->subject = $stat->user->name." your profile is not visible!";
       
-      $activation_url = '<a href="'.absoluteURL().'/profile">Register here</a>';
       $content = 'Your profile on Cofinder is not visible due to lack of information you provided. 
                   If you wish to be found we suggest you take a few minutes and fill it up.
                   <br /><br />
