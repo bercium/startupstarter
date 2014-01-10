@@ -10,6 +10,7 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
   <?php
   if (Yii::app()->user->isGuest){
     echo Yii::t('msg','You must be loged in to contact this person.');
+    echo Yii::t('msg',"If you don't have an account ");
     ?> <a href="<?php echo Yii::app()->createUrl("site/notify"); ?>" class="button tiny radius mt20 mb0"> <?php echo Yii::t('msg','Request invitation');?> </a> <?php
   }
   else { ?>    
@@ -235,10 +236,35 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
             ?>  
             </div>
           <?php if (!$canEdit) { ?>
-            <a class="button success radius small-12" href="#" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact members') ?></a>
+            <a class="button success radius small-12" href="#" trk="contact_team" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact members') ?></a>
            <?php } ?>
         </div>
 
+       <div class="panel">
+          <div class="item bbottom">  
+          <h4><?php echo Yii::t('app','Share this project'); ?></h4>
+          <?php /* ?><p class="l-inline"><?php echo Yii::t('app','You are viewing this in'); ?> <?php echo $idea['language']; ?></p><?php */ ?>
+          </div>
+           <?php $url = Yii::app()->createAbsoluteUrl('project',array("id"=>$idea["id"]));
+                 $summary = $this->pageDesc;
+                 $title = $this->pageTitle; ?>
+              <a href="http://www.facebook.com/sharer.php?s=100&p[title]=<?php echo $title; ?>&p[summary]=<?php echo $summary; ?>&p[url]=<?php echo $url; ?>" trk="project_share_fb" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-fb.jpg"  width="30">
+              </a>
+            &nbsp;
+              <a href="http://twitter.com/share?text=<?php echo $summary; ?>" trk="project_share_tw" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-tw.jpg"  width="30">
+              </a>
+            &nbsp;
+              <a href="https://plus.google.com/share?url=<?php echo $url; ?>&title=<?php echo $title; ?>&summary=<?php echo $summary; ?>" trk="project_share_gp" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-gp.jpg" width="30">
+              </a>
+            &nbsp;
+              <a href="http://www.linkedin.com/shareArticle?mini=true&url=<?php echo $url; ?>&title=<?php echo $title; ?>&summary=<?php echo $summary; ?>&source=Cofinder" trk="project_share_lin" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-li.jpg" width="30">
+              </a>
+            
+        </div>
 
         <?php if (count($idea['translation_other'])){ ?>
         <div class="panel">
@@ -246,7 +272,7 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
           <h4><?php echo Yii::t('app','languages'); ?></h4>
           <?php /* ?><p class="l-inline"><?php echo Yii::t('app','You are viewing this in'); ?> <?php echo $idea['language']; ?></p><?php */ ?>
           </div>
-          <p  data-dropdown="data1" class="small dropdown secondary radius button"><?php echo Yii::t('app','Other languages'); ?></a>
+          <a  data-dropdown="data1" class="small dropdown secondary radius button"><?php echo Yii::t('app','Other languages'); ?></a>
 
 
           <ul id="data1" data-dropdown-content class="f-dropdown">

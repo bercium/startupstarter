@@ -94,6 +94,7 @@ return array(
       'showScriptName'=>false,
 			'rules'=>array(
         /*'list' => array('site/list', 'caseSensitive'=>false),*/
+        ''=>'site/index',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<id:\d+>/<lang:\w{2}>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',

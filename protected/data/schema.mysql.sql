@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 06, 2014 at 01:43 PM
+-- Generation Time: Jan 09, 2014 at 12:19 PM
 -- Server version: 5.5.34-0ubuntu0.13.10.1
 -- PHP Version: 5.5.3-1ubuntu2.1
 
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `available` (
   `id` int(2) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=61 ;
 
 -- --------------------------------------------------------
 
@@ -84,6 +84,14 @@ CREATE TABLE IF NOT EXISTS `click_idea` (
   KEY `idea_click_id` (`idea_click_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- RELATIONS FOR TABLE `click_idea`:
+--   `user_id`
+--       `user` -> `id`
+--   `idea_click_id`
+--       `idea` -> `id`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -99,6 +107,14 @@ CREATE TABLE IF NOT EXISTS `click_user` (
   KEY `user_id` (`user_id`),
   KEY `user_click_id` (`user_click_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- RELATIONS FOR TABLE `click_user`:
+--   `user_id`
+--       `user` -> `id`
+--   `user_click_id`
+--       `user` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -143,6 +159,12 @@ CREATE TABLE IF NOT EXISTS `idea` (
   KEY `status_id` (`status_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- RELATIONS FOR TABLE `idea`:
+--   `status_id`
+--       `idea_status` -> `id`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -159,6 +181,16 @@ CREATE TABLE IF NOT EXISTS `idea_member` (
   KEY `match_id` (`match_id`),
   KEY `type_id` (`type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- RELATIONS FOR TABLE `idea_member`:
+--   `idea_id`
+--       `idea` -> `id`
+--   `match_id`
+--       `user_match` -> `id`
+--   `type_id`
+--       `membertype` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -194,6 +226,14 @@ CREATE TABLE IF NOT EXISTS `idea_translation` (
   KEY `language_id` (`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- RELATIONS FOR TABLE `idea_translation`:
+--   `idea_id`
+--       `idea` -> `id`
+--   `language_id`
+--       `language` -> `id`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -213,6 +253,16 @@ CREATE TABLE IF NOT EXISTS `invite` (
   KEY `id_idea` (`id_idea`),
   KEY `id_receiver` (`id_receiver`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- RELATIONS FOR TABLE `invite`:
+--   `id_sender`
+--       `user` -> `id`
+--   `id_idea`
+--       `idea` -> `id`
+--   `id_receiver`
+--       `user` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -297,6 +347,14 @@ CREATE TABLE IF NOT EXISTS `skillset_skill` (
   KEY `skill_id` (`skill_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- RELATIONS FOR TABLE `skillset_skill`:
+--   `skillset_id`
+--       `skillset` -> `id`
+--   `skill_id`
+--       `skill` -> `id`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -323,7 +381,13 @@ CREATE TABLE IF NOT EXISTS `translation` (
   `translation` varchar(128) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `language_id` (`language_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=156 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=314 ;
+
+--
+-- RELATIONS FOR TABLE `translation`:
+--   `language_id`
+--       `language` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -368,6 +432,14 @@ CREATE TABLE IF NOT EXISTS `user_collabpref` (
   KEY `collab_id` (`collab_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- RELATIONS FOR TABLE `user_collabpref`:
+--   `collab_id`
+--       `collabpref` -> `id`
+--   `match_id`
+--       `user_match` -> `id`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -382,6 +454,12 @@ CREATE TABLE IF NOT EXISTS `user_link` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- RELATIONS FOR TABLE `user_link`:
+--   `user_id`
+--       `user` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -401,6 +479,16 @@ CREATE TABLE IF NOT EXISTS `user_match` (
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Extra data for users or virtual (searchable) users' AUTO_INCREMENT=1 ;
 
+--
+-- RELATIONS FOR TABLE `user_match`:
+--   `city_id`
+--       `city` -> `id`
+--   `country_id`
+--       `country` -> `id`
+--   `user_id`
+--       `user` -> `id`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -417,6 +505,39 @@ CREATE TABLE IF NOT EXISTS `user_skill` (
   KEY `skillset_id` (`skillset_id`),
   KEY `skill_id` (`skill_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- RELATIONS FOR TABLE `user_skill`:
+--   `skillset_id`
+--       `skillset` -> `id`
+--   `skill_id`
+--       `skill` -> `id`
+--   `match_id`
+--       `user_match` -> `id`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_stat`
+--
+
+CREATE TABLE IF NOT EXISTS `user_stat` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `completeness` int(11) NOT NULL DEFAULT '0',
+  `invites_send` int(11) NOT NULL DEFAULT '0',
+  `invites_registered` int(11) NOT NULL DEFAULT '0',
+  `reputation` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=137 ;
+
+--
+-- RELATIONS FOR TABLE `user_stat`:
+--   `user_id`
+--       `user` -> `id`
+--
 
 --
 -- Constraints for dumped tables
@@ -506,6 +627,12 @@ ALTER TABLE `user_skill`
   ADD CONSTRAINT `user_skill_ibfk_2` FOREIGN KEY (`skillset_id`) REFERENCES `skillset` (`id`),
   ADD CONSTRAINT `user_skill_ibfk_3` FOREIGN KEY (`skill_id`) REFERENCES `skill` (`id`),
   ADD CONSTRAINT `user_skill_ibfk_4` FOREIGN KEY (`match_id`) REFERENCES `user_match` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `user_stat`
+--
+ALTER TABLE `user_stat`
+  ADD CONSTRAINT `user_stat_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

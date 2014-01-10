@@ -59,7 +59,7 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
   <div class="header-wrap show-for-small">
     <div class="row header">
       <div>
-        <a href="<?php echo Yii::app()->createUrl("/"); ?>" >
+        <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
            <img alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title-mobile.png" />
         </a>
       </div>
@@ -74,7 +74,7 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
             <!-- Title Area -->
              <li class="name ">
                <div class="hide-for-small">
-								 <a href="<?php echo Yii::app()->createUrl("/"); ?>" >
+								 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
 									<img class="logo" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png" />
 								 
                  </a>
@@ -268,7 +268,7 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
     <div class="row">
        <div class="large-3 columns">
 
-         <a href="<?php echo Yii::app()->createUrl("/"); ?>" >
+         <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
            <img class="logo-mini" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-mini.png" />
          </a>
       </div>

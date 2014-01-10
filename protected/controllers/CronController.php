@@ -68,10 +68,17 @@ class CronController extends Controller
   }
 	
   /**
-   * 
+   * notify all people in waiting queue to join our site
    */
 	public function actionNotifyToJoin(){
     echo $this->consoleCommand('mailer','notifyToJoin');
+  }
+  
+  /**
+   * all hidden profiles will be notified to 
+   */
+  public function actionNotifyToFillProfile(){
+    echo $this->consoleCommand('mailer','notifyHiddenProfiles');
   }
   
   /**

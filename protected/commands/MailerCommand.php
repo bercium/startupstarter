@@ -57,7 +57,7 @@ class MailerCommand extends CConsoleCommand{
 	}
   
   
-  // do this every first of month
+  // do this every first wednesday of month
   public function actionNotifyToJoin(){
     $message = new YiiMailMessage;
     $message->view = 'system';
@@ -80,4 +80,30 @@ class MailerCommand extends CConsoleCommand{
     }
     return 0;
   }
+  
+  
+  // do this every first of month
+  public function actionNotifyHiddenProfiles(){
+    $message = new YiiMailMessage;
+    $message->view = 'system';
+    $message->from = Yii::app()->params['noreplyEmail'];
+    
+    // send newsletter to all in waiting list
+    $hidden = UserStat::model()->findAll("completeness < :comp",array(":comp"=>PROFILE_COMPLETENESS_MIN));
+    foreach ($hidden as $stat){
+      $email = $stat->user->email;
+      $message->subject = $stat->user->name." your profile is not visible!";
+      
+      $content = 'Your profile on Cofinder is not visible due to lack of information you provided. 
+                  If you wish to be found we suggest you take a few minutes and fill it up.
+                  <br /><br />
+                  Just click here and <strong><a href="http://www.cofinder.eu/profile">do it now</a></strong>!';
+      
+      $message->setBody(array("content"=>$content,"email"=>$email), 'text/html');
+      $message->setTo($email);
+      Yii::app()->mail->send($message);
+    }
+    return 0;
+  }
+  
 }
