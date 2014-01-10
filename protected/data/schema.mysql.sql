@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.6deb1
+-- version 3.4.11.1deb1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 09, 2014 at 12:19 PM
--- Server version: 5.5.34-0ubuntu0.13.10.1
--- PHP Version: 5.5.3-1ubuntu2.1
+-- Generation Time: Jan 10, 2014 at 03:01 PM
+-- Server version: 5.5.34
+-- PHP Version: 5.4.6-1ubuntu1.5
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `cofinder`
+-- Database: `slocoworking`
 --
 
 -- --------------------------------------------------------
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `available` (
   `id` int(2) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=61 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `city` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=501 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -82,15 +82,7 @@ CREATE TABLE IF NOT EXISTS `click_idea` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `idea_click_id` (`idea_click_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- RELATIONS FOR TABLE `click_idea`:
---   `user_id`
---       `user` -> `id`
---   `idea_click_id`
---       `idea` -> `id`
---
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -106,15 +98,7 @@ CREATE TABLE IF NOT EXISTS `click_user` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `user_click_id` (`user_click_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- RELATIONS FOR TABLE `click_user`:
---   `user_id`
---       `user` -> `id`
---   `user_click_id`
---       `user` -> `id`
---
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -126,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `collabpref` (
   `id` smallint(2) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -139,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `country` (
   `name` varchar(32) NOT NULL,
   `country_code` varchar(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=250 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -155,15 +139,40 @@ CREATE TABLE IF NOT EXISTS `idea` (
   `website` varchar(128) DEFAULT NULL,
   `video_link` varchar(128) DEFAULT NULL,
   `deleted` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `vanityURL` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `status_id` (`status_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
 
 --
--- RELATIONS FOR TABLE `idea`:
---   `status_id`
---       `idea_status` -> `id`
+-- Table structure for table `idea_gallery`
 --
+
+CREATE TABLE IF NOT EXISTS `idea_gallery` (
+  `id` int(9) unsigned NOT NULL AUTO_INCREMENT,
+  `idea_id` int(11) unsigned NOT NULL,
+  `url` varchar(128) NOT NULL,
+  `cover` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idea_id` (`idea_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `idea_link`
+--
+
+CREATE TABLE IF NOT EXISTS `idea_link` (
+  `id` int(9) unsigned NOT NULL AUTO_INCREMENT,
+  `idea_id` int(11) unsigned NOT NULL,
+  `title` varchar(128) NOT NULL,
+  `url` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idea_id` (`idea_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -180,17 +189,7 @@ CREATE TABLE IF NOT EXISTS `idea_member` (
   KEY `idea_id` (`idea_id`),
   KEY `match_id` (`match_id`),
   KEY `type_id` (`type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- RELATIONS FOR TABLE `idea_member`:
---   `idea_id`
---       `idea` -> `id`
---   `match_id`
---       `user_match` -> `id`
---   `type_id`
---       `membertype` -> `id`
---
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -202,7 +201,7 @@ CREATE TABLE IF NOT EXISTS `idea_status` (
   `id` smallint(2) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -224,15 +223,7 @@ CREATE TABLE IF NOT EXISTS `idea_translation` (
   PRIMARY KEY (`id`),
   KEY `idea_id` (`idea_id`),
   KEY `language_id` (`language_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- RELATIONS FOR TABLE `idea_translation`:
---   `idea_id`
---       `idea` -> `id`
---   `language_id`
---       `language` -> `id`
---
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -242,27 +233,19 @@ CREATE TABLE IF NOT EXISTS `idea_translation` (
 
 CREATE TABLE IF NOT EXISTS `invite` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_sender` int(11) unsigned NOT NULL,
+  `sender_id` int(11) unsigned DEFAULT NULL,
   `key` varchar(50) DEFAULT NULL,
   `email` varchar(50) NOT NULL,
-  `id_idea` int(11) unsigned DEFAULT NULL,
-  `id_receiver` int(11) unsigned DEFAULT NULL,
+  `idea_id` int(11) unsigned DEFAULT NULL,
+  `receiver_id` int(11) unsigned DEFAULT NULL,
   `time_invited` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `code` varchar(126) DEFAULT NULL,
+  `registered` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `id_sender` (`id_sender`),
-  KEY `id_idea` (`id_idea`),
-  KEY `id_receiver` (`id_receiver`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- RELATIONS FOR TABLE `invite`:
---   `id_sender`
---       `user` -> `id`
---   `id_idea`
---       `idea` -> `id`
---   `id_receiver`
---       `user` -> `id`
---
+  KEY `sender_id` (`sender_id`),
+  KEY `idea_id` (`idea_id`),
+  KEY `receiver_id` (`receiver_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -279,7 +262,7 @@ CREATE TABLE IF NOT EXISTS `keyword` (
   `language_id` int(3) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `language_id` (`language_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -293,7 +276,7 @@ CREATE TABLE IF NOT EXISTS `language` (
   `name` varchar(32) NOT NULL,
   `native_name` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=183 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -305,7 +288,23 @@ CREATE TABLE IF NOT EXISTS `membertype` (
   `id` int(2) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `message`
+--
+
+CREATE TABLE IF NOT EXISTS `message` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_from_id` int(11) NOT NULL,
+  `user_to_id` int(11) DEFAULT NULL,
+  `idea_to_id` int(11) DEFAULT NULL,
+  `time_sent` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `message` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -317,7 +316,7 @@ CREATE TABLE IF NOT EXISTS `skill` (
   `id` mediumint(3) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -329,7 +328,7 @@ CREATE TABLE IF NOT EXISTS `skillset` (
   `id` smallint(2) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=148 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -345,15 +344,7 @@ CREATE TABLE IF NOT EXISTS `skillset_skill` (
   PRIMARY KEY (`id`),
   KEY `skillset_id` (`skillset_id`),
   KEY `skill_id` (`skill_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- RELATIONS FOR TABLE `skillset_skill`:
---   `skillset_id`
---       `skillset` -> `id`
---   `skill_id`
---       `skill` -> `id`
---
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -381,13 +372,7 @@ CREATE TABLE IF NOT EXISTS `translation` (
   `translation` varchar(128) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `language_id` (`language_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=314 ;
-
---
--- RELATIONS FOR TABLE `translation`:
---   `language_id`
---       `language` -> `id`
---
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -411,11 +396,13 @@ CREATE TABLE IF NOT EXISTS `user` (
   `language_id` smallint(2) unsigned DEFAULT NULL,
   `newsletter` tinyint(1) NOT NULL DEFAULT '1',
   `invitations` int(11) NOT NULL DEFAULT '0',
+  `bio` text,
+  `vanityURL` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   KEY `status` (`status`),
   KEY `superuser` (`superuser`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -430,15 +417,7 @@ CREATE TABLE IF NOT EXISTS `user_collabpref` (
   PRIMARY KEY (`id`),
   KEY `match_id` (`match_id`),
   KEY `collab_id` (`collab_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- RELATIONS FOR TABLE `user_collabpref`:
---   `collab_id`
---       `collabpref` -> `id`
---   `match_id`
---       `user_match` -> `id`
---
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -448,18 +427,12 @@ CREATE TABLE IF NOT EXISTS `user_collabpref` (
 
 CREATE TABLE IF NOT EXISTS `user_link` (
   `id` int(9) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(8) unsigned NOT NULL,
+  `user_id` int(11) unsigned NOT NULL,
   `title` varchar(128) NOT NULL,
   `url` varchar(128) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- RELATIONS FOR TABLE `user_link`:
---   `user_id`
---       `user` -> `id`
---
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -472,22 +445,12 @@ CREATE TABLE IF NOT EXISTS `user_match` (
   `user_id` int(11) unsigned DEFAULT NULL,
   `country_id` smallint(3) unsigned DEFAULT NULL,
   `city_id` int(10) unsigned DEFAULT NULL,
-  `available` int(2) DEFAULT NULL,
+  `available` int(2) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `city_id` (`city_id`),
   KEY `country_id` (`country_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Extra data for users or virtual (searchable) users' AUTO_INCREMENT=1 ;
-
---
--- RELATIONS FOR TABLE `user_match`:
---   `city_id`
---       `city` -> `id`
---   `country_id`
---       `country` -> `id`
---   `user_id`
---       `user` -> `id`
---
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Extra data for users or virtual (searchable) users' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -504,17 +467,7 @@ CREATE TABLE IF NOT EXISTS `user_skill` (
   KEY `match_id` (`match_id`),
   KEY `skillset_id` (`skillset_id`),
   KEY `skill_id` (`skill_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- RELATIONS FOR TABLE `user_skill`:
---   `skillset_id`
---       `skillset` -> `id`
---   `skill_id`
---       `skill` -> `id`
---   `match_id`
---       `user_match` -> `id`
---
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -531,13 +484,7 @@ CREATE TABLE IF NOT EXISTS `user_stat` (
   `reputation` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=137 ;
-
---
--- RELATIONS FOR TABLE `user_stat`:
---   `user_id`
---       `user` -> `id`
---
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Constraints for dumped tables
@@ -564,6 +511,18 @@ ALTER TABLE `idea`
   ADD CONSTRAINT `idea_ibfk_1` FOREIGN KEY (`status_id`) REFERENCES `idea_status` (`id`);
 
 --
+-- Constraints for table `idea_gallery`
+--
+ALTER TABLE `idea_gallery`
+  ADD CONSTRAINT `idea_gallery_ibfk_1` FOREIGN KEY (`idea_id`) REFERENCES `idea` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `idea_link`
+--
+ALTER TABLE `idea_link`
+  ADD CONSTRAINT `idea_link_ibfk_1` FOREIGN KEY (`idea_id`) REFERENCES `idea` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `idea_member`
 --
 ALTER TABLE `idea_member`
@@ -582,9 +541,9 @@ ALTER TABLE `idea_translation`
 -- Constraints for table `invite`
 --
 ALTER TABLE `invite`
-  ADD CONSTRAINT `invite_ibfk_1` FOREIGN KEY (`id_sender`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `invite_ibfk_2` FOREIGN KEY (`id_idea`) REFERENCES `idea` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `invite_ibfk_3` FOREIGN KEY (`id_receiver`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `invite_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `invite_ibfk_2` FOREIGN KEY (`idea_id`) REFERENCES `idea` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `invite_ibfk_3` FOREIGN KEY (`receiver_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `skillset_skill`
