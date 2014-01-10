@@ -11,7 +11,8 @@ class WProfileInfo extends CWidget
       $perc = $comp->getPercentage();
       //$perc = Yii::app()->user->getState('percentage');
       if ($perc < PROFILE_COMPLETENESS_MIN){
-        setFlash('WProfileInfoHint1',Yii::t('msg','Your profile will not be visible to the public because it is only {n}% completed!',array($perc)), "alert", false);
+        setFlash('WProfileInfoHint1',array('msg'=>Yii::t('msg','Your profile will not be visible to the public because it is only {n}% completed! %s',array($perc)),
+                                           'actions'=>array(array('hint'=>Yii::t('app','profile details'),'action'=>Yii::app()->createUrl('profile/completeness')))), "alert", false);
         $percClass = 'alert';
       }
       else if ($perc < PROFILE_COMPLETENESS_OK) $percClass = '';

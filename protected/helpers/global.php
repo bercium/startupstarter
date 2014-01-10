@@ -317,7 +317,7 @@ function decodeFlashMsg($msg){
                      '</a>';
       }
     }
-    
+    $msg['msg'] = str_replace("%%s", "%s", str_replace("%", "%%", $msg['msg']));
     return vsprintf($msg['msg'],$actions);
   }else return $msg;
 }
