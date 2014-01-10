@@ -41,7 +41,8 @@
   </div><?php */ ?>
   <div class="large-4 sidebar-wrap columns">
     
-        
+     <a href="<?php echo Yii::app()->createUrl('profile'); ?>" class="button small radius secondary large-12"><?php echo Yii::t('app','Back to profile'); ?></a>
+      
      <div class="section-container sidebar accordion edit-content edit-content-bottom" data-section="accordion">
       <section class="<?php if ($group == 'user') echo "active"; ?>">
         <p class="title" data-section-title><a href="#p1"><span class="icon-user icon-awesome"></span><?php echo Yii::t('app','People'); ?></a></p>
