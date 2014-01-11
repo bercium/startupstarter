@@ -61,6 +61,7 @@ class Controller extends CController
             
     //$cs->registerScriptFile($baseUrl.'/js/jquery.parallax-1.1.3.js');
    
+    //if (!YII_DEBUG)
     $cs->registerScript("ganalytics","
       //if (jQuery.cookie('cc_cookie_accept') == 'cc_cookie_accept') {
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -74,8 +75,6 @@ class Controller extends CController
     
     // startup scripts
     $cs->registerScriptFile($baseUrl.'/js/app.js'.getVersionID());  
-    
-    //if (!YII_DEBUG)
 
     parent::init();
   }

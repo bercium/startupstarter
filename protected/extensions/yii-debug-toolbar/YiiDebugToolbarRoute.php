@@ -19,39 +19,35 @@ class YiiDebugToolbarRoute extends CLogRoute
 {
 
     private $_panels = array(
-        'YiiDebugToolbarPanelServer',
-        'YiiDebugToolbarPanelGlobals',
+        //'YiiDebugToolbarPanelServer',
+        'YiiDebugToolbarPanelRequest',
         'YiiDebugToolbarPanelSettings',
-        'YiiDebugToolbarPanelViewsRendering',
+        'YiiDebugToolbarPanelViews',
         'YiiDebugToolbarPanelSql',
         'YiiDebugToolbarPanelLogging',
     );
 
-    /* The filters are given in an array, each filter being:
+    /**
+     * The filters are given in an array, each filter being:
      * - a normal IP (192.168.0.10 or '::1')
      * - an incomplete IP (192.168.0.* or 192.168.0.)
      * - a CIDR mask (192.168.0.0/24)
      * - "*" for everything.
      */
     public $ipFilters=array('127.0.0.1','::1');
-    
-    /**
-     * This is a list of paths to extra panels.
-     * Example:
-     * 'additionalPanels' => array(
-     *    'append:application.extensions.debug-panels.newPanel', // added panel as last
-     *    'prepend:application.extensions.debug-panels.newPanel2', // added panel as first
-     *    'application.extensions.debug-panels.newPanel3' // added panel as last
-     * )
-     * @var array
-     */
-    public $additionalPanels = array();
 
     /**
-     * If true, then after reloading the page will open the current panel.
-     * @var bool
+     * Whitelist for response content types. DebugToolbarRoute won't write any
+     * output if the server generates output that isn't listed here (json, xml,
+     * files, ...)
+     * @var array of content type strings (in lower case)
      */
-    public $openLastPanel = true;
+    public $contentTypeWhitelist = array(
+      // Yii framework doesn't seem to send content-type header by default.
+      '',
+      'text/html',
+      'application/xhtml+xml',
+    );
 
     private $_toolbarWidget,
             $_startTime,
@@ -96,45 +92,43 @@ class YiiDebugToolbarRoute extends CLogRoute
                 'class'=>'YiiDebugToolbar',
                 'panels'=> $this->panels
             ), $this);
-
-            
-            if(!empty($this->additionalPanels) and is_array($this->additionalPanels))
-            {
-                foreach($this->additionalPanels as $panel)
-                {
-                    $pos = 'append';
-                    if(($dotpos=strpos($panel, ':'))!==false){
-                            $pos = substr($panel, 0, $dotpos) == 'prepend' ? 'prepend' : 'append';
-                            $panel = substr($panel, $dotpos+1);
-                    }
-                    $this->_toolbarWidget->{$pos.'Panel'}($panel);
-                }
-            }
         }
         return $this->_toolbarWidget;
     }
 
     public function init()
     {
-        $this->_startTime=microtime(true);
+        Yii::app()->controllerMap = array_merge(array(
+        	'debug' => array(
+        		'class' => 'YiiDebugController'
+        	)
+        ), Yii::app()->controllerMap);
+        
+        Yii::setPathOfAlias('yii-debug-toolbar', dirname(__FILE__));
+        
+        Yii::app()->setImport(array(
+        	'yii-debug-toolbar.*'
+        ));
 
-        parent::init();
+        $route = Yii::app()->getUrlManager()->parseUrl(Yii::app()->getRequest());
+        
+        $this->enabled = strpos(trim($route, '/'), 'debug') !== 0;
 
         $this->enabled && $this->enabled = ($this->allowIp(Yii::app()->request->userHostAddress)
-                && !Yii::app()->getRequest()->getIsAjaxRequest());
+                && !Yii::app()->getRequest()->getIsAjaxRequest() && (Yii::app() instanceof CWebApplication))
+        		&& $this->checkContentTypeWhitelist();
 
-        if ($this->enabled)
-        {
+        if ($this->enabled) {
             Yii::app()->attachEventHandler('onBeginRequest', array($this, 'onBeginRequest'));
             Yii::app()->attachEventHandler('onEndRequest', array($this, 'onEndRequest'));
-            Yii::setPathOfAlias('yii-debug-toolbar', dirname(__FILE__));
-            Yii::app()->setImport(array(
-                'yii-debug-toolbar.*',
-                'yii-debug-toolbar.components.*'
-            ));
+            
             $this->categories = '';
             $this->levels='';
         }
+        
+        $this->_startTime = microtime(true);
+        
+        parent::init();
     }
 
     protected function onBeginRequest(CEvent $event)
@@ -147,18 +141,18 @@ class YiiDebugToolbarRoute extends CLogRoute
 
     protected function initComponents()
     {
-        foreach ($this->_proxyMap as $name=>$class)
-        {
+        foreach ($this->_proxyMap as $name=>$class) {
             $instance = Yii::app()->getComponent($name);
-            if (null !== ($instance))
-            {
+            if (null !== ($instance)) {
                 Yii::app()->setComponent($name, null);
             }
+            
             $this->_proxyMap[$name] = array(
                 'class'=>$class,
                 'instance' => $instance
             );
         }
+        
         Yii::app()->setComponents($this->_proxyMap, false);
     }
 
@@ -170,31 +164,51 @@ class YiiDebugToolbarRoute extends CLogRoute
      */
     private function processRequest()
     {
-        if(is_array(Yii::app()->catchAllRequest) && isset(Yii::app()->catchAllRequest[0]))
-        {
-            $route=Yii::app()->catchAllRequest[0];
+        if (is_array(Yii::app()->catchAllRequest) && isset(Yii::app()->catchAllRequest[0])) {
+            $route = Yii::app()->catchAllRequest[0];
             foreach(array_splice(Yii::app()->catchAllRequest,1) as $name=>$value)
-                $_GET[$name]=$value;
+                $_GET[$name] = $value;
+        } else {
+            $route = Yii::app()->getUrlManager()->parseUrl(Yii::app()->getRequest());
         }
-        else
-            $route=Yii::app()->getUrlManager()->parseUrl(Yii::app()->getRequest());
+            
         Yii::app()->runController($route);
     }
 
     protected function onEndRequest(CEvent $event)
     {
-
+    	$this->_endTime = microtime(true);
     }
 
-    public function collectLogs($logger, $processLogs=false)
+	public function collectLogs($logger, $processLogs=false)
     {
-        parent::collectLogs($logger, $processLogs);
+        $logs = $logger->getLogs();
+        $this->logs = empty($this->logs) ? $logs : array_merge($this->logs, $logs);
+        $this->processLogs($this->logs);
+        $this->logs = array();
     }
 
     protected function processLogs($logs)
     {
-        $this->_endTime = microtime(true);
-        $this->enabled && $this->getToolbarWidget()->run();
+        $this->getToolbarWidget()->run();
+    }
+
+    private function checkContentTypeWhitelist()
+    {
+      $contentType = '';
+
+      foreach (headers_list() as $header) {
+        list($key, $value) = explode(':', $header);
+        $value = ltrim($value, ' ');
+        if (strtolower($key) === 'content-type') {
+          // Split encoding if exists
+          $contentType = explode(";", strtolower($value));
+          $contentType = current($contentType);
+          break;
+        }
+      }
+
+      return in_array( $contentType, $this->contentTypeWhitelist );
     }
 
     /**

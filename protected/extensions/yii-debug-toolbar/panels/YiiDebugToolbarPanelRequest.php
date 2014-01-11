@@ -1,15 +1,15 @@
 <?php
 /**
- * YiiDebugToolbarPanelGlobals class file.
+ * YiiDebugToolbarPanelRequest class file.
  *
  * @author Sergey Malyshev <malyshev.php@gmail.com>
  */
 
 
 /**
- * YiiDebugToolbarPanelGlobals class
+ * YiiDebugToolbarPanelRequest class
  *
- * Description of YiiDebugToolbarPanelGlobals
+ * Description of YiiDebugToolbarPanelRequest
  *
  * @author Sergey Malyshev <malyshev.php@gmail.com>
  * @author Igor Golovanov <igor.golovanov@gmail.com>
@@ -17,14 +17,16 @@
  * @package YiiDebugToolbar
  * @since 1.1.7
  */
-class YiiDebugToolbarPanelGlobals extends YiiDebugToolbarPanel
+class YiiDebugToolbarPanelRequest extends YiiDebugToolbarPanel
 {
+	public $i = 'o';
+	
     /**
      * {@inheritdoc}
      */
     public function getMenuTitle()
     {
-        return YiiDebug::t('Globals');
+        return YiiDebug::t('Request');
     }
 
     /**
@@ -32,7 +34,7 @@ class YiiDebugToolbarPanelGlobals extends YiiDebugToolbarPanel
      */
     public function getTitle()
     {
-        return YiiDebug::t('Global Variables');
+        return YiiDebug::t('Request');
     }
 
     /**
@@ -46,10 +48,10 @@ class YiiDebugToolbarPanelGlobals extends YiiDebugToolbarPanel
      */
     public function run()
     {
-        $this->render('globals', array(
+        $this->render('request', array(
             'server' => $_SERVER,
             'cookies' => $_COOKIE,
-            'session' => isset($_SESSION) ? $_SESSION : null,
+            'session' => isset($_SESSION) ? $_SESSION : array(),
             'post' => $_POST,
             'get' => $_GET,
             'files' => $_FILES,

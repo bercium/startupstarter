@@ -25,7 +25,7 @@ class YiiDebugViewHelper
         $first = array_shift($lines);
         $details = "";
         if (count($lines) > 0) {
-            $details = '<div class="hidden details"><div>'
+            $details = '<div class="hide details"><div>'
                 . join("</div><div>", $lines)
                 . "</div></div>\n";
         }
