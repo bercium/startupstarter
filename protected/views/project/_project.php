@@ -89,8 +89,12 @@
                       </a>
                       <br />
                       <?php } ?>
-                      <?php 
+                      <?php
                       }
+                    }else{
+                        ?>
+                            <a href="<?php echo Yii::app()->createUrl("project",array("id"=>$idea['id'])); ?>"><?php echo Yii::t('app','Not defined any skills') ?></a>
+                        <?php
                     }
                   }
                   ?> 

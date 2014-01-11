@@ -399,4 +399,5 @@ return array (
   '{n} member|{n} members' => '{n} član|{n} člana|{n} člani|{n} članov',
   '{n} position|{n} positions' => '{n} pozicija|{n} poziciji|{n} pozicije|{n} pozicij',
   '{n} time|{n} times' => '{n} krat',
+  'Not defined any skills' => 'Ni definirano',
 );
