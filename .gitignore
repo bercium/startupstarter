@@ -15,11 +15,11 @@ nbproject/
 .settings
 
 #ignore folders
-assets/
+/assets/
 protected/runtime/
 protected/tests/report/
-uploads/
-temp/
+/uploads/
+/temp/
 protected/data/backup/
 
 protected/config/local-db.php

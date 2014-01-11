@@ -269,11 +269,11 @@ qq.FileUploaderBasic = function(o){
         onCancel: function(id, fileName){},
         // messages
         messages: {
-            typeError: Yii.t('msg',"{file} has invalid extension. Only {extensions} are allowed."),
-            sizeError: Yii.t('msg',"{file} is too large, maximum file size is {sizeLimit}."),
-            minSizeError: Yii.t('msg',"{file} is too small, minimum file size is {minSizeLimit}."),
-            emptyError: Yii.t('msg',"{file} is empty, please select files again without it."),
-            onLeave: Yii.t('msg',"The files are being uploaded, if you leave now the upload will be cancelled.")
+            typeError: Yii.t('js',"{file} has invalid extension. Only {extensions} are allowed."),
+            sizeError: Yii.t('js',"{file} is too large, maximum file size is {sizeLimit}."),
+            minSizeError: Yii.t('js',"{file} is too small, minimum file size is {minSizeLimit}."),
+            emptyError: Yii.t('js',"{file} is empty, please select files again without it."),
+            onLeave: Yii.t('js',"The files are being uploaded, if you leave now the upload will be cancelled.")
         },
         showMessage: function(message){
             alert(message);
@@ -485,8 +485,8 @@ qq.FileUploader = function(o){
         listElement: null,
 
         template: '<div class="qq-uploader">' +
-                '<div class="qq-upload-drop-area"><span>'+Yii.t('msg','Drop files here to upload')+'</span></div>' +
-                '<div class="qq-upload-button">'+Yii.t('msg','Upload a file')+'</div>' +
+                '<div class="qq-upload-drop-area"><span>'+Yii.t('js','Drop files here to upload')+'</span></div>' +
+                '<div class="qq-upload-button">'+Yii.t('js','Upload a file')+'</div>' +
                 '<ul class="qq-upload-list"></ul>' +
              '</div>',
 
@@ -495,8 +495,8 @@ qq.FileUploader = function(o){
                 '<span class="qq-upload-file"></span>' +
                 '<span class="qq-upload-spinner"></span>' +
                 '<span class="qq-upload-size"></span>' +
-                '<a class="qq-upload-cancel" href="#">'+Yii.t('msg','Cancel')+'</a>' +
-                '<span class="qq-upload-failed-text">'+Yii.t('msg','Failed')+'</span>' +
+                '<a class="qq-upload-cancel" href="#">'+Yii.t('js','Cancel')+'</a>' +
+                '<span class="qq-upload-failed-text">'+Yii.t('js','Failed')+'</span>' +
             '</li>',
 
         classes: {
