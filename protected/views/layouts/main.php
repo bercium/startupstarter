@@ -115,13 +115,13 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","person"); ?> desc">
-                <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" trk="top_person_discover" title="<?php echo Yii::t('app','Find talent for your project'); ?>" >
+                <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" trk="topMenu_click_personDiscover" title="<?php echo Yii::t('app','Find talent for your project'); ?>" >
                   <?php echo Yii::t('app','Find {bs}talent{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","project"); ?> desc">
-                <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" trk="top_project_discover" title="<?php echo Yii::t('app','Discover interesting projects'); ?>" >
+                <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" trk="topMenu_click_projectDiscover" title="<?php echo Yii::t('app','Discover interesting projects'); ?>" >
                   <?php echo Yii::t('app','Discover {bs}projects{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
               </li>

@@ -90,6 +90,8 @@ $(function() {
   $.cookieCuttr();
   
   //tracking with code
+  // regular events CATEGORY_ACTION_LABEL_VALUE
+  // sharing events share_SOCIALNETWORK_ACTION_BUTTON
   $("[trk]").each(function() {
       var id = $(this).attr("trk");
       //var target = $(this).attr("target");
@@ -98,7 +100,7 @@ $(function() {
       if ($(this).is("[onclick]")) thisEvent = $(this).attr("onclick");
       
       $(this).click(function(event) { // when someone clicks these links
-        gase('button','click',id,0);
+        gase(id);
         if (thisEvent) eval(thisEvent);
       });
   });
@@ -121,18 +123,38 @@ function extractLast( term ) {
 }
 
 var pageNavCount = 1;
+var pageScroolName = '';
 function addPageToList(e){
   //alert('da');
   pageNavCount++;
   $(".page-navigation").fadeIn('normal');
   $(".page-navigation ul").append('<li><a class="button secondary small radius" href="#page'+pageNavCount+'">'+Yii.t('js','Page')+' '+pageNavCount+'</a></li>');
   e.loading.msg.fadeOut('normal');
-  gase('discover','scroll','page',pageNavCount);
+
+  var psn = pageScroolName.split("_");
+  alert(psn[0]+'-'+psn[1]);
+  ga('send', 'event', psn[0], psn[1], 'scroll', pageNavCount);
+  ga('send', 'event', psn[0], psn[1], 'page-'+pageNavCount, 1);
 }
 
 // ga function depending on debuging
-function gase(category, action, label, value){
+function gase(id){
   //if (jQuery.cookie('cc_cookie_accept') != 'cc_cookie_accept') return;  //cookie compliance
-  if (value == '') value = 0;
-  ga('send', 'event', category, action, label, value);
+  var trk = id.split("_");
+
+  if (trk[0] == 'social'){
+    //social_facebook_like_nameOfButton
+    // add social event
+    if (trk.length > 2) ga('send', 'social', trk[1], trk[2], window.location.pathname);
+    // add extra event
+    if (trk.length > 3) ga('send', 'event', trk[2], trk[1], trk[3], 1);
+  }else{
+    // regular events CATEGORY_ACTION_LABEL_VALUE
+    if (trk.length > 3) ga('send', 'event', trk[0], trk[1], trk[2], trk[3]);
+    else
+    if (trk.length > 2) ga('send', 'event', trk[0], trk[1], trk[2]);
+    else
+    if (trk.length > 1) ga('send', 'event', trk[0], trk[1]);
+  }
+  
 }

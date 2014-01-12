@@ -43,9 +43,9 @@
         <h4 >
         <?php echo Yii::t('msg',"{username} Welcome to cofinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
         </h4>
-        <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" trk="main_find_cofounder" class="button radius success" ><?php echo Yii::t('app','Find a cofounder'); ?></a> 
+        <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" trk="index_click_findCofounder" class="button radius success" ><?php echo Yii::t('app','Find a cofounder'); ?></a> 
         <span style="margin:0 13px 0 0px;"> <?php echo Yii::t('app','or'); ?> </span>
-        <a href="<?php echo Yii::app()->createUrl("project/create"); ?>" trk="main_create_project" class="button radius" ><?php echo Yii::t('app','Create your project'); ?> </a>
+        <a href="<?php echo Yii::app()->createUrl("project/create"); ?>" trk="index_click_createProject" class="button radius" ><?php echo Yii::t('app','Create your project'); ?> </a>
         
       </div>
     </div>

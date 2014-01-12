@@ -1,7 +1,8 @@
 	var cityCache = {};
 	var countryCache = {};
 	var skillCache = {};
-
+  
+  pageScroolName = 'project_discover';
 $(window).load(function() {
     $('.list-holder').infinitescroll({
       debug:true,

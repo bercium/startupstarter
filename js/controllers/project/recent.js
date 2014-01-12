@@ -1,4 +1,5 @@
  $(window).load(function() {
+   pageScroolName = 'project_recent';
     $('.list-holder').infinitescroll({
       debug:true,
       navSelector  : ".pagination",

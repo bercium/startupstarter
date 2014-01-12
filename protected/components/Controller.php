@@ -54,24 +54,36 @@ class Controller extends CController
     $cs->registerScriptFile($baseUrl.'/js/chosen.jquery.min.js');  // new dropdown
     $cs->registerScriptFile($baseUrl.'/js/jquery-ui-1.10.3.custom.min.js');
     $cs->registerScriptFile($baseUrl.'/js/jquery.cookie.js');
-    $cs->registerScriptFile($baseUrl.'/js/jquery.cookiecuttr.js');  // some stuff not working because of this... MUST FIX!!!
+    $cs->registerScriptFile($baseUrl.'/js/jquery.cookiecuttr.js');  
 
     //$cs->registerCoreScript($baseUrl.'jquery.ui');
     //$cs->registerCoreScript($baseUrl.'autocomplete');
             
     //$cs->registerScriptFile($baseUrl.'/js/jquery.parallax-1.1.3.js');
    
-    //if (!YII_DEBUG)
+    $logedin = "";
+    if (!Yii::app()->user->isGuest){
+      $uid = '';
+      
+      //include_once("protected/helpers/Hashids.php");
+      Yii::import('application.helpers.Hashids');
+      $hashids = new Hashids('cofinder');
+      $uid = $hashids->encrypt(Yii::app()->user->id);
+      $logedin =",{
+                    'dimension1':'".$uid."',
+                    'dimension2':'true',
+                  }";
+    }
+    
     $cs->registerScript("ganalytics","
-      //if (jQuery.cookie('cc_cookie_accept') == 'cc_cookie_accept') {
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
         ga('create', 'UA-45467622-1', 'cofinder.eu');
-        ga('send', 'pageview');
-     //}");  
+        ga('send', 'pageview'".$logedin.");
+     ");    
     
     // startup scripts
     $cs->registerScriptFile($baseUrl.'/js/app.js'.getVersionID());  
