@@ -132,7 +132,7 @@ function addPageToList(e){
   e.loading.msg.fadeOut('normal');
 
   var psn = pageScroolName.split("_");
-  alert(psn[0]+'-'+psn[1]);
+//  //alert(psn[0]+'-'+psn[1]);
   ga('send', 'event', psn[0], psn[1], 'scroll', pageNavCount);
   ga('send', 'event', psn[0], psn[1], 'page-'+pageNavCount, 1);
 }
