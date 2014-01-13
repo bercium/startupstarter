@@ -2,7 +2,7 @@ var cityCache = {};
 var countryCache = {};
 var skillCache = {};
 
-pageScroolName = 'person_discover';
+pageScrollName = 'person_discover';
 $(window).load(function() {
     $('.list-holder').infinitescroll({
       debug:true,

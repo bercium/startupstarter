@@ -123,7 +123,7 @@ function extractLast( term ) {
 }
 
 var pageNavCount = 1;
-var pageScroolName = '';
+var pageScrollName = '';
 function addPageToList(e){
   //alert('da');
   pageNavCount++;
@@ -131,7 +131,7 @@ function addPageToList(e){
   $(".page-navigation ul").append('<li><a class="button secondary small radius" href="#page'+pageNavCount+'">'+Yii.t('js','Page')+' '+pageNavCount+'</a></li>');
   e.loading.msg.fadeOut('normal');
 
-  var psn = pageScroolName.split("_");
+  var psn = pageScrollName.split("_");
 //  //alert(psn[0]+'-'+psn[1]);
   ga('send', 'event', psn[0], psn[1], 'scroll', pageNavCount);
   ga('send', 'event', psn[0], psn[1], 'page-'+pageNavCount, 1);
