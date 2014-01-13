@@ -68,17 +68,17 @@ class CronController extends Controller
   }
 	
   /**
-   * notify all people in waiting queue to join our site
+   * notify all people in waiting queue to join our site every second week
    */
 	public function actionNotifyToJoin(){
-    echo $this->consoleCommand('mailer','notifyToJoin');
+    if (date("W") % 2 == 0) echo $this->consoleCommand('mailer','notifyToJoin');
   }
   
   /**
-   * all hidden profiles will be notified to 
+   * all hidden profiles will be notified every second week
    */
   public function actionNotifyToFillProfile(){
-    echo $this->consoleCommand('mailer','notifyHiddenProfiles');
+    if (date("W") % 2 == 0) echo $this->consoleCommand('mailer','notifyHiddenProfiles');
   }
   
   /**
@@ -87,6 +87,13 @@ class CronController extends Controller
 	public function actionDbBackup(){
     echo $this->consoleCommand('dbbackup','removeOld');
     echo $this->consoleCommand('dbbackup','backup');
+  }
+  
+  /**
+   * Add more invites every
+   */
+  public function actionAddInvites(){
+    echo $this->consoleCommand('dbbackup','actionAutoAddInvites');
   }
   
 }

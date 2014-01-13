@@ -188,7 +188,7 @@
         }
       });
 		
-    pageScroolName = 'index_search';
+    pageScrollName = 'index_search';
     $('.list-holder').infinitescroll({
       debug:true,
       navSelector  : ".pagination",
