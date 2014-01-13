@@ -110,7 +110,7 @@ class Controller extends CController
   public function getNotifications(){
     //$value = Yii::app()->cache->get("cacheNotifications");
     //if($value === false){
-      //return Yii::app()->user->id." - ";
+      Yii::log(Yii::app()->user->name.",, ".Yii::app()->user->isGuest.": ".json_encode(Yii::app()->user), CLogger::LEVEL_INFO, 'custom.info.user');
       $value = Invite::model()->countByAttributes(array(),"(receiver_id = :idReceiver OR email LIKE :email) AND NOT ISNULL(idea_id)",array(":idReceiver"=>Yii::app()->user->id,":email"=>Yii::app()->user->email));
       //Yii::app()->cache->set("cacheNotifications", $value, 30);
     //}

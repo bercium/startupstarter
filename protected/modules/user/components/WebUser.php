@@ -15,7 +15,9 @@ class WebUser extends CWebUser
      * @see CController::createUrl
      */
     public $loginUrl=array('/user/login');
-
+    private $_model;
+    //public $email='';
+    
     public function getRole()
     {
         return $this->getState('__role');
@@ -39,7 +41,7 @@ class WebUser extends CWebUser
 //
 //        return true;
 //    }
-
+    
     protected function afterLogin($fromCookie)
     {
         parent::afterLogin($fromCookie);
@@ -47,32 +49,37 @@ class WebUser extends CWebUser
     }
 
     public function updateSession() {
-        if (Yii::app()->user->isGuest) return;
-        
-        $user = Yii::app()->getModule('user')->user($this->id);
-        $this->name = $user->email;
-        $userAttributes = /*CMap::mergeArray(*/array(
-                                                'email'=>$user->email,
-                                                'fullname'=>$user->name." ".$user->surname,
-                                                'avatar_link'=>$user->avatar_link,
-                                                //'firstname'=>$user->firstName,
-                                                'create_at'=>$user->create_at,
-                                                'lastvisit_at'=>$user->lastvisit_at,
-                                           )/*,$user->profile->getAttributes())*/;
-        foreach ($userAttributes as $attrName=>$attrValue) {
-            $this->setState($attrName,$attrValue);
-        }
-        /*Yii::import("ext.ProfileInfo.WProfileInfo");
-        WProfileInfo::calculatePerc();*/
-        $c = new Completeness();
-        $c->setPercentage();
-        
-        // set user language
-        if ($user->language_id !== null){
-            $lang = Language::Model()->findByAttributes(array( 'id' => $user->language_id ) );
-            ELangPick::setLanguage($lang->language_code);
-        }
-        
+      if (Yii::app()->user->isGuest) return;
+
+      $user = Yii::app()->getModule('user')->user($this->id);
+      $this->name = $user->email;
+      $userAttributes = /*CMap::mergeArray(*/array(
+                                              'email'=>$user->email,
+                                              'fullname'=>$user->name." ".$user->surname,
+                                              'avatar_link'=>$user->avatar_link,
+                                              //'firstname'=>$user->firstName,
+                                              'create_at'=>$user->create_at,
+                                              'lastvisit_at'=>$user->lastvisit_at,
+                                         )/*,$user->profile->getAttributes())*/;
+      foreach ($userAttributes as $attrName=>$attrValue) {
+          $this->setState($attrName,$attrValue);
+      }
+      /*Yii::import("ext.ProfileInfo.WProfileInfo");
+      WProfileInfo::calculatePerc();*/
+      $c = new Completeness();
+      $c->setPercentage($this->id);
+
+      // set user language
+      if ($user->language_id !== null){
+          $lang = Language::Model()->findByAttributes(array( 'id' => $user->language_id ) );
+          ELangPick::setLanguage($lang->language_code);
+      }
+    }
+    
+    public function getEmail(){
+      if (!Yii::app()->user->isGuest && !isset(Yii::app()->user->email)) $this->updateSession();
+      
+      return Yii::app()->user->email;
     }
 
     public function model($id=0) {
