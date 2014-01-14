@@ -542,13 +542,22 @@ EOD;
     // go trough all active projects and write them out
     $ideas = Idea::model()->findAllByAttributes(array('deleted'=>0));
     foreach ($ideas as $idea){
+      IdeaTranslation::model();
       $priority = 70;
-      $sitemapResponse .= "
-      <url>
-        <loc>".Yii::app()->createAbsoluteUrl('project',array("id"=>$idea['id']))."</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.".$priority."</priority>
-      </url>";
+      foreach ($idea->ideaTranslations as $trans){
+        if ($trans->language->language_code != 'en'){
+          $ar = array("id"=>$idea['id'],"lang"=>$trans->language->language_code);
+        }else{
+          $ar = array("id"=>$idea['id']);
+        }
+        
+        $sitemapResponse .= "
+        <url>
+          <loc>".Yii::app()->createAbsoluteUrl('project',$ar)."</loc>
+          <changefreq>weekly</changefreq>
+          <priority>0.".$priority."</priority>
+        </url>";
+      }
     }    
     
     $sitemapResponse .= "\n</urlset>"; // end sitemap

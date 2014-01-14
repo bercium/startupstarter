@@ -50,9 +50,9 @@
     </div>
     <div class="small-7 columns">
       <?php if (!$allowVanityURL) {
-         echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary readonly","disabled"=>true)); 
+         echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary readonly","disabled"=>true,"placeholder"=>substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")))); 
         }else{ 
-          echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary")); 
+          echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary","placeholder"=>  substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")))); 
         }?>
     </div>        
       <?php /*if (!$allowVanityURL){ ?>

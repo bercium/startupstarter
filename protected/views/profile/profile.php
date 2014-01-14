@@ -92,7 +92,7 @@
       <?php echo CHtml::activeTextField($user, 'address', array('maxlength' => 128)); ?>
 
 
-    </div>      
+    </div>
            
     
       <div class="columns">
@@ -106,6 +106,23 @@
               array('class'=>"button small success radius")
           );*/ ?>
         <?php //echo CHtml::endForm(); ?>
+      </div>  
+       
+      <div class="large-7 left columns">
+      <label for="UserEdit_vanityURL"><?php echo Yii::t('app',"Public name"); ?></label>
+        <span class="description"><?php echo Yii::t('msg',"Chose your own personal URL under <strong>settings.</strong>"); ?></span>
+        <div class="row collapse">
+        <div class="small-5 columns">
+          <span class="prefix">www.cofinder.eu/</span>
+        </div>
+        <div class="small-7 columns">
+          <?php 
+             echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary readonly","disabled"=>true,"placeholder"=>substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")))); 
+            ?>
+        </div>         
+      </div>
+        
+        
       </div>
    </div>
       

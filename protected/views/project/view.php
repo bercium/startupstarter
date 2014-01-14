@@ -269,22 +269,20 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
         <?php if (count($idea['translation_other'])){ ?>
         <div class="panel">
           <div class="item bbottom">  
-          <h4><?php echo Yii::t('app','languages'); ?></h4>
+          <h4><?php echo Yii::t('app','Other languages'); ?></h4>
           <?php /* ?><p class="l-inline"><?php echo Yii::t('app','You are viewing this in'); ?> <?php echo $idea['language']; ?></p><?php */ ?>
           </div>
-          <a  data-dropdown="data1" class="small dropdown secondary radius button"><?php echo Yii::t('app','Other languages'); ?></a>
+          
+          <p>
+            <a style="font-weight: bold;"><?php echo $idea['language']; ?></a>
 
-
-          <ul id="data1" data-dropdown-content class="f-dropdown">
-            <li><a style="font-weight: bold;"><?php echo $idea['language']; ?></a></li>
             <?php 
             foreach ($idea['translation_other'] as $trans){
-            echo '<li><a href="'.Yii::app()->createUrl("project",array("id"=>$idea['id'],'lang'=>$trans['language_code'])).'" >'.$trans['language']."</a></li>";
+            echo '<br /><a href="'.Yii::app()->createUrl("project",array("id"=>$idea['id'],'lang'=>$trans['language_code'])).'" >'.$trans['language']."</a>";
             }
             ?>
-          </ul>
-
-
+            </p>
+            
         </div>
         <?php } ?>
             
