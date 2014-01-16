@@ -26,7 +26,7 @@ class SiteController extends Controller
 		return array(
 			array('allow', // allow all users to perform actions
         'actions'=>array('index','error','logout','about','terms','notify','notifyFacebook','suggestCountry',
-                         'suggestSkill','suggestCity','unbsucribeFromNews','cookies','sitemap'),
+                         'suggestSkill','suggestCity','unbsucribeFromNews','cookies','sitemap','calendar'),
 				'users'=>array('*'),
 			),
 			/*array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -565,5 +565,23 @@ EOD;
     $this->render("//layouts/blank",array("content"=>$sitemapResponse));
   }  
   
+  public function actionCalendar(){
+    Yii::import('application.extensions.EGCal.EGCal');
+    $cal = new EGCal('USER', 'PASS', true);
+    
+    $response = $cal->find(
+        array(
+            'min'=>"2014-01-01T08:20:00.000-06:00", 
+            'max'=>"2014-01-10T08:20:00.000-06:00",
+            'limit'=>50,
+            'order'=>'a',
+            //'calendar_id'=>'n34on2hojd78cm23oj8p957pds@group.calendar.google.com'
+            'calendar_id'=>'db3vp3irt7gkre717htb8a7ocqhfu0db@import.calendar.google.com'
+            //'calendar_id'=>'bercium@gmail.com'
+        )
+    );
+    
+    $this->render("calendar",array("response"=>$response));
+  }
 	
 }
