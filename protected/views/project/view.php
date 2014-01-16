@@ -70,7 +70,7 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
               
             <div class=""><p>
                 <?php 
-                if ($idea['description_public']) echo  strip_tags($idea['description']);
+                if ($idea['description_public']) echo ($idea['description']);
                 else Yii::t('msg',"Description isn't published!");
                 ?>
               </p>
