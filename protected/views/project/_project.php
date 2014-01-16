@@ -83,7 +83,7 @@
                       <a href="<?php echo Yii::app()->createURL("project/discover",array("SearchForm"=>array("skill"=>$skillset))); ?>">
                     <?php } ?>
 
-                      <span class="label radius"<?php if(count($skill)) echo " data-tooltip title='".implode("<br />",$skill)."'"; ?>><?php echo $skillset; ?></span>
+                      <span class="label radius"<?php if(count($skill)) echo ' data-tooltip title="'.implode("<br />",addslashes($skill)).'"'; ?>><?php echo $skillset; ?></span>
                       
                     <?php if ($skillset != '...') { ?>
                       </a>
