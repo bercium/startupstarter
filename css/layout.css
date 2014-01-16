@@ -755,6 +755,12 @@ img.card-avatar,
 }
 
 
+/* #Normalize, Resets
+================================================== */
+
+ul, ol {
+	list-style-position: inside;
+}
 
 
 /* #Special Styles
