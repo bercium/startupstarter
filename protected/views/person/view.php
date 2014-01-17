@@ -103,7 +103,7 @@ else {
       </div>
       
       <?php if ($user['id'] != Yii::app()->user->id){ ?>
-        <a class="button success small-12 radius" href="#" trk="contact_person"  data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact me') ?></a>
+        <a class="button success small-12 radius" href="#" trk="contact_person"  data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send {name} a message',array("{name}"=>$user["name"])) ?></a>
       <?php } ?>
     </div>
 

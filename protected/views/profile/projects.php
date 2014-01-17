@@ -36,9 +36,19 @@ foreach($user['idea'] AS $key => $idea){
            <span class=""><?php echo Yii::t('app','Translations'); ?></span>:
           <?php foreach ($idea['translation_other'] as $trans){ ?>
             <a href="<?php echo Yii::app()->createUrl("project/edit",array('id'=>$key,'lang'=>$trans['language_code'])); ?>"><?php echo $trans['language'];?></a> | 
-          <?php }          
+          <?php }
             }
           ?>
+        </small>
+        <small class="mt10 block">
+          <?php 
+
+        echo CHtml::link(Yii::t("app","Delete project"),Yii::app()->createUrl('project/deleteIdea',array('id'=>$idea['id'])),
+                  array('style'=>"color:#A83C3C;",
+                        'confirm'=>Yii::t("msg","You are about to delete this project!")."\n".Yii::t("msg","Are you sure?"),
+                        'onclick'=>"$(document).stopPropagation();",
+                      )
+              );?>
         </small>
       </div>
 <?php
@@ -64,12 +74,6 @@ foreach($user['idea'] AS $key => $idea){
 
         <div class="edit-floater">
           
-      <?php  echo CHtml::link(Yii::t("app","Leave project"),Yii::app()->createUrl('project/leaveIdea',array('id'=>$idea['id'])),
-                  array('class'=>"button small  secondary radius",
-                        'confirm'=>Yii::t("msg","You are about to leave this project! You will have to be re invited to be a member.")."\n".Yii::t("msg","Are you sure?"),
-                        'onclick'=>"$(document).stopPropagation();",
-                      )
-              ); ?>
       <?php  echo CHtml::link(Yii::t("app","Edit"),Yii::app()->createUrl('project/edit',array('id'=>$idea['id'])),
                   array('class'=>"button small radius",
                         'onclick'=>"$(document).stopPropagation();",
@@ -93,6 +97,14 @@ foreach($user['idea'] AS $key => $idea){
           <?php }          
             }
           ?>
+       </small>
+        <small class="mt10 block">
+             <?php  echo CHtml::link(Yii::t("app","Leave project"),Yii::app()->createUrl('project/leaveIdea',array('id'=>$idea['id'])),
+                  array('style'=>"color:#A83C3C;",
+                        'confirm'=>Yii::t("msg","You are about to leave this project! You will have to be re invited to be a member.")."\n".Yii::t("msg","Are you sure?"),
+                        'onclick'=>"$(document).stopPropagation();",
+                      )
+              ); ?>
         </small>
     </div>
 <?php
