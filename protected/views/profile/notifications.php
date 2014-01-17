@@ -6,7 +6,7 @@
     <h3><?php echo Yii::t('app', 'Invitations to projects'); ?></h3>
   </div>
   <div class="columns panel edit-content">
-    <?php writeFlash("notificationMessage"); ?>
+    <?php //writeFlash("notificationMessage"); ?>
     
     <?php foreach ($invites as $row){ ?>
         

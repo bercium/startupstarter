@@ -195,7 +195,7 @@ class ProfileController extends GxController {
 						if ($match->save()) {
               $c = new Completeness();
               $c->setPercentage($user_id);
-							setFlash('personalMessage', Yii::t('msg',"Personal information saved."));
+							setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
 							/* if (Yii::app()->getRequest()->getIsAjaxRequest())
 							  Yii::app()->end();
 							  else

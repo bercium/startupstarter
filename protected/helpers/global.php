@@ -365,13 +365,13 @@ function writeFlashes(){
     foreach($flashMessages as $key => $flash) {
       Yii::app()->user->getFlash($key);
 
-      $html .= '<div style="height: 27px; padding-bottom:0.15em; padding-top:0.15em" data-alert class="alert-box mb0 '.$flash['status'].' flash-hide-'.$i.' "><div class="row">';
+      $html .= '<div style="height: 27px; padding-top:5px; font-weight:bold;" data-alert class="alert-box mb0 '.$flash['status'].' flash-hide-'.$i.' "><div class="row">';
       $html .= decodeFlashMsg($flash['message']);
       $html .= '<a href="#" class="close">&times;</a></div></div>';
 
       if ($flash["autoHide"]){
-        if ($flash['status'] != 'alert') $hide .= '$(".flash-hide-'.$i.'").animate({opacity: 1.0}, '.(3000+$i*500).').fadeOut();';
-        else $hide .= '$(".flash-hide-'.$i.'").animate({opacity: 1.0}, '.(10000+$i*500).').fadeOut();';
+        if ($flash['status'] != 'alert') $hide .= '$(".flash-hide-'.$i.'").animate({opacity: 1.0}, '.(4000+$i*1000).').fadeOut();';
+        else $hide .= '$(".flash-hide-'.$i.'").animate({opacity: 1.0}, '.(10000+$i*1000).').fadeOut();';
       }else $nh++;
       $i++;
     }
