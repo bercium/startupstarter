@@ -70,7 +70,7 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
 
             <div class="">
             <h4 class="l-inline mt10">Positions</h4>
-            <a href="#candidates">
+            <a href="#candidates" style="font-size:14px;" >
             3 opened               </a>
             </div>
 
