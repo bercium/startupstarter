@@ -327,8 +327,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7072', end
     top: 50%;
     margin-top: -0.6875rem;
     right: 0.25rem;
-    color: #333333;
-    opacity: 0.3; }
+    color: #fff;
+    opacity: 0.8; }
     .alert-box .close:hover, .alert-box .close:focus {
       opacity: 0.5; }
   .alert-box.radius {
@@ -411,9 +411,9 @@ a:hover, a:focus { color: #3c76d6; }
 
 .button{
   -webkit-box-shadow:none;
-
-
 }
+
+
 
 button, .button {
   background-color: #4469a6;

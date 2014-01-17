@@ -1,3 +1,9 @@
+<?php // ckeditor files
+ $baseUrl = Yii::app()->baseUrl; 
+    $cs = Yii::app()->getClientScript();    
+    $cs->registerScriptFile($baseUrl.'/js/ckeditor/ckeditor.js',CClientScript::POS_HEAD);
+    ?>
+
 <?php
 $idea = $data['idea'];
 $this->pageTitle=$idea['title'];
@@ -25,7 +31,7 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
   echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("class"=>"customs")); ?>
         <?php echo CHtml::hiddenField("project",$idea['id']); ?>
         <?php echo CHtml::label(Yii::t('app','Message').":",'message'); ?>
-        <?php echo CHtml::textArea('message') ?>
+        <?php echo CHtml::textArea('message', '', array('class'=>'ckeditor')) ?>
         <br />
 
         <label for="notify_me">
@@ -85,8 +91,8 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
 
         <div class="panel radius">
         
-            <h1 class="project-title"><?php echo $idea['title']; ?></h1>          
-            <div class="">
+            <h1 class="project-title"><?php echo $idea['title']; ?></h1>
+            <div class="right">   
                
 
                  <h4 class="l-inline mt10">
@@ -94,10 +100,16 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
                 </h4>
                 <a style="font-size:14px;" data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>">
                 <?php echo $idea['status']; ?>
-                </a>
+                </a>            
+            </div>  
 
-            
-            </div>            
+            <div class="">
+            <h4 class="l-inline mt10">Positions</h4>
+            <a href="#candidates">
+            3 opened               </a>
+            </div>
+
+
             <hr>
             <p class="pitch">
                 <?php echo  strip_tags($idea['pitch']); ?>
@@ -105,7 +117,7 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
               
             <div class=""><p>
                 <?php 
-                if ($idea['description_public']) echo  strip_tags($idea['description']);
+                if ($idea['description_public']) echo ($idea['description']);
                 else Yii::t('msg',"Description isn't published!");
                 ?>
               </p>
@@ -114,7 +126,9 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
  
    
     <!-- jobs -->
-  <?php if (count($idea['candidate']) > 0){ ?>
+
+    <?php if (count($idea['candidate']) > 0){ ?>
+
     <div class="panel radius">
     <div class="jobs large-12">
         <h3>

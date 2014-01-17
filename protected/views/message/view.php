@@ -1,3 +1,9 @@
+<?php // ckeditor files
+ $baseUrl = Yii::app()->baseUrl; 
+    $cs = Yii::app()->getClientScript();    
+    $cs->registerScriptFile($baseUrl.'/js/ckeditor/ckeditor.js',CClientScript::POS_HEAD);
+    ?>
+
 <div id="drop-msg" class="f-dropdown content medium" data-dropdown-content>
   <div class="contact-form">
     
@@ -6,7 +12,7 @@
       <?php echo CHtml::hiddenField("user",''); ?>
       <?php echo CHtml::hiddenField("project",''); ?>
       <?php echo CHtml::label(Yii::t('app','Message').":",'message'); ?>
-      <?php echo CHtml::textArea('message'); ?>
+      <?php echo CHtml::textArea('message', '', array('class'=>'ckeditor')) ?>
       <br />
       
       <label for="notify_me">

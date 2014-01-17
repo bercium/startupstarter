@@ -361,13 +361,13 @@ function writeFlashes(){
   if ($flashMessages) {
     $nh = $i = 0;
     $hide = '';
-    $html = '<div class="row"><div class="large-12 columns flashes">';
+    $html = '<div class=""><div class="">';
     foreach($flashMessages as $key => $flash) {
       Yii::app()->user->getFlash($key);
 
-      $html .= '<div data-alert class="alert-box radius '.$flash['status'].' flash-hide-'.$i.' ">';
+      $html .= '<div style="height: 27px; padding-bottom:0.15em; padding-top:0.15em" data-alert class="alert-box mb0 '.$flash['status'].' flash-hide-'.$i.' "><div class="row">';
       $html .= decodeFlashMsg($flash['message']);
-      $html .= '<a href="#" onclick="$(\'.flashes-margin\').height($(\'.flashes-margin\').height()-30);" class="close">&times;</a></div>';
+      $html .= '<a href="#" class="close">&times;</a></div></div>';
 
       if ($flash["autoHide"]){
         if ($flash['status'] != 'alert') $hide .= '$(".flash-hide-'.$i.'").animate({opacity: 1.0}, '.(3000+$i*500).').fadeOut();';
@@ -377,7 +377,7 @@ function writeFlashes(){
     }
     $html .= '</div></div>';
     if ($nh > 0){
-      $html .= '<div class="flashes-margin" style="height:'.($nh*30-15).'px;"></div>';
+      $html .= '<div></div>';
     }
     if ($i > 0){ 
       echo $html;

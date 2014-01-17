@@ -38,6 +38,7 @@
        <?php echo Yii::t('msg','Describe your project in detail.'); ?>
      </span>
     <?php echo CHtml::activeTextArea($translation,"description",array('class'=>'lin-edit')); ?> 
+    <?php echo CHtml::activeTextArea($translation,"description",array('class'=>'lin-edit ckeditor','name'=>'editor1','id'=>'editor1')); ?> 
      <br />
     <?php echo CHtml::activeLabelEx($translation,'description_public'); ?>
     <div class="switch small round" style="text-align: center; width:120px;">
