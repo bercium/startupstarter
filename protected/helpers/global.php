@@ -312,7 +312,7 @@ function decodeFlashMsg($msg){
     
     if (isset($msg['actions'])){
       foreach ($msg['actions'] as $action){
-        $actions[] = '<a href="'.$action['action'].'" class="action button radius tiny secondary" style="margin-bottom: 0;" alt="'.$action['hint'].'" title="'.$action['hint'].'">'.
+        $actions[] = '<a href="'.$action['action'].'" class="action button radius tiny secondary ml10" style="margin-bottom: 0;" alt="'.$action['hint'].'" title="'.$action['hint'].'">'.
                      $action['hint'].
                      '</a>';
       }

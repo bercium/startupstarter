@@ -103,11 +103,17 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
                 </a>            
             </div>  
 
-            <div class="">
-            <h4 class="l-inline mt10">Positions</h4>
+            <?php if (count($idea['candidate']) > 0){ ?> 
+                        <div class="">
+            <h4 class="l-inline mt10"><?php echo Yii::t('app','Positions') ?></h4>
+            
             <a href="#candidates" style="font-size:14px;" >
-            3 opened               </a>
+
+              <?php   echo Yii::t('app','{n} open|{n} opened', array(count($idea['candidate']))); ?></a>
+            </a>
             </div>
+            <?php } ?>
+
 
 
             <hr>
