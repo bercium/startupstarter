@@ -1,3 +1,12 @@
+<?php // ckeditor files
+ $baseUrl = Yii::app()->baseUrl; 
+    $cs = Yii::app()->getClientScript();
+
+    
+    $cs->registerScriptFile($baseUrl.'/js/ckeditor/ckeditor.js',CClientScript::POS_HEAD);
+
+    ?>
+
 <?php
 /* @var $this SiteController */
 $user = $data['user'];
@@ -50,7 +59,7 @@ else {
 	<?php echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("class"=>"customs")); ?>
       <?php echo CHtml::hiddenField("user",$user['id']); ?>
       <?php echo CHtml::label(Yii::t('app','Message').":",'message'); ?>
-      <?php echo CHtml::textArea('message') ?>
+      <?php echo CHtml::textArea('message', '', array('class'=>'ckeditor')) ?>
       <br />
       
       <label for="notify_me">
