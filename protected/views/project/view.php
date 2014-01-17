@@ -57,7 +57,7 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
         <div class="panel radius">
         
             <h1 class="project-title"><?php echo $idea['title']; ?></h1>
-            <div class="">   
+            <div class="right">   
                
 
                  <h4 class="l-inline mt10">
@@ -65,10 +65,16 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
                 </h4>
                 <a style="font-size:14px;" data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>">
                 <?php echo $idea['status']; ?>
-                </a>
+                </a>            
+            </div>  
 
-            
-            </div>            
+            <div class="">
+            <h4 class="l-inline mt10">Positions</h4>
+            <a href="#candidates">
+            3 opened               </a>
+            </div>
+
+
             <hr>
             <p class="pitch">
                 <?php echo  strip_tags($idea['pitch']); ?>
@@ -85,9 +91,12 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
  
    
     <!-- jobs -->
-  <?php if (count($idea['candidate']) > 0){ ?>
+
+    <?php if (count($idea['candidate']) > 0){ ?>
+
     <div class="panel radius">
-    <div class="jobs large-12">
+      
+    <div  class="jobs large-12">
         <h3><?php echo Yii::t('app','Looking for {n} candidate|Looking for {n} candidates',array(count($idea['candidate']))); ?></h3>
 
         <?php
