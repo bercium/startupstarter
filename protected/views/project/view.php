@@ -50,6 +50,41 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
 </div>
 
 
+
+<div id="drop-candidate-share" class="f-dropdown content small" data-dropdown-content>
+  <div class="contact-form">
+
+           <?php $url = Yii::app()->createAbsoluteUrl('project',array("id"=>$idea["id"]))."#candidates";
+           $skills = '';
+           if (count($idea['candidate']) > 0){
+             foreach ($idea['candidate'] as $candidate)
+              foreach ($candidate['skillset'] as $skillset){
+                if ($skills) $skills.=", ";
+                $skills .= $skillset["skillset"];
+              }
+           }
+                 $summary = $this->pageTitle." ". Yii::t('app','project is looking for people skilled in {skills}',array("{skills}"=>$skills));
+                 $title = Yii::t('app','{n} job position opened|{n} job positions opened',array(count($idea['candidate']))); ?>
+              <a href="http://www.facebook.com/sharer.php?s=100&p[title]=<?php echo $title; ?>&p[summary]=<?php echo $summary; ?>&p[url]=<?php echo $url; ?>" trk="social_facebook_share_project" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-fb.jpg"  width="30">
+              </a>
+            &nbsp;
+              <a href="http://twitter.com/share?text=<?php echo $summary; ?>" trk="social_twitter_share_project" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-tw.jpg"  width="30">
+              </a>
+            &nbsp;
+              <a href="https://plus.google.com/share?url=<?php echo $url; ?>&title=<?php echo $title; ?>&summary=<?php echo $summary; ?>" trk="social_plus_share_project" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-gp.jpg" width="30">
+              </a>
+            &nbsp;
+              <a href="http://www.linkedin.com/shareArticle?mini=true&url=<?php echo $url; ?>&title=<?php echo $title; ?>&summary=<?php echo $summary; ?>&source=Cofinder" trk="social_linkedin_share_project" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-li.jpg" width="30">
+              </a>    
+    
+  </div>
+</div>
+
+
 <div class="row idea-details">
      
   <div class="large-8 columns main" >
@@ -95,10 +130,13 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
     <?php if (count($idea['candidate']) > 0){ ?>
 
     <div class="panel radius">
-      
-    <div  class="jobs large-12">
-        <h3><?php echo Yii::t('app','Looking for {n} candidate|Looking for {n} candidates',array(count($idea['candidate']))); ?></h3>
-
+    <div class="jobs large-12">
+        <h3>
+          <a id="candidates" class="anchor-link"></a>
+           <?php echo Yii::t('app','Looking for {n} candidate|Looking for {n} candidates',array(count($idea['candidate']))); ?>
+          <a  href="#" class="button tiny radius secondary right" trk="project_button_shareCandidates" data-dropdown="drop-candidate-share"><span class="icon-share mr8"></span>share</a>
+        </h3>
+            
         <?php
         $cnum = 0;
         foreach ($idea['candidate'] as $candidate){
@@ -250,9 +288,9 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
             }
             ?>  
             </div>
-          <?php if (!$canEdit) { ?>
-            <a class="button success radius small-12" href="#" trk="contact_team" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Contact members') ?></a>
-           <?php } ?>
+          <?php //if (!$canEdit) { ?>
+            <a class="button success radius small-12" href="#" trk="contact_team" data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send message to members') ?></a>
+           <?php //} ?>
         </div>
 
        <div class="panel">
@@ -284,22 +322,20 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
         <?php if (count($idea['translation_other'])){ ?>
         <div class="panel">
           <div class="item bbottom">  
-          <h4><?php echo Yii::t('app','languages'); ?></h4>
+          <h4><?php echo Yii::t('app','Other languages'); ?></h4>
           <?php /* ?><p class="l-inline"><?php echo Yii::t('app','You are viewing this in'); ?> <?php echo $idea['language']; ?></p><?php */ ?>
           </div>
-          <a  data-dropdown="data1" class="small dropdown secondary radius button"><?php echo Yii::t('app','Other languages'); ?></a>
+          
+          <p>
+            <a style="font-weight: bold;"><?php echo $idea['language']; ?></a>
 
-
-          <ul id="data1" data-dropdown-content class="f-dropdown">
-            <li><a style="font-weight: bold;"><?php echo $idea['language']; ?></a></li>
             <?php 
             foreach ($idea['translation_other'] as $trans){
-            echo '<li><a href="'.Yii::app()->createUrl("project",array("id"=>$idea['id'],'lang'=>$trans['language_code'])).'" >'.$trans['language']."</a></li>";
+            echo '<br /><a href="'.Yii::app()->createUrl("project",array("id"=>$idea['id'],'lang'=>$trans['language_code'])).'" >'.$trans['language']."</a>";
             }
             ?>
-          </ul>
-
-
+            </p>
+            
         </div>
         <?php } ?>
             

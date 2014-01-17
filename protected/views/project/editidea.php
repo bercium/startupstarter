@@ -23,26 +23,9 @@
       <?php echo Yii::t('app', 'Project presentation'); ?>
     </h3>
 
-      <?php 
-          if($isOwner){
-        echo CHtml::link(Yii::t("app","Delete project"),Yii::app()->createUrl('project/deleteIdea',array('id'=>$idea['id'])),
-                  array('class'=>"button small alert radius",
-                        'confirm'=>Yii::t("msg","You are about to delete this project!")."\n".Yii::t("msg","Are you sure?"),
-                        'onclick'=>"$(document).stopPropagation();",
-                      )
-              );?>
-      <?php 
-      }else{
-      echo CHtml::link(Yii::t("app","Leave project"),Yii::app()->createUrl('project/leaveIdeas',array('id'=>$idea['id'])),
-                  array('class'=>"button small alert radius",
-                        'confirm'=>Yii::t("msg","You are about to leave this project! You will have to be re invited to be a member.")."\n".Yii::t("msg","Are you sure?"),
-                        'onclick'=>"$(document).stopPropagation();",
-                      )
-              ); 
-      }      
-      ?>
     
-      
+    <a class="button small radius"  href="<?php echo Yii::app()->createUrl("project/translate",array("id"=>$id)); ?>"><?php echo Yii::t('app', 'Translate project'); ?></a>
+
       
       
     <hr>
