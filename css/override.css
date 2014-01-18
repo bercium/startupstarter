@@ -719,3 +719,13 @@ table {
     word-break: break-all;
     white-space: normal;
 }
+
+.fs22em
+{
+    font-size: 2.2em;
+}
+
+.redalert
+{
+    background-color: #cd3438;
+}
