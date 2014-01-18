@@ -38,7 +38,7 @@
             <p>
               <?php echo Yii::t('msg','Invite team members and friends with skills'); ?>
             </p>
-            <a href="<?php echo Yii::app()->createUrl("profile"); ?>" trk="index_click_invite" data-dropdown="drop-invitation-msg" class="button success radius tiny small-12"><?php echo Yii::t('msg','Invite to Cofinder'); ?></a>
+            <a href="#" trk="index_click_invite" data-dropdown="drop-invitation-msg" class="button success radius tiny small-12"><?php echo Yii::t('msg','Invite to Cofinder'); ?></a>
 
           </div>
         </div>

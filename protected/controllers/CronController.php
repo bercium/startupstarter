@@ -93,7 +93,7 @@ class CronController extends Controller
    * Add more invites every
    */
   public function actionAddInvites(){
-    echo $this->consoleCommand('dbbackup','actionAutoAddInvites');
+    echo $this->consoleCommand('dbbackup','autoAddInvites');
   }
   
 }
