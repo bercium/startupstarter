@@ -18,7 +18,7 @@
 
 
   <?php if ($invites > 0) { ?>
-    <a class="button radius small-12 fs22em alert" href="#" trk="profileSidebar_click_invite" data-dropdown="drop-invitation-msg"><?php echo Yii::t('app', 'Send invitation ({n})', array($invites)); ?></a>
+    <a class="button radius small-12 alert" href="#" trk="profileSidebar_click_invite" data-dropdown="drop-invitation-msg"><?php echo Yii::t('app', 'Send invitation ({n})', array($invites)); ?></a>
   <?php } ?>
 
 </div>

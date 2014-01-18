@@ -1847,3 +1847,11 @@ html, body {
      margin:20px 30px;
      max-height: 80px;
    }
+   
+
+ /* Wrapword */
+.wrapword {
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    word-break: break-all;
+    white-space: normal;
+}
