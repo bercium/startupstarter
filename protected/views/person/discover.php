@@ -44,7 +44,6 @@
   
   <div class="searchpanel">
     <div class="row">
-    <?php echo Yii::t('app',''); ?>
     <a class="button small radius secondary" href="#" style="margin-top:15px;" onclick="$('#searchpanel').slideToggle(); return false;"><?php echo Yii::t('app','Show search options'); ?></a>
     </div>
   </div>

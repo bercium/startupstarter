@@ -164,10 +164,6 @@ class ProfileController extends GxController {
 									@unlink($newFilePath . "thumb_30_" . $oldImg);
 									@unlink($newFilePath . "thumb_60_" . $oldImg);
 								}
-
-								//if ($user->save()) {
-								//  setFlash('avatarMessage',Yii::t('msg',"Avatar saved."));
-								//}
 							}else
 								$user->avatar_link = '';
 						}
@@ -791,11 +787,11 @@ class ProfileController extends GxController {
 
             $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key;
 
-            setFlash("invitationMessage",Yii::t('msg','Invitation generated: <br /><br />'.$activation_url));
+            setFlash("invitationMessage",Yii::t('msg','Invitation generated: <br /><br />').$activation_url);
           }else{
             $invitation = Invite::model()->findByAttributes(array("email"=>$_POST['invite-email']));
             $activation_url = Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key;
-            setFlash("invitationMessage",Yii::t('msg','Invitation already exist: <br /><br />'.$activation_url),'alert');
+            setFlash("invitationMessage",Yii::t('msg','Invitation already exist: <br /><br />').$activation_url,'alert');
           }
         }// end not in system
       }

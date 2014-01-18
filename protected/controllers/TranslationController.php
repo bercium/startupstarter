@@ -97,16 +97,18 @@ class TranslationController extends Controller
         
         // get code list
         if (array_key_exists($_GET['SifTranslate']['codelist'], $file_codeLists)){
-          
+          $translations_blank = array();
           $lang = Language::model()->findByPk($_GET['SifTranslate']['language']);
           if ($lang){
             $dataReader = require(dirname(__FILE__) . '/../messages/'.$lang->language_code.'/'.$_GET['SifTranslate']['codelist'].'.php');
             
             foreach ($dataReader as $key => $value){
-              $translations[$key] = array("eng"=>$key,"trans"=>$value);
+              if ($value == '') $translations_blank[$key] = array("eng"=>$key,"trans"=>$value);
+              else $translations[$key] = array("eng"=>$key,"trans"=>$value);
             }
           }
-            
+          
+          $translations = array_merge($translations_blank, $translations);
         }// file
         
       }
@@ -176,6 +178,7 @@ class TranslationController extends Controller
               foreach ($_POST['Translations'] as $id => $val){
                 $trans[$id] = $val;
               }
+              ksort($trans);
               $array=str_replace("\r",'',var_export($trans,true));
 
               // content header
