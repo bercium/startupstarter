@@ -712,3 +712,10 @@ table {
  
   table tr.even, table tr.alt, table tr:nth-of-type(even) {
     background: inherit; }
+
+ /* Wrapword */
+.wrapword {
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    word-break: break-all;
+    white-space: normal;
+}
