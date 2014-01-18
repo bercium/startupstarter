@@ -152,6 +152,7 @@ return array (
   'Select how much time you have to work on projects.' => 'Izberi koliko časa lahko posvetiš delu na projektu',
   'Select page language' => '',
   'Selecting an avatar will make you more recognizable.' => 'Na podlagi profilne slike se boste z ostalimi uporabniki lažje prepoznali, ko se srečate v živo',
+  'Send some invitations to your friends. On the left side you can find invitation button.' => '',
   'Separate emails with commas' => 'Loči emaile z vejicami',
   'Server error. Upload directory isn\'t writable.' => 'Napaka na strežniku. V mapo za nalaganje se ne da pisati',
   'Set your preferred language.' => 'Nastavi si željen jezik',

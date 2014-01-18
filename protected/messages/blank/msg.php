@@ -152,6 +152,7 @@ return array (
   'Select how much time you have to work on projects.' => '',
   'Select page language' => '',
   'Selecting an avatar will make you more recognizable.' => '',
+  'Send some invitations to your friends. On the left side you can find invitation button.' => '',
   'Separate emails with commas' => '',
   'Server error. Upload directory isn\'t writable.' => '',
   'Set your preferred language.' => '',
