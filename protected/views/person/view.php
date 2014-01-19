@@ -82,11 +82,11 @@ else {
       
       <?php $days = timeDifference($user['lastvisit_at'], date('Y-m-d H:i:s'), "days_total"); 
        if ($days < 6){ ?>
-        <img src="images/act-high.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','High activity'); ?>" data-tooltip>
+        <img src="images/act-high.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','Active user'); ?>" data-tooltip>
       <?php }else if ($days < 10){ ?>
-        <img src="images/act-med.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','Medium activity'); ?>" data-tooltip>
+        <img src="images/act-med.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','Not so active user'); ?>" data-tooltip>
       <?php }else{ ?>
-        <img src="images/act-low.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','Low activity'); ?>" data-tooltip>
+        <img src="images/act-low.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','User has not been active recently'); ?>" data-tooltip>
       <?php } ?>
       
       <?php if ($user['id'] == Yii::app()->user->id){ ?>
@@ -177,7 +177,7 @@ else {
     <?php } ?>
 
     <div class="item bbottom">
-      <h4><?php echo Yii::t('app', 'Vouched by') ?></h4>
+      <h4><?php echo Yii::t('app', 'Invited by') ?></h4>
       <?php if ($vouched){ ?>
       
         <div class="l-block">
