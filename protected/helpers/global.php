@@ -411,6 +411,50 @@ function shortenAvailable($value, $justValue = false){
   return $value;
 }
 
+
+ /**
+   * calculate time difference between two times
+   *
+   * @param $startTime mixed  - start time
+   * @param $startTime mixed  - end time
+   * @param $type string      - what to return (min, sec, hours,...)
+   * @param $signed boolean   - is time difference sign dependant
+   * @return integer          - return time difference
+   */
+  function timeDifference($startTime, $endTime, $type = "min", $signed = false){
+    if ($startTime ==  $endTime) return 0;
+
+    $d1 = (is_string($startTime) ? strtotime($startTime) : $startTime);
+    $d2 = (is_string($endTime) ? strtotime($endTime) : $endTime);
+
+    if ($signed) $diff_secs = (int)($d2 - $d1);
+    else $diff_secs = abs((int)($d2 - $d1));
+    $base_year = min(date("Y", $d1), date("Y", $d2));
+
+    $diff = mktime(0, 0, abs($diff_secs), 1, 1, $base_year);
+
+    switch ($type){
+      case "years": $result = date("Y", $diff) - $base_year; break;
+      case "months_total": $result = (date("Y", $diff) - $base_year) * 12 + date("n", $diff) - 1; break;
+      case "months": $result = date("n", $diff) - 1; break;
+      case "days_total": $result = floor($diff_secs / (3600 * 24)); break;
+      case "days": $result = date("j", $diff) - 1; break;
+      case "hours_total":$result = floor($diff_secs / 3600); break;
+      case "hours": $result = date("G", $diff); break;
+      case "minutes_total":$result = floor($diff_secs / 60); break;
+      case "minutes": $result = (int) date("i", $diff); break;
+      case "seconds_total": $result = $diff_secs; break;
+      case "seconds": $result = (int) date("s", $diff); break;
+      }
+
+    if ($d2 < $d1) $diff_secs = 24*60*60 - $diff_secs;
+    if ($type == "min") $result = floor($diff_secs / 60);//(int) ($result / 60);
+    if ($type == "hour") $result =  floor($diff_secs / 3600);//(int)($result / 60);
+
+  //	echo $startTime."=".$d1."-".$endTime."=".$d2."=".$diff_secs.".".($diff_secs / 60)."<br>";
+    return $result;
+  }
+
 /**
  * will return you to previously called action
  */

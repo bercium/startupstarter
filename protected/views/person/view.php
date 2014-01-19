@@ -77,7 +77,18 @@ else {
 <div class="row idea-details">
 
   <div class="large-4 columns profile side side-profile">
-    <div class="panel">
+    
+    <div class="panel" style="position: relative;">
+      
+      <?php $days = timeDifference($user['lastvisit_at'], date('Y-m-d H:i:s'), "days_total"); 
+       if ($days < 6){ ?>
+        <img src="images/act-high.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','High activity'); ?>" data-tooltip>
+      <?php }else if ($days < 10){ ?>
+        <img src="images/act-med.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','Medium activity'); ?>" data-tooltip>
+      <?php }else{ ?>
+        <img src="images/act-low.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','Low activity'); ?>" data-tooltip>
+      <?php } ?>
+      
       <?php if ($user['id'] == Yii::app()->user->id){ ?>
         <a class="button secondary small small-12 radius" href="<?php echo Yii::app()->createURL('profile'); ?>"><?php echo Yii::t('app', 'Edit profile') ?>
           <span class="icon-awesome icon-wrench"></span>
