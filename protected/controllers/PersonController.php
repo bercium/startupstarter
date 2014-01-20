@@ -117,7 +117,7 @@ class PersonController extends GxController {
       $_GET['SearchForm'] = '';
       $filter['per_page'] = 3;
       $filter['page'] = 1;
-      $invite = '<a href="'.Yii::app()->createUrl("site/notify").'" class="button small radius secondary mb0">'.Yii::t('msg','invitation').'</a>';
+      $invite = '<a href="'.Yii::app()->createUrl("site/notify").'" class="button small radius secondary mb0">'.Yii::t('app','invitation').'</a>';
       setFlash("discoverPerson", Yii::t('msg','Only recent three results are shown!<br />To get full functionality please login or request {invite}',array('{invite}'=>$invite)), "alert", false);
     }else{      
       $filter['per_page'] = 9;

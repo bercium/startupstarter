@@ -45,7 +45,7 @@
 			<p>
 			<?php echo Yii::t('msg','Invite team members and friends to Cofinder'); ?>
 			</p>
-			<a href="<?php echo Yii::app()->createUrl("profile"); ?>" trk="index_click_invite" data-dropdown="drop-invitation-msg" class="button  radius small small-12"><?php echo Yii::t('msg','Invite to Cofinder'); ?></a>
+			<a href="<?php echo Yii::app()->createUrl("profile"); ?>" trk="index_click_invite" data-dropdown="drop-invitation-msg" class="button success radius small small-12"><?php echo Yii::t('msg','Invite to Cofinder'); ?></a>
 
 			</div>
 			</div>
@@ -55,9 +55,9 @@
 			<div class="">
 
 			<div class="pall125em radius-all  whats-new radius fancy-border">
-			<h2><?php echo Yii::t('app','Job position sharing'); ?></h2>
+			<h2><?php echo Yii::t('app','Open position sharing'); ?></h2>
 			<p>
-			<?php echo Yii::t('msg','Share open job positions with your friends and help projects with your social reach'); ?>
+			<?php echo Yii::t('msg','Share open positions with your friends and help projects with your social reach'); ?>
 			</p>
 			<?php /* ?><a href="<?php echo Yii::app()->createUrl("project/create"); ?>" trk="index_click_createProject" class="button small  radius small-12" ><?php echo Yii::t('app','Create your project'); ?> </a>
       <?php */ ?>
@@ -75,7 +75,7 @@
 			<?php echo Yii::t('msg','Get your own personal url on Cofinder'); ?>
 			</p>
 
-			<a href="<?php echo Yii::app()->createUrl("profile/account"); ?>" class="button small radius small-12">www.cofinder.eu/ <?php echo substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")); ?></a>
+			<a href="<?php echo Yii::app()->createUrl("profile/account"); ?>" class="button success small radius small-12">www.cofinder.eu/ <?php echo substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")); ?></a>
 
 			</div>
 			</div>
