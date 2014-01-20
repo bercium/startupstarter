@@ -258,7 +258,7 @@ return array (
   'You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&gt; or =) at the beginning of each of your search values to specify how the comparison should be done.' => '',
   'You must agree to the terms and conditions' => '',
   'You must be loged in to contact this person.' => '',
-  'You must invite at least 3 people to be able to choose your own personal URL.' => '',
+  '<strong>Invite 3 people</strong> to enable your own personal URL.' => '',
   'You registered from {site_name}' => '',
   'You will connect with people from the same area easier by stating your city.' => '',
   'You will connect with people from the same area easier by stating your country.' => '',

@@ -589,35 +589,51 @@ EOD;
    * load calendars
    */
   public function actionCalendar(){
+    $this->layout = "//layouts/none";
     
     $connectorGuid = "6f47b5aa-eac5-4992-9a6b-384ab56266a4";
     $userGuid = "58e3153e-fa36-4b9d-8c4d-b5738a582d87";
     $apiKey = "7dMKDBf9TiWohXjN/uofMZfZ9tubpjPME/iTMgNHYw6LCNq4fweTErAOVE/Q8samc5W2fBFSNXzlUjHGkkzFXQ==";
 
+    $events = array();
+    
     // Query for tile startup.si
     $result = $this->query($connectorGuid, array(
       "webpage/url" => "http://www.startup.si/sl-si/EventList",
     ), $userGuid, $apiKey);
-    var_dump($result);
+    //var_dump($result);
+    
+    foreach ($result->results as $event){
+      $event_tmp['title'] = $event->title;
+      $event_tmp['content'] = $event->content;
+      $event_tmp['location'] = substr($event->location,0,  strpos($event->location, " [ "));
+      $event_tmp['link'] = $event->link;
+      $event_tmp['start'] = $event->date[0]." ".$event->date[1];
+      $event_tmp['end'] = $event->date[0]." ".$event->date[1];
+      $events[] = $event_tmp;
+    }
+    //$result = json_decode($result, true);
+    
+    //$events
 
     // Query for tile startup.si
     $result = $this->query($connectorGuid, array(
       "webpage/url" => "http://www.spiritslovenia.si/dogodki",
     ), $userGuid, $apiKey);
-    var_dump($result);
+    //var_dump($result);
 
     // Query for tile startup.si
     $result = $this->query($connectorGuid, array(
       "webpage/url" => "http://www.tp-lj.si/dogodki",
     ), $userGuid, $apiKey);
-    var_dump($result);
+    //var_dump($result);
 
     // Query for tile startup.si
     $result = $this->query($connectorGuid, array(
       "webpage/url" => "http://www.racunalniske-novice.com/dogodki/",
     ), $userGuid, $apiKey);
-    var_dump($result);    
-    
+    //var_dump($result);    
+    /*
     Yii::import('application.extensions.EGCal.EGCal');
     $cal = new EGCal('USER', 'PASS', true);
     
@@ -631,9 +647,9 @@ EOD;
             'calendar_id'=>'db3vp3irt7gkre717htb8a7ocqhfu0db@import.calendar.google.com'
             //'calendar_id'=>'bercium@gmail.com'
         )
-    );
+    );*/
     
-    $this->render("calendar",array("response"=>$response));
+    $this->render("calendar",array("events"=>$events));
   }
 	
 }

@@ -261,9 +261,17 @@ class Completeness{
     if ($stat == null){
       $stat = new UserStat();
       $stat->user_id = $user_id;
+      $stat->completeness = 0;
     }
     $stat->completeness = $perc;
     $stat->save();
+    
+    // add invites
+    $user = User::model()->findByPk(Yii::app()->user->id);
+    if (($user->invitations == 0) && ($stat->completeness > PROFILE_COMPLETENESS_MIN) && ($stat->invites_send == 0)){
+      $user->invitations = 5;
+      $user->save();
+    }
 
     return $perc;
   }

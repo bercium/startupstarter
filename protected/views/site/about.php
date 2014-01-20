@@ -1,5 +1,5 @@
 <?php
-	$this->pageTitle = Yii::t('app','About');
+	$this->pageTitle = Yii::t('app','About us');
 ?>
 
 
