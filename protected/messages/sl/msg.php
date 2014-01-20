@@ -258,7 +258,7 @@ return array (
   'You may optionally enter a comparison operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&gt; or =) at the beginning of each of your search values to specify how the comparison should be done.' => 'Opcijsko lahko vnesete primerjalni operator (&lt;, &lt;=, &gt;, &gt;=, &lt;&gt; or =) na začetku iskalnih vrednosti, da določite kako naj bo primerjava izvedena.',
   'You must agree to the terms and conditions' => 'Soglašati morate s pogoji uporabe',
   'You must be loged in to contact this person.' => 'Če želite kontaktirati to osebo, se morate najprej prijaviti.',
-  'You must invite at least 3 people to be able to choose your own personal URL.' => 'Povabiti morate vsaj 3 osebe da se vam odklene vaša osebna povezava.',
+  '<strong>Invite 3 people</strong> to enable your own personal URL.' => '<strong>Povabite 3 osebe</strong> da se odklene vaša osebna povezava.',
   'You registered from {site_name}' => 'Registrirali ste se preko {site_name}',
   'You will connect with people from the same area easier by stating your city.' => 'Lažje se boste povezali z ljudmi iz istega kraja če boste izpolnili mesto.',
   'You will connect with people from the same area easier by stating your country.' => 'Lažje se boste povezali z ljudmi iz istega kraja če boste izpolnili državo.',

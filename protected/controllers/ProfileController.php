@@ -125,8 +125,28 @@ class ProfileController extends GxController {
 			if ($user) {
 				$oldImg = $user->avatar_link;
 				$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
+        
+                // VANITY URL
+        $us = UserStat::model()->findByAttributes(array("user_id"=>$user_id));
+        // set only if has invited at least 3 other people
+        $allowVanityURL = (($user->vanityURL != '') || ($us->invites_send > 2));
 
 				if (isset($_POST['UserEdit']) && isset($_POST['UserMatch'])) {
+         
+          //VANITY URL
+          if (!$allowVanityURL && ($_POST['UserEdit']['vanityURL'] != '')) $_POST['UserEdit']['vanityURL'] = '';
+          else{
+            // check validity of vanity URL in projects
+            if ($_POST['UserEdit']['vanityURL'] != $user->vanityURL){
+              $ideaURL = Idea::model()->findByAttributes(array('vanityURL'=>$_POST['UserEdit']['vanityURL']));
+              if ($ideaURL){
+                //echo "b";
+                $user->addError('vanityURL', Yii::t('msg',"This custom URL already exists."));
+              }
+            }
+          }          
+          
+          
 					$user->setAttributes($_POST['UserEdit']);
 					//$user->avatar_link = '';
 
@@ -238,7 +258,7 @@ class ProfileController extends GxController {
         }
         else {
           $data['user'] = $sqlbuilder->load_array("user", $filter);
-          $this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea']));
+          $this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea'], "allowVanityURL"=>$allowVanityURL));
         }
 
         //if (Yii::app()->user->isGuest) $this->render('registrationFlow', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link));
@@ -298,7 +318,7 @@ class ProfileController extends GxController {
           if ($_POST['UserEdit']['vanityURL'] != $user->vanityURL){
             $ideaURL = Idea::model()->findByAttributes(array('vanityURL'=>$_POST['UserEdit']['vanityURL']));
             if ($ideaURL){
-              echo "b";
+              //echo "b";
               $user->addError('vanityURL', Yii::t('msg',"This custom URL already exists."));
             }
           }

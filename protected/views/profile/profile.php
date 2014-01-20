@@ -109,19 +109,36 @@
       </div>  
        
       <div class="large-7 left columns">
-      <label for="UserEdit_vanityURL"><?php echo Yii::t('app',"Public name"); ?></label>
-        <span class="description"><?php echo Yii::t('msg',"Chose your own personal URL under <strong>settings.</strong>"); ?></span>
-        <div class="row collapse">
-        <div class="small-5 columns">
-          <span class="prefix">www.cofinder.eu/</span>
-        </div>
-        <div class="small-7 columns">
-          <?php 
-             echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary readonly","disabled"=>true,"placeholder"=>substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")))); 
-            ?>
-        </div>         
-      </div>
+ <label for="UserEdit_vanityURL"><?php echo Yii::t('app',"Public name"); ?></label>
+      <?php if (!$allowVanityURL){ ?>
+        <span class="description"><?php echo Yii::t('msg',"<strong>Invite 3 people</strong> to enable your own personal URL."); ?></span>
+      <?php }else{ ?>
+        <span class="description"><?php echo Yii::t('msg',"Chose your own personal URL."); ?></span>
         
+      <?php } ?>
+        
+        <div class="row collapse">
+          <div class="small-5 columns">
+            <span class="prefix">www.cofinder.eu/</span>
+          </div>
+          <div class="small-7 columns">
+            <?php if (!$allowVanityURL) {
+               echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary readonly",
+                                                                    "disabled"=>true,
+                                                                    "title"=>Yii::t('app','Invite at least 3 people'),
+                                                                    "data-tooltip"=>'',
+                                                                    "placeholder"=>substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")))); 
+              }else{ 
+                echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary","placeholder"=>  substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")))); 
+              }?>
+          </div>        
+            <?php /*if (!$allowVanityURL){ ?>
+              <div class="small-2 columns">
+                <a data-dropdown="drop-invitation-msg" href="#" class="postfix button radius">Invite</a>
+              </div>
+            <?php } */ ?>
+          </div>
+
         
       </div>
    </div>
