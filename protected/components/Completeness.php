@@ -261,6 +261,7 @@ class Completeness{
     if ($stat == null){
       $stat = new UserStat();
       $stat->user_id = $user_id;
+      $stat->completeness = 0;
     }
     $stat->completeness = $perc;
     $stat->save();
