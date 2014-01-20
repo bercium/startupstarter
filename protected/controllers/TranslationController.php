@@ -183,7 +183,7 @@ class TranslationController extends Controller
 
               // content header
               $content=<<<EOD
-  <?php
+<?php
   /**
    * Message translations.
    *
