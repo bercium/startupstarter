@@ -59,7 +59,7 @@ class DbBackupCommand extends CConsoleCommand{
     // check all users
     foreach ($users as $user){
       if (isset($stat[$user->id])){
-        if ($stat[$user->id]->completeness > PROFILE_COMPLETENESS_OK){
+        if ($stat[$user->id]->completeness >= PROFILE_COMPLETENESS_OK){
           if ($stat[$user->id]->invites_send == 0) $user->invitations +=4; // initial 4+1 invites after profile completed
           $user->invitations++;
         }

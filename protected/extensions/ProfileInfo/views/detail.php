@@ -19,6 +19,11 @@
 
   <?php if ($invites > 0) { ?>
     <a class="button radius small-12 alert" href="#" trk="profileSidebar_click_invite" data-dropdown="drop-invitation-msg"><?php echo Yii::t('app', 'Send invitation ({n})', array($invites)); ?></a>
-  <?php } ?>
-
+  <?php }else{
+    if ($perc < PROFILE_COMPLETENESS_MIN) { ?>
+    <a class="button radius small-12 secondary" href="#" trk="profileSidebar_click_inviteDisabled" title="<?php echo Yii::t('msg','You get invitations after you complete your profile!'); ?>" data-tooltip><?php echo Yii::t('app', 'You can\'t send invitations yet'); ?></a>  
+  <?php }else{ ?> 
+   <a class="button radius small-12 secondary" href="#" trk="profileSidebar_click_inviteDisabled" title="<?php echo Yii::t('msg','When you use all your invitations wait for 24h and we will give you some more.');  ?>" data-tooltip><?php echo Yii::t('app', 'No more invitations'); ?></a>      
+ <?php } ?>
+ <?php } ?>    
 </div>
