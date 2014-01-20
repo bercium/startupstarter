@@ -114,7 +114,7 @@ else {
     </div>
 
     <div class="panel">
-       <div class="item bbottom">  
+       <div class="item bb">  
        <h4><?php echo Yii::t('app','Share my profile'); ?></h4>
        <?php /* ?><p class="l-inline"><?php echo Yii::t('app','You are viewing this in'); ?> <?php echo $idea['language']; ?></p><?php */ ?>
        </div>
@@ -151,7 +151,7 @@ else {
     <!-- <p class="meta-field"><?php // echo Yii::t('app', 'My links') ?>:</p> -->
     <div class="panel">
     <?php if (count($user['link']) > 0) { ?>
-      <div class="item bbottom">
+      <div class="item bb">
         <h4 class=""> <?php echo Yii::t('app', 'Links') ?></h4>
         <?php foreach ($user['link'] as $link) { ?>
 
@@ -165,7 +165,7 @@ else {
       </div>
     <?php } ?>
 
-    <div class="item bbottom">
+    <div class="item bb">
       <h4><?php echo Yii::t('app', 'Vouched by') ?></h4>
       <?php if ($vouched){ ?>
       

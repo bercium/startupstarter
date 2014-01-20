@@ -60,10 +60,12 @@ h1 span{
   @ INTRO
    ========================================================================== */
 
+
+
 .intro{
 
 background: url(../images/gridme.png) center 0;	
-border-bottom: 1px solid #bbb;    
+
     margin-bottom: 40px;
 }
 
@@ -259,7 +261,7 @@ div[onclick].card-person-title, div[onclick].m-card-title{
 }
 
 
-.card-person, .m-card {
+.card-person, .m-card, .fancy-border {
   /*margin-right:0.9375em; */
   
   background-color: #FFF;
@@ -840,9 +842,14 @@ ml8 {
 	border-top: 1px solid #ddd;
 }
 
-.bbottom {
+.bb {
 	border-bottom: 1px solid #ddd;
 }
+
+.bb-strong {
+	border-bottom: 1px solid #bbb;
+}
+
 .ball {
 	border: 1px solid #ddd;	
 }
@@ -1054,6 +1061,10 @@ ml8 {
 	display: block;
 }
 
+.radius-all {
+	border-radius: 3px !important;
+}
+
 .mr8 {
 	margin-right: 8px;
 }
@@ -1067,30 +1078,63 @@ ml8 {
 }
 
 .mb8 {
-	margin-bottom: 8px;
+	margin-bottom: 8px !important;;
 }
 .mb10 {
-	margin-bottom: 10px;
+	margin-bottom: 10px !important;;
 }
 
 .mt10 {
-	margin-top: 10px;
+	margin-top: 10px !important;;
 }
 .mt20 {
-	margin-top: 20px;
+	margin-top: 20px !important;;
 }
 
 .mb20 {
-	margin-bottom: 20px;
+	margin-bottom: 20px !important;;
 }
 
 .mb40 {
-	margin-bottom:40px;
+	margin-bottom:40px !important;;
+}
+
+.pb0 {
+	padding-bottom: 0 !important;
+}
+
+.pb10 {
+
+	padding-bottom: 10px !important;;
+}
+
+.pb20 {
+
+	padding-bottom: 20px !important;;
 }
 
 
-.pall {
+.pt10 {
+
+	padding-top: 10px !important;
+}
+
+.pt20 {
+
+	padding-top: 20px !important;
+}
+
+.pt40 {
+
+	padding-top: 40px !important;
+}
+
+.pall5 {
 	padding: 5px;
+}
+
+.pall125em {
+	padding: 1.25em;
 }
 
 
@@ -1776,12 +1820,9 @@ label{
 	/****** @ panel-top ******/
 
 	.panel-top {   
-    background: #F9F9F7;
-    border-bottom: 1px solid #ddd;
-   
-    margin-top: 0;
-   
-    
+    background: #F9F9F7;  
+    margin-top: 0;   
+    padding: 1.25em;
 }
 
 	

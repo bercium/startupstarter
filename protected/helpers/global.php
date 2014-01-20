@@ -365,7 +365,7 @@ function writeFlashes(){
     foreach($flashMessages as $key => $flash) {
       Yii::app()->user->getFlash($key);
 
-      $html .= '<div style="height: 27px; padding-top:5px; font-weight:bold;" data-alert class="alert-box mb0 '.$flash['status'].' flash-hide-'.$i.' "><div class="row">';
+      $html .= '<div style="height: 30px; padding-top:5px; font-weight:bold;" data-alert class="alert-box mb0 '.$flash['status'].' flash-hide-'.$i.' "><div class="row">';
       $html .= decodeFlashMsg($flash['message']);
       $html .= '<a href="#" class="close">&times;</a></div></div>';
 

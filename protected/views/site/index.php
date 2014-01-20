@@ -23,65 +23,113 @@
 <?php } */ ?>
 
 
-<div class="intro" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
-  <div  class="row" >
+
     
     <?php if (!Yii::app()->user->isGuest){  ?>
-     <div class="columns large-centered">
-      <h1 class="mt10 mb10"><?php echo Yii::t('app','What is new'); ?></h1>
-      <div  class="row " >
-        <?php $this->widget('ext.Invitation.WInvitation'); ?> 
+
+<div class="intro mb0 pt0 bb-strong" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
+	<div  class="row">
+		<div class="mb0 pb10 pt20 columns ">
+			
+
+			
+			<h1 class="mt10 mb10"><?php echo Yii::t('app','What is new'); ?></h1>
+			<?php $this->widget('ext.Invitation.WInvitation'); ?> 
+
+			<ul class="large-block-grid-3">
+			<li>
+			<div class="small-12">
+
+			<div class="pall125em radius-all whats-new radius fancy-border">
+			<h2 ><?php echo Yii::t('app','Invite friends'); ?></h2>
+			<p>
+			<?php echo Yii::t('msg','Invite team members and friends with skills'); ?>
+			</p>
+			<a href="<?php echo Yii::app()->createUrl("profile"); ?>" trk="index_click_invite" data-dropdown="drop-invitation-msg" class="button  success radius small small-12"><?php echo Yii::t('msg','Invite to Cofinder'); ?></a>
+
+			</div>
+			</div>
+			</li>
+
+			<li>
+			<div class="">
+
+			<div class="pall125em radius-all  whats-new radius fancy-border">
+			<h2><?php echo Yii::t('app','Job position sharing'); ?></h2>
+			<p>
+			<?php echo Yii::t('msg','Easily share any open job position with your friends and help projects with your social reach'); ?>
+			</p>
+			<a href="<?php echo Yii::app()->createUrl("project/create"); ?>" trk="index_click_createProject" class="button small  radius small-12" ><?php echo Yii::t('app','Create your project'); ?> </a>
+			</div>
+			</div>
+			</li>
+
+			<li>
+			<div class="small-12">
+
+			<div class="pall125em radius-all  whats-new radius fancy-border">
+			<h2><?php echo Yii::t('app','Public profile'); ?></h2>
+			<p>
+			<?php echo Yii::t('msg','Get your own personal url on Cofinder'); ?>
+			</p>
+
+			<a href="<?php echo Yii::app()->createUrl("profile/account"); ?>" class="button success small radius small-12">www.cofinder.eu/ <?php echo str_replace(" ",".",Yii::app()->user->fullname); ?></a>
+
+			</div>
+			</div>
+			</li>
+			</ul>
+
+
+			
+			
+		</div>
+	</div>
+</div>
+
+
+<div class="panel-top hide-for-small bb-strong mb40">
+	<div class="row">
+		<div class="columns">
+		
+      <div class="large-offset-3 ml20">
+      	
+      	<h2 class="large-12">
+
+      		<?php if (date('Y.m.d', strtotime(Yii::app()->user->create_at)) == date ('Y.m.d')) {
+         echo Yii::t('msg',"{username} Welcome to cofinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); 
         
-        <div class="small-4 columns" >
-          
-          <div class="panel radius">
-          	<h2 ><?php echo Yii::t('app','Invite friends'); ?></h2>
-            <p>
-              <?php echo Yii::t('msg','Invite team members and friends with skills'); ?>
-            </p>
-            <a href="<?php echo Yii::app()->createUrl("profile"); ?>" trk="index_click_invite" data-dropdown="drop-invitation-msg" class="button  radius small small-12"><?php echo Yii::t('msg','Invite to Cofinder'); ?></a>
+          } else { 
 
-          </div>
-        </div>
-        <div class="small-4 columns">
-          
-          <div class="panel radius">
-          	<h2><?php echo Yii::t('app','Job position sharing'); ?></h2>
-             <p>
-              <?php echo Yii::t('msg','Easily share any open job position with your friends and help projects with your social reach'); ?>
-            </p>
-            <a href="<?php echo Yii::app()->createUrl("project/create"); ?>" trk="index_click_createProject" class="button small success radius small-12" ><?php echo Yii::t('app','Create your project'); ?> </a>
-          </div>
-        </div>
-        <div class="small-4 columns">
-          
-          <div class="panel radius">
-          	<h2><?php echo Yii::t('app','Public profile'); ?></h2>
-            <p>
-              <?php echo Yii::t('msg','Get your own personal url on Cofinder'); ?>
-            </p>
-            
-            <a href="<?php echo Yii::app()->createUrl("profile/account"); ?>" class="button small radius small-12">www.cofinder.eu/ <?php echo str_replace(" ",".",Yii::app()->user->fullname); ?></a>
-   
-          </div>
-        </div>
+          	 echo Yii::t('msg',"{username} Welcome Back!",array('{username}'=>Yii::app()->user->getState('fullname'))); 
 
-                
-      </div>
-    </div>
-    
-    <div class="center columns hide-for-small mt10">
-      <div class="right">
-        <h4 >
-        <?php echo Yii::t('msg',"{username} Welcome to cofinder!",array('{username}'=>Yii::app()->user->getState('fullname'))); ?>
-        </h4>
+          }
+
+          	?>
+        </h2>	
+      	
+
+     
         <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" trk="index_click_findCofounder" class="button radius success" ><?php echo Yii::t('app','Find a cofounder'); ?></a> 
-        <span style="margin:0 13px 0 0px;"> <?php echo Yii::t('app','or'); ?> </span>
+        <span style="margin:0 13px 0 13px;"> <?php echo Yii::t('app','or'); ?> </span>
         <a href="<?php echo Yii::app()->createUrl("project/create"); ?>" trk="index_click_createProject" class="button radius" style="margin-right: 0;" ><?php echo Yii::t('app','Create your project'); ?> </a>
         
+
+      
+      </div>
       </div>
     </div>
+</div>
+
+	
+
+
+    
+    
     <?php }else{ ?>
+
+     <div class="intro" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
+  <div  class="row" >
     
     <div class="large-10 columns large-centered">
     	
@@ -121,10 +169,11 @@
 
       </div>
     </div>
+     </div>
+    </div>
     <?php } ?>
     
-  </div>
-</div>
+  
 <?php // } ?>
 
 

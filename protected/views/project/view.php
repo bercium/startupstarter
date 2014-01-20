@@ -300,7 +300,7 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
         </div>
 
        <div class="panel">
-          <div class="item bbottom">  
+          <div class="item bb">  
           <h4><?php echo Yii::t('app','Share this project'); ?></h4>
           <?php /* ?><p class="l-inline"><?php echo Yii::t('app','You are viewing this in'); ?> <?php echo $idea['language']; ?></p><?php */ ?>
           </div>
@@ -327,7 +327,7 @@ else $this->pageDesc=  trim_text(strip_tags($idea['pitch']), 150);
 
         <?php if (count($idea['translation_other'])){ ?>
         <div class="panel">
-          <div class="item bbottom">  
+          <div class="item bb">  
           <h4><?php echo Yii::t('app','Other languages'); ?></h4>
           <?php /* ?><p class="l-inline"><?php echo Yii::t('app','You are viewing this in'); ?> <?php echo $idea['language']; ?></p><?php */ ?>
           </div>
