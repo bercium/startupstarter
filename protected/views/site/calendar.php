@@ -18,14 +18,20 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
     echo "{";
     echo "title: '".stripslashes($event["title"])."',";
     echo "start: '".strtotime($event["start"])."',";
-    if ($event["end"] > '') echo "end: '".strtotime($event["end"])."', allday: false,";
-    else echo "allday: true,";
+    if ($event["end"] > '') echo "end: '".strtotime($event["end"])."', allDay: false,";
+    else echo "allDay: true,";
     echo "content: '".stripslashes($event["content"])."',";
     echo "link: '".($event["link"])."',"; 
     echo "},";
   }
   echo "]; </script>";
 ?>
+
+<div id="drop-cal-info" class="f-dropdown content small" data-dropdown-content>
+  <div class="login-form">
+  test
+  </div>
+</div>
 
 <div class="row about mt40">
   <div class="columns">

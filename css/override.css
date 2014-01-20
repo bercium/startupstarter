@@ -712,3 +712,8 @@ table {
  
   table tr.even, table tr.alt, table tr:nth-of-type(even) {
     background: inherit; }
+
+  
+.fc-sat { background-color:#F5F5F5; }
+.fc-sun { background-color:#F5F5F5; }
+.fc-today { background-color:#f1f6ec; font-weight: bold; }
