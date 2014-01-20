@@ -73,7 +73,7 @@
 			<?php echo Yii::t('msg','Get your own personal url on Cofinder'); ?>
 			</p>
 
-			<a href="<?php echo Yii::app()->createUrl("profile/account"); ?>" class="button success small radius small-12">www.cofinder.eu/ <?php echo str_replace(" ",".",Yii::app()->user->fullname); ?></a>
+			<a href="<?php echo Yii::app()->createUrl("profile/account"); ?>" class="button success small radius small-12">www.cofinder.eu/ <?php echo  substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")); ?></a>
 
 			</div>
 			</div>
@@ -88,7 +88,7 @@
 </div>
 
 
-<div class="panel-top hide-for-small bb-strong mb40">
+<div class="panel-top hide-for-small bb-strong">
 	<div class="row">
 		<div class="columns">
 		
@@ -198,8 +198,10 @@ $("#showhide").click(function() {
 <?php if (!$filter->checkSearchForm()){ ?>
 	<?php if (isset($data['user'])){ ?>
 
-		<div class="row" id="recent_users">
+		<div class="row mt40" id="recent_users">
+			<div class="columns large-12 small-12"> 
 			<?php $this->renderPartial('//person/_recent', array('users' => $data['user'],"page"=>1,"maxPage"=>$maxPagePerson)); ?>
+			</div>
 			</div>
 
 	<?php } ?>
@@ -208,8 +210,10 @@ $("#showhide").click(function() {
 <br />
 
 		<div class="row" id="recent_projects">
+			<div class="columns large-12 small-12"> 
 			<?php $this->renderPartial('//project/_recent', array('ideas' => $data['idea'],"page"=>1,"maxPage"=>$maxPageIdea)); ?>
-		</div>
+		   </div>
+	    </div>
 
 	<?php } 
   //if (!Yii::app()->user->isGuest) echo "<hr>";

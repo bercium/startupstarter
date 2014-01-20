@@ -1,4 +1,13 @@
 <div class="columns radius card-person">
+    <?php $days = timeDifference($user['lastvisit_at'], date('Y-m-d H:i:s'), "days_total"); 
+     if ($days < 6){ ?>
+      <img src="images/act-high.png" style="position: absolute; top:-2px; left:-2px;" title="<?php echo Yii::t('app','Active user'); ?>" data-tooltip>
+    <?php }else if ($days < 10){ ?>
+      <img src="images/act-med.png" style="position: absolute; top:-2px; left:-2px;" title="<?php echo Yii::t('app','Not so active user'); ?>" data-tooltip>
+    <?php }else{ ?>
+      <img src="images/act-low.png" style="position: absolute; top:-2px; left:-2px;" title="<?php echo Yii::t('app','User has not been active recently'); ?>" data-tooltip>
+    <?php } ?>
+        
     <div class="row card-person-title" onclick="location.href='<?php echo Yii::app()->createUrl("person",array("id"=>$user['id'])); ?>';">
       <div class="columns" >
         <img src="<?php echo avatar_image($user['avatar_link'],$user['id'],60); ?>" style="height:64px; margin-right: 10px; float:left; margin-top:5px;" />

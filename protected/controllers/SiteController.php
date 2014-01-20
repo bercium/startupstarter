@@ -565,7 +565,59 @@ EOD;
     $this->render("//layouts/blank",array("content"=>$sitemapResponse));
   }  
   
+
+  /**
+   * inport.io connect function
+   */
+  private function query($connectorGuid, $input, $userGuid, $apiKey) {
+
+    $url = "https://api.import.io/store/connector/" . $connectorGuid . "/_query?_user=" . urlencode($userGuid) . "&_apikey=" . urlencode($apiKey);
+
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    curl_setopt($ch, CURLOPT_POSTFIELDS,  json_encode(array("input" => $input)));
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    return json_decode($result);
+  }
+  
+  /**
+   * load calendars
+   */
   public function actionCalendar(){
+    
+    $connectorGuid = "6f47b5aa-eac5-4992-9a6b-384ab56266a4";
+    $userGuid = "58e3153e-fa36-4b9d-8c4d-b5738a582d87";
+    $apiKey = "7dMKDBf9TiWohXjN/uofMZfZ9tubpjPME/iTMgNHYw6LCNq4fweTErAOVE/Q8samc5W2fBFSNXzlUjHGkkzFXQ==";
+
+    // Query for tile startup.si
+    $result = $this->query($connectorGuid, array(
+      "webpage/url" => "http://www.startup.si/sl-si/EventList",
+    ), $userGuid, $apiKey);
+    var_dump($result);
+
+    // Query for tile startup.si
+    $result = $this->query($connectorGuid, array(
+      "webpage/url" => "http://www.spiritslovenia.si/dogodki",
+    ), $userGuid, $apiKey);
+    var_dump($result);
+
+    // Query for tile startup.si
+    $result = $this->query($connectorGuid, array(
+      "webpage/url" => "http://www.tp-lj.si/dogodki",
+    ), $userGuid, $apiKey);
+    var_dump($result);
+
+    // Query for tile startup.si
+    $result = $this->query($connectorGuid, array(
+      "webpage/url" => "http://www.racunalniske-novice.com/dogodki/",
+    ), $userGuid, $apiKey);
+    var_dump($result);    
+    
     Yii::import('application.extensions.EGCal.EGCal');
     $cal = new EGCal('USER', 'PASS', true);
     

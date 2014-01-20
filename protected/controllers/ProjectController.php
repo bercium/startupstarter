@@ -223,6 +223,20 @@ class ProjectController extends GxController {
 			 				}
 
 							setFlash('projectMessage', Yii::t('msg',"Project successfully saved."));
+              
+              
+              // send message to our email when 
+              $message = new YiiMailMessage;
+              $message->view = 'system';
+              $message->subject = "New project created on Cofinder";
+              $message->from = Yii::app()->params['adminEmail'];
+              
+              $content_self = "New project named ".$translation->title.'. '.
+                              '<br />To check project <a href="'.Yii::app()->createAbsoluteUrl('/project/view',array('id'=>$idea->id)).'">click here</a>.';
+              
+              $message->setBody(array("content"=>$content_self), 'text/html');
+              $message->setTo("team@cofinder.eu");
+              Yii::app()->mail->send($message);
 
 							//redirect
 							if(!$id)

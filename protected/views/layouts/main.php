@@ -152,7 +152,7 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
             <ul class="right">
               <?php if (!Yii::app()->user->isGuest){ ?>
               <li class="has-dropdown minwidth20">
-                <a href="<?php echo Yii::app()->createUrl("person",array('id'=>Yii::app()->user->id)); ?>" style="height:45px; background: #ddd">
+                <a href="<?php echo Yii::app()->createUrl("person",array('id'=>Yii::app()->user->id)); ?>" style="height:45px">
                   <div class="hide-for-small">
                   <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
                   </div>
@@ -266,20 +266,21 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
 
 <div class="footer">
     <div class="row">
-       <div class="large-3 columns">
+      <div class="large-4 push-8 columns">
+        <ul class="social-links">
+          <li><a href="https://www.facebook.com/cofinder.eu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-facebook.png"></a></li>
+          <li><a href="https://www.linkedin.com/company/cofinder" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-linkedin.png"></a></li>
+          <li><a href="https://plus.google.com/+CofinderEu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-gplus.png"></a></li>
+        </ul>
+        
+        
+      </div>
+       <div class="large-8 pull-4 columns"  style="background: #333">
 
          <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
-           <img class="logo-mini" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-mini.png" />
+           <img class="logo-mini mb20" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-mini.png" />
          </a>
-      </div>
-      <div class="large-9 columns footer-links">
-        <div class="social-links">
-          <a href="https://www.facebook.com/cofinder.eu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-facebook.png"></a>
-          <a href="https://www.linkedin.com/company/cofinder" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-linkedin.png"></a>
-          <a href="https://plus.google.com/+CofinderEu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-gplus.png"></a>
-        </div>
-        
-        <ul class="inline-list">
+         <ul class="footer-links">
           <?php /* ?><li><a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo Yii::t('app','Our team'); ?></a></li> <?php */ ?>
           <li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo Yii::t('app','About'); ?></a></li>
           <li><a href="#" onclick="contact(this);"><?php echo Yii::t('app','Contact'); ?></a></li>
@@ -287,6 +288,7 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
           <li><a href="<?php echo Yii::app()->createUrl("site/cookies"); ?>"><?php echo Yii::t('app','Cookies'); ?></a></li>
         </ul>
       </div>
+      
     </div>
   </div>
 

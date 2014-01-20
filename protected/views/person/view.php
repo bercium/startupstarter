@@ -1,7 +1,7 @@
 <?php // ckeditor files
  $baseUrl = Yii::app()->baseUrl; 
     $cs = Yii::app()->getClientScript();    
-    $cs->registerScriptFile($baseUrl.'/js/ckeditor/ckeditor.js',CClientScript::POS_HEAD);
+    $cs->registerScriptFile($baseUrl.'/js/ckeditor/ckeditor.js'.getVersionID(),CClientScript::POS_HEAD);
     ?>
 
 <?php
@@ -77,7 +77,18 @@ else {
 <div class="row idea-details">
 
   <div class="large-4 columns profile side side-profile">
-    <div class="panel">
+    
+    <div class="panel" style="position: relative;">
+      
+      <?php $days = timeDifference($user['lastvisit_at'], date('Y-m-d H:i:s'), "days_total"); 
+       if ($days < 6){ ?>
+        <img src="images/act-high.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','Active user'); ?>" data-tooltip>
+      <?php }else if ($days < 10){ ?>
+        <img src="images/act-med.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','Not so active user'); ?>" data-tooltip>
+      <?php }else{ ?>
+        <img src="images/act-low.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','User has not been active recently'); ?>" data-tooltip>
+      <?php } ?>
+      
       <?php if ($user['id'] == Yii::app()->user->id){ ?>
         <a class="button secondary small small-12 radius" href="<?php echo Yii::app()->createURL('profile'); ?>"><?php echo Yii::t('app', 'Edit profile') ?>
           <span class="icon-awesome icon-wrench"></span>
@@ -166,7 +177,7 @@ else {
     <?php } ?>
 
     <div class="item bb">
-      <h4><?php echo Yii::t('app', 'Vouched by') ?></h4>
+      <h4><?php echo Yii::t('app', 'Invited by') ?></h4>
       <?php if ($vouched){ ?>
       
         <div class="l-block">
@@ -275,7 +286,7 @@ else {
       <div class="panel radius inside-panel">
         <!-- <hr> -->
         <h3 class="edit-content-title">
-        <?php echo Yii::t('app', 'Involved in {n} project|Involved in {n} projects', array(count($user['idea']))) ?>
+        <?php echo Yii::t('app', 'Working on {n} project|Involved in {n} projects', array(count($user['idea']))) ?>
         </h3>
 
         <?php

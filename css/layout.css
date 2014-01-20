@@ -311,7 +311,7 @@ div[onclick].card-person-title, div[onclick].m-card-title{
 
 .searchpanel .search_content {
 	
-	padding: 15px 20px 20px 20px;
+	padding: 15px 0 20px 0;
 	/*z-index: 1;	*/
 	
 	color: #794a93;	
@@ -829,6 +829,10 @@ ml8 {
 	margin-left:  20px;
 }
 
+.mr5 {
+	margin-right: 5px;
+}
+
 .mr15 {
 	margin-right:  15px;
 }
@@ -908,19 +912,46 @@ ml8 {
   
    position: relative;
   border-top: 1px solid #ddd; 
-  background-color: #333;
-  text-transform: uppercase;
+  background-color: #333; 
   border-top:1px solid #111;
-  padding-top: 40px;
-
-
+  padding-top: 30px;
+  
 }
+
+
+.footer ul.footer-links {
+    display: inline-block;
+    margin: 0;
+}
+
+.footer ul.footer-links li {
+    display: block;
+    float: left;  
+    margin-left: 30px;
+    text-transform: uppercase;
+}
+
+.footer ul.social-links {
+    display: block;
+    float: right;
+    margin-bottom: 8px;
+}
+
+.footer ul.social-links li {
+    display: block;
+    float: left;
+    list-style: none outside none;
+    margin-left: 10px;
+}
+
+
 
 .footer-links .inline-list {
-	float: right;
-	margin-top: 1em;
+		margin-top: 1em;
 
 }
+
+
 
 .footer-links .inline-list a {
 	margin-left: 20px;
@@ -1001,14 +1032,22 @@ ml8 {
 
 
 .main-quote{
-  background-color: #FFF; 
+  background-color: #88B460; 
   margin-top:20px; 
+  color:#fff;
   padding: 20px 0; 
   border-top: 1px solid #ccc;
+
+}
+.main-quote h2 {
+	color: #fff;
 }
 
 .main-quote blockquote{
   font-style: italic;
+  color:#fff;
+  padding-left: 30px;
+  border-left: 1px solid #fff;
 }
 
 /* #login PAGE
@@ -1084,11 +1123,24 @@ ml8 {
 	margin-bottom: 10px !important;;
 }
 
+.mt5 {
+	margin-top: 5px !important;
+}
+
 .mt10 {
 	margin-top: 10px !important;;
 }
+
+.mt15 {
+	margin-top: 15px !important;;
+}
+
 .mt20 {
 	margin-top: 20px !important;;
+}
+
+.mt40 {
+	margin-top: 40px !important;;
 }
 
 .mb20 {
@@ -1860,7 +1912,7 @@ html, body {
 .container {
   min-height: 100%;
   /* equal to footer height */
-	margin-bottom: -128px; 
+	margin-bottom: -108px; 
 }
 .container:after {
   content: "";
@@ -1868,7 +1920,7 @@ html, body {
 }
 .footer, .container:after {
   /* .push must be the same height as footer */
-	height: 128px; 
+	height: 108px; 
 	
 	
 }
@@ -1881,10 +1933,47 @@ html, body {
     padding-top: 5px;
   }
 
-   }
+
+  .footer {
+    text-align: center;
+}
+
+.footer ul.social-links {
+    display: inline-block;
+    float: none;
+    height: 44px;
+    margin: 0 0 20px;
+    text-align: center;
+}
+
+
+
+.footer .logo-mini {
+	margin: 0 auto;
+		display: block;
+}
+
+.footer ul.footer-links {
+    display: inline-block;
+     margin: 16px 0 10px;
+    margin: 0;
+    padding-bottom: 30px;
+}
+
+
 
    .supporters{
      /*height:50px;*/
      margin:20px 30px;
      max-height: 80px;
    }
+
+
+   
+
+ /* Wrapword */
+.wrapword {
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    word-break: break-all;
+    white-space: normal;
+}
