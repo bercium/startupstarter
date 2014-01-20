@@ -102,7 +102,7 @@ else $this->pageDesc = trim_text(strip_tags($idea['pitch']), 150);
             <h1 class="project-title"><?php echo $idea['title']; ?></h1>
 
             <hr>
-            <div class="right">
+            <div class="right pb15">
 
 
                 <h4 class="l-inline mt10"><span class="icon-awesome icon-signal mr5"></span>
@@ -115,7 +115,7 @@ else $this->pageDesc = trim_text(strip_tags($idea['pitch']), 150);
             </div>
 
             <?php if (count($idea['candidate']) > 0){ ?> 
-                        <div class="">
+                        <div class="right pb15">
             <h4 class="l-inline mt10"><?php echo Yii::t('app','Positions') ?></h4>
             
             <a href="#candidates" style="font-size:14px;" >
