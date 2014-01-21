@@ -14,12 +14,15 @@ $cs->registerCssFile($baseUrl.'/js/fullcalendar/fullcalendar.css'.getVersionID()
 $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
 
   echo "<script> var events = [";
+  if (count($events) > 0)
   foreach ($events as $event){ 
     echo "{";
     echo "title: '".stripslashes($event["title"])."',";
     echo "start: '".strtotime($event["start"])."',";
-    if ($event["end"] > '') echo "end: '".strtotime($event["end"])."', allDay: false,";
-    else echo "allDay: true,";
+    if ($event["end"] > '') echo "end: '".strtotime($event["end"])."',";
+    echo "allDay: ";
+    if ($event["allday"]) echo 'true'; else echo 'false';
+    echo ",";
     echo "content: '".stripslashes($event["content"])."',";
     echo "link: '".($event["link"])."',"; 
     echo "},";

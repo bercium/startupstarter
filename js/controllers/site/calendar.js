@@ -29,6 +29,7 @@ $(document).ready(function() {
         //alert('a day has been clicked!');
       },
       eventClick: function(calEvent, jsEvent, view) {
+        alert(calEvent.title);
         $('#drop-login').show();
         Foundation.libs.dropdown['toggle']($('#drop-login'));
         $("#drop-cal-info").css('top', '50px');

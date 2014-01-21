@@ -590,64 +590,36 @@ EOD;
    */
   public function actionCalendar(){
     $this->layout = "//layouts/none";
-    
-    $connectorGuid = "6f47b5aa-eac5-4992-9a6b-384ab56266a4";
-    $userGuid = "58e3153e-fa36-4b9d-8c4d-b5738a582d87";
-    $apiKey = "7dMKDBf9TiWohXjN/uofMZfZ9tubpjPME/iTMgNHYw6LCNq4fweTErAOVE/Q8samc5W2fBFSNXzlUjHGkkzFXQ==";
-
     $events = array();
     
-    // Query for tile startup.si
-    $result = $this->query($connectorGuid, array(
-      "webpage/url" => "http://www.startup.si/sl-si/EventList",
-    ), $userGuid, $apiKey);
-    //var_dump($result);
-    
-    foreach ($result->results as $event){
-      $event_tmp['title'] = $event->title;
-      $event_tmp['content'] = $event->content;
-      $event_tmp['location'] = substr($event->location,0,  strpos($event->location, " [ "));
-      $event_tmp['link'] = $event->link;
-      $event_tmp['start'] = $event->date[0]." ".$event->date[1];
-      $event_tmp['end'] = $event->date[0]." ".$event->date[1];
-      $events[] = $event_tmp;
+    $filename = "calendar.json";
+    $folder = Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['tempFolder'];
+      
+    //if (!file_exists($folder.$filename)){
+    if (true){    
+      $controller = 'general';
+      $action = 'loadCalendars';
+      
+      $commandPath = Yii::app()->getBasePath() . DIRECTORY_SEPARATOR . 'commands';
+      $runner = new CConsoleCommandRunner();
+      $runner->addCommands($commandPath);
+      $commandPath = Yii::getFrameworkPath() . DIRECTORY_SEPARATOR . 'cli' . DIRECTORY_SEPARATOR . 'commands';
+      $runner->addCommands($commandPath);
+
+      $args = array('yiic', $controller, $action); // 'migrate', '--interactive=0'
+      //$args = array_merge(array("yiic"), $args);
+      //ob_start();
+      $runner->run($args);
     }
-    //$result = json_decode($result, true);
     
-    //$events
-
-    // Query for tile startup.si
-    $result = $this->query($connectorGuid, array(
-      "webpage/url" => "http://www.spiritslovenia.si/dogodki",
-    ), $userGuid, $apiKey);
-    //var_dump($result);
-
-    // Query for tile startup.si
-    $result = $this->query($connectorGuid, array(
-      "webpage/url" => "http://www.tp-lj.si/dogodki",
-    ), $userGuid, $apiKey);
-    //var_dump($result);
-
-    // Query for tile startup.si
-    $result = $this->query($connectorGuid, array(
-      "webpage/url" => "http://www.racunalniske-novice.com/dogodki/",
-    ), $userGuid, $apiKey);
-    //var_dump($result);    
-    /*
-    Yii::import('application.extensions.EGCal.EGCal');
-    $cal = new EGCal('USER', 'PASS', true);
+    if (file_exists($folder.$filename)){
+      $content = file_get_contents($folder.$filename);
+      $events = json_decode($content, true);
+    }
     
-    $response = $cal->find(
-        array(
-            'min'=>"2014-01-01T08:20:00.000-06:00", 
-            'max'=>"2014-01-10T08:20:00.000-06:00",
-            'limit'=>50,
-            'order'=>'a',
-            //'calendar_id'=>'n34on2hojd78cm23oj8p957pds@group.calendar.google.com'
-            'calendar_id'=>'db3vp3irt7gkre717htb8a7ocqhfu0db@import.calendar.google.com'
-            //'calendar_id'=>'bercium@gmail.com'
-        )
-    );*/
+    /*echo "<pre>";
+    print_r($events);
+    echo "</pre>";*/
     
     $this->render("calendar",array("events"=>$events));
   }
