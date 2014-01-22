@@ -94,7 +94,7 @@ background: url(../images/gridme.png) center 0;
 .intro p{
   text-align:left; 
   
-   
+  display: inline-block;
   text-shadow: 0px 1px rgba(255,255,255,0.1);
 }
 
@@ -920,7 +920,7 @@ ml8 {
   border-top:1px solid #111;
   padding-top: 30px;
   border-top: 5px solid #89B561;
-  text-align: center;
+  text-align: center;i
 }
 
 
