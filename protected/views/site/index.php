@@ -130,7 +130,7 @@
     
     <?php }else{ ?>
 
-     <div class="intro" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
+     <div class="intro pb10" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
   <div  class="row" >
     
     <div class="large-10 columns large-centered">
