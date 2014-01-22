@@ -96,6 +96,7 @@ background: url(../images/gridme.png) center 0;
   
   display: inline-block;
   text-shadow: 0px 1px rgba(255,255,255,0.1);
+  display: inline;
 }
 
 
@@ -817,7 +818,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 	margin-bottom: 4px; 
 }
 
-ml8 {
+.ml8 {
 	margin-left: 8px;
 }
 
@@ -839,6 +840,11 @@ ml8 {
 
 .mr15 {
 	margin-right:  15px;
+}
+
+
+.mr20 {
+	margin-right:  20px !important;
 }
 
 .ml8 {
