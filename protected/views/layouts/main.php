@@ -126,6 +126,12 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
                 </a>
               </li>
               <li class="divider"></li>
+              <li class="<?php echo isMenuItemActive("startupEvents","site"); ?> desc">
+                <a href="<?php echo Yii::app()->createUrl("site/startupEvents"); ?>" trk="topMenu_click_startupEvents" title="<?php echo Yii::t('app','List of startup events'); ?>" >
+                  <?php echo Yii::t('app','Events'); ?>
+                </a>
+              </li>
+              <li class="divider"></li>
               <?php if (Yii::app()->user->isAdmin()){ ?>
               <li class="<?php echo isMenuItemActive("list"); ?> has-dropdown">
                 <a href="<?php echo Yii::app()->createUrl("site/list"); ?>"><?php echo Yii::t('app','Admin'); ?></a>
