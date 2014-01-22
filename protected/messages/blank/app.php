@@ -238,7 +238,7 @@ return array (
   'Open' => '',
   'Open position sharing' => '',
   'Open positions' => '',
-  'Opened positions: {skills}' => '',
+  'Open positions: {skills}' => '',
   'Or use advanced search' => '',
   'Other' => '',
   'Other languages' => '',

@@ -101,7 +101,7 @@ class GeneralCommand extends CConsoleCommand{
     }
     
 
-    $events = array();
+    //$events = array();
     // Query for tile racunalniske-novice
     $result = $this->query($connectorGuid, array(
       "webpage/url" => "http://www.racunalniske-novice.com/dogodki/",
@@ -110,7 +110,7 @@ class GeneralCommand extends CConsoleCommand{
     foreach ($result->results as $event){
       //$event_tmp['id'] = $i++;
       $event_tmp['title'] = $event->title;
-      $event_tmp['content'] = '';//''$event->content;  //problem s contentom
+      $event_tmp['content'] = $event->content;  //problem s contentom
       $event_tmp['link'] = $event->link;
       
       $event_tmp['location'] = trim(substr($event->location,  strpos($event->location, ":")+3));

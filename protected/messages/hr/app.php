@@ -238,7 +238,7 @@ return array (
   'Open' => 'Otvoren',
   'Open position sharing' => '',
   'Open positions' => 'Otvorene pozicije',
-  'Opened positions: {skills}' => '',
+  'Open positions: {skills}' => '',
   'Or use advanced search' => 'Ili upotrijebi napredno pretraživanje',
   'Other' => 'Ostalo',
   'Other languages' => 'Ostali jezici',
