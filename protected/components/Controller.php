@@ -73,6 +73,9 @@ class Controller extends CController
                     'dimension1':'".$uid."',
                     'dimension2':'true',
                   }";
+      $user = User::model()->findByPk(Yii::app()->user->id);
+      $user->lastvisit_at = date('Y-m-d H:i:s');
+      $user->save();
     }
     
     $cs->registerScript("ganalytics","

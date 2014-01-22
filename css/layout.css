@@ -1933,7 +1933,7 @@ html, body {
 .container {
   min-height: 100%;
   /* equal to footer height */
-	margin-bottom: -112px; 
+	margin-bottom: -108px; 
 }
 .container:after {
   content: "";

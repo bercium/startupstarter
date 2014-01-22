@@ -267,7 +267,7 @@ class Completeness{
     $stat->save();
     
     // add invites
-    $user = User::model()->findByPk(Yii::app()->user->id);
+    $user = User::model()->findByPk($user_id);
     if (($user->invitations == 0) && ($stat->completeness > PROFILE_COMPLETENESS_MIN) && ($stat->invites_send == 0)){
       $user->invitations = 5;
       $user->save();
