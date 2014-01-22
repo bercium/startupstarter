@@ -282,6 +282,7 @@ return array (
   'Public name' => 'Javno ime',
   'Public profile' => 'Javni profil',
   'Purpose of use' => 'Namen uporabe',
+  'Read more' => '',
   'Receiver' => 'Prejemnik',
   'Recent projects' => 'Zadnji projekti',
   'Recent users' => 'Zadnji uporabniki',
