@@ -64,8 +64,8 @@ else $this->pageDesc = trim_text(strip_tags($idea['pitch']), 150);
                         $skills .= $skillset["skillset"];
                     }
             }
-            $summary = $this->pageTitle . " " . Yii::t('app', 'project is looking for people skilled in {skills}', array("{skills}" => $skills));
-            $title = Yii::t('app', '{n} job position opened|{n} job positions opened', array(count($idea['candidate']))); ?>
+            $title = Yii::t('app', '{n} job position opened|{n} job positions opened', array(count($idea['candidate'])));
+            $summary = $this->pageTitle . " " . Yii::t('app', 'Open positions: {skills}', array("{skills}" => $skills)); ?>
             <a href="http://www.facebook.com/sharer.php?s=100&p[title]=<?php echo $title; ?>&p[summary]=<?php echo $summary; ?>&p[url]=<?php echo $url; ?>"
                trk="social_facebook_share_project"
                onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">

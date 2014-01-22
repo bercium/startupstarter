@@ -37,8 +37,14 @@ $(document).ready(function() {
       },
       loading: function(bool) {
 				if (bool) $('#loading').show();
-				else $('#loading').hide();
+				else{
+          $('#loading').hide();
+          $("[className~='secalendar']").hide();
+        }
 			}
-    })
+    });
+    
+    
+    
 
 });

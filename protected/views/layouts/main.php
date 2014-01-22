@@ -21,16 +21,16 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
   <meta property="og:title" content="<?php echo $fullTitle; ?>" />
   <meta property="og:site_name" content="<?php echo Yii::app()->name; ?>" />
   <meta property="og:description" content="<?php echo $this->pageDesc; ?>" />
-  <meta property="og:image" content="<?php echo Yii::app()->request->baseUrl; ?>/images/fb-logo.png" />
-  <meta property="og:url" content="http://www.cofinder.eu"/>
-  <link rel="canonical" href="http://www.cofinder.eu" />
+  <meta property="og:image" content="<?php echo Yii::app()->createAbsoluteUrl('/images/fb-logo.png'); ?>" />
+  <meta property="og:url" content="<?php echo Yii::app()->createAbsoluteUrl(Yii::app()->request->url); ?>"/>
+  <link rel="canonical" href="<?php echo Yii::app()->createAbsoluteUrl(Yii::app()->request->url); ?>" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:type" content="website" />
   
   <!-- M$ -->
   <meta name="application-name" content="<?php echo Yii::app()->name; ?>" />
   <meta name="msapplication-tooltip" content="<?php echo $this->pageDesc; ?>" />
-  <meta name="msapplication-starturl" content="http://www.cofinder.eu" />
+  <meta name="msapplication-starturl" content="<?php echo Yii::app()->createAbsoluteUrl(Yii::app()->request->url); ?>" />
   <meta name="msapplication-navbutton-color" content="#89b561" />
   
   <?php /* ?><meta property="fb:admins" content=""/>
@@ -38,11 +38,11 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
   <?php */ ?>
   
   <!-- Mobile icons -->
-  <link rel="apple-touch-icon" sizes="114x114" href="<?php echo Yii::app()->request->baseUrl; ?>/images/iphone-retina.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="<?php echo Yii::app()->request->baseUrl; ?>/images/ipad.png">
-  <link rel="apple-touch-icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/iphone.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="<?php echo Yii::app()->createAbsoluteUrl('/images/iphone-retina.png'); ?>">
+  <link rel="apple-touch-icon" sizes="72x72" href="<?php echo Yii::app()->createAbsoluteUrl('/images/ipad.png'); ?>">
+  <link rel="apple-touch-icon" href="<?php echo Yii::app()->createAbsoluteUrl('/images/iphone.png'); ?>">
 		
-  <link rel="shortcut icon" type="image/x-icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/iphone.png">
+  <link rel="shortcut icon" type="image/x-icon" href="<?php echo Yii::app()->createAbsoluteUrl('/images/iphone.png'); ?>">
   <link rel="icon" type="image/ico" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico">
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700,700italic,600italic,600,400italic,300italic,300&subset=latin,cyrillic-ext,greek-ext,greek,latin-ext,cyrillic,vietnamese' rel='stylesheet' type='text/css'>
   

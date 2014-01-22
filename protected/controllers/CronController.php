@@ -96,4 +96,11 @@ class CronController extends Controller
     echo $this->consoleCommand('dbbackup','autoAddInvites');
   }
   
+  /**
+   * load all calendar events
+   */
+  public function actionLoadCalendars(){
+    echo $this->consoleCommand('dbbackup','loadCalendars');
+  }
+  
 }

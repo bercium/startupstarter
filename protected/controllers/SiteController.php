@@ -26,7 +26,7 @@ class SiteController extends Controller
 		return array(
 			array('allow', // allow all users to perform actions
         'actions'=>array('index','error','logout','about','terms','notify','notifyFacebook','suggestCountry',
-                         'suggestSkill','suggestCity','unbsucribeFromNews','cookies','sitemap','calendar'),
+                         'suggestSkill','suggestCity','unbsucribeFromNews','cookies','sitemap','startupEvents'),
 				'users'=>array('*'),
 			),
 			/*array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -588,7 +588,7 @@ EOD;
   /**
    * load calendars
    */
-  public function actionCalendar(){
+  public function actionStartupEvents(){
     $this->layout = "//layouts/none";
     $events = array();
     
