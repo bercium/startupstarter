@@ -480,12 +480,12 @@ Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user');
 <div class="main-quote">
   
   <div class="row" >
-    <div class="columns large-centered">
-    	<h2><?php echo Yii::t('app','What others are saying'); ?></h2>
+    <div class="columns large-11 large-offset-1">
+    	<h2 class=""><?php echo Yii::t('app','What others are saying'); ?></h2>
     	<div class="large-2 columns">
         <img class="mt20" src='<?php echo Yii::app()->request->baseUrl; ?>/images/logo-biome3cs.png'>
       </div>
-      <blockquote class="columns large-10">
+      <blockquote class="columns large-10 pt0 pb0 mt10">
       	<span class="icon-quote-left large"></span>
         V podjetju Biome3cs d.o.o, smo se podobno kot številna druga start-up podjetja srečali s problemom pomanjkanja specifičnega kadra. S pomočjo platforme cofinder smo uspešno našli manjkajoče člene v naši ekipi, s katerimi še vedno uspešno sodelujemo. S platformo cofinder smo zelo zadovoljni in jo priporočamo vsem, ki želijo na najbolj enostaven in hiter način najti ljudi, ki bi jim pomagali uresničiti svojo idejo 
         <span class="icon-quote-right large"></span>

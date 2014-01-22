@@ -112,7 +112,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row mb60">
   <div class="columns edit-header">
     <h3><?php echo Yii::t('app', 'Deactivate account'); ?></h3>
           <?php echo CHtml::submitButton(Yii::t("app","Open"),
@@ -154,7 +154,11 @@
     <?php echo CHtml::endForm(); ?>
   
   </div>
+ 
+
+
 </div>
+
 
 </div>
 

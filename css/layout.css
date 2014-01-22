@@ -829,6 +829,10 @@ ml8 {
 	margin-left:  20px;
 }
 
+.ml40 {
+	margin-left:  40px;
+}
+
 .mr5 {
 	margin-right: 5px;
 }
@@ -1035,8 +1039,9 @@ ml8 {
   background-color: #88B460; 
   margin-top:60px; 
   color:#fff;
-  padding: 20px 0; 
+  padding: 20px 0 30px 0; 
   border-top: 1px solid #ccc;
+  border-top: 5px solid #79965E;
 
 }
 .main-quote h2 {
@@ -1151,6 +1156,10 @@ ml8 {
 	margin-bottom:40px !important;;
 }
 
+.mb60 {
+	margin-bottom:60px !important;;
+}
+
 .pb0 {
 	padding-bottom: 0 !important;
 }
@@ -1168,6 +1177,13 @@ ml8 {
 .pb20 {
 
 	padding-bottom: 20px !important;;
+}
+
+
+
+.pt0 {
+
+	padding-top: 0px !important;
 }
 
 
@@ -1917,7 +1933,7 @@ html, body {
 .container {
   min-height: 100%;
   /* equal to footer height */
-	margin-bottom: -108px; 
+	margin-bottom: -112px; 
 }
 .container:after {
   content: "";
@@ -1926,8 +1942,7 @@ html, body {
 .footer, .container:after {
   /* .push must be the same height as footer */
 	height: 108px; 
-	
-	
+	 border-top: 5px solid #89B561;
 }
 
 
@@ -1941,6 +1956,7 @@ html, body {
 
   .footer {
     text-align: center;
+
 }
 
 .footer ul.social-links {
