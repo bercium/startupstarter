@@ -915,11 +915,12 @@ ml8 {
 .footer{
   
    position: relative;
-  border-top: 1px solid #ddd; 
+  /*border-top: 1px solid #ddd; */
   background-color: #333; 
   border-top:1px solid #111;
   padding-top: 30px;
-  
+  border-top: 5px solid #89B561;
+  text-align: center;
 }
 
 
@@ -1942,7 +1943,6 @@ html, body {
 .footer, .container:after {
   /* .push must be the same height as footer */
 	height: 108px; 
-	 border-top: 5px solid #89B561;
 }
 
 
@@ -1954,10 +1954,6 @@ html, body {
   }
 
 
-  .footer {
-    text-align: center;
-
-}
 
 .footer ul.social-links {
     display: inline-block;
