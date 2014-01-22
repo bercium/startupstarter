@@ -60,7 +60,7 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
     <div class="row header">
       <div>
         <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
-           <img alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title-mobile.png" />
+           <img class="ml10" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png" />
         </a>
       </div>
     </div>

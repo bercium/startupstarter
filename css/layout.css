@@ -817,7 +817,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 	margin-bottom: 4px; 
 }
 
-ml8 {
+.ml8 {
 	margin-left: 8px;
 }
 
@@ -839,6 +839,11 @@ ml8 {
 
 .mr15 {
 	margin-right:  15px;
+}
+
+
+.mr20 {
+	margin-right:  20px !important;
 }
 
 .ml8 {
@@ -1933,7 +1938,7 @@ html, body {
 .container {
   min-height: 100%;
   /* equal to footer height */
-	margin-bottom: -112px; 
+	margin-bottom: -108px;
 }
 .container:after {
   content: "";
