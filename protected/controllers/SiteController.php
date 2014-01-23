@@ -71,6 +71,8 @@ class SiteController extends Controller
 	{
     $this->layout="//layouts/none";
     
+    setFlash("test", "LAlala");
+    
 		$sqlbuilder = new SqlBuilder;
 		$filter = Yii::app()->request->getQuery('filter', array());
 		$filter['per_page'] = 3;
