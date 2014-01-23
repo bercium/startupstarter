@@ -8,8 +8,11 @@ class Available extends BaseAvailable
 		return parent::model($className);
 	}
 	
-	public function findAllTranslated(){
-		if (Yii::app()->getLanguage() == 'en') return Available::model()->findAll();
+	public function findAllTranslated($uninterested = true){
+		if (Yii::app()->getLanguage() == 'en'){
+      if ($uninterested) return Available::model()->findAll();
+      else return $this->findAllActive();
+    }
 		else{
 			$lang = Language::model()->findByAttributes(array("language_code"=>Yii::app()->getLanguage()));
 			$criteria=new CDbCriteria();
@@ -18,11 +21,15 @@ class Available extends BaseAvailable
 			$result = array();
 			// does not use original values if not translated
 			foreach ($trans as $row){
-				$result[] = array("id"=>$row->row_id,"name"=>$row->translation);
+        if ($uninterested && $row->row_id > 1) $result[] = array("id"=>$row->row_id,"name"=>$row->translation);
 			}
 			return $result;
 			//return Translation::model()->findAll($criteria);
 		}
+	}
+  
+  public function findAllActive(){
+    return Available::model()->findAll("id > :time",array(":time"=>1)); // return just active
 	}
   
   public function defaultScope(){
