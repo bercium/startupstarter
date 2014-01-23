@@ -190,12 +190,12 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
                 <li>
                   <a href="#" data-dropdown="drop-login"><?php echo Yii::t('app','Login'); ?></a>
                 </li>
-              <?php  ?><li class="divider"></li>
+              <?php /* ?><li class="divider"></li>
                 <li>
                   <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>"><?php echo Yii::t('app','Register'); ?></a>
                 </li>
                
-               <?php  ?>
+               <?php */ ?>
               <?php } ?>
               <li class="divider"></li>
               <li class="desc">
