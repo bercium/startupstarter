@@ -71,8 +71,6 @@ class SiteController extends Controller
 	{
     $this->layout="//layouts/none";
     
-    setFlash("test", "LAlala");
-    
 		$sqlbuilder = new SqlBuilder;
 		$filter = Yii::app()->request->getQuery('filter', array());
 		$filter['per_page'] = 3;
@@ -151,6 +149,7 @@ class SiteController extends Controller
 
 	public function actionNotify()
 	{
+    //$this->redirect("user/register");
     if (!Yii::app()->user->isGuest) $this->redirect("index"); //loged in no need to send notifications
     $savedToDB = false;
     if (!empty($_POST['email'])){
