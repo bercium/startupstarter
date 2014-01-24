@@ -484,7 +484,12 @@ class SiteController extends Controller
       <loc>http://www.cofinder.eu/project/discover</loc>
       <changefreq>daily</changefreq>
       <priority>0.90</priority>
-    </url>    
+    </url>
+    <url>
+      <loc>http://www.cofinder.eu/site/startupEvents</loc>
+      <changefreq>daily</changefreq>
+      <priority>0.90</priority>
+    </url>
     <url>
       <loc>http://www.cofinder.eu/site/about</loc>
       <changefreq>monthly</changefreq>
