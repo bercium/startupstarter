@@ -54,7 +54,8 @@ class Controller extends CController
     $cs->registerScriptFile($baseUrl.'/js/chosen.jquery.min.js');  // new dropdown
     $cs->registerScriptFile($baseUrl.'/js/jquery-ui-1.10.3.custom.min.js');
     $cs->registerScriptFile($baseUrl.'/js/jquery.cookie.js');
-    $cs->registerScriptFile($baseUrl.'/js/jquery.cookiecuttr.js');  
+    $cs->registerScriptFile($baseUrl.'/js/jquery.cookiecuttr.js');
+    $cs->registerScriptFile($baseUrl.'/js/jquery.timers.min.js');
 
     //$cs->registerCoreScript($baseUrl.'jquery.ui');
     //$cs->registerCoreScript($baseUrl.'autocomplete');

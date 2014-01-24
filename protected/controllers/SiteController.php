@@ -26,7 +26,7 @@ class SiteController extends Controller
 		return array(
 			array('allow', // allow all users to perform actions
         'actions'=>array('index','error','logout','about','terms','notify','notifyFacebook','suggestCountry',
-                         'suggestSkill','suggestCity','unbsucribeFromNews','cookies','sitemap','calendar'),
+                         'suggestSkill','suggestCity','unbsucribeFromNews','cookies','sitemap','startupEvents'),
 				'users'=>array('*'),
 			),
 			/*array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -149,6 +149,7 @@ class SiteController extends Controller
 
 	public function actionNotify()
 	{
+    $this->redirect("user/register");
     if (!Yii::app()->user->isGuest) $this->redirect("index"); //loged in no need to send notifications
     $savedToDB = false;
     if (!empty($_POST['email'])){
@@ -588,7 +589,7 @@ EOD;
   /**
    * load calendars
    */
-  public function actionCalendar(){
+  public function actionStartupEvents(){
     $this->layout = "//layouts/none";
     $events = array();
     
@@ -620,7 +621,10 @@ EOD;
     /*echo "<pre>";
     print_r($events);
     echo "</pre>";*/
-    
+    if (Yii::app()->user->isGuest){
+      $invite = '<a href="'.Yii::app()->createUrl("site/notify").'" class="button small radius secondary ml10 mb0">'.Yii::t('app','invitation').'</a>';    
+      setFlash("discoverPerson", Yii::t('msg','To see all events please login or request {invite}',array('{invite}'=>$invite)), "alert", false);
+    }
     $this->render("calendar",array("events"=>$events));
   }
 	

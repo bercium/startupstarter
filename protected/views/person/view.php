@@ -11,37 +11,39 @@ $this->pageTitle = $user['name'] . " " . $user['surname'];
 if ($user['bio']) $this->pageDesc = trim_text(strip_tags($user['bio']), 150);
 else {
   // create automatic personal description if bio is empty
-  $this->pageDesc = "I'm ".$user['name'] . " " . $user['surname'];
+  $this->pageDesc = Yii::t('app',"I'm {name}",array('{name}'=>$user['name'] . " " . $user['surname']));
   // where is user from
+  
   if ($user['city'] || $user['country']){
-    $this->pageDesc .= " from ";
+    $cityContry = '';
     if ($user['city']){
-      $this->pageDesc .= $user['city'];
-      if ($user['country']) $this->pageDesc .= ", ";
+      $cityContry = $user['city'];
+      if ($user['country']) $cityContry .= ", ";
     }
-    if ($user['country']) $this->pageDesc .= $user['country'];
+    if ($user['country']) $cityContry .= $user['country'];
+    $this->pageDesc .= " ".Yii::t('app',"from {city}",array("{city}"=>$cityContry));
   }
   $this->pageDesc .= ".";
   
   // what kind oc collaboration is he searching and for how much time
   if ($user['available'] || (count($user['collabpref']) > 0)){
-    $this->pageDesc .= " I'm interested in working ";
-    if ($user['available'] > 1) $this->pageDesc .= $user['available_name'];
+    $workingOn = '';
+    $firsttime = '';
+    if ($user['available'] > 1) $workingOn .= $user['available_name'];
     
     if (count($user['collabpref']) > 0){
-      $firsttime = '';
+      
       foreach ($user['collabpref'] as $collab) {
         if (!$collab['active']) continue;
-        if ($firsttime) $firsttime .= ' or ';
-        $firsttime .=  $collab['name'];
+        if ($firsttime) $firsttime .= ' '.Yii::t('app','or').' ';
+        $firsttime .=  $collab['name']; 
       }
-      if ($firsttime) $this->pageDesc .= ' as '.$firsttime;
+      if ($firsttime) $workingOn .= ' '.Yii::t('app','as {preference}',array("{preference}"=>$firsttime));
     }
-    $this->pageDesc .= ".";
-    $this->pageDesc = str_replace("I'm interested in working .", "", $this->pageDesc);
+    if ($firsttime || $workingOn)  $this->pageDesc .= " ".Yii::t('app',"I'm interested in working {typeofwork}",array('{typeofwork}'=>$workingOn))." ";
   }
       
-  if (count($user['idea']) > 0) $this->pageDesc .= ' I\'m curently working on a project of my own.';
+  if (count($user['idea']) > 0) $this->pageDesc .= ' '.Yii::t('app','I\'m curently working on a project of my own.');
 }
 ?>
 <div id="drop-msg" class="f-dropdown content medium" data-dropdown-content>

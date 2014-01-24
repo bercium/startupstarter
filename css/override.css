@@ -718,3 +718,4 @@ table {
 .fc-sat { background-color:#F5F5F5; }
 .fc-sun { background-color:#F5F5F5; }
 .fc-today { background-color:#f1f6ec; font-weight: bold; }
+.fc-event{ margin-bottom: 2px; }

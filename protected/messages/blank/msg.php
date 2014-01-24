@@ -194,6 +194,7 @@ return array (
   'To activate you account please go to {activation_url}' => '',
   'To change your picture, drag a new image on the top or click on the button' => '',
   'To deactivate your account change "Account status" to off and click deactivate. You will then be loged out of the system.' => '',
+  'To see all events please login or request {invite}' => '',
   'Translation successfully removed!' => '',
   'Translations saved.' => '',
   'Unable to add skill.' => '',

@@ -34,7 +34,7 @@ $this->pageTitle = Yii::t('app', 'Registration');
 	<?php echo $form->passwordField($model,'verifyPassword'); ?>
 
 	
-	<?php /* if (UserModule::doCaptcha('registration')): ?>
+	<?php  if (UserModule::doCaptcha('registration')): ?>
 		<?php echo $form->labelEx($model,'verifyCode'); ?>
 		
 		<?php $this->widget('CCaptcha'); ?>
@@ -42,7 +42,7 @@ $this->pageTitle = Yii::t('app', 'Registration');
 		
 		<p class="hint"><?php echo Yii::t('msg',"Please enter the letters as they are shown in the image above."); ?>
 		<br/><?php echo Yii::t('msg',"Letters are not case-sensitive."); ?></p>
-	<?php endif; */ ?>
+	<?php endif; ?>
     
   <label for="RegistrationForm_tos" <?php if ($form->error($model,'tos')) echo 'class="error"'; ?>>
  	<?php echo $form->checkBox($model,'tos',array('style'=>'display:none')); ?>

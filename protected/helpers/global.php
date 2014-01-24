@@ -303,6 +303,13 @@ function setFlash($flashName, $flashMessage, $status = 'success', $autoHide = tr
 }
 
 /**
+ * clears all flashes
+ */
+function clearFlashes(){
+  Yii::app()->user->getFlashes(true);
+}
+
+/**
  * will decode message if array or string
  */
 function decodeFlashMsg($msg){
@@ -365,17 +372,22 @@ function writeFlashes(){
     foreach($flashMessages as $key => $flash) {
       Yii::app()->user->getFlash($key);
 
+      if ($flash["autoHide"]){
+        if ($flash['status'] != 'alert') $wait_time = 4000;
+        else $wait_time = 10000;
+        $hide .=  "$('.flash-hide-".$i."').oneTime(".($wait_time+$i*1000).", function() { $(this).fadeOut(); })"
+                . "                                   .hover( function() { $(this).stopTime();}, 
+                                                              function() { $(this).oneTime(".(4000+$i*1000).", function() { $(this).fadeOut(); }); });";
+      }else $nh++;      
+
       $html .= '<div style="padding:4px 20px; height: 100%; font-weight:bold;" data-alert class="alert-box mb0 '.$flash['status'].' flash-hide-'.$i.' "><div class="row">';
       $html .= decodeFlashMsg($flash['message']);
       //$html .= '<a href="#" class="close">&times;</a></div></div>';
       $html .= '</div></div>';
 
-      if ($flash["autoHide"]){
-        if ($flash['status'] != 'alert') $hide .= '$(".flash-hide-'.$i.'").animate({opacity: 1.0}, '.(4000+$i*1000).').fadeOut();';
-        else $hide .= '$(".flash-hide-'.$i.'").animate({opacity: 1.0}, '.(10000+$i*1000).').fadeOut();';
-      }else $nh++;
       $i++;
     }
+
     $html .= '</div></div>';
     if ($nh > 0){
       $html .= '<div></div>';

@@ -194,6 +194,7 @@ return array (
   'To activate you account please go to {activation_url}' => 'Za aktivaciju računa idite na  {activation_url}',
   'To change your picture, drag a new image on the top or click on the button' => 'Želite li promjeniti sliku, povucite novu sliku u ovaj okvir ili kliknite na gumb.',
   'To deactivate your account change "Account status" to off and click deactivate. You will then be loged out of the system.' => 'Želite li deaktivirati račun, promjenite "Status računa" u isključi i kliknite deaktiviraj. Tako ćete se ispisat iz sistema.',
+  'To see all events please login or request {invite}' => '',
   'Translation successfully removed!' => 'Prijevod uspješno maknut!',
   'Translations saved.' => 'Prijevod spremljen.',
   'Unable to add skill.' => 'Znanje ne može biti dodano.',

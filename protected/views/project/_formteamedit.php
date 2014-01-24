@@ -13,7 +13,7 @@
     <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
     
     <?php echo CHtml::activeLabelEx($match,'available'); ?>
-    <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listData(Available::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+    <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listData(Available::model()->findAllTranslated(false),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
     
     <?php echo "<label>".Yii::t('app','Collaboration preferences')."</label>"; ?>
 

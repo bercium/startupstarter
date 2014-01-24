@@ -27,11 +27,12 @@ class GeneralCommand extends CConsoleCommand{
    * restoring DB
    */
 	public function actionLoadCalendars(){
- $connectorGuid = "6f47b5aa-eac5-4992-9a6b-384ab56266a4";
+    $connectorGuid = "6f47b5aa-eac5-4992-9a6b-384ab56266a4";
     $userGuid = "58e3153e-fa36-4b9d-8c4d-b5738a582d87";
     $apiKey = "7dMKDBf9TiWohXjN/uofMZfZ9tubpjPME/iTMgNHYw6LCNq4fweTErAOVE/Q8samc5W2fBFSNXzlUjHGkkzFXQ==";
 
     $events = array();
+    $i = 0;
     
     // Query for tile startup.si
     $result = $this->query($connectorGuid, array(
@@ -40,6 +41,7 @@ class GeneralCommand extends CConsoleCommand{
     //var_dump($result);
     
     foreach ($result->results as $event){
+      //$event_tmp['id'] = $i++;
       $event_tmp['title'] = $event->title;
       $event_tmp['content'] = $event->content;
       $event_tmp['location'] = substr($event->location,0,  strpos($event->location, " [ "));
@@ -61,6 +63,7 @@ class GeneralCommand extends CConsoleCommand{
     //var_dump($result);
 
     foreach ($result->results as $event){
+      //$event_tmp['id'] = $i++;
       $event_tmp['title'] = $event->title;
       $event_tmp['content'] = $event->content;
       $event_tmp['location'] = $event->location;
@@ -75,13 +78,14 @@ class GeneralCommand extends CConsoleCommand{
       $events[] = $event_tmp;
     }
     
-    
+    $event = array();
     // Query for tile TP
     $result = $this->query($connectorGuid, array(
       "webpage/url" => "http://www.tp-lj.si/dogodki",
     ), $userGuid, $apiKey);
     
     foreach ($result->results as $event){
+      //$event_tmp['id'] = $i++;
       $event_tmp['title'] = $event->title;
       $event_tmp['content'] = '';//$event->content;  //problem s contentom
       $event_tmp['location'] = '';//$event->location; // ni lokacije
@@ -97,12 +101,29 @@ class GeneralCommand extends CConsoleCommand{
     }
     
 
-    // Query for tile startup.si
+    //$events = array();
+    // Query for tile racunalniske-novice
     $result = $this->query($connectorGuid, array(
       "webpage/url" => "http://www.racunalniske-novice.com/dogodki/",
     ), $userGuid, $apiKey);
     //var_dump($result);
-    
+    foreach ($result->results as $event){
+      //$event_tmp['id'] = $i++;
+      $event_tmp['title'] = $event->title;
+      $event_tmp['content'] = $event->content;  //problem s contentom
+      $event_tmp['link'] = $event->link;
+      
+      $event_tmp['location'] = trim(substr($event->location,  strpos($event->location, ":")+3));
+
+      $date = substr($event->location, 0, strpos($event->location, ":")+3);
+      $event_tmp['start'] = str_replace(", ob","",$date);
+      $event_tmp['end'] = str_replace(", ob","",$date);
+      $event_tmp['allday'] = false;
+      
+      $event_tmp['source'] = "http://www.racunalniske-novice.com/dogodki/";
+      
+      $events[] = $event_tmp;
+    }
     
     
     $filename = "calendar.json";
