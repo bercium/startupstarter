@@ -303,6 +303,13 @@ function setFlash($flashName, $flashMessage, $status = 'success', $autoHide = tr
 }
 
 /**
+ * clears all flashes
+ */
+function clearFlashes(){
+  Yii::app()->user->getFlashes(true);
+}
+
+/**
  * will decode message if array or string
  */
 function decodeFlashMsg($msg){
