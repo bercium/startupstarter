@@ -149,7 +149,7 @@ class SiteController extends Controller
 
 	public function actionNotify()
 	{
-    //$this->redirect("user/register");
+    $this->redirect("user/register");
     if (!Yii::app()->user->isGuest) $this->redirect("index"); //loged in no need to send notifications
     $savedToDB = false;
     if (!empty($_POST['email'])){

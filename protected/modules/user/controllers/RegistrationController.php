@@ -38,14 +38,8 @@ class RegistrationController extends Controller
             $invited = null;
             if ($id != '') $invited = Invite::model()->findByAttributes(array('key' => $id,'idea_id'=>null));
             
-            if ($id == '' || $invited == null) {
-              //Yii::log(CVarDumper::dumpAsString($invited));
-              /*print_r($invited." - ".$id);*/
-              //$this->render('/user/registration',array('model'=>$model));//*/
-              $this->redirect(Yii::app()->createUrl('site/notify'));
-            }
-            else{
-              $model->email = $invited->email;
+            
+              //$model->email = $invited->email;
               
               if(isset($_POST['RegistrationForm'])) {
                   $model->attributes=$_POST['RegistrationForm'];
@@ -66,13 +60,25 @@ class RegistrationController extends Controller
 
                         $activation_url = '<a href="'.$this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $model->activkey, "email" => $model->email)).'">Activate</a>';
                         
-                        $message = new YiiMailMessage;
-                        $message->view = 'system';
-                        $message->setBody(array("content"=>"To activate your account go to ".$activation_url), 'text/html');
-                        $message->subject = 'Registration for cofinder';
-                        $message->addTo($model->email);
-                        $message->from = Yii::app()->params['noreplyEmail'];
-                        Yii::app()->mail->send($message);
+                        // if user was invited then allow him to register
+                        if ($id == '' || $invited == null) {
+                          $message = new YiiMailMessage;
+                          $message->view = 'system';
+                          $message->setBody(array("content"=>"To activate your account go to ".$activation_url), 'text/html');
+                          $message->subject = 'Registration for cofinder';
+                          $message->addTo($model->email);
+                          $message->from = Yii::app()->params['noreplyEmail'];
+                          Yii::app()->mail->send($message);
+                        }else{
+                          //notify us
+                          $message = new YiiMailMessage;
+                          $message->view = 'system';
+                          $message->setBody(array("content"=>"To activate his account go to ".$activation_url), 'text/html');
+                          $message->subject = 'New user registered';
+                          $message->addTo(Yii::app()->params['teamEmail']);
+                          $message->from = Yii::app()->params['noreplyEmail'];
+                          Yii::app()->mail->send($message);
+                        }
                         
                         
                         //$invited->delete(); // delete invite (depreched)
@@ -124,7 +130,7 @@ class RegistrationController extends Controller
               }
 
               $this->render('/user/registration',array('model'=>$model));
-            }
+            
         }
 	}
 }

@@ -235,7 +235,7 @@ class ProjectController extends GxController {
                               '<br />To check project <a href="'.Yii::app()->createAbsoluteUrl('/project/view',array('id'=>$idea->id)).'">click here</a>.';
               
               $message->setBody(array("content"=>$content_self), 'text/html');
-              $message->setTo("team@cofinder.eu");
+              $message->setTo(Yii::app()->params['teamEmail']);
               Yii::app()->mail->send($message);
 
 							//redirect

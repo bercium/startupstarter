@@ -6,7 +6,7 @@
  */
 class RegistrationForm extends User {
 	public $verifyPassword;
-	//public $verifyCode;
+	public $verifyCode;
   public $tos;
 	
 	public function rules() {
@@ -23,9 +23,9 @@ class RegistrationForm extends User {
 			array('verifyPassword', 'compare', 'compareAttribute'=>'password', 'message' => Yii::t('msg',"Retype password is incorrect.")),
 			//array('username', 'match', 'pattern' => '/^[A-Za-z0-9_]+$/u','message' => Yii::t('msg',"Incorrect symbols (A-z0-9).")),
 		);
-		/*if (!(isset($_POST['ajax']) && $_POST['ajax']==='registration-form')) {
+		if (!(isset($_POST['ajax']) && $_POST['ajax']==='registration-form')) {
 			array_push($rules,array('verifyCode', 'captcha', 'allowEmpty'=>!UserModule::doCaptcha('registration')));
-		}*/
+		}
 		
 		return $rules;
 	}
