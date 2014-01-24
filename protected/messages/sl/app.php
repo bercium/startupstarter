@@ -107,7 +107,7 @@ return array (
   'Edit project' => 'Uredi projekt',
   'Email' => 'Email',
   'Employees' => 'Zaposleni',
-  'Engineers' => 'Inžinirji',
+  'Engineers' => 'Inženirji',
   'Error' => 'Napaka',
   'Extra information' => 'Dodatne informacije',
   'Field' => 'Polje',
