@@ -50,17 +50,10 @@ class RegistrationController extends Controller
                     $model->activkey=UserModule::encrypting(microtime().$model->password);
                     $model->password=UserModule::createHash($model->password);
                     $model->verifyPassword=$model->password;
-                    $model->superuser=0;
-                    $model->status=((Yii::app()->controller->module->activeAfterRegister)?User::STATUS_ACTIVE:User::STATUS_NOACTIVE);
+                    $model->superuser=0; //not admin
+                    $model->status=(($invited)?User::STATUS_ACTIVE:User::STATUS_NOACTIVE);
 
-                        //die($model->email." ".$soucePassword);
-                        $identity=new UserIdentity($model->email,$soucePassword);
-                        $identity->authenticate();
-                        Yii::app()->user->login($identity);
 
-                        $this->render('/user/message',array('title'=>Yii::t('app','Registration finished'),"content"=>Yii::t('msg','Thank you for your registration.')));
-                        return;                    
-                    
                     if ($model->save()) {
                       $user_match = new UserMatch();
                       $user_match->user_id = $model->id;
@@ -73,20 +66,21 @@ class RegistrationController extends Controller
                         //notify us
                         $message = new YiiMailMessage;
                         $message->view = 'system';
-                        $message->setBody(array("content"=>"To activate his account go to ".$activation_url), 'text/html');
                         $message->subject = 'New user registered';
+                        $message->setBody(array("content"=>"To activate his account go to ".$activation_url), 'text/html');
+                        
                         $message->to = Yii::app()->params['teamEmail'];
                         $message->from = Yii::app()->params['noreplyEmail'];
                         Yii::app()->mail->send($message);
                       }else{
                         // if user was invited then allow him to register
-                        $message = new YiiMailMessage;
+                        /*$message = new YiiMailMessage;
                         $message->view = 'system';
                         $message->setBody(array("content"=>"To activate your account go to ".$activation_url), 'text/html');
                         $message->subject = 'Registration for cofinder';
                         $message->addTo($model->email);
                         $message->from = Yii::app()->params['noreplyEmail'];
-                        Yii::app()->mail->send($message);
+                        Yii::app()->mail->send($message);*/
 
                         //$invited->delete(); // delete invite (depreched)
                         $invited->key = null;
@@ -102,7 +96,15 @@ class RegistrationController extends Controller
                         }
 
                         // auto login
+                        $identity=new UserIdentity($model->email,$soucePassword);
+                        $identity->authenticate();
+                        Yii::app()->user->login($identity,Yii::app()->controller->module->rememberMeTime);
 
+                        $this->render('/user/message',array('title'=>Yii::t('app','Registration finished'),
+                            "content"=>Yii::t('msg','Thank you for your registration.')."<br />".
+                                      Yii::t('msg','Now fill your profile to become visible.').
+                                      '<a href="'.Yii::app()->createUrl("profile/registrationFlow",array()).'" class="button radius success">'.Yii::t('msg','Do it now').'</a>' ));
+                        return;
                       }
 
 
