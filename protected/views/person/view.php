@@ -51,8 +51,9 @@ else {
 	<?php
   if (Yii::app()->user->isGuest){
     echo Yii::t('msg','You must be loged in to contact this person.');
-    echo Yii::t('msg',"If you don't have an account ");
+    /*echo Yii::t('msg',"If you don't have an account ");
     ?> <a href="<?php echo Yii::app()->createUrl("site/notify"); ?>" class="button tiny radius mt20 mb0"> <?php echo Yii::t('msg','Request invitation');?> </a> <?php
+    */
   }
   else { ?>    
 	<?php echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("class"=>"customs")); ?>

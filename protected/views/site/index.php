@@ -145,6 +145,7 @@
       </p><br />
     </div>    
     
+    <?php /* ?>
    <div class="center columns">
       <div class="right large-5 small-12">
         
@@ -171,6 +172,7 @@
 
       </div>
     </div>
+    <?php */ ?>
      </div>
     </div>
     <?php } ?>
