@@ -67,7 +67,12 @@ class RegistrationController extends Controller
                         $message = new YiiMailMessage;
                         $message->view = 'system';
                         $message->subject = 'New user registered';
-                        $message->setBody(array("content"=>"To activate his account go to ".$activation_url), 'text/html');
+                        $message->setBody(array("content"=>"To check his profile go to ".$this->createAbsoluteUrl("/person/view",array("id"=>$model->id)).
+                                                "<br /><br />".
+                                                "If something is wrong send him this url to fix his profile: ".
+                                                Yii::app()->createAbsoluteUrl("/profile/registrationFlow",array("key"=>substr($model->activkey,0, 10),"email"=>$model->email)).
+                                                "<br /><br />".
+                                                "To activate his account go to ".$activation_url), 'text/html');
                         
                         $message->to = Yii::app()->params['teamEmail'];
                         $message->from = Yii::app()->params['noreplyEmail'];
