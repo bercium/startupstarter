@@ -126,10 +126,10 @@ class ProfileController extends GxController {
 				$oldImg = $user->avatar_link;
 				$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
         
-                // VANITY URL
+        // VANITY URL
         $us = UserStat::model()->findByAttributes(array("user_id"=>$user_id));
         // set only if has invited at least 3 other people
-        $allowVanityURL = (($user->vanityURL != '') || ($us->invites_send > 2));
+        $allowVanityURL = ($us && (($user->vanityURL != '') || ($us->invites_send > 2)));
 
 				if (isset($_POST['UserEdit']) && isset($_POST['UserMatch'])) {
          
@@ -144,7 +144,7 @@ class ProfileController extends GxController {
                 $user->addError('vanityURL', Yii::t('msg',"This custom URL already exists."));
               }
             }
-          }          
+          }       
           
           
 					$user->setAttributes($_POST['UserEdit']);

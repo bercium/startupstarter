@@ -213,16 +213,17 @@ class Completeness{
             );      
       
       $stat = UserStat::model()->findByAttributes(array("user_id"=>$user_id));
-      $this->details[] = array(
-            "group"=>Yii::t('app',"Other"),
-            "name"=>Yii::t('app',"Invitations"),
-            "value"=>"", 
-            "hint"=>Yii::t('msg',"Send some invitations to your friends. On the left side you can find invitation button."),
-            "action"=>"",
-            "active"=>($stat->invites_send > 3),
-            "weight"=>7,
-            );
-      
+      if ($stat){
+        $this->details[] = array(
+              "group"=>Yii::t('app',"Other"),
+              "name"=>Yii::t('app',"Invitations"),
+              "value"=>"", 
+              "hint"=>Yii::t('msg',"Send some invitations to your friends. On the left side you can find invitation button."),
+              "action"=>"",
+              "active"=>($stat->invites_send > 3),
+              "weight"=>7,
+              );
+      }
       return $this->details;
     }
   }
