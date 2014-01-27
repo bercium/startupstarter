@@ -67,7 +67,6 @@ class User extends BaseUser
       array('activkey, superuser, status, surname, address, avatar_link, language_id, newsletter', 'default', 'setOnEmpty' => true, 'value' => null),
       array('invitations', 'default', 'setOnEmpty' => true, 'value' => '0'),
 			array('password, email, create_at, name', 'required'),
-			array('password, email, create_at, name', 'required'),
 			array('superuser, status, language_id, newsletter, invitations', 'numerical', 'integerOnly'=>true),
       array('id, password, email, activkey, create_at, lastvisit_at, superuser, status, name, surname, address, avatar_link, language_id, newsletter, invitations', 'safe', 'on'=>'search'),
       array('password, email, activkey, name, surname, address, avatar_link', 'length', 'max'=>128),

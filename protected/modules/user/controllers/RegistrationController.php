@@ -64,7 +64,26 @@ class RegistrationController extends Controller
                         $user_match->user_id = $model->id;
                         $user_match->save();
 
-                        $activation_url = '<a href="'.$this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $model->activkey, "email" => $model->email)).'">Activate</a>';
+
+                    if ($model->save()) {
+                      $user_match = new UserMatch();
+                      $user_match->user_id = $model->id;
+                      $user_match->save();
+
+                      $activation_url = '<a href="'.$this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $model->activkey, "email" => $model->email)).'">Activate</a>';
+
+                      // if invitation set
+                      if ($id == '' || $invited == null) {
+                        //notify us
+                        $message = new YiiMailMessage;
+                        $message->view = 'system';
+                        $message->subject = 'New user registered';
+                        $message->setBody(array("content"=>"To check his profile go to ".$this->createAbsoluteUrl("/person/view",array("id"=>$model->id)).
+                                                "<br /><br />".
+                                                "If something is wrong send him this url to fix his profile: ".
+                                                Yii::app()->createAbsoluteUrl("/profile/registrationFlow",array("key"=>substr($model->activkey,0, 10),"email"=>$model->email)).
+                                                "<br /><br />".
+                                                "To activate his account go to ".$activation_url), 'text/html');
                         
                         $message = new YiiMailMessage;
                         $message->view = 'system';

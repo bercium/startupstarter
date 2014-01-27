@@ -16,10 +16,13 @@ else $this->pageDesc = trim_text(strip_tags($idea['pitch']), 150);
             <?php
             if (Yii::app()->user->isGuest) {
                 echo Yii::t('msg', 'You must be loged in to contact this person.');
-                echo Yii::t('msg', "If you don't have an account ");
+               /* echo Yii::t('msg', "If you don't have an account ");
                 ?> <a href="<?php echo Yii::app()->createUrl("site/notify"); ?>"
                       class="button tiny radius mt20 mb0"> <?php echo Yii::t('msg', 'Request invitation'); ?> </a> <?php
+                */
             } else {
+                $comp = new Completeness();
+                if ($comp->getPercentage() > PROFILE_COMPLETENESS_MIN){
                 ?>
                 <?php
                 /*$user_id = '';
@@ -45,6 +48,11 @@ else $this->pageDesc = trim_text(strip_tags($idea['pitch']), 150);
                 </div>
 
                 <?php echo CHtml::endForm();
+                }else{
+                  // not enough
+                  echo Yii::t('msg','Before you can contact people you must fill your profile.');
+                }
+                
             }
             ?>
         </div>

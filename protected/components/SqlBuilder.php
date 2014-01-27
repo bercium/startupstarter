@@ -367,7 +367,7 @@ class SqlBuilder {
 			if(isset($filter['regflow'])){
 				$sql.= " AND u.status = 0";
 			} else {
-				$sql.= " AND u.status = 1";
+        if (!Yii::app()->user->isAdmin()) $sql.= " AND u.status = 1";
 			}
 			
 

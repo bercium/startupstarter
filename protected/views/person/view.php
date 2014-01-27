@@ -51,10 +51,14 @@ else {
 	<?php
   if (Yii::app()->user->isGuest){
     echo Yii::t('msg','You must be loged in to contact this person.');
-    echo Yii::t('msg',"If you don't have an account ");
+    /*echo Yii::t('msg',"If you don't have an account ");
     ?> <a href="<?php echo Yii::app()->createUrl("site/notify"); ?>" class="button tiny radius mt20 mb0"> <?php echo Yii::t('msg','Request invitation');?> </a> <?php
+    */
   }
-  else { ?>    
+  else {
+    $comp = new Completeness();
+    if ($comp->getPercentage() > PROFILE_COMPLETENESS_MIN){
+    ?>
 	<?php echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("class"=>"customs")); ?>
       <?php echo CHtml::hiddenField("user",$user['id']); ?>
       <?php echo CHtml::label(Yii::t('app','Message').":",'message'); ?>
@@ -71,6 +75,10 @@ else {
       </div>
 
   <?php echo CHtml::endForm();
+    }else{
+      // not enough
+      echo Yii::t('msg','Before you can contact people you must fill your profile.');
+    }
 	}
 	?>
 	</div>
@@ -91,6 +99,13 @@ else {
         <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-low.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','User has not been active recently'); ?>" data-tooltip>
       <?php } ?>
       
+      <?php if (($user['status'] == '0') && (Yii::app()->user->isAdmin())){
+        $us = User::model()->findByPk($user['id']);
+        $activation_url = $this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $us->activkey, "email" => $user['email']));
+        ?>
+        <a class="button alert small-12 radius" href="<?php echo $activation_url; ?>" ><?php echo Yii::t('app', 'Activate this user'); ?></a>
+      <?php } ?>
+        
       <?php if ($user['id'] == Yii::app()->user->id){ ?>
         <a class="button secondary small small-12 radius" href="<?php echo Yii::app()->createURL('profile'); ?>"><?php echo Yii::t('app', 'Edit profile') ?>
           <span class="icon-awesome icon-wrench"></span>

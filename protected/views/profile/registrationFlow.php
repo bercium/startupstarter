@@ -1,5 +1,5 @@
 <?php 
-  $this->pageTitle = Yii::t('app', 'Thank you for your registration');
+  $this->pageTitle = Yii::t('app', 'Thanks, your account is pending confirmation');
 ?>
 
 <script>
@@ -10,27 +10,20 @@
 
 
 <p>
-  <strong>
-  <?php echo Yii::t('msg','You will shortly receive our confirmation email.'); ?>
-  </strong>
+
+  <?php echo Yii::t('msg','We are really happy you have decided to join our community. We strive to offer high quality profiles and project. This is why we decide on per person basis if we approve your registration or not.'); ?>
   <br /><br />
-  <?php echo Yii::t('msg','We are really happy you have decided to join our community. While you are waiting for an email, you can either fill out the rest of your profile information OR skip this step and do it later. But remember, completely filled out profiles are more CREDIBLE and have more visibility.'); ?>
-     
-  <br />
-  <br />
-  <?php echo Yii::t('msg','Fill out the rest of'); ?>
   
-  <a onclick="$('#profileInput').show()" trk="regflow_fill_profile" class="button success radius small ml10 mr10">
-    <?php echo Yii::t('app','your profile'); ?>
-  </a>
-  <?php echo Yii::t('app','or') ?>
-  <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" trk="regflow_fill_later" class="button radius small secondary ml10">
-    <?php echo Yii::t('app','do this later'); ?>
-  </a>
+
   
+  <strong>
+    <?php echo Yii::t('msg','We will decide based on folowing form:'); ?>
+  </strong>
+  
+    
 </p>
 
-<div id="profileInput" class="hide">
+
 <br />
 
   <?php echo CHtml::beginForm('','post',array('class'=>"custom",'id'=>'after_register_form')); ?>
@@ -206,4 +199,3 @@
       array('class'=>"button small success radius",'onclick'=>"$('#after_register_form').submit();")
       ); ?>
 
-  </div>

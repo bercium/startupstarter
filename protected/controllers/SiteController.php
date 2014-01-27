@@ -491,7 +491,7 @@ class SiteController extends Controller
       <priority>0.60</priority>
     </url>
     <url>
-      <loc>http://www.cofinder.eu/site/notify</loc>
+      <loc>http://www.cofinder.eu/user/registration</loc>
       <changefreq>monthly</changefreq>
       <priority>0.30</priority>
     </url>
@@ -622,8 +622,8 @@ EOD;
     print_r($events);
     echo "</pre>";*/
     if (Yii::app()->user->isGuest){
-      $invite = '<a href="'.Yii::app()->createUrl("site/notify").'" class="button small radius secondary ml10 mb0">'.Yii::t('app','invitation').'</a>';    
-      setFlash("discoverPerson", Yii::t('msg','To see all events please login or request {invite}',array('{invite}'=>$invite)), "alert", false);
+      $register = '<a href="'.Yii::app()->createUrl("user/register").'" class="button small radius secondary ml10 mb0">'.Yii::t('app','invitation').'</a>';    
+      setFlash("discoverPerson", Yii::t('msg','To see all events please login or {register}',array('{register}'=>$register)), "alert", false);
     }
     $this->render("calendar",array("events"=>$events));
   }
