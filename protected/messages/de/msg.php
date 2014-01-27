@@ -131,7 +131,7 @@ return array (
   'Problem saving link. Please check fields for correct values.' => '',
   'Problem saving skill. Please check fields for correct values.' => '',
   'Profile details saved.' => '',
-  'Profile details saved. Please check your email for activation code.' => '',
+  'Profile details saved. We will let you know when your account is activated.' => '',
   'Profiles below {n}% will not get as many hits.' => '',
   'Profiles with {n}% or less will not be shown in the results.' => '',
   'Project already has this link.' => '',

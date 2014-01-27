@@ -131,7 +131,7 @@ return array (
   'Problem saving link. Please check fields for correct values.' => 'Greška kod spremanja linka. Provjerite sva polja.',
   'Problem saving skill. Please check fields for correct values.' => 'Greška kod spremanja linka. Provjerite sva polja.',
   'Profile details saved.' => 'Detalji profila spremljeni.',
-  'Profile details saved. Please check your email for activation code.' => 'Detalji profila spremljeni. Na Vaš email je poslan aktivacijski kod.',
+  'Profile details saved. We will let you know when your account is activated.' => 'Detalji profila spremljeni. ',
   'Profiles below {n}% will not get as many hits.' => 'Profili ispod {n}% ispunjenosti neće imati toliko pregleda.',
   'Profiles with {n}% or less will not be shown in the results.' => 'Profili s {n} ili manje % ispunjenosti se neće pokazati u rezultatima pretraživanja.',
   'Project already has this link.' => 'Projekt već ima ovaj link.',

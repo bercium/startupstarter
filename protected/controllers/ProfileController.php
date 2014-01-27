@@ -134,17 +134,19 @@ class ProfileController extends GxController {
 				if (isset($_POST['UserEdit']) && isset($_POST['UserMatch'])) {
          
           //VANITY URL
-          if (!$allowVanityURL && ($_POST['UserEdit']['vanityURL'] != '')) $_POST['UserEdit']['vanityURL'] = '';
-          else{
-            // check validity of vanity URL in projects
-            if ($_POST['UserEdit']['vanityURL'] != $user->vanityURL){
-              $ideaURL = Idea::model()->findByAttributes(array('vanityURL'=>$_POST['UserEdit']['vanityURL']));
-              if ($ideaURL){
-                //echo "b";
-                $user->addError('vanityURL', Yii::t('msg',"This custom URL already exists."));
+          if (isset($_POST['UserEdit']['vanityURL'])){
+            if (!$allowVanityURL && ( $_POST['UserEdit']['vanityURL'] != '')) $_POST['UserEdit']['vanityURL'] = '';
+            else{
+              // check validity of vanity URL in projects
+              if ($_POST['UserEdit']['vanityURL'] != $user->vanityURL){
+                $ideaURL = Idea::model()->findByAttributes(array('vanityURL'=>$_POST['UserEdit']['vanityURL']));
+                if ($ideaURL){
+                  //echo "b";
+                  $user->addError('vanityURL', Yii::t('msg',"This custom URL already exists."));
+                }
               }
             }
-          }       
+          }
           
           
 					$user->setAttributes($_POST['UserEdit']);
@@ -238,7 +240,7 @@ class ProfileController extends GxController {
           }
           
           if (($c == 0) && ($match->save())) {
-            if (Yii::app()->user->isGuest) setFlash('profileMessage', Yii::t('msg',"Profile details saved. Please check your email for activation code."));
+            if (Yii::app()->user->isGuest) setFlash('profileMessage', Yii::t('msg',"Profile details saved. We will let you know when your account is activated."));
             else setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
             $c = new Completeness();
             $c->setPercentage($user_id);
@@ -299,7 +301,7 @@ class ProfileController extends GxController {
 
     $us = UserStat::model()->findByAttributes(array("user_id"=>$user_id));
         // set only if has invited at least 3 other people
-    $allowVanityURL = (($user->vanityURL != '') || ($us->invites_send > 2));
+    $allowVanityURL = ($us && (($user->vanityURL != '') || ($us->invites_send > 2)));
         
 		if ($user) {
 
@@ -312,7 +314,7 @@ class ProfileController extends GxController {
 				$_POST['UserEdit']['email'] = $user->email; // can't change email at this time!!!
         
         // set only if has invited at least 3 other people
-        if (!$allowVanityURL && ($_POST['UserEdit']['vanityURL'] != '')) $_POST['UserEdit']['vanityURL'] = '';
+        if (!$allowVanityURL && (isset($_POST['UserEdit']['vanityURL']) && $_POST['UserEdit']['vanityURL'] != '')) $_POST['UserEdit']['vanityURL'] = '';
         else{
           // check validity of vanity URL in projects
           if ($_POST['UserEdit']['vanityURL'] != $user->vanityURL){

@@ -131,7 +131,7 @@
   'Problem saving link. Please check fields for correct values.' => 'Povezava za reševanje problemov. Prosimo preverite če imajo polja prave vrednosti.',
   'Problem saving skill. Please check fields for correct values.' => 'Ni bilo možno shraniti znanja. Prosimo preverite vsa polja za pravilne vrednosti.',
   'Profile details saved.' => 'Profil uspešno shranjen.',
-  'Profile details saved. Please check your email for activation code.' => 'Profil uspešno shranjen. Prosimo preverite ali ste že prejeli email z aktivacijsko kodo.',
+  'Profile details saved. We will let you know when your account is activated.' => 'Profil uspešno shranjen. Ko bo vaš račun odobren boste prejeli obvestilo.',
   'Profiles below {n}% will not get as many hits.' => 'Profili pod {n}% ne bodo deležni toliko ogledov.',
   'Profiles with {n}% or less will not be shown in the results.' => 'Profili z {n}% ali manj ne bodo prikazani.',
   'Project already has this link.' => 'Projekt že ima to povezavo.',

@@ -52,6 +52,7 @@ class WebUser extends CWebUser
       //if (Yii::app()->user->isGuest) return;
 
       $user = Yii::app()->getModule('user')->user($this->id);
+      if (!$user) return;
       $this->name = $user->email;
       $userAttributes = /*CMap::mergeArray(*/array(
                                               'email'=>$user->email,
