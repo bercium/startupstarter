@@ -54,7 +54,7 @@
 			<li>
 			<div class="">
 
-			<div class="pall125em radius-all  whats-new radius fancy-border">
+			<div class="pall125em radius-all  whats-new radius fancy-border" style="min-height:203px;">
 			<h2><?php echo Yii::t('app','Open position sharing'); ?></h2>
 			<p>
 			<?php echo Yii::t('msg','Share open positions with your friends and help projects with your social reach'); ?>
