@@ -596,8 +596,8 @@ EOD;
     $filename = "calendar.json";
     $folder = Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['tempFolder'];
       
-    //if (!file_exists($folder.$filename)){
-    if (true){    
+    if (!file_exists($folder.$filename)){
+    //if (true){    
       $controller = 'general';
       $action = 'loadCalendars';
       

@@ -1,5 +1,6 @@
 <?php
 $this->pageTitle = Yii::t('app', 'Registration');
+if (isset($_GET['tag'])) $this->pageTitle .= " - ".$_GET['tag'];
 ?>
 
 <?php if(Yii::app()->user->hasFlash('registration')):

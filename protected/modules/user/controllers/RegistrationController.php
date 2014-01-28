@@ -58,6 +58,15 @@ class RegistrationController extends Controller
                       $user_match = new UserMatch();
                       $user_match->user_id = $model->id;
                       $user_match->save();
+                      
+                      $com = new Completeness();
+                      $com->setPercentage($model->id);
+                      
+                      if (isset($_GET['tag'])){
+                        $usertag = new UserTag();
+                        $usertag->user_id = $model->id;
+                        $usertag->tag = $_GET['tag'];
+                      }
 
                       $activation_url = '<a href="'.$this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $model->activkey, "email" => $model->email)).'">Activate</a>';
 

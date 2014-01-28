@@ -104,6 +104,14 @@ else {
         $activation_url = $this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $us->activkey, "email" => $user['email']));
         ?>
         <a class="button alert small-12 radius" href="<?php echo $activation_url; ?>" ><?php echo Yii::t('app', 'Activate this user'); ?></a>
+        <p><?php 
+          $usertag = UserTag::model()->FindAllByAttributes(array("user_id"=>$user['id']));
+          if ($usertag){
+            foreach ($usertag as $usrtag){
+              echo "<span class='label'>".$usrtag->tag."</span> ";
+            }
+          }
+        ?></p>
       <?php } ?>
         
       <?php if ($user['id'] == Yii::app()->user->id){ ?>
