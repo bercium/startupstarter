@@ -62,12 +62,6 @@ class RegistrationController extends Controller
                       $com = new Completeness();
                       $com->setPercentage($model->id);
                       
-                      if (isset($_GET['tag'])){
-                        $usertag = new UserTag();
-                        $usertag->user_id = $model->id;
-                        $usertag->tag = $_GET['tag'];
-                      }
-
                       $activation_url = '<a href="'.$this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $model->activkey, "email" => $model->email)).'">Activate</a>';
 
                       // if invitation set
@@ -75,7 +69,7 @@ class RegistrationController extends Controller
                         //notify us
                         $message = new YiiMailMessage;
                         $message->view = 'system';
-                        $message->subject = 'New user registered';
+                        $message->subject = 'New user registered ('.$model->name." ".$model->surname.')';
                         $message->setBody(array("content"=>"To check his profile go to ".$this->createAbsoluteUrl("/person/view",array("id"=>$model->id)).
                                                 "<br /><br />".
                                                 "If something is wrong send him this url to fix his profile: ".
@@ -121,10 +115,29 @@ class RegistrationController extends Controller
                         return;
                       }
 
+                      // if someone is coming to an event
+                      if (isset($_GET['event'])){
+                        $usertag = new UserTag();
+                        $usertag->user_id = $model->id;
+                        $usertag->tag = $_GET['event'];
+                        
+                        // send message to hekovnik group
+                        $message = new YiiMailMessage;
+                        $message->view = 'system';
+                        $message->subject = "Nov uporabnik prijavljen na dogodek ".$_GET['event'];
+                        $message->setBody(array("content"=>'Uporabnik '.$model->name." ".$model->surname.' se je pravkar prijavil na dogodek.'), 'text/html');
+                        
+                        //$message->addTo("cofinder@hekovnik.si");
+                        $message->addTo("dev@cofinder.eu");
+                        $message->from = Yii::app()->params['noreplyEmail'];
+                        Yii::app()->mail->send($message);
+                        
+                        $this->render('message',array('title'=>Yii::t('app','Thank you for registering to this event'),"content"=>Yii::t('msg','We will get back to you in a couple of days with confirmation.')));
+                        return;
 
-                      $this->redirect(Yii::app()->createUrl("profile/registrationFlow",array("key"=>substr($model->activkey,0, 10),"email"=>$model->email)));
+                      }else $this->redirect(Yii::app()->createUrl("profile/registrationFlow",array("event"=>substr($model->activkey,0, 10),"email"=>$model->email)));
 
-                      $this->render('/user/message',array('title'=>Yii::t('app','Registration'),"content"=>Yii::t('msg','Thank you for your registration. Please check your email.')));
+                      //$this->render('/user/message',array('title'=>Yii::t('app','Registration'),"content"=>Yii::t('msg','Thank you for your registration. Please check your email.')));
 
                         /*if (Yii::app()->controller->module->sendActivationMail) {
                              $activation_url = $this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $model->activkey, "email" => $model->email));
