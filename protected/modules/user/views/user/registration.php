@@ -9,18 +9,19 @@ if (isset($_GET['tag'])) $this->pageTitle .= " - ".$_GET['tag'];
 
 <?php $form=$this->beginWidget('UActiveForm', array(
 	'id'=>'registration-form',
-	'htmlOptions' => array('enctype'=>'multipart/form-data',"class"=>"custom large-6 small-12"),
+	'htmlOptions' => array('enctype'=>'multipart/form-data',"class"=>"custom"),
 )); ?>
 
+<?php /* ?>
 	<p class="note"><?php echo Yii::t('msg','Fields with <span class="required">*</span> are required.'); ?></p>
 	
-	<?php //echo $form->errorSummary(array($model,$profile)); ?>
-	
+	<?php */ //echo $form->errorSummary(array($model,$profile)); ?>
+	<p class="large-6">
 	<?php echo $form->labelEx($model,'name'); ?>
 	<?php echo $form->textField($model,'name'); ?>
 
- 	<?php echo $form->labelEx($model,'surname'); ?>
-	<?php echo $form->textField($model,'surname'); ?>
+ 	<?php  echo $form->labelEx($model,'surname'); ?>
+	<?php echo $form->textField($model,'surname');  ?>
 
 	<?php echo $form->labelEx($model,'email'); ?>
 	<?php echo $form->textField($model,'email'); ?>
@@ -31,20 +32,20 @@ if (isset($_GET['tag'])) $this->pageTitle .= " - ".$_GET['tag'];
 	</span>  
 	<?php echo $form->passwordField($model,'password'); ?>
 	
-	<?php echo $form->labelEx($model,'verifyPassword'); ?>
-	<?php echo $form->passwordField($model,'verifyPassword'); ?>
+	<?php /* echo $form->labelEx($model,'verifyPassword'); ?>
+	<?php echo $form->passwordField($model,'verifyPassword'); */ ?>
 
 	
-	<?php /* if (UserModule::doCaptcha('registration')): ?>
+	<?php  if (UserModule::doCaptcha('registration')): ?>
 		<?php echo $form->labelEx($model,'verifyCode'); ?>
 		
 		<?php $this->widget('CCaptcha'); ?>
 		<?php echo $form->textField($model,'verifyCode'); ?>
 		
-		<p class="hint"><?php echo Yii::t('msg',"Please enter the letters as they are shown in the image above."); ?>
-		<br/><?php echo Yii::t('msg',"Letters are not case-sensitive."); ?></p>
-	<?php endif; */ ?>
-    
+		<span class="description"><?php echo Yii::t('msg',"Please enter the letters as they are shown in the image above."); ?>
+		<br/><?php echo Yii::t('msg',"Letters are not case-sensitive."); ?></span>
+	<?php endif;  ?>
+  </p>    
   <label for="RegistrationForm_tos" <?php if ($form->error($model,'tos')) echo 'class="error"'; ?>>
  	<?php echo $form->checkBox($model,'tos',array('style'=>'display:none')); ?>
 	<?php 

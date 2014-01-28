@@ -154,6 +154,8 @@ class RegistrationController extends Controller
                       $model->verifyPassword = $soucePassword;
                     }
                 } /*else $profile->validate();*/
+            }else{
+              $model->tos = true;
             }
 
             $this->render('/user/registration',array('model'=>$model));

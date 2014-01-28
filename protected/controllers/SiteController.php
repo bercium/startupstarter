@@ -26,7 +26,8 @@ class SiteController extends Controller
 		return array(
 			array('allow', // allow all users to perform actions
         'actions'=>array('index','error','logout','about','terms','notify','notifyFacebook','suggestCountry',
-                         'suggestSkill','suggestCity','unbsucribeFromNews','cookies','sitemap','startupEvents'),
+                         'suggestSkill','suggestCity','unbsucribeFromNews','cookies','sitemap','startupEvents',
+                         'applyForEvent'),
 				'users'=>array('*'),
 			),
 			/*array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -631,6 +632,24 @@ EOD;
       setFlash("discoverPerson", Yii::t('msg','To see all events please login or {register}',array('{register}'=>$register)), "alert", false);
     }
     $this->render("calendar",array("events"=>$events));
+  }
+  
+  /**
+   * apply for events
+   */
+  public function actionApplyForEvent($event){
+    if (!Yii::app()->user->isGuest){
+      $userTag = UserTag::model()->findByAttributes();
+      if (!$userTag){
+        $userTag = new UserTag();
+        $userTag->user_id = Yii::app()->user->id;
+        $userTag->tag = $event;
+      }
+      $this->render("message",array("title"=>"Event","content"=>"Yeeey you are a happy hippo"));
+    }else{
+      $this->redirect(array("/user/registration","key"=>"EVEEENT"));
+      return;
+    }
   }
 	
 }
