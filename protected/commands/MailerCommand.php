@@ -89,7 +89,7 @@ class MailerCommand extends CConsoleCommand{
     $message->from = Yii::app()->params['noreplyEmail'];
     
     // send newsletter to all in waiting list
-    $hidden = UserStat::model()->findAll("completeness < :comp",array(":comp"=>PROFILE_COMPLETENESS_MIN));
+    $hidden = UserStat::model()->findAll("completeness < :comp AND status = :status",array(":comp"=>PROFILE_COMPLETENESS_MIN, ":status"=>1));
     foreach ($hidden as $stat){
       $email = $stat->user->email;
       $message->subject = $stat->user->name." your profile is not visible!";
