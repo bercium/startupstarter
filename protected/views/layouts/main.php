@@ -86,9 +86,11 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
                   <a href="<?php echo Yii::app()->createUrl("profile"); ?>">
                     <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
                   </a>
-                  <?php if ($this->getNotifications()){ ?>
+                  <?php 
+                    $notifications = $this->getNotifications();
+                    if (count($notifications) > 0){ ?>
                     <a href="<?php echo Yii::app()->createUrl("profile/notification"); ?>" style="position:relative;top: 10px;left:20px;">
-                      <span class="icon-flag" style="cursor: pointer; color: /*#CD3438*/ #89B561;font-size: 1.4em;"> <?php echo $this->getNotifications(); ?></span>
+                      <span class="icon-flag" style="cursor: pointer; color: /*#CD3438*/ #89B561;font-size: 1.4em;"> <?php echo count($notifications); ?></span>
                     </a>
                   <?php } ?>                  
                 </div>
@@ -178,11 +180,13 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
                 </ul>
 
               </li>
-                <?php if ($this->getNotifications()){ ?>
+                <?php 
+                 $notifications = $this->getNotifications();
+                    if (count($notifications) > 0){ ?>
                 <li class="divider"></li>
                 <li class="desc">
                   <a href="<?php echo Yii::app()->createUrl("profile/notification"); ?>" style="padding-top: 13px; background-color: #89B561;" data-tooltip title="<?php echo Yii::t("msg","You have been invited to a project.") ?>">
-                    <span class="icon-flag" style="cursor: pointer; color: /*#CD3438*/ #FFF;font-size: 1.4em;"> <?php echo $this->getNotifications(); ?></span>
+                    <span class="icon-flag" style="cursor: pointer; color: /*#CD3438*/ #FFF;font-size: 1.4em;"> <?php echo count($notifications); ?></span>
                   </a>
                 </li>
                 <?php } ?>

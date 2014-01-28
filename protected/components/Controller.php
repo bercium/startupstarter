@@ -114,10 +114,25 @@ class Controller extends CController
   public function getNotifications(){
     //$value = Yii::app()->cache->get("cacheNotifications");
     //if($value === false){
-      Yii::log(Yii::app()->user->name.",, ".Yii::app()->user->isGuest.": ".json_encode(Yii::app()->user), CLogger::LEVEL_INFO, 'custom.info.user');
-      $value = Invite::model()->countByAttributes(array(),"(receiver_id = :idReceiver OR email LIKE :email) AND NOT ISNULL(idea_id)",array(":idReceiver"=>Yii::app()->user->id,":email"=>Yii::app()->user->email));
+    $notifications = array();
+    Yii::log(Yii::app()->user->name.", ".Yii::app()->user->isGuest.": ".json_encode(Yii::app()->user), CLogger::LEVEL_INFO, 'custom.info.user');
+    $value = Invite::model()->countByAttributes(array(),"(receiver_id = :idReceiver OR email LIKE :email) AND NOT ISNULL(idea_id)",array(":idReceiver"=>Yii::app()->user->id,":email"=>Yii::app()->user->email));
+    if ($value){
+      $notifications[] = array('count'=>$value,'message'=>'invite-member');
+    }
+    return $notifications;
       //Yii::app()->cache->set("cacheNotifications", $value, 30);
     //}
-    return $value;
+    $connection=Yii::app()->db;
+		$command=$connection->createCommand($sql);
+		$notif=$command->query();    
+    $notif = Notification::model()->findAllBySql('SELECT type FROM notification WHERE user_id = :userId AND viewed = :viewed GROUP BY type',
+                                 array(':userId'=>Yii::app()->user->id,':viewed'=>0));
+    
+    foreach ($notif as $n){
+      $notifications[] = array('count'=>$n->c,'message'=>$n->type);
+    } return array();
+    
+    return $notifications;
   }
 }
