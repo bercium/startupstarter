@@ -924,7 +924,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
   border-top:1px solid #111;
   padding-top: 30px;
   border-top: 5px solid #89B561;
-  text-align: center;i
+  text-align: center;
 }
 
 
@@ -1949,6 +1949,19 @@ html, body {
 	height: 108px; 
 }
 
+.supporters {
+  /*height:50px;*/
+  margin:20px 30px;
+  max-height: 80px;
+}
+   
+
+ /* Wrapword */
+.wrapword {
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    word-break: break-all;
+    white-space: normal;
+}
 
 @media only screen and (max-width: 767px) {
   
@@ -1969,32 +1982,16 @@ html, body {
 
 
 
-.footer .logo-mini {
-	margin: 0 auto;
-		display: block;
-}
+  .footer .logo-mini {
+    margin: 0 auto;
+      display: block;
+  }
 
-.footer ul.footer-links {
-    display: inline-block;
-     margin: 16px 0 10px;
-    margin: 0;
-    padding-bottom: 30px;
-}
+  .footer ul.footer-links {
+      display: inline-block;
+       margin: 16px 0 10px;
+      margin: 0;
+      padding-bottom: 30px;
+  }
 
-
-
-   .supporters{
-     /*height:50px;*/
-     margin:20px 30px;
-     max-height: 80px;
-   }
-
-
-   
-
- /* Wrapword */
-.wrapword {
-    word-wrap: break-word;       /* Internet Explorer 5.5+ */
-    word-break: break-all;
-    white-space: normal;
 }

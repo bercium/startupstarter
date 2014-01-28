@@ -144,6 +144,10 @@
          <a href="http://www.ustvarjalnik.org/" target="_blank">
            <img class="supporters" src="<?php echo Yii::app()->request->baseUrl; ?>/images/supporters/ustvarjalnik.png" title="Ustvarjalnik" data-tooltip>
          </a>
+         
+         <a href="http://hekovnik.com/" target="_blank">
+           <img class="supporters" src="<?php echo Yii::app()->request->baseUrl; ?>/images/supporters/hekovnik.png" title="Hekovnik - startup school" data-tooltip>
+         </a>         
        </p>
        
   </div>
