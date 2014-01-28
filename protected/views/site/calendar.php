@@ -44,7 +44,7 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
       <div id="drop-cal-info-location"class="mb8 meta" style="font-weight: bold;"></div>
       <p id="drop-cal-info-content"></p>
     </small>
-    <a href="" target="_blank" class="right button small radius" id="drop-cal-info-link"><?php echo Yii::t('app','Read more'); ?></a>
+    <a href="" target="_blank" class="right button small radius" id="drop-cal-info-link"><?php echo Yii::t('app','Event page'); ?></a>
   </div>
 </div>
 

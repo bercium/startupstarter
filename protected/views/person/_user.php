@@ -16,7 +16,7 @@
             
 						<small >
               <span class="l-inline  icon-map-marker"></span>
-              <a class="" data-tooltip title="<img src='<?php echo getGMap($user['country'],$user['city'],$user['address']); ?>'>">
+              <a class="tip-top" data-tooltip title="<img src='<?php echo getGMap($user['country'],$user['city'],$user['address']); ?>'>">
            
              
               <?php

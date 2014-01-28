@@ -22,6 +22,8 @@ $(document).ready(function() {
       defaultView:dv,
       header: va,
 			editable: false,
+      minTime:7,
+      maxTime:22,
       timeFormat: {
         // for agendaWeek and agendaDay
         agendaWeek: 'H:mm{ - H:mm}', // 5:00 - 6:30

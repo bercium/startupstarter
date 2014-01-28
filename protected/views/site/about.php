@@ -10,9 +10,7 @@
    
    <div class="large-7  columns">
     <h1><?php echo Yii::t('app','What is cofinder'); ?></h1>
-    <h2><?php echo Yii::t('app','Introduction'); ?></h2>
-    
-		 
+
 		<p>
 		<?php 
 			echo Yii::t('cont','We are a group of enthusiasts with a mission to help anyone with a great idea to assemble a successful start-up team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the like-minded entrepreneurs and search for interesting projects.');
