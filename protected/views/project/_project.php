@@ -18,7 +18,7 @@
                 
                 <span class="meta tip-top" data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>"> 
                   <a class="stage" href="<?php echo Yii::app()->createURL("project/discover",array("SearchForm"=>array("stage"=>$idea['status_id']))); ?>">
-                  <span class="icon-awesome icon-signal" title="<?php echo Yii::t('app',"Stage of project"); ?>"></span>
+                  <span class="icon-awesome  icon-rocket" title="<?php echo Yii::t('app',"Stage of project"); ?>"></span>
                     <?php echo $idea['status']; ?>
                   </a>
                 </span>

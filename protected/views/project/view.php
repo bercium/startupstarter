@@ -113,8 +113,8 @@ else $this->pageDesc = trim_text(strip_tags($idea['pitch']), 150);
             <div class="right pb15">
 
 
-                <h4 class="l-inline mt10"><span class="icon-awesome icon-signal mr5"></span>
-                    <?php echo Yii::t('app', 'Stage'); ?>
+                <h4 class="l-inline mt10"><span class="icon-awesome icon-rocket"></span>
+                    
                 </h4>
                 <a style="font-size:14px;" data-tooltip
                    title="<?php echo Yii::t('app', "Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>">
@@ -160,7 +160,7 @@ else $this->pageDesc = trim_text(strip_tags($idea['pitch']), 150);
                         <a id="candidates" class="anchor-link"></a>
                         <?php echo Yii::t('app', 'Looking for {n} candidate|Looking for {n} candidates', array(count($idea['candidate']))); ?>
                         <a href="#" class="button tiny radius secondary right" trk="project_button_shareCandidates"
-                           data-dropdown="drop-candidate-share"><span class="icon-share mr8"></span>share</a>
+                           data-dropdown="drop-candidate-share" data-options="is_hover:true"><span class="icon-share mr8"></span>share this position</a>
                     </h3>
 
                     <?php
