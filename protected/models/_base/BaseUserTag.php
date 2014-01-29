@@ -12,6 +12,7 @@
  * @property string $id
  * @property string $user_id
  * @property string $tag
+ * @property string $applied_at
  *
  */
 abstract class BaseUserTag extends GxActiveRecord {
@@ -37,7 +38,8 @@ abstract class BaseUserTag extends GxActiveRecord {
 			array('user_id, tag', 'required'),
 			array('user_id', 'length', 'max'=>10),
 			array('tag', 'length', 'max'=>255),
-			array('id, user_id, tag', 'safe', 'on'=>'search'),
+      array('applied_at', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
+			array('id, user_id, tag, applied_at', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,6 +58,7 @@ abstract class BaseUserTag extends GxActiveRecord {
 			'id' => Yii::t('app', 'ID'),
 			'user_id' => Yii::t('app', 'User'),
 			'tag' => Yii::t('app', 'Tag'),
+      'applied_at' => '',
 		);
 	}
 
@@ -65,6 +68,7 @@ abstract class BaseUserTag extends GxActiveRecord {
 		$criteria->compare('id', $this->id, true);
 		$criteria->compare('user_id', $this->user_id, true);
 		$criteria->compare('tag', $this->tag, true);
+    $criteria->compare('applied_at', $this->applied_at, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

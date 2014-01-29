@@ -1,6 +1,6 @@
 <?php
 $this->pageTitle = Yii::t('app', 'Registration');
-if (isset($_GET['tag'])) $this->pageTitle .= " - ".$_GET['tag'];
+if (isset($_GET['event'])) $this->pageTitle .= " - ".$_GET['event'];
 ?>
 
 <?php if(Yii::app()->user->hasFlash('registration')):
@@ -16,7 +16,14 @@ if (isset($_GET['tag'])) $this->pageTitle .= " - ".$_GET['tag'];
 	<p class="note"><?php echo Yii::t('msg','Fields with <span class="required">*</span> are required.'); ?></p>
 	
 	<?php */ //echo $form->errorSummary(array($model,$profile)); ?>
-	<p class="large-6">
+<?php if (isset($_GET['event'])){ ?>
+<div class="right panel radius large-5 small-12">
+  <p><?php echo Yii::t('msg','Cofinder members login to apply for this event'); ?></p>
+  <a href="" class="button small radius small-12"><?php echo Yii::t('app','Login'); ?></a>
+</div>
+<?php } ?>
+	<div class="large-6">
+  <p>
 	<?php echo $form->labelEx($model,'name'); ?>
 	<?php echo $form->textField($model,'name'); ?>
 
@@ -56,6 +63,6 @@ if (isset($_GET['tag'])) $this->pageTitle .= " - ".$_GET['tag'];
   <br /><br />
 	
 	<?php echo CHtml::submitButton(Yii::t('app',"Register"),array("class"=>"radius small button")); ?>
-
+  </div>
 <?php $this->endWidget(); ?>
 <?php endif; ?>
