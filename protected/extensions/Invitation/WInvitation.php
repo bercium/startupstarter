@@ -33,9 +33,7 @@ class WInvitation extends CWidget
                 $invitation->receiver_id = $invitee->id;
 
                 if ($invitation->save()){
-                  $notify = new Notification();
-                  $notify->user_id = $user->id;
-                  $notify->type = 'invite-member';
+                  Notifications::setNotification($user->id,Notifications::NOTIFY_PROJECT_INVITE);
       
                   $idea = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$invitation->idea_id),array('order' => 'FIELD(language_id, 40) DESC'));
 
