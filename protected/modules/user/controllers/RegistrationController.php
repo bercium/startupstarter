@@ -126,7 +126,7 @@ class RegistrationController extends Controller
                         $message->from = Yii::app()->params['noreplyEmail'];
                         Yii::app()->mail->send($message);                        
                         
-                        $this->render('message',array('title'=>Yii::t('app','Thank you for registering to this event'),"content"=>Yii::t('msg','We will get back to you in a couple of days with confirmation.')));
+                        $this->render('/site/message',array('title'=>Yii::t('app','Thank you for registering to this event'),"content"=>Yii::t('msg','We will get back to you in a couple of days with confirmation.')));
                         return;
 
                       }else{

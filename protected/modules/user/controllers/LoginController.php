@@ -23,7 +23,8 @@ class LoginController extends Controller
           //Yii::app()->setLanguage();  // set language from user settings
           
           //echo Yii::app()->request->urlReferrer;
-          
+          if (!empty($_POST['UserLogin']['redirect'])) $this->redirect($_POST['UserLogin']['redirect']);
+            
 					if (Yii::app()->getBaseUrl()."/index.php" === Yii::app()->user->returnUrl)
 						$this->redirect(Yii::app()->controller->module->returnUrl);
 					else 

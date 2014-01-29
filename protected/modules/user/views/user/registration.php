@@ -19,11 +19,25 @@ if (isset($_GET['event'])) $this->pageTitle .= " - ".$_GET['event'];
 <?php if (isset($_GET['event'])){ ?>
 <div class="right panel radius large-5 small-12">
   <p><?php echo Yii::t('msg','Cofinder members login to apply for this event'); ?></p>
-  <a href="" class="button small radius small-12"><?php echo Yii::t('app','Login'); ?></a>
+  <a href="#" onclick="$('#UserLogin_redirect').val('<?php echo Yii::app()->createUrl('site/applyForEvent',array("event"=>$_GET['event'])); ?>')" data-dropdown="drop-login" class="button small radius small-12"><?php echo Yii::t('app','Login here'); ?></a>
 </div>
 <?php } ?>
-	<div class="large-6">
-  <p>
+	<div>
+  <p class="large-6">
+  <?php if (isset($_GET['event'])){ ?>
+    
+    <?php echo CHtml::label(Yii::t('app','Do you wish to')." *",false); ?>
+    <?php echo CHtml::radioButton('UserLogin[present]',false,array("value"=>"idea")).Yii::t('app','Present you'); ?>
+    <br />
+    <?php echo CHtml::radioButton('UserLogin[present]',false,array("value"=>"myself")).Yii::t('app','');  ?>
+    <br /><br />
+    <?php echo CHtml::label(Yii::t('app','Have you ever been a cofounder?')." *",false); ?>
+    <?php echo CHtml::radioButton('UserLogin[cofounder]',false,array("value"=>"yes")).Yii::t('app','Yes'); ?>
+    <br />
+    <?php echo CHtml::radioButton('UserLogin[cofounder]',false,array("value"=>"no")).Yii::t('app','No');  ?>
+    <br /><br />    
+  <?php } ?>
+    
 	<?php echo $form->labelEx($model,'name'); ?>
 	<?php echo $form->textField($model,'name'); ?>
 
@@ -52,7 +66,7 @@ if (isset($_GET['event'])) $this->pageTitle .= " - ".$_GET['event'];
 		<span class="description"><?php echo Yii::t('msg',"Please enter the letters as they are shown in the image above."); ?>
 		<br/><?php echo Yii::t('msg',"Letters are not case-sensitive."); ?></span>
 	<?php endif;  ?>
-  </p>    
+  </p>
   <label for="RegistrationForm_tos" <?php if ($form->error($model,'tos')) echo 'class="error"'; ?>>
  	<?php echo $form->checkBox($model,'tos',array('style'=>'display:none')); ?>
 	<?php 

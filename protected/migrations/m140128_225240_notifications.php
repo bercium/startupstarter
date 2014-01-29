@@ -14,9 +14,7 @@ class m140128_225240_notifications extends CDbMigration
                     KEY `user_id` (`user_id`)
                   ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
 
-    $this->execute("ALTER TABLE `notification` ADD FOREIGN KEY ( `user_id` ) REFERENCES `user` (`id` ) ON DELETE CASCADE ON UPDATE CASCADE ;");
-    $this->execute("ALTER TABLE `user_tag` ADD `applied_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ;");
-    
+    $this->execute("ALTER TABLE `notification` ADD FOREIGN KEY ( `user_id` ) REFERENCES `user` (`id` ) ON DELETE CASCADE ON UPDATE CASCADE ;");    
 	}
 
 	public function down()

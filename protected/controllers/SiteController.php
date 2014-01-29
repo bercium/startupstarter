@@ -27,7 +27,7 @@ class SiteController extends Controller
 			array('allow', // allow all users to perform actions
         'actions'=>array('index','error','logout','about','terms','notify','notifyFacebook','suggestCountry',
                          'suggestSkill','suggestCity','unbsucribeFromNews','cookies','sitemap','startupEvents',
-                         'applyForEvent'),
+                         'applyForEvent','vote'),
 				'users'=>array('*'),
 			),
 			/*array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -658,20 +658,25 @@ EOD;
         $message->from = Yii::app()->params['noreplyEmail'];
         Yii::app()->mail->send($message);
         
-        return;
         // nam sporočilo o registraciji z mailom
         $message->setBody(array("content"=>'Uporabnik '.Yii::app()->user->fullname.' se je pravkar prijavil na dogodek.<br /><br />
                                     Njegov email: '.Yii::app()->user->email.'<br /><br />
                                     Njegov profil na Cofinderju si lahko ogledate <a href="'.$this->createAbsoluteUrl("/person/view",array("id"=>Yii::app()->user->id)).'">tukaj</a>'), 'text/html');
         $message->addTo("team@cofinder.eu");
         Yii::app()->mail->send($message);
-      }      
-      $this->render('message',array('title'=>Yii::t('app','Thank you for registering for this event'),
-                                    'content'=>Yii::t('msg','We will get back to you in a few days with further instructions.')));
+      }
+      $this->render('message',array('title'=>Yii::t('app','Thank you for applying to this event'),
+                                    'content'=>Yii::t('msg','We need to confirm your application and will get back to you with further instructions.')));
     }else{
       $this->redirect(array("/user/registration","event"=>$event));
       return;
     }
+  }
+  
+  public function actionVote(){
+     $this->render('message',array('title'=>Yii::t('app','Thank you for voting'),
+                                    'content'=>Yii::t('msg','Go to ').'<a href="http://www.cofinder.eu">Cofinder</a>'));
+ 
   }
 	
 }

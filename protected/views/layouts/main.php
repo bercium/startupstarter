@@ -251,6 +251,8 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
       <?php echo CHtml::label(Yii::t('app','Password'),'UserLogin_password'); ?>
       <?php echo CHtml::passwordField('UserLogin[password]') ?>
 
+      <?php echo CHtml::hiddenField('UserLogin[redirect]'); ?>
+    
       <div class="login-floater">
 				<?php echo CHtml::submitButton(Yii::t("app","Login"),array("class"=>"button small radius")); ?>
       </div>

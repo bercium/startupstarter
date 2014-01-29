@@ -10,6 +10,7 @@ class m140128_075830_user_tag extends CDbMigration
       `tag` varchar(255) NOT NULL,
       PRIMARY KEY (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;");
+    $this->execute("ALTER TABLE `user_tag` ADD `applied_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ;");
 	}
 
 	public function down()
