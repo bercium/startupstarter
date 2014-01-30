@@ -26,16 +26,22 @@ if (isset($_GET['event'])) $this->pageTitle .= " - ".$_GET['event'];
   <p class="large-6">
   <?php if (isset($_GET['event'])){ ?>
     
-    <?php echo CHtml::label(Yii::t('app','Do you wish to')." *",false); ?>
-    <?php echo CHtml::radioButton('UserLogin[present]',false,array("value"=>"idea")).Yii::t('app','Present you'); ?>
-    <br />
-    <?php echo CHtml::radioButton('UserLogin[present]',false,array("value"=>"myself")).Yii::t('app','');  ?>
-    <br /><br />
-    <?php echo CHtml::label(Yii::t('app','Have you ever been a cofounder?')." *",false); ?>
-    <?php echo CHtml::radioButton('UserLogin[cofounder]',false,array("value"=>"yes")).Yii::t('app','Yes'); ?>
-    <br />
-    <?php echo CHtml::radioButton('UserLogin[cofounder]',false,array("value"=>"no")).Yii::t('app','No');  ?>
-    <br /><br />    
+    <p>
+        <label for="p1">
+          <?php echo CHtml::radioButton('UserLogin[present]',false,array("value"=>"Pitch your idea/project","id"=>"p1"))." ".Yii::t('app','Pitch your idea/project'); ?>
+        </label>
+        <label for="p2">
+        <?php echo CHtml::radioButton('UserLogin[present]',false,array("value"=>"Join interesting idea/project","id"=>"p2"))." ".Yii::t('app','Join interesting idea/project');  ?>
+        </label>
+        <br />
+        <?php echo CHtml::label(Yii::t('app','Have you ever been a cofounder?')." *",false); ?>
+        <label for="c1">
+        <?php echo CHtml::radioButton('UserLogin[cofounder]',false,array("value"=>"yes","id"=>"c1"))." ".Yii::t('app','Yes'); ?>
+        </label>
+        <label for="c2">
+        <?php echo CHtml::radioButton('UserLogin[cofounder]',false,array("value"=>"no","id"=>"c2"))." ".Yii::t('app','No');  ?>
+        </label>
+     </p>   
   <?php } ?>
     
 	<?php echo $form->labelEx($model,'name'); ?>
