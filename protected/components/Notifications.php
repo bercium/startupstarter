@@ -40,7 +40,7 @@ class Notifications{
     
     $c = 0;
     foreach ($notif as $n){
-      $c++;
+      $c += $n['c'];
       switch ($n['type']){
         case self::NOTIFY_MESSAGE: 
             $msg = Yii::t('app','New message|New messages',array($n['c'])); 
