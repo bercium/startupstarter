@@ -38,6 +38,47 @@ class Notifications{
     //}
 		$notif=Yii::app()->db->createCommand("SELECT type,COUNT(*) AS c FROM notification WHERE user_id = ".Yii::app()->user->id." AND viewed = 0 GROUP BY type")->queryAll();
     
+    $c = 0;
+    foreach ($notif as $n){
+      $c++;
+      switch ($n['type']){
+        case self::NOTIFY_MESSAGE: 
+            $msg = Yii::t('app','New message|New messages',array($n['c'])); 
+            $link = Yii::app()->createUrl('message');
+          break;
+        case self::NOTIFY_PROJECT_INVITE: 
+            $msg = Yii::t('app','Invitation to join a project|Invitations to join a project',array($n['c'])); 
+            $link = Yii::app()->createUrl('profile/notification');
+          break;
+        case self::NOTIFY_INVISIBLE: 
+            $msg = Yii::t('msg','Your profile is not visible to the public.'); 
+            $link = '';
+          break;
+      }
+      $notifications[] = array('count'=>$n['c'],'message'=>$msg,'link'=>$link, 'type'=>$n['type']);
+    }
+    
+    return array("count"=>$c,"messages"=>$notifications);
+  }
+  
+  /**
+   * 
+   */
+  public static function countNotifications(){
+    //$value = Yii::app()->cache->get("cacheNotifications");
+    //if($value === false){
+    $notifications = array();
+   /* Yii::log(Yii::app()->user->name.", ".Yii::app()->user->isGuest.": ".json_encode(Yii::app()->user), CLogger::LEVEL_INFO, 'custom.info.user');
+    $value = Invite::model()->countByAttributes(array(),"(receiver_id = :idReceiver OR email LIKE :email) AND NOT ISNULL(idea_id)",array(":idReceiver"=>Yii::app()->user->id,":email"=>Yii::app()->user->email));
+    if ($value){
+      $notifications[] = array('count'=>$value,'message'=>self::NOTIFY_PROJECT_INVITE);
+    }*/
+    //return $notifications;
+      //Yii::app()->cache->set("cacheNotifications", $value, 30);
+    //}
+    
+		$notif=Yii::app()->db->createCommand("SELECT COUNT(*) AS c FROM notification WHERE user_id = ".Yii::app()->user->id." AND viewed = 0")->queryAll();
+    
     foreach ($notif as $n){
       
       switch ($n['type']){
