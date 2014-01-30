@@ -158,3 +158,12 @@ function gase(id){
   }
   
 }
+
+function markNotifications(inUrl){
+   $.ajax({
+   type: 'GET',
+   url: inUrl,
+   data:{ajax: 1},
+   dataType:'html'
+  });
+}

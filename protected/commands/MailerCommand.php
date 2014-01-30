@@ -103,9 +103,7 @@ class MailerCommand extends CConsoleCommand{
       $message->setTo($email);
       Yii::app()->mail->send($message);
 
-      $notify = new Notification();
-      $notify->user_id = $stat->user_id;
-      $notify->type = 'invisible';
+      Notifications::setNotification($stat->user_id,Notifications::NOTIFY_INVISIBLE);
     }
     return 0;
   }

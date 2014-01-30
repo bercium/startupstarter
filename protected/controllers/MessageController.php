@@ -54,9 +54,7 @@ class MessageController extends Controller
         $db_message->user_to_id = $_POST['user'];
         $replyParams = array('id'=>Yii::app()->user->id,'group'=>'user');
         
-        $notify = new Notification();
-        $notify->user_id = $_POST['user'];
-        $notify->type = 'msg';
+        Notifications::setNotification($_POST['user'],Notifications::NOTIFY_MESSAGE);
       }
       if (!empty($_POST['project'])){
         $db_message->idea_to_id = $_POST['project'];
@@ -91,9 +89,7 @@ class MessageController extends Controller
           // add notification to all members
           $ideaMembers = IdeaMember::model()->findAllByAttributes(array("idea_id"=>$_POST['project']));
           foreach ($ideaMembers as $member){
-            $notify = new Notification();
-            $notify->user_id = $member->match->user_id;
-            $notify->type = 'msg';
+            Notifications::setNotification($member->match->user_id,Notifications::NOTIFY_PROJECT_INVITE);
           }
 
         }else $receiver = User::model()->findByPk($_POST['user']); //reply to person sending to project
