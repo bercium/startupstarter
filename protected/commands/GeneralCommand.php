@@ -115,10 +115,13 @@ class GeneralCommand extends CConsoleCommand{
       
       $event_tmp['location'] = trim(substr($event->location,  strpos($event->location, ":")+3));
 
-      $date = substr($event->location, 0, strpos($event->location, ":")+3);
-      $event_tmp['start'] = str_replace(", ob","",$date);
-      $event_tmp['end'] = str_replace(", ob","",$date);
       $event_tmp['allday'] = false;
+      if (strpos($event->location, ":")===false){
+        $date = substr($event->location, 0, strpos($event->location, " "));
+        $event_tmp['allday'] = true;
+      }else $date = str_replace(", ob","",substr($event->location, 0, strpos($event->location, ":")+3));
+      $event_tmp['start'] = $date;
+      $event_tmp['end'] = $date;
       
       $event_tmp['source'] = "http://www.racunalniske-novice.com/dogodki/";
       
