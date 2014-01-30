@@ -89,9 +89,9 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
                   </a>
                   <?php 
                     //$notifications = $this->getNotifications();
-                    if (count($notifications) > 0){ ?>
+                    if ($notifications['count'] > 0){ ?>
                     <a href="#" data-options="is_hover:true" data-dropdown="notifications" style="position:relative;top: 13px;left:20px;">
-                       <span class="icon-envelope icon-msg-alert"></span><span class="el-msg-alert-mobile mb5 ml5"><?php echo count($notifications); ?></span>
+                       <span class="icon-envelope icon-msg-alert"></span><span class="el-msg-alert-mobile mb5 ml5"><?php echo $notifications['count']; ?></span>
                     </a>
                   <?php } ?>                  
                 </div>
@@ -182,11 +182,11 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
 
               </li>
                 <?php // href="<?php echo Yii::app()->createUrl("profile/notification"); ? >"
-                    if (count($notifications) > 0){ ?>
+                    if ($notifications['count'] > 0){ ?>
                 <li class="divider"></li>
                 <li class="desc">
                   <a href="#" data-dropdown="notifications" data-options="is_hover:true" style="padding-top: 15px; position: relative;" >
-                    <span class="icon-envelope pr15 icon-msg-alert"></span><span class="el-msg-alert"><?php echo count($notifications); ?></span>
+                    <span class="icon-envelope pr15 icon-msg-alert"></span><span class="el-msg-alert"><?php echo $notifications['count']; ?></span>
                   </a>
                 </li>
                 <?php } ?>
@@ -271,19 +271,18 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
   </div>
 </div>
 
-
-<?php if (count($notifications) > 0){ ?>
+<?php if ($notifications['count'] > 0){ ?>
 <div id="notifications" class="f-dropdown small" data-dropdown-content>
   <ul class="side-nav" style="padding:0;">
   <?php 
   
-  foreach ($notifications as $notify){ ?>
+  foreach ($notifications['messages'] as $notify){ ?>
     <li style="padding:3px 8px; font-size: 1em; " onclick="markNotifications('<?php echo Yii::app()->createUrl("site/clearNotif",array("type"=>$notify['type'])); ?>')">
       <a href="<?php echo $notify['link']; ?>" >
-        <span class="label" style="">
+        <div><span class="label radius" style=""></div>
         <?php echo $notify['count']; ?>
         </span>
-        <?php echo $notify['message']; ?>
+        <span style="padding-left:10px; text-indent:-10px;"><?php echo $notify['message']; ?></span>
       </a>
     </li>
   <?php } ?>
