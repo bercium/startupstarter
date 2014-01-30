@@ -199,16 +199,16 @@ class ProfileController extends GxController {
 						$_POST['UserMatch']['user_id'] = $user_id;
 						$match->setAttributes($_POST['UserMatch']);
             
-			            if (!empty($_POST['UserMatch']['city'])){
-			              $city = City::model()->findByAttributes(array('name'=>$_POST['UserMatch']['city']));
-			              if ($city) $match->city_id = $city->id;
-			              else{
-			                $city = new City();
-			                $city->name = $_POST['UserMatch']['city'];
-			                $city->save();
-			                $match->city_id = $city->id;
-			              }
-			            }
+            if (!empty($_POST['UserMatch']['city'])){
+              $city = City::model()->findByAttributes(array('name'=>$_POST['UserMatch']['city']));
+              if ($city) $match->city_id = $city->id;
+              else{
+                $city = new City();
+                $city->name = $_POST['UserMatch']['city'];
+                $city->save();
+                $match->city_id = $city->id;
+              }
+            }else $match->city_id = null;
 
 						if ($match->save()) {
               $c = new Completeness();

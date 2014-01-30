@@ -136,6 +136,7 @@ class RegistrationController extends Controller
                         $message->setBody(array("content"=>'Uporabnik '.$model->name." ".$model->surname.' se je pravkar prijavil na dogodek.<br /><br />'.$userTag->content.'<br /><br />
                                                     Njegov email: '.$model->email), 'text/html');
                         $message->addTo("team@cofinder.eu");
+                        $message->from = Yii::app()->params['noreplyEmail'];
                         Yii::app()->mail->send($message);                        
                         
                         $this->render('/user/message',array('title'=>Yii::t('msg','Thank you for applying to this event'),

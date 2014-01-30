@@ -322,6 +322,12 @@ function decodeFlashMsg($msg){
   }else return $msg;
 }
 
+/**
+ * will return flash data as a string
+ */
+function clearFlashes(){
+  Yii::app()->user->getFlashes(true);
+}
 
 /**
  * will return flash data as a string

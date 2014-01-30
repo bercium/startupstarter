@@ -602,7 +602,7 @@ EOD;
     $filename = "calendar.json";
     $folder = Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['tempFolder'];
       
-    if (!file_exists($folder.$filename)){
+    if (!file_exists($folder.$filename) || YII_DEBUG){
     //if (true){    
       $controller = 'general';
       $action = 'loadCalendars';
@@ -669,12 +669,13 @@ EOD;
 
             $message = new YiiMailMessage;
             $message->view = 'system';
-            $message->subject = "Nov uporabnik (".$model->name." ".$model->surname.") prijavljen na dogodek ".$_GET['event'];
+            $message->subject = "Nov uporabnik (".Yii::app()->user->fullname.") prijavljen na dogodek ".$event;
             // nam sporočilo o registraciji z mailom
             $message->setBody(array("content"=>'Uporabnik '.Yii::app()->user->fullname.' se je pravkar prijavil na dogodek.<br /><br />'.$userTag->content.'<br /><br />
                                         Njegov email: '.Yii::app()->user->email.'<br /><br />
                                         Njegov profil na Cofinderju si lahko ogledate <a href="'.$this->createAbsoluteUrl("/person/view",array("id"=>Yii::app()->user->id)).'">tukaj</a>'), 'text/html');
             $message->addTo("team@cofinder.eu");
+            $message->from = Yii::app()->params['noreplyEmail'];
             Yii::app()->mail->send($message);
           }
           $this->render('message',array('title'=>Yii::t('msg','Thank you for applying to this event'),
