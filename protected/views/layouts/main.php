@@ -83,15 +83,15 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
 							 </div>
                
                <?php if (!Yii::app()->user->isGuest){ ?>
-                <div class="show-for-small" style="margin-left:8px">
+                <div class="show-for-small ml8" >
                   <a href="<?php echo Yii::app()->createUrl("profile"); ?>">
                     <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
                   </a>
                   <?php 
                     //$notifications = $this->getNotifications();
                     if (count($notifications) > 0){ ?>
-                    <a href="#" data-options="is_hover:true" data-dropdown="notifications" style="position:relative;top: 10px;left:20px;">
-                      <span class="icon-flag" style="cursor: pointer; color: /*#CD3438*/ #89B561;font-size: 1.4em;"> <?php echo count($notifications); ?></span>
+                    <a href="#" data-options="is_hover:true" data-dropdown="notifications" style="position:relative;top: 13px;left:20px;">
+                       <span class="icon-envelope icon-msg-alert"></span><span class="el-msg-alert-mobile mb5 ml5"><?php echo count($notifications); ?></span>
                     </a>
                   <?php } ?>                  
                 </div>
@@ -185,8 +185,8 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
                     if (count($notifications) > 0){ ?>
                 <li class="divider"></li>
                 <li class="desc">
-                  <a href="#" data-dropdown="notifications" data-options="is_hover:true" style="padding-top: 13px; background-color: #89B561;" >
-                    <span class="icon-flag" style="cursor: pointer; color: /*#CD3438*/ #FFF;font-size: 1.4em;"> <?php echo count($notifications); ?></span>
+                  <a href="#" data-dropdown="notifications" data-options="is_hover:true" style="padding-top: 15px; position: relative;" >
+                    <span class="icon-envelope pr15 icon-msg-alert"></span><span class="el-msg-alert"><?php echo count($notifications); ?></span>
                   </a>
                 </li>
                 <?php } ?>

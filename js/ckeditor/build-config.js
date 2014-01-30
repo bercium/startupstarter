@@ -13,10 +13,10 @@
  * (1) http://ckeditor.com/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) http://ckeditor.com/builder/58d17ceed4bd9b0c9b7e75489d29fbf3
+ * (2) http://ckeditor.com/builder/a5ccfa7ce408d3724090db457a97ab5f
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) http://ckeditor.com/builder/download/58d17ceed4bd9b0c9b7e75489d29fbf3
+ * (3) http://ckeditor.com/builder/download/a5ccfa7ce408d3724090db457a97ab5f
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
@@ -42,77 +42,11 @@ var CKBUILDER_CONFIG = {
 		'floatingspace' : 1,
 		'indentlist' : 1,
 		'link' : 1,
-		'list' : 1,
-		'resize' : 1,
 		'toolbar' : 1,
 		'undo' : 1,
 		'wysiwygarea' : 1
 	},
 	languages : {
-		'af' : 1,
-		'ar' : 1,
-		'bg' : 1,
-		'bn' : 1,
-		'bs' : 1,
-		'ca' : 1,
-		'cs' : 1,
-		'cy' : 1,
-		'da' : 1,
-		'de' : 1,
-		'el' : 1,
-		'en' : 1,
-		'en-au' : 1,
-		'en-ca' : 1,
-		'en-gb' : 1,
-		'eo' : 1,
-		'es' : 1,
-		'et' : 1,
-		'eu' : 1,
-		'fa' : 1,
-		'fi' : 1,
-		'fo' : 1,
-		'fr' : 1,
-		'fr-ca' : 1,
-		'gl' : 1,
-		'gu' : 1,
-		'he' : 1,
-		'hi' : 1,
-		'hr' : 1,
-		'hu' : 1,
-		'id' : 1,
-		'is' : 1,
-		'it' : 1,
-		'ja' : 1,
-		'ka' : 1,
-		'km' : 1,
-		'ko' : 1,
-		'ku' : 1,
-		'lt' : 1,
-		'lv' : 1,
-		'mk' : 1,
-		'mn' : 1,
-		'ms' : 1,
-		'nb' : 1,
-		'nl' : 1,
-		'no' : 1,
-		'pl' : 1,
-		'pt' : 1,
-		'pt-br' : 1,
-		'ro' : 1,
-		'ru' : 1,
-		'si' : 1,
-		'sk' : 1,
-		'sl' : 1,
-		'sq' : 1,
-		'sr' : 1,
-		'sr-latn' : 1,
-		'sv' : 1,
-		'th' : 1,
-		'tr' : 1,
-		'ug' : 1,
-		'uk' : 1,
-		'vi' : 1,
-		'zh' : 1,
-		'zh-cn' : 1
+		'en' : 1
 	}
 };
