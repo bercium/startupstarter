@@ -1,7 +1,8 @@
 <?php echo CHtml::beginForm('','post',array("class"=>"custom large-7")); ?>
 
-<?php echo CHtml::label(Yii::t('app','Do you wish to')." *",false); ?>
+
   <p>
+    <?php echo CHtml::label(Yii::t('app','Do you wish to')." *",false); ?>
     <label for="p1">
     <?php echo CHtml::radioButton('Event[present]',false,array("value"=>"Pitch your idea/project","id"=>"p1"))." ".Yii::t('app','Pitch your idea/project'); ?>
     </label>

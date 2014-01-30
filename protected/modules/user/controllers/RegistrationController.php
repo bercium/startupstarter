@@ -44,7 +44,9 @@ class RegistrationController extends Controller
             if(isset($_POST['RegistrationForm'])) {
                 $model->attributes=$_POST['RegistrationForm'];
                 //$profile->attributes=((isset($_POST['Profile'])?$_POST['Profile']:array()));
-                if($model->validate()/*&&$profile->validate()*/)
+                $isOK = (isset($_GET['event']) && isset($_POST['RegistrationForm']['cofounder']) && isset($_POST['RegistrationForm']['present'])) || !isset($_GET['event']);
+                if (!$isOK) setFlash ('fields_problem', Yii::t('msg','Please fill all fields!'), 'alert');
+                if($model->validate()/*&&$profile->validate()*/ && $isOK)
                 {
                     $soucePassword = $model->password;
                     $model->activkey=UserModule::encrypting(microtime().$model->password);
@@ -114,19 +116,28 @@ class RegistrationController extends Controller
                         $usertag = new UserTag();
                         $usertag->user_id = $model->id;
                         $usertag->tag = $_GET['event'];
+                        $usertag->content = $_POST['RegistrationForm']['present']." is cofounder ".$_POST['RegistrationForm']['cofounder'];
                         $usertag->save();
                         
                         $message = new YiiMailMessage;
                         $message->view = 'system';
                         $message->subject = "Nov uporabnik (".$model->name." ".$model->surname.") prijavljen na dogodek ".$_GET['event'];
-                        $message->setBody(array("content"=>'Uporabnik '.$model->name." ".$model->surname.' se je pravkar prijavil na dogodek.'), 'text/html');
-
+                        $message->setBody(array("content"=>'Uporabnik '.$model->name." ".$model->surname.' se je pravkar prijavil na dogodek.<br /><br />'.$usertag->content), 'text/html');
+                        
                 //        $message->addTo("cofinder@hekovnik.si");
                         $message->addTo("dev@cofinder.eu");
                         $message->from = Yii::app()->params['noreplyEmail'];
+                        Yii::app()->mail->send($message);     
+
+                        // nam sporočilo o registraciji z mailom
+                        $message->setBody(array("content"=>'Uporabnik '.$model->name." ".$model->surname.' se je pravkar prijavil na dogodek.<br /><br />'.$userTag->content.'<br /><br />
+                                                    Njegov email: '.$model->email), 'text/html');
+                        $message->addTo("team@cofinder.eu");
                         Yii::app()->mail->send($message);                        
                         
-                        $this->render('/site/message',array('title'=>Yii::t('app','Thank you for registering to this event'),"content"=>Yii::t('msg','We will get back to you in a couple of days with confirmation.')));
+                        $this->render('/user/message',array('title'=>Yii::t('app','Thank you for applying to this event'),
+                                        'content'=>Yii::t('msg','We need to confirm your application and will get back to you with further instructions.')));
+
                         return;
 
                       }else{
