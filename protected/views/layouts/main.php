@@ -56,6 +56,7 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
 
   <?php if (!isset($this->justContent) || !$this->justContent){ ?>
   
+  <?php $notifications = Notifications::getNotifications(); ?>
   <div class="header-wrap show-for-small">
     <div class="row header">
       <div>
@@ -87,9 +88,9 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
                     <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
                   </a>
                   <?php 
-                    $notifications = $this->getNotifications();
+                    //$notifications = $this->getNotifications();
                     if (count($notifications) > 0){ ?>
-                    <a href="<?php echo Yii::app()->createUrl("profile/notification"); ?>" style="position:relative;top: 10px;left:20px;">
+                    <a href="#" data-options="is_hover:true" data-dropdown="notifications" style="position:relative;top: 10px;left:20px;">
                       <span class="icon-flag" style="cursor: pointer; color: /*#CD3438*/ #89B561;font-size: 1.4em;"> <?php echo count($notifications); ?></span>
                     </a>
                   <?php } ?>                  
@@ -180,12 +181,11 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
                 </ul>
 
               </li>
-                <?php 
-                 $notifications = $this->getNotifications();
+                <?php // href="<?php echo Yii::app()->createUrl("profile/notification"); ? >"
                     if (count($notifications) > 0){ ?>
                 <li class="divider"></li>
                 <li class="desc">
-                  <a href="<?php echo Yii::app()->createUrl("profile/notification"); ?>" style="padding-top: 13px; background-color: #89B561;" data-tooltip title="<?php echo Yii::t("msg","You have been invited to a project.") ?>">
+                  <a href="#" data-dropdown="notifications" data-options="is_hover:true" style="padding-top: 13px; background-color: #89B561;" >
                     <span class="icon-flag" style="cursor: pointer; color: /*#CD3438*/ #FFF;font-size: 1.4em;"> <?php echo count($notifications); ?></span>
                   </a>
                 </li>
@@ -220,12 +220,13 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
  writeFlashes();
 
 } ?>
-<?php echo $content; ?>  
+  
+
+<?php echo $content; ?>
+  
+  
 <?php if (!isset($this->justContent) || !$this->justContent){ ?>
 
-
-	
- 
 <!-- page -->
 <div id="langselect" class="f-dropdown content" data-dropdown-content>
   <ul class="side-nav" style="padding:0;">
@@ -270,7 +271,28 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
   </div>
 </div>
 
-<?php } ?>
+
+<?php if (count($notifications) > 0){ ?>
+<div id="notifications" class="f-dropdown small" data-dropdown-content>
+  <ul class="side-nav" style="padding:0;">
+  <?php 
+  
+  foreach ($notifications as $notify){ ?>
+    <li style="padding:3px 8px; font-size: 1em; " onclick="markNotifications('<?php echo Yii::app()->createUrl("site/clearNotif",array("type"=>$notify['type'])); ?>')">
+      <a href="<?php echo $notify['link']; ?>" >
+        <span class="label" style="">
+        <?php echo $notify['count']; ?>
+        </span>
+        <?php echo $notify['message']; ?>
+      </a>
+    </li>
+  <?php } ?>
+  </ul>  
+</div>
+ <?php } ?>
+
+
+<?php }// end just content ?>
 
 <div class="push"></div>
 

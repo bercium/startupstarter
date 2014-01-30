@@ -1322,12 +1322,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 	left: 20px;
 }
 
-.m-card .stage {
-	padding-left: 28px;
-}
 
-.m-card .icon-awesome {
-	font-size: 1.2em;
+.icon-awesome {
+	font-size: 1.1em;
 }
 
 
@@ -1785,9 +1782,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444', endCol
 .myprojects .edit-content p {
 	margin-bottom: 0.5em;
 }
-
-
-
 
 
 

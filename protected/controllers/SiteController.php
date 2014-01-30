@@ -27,7 +27,7 @@ class SiteController extends Controller
 			array('allow', // allow all users to perform actions
         'actions'=>array('index','error','logout','about','terms','notify','notifyFacebook','suggestCountry',
                          'suggestSkill','suggestCity','unbsucribeFromNews','cookies','sitemap','startupEvents',
-                         'applyForEvent','vote'),
+                         'applyForEvent','vote','clearNotif'),
 				'users'=>array('*'),
 			),
 			/*array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -684,7 +684,13 @@ EOD;
   public function actionVote(){
      $this->render('message',array('title'=>Yii::t('app','Thank you for voting'),
                                     'content'=>Yii::t('msg','Go to ').'<a href="http://www.cofinder.eu">Cofinder</a>'));
- 
+  }
+  
+  /**
+   * 
+   */
+  public function actionClearNotif($type){
+    Notifications::viewNotification($type);
   }
 	
 }
