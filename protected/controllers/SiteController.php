@@ -150,7 +150,7 @@ class SiteController extends Controller
 
 	public function actionNotify()
 	{
-    //$this->redirect("user/register");
+    //$this->redirect("user/registration");
     if (!Yii::app()->user->isGuest) $this->redirect("index"); //loged in no need to send notifications
     $savedToDB = false;
     if (!empty($_POST['email'])){
@@ -628,7 +628,7 @@ EOD;
     print_r($events);
     echo "</pre>";*/
     if (Yii::app()->user->isGuest){
-      $register = '<a href="'.Yii::app()->createUrl("user/register").'" class="button small radius secondary ml10 mb0">'.Yii::t('app','register').'</a>';    
+      $register = '<a href="'.Yii::app()->createUrl("user/registration").'" class="button small radius secondary ml10 mb0">'.Yii::t('app','register').'</a>';    
       setFlash("discoverPerson", Yii::t('msg','To see all events please login or {register}',array('{register}'=>$register)), "alert", false);
     }
     $this->render("calendar",array("events"=>$events));
