@@ -655,18 +655,21 @@ EOD;
             $userTag->save();
 
             // send message to hekovnik group
-            $message = new YiiMailMessage;
-            $message->view = 'system';
-            $message->subject = "Nov uporabnik (".Yii::app()->user->fullname.") prijavljen na dogodek ".$event;
-            $message->setBody(array("content"=>'Uporabnik '.Yii::app()->user->fullname.' se je pravkar prijavil na dogodek.<br /><br />'.$userTag->content.'<br /><br />
+            $message_hekovnik = new YiiMailMessage;
+            $message_hekovnik->view = 'system';
+            $message_hekovnik->subject = "Nov uporabnik (".Yii::app()->user->fullname.") prijavljen na dogodek ".$event;
+            $message_hekovnik->setBody(array("content"=>'Uporabnik '.Yii::app()->user->fullname.' se je pravkar prijavil na dogodek.<br /><br />'.$userTag->content.'<br /><br />
                                 
                                                 Njegov profil na Cofinderju si lahko ogledate <a href="'.$this->createAbsoluteUrl("/person/view",array("id"=>Yii::app()->user->id)).'">tukaj</a>'), 'text/html');
 
     //        $message->addTo("cofinder@hekovnik.si");
-            $message->addTo("dev@cofinder.eu");
-            $message->from = Yii::app()->params['noreplyEmail'];
-            Yii::app()->mail->send($message);
+            $message_hekovnik->addTo("dev@cofinder.eu");
+            $message_hekovnik->from = Yii::app()->params['noreplyEmail'];
+            Yii::app()->mail->send($message_hekovnik);
 
+            $message = new YiiMailMessage;
+            $message->view = 'system';
+            $message->subject = "Nov uporabnik (".$model->name." ".$model->surname.") prijavljen na dogodek ".$_GET['event'];
             // nam sporočilo o registraciji z mailom
             $message->setBody(array("content"=>'Uporabnik '.Yii::app()->user->fullname.' se je pravkar prijavil na dogodek.<br /><br />'.$userTag->content.'<br /><br />
                                         Njegov email: '.Yii::app()->user->email.'<br /><br />

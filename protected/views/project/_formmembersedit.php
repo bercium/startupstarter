@@ -58,8 +58,12 @@ if(is_array($ideadata['member'])){
 <?php if ($invitees){ ?>
 <h5><?php echo Yii::t('app','Invited to the project'); ?></h5>
 <p>
-  <?php foreach($invitees as $row){ ?>
-  <?php echo $row->email; ?>,
+  <?php foreach($invitees as $row){
+    $usr = User::model()->findByAttributes(array("email"=>$row->email));
+    if ($usr){
+      echo $usr->name." ".$usr->surname;
+    }else echo $row->email;
+    ?>,
   <?php } ?>
 </p>
   <?php }

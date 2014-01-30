@@ -119,23 +119,26 @@ class RegistrationController extends Controller
                         $userTag->content = $_POST['RegistrationForm']['present']." is cofounder ".$_POST['RegistrationForm']['cofounder'];
                         $userTag->save();
                         
+                        $message_hekovnik = new YiiMailMessage;
+                        $message_hekovnik->view = 'system';
+                        $message_hekovnik->subject = "Nov uporabnik (".$model->name." ".$model->surname.") prijavljen na dogodek ".$_GET['event'];
+                        $message_hekovnik->setBody(array("content"=>'Uporabnik '.$model->name." ".$model->surname.' se je pravkar prijavil na dogodek.<br /><br />'.$userTag->content), 'text/html');
+                        
+                //        $message->addTo("cofinder@hekovnik.si");
+                        $message_hekovnik->addTo("dev@cofinder.eu");
+                        $message_hekovnik->from = Yii::app()->params['noreplyEmail'];
+                        Yii::app()->mail->send($message_hekovnik);     
+
                         $message = new YiiMailMessage;
                         $message->view = 'system';
                         $message->subject = "Nov uporabnik (".$model->name." ".$model->surname.") prijavljen na dogodek ".$_GET['event'];
-                        $message->setBody(array("content"=>'Uporabnik '.$model->name." ".$model->surname.' se je pravkar prijavil na dogodek.<br /><br />'.$userTag->content), 'text/html');
-                        
-                //        $message->addTo("cofinder@hekovnik.si");
-                        $message->addTo("dev@cofinder.eu");
-                        $message->from = Yii::app()->params['noreplyEmail'];
-                        Yii::app()->mail->send($message);     
-
                         // nam sporočilo o registraciji z mailom
                         $message->setBody(array("content"=>'Uporabnik '.$model->name." ".$model->surname.' se je pravkar prijavil na dogodek.<br /><br />'.$userTag->content.'<br /><br />
                                                     Njegov email: '.$model->email), 'text/html');
                         $message->addTo("team@cofinder.eu");
                         Yii::app()->mail->send($message);                        
                         
-                        $this->render('/user/message',array('title'=>Yii::t('app','Thank you for applying to this event'),
+                        $this->render('/user/message',array('title'=>Yii::t('msg','Thank you for applying to this event'),
                                         'content'=>Yii::t('msg','We need to confirm your application and will get back to you with further instructions.')));
 
                         return;
