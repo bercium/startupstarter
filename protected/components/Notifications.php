@@ -50,7 +50,7 @@ class Notifications{
             $link = Yii::app()->createUrl('profile/notification');
           break;
         case self::NOTIFY_INVISIBLE: 
-            $msg = Yii::t('app','Your profile is not visible to the public.'); 
+            $msg = Yii::t('msg','Your profile is not visible to the public.'); 
             $link = '';
           break;
       }

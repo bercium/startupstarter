@@ -674,7 +674,7 @@ EOD;
             $message->addTo("team@cofinder.eu");
             Yii::app()->mail->send($message);
           }
-          $this->render('message',array('title'=>Yii::t('app','Thank you for applying to this event'),
+          $this->render('message',array('title'=>Yii::t('msg','Thank you for applying to this event'),
                                         'content'=>Yii::t('msg','We need to confirm your application and will get back to you with further instructions.')));
           return;
         }
@@ -690,8 +690,8 @@ EOD;
   }
   
   public function actionVote(){
-     $this->render('message',array('title'=>Yii::t('app','Thank you for voting'),
-                                    'content'=>Yii::t('msg','Go to ').'<a href="http://www.cofinder.eu">Cofinder</a>'));
+     $this->render('message',array('title'=>Yii::t('msg','Thank you for voting'),
+                                    'content'=>Yii::t('app','Go to ').'<a href="http://www.cofinder.eu">Cofinder</a>'));
   }
   
   /**

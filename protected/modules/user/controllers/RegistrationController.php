@@ -113,16 +113,16 @@ class RegistrationController extends Controller
 
                       // if someone is coming to an event
                       if (isset($_GET['event'])){
-                        $usertag = new UserTag();
-                        $usertag->user_id = $model->id;
-                        $usertag->tag = $_GET['event'];
-                        $usertag->content = $_POST['RegistrationForm']['present']." is cofounder ".$_POST['RegistrationForm']['cofounder'];
-                        $usertag->save();
+                        $userTag = new UserTag();
+                        $userTag->user_id = $model->id;
+                        $userTag->tag = $_GET['event'];
+                        $userTag->content = $_POST['RegistrationForm']['present']." is cofounder ".$_POST['RegistrationForm']['cofounder'];
+                        $userTag->save();
                         
                         $message = new YiiMailMessage;
                         $message->view = 'system';
                         $message->subject = "Nov uporabnik (".$model->name." ".$model->surname.") prijavljen na dogodek ".$_GET['event'];
-                        $message->setBody(array("content"=>'Uporabnik '.$model->name." ".$model->surname.' se je pravkar prijavil na dogodek.<br /><br />'.$usertag->content), 'text/html');
+                        $message->setBody(array("content"=>'Uporabnik '.$model->name." ".$model->surname.' se je pravkar prijavil na dogodek.<br /><br />'.$userTag->content), 'text/html');
                         
                 //        $message->addTo("cofinder@hekovnik.si");
                         $message->addTo("dev@cofinder.eu");
