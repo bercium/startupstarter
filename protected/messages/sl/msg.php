@@ -246,7 +246,7 @@
   'With over {n}% you will get much more recognition and better options to be found.' => 'Z več kot {n}% boste bolj prepoznavni in tako imeli več možnosti, da vas kdo najde.',
   'With the <span>right team</span> any <span>idea</span> can</br> change your life' => 'S pravo <span>ekipo</span> ti vsaka <span>ideja</span> </br> lahko spremeni življenje',
   'Work for a share in a company' => 'Delo v zameno za lastniški delež',
-  'Write an email of team member you wish to add. He will be visible as a part of a team.' => 'Vnesite elektronski naslov osebe, ki jo želite dodati. Ta oseba bo vidna kot član vaše ekipe.',
+  'Write an email or search by name for team member you wish to add. He will be visible as a part of a team.' => 'Dodajte člane ekipe po imenu oziroma po elektronski pošti če še niso naši člani. Vidni bodo kot del ekipe tega projekta.',
   'Wrong candidate ID supplied, could not update candidate.' => 'Napačna koda kandidata posredovana zato ga ni bilo možno posodobiti.',
   'Yeeay, everything is good here' => 'Super, tukaj je vse OK',
   'You account is activated.' => 'Vaš račun je aktiviran.',
