@@ -24,6 +24,26 @@
 
 
 
+<div class="m-event">
+<?php $imeEventa = 'Sestavi svojo ekipo';?>
+
+	
+	<div class="row">
+		<div class="columns large-12 mb10">
+			<center>			
+			<a href="http://www.cofinder.eu/events/sestavi-svojo-ekipo"><img class="" src='<?php echo Yii::app()->request->baseUrl; ?>/images/sestavi-svojo-ekipo-cofinder-event.png'></a>
+
+						</center>
+
+		</div>
+
+	</div>
+
+
+
+
+</div>
+
     
     <?php if (!Yii::app()->user->isGuest){  ?>
 

@@ -54,7 +54,7 @@ h1 span{
 
 
 .el-msg-alert {
-	background: #89B561;
+	background: #C64747;
 	color: #fff;
 	padding: 1px 5px 2px 5px;
 	font-size: 0.8em;
@@ -95,6 +95,16 @@ h1 span{
 /* ==========================================================================
   @ INTRO
    ========================================================================== */
+
+
+.m-event {
+
+	background: url(../images/event_bg.jpg) center center;	
+	
+	overflow: hidden;
+
+
+}
 
 
 
