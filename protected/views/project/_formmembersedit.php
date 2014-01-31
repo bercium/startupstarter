@@ -41,12 +41,13 @@ if(is_array($ideadata['member'])){
 
       <?php echo CHtml::label(Yii::t('app','Invite member of this project'),'message'); ?>
       <span class="description">
-        <?php echo CHtml::label(Yii::t('msg','Write an email of team member you wish to add. He will be visible as a part of a team.'),'message'); ?>
+        <?php echo CHtml::label(Yii::t('msg','Write an email or search by name for team member you wish to add. He will be visible as a part of a team.'),'message'); ?>
       </span>
       <div class="row collapse">
         <div class="small-9 columns">
-          <?php echo CHtml::textField('invite-email'); ?>
+          <?php echo CHtml::textField('invite-email','',array('class'=>'invite-member-email')); ?>
           <?php echo CHtml::hiddenField('invite-idea',$ideadata['id']); ?>
+          <?php echo CHtml::hiddenField('invite-user-id',''); ?>
         </div>
         <div class="small-3 columns">
            <?php echo CHtml::submitButton(Yii::t("app","Invite"),array("class"=>"postfix button radius")); ?>

@@ -9,6 +9,10 @@ class WInvitation extends CWidget
  // send invitations
       if (!empty($_POST['invite-email']) && $user){
 
+        if (!empty($_POST['invite-user-id']) && (strpos($_POST['invite-email'],'@')===false)){
+          $invitee = User::model()->findByPk($_POST['invite-user-id']);
+          $_POST['invite-email'] = $invitee->email;
+        }
         // create invitation
         $invitation = new Invite();
         $invitation->email = $_POST['invite-email'];
@@ -60,7 +64,7 @@ class WInvitation extends CWidget
 
                   //$idea = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$invitation->idea_id),array('order' => 'FIELD(language_id, 40) DESC'));
 
-                  $invite = Invite::model()->findByAttributes(array('email' => $_POST['email'],'idea_id'=>null));
+                  $invite = Invite::model()->findByAttributes(array('email' => $_POST['invite-email'],'idea_id'=>null));
                   if ($invite){
                     //if self invited already
                     if (!$invite->key){
