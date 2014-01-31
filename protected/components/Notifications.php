@@ -109,6 +109,8 @@ class Notifications{
     $notify->user_id = $user_id;
     $notify->type = $notification;
     $notify->save();
+    /*if ($notify->save()) echo 'DAAA';
+    else echo print_r($notify->getErrors());*/
   }
   
   /**

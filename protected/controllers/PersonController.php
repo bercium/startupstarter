@@ -51,7 +51,7 @@ class PersonController extends GxController {
     if ($data['user'] == array()){
       throw new CHttpException(400, Yii::t('msg', 'Oops! This person does not exist.'));
     }
-    
+   
     $vouched = false;
     $invited = Invite::model()->findByAttributes(array("receiver_id"=>$id,"registered"=>1));
     if ($invited){

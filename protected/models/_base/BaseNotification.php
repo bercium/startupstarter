@@ -37,7 +37,7 @@ abstract class BaseNotification extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('user_id, type, notify_at', 'required'),
+			array('user_id, type', 'required'),
 			array('type, viewed', 'numerical', 'integerOnly'=>true),
 			array('user_id', 'length', 'max'=>10),
 			array('viewed', 'default', 'setOnEmpty' => true, 'value' => null),

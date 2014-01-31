@@ -150,7 +150,7 @@ class SiteController extends Controller
 
 	public function actionNotify()
 	{
-    //$this->redirect("user/register");
+    //$this->redirect("user/registration");
     if (!Yii::app()->user->isGuest) $this->redirect("index"); //loged in no need to send notifications
     $savedToDB = false;
     if (!empty($_POST['email'])){
@@ -602,7 +602,7 @@ EOD;
     $filename = "calendar.json";
     $folder = Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['tempFolder'];
       
-    if (!file_exists($folder.$filename)){
+    if (!file_exists($folder.$filename) || YII_DEBUG){
     //if (true){    
       $controller = 'general';
       $action = 'loadCalendars';
@@ -628,7 +628,7 @@ EOD;
     print_r($events);
     echo "</pre>";*/
     if (Yii::app()->user->isGuest){
-      $register = '<a href="'.Yii::app()->createUrl("user/register").'" class="button small radius secondary ml10 mb0">'.Yii::t('app','register').'</a>';    
+      $register = '<a href="'.Yii::app()->createUrl("user/registration").'" class="button small radius secondary ml10 mb0">'.Yii::t('app','register').'</a>';    
       setFlash("discoverPerson", Yii::t('msg','To see all events please login or {register}',array('{register}'=>$register)), "alert", false);
     }
     $this->render("calendar",array("events"=>$events));
@@ -655,23 +655,27 @@ EOD;
             $userTag->save();
 
             // send message to hekovnik group
-            $message = new YiiMailMessage;
-            $message->view = 'system';
-            $message->subject = "Nov uporabnik (".Yii::app()->user->fullname.") prijavljen na dogodek ".$event;
-            $message->setBody(array("content"=>'Uporabnik '.Yii::app()->user->fullname.' se je pravkar prijavil na dogodek.<br /><br />'.$userTag->content.'<br /><br />
+            $message_hekovnik = new YiiMailMessage;
+            $message_hekovnik->view = 'system';
+            $message_hekovnik->subject = "Nov uporabnik (".Yii::app()->user->fullname.") prijavljen na dogodek ".$event;
+            $message_hekovnik->setBody(array("content"=>'Uporabnik '.Yii::app()->user->fullname.' se je pravkar prijavil na dogodek.<br /><br />'.$userTag->content.'<br /><br />
                                 
                                                 Njegov profil na Cofinderju si lahko ogledate <a href="'.$this->createAbsoluteUrl("/person/view",array("id"=>Yii::app()->user->id)).'">tukaj</a>'), 'text/html');
 
     //        $message->addTo("cofinder@hekovnik.si");
-            $message->addTo("dev@cofinder.eu");
-            $message->from = Yii::app()->params['noreplyEmail'];
-            Yii::app()->mail->send($message);
+            $message_hekovnik->addTo("dev@cofinder.eu");
+            $message_hekovnik->from = Yii::app()->params['noreplyEmail'];
+            Yii::app()->mail->send($message_hekovnik);
 
+            $message = new YiiMailMessage;
+            $message->view = 'system';
+            $message->subject = "Nov uporabnik (".Yii::app()->user->fullname.") prijavljen na dogodek ".$event;
             // nam sporočilo o registraciji z mailom
             $message->setBody(array("content"=>'Uporabnik '.Yii::app()->user->fullname.' se je pravkar prijavil na dogodek.<br /><br />'.$userTag->content.'<br /><br />
                                         Njegov email: '.Yii::app()->user->email.'<br /><br />
                                         Njegov profil na Cofinderju si lahko ogledate <a href="'.$this->createAbsoluteUrl("/person/view",array("id"=>Yii::app()->user->id)).'">tukaj</a>'), 'text/html');
             $message->addTo("team@cofinder.eu");
+            $message->from = Yii::app()->params['noreplyEmail'];
             Yii::app()->mail->send($message);
           }
           $this->render('message',array('title'=>Yii::t('msg','Thank you for applying to this event'),

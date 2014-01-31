@@ -2,6 +2,7 @@
 /* @var $this Controller */
 $fullTitle = Yii::app()->name; 
 if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTitle .= " - ".$this->pageTitle;
+if (!isset($this->justContent) || !$this->justContent) $notifications = Notifications::getNotifications();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -47,7 +48,7 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700,700italic,600italic,600,400italic,300italic,300&subset=latin,cyrillic-ext,greek-ext,greek,latin-ext,cyrillic,vietnamese' rel='stylesheet' type='text/css'>
   
   <script> var fullURL= '<?php echo Yii::app()->request->baseUrl; ?>'; </script>
-	<title><?php echo $fullTitle; ?></title>
+	<title><?php if (isset($notifications) && $notifications['count'] > 0) echo "(".$notifications['count'].") "; echo $fullTitle; ?></title>
 </head>
 
 <body>
@@ -56,7 +57,6 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
 
   <?php if (!isset($this->justContent) || !$this->justContent){ ?>
   
-  <?php $notifications = Notifications::getNotifications(); ?>
   <div class="header-wrap show-for-small">
     <div class="row header">
       <div>

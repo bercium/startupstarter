@@ -246,7 +246,7 @@ return array (
   'With over {n}% you will get much more recognition and better options to be found.' => 'S više od {n}% ćete biti prepoznatljiviji te imati više mogućnosti da Vas netko pronađe.',
   'With the <span>right team</span> any <span>idea</span> can</br> change your life' => 'S pravom grupom svaka ideja može promjeniti Vaš život.',
   'Work for a share in a company' => 'Radi za udio u poduzeću',
-  'Write an email of team member you wish to add. He will be visible as a part of a team.' => 'Napišite email adresu osobe koju želite dodati. Ta osoba će biti stavljena kao dio vaše grupe.',
+  'Write an email or search by name for team member you wish to add. He will be visible as a part of a team.' => '',
   'Wrong candidate ID supplied, could not update candidate.' => 'Netočan kod kandidata. Osoba ne može biti ažurirana.',
   'Yeeay, everything is good here' => 'Odlično, ovdje je sve u redu',
   'You account is activated.' => 'Vaš račun je aktiviran.',
