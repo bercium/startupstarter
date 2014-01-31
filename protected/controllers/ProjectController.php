@@ -87,7 +87,7 @@ class ProjectController extends GxController {
    */
   public function actionSuggestMember($term){
     
-    $dataReader = User::model()->findAll("name LIKE :name OR surname LIKE :name", array(":name"=>"%".$term."%"));
+    $dataReader = User::model()->findAll("(name LIKE :name OR surname LIKE :name) AND status = 1", array(":name"=>"%".$term."%"));
 
     if ($dataReader){
       foreach ($dataReader as $row){
