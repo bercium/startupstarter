@@ -654,27 +654,17 @@ EOD;
             $userTag->content = $_POST['Event']['present']." is cofounder ".$_POST['Event']['cofounder'];
             $userTag->save();
 
-            // send message to hekovnik group
-            $message_hekovnik = new YiiMailMessage;
-            $message_hekovnik->view = 'system';
-            $message_hekovnik->subject = "Nov uporabnik (".Yii::app()->user->fullname.") prijavljen na dogodek ".$event;
-            $message_hekovnik->setBody(array("content"=>'Uporabnik '.Yii::app()->user->fullname.' se je pravkar prijavil na dogodek.<br /><br />'.$userTag->content.'<br /><br />
-                                
-                                                Njegov profil na Cofinderju si lahko ogledate <a href="'.$this->createAbsoluteUrl("/person/view",array("id"=>Yii::app()->user->id)).'">tukaj</a>'), 'text/html');
-
-    //        $message->addTo("cofinder@hekovnik.si");
-            $message_hekovnik->addTo("dev@cofinder.eu");
-            $message_hekovnik->from = Yii::app()->params['noreplyEmail'];
-            Yii::app()->mail->send($message_hekovnik);
 
             $message = new YiiMailMessage;
             $message->view = 'system';
             $message->subject = "Nov uporabnik (".Yii::app()->user->fullname.") prijavljen na dogodek ".$event;
             // nam sporočilo o registraciji z mailom
-            $message->setBody(array("content"=>'Uporabnik '.Yii::app()->user->fullname.' se je pravkar prijavil na dogodek.<br /><br />'.$userTag->content.'<br /><br />
-                                        Njegov email: '.Yii::app()->user->email.'<br /><br />
-                                        Njegov profil na Cofinderju si lahko ogledate <a href="'.$this->createAbsoluteUrl("/person/view",array("id"=>Yii::app()->user->id)).'">tukaj</a>'), 'text/html');
-            $message->addTo("team@cofinder.eu");
+            $message->setBody(array("content"=>'Uporabnik '.Yii::app()->user->fullname.' se je pravkar prijavil na dogodek.<br /><br />'.$userTag->content.'<br />
+                                        Njegov email: '.Yii::app()->user->email.'<br />'.
+                                        'Rad bi: '.$_POST['Event']['present'].'<br />'.
+                                        'Je že kdaj bil ustanovitelj: '.$_POST['Event']['cofounder'].'<br /><br />'.
+                                        'Njegov profil na Cofinderju si lahko ogledate <a href="'.$this->createAbsoluteUrl("/person/view",array("id"=>Yii::app()->user->id)).'">tukaj</a>'), 'text/html');
+            $message->addTo("cofinder@hekovnik.si");
             $message->from = Yii::app()->params['noreplyEmail'];
             Yii::app()->mail->send($message);
           }
