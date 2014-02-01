@@ -111,7 +111,8 @@ class GeneralCommand extends CConsoleCommand{
       //$event_tmp['id'] = $i++;
       $event_tmp['title'] = $event->title;
       $event_tmp['content'] = $event->content;  //problem s contentom
-      $event_tmp['link'] = $event->link;
+      if (isset($event->link)) $event_tmp['link'] = $event->link;
+      else $event_tmp['link'] = '';
       
       $event_tmp['location'] = trim(substr($event->location,  strpos($event->location, ":")+3));
 
@@ -128,7 +129,52 @@ class GeneralCommand extends CConsoleCommand{
       $events[] = $event_tmp;
     }
     
+    //$events = array();
+    // Query for tile racunalniske-novice
+    $result = $this->query($connectorGuid, array(
+      "webpage/url" => "http://www.racunalniske-novice.com/dogodki/iskalnik/?em/listaj-arhiv/1/",
+    ), $userGuid, $apiKey);
+    //var_dump($result);
+    foreach ($result->results as $event){
+      //$event_tmp['id'] = $i++;
+      $event_tmp['title'] = $event->title;
+      $event_tmp['content'] = $event->content;  //problem s contentom
+      if (isset($event->link)) $event_tmp['link'] = $event->link;
+      else $event_tmp['link'] = '';
+      
+      $event_tmp['location'] = trim(substr($event->location,  strpos($event->location, ":")+3));
+
+      $event_tmp['allday'] = false;
+      if (strpos($event->location, ":")===false){
+        $date = substr($event->location, 0, strpos($event->location, " "));
+        $event_tmp['allday'] = true;
+      }else $date = str_replace(", ob","",substr($event->location, 0, strpos($event->location, ":")+3));
+      $event_tmp['start'] = $date;
+      $event_tmp['end'] = $date;
+      
+      $event_tmp['source'] = "http://www.racunalniske-novice.com/dogodki/";
+      
+      $events[] = $event_tmp;
+    }    
     
+    
+    //CF event
+      //$event_tmp['id'] = $i++;
+      $event_tmp['title'] = "Sestavi svojo ekipo";
+      $event_tmp['content'] = 'Prekipevaš od poslovnih idej in iščeš soustanovitelja ali pa imaš pa željo po nečem novem; pridružiti se super projektu. Pridi na dogodek in spoznal boš cel kup zanimivih ljudi in slišal nore ideje.';
+      $event_tmp['location'] = 'Hekovnik, Teslova ulica 30, Ljubljana';//$event->location; // ni lokacije
+      $event_tmp['link'] = "http://www.cofinder.eu/events/sestavi-svojo-ekipo/";
+
+      $event_tmp['start'] = "28.2.2014 17:00";
+      $event_tmp['end'] = "28.2.2014 21:00";
+      $event_tmp['color'] = "red";
+      $event_tmp['allday'] = false;
+      
+      $event_tmp['source'] = "http://www.cofinder.eu";
+      
+      $events[] = $event_tmp;    
+    
+    // write events
     $filename = "calendar.json";
     $folder = Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['tempFolder'];
 
