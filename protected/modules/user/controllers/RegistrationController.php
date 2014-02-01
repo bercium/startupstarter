@@ -124,8 +124,8 @@ class RegistrationController extends Controller
                         $message_hekovnik->subject = "Nov uporabnik (".$model->name." ".$model->surname.") prijavljen na dogodek ".$_GET['event'];
                         $message_hekovnik->setBody(array("content"=>'Uporabnik '.$model->name." ".$model->surname.' se je pravkar prijavil na dogodek.<br /><br />'.$userTag->content), 'text/html');
                         
-                //        $message->addTo("cofinder@hekovnik.si");
-                        $message_hekovnik->addTo("dev@cofinder.eu");
+                        $message_hekovnik->addTo("cofinder@hekovnik.si");
+                        //$message_hekovnik->addTo("dev@cofinder.eu");
                         $message_hekovnik->from = Yii::app()->params['noreplyEmail'];
                         Yii::app()->mail->send($message_hekovnik);     
 

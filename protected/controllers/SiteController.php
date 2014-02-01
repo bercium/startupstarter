@@ -662,8 +662,8 @@ EOD;
                                 
                                                 Njegov profil na Cofinderju si lahko ogledate <a href="'.$this->createAbsoluteUrl("/person/view",array("id"=>Yii::app()->user->id)).'">tukaj</a>'), 'text/html');
 
-    //        $message->addTo("cofinder@hekovnik.si");
-            $message_hekovnik->addTo("dev@cofinder.eu");
+            $message_hekovnik->addTo("cofinder@hekovnik.si");
+            //$message_hekovnik->addTo("dev@cofinder.eu");
             $message_hekovnik->from = Yii::app()->params['noreplyEmail'];
             Yii::app()->mail->send($message_hekovnik);
 

@@ -23,7 +23,7 @@
 <?php } */ ?>
 
 
-
+<?php /* ?>
 <div class="m-event">
 <?php $imeEventa = 'Sestavi svojo ekipo';?>
 
@@ -33,17 +33,12 @@
 			<center>			
 			<a href="http://www.cofinder.eu/events/sestavi-svojo-ekipo"><img class="" src='<?php echo Yii::app()->request->baseUrl; ?>/images/sestavi-svojo-ekipo-cofinder-event.png'></a>
 
-						</center>
-
+			</center>
 		</div>
 
 	</div>
-
-
-
-
 </div>
-
+<?php //*/ ?>
     
     <?php if (!Yii::app()->user->isGuest){  ?>
 
