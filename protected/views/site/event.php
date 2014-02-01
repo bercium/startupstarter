@@ -1,3 +1,12 @@
+<?php
+
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+$this->pageTitle = Yii::t('app','Apply for event - "Sestavi svojo ekipo"');
+?>
 <?php echo CHtml::beginForm('','post',array("class"=>"custom large-7")); ?>
 
 
