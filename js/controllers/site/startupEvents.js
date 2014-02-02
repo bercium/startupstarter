@@ -60,6 +60,16 @@ $(document).ready(function() {
           $('#drop-cal-info-link').attr('href',event.link);
           $('#drop-cal-info-location').html(event.location);
           
+          
+          var link = 'http://www.google.com/calendar/event?action=TEMPLATE'
+          link += '&text='+event.title;
+          link += '&dates='+event.gcal;
+          link += '&details='+event.content;
+          link += '&location='+event.location;
+          link += '&trp=true&sprop=Cofinder&sprop=name:http%3A%2F%2Fwww.cofinder.eu%2Fsite%2FstartupEvents%2F';
+          
+          $('#drop-cal-link').attr("href",link);
+          
         });
       }
     });

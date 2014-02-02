@@ -25,11 +25,24 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
     echo "title: '".stripslashes($event["title"])."',";
     echo "start: '".strtotime($event["start"])."',";
     if ($event["end"] > '') echo "end: '".strtotime($event["end"])."',";
+    else $event["end"] = $event["start"];
+    
     echo "allDay: ";
-    if ($event["allday"]) echo 'true'; else echo 'false';
-    echo ",";
+    if ($event["allday"]){
+      echo 'true,';
+      echo "gcal: '".date("Ymd",strtotime($event["start"]))."/"
+                    .date("Ymd",strtotime($event["end"]))."',";
+    }else{
+      echo 'false,';
+      echo "gcal: '".date("Ymd",strtotime($event["start"]))."T".date("Hi",strtotime($event["start"])-3600)."00Z/"
+                    .date("Ymd",strtotime($event["end"]))."T".date("Hi",strtotime($event["end"])-3600)."00Z',";
+    }
     echo "content: '".stripslashes($event["content"])."',";
     echo "link: '".($event["link"])."',"; 
+    if (isset($event["color"])){
+      if ($event["color"] == 'blue') echo "color:'#4469A6',";
+      else if ($event["color"] == 'red') echo "color:'#C64747',";
+    }
     echo "location: '".($event["location"])."',"; 
     echo "},";
     $count_events++;
@@ -39,6 +52,11 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
 
 <div id="drop-cal-info" class="f-dropdown content medium" data-dropdown-content>
   <div class="login-form">
+    <div class="right">
+      <a href="#" class="button radius secondary tiny" id="drop-cal-link" target="_blank" data-tooltip title="<?php echo Yii::t('app','Add to Google calendar'); ?>">
+        <span class="icon-calendar"></span>
+      </a>
+    </div>
     <h4 id="drop-cal-info-title"></h4>
     <small>
       <div id="drop-cal-info-location"class="mb8 meta" style="font-weight: bold;"></div>

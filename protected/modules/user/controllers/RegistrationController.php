@@ -119,23 +119,17 @@ class RegistrationController extends Controller
                         $userTag->content = $_POST['RegistrationForm']['present']." is cofounder ".$_POST['RegistrationForm']['cofounder'];
                         $userTag->save();
                         
-                        $message_hekovnik = new YiiMailMessage;
-                        $message_hekovnik->view = 'system';
-                        $message_hekovnik->subject = "Nov uporabnik (".$model->name." ".$model->surname.") prijavljen na dogodek ".$_GET['event'];
-                        $message_hekovnik->setBody(array("content"=>'Uporabnik '.$model->name." ".$model->surname.' se je pravkar prijavil na dogodek.<br /><br />'.$userTag->content), 'text/html');
-                        
-                        $message_hekovnik->addTo("cofinder@hekovnik.si");
-                        //$message_hekovnik->addTo("dev@cofinder.eu");
-                        $message_hekovnik->from = Yii::app()->params['noreplyEmail'];
-                        Yii::app()->mail->send($message_hekovnik);     
-
                         $message = new YiiMailMessage;
                         $message->view = 'system';
                         $message->subject = "Nov uporabnik (".$model->name." ".$model->surname.") prijavljen na dogodek ".$_GET['event'];
                         // nam sporočilo o registraciji z mailom
-                        $message->setBody(array("content"=>'Uporabnik '.$model->name." ".$model->surname.' se je pravkar prijavil na dogodek.<br /><br />'.$userTag->content.'<br /><br />
-                                                    Njegov email: '.$model->email), 'text/html');
-                        $message->addTo("team@cofinder.eu");
+                        $message->setBody(array("content"=>'Uporabnik '.$model->name." ".$model->surname.' se je pravkar prijavil na dogodek.<br />
+                                                    Njegov email: '.$model->email.'<br />'.
+                                                    'Rad bi: '.$_POST['RegistrationForm']['present'].'<br />'.
+                                                    'Je že kdaj bil ustanovitelj: '.$_POST['RegistrationForm']['cofounder'].'<br />'
+                                                ), 'text/html');
+                        
+                        $message->addTo("cofinder@hekovnik.si");
                         $message->from = Yii::app()->params['noreplyEmail'];
                         Yii::app()->mail->send($message);                        
                         
