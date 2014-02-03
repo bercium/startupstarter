@@ -172,7 +172,7 @@ class GeneralCommand extends CConsoleCommand{
       
       $event_tmp['source'] = "http://www.cofinder.eu";
       
-      $events[] = $event_tmp;    
+      $events[] = $event_tmp;
     
     // write events
     $filename = "calendar.json";

@@ -140,7 +140,7 @@ class RegistrationController extends Controller
 
                       }else{
                         if ($id == '' || $invited == null){
-                            $this->redirect(Yii::app()->createUrl("profile/registrationFlow",array("event"=>substr($model->activkey,0, 10),"email"=>$model->email)));
+                            $this->redirect(Yii::app()->createUrl("profile/registrationFlow",array("key"=>substr($model->activkey,0, 10),"email"=>$model->email)));
                         }
                         else{ 
                            $this->render('/user/message',array('title'=>Yii::t('app','Registration finished'),
