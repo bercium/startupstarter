@@ -217,10 +217,8 @@ $("#showhide").click(function() {
 <?php if (!$filter->checkSearchForm()){ ?>
 	<?php if (isset($data['user'])){ ?>
 
-		<div class="row mt40" id="recent_users">
-			<div class="columns large-12 small-12"> 
-			<?php $this->renderPartial('//person/_recent', array('users' => $data['user'],"page"=>1,"maxPage"=>$maxPagePerson)); ?>
-			</div>
+		<div class="row mt40" id="recent_users">			
+			<?php $this->renderPartial('//person/_recent', array('users' => $data['user'],"page"=>1,"maxPage"=>$maxPagePerson)); ?>			
 			</div>
 
 	<?php } ?>
@@ -228,10 +226,8 @@ $("#showhide").click(function() {
 	<?php if (isset($data['idea'])){ ?>
 <br />
 
-		<div class="row" id="recent_projects">
-			<div class="columns large-12 small-12"> 
-			<?php $this->renderPartial('//project/_recent', array('ideas' => $data['idea'],"page"=>1,"maxPage"=>$maxPageIdea)); ?>
-		   </div>
+		<div class="row" id="recent_projects">			
+			<?php $this->renderPartial('//project/_recent', array('ideas' => $data['idea'],"page"=>1,"maxPage"=>$maxPageIdea)); ?>		  
 	    </div>
 
 	<?php } 

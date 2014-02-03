@@ -1,3 +1,4 @@
+<div class="columns large-12 small-12"> 
 <h2 class="meta-title l-inline"><?php echo Yii::t('app','Recent users'); ?></h2>
 	
   
@@ -62,3 +63,5 @@
 			</li>
 		<?php } ?>
   </ul>
+
+  </div>
