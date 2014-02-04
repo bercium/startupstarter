@@ -22,7 +22,7 @@ class WProfileInfo extends CWidget
         $user = User::model()->findByPk(Yii::app()->user->id);
         if (!Yii::app()->user->hasFlash('WProfileInfoHint')){
           $hint = $comp->getHint();
-          if ($hint !== false) setFlash('WProfileInfoHint',array('msg'=>$hint['hint'].' %s','actions'=>array(array('hint'=>Yii::t("app",'Do it now!'),'action'=>$hint['action']))), "info", ($perc >= PROFILE_COMPLETENESS_OK));
+          if ($hint !== false) setFlash('WProfileInfoHint',array('msg'=>Yii::t('app','Hint').": ".$hint['hint'].' %s','actions'=>array(array('hint'=>Yii::t("app",'Do it now!'),'action'=>$hint['action']))), "info", ($perc >= PROFILE_COMPLETENESS_OK));
           //$this->calculatePerc();
         }
 
@@ -38,7 +38,7 @@ class WProfileInfo extends CWidget
       }else if ($this->style == 'hint'){
         if (!Yii::app()->user->hasFlash('WProfileInfoHint')){
           $hint = $comp->getHint();
-          if ($hint !== false) setFlash('WProfileInfoHint',array('msg'=>$hint['hint'].' %s','actions'=>array(array('hint'=>Yii::t("app",'Do it now!'),'action'=>$hint['action']))), "info", ($perc >= PROFILE_COMPLETENESS_OK));
+          if ($hint !== false) setFlash('WProfileInfoHint',array('msg'=>Yii::t('app','Hint').": ".$hint['hint'].' %s','actions'=>array(array('hint'=>Yii::t("app",'Do it now!'),'action'=>$hint['action']))), "info", ($perc >= PROFILE_COMPLETENESS_OK));
           //$this->calculatePerc();
         }
       }

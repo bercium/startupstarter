@@ -9,12 +9,17 @@ class WInvitation extends CWidget
  // send invitations
       if (!empty($_POST['invite-email']) && $user){
 
+        if (!empty($_POST['invite-user-id']) && (strpos($_POST['invite-email'],'@')===false)){
+          $invitee = User::model()->findByPk($_POST['invite-user-id']);
+          $_POST['invite-email'] = $invitee->email;
+        }
         // create invitation
         $invitation = new Invite();
         $invitation->email = $_POST['invite-email'];
         $invitation->sender_id = Yii::app()->user->id;
         $invitation->key = md5(microtime().$invitation->email);
 
+        // invite to idea
         if (!empty($_POST['invite-idea'])){
           $checkUser = UserMatch::model()->findByAttributes(array("user_id"=>$user->id));
           $checkIdea = IdeaMember::model()->findByAttributes(array("idea_id"=>$_POST['invite-idea'], "match_id"=>$checkUser->id));
@@ -32,6 +37,8 @@ class WInvitation extends CWidget
                 $invitation->receiver_id = $invitee->id;
 
                 if ($invitation->save()){
+                  Notifications::setNotification($user->id,Notifications::NOTIFY_PROJECT_INVITE);
+      
                   $idea = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$invitation->idea_id),array('order' => 'FIELD(language_id, 40) DESC'));
 
                   $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/profile/acceptInvitation')."?id=".$invitation->idea_id.'">Accept invitation</a>';
@@ -57,7 +64,7 @@ class WInvitation extends CWidget
 
                   //$idea = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$invitation->idea_id),array('order' => 'FIELD(language_id, 40) DESC'));
 
-                  $invite = Invite::model()->findByAttributes(array('email' => $_POST['email'],'idea_id'=>null));
+                  $invite = Invite::model()->findByAttributes(array('email' => $_POST['invite-email'],'idea_id'=>null));
                   if ($invite){
                     //if self invited already
                     if (!$invite->key){
@@ -89,7 +96,7 @@ class WInvitation extends CWidget
            
           }else setFlash("invitationMessage",Yii::t('msg','Not able to invite this person to this project.'),'alert');
           
-        }else
+        }else  // END INVITE TO IDEA
           if ($user->invitations > 0){
             $invitee = User::model()->findByAttributes(array("email"=>$invitation->email));
             

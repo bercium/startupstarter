@@ -16,9 +16,9 @@
             <div class="content" data-section-content>
               <div class="stageinfo">
                 
-                <span class="meta" data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>"> 
+                <span class="meta tip-top" data-tooltip title="<?php echo Yii::t('app',"Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>"> 
                   <a class="stage" href="<?php echo Yii::app()->createURL("project/discover",array("SearchForm"=>array("stage"=>$idea['status_id']))); ?>">
-                  <span class="icon-awesome icon-signal" title="<?php echo Yii::t('app',"Stage of project"); ?>"></span>
+                  <span class="icon-awesome  icon-rocket" title="<?php echo Yii::t('app',"Stage of project"); ?>"></span>
                     <?php echo $idea['status']; ?>
                   </a>
                 </span>
@@ -26,13 +26,13 @@
                 <div class="right meta">
                   <?php if ($idea['website']){ ?>
                     <a href="<?php echo add_http($idea['website']); ?>" target="_blank">
-                      <span class="icon-awesome icon-globe" data-tooltip title="<?php  echo Yii::t('msg','Project has a presentational web page'); ?>" ></span>
+                      <span class="icon-awesome icon-globe" data-tooltip title="<?php  echo Yii::t('msg','Go to project home page'); ?>" ></span>
                     </a>
                   <?php } ?>
                   <?php if ($idea['video_link']){ ?>
                   <!-- <img src="<?php //echo Yii::app()->request->baseUrl; ?>/images/video.png" data-tooltip title="<?php // echo Yii::t('app','Has video'); ?>" alt="<?php // echo Yii::t('app','Has video'); ?>" class="card-icons" /> -->
                     <a href="<?php echo add_http($idea['video_link']); ?>" target="_blank">
-                      <span class="icon-film icon-awesome ml10" data-tooltip title="<?php  echo Yii::t('msg','Project has a video'); ?>" ></span>
+                      <span class="icon-film icon-awesome ml10" data-tooltip title="<?php  echo Yii::t('msg','Open project video'); ?>" ></span>
                     </a>
                   <?php } ?>   
                 </div>
@@ -45,6 +45,30 @@
             </div>
           </section>
 
+          <section>
+            <?php if(isset($idea['member'])) $cm = count($idea['member']); else $cm = 0; ?>
+            <p class="title" data-section-title><a href="#panel3"><?php echo Yii::t('app','{n} member|{n} members',array($cm)); ?></a></p>
+              <div class="content" data-section-content>
+                <?php 
+                $i = 0;
+                // show first 4 members
+                if(isset($idea['member'])){
+                foreach ($idea['member'] as $member){
+                $i++; if ($i > 7) break;
+              ?>
+                <div class="l-block"><a href="<?php echo Yii::app()->createUrl("person",array("id"=>$member['id'])); ?>">
+                  <img  src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="card-avatar mb8" />
+                  <?php echo $member['name']." ".$member['surname']; ?>
+                </a>
+              </div>
+                <?php } 
+                // extra members
+                if (count($idea['member']) > 7) echo '<font class="meta">+'.(count($idea['member'])-7).'</font>';
+                }
+                ?>
+              </div>
+          </section>
+          
           <section>
             <?php if(isset($idea['candidate'])) $cd = count($idea['candidate']); else $cd = 0; ?>
             <p class="title" data-section-title><a href="#panel2"><?php echo Yii::t('app','{n} position|{n} positions',array($cd)); ?></a></p>
@@ -102,29 +126,6 @@
               </div>
           </section>
 
-          <section>
-            <?php if(isset($idea['member'])) $cm = count($idea['member']); else $cm = 0; ?>
-            <p class="title" data-section-title><a href="#panel3"><?php echo Yii::t('app','{n} member|{n} members',array($cm)); ?></a></p>
-              <div class="content" data-section-content>
-                <?php 
-                $i = 0;
-                // show first 4 members
-                if(isset($idea['member'])){
-                foreach ($idea['member'] as $member){
-                $i++; if ($i > 7) break;
-              ?>
-                <div class="l-block"><a href="<?php echo Yii::app()->createUrl("person",array("id"=>$member['id'])); ?>">
-                  <img  src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="card-avatar mb8" />
-                  <?php echo $member['name']." ".$member['surname']; ?>
-                </a>
-              </div>
-                <?php } 
-                // extra members
-                if (count($idea['member']) > 7) echo '<font class="meta">+'.(count($idea['member'])-7).'</font>';
-                }
-                ?>
-              </div>
-          </section>        
         </div>     
       </div>
       <div class="idea-info">

@@ -49,9 +49,10 @@ class WebUser extends CWebUser
     }
 
     public function updateSession() {
-      if (Yii::app()->user->isGuest) return;
+      //if (Yii::app()->user->isGuest) return;
 
       $user = Yii::app()->getModule('user')->user($this->id);
+      if (!$user) return;
       $this->name = $user->email;
       $userAttributes = /*CMap::mergeArray(*/array(
                                               'email'=>$user->email,
@@ -76,11 +77,11 @@ class WebUser extends CWebUser
       }
     }
     
-    public function getEmail(){
+    /*public function getEmail(){
       if (!Yii::app()->user->isGuest && !isset(Yii::app()->user->email)) $this->updateSession();
       
       return Yii::app()->user->email;
-    }
+    }*/
 
     public function model($id=0) {
         return Yii::app()->getModule('user')->user($id);

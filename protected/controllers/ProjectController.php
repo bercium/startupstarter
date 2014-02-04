@@ -30,7 +30,8 @@ class ProjectController extends GxController {
 				'users'=>array('*'),
 			),
 	    array('allow',
-		        'actions'=>array('create','edit','leaveIdea','deleteIdea','addMember','deleteMember','sAddSkill','sDeleteSkill','sAddLink','sDeleteLink', 'addLink','deleteLink', 'translate','deleteTranslation'),
+		        'actions'=>array('create','edit','leaveIdea','deleteIdea','addMember','deleteMember','sAddSkill','sDeleteSkill',
+                             'sAddLink','sDeleteLink', 'addLink','deleteLink', 'translate','deleteTranslation','suggestMember'),
 		        'users'=>array("@"),
 		    ),
 			array('allow', 
@@ -80,6 +81,32 @@ class ProjectController extends GxController {
 
 		$this->render('view', array('data' => $data));
 	}
+  
+  /**
+   * suggest members
+   */
+  public function actionSuggestMember($term){
+    
+    $dataReader = User::model()->findAll("(name LIKE :name OR surname LIKE :name) AND status = 1", array(":name"=>"%".$term."%"));
+
+    if ($dataReader){
+      foreach ($dataReader as $row){
+        $avatar = avatar_image($row->avatar_link,$row->id,60);
+        $data[] = array("fullname"=>$row->name." ".$row->surname,
+                        "user_id"=>$row->id,
+                        //"img"=>avatar_image($row->avatar_link,$row->id),
+                        "img"=>$avatar,
+                        );
+      }
+    }
+    
+    $response = array("data" => $data,
+												"status" => 0,
+												"message" => '');
+		
+		echo json_encode($response);
+		Yii::app()->end();
+  }
 
 	public function actionCreate($step = NULL){
 		$this->ideaModify($step);
@@ -1293,8 +1320,8 @@ class ProjectController extends GxController {
       $_GET['SearchForm'] = '';
       $filter['per_page'] = 3;
       $filter['page'] = 1;
-      $invite = '<a href="'.Yii::app()->createUrl("site/notify").'" class="button small radius secondary mb0">'.Yii::t('msg','invitation').'</a>';
-      setFlash("discoverPerson", Yii::t('msg','Only recent three results are shown!<br />To get full functionality please login or request {invite}',array('{invite}'=>$invite)), "alert", false);
+      $register = '<a href="'.Yii::app()->createUrl("user/registration").'" class="button small radius secondary ml10 mb0">'.Yii::t('app','register').'</a>';
+      setFlash("discoverPerson", Yii::t('msg','Only recent three results are shown!<br />To get full functionality please login or {register}',array('{register}'=>$register)), "alert", false);
     }else{      
       $filter['per_page'] = 6;
       $filter['page'] = $id;

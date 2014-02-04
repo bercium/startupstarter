@@ -1,7 +1,7 @@
 <?php // ckeditor files
  $baseUrl = Yii::app()->baseUrl; 
     $cs = Yii::app()->getClientScript();    
-    $cs->registerScriptFile($baseUrl.'/js/ckeditor/ckeditor.js',CClientScript::POS_HEAD);
+    $cs->registerScriptFile($baseUrl.'/js/ckeditor/ckeditor.js'.getVersionID(),CClientScript::POS_HEAD);
     ?>
 
 <?php
@@ -11,37 +11,39 @@ $this->pageTitle = $user['name'] . " " . $user['surname'];
 if ($user['bio']) $this->pageDesc = trim_text(strip_tags($user['bio']), 150);
 else {
   // create automatic personal description if bio is empty
-  $this->pageDesc = "I'm ".$user['name'] . " " . $user['surname'];
+  $this->pageDesc = Yii::t('app',"I'm {name}",array('{name}'=>$user['name'] . " " . $user['surname']));
   // where is user from
+  
   if ($user['city'] || $user['country']){
-    $this->pageDesc .= " from ";
+    $cityContry = '';
     if ($user['city']){
-      $this->pageDesc .= $user['city'];
-      if ($user['country']) $this->pageDesc .= ", ";
+      $cityContry = $user['city'];
+      if ($user['country']) $cityContry .= ", ";
     }
-    if ($user['country']) $this->pageDesc .= $user['country'];
+    if ($user['country']) $cityContry .= $user['country'];
+    $this->pageDesc .= " ".Yii::t('app',"from {city}",array("{city}"=>$cityContry));
   }
   $this->pageDesc .= ".";
   
   // what kind oc collaboration is he searching and for how much time
   if ($user['available'] || (count($user['collabpref']) > 0)){
-    $this->pageDesc .= " I'm interested in working ";
-    if ($user['available'] > 1) $this->pageDesc .= $user['available_name'];
+    $workingOn = '';
+    $firsttime = '';
+    if ($user['available'] > 1) $workingOn .= $user['available_name'];
     
     if (count($user['collabpref']) > 0){
-      $firsttime = '';
+      
       foreach ($user['collabpref'] as $collab) {
         if (!$collab['active']) continue;
-        if ($firsttime) $firsttime .= ' or ';
-        $firsttime .=  $collab['name'];
+        if ($firsttime) $firsttime .= ' '.Yii::t('app','or').' ';
+        $firsttime .=  $collab['name']; 
       }
-      if ($firsttime) $this->pageDesc .= ' as '.$firsttime;
+      if ($firsttime) $workingOn .= ' '.Yii::t('app','as {preference}',array("{preference}"=>$firsttime));
     }
-    $this->pageDesc .= ".";
-    $this->pageDesc = str_replace("I'm interested in working .", "", $this->pageDesc);
+    if ($firsttime || $workingOn)  $this->pageDesc .= " ".Yii::t('app',"I'm interested in working {typeofwork}",array('{typeofwork}'=>$workingOn))." ";
   }
       
-  if (count($user['idea']) > 0) $this->pageDesc .= ' I\'m curently working on a project of my own.';
+  if (count($user['idea']) > 0) $this->pageDesc .= ' '.Yii::t('app','I\'m curently working on a project of my own.');
 }
 ?>
 <div id="drop-msg" class="f-dropdown content medium" data-dropdown-content>
@@ -49,10 +51,14 @@ else {
 	<?php
   if (Yii::app()->user->isGuest){
     echo Yii::t('msg','You must be loged in to contact this person.');
-    echo Yii::t('msg',"If you don't have an account ");
+    /*echo Yii::t('msg',"If you don't have an account ");
     ?> <a href="<?php echo Yii::app()->createUrl("site/notify"); ?>" class="button tiny radius mt20 mb0"> <?php echo Yii::t('msg','Request invitation');?> </a> <?php
+    */
   }
-  else { ?>    
+  else {
+    $comp = new Completeness();
+    if ($comp->getPercentage() > PROFILE_COMPLETENESS_MIN){
+    ?>
 	<?php echo CHtml::beginForm(Yii::app()->createUrl("message/contact"),'post',array("class"=>"customs")); ?>
       <?php echo CHtml::hiddenField("user",$user['id']); ?>
       <?php echo CHtml::label(Yii::t('app','Message').":",'message'); ?>
@@ -69,6 +75,10 @@ else {
       </div>
 
   <?php echo CHtml::endForm();
+    }else{
+      // not enough
+      echo Yii::t('msg','Before you can contact people you must fill your profile.');
+    }
 	}
 	?>
 	</div>
@@ -82,13 +92,28 @@ else {
       
       <?php $days = timeDifference($user['lastvisit_at'], date('Y-m-d H:i:s'), "days_total"); 
        if ($days < 6){ ?>
-        <img src="images/act-high.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','Active user'); ?>" data-tooltip>
+        <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-high.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','Active user'); ?>" data-tooltip>
       <?php }else if ($days < 10){ ?>
-        <img src="images/act-med.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','Not so active user'); ?>" data-tooltip>
+        <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-med.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','Not so active user'); ?>" data-tooltip>
       <?php }else{ ?>
-        <img src="images/act-low.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','User has not been active recently'); ?>" data-tooltip>
+        <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-low.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','User has not been active recently'); ?>" data-tooltip>
       <?php } ?>
       
+      <?php if (($user['status'] == '0') && (Yii::app()->user->isAdmin())){
+        $us = User::model()->findByPk($user['id']);
+        $activation_url = $this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $us->activkey, "email" => $user['email']));
+        ?>
+        <a class="button alert small-12 radius" href="<?php echo $activation_url; ?>" ><?php echo Yii::t('app', 'Activate this user'); ?></a>
+        <p><?php 
+          $usertag = UserTag::model()->FindAllByAttributes(array("user_id"=>$user['id']));
+          if ($usertag){
+            foreach ($usertag as $usrtag){
+              echo "<span class='label'>".$usrtag->tag."</span> ";
+            }
+          }
+        ?></p>
+      <?php } ?>
+        
       <?php if ($user['id'] == Yii::app()->user->id){ ?>
         <a class="button secondary small small-12 radius" href="<?php echo Yii::app()->createURL('profile'); ?>"><?php echo Yii::t('app', 'Edit profile') ?>
           <span class="icon-awesome icon-wrench"></span>
@@ -120,12 +145,12 @@ else {
       </div>
       
       <?php if ($user['id'] != Yii::app()->user->id){ ?>
-        <a class="button success small-12 radius" href="#" trk="contact_person"  data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send {name} a message',array("{name}"=>$user["name"])) ?></a>
+        <a class="button success small-12 radius" href="#" trk="contact_person"  data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send me a message') ?></a>
       <?php } ?>
     </div>
 
     <div class="panel">
-       <div class="item bbottom">  
+       <div class="item bb">  
        <h4><?php echo Yii::t('app','Share my profile'); ?></h4>
        <?php /* ?><p class="l-inline"><?php echo Yii::t('app','You are viewing this in'); ?> <?php echo $idea['language']; ?></p><?php */ ?>
        </div>
@@ -162,7 +187,7 @@ else {
     <!-- <p class="meta-field"><?php // echo Yii::t('app', 'My links') ?>:</p> -->
     <div class="panel">
     <?php if (count($user['link']) > 0) { ?>
-      <div class="item bbottom">
+      <div class="item bb">
         <h4 class=""> <?php echo Yii::t('app', 'Links') ?></h4>
         <?php foreach ($user['link'] as $link) { ?>
 
@@ -176,7 +201,7 @@ else {
       </div>
     <?php } ?>
 
-    <div class="item bbottom">
+    <div class="item bb">
       <h4><?php echo Yii::t('app', 'Invited by') ?></h4>
       <?php if ($vouched){ ?>
       
@@ -286,7 +311,7 @@ else {
       <div class="panel radius inside-panel">
         <!-- <hr> -->
         <h3 class="edit-content-title">
-        <?php echo Yii::t('app', 'Involved in {n} project|Involved in {n} projects', array(count($user['idea']))) ?>
+        <?php echo Yii::t('app', 'Working on {n} project|Involved in {n} projects', array(count($user['idea']))) ?>
         </h3>
 
         <?php

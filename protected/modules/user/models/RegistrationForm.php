@@ -6,12 +6,13 @@
  */
 class RegistrationForm extends User {
 	public $verifyPassword;
-	//public $verifyCode;
+	public $verifyCode;
   public $tos;
 	
 	public function rules() {
 		$rules = array(
-			array('password, verifyPassword, email, name, ', 'required'),
+			array('password, email, name, ', 'required'),
+      //array('password, verifyPassword, email, name, ', 'required'),       
       array('tos', 'compare', 'compareValue' => true, 
             'message' => Yii::t('msg','You must agree to the terms and conditions' )),
 			array('surname', 'safe'),
@@ -20,12 +21,12 @@ class RegistrationForm extends User {
 			array('email', 'email'),
 			//array('username', 'unique', 'message' => Yii::t('msg',"This user's name already exists.")),
 			array('email', 'unique', 'message' => Yii::t('msg',"This user's email address already exists.")),
-			array('verifyPassword', 'compare', 'compareAttribute'=>'password', 'message' => Yii::t('msg',"Retype password is incorrect.")),
+			//array('verifyPassword', 'compare', 'compareAttribute'=>'password', 'message' => Yii::t('msg',"Retype password is incorrect.")),
 			//array('username', 'match', 'pattern' => '/^[A-Za-z0-9_]+$/u','message' => Yii::t('msg',"Incorrect symbols (A-z0-9).")),
 		);
-		/*if (!(isset($_POST['ajax']) && $_POST['ajax']==='registration-form')) {
+		if (!(isset($_POST['ajax']) && $_POST['ajax']==='registration-form')) {
 			array_push($rules,array('verifyCode', 'captcha', 'allowEmpty'=>!UserModule::doCaptcha('registration')));
-		}*/
+		}
 		
 		return $rules;
 	}

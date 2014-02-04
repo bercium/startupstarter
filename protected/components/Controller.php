@@ -54,7 +54,8 @@ class Controller extends CController
     $cs->registerScriptFile($baseUrl.'/js/chosen.jquery.min.js');  // new dropdown
     $cs->registerScriptFile($baseUrl.'/js/jquery-ui-1.10.3.custom.min.js');
     $cs->registerScriptFile($baseUrl.'/js/jquery.cookie.js');
-    $cs->registerScriptFile($baseUrl.'/js/jquery.cookiecuttr.js');  
+    $cs->registerScriptFile($baseUrl.'/js/jquery.cookiecuttr.js');
+    $cs->registerScriptFile($baseUrl.'/js/jquery.timers.min.js');
 
     //$cs->registerCoreScript($baseUrl.'jquery.ui');
     //$cs->registerCoreScript($baseUrl.'autocomplete');
@@ -73,6 +74,9 @@ class Controller extends CController
                     'dimension1':'".$uid."',
                     'dimension2':'true',
                   }";
+      $user = User::model()->findByPk(Yii::app()->user->id);
+      $user->lastvisit_at = date('Y-m-d H:i:s');
+      $user->save();
     }
     
     $cs->registerScript("ganalytics","
@@ -107,13 +111,5 @@ class Controller extends CController
     parent::run($in_actionID);
   }
   
-  public function getNotifications(){
-    //$value = Yii::app()->cache->get("cacheNotifications");
-    //if($value === false){
-      Yii::log(Yii::app()->user->name.",, ".Yii::app()->user->isGuest.": ".json_encode(Yii::app()->user), CLogger::LEVEL_INFO, 'custom.info.user');
-      $value = Invite::model()->countByAttributes(array(),"(receiver_id = :idReceiver OR email LIKE :email) AND NOT ISNULL(idea_id)",array(":idReceiver"=>Yii::app()->user->id,":email"=>Yii::app()->user->email));
-      //Yii::app()->cache->set("cacheNotifications", $value, 30);
-    //}
-    return $value;
-  }
+
 }

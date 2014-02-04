@@ -125,8 +125,30 @@ class ProfileController extends GxController {
 			if ($user) {
 				$oldImg = $user->avatar_link;
 				$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
+        
+        // VANITY URL
+        $us = UserStat::model()->findByAttributes(array("user_id"=>$user_id));
+        // set only if has invited at least 3 other people
+        $allowVanityURL = ($us && (($user->vanityURL != '') || ($us->invites_send > 2)));
 
 				if (isset($_POST['UserEdit']) && isset($_POST['UserMatch'])) {
+         
+          //VANITY URL
+          if (isset($_POST['UserEdit']['vanityURL'])){
+            if (!$allowVanityURL && ( $_POST['UserEdit']['vanityURL'] != '')) $_POST['UserEdit']['vanityURL'] = '';
+            else{
+              // check validity of vanity URL in projects
+              if ($_POST['UserEdit']['vanityURL'] != $user->vanityURL){
+                $ideaURL = Idea::model()->findByAttributes(array('vanityURL'=>$_POST['UserEdit']['vanityURL']));
+                if ($ideaURL){
+                  //echo "b";
+                  $user->addError('vanityURL', Yii::t('msg',"This custom URL already exists."));
+                }
+              }
+            }
+          }
+          
+          
 					$user->setAttributes($_POST['UserEdit']);
 					//$user->avatar_link = '';
 
@@ -177,16 +199,16 @@ class ProfileController extends GxController {
 						$_POST['UserMatch']['user_id'] = $user_id;
 						$match->setAttributes($_POST['UserMatch']);
             
-			            if (!empty($_POST['UserMatch']['city'])){
-			              $city = City::model()->findByAttributes(array('name'=>$_POST['UserMatch']['city']));
-			              if ($city) $match->city_id = $city->id;
-			              else{
-			                $city = new City();
-			                $city->name = $_POST['UserMatch']['city'];
-			                $city->save();
-			                $match->city_id = $city->id;
-			              }
-			            }
+            if (!empty($_POST['UserMatch']['city'])){
+              $city = City::model()->findByAttributes(array('name'=>$_POST['UserMatch']['city']));
+              if ($city) $match->city_id = $city->id;
+              else{
+                $city = new City();
+                $city->name = $_POST['UserMatch']['city'];
+                $city->save();
+                $match->city_id = $city->id;
+              }
+            }else $match->city_id = null;
 
 						if ($match->save()) {
               $c = new Completeness();
@@ -218,7 +240,7 @@ class ProfileController extends GxController {
           }
           
           if (($c == 0) && ($match->save())) {
-            if (Yii::app()->user->isGuest) setFlash('profileMessage', Yii::t('msg',"Profile details saved. Please check your email for activation code."));
+            if (Yii::app()->user->isGuest) setFlash('profileMessage', Yii::t('msg',"Profile details saved. We will let you know when your account is activated."));
             else setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
             $c = new Completeness();
             $c->setPercentage($user_id);
@@ -238,7 +260,7 @@ class ProfileController extends GxController {
         }
         else {
           $data['user'] = $sqlbuilder->load_array("user", $filter, "collabpref,link,idea,member");
-          $this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea']));
+          $this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea'], "allowVanityURL"=>$allowVanityURL));
         }
 
         //if (Yii::app()->user->isGuest) $this->render('registrationFlow', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link));
@@ -279,7 +301,7 @@ class ProfileController extends GxController {
 
     $us = UserStat::model()->findByAttributes(array("user_id"=>$user_id));
         // set only if has invited at least 3 other people
-    $allowVanityURL = (($user->vanityURL != '') || ($us->invites_send > 2));
+    $allowVanityURL = ($us && (($user->vanityURL != '') || ($us->invites_send > 2)));
         
 		if ($user) {
 
@@ -292,13 +314,13 @@ class ProfileController extends GxController {
 				$_POST['UserEdit']['email'] = $user->email; // can't change email at this time!!!
         
         // set only if has invited at least 3 other people
-        if (!$allowVanityURL && ($_POST['UserEdit']['vanityURL'] != '')) $_POST['UserEdit']['vanityURL'] = '';
+        if (!$allowVanityURL && (isset($_POST['UserEdit']['vanityURL']) && $_POST['UserEdit']['vanityURL'] != '')) $_POST['UserEdit']['vanityURL'] = '';
         else{
           // check validity of vanity URL in projects
           if ($_POST['UserEdit']['vanityURL'] != $user->vanityURL){
             $ideaURL = Idea::model()->findByAttributes(array('vanityURL'=>$_POST['UserEdit']['vanityURL']));
             if ($ideaURL){
-              echo "b";
+              //echo "b";
               $user->addError('vanityURL', Yii::t('msg',"This custom URL already exists."));
             }
           }

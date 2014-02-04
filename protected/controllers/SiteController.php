@@ -26,7 +26,8 @@ class SiteController extends Controller
 		return array(
 			array('allow', // allow all users to perform actions
         'actions'=>array('index','error','logout','about','terms','notify','notifyFacebook','suggestCountry',
-                         'suggestSkill','suggestCity','unbsucribeFromNews','cookies','sitemap','calendar'),
+                         'suggestSkill','suggestCity','unbsucribeFromNews','cookies','sitemap','startupEvents',
+                         'applyForEvent','vote','clearNotif'),
 				'users'=>array('*'),
 			),
 			/*array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -147,6 +148,7 @@ class SiteController extends Controller
 
 	public function actionNotify()
 	{
+    //$this->redirect("user/registration");
     if (!Yii::app()->user->isGuest) $this->redirect("index"); //loged in no need to send notifications
     $savedToDB = false;
     if (!empty($_POST['email'])){
@@ -481,14 +483,19 @@ class SiteController extends Controller
       <loc>http://www.cofinder.eu/project/discover</loc>
       <changefreq>daily</changefreq>
       <priority>0.90</priority>
-    </url>    
+    </url>
+    <url>
+      <loc>http://www.cofinder.eu/site/startupEvents</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.60</priority>
+    </url>
     <url>
       <loc>http://www.cofinder.eu/site/about</loc>
       <changefreq>monthly</changefreq>
       <priority>0.60</priority>
     </url>
     <url>
-      <loc>http://www.cofinder.eu/site/notify</loc>
+      <loc>http://www.cofinder.eu/user/registration</loc>
       <changefreq>monthly</changefreq>
       <priority>0.30</priority>
     </url>
@@ -586,52 +593,104 @@ EOD;
   /**
    * load calendars
    */
-  public function actionCalendar(){
+  public function actionStartupEvents(){
+    $this->layout = "//layouts/none";
+    $events = array();
     
-    $connectorGuid = "6f47b5aa-eac5-4992-9a6b-384ab56266a4";
-    $userGuid = "58e3153e-fa36-4b9d-8c4d-b5738a582d87";
-    $apiKey = "7dMKDBf9TiWohXjN/uofMZfZ9tubpjPME/iTMgNHYw6LCNq4fweTErAOVE/Q8samc5W2fBFSNXzlUjHGkkzFXQ==";
+    $filename = "calendar.json";
+    $folder = Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['tempFolder'];
+      
+    if (!file_exists($folder.$filename) || YII_DEBUG){
+    //if (true){    
+      $controller = 'general';
+      $action = 'loadCalendars';
+      
+      $commandPath = Yii::app()->getBasePath() . DIRECTORY_SEPARATOR . 'commands';
+      $runner = new CConsoleCommandRunner();
+      $runner->addCommands($commandPath);
+      $commandPath = Yii::getFrameworkPath() . DIRECTORY_SEPARATOR . 'cli' . DIRECTORY_SEPARATOR . 'commands';
+      $runner->addCommands($commandPath);
 
-    // Query for tile startup.si
-    $result = $this->query($connectorGuid, array(
-      "webpage/url" => "http://www.startup.si/sl-si/EventList",
-    ), $userGuid, $apiKey);
-    var_dump($result);
-
-    // Query for tile startup.si
-    $result = $this->query($connectorGuid, array(
-      "webpage/url" => "http://www.spiritslovenia.si/dogodki",
-    ), $userGuid, $apiKey);
-    var_dump($result);
-
-    // Query for tile startup.si
-    $result = $this->query($connectorGuid, array(
-      "webpage/url" => "http://www.tp-lj.si/dogodki",
-    ), $userGuid, $apiKey);
-    var_dump($result);
-
-    // Query for tile startup.si
-    $result = $this->query($connectorGuid, array(
-      "webpage/url" => "http://www.racunalniske-novice.com/dogodki/",
-    ), $userGuid, $apiKey);
-    var_dump($result);    
+      $args = array('yiic', $controller, $action); // 'migrate', '--interactive=0'
+      //$args = array_merge(array("yiic"), $args);
+      //ob_start();
+      $runner->run($args);
+    }
     
-    Yii::import('application.extensions.EGCal.EGCal');
-    $cal = new EGCal('USER', 'PASS', true);
+    if (file_exists($folder.$filename)){
+      $content = file_get_contents($folder.$filename);
+      $events = json_decode($content, true);
+    }
     
-    $response = $cal->find(
-        array(
-            'min'=>"2014-01-01T08:20:00.000-06:00", 
-            'max'=>"2014-01-10T08:20:00.000-06:00",
-            'limit'=>50,
-            'order'=>'a',
-            //'calendar_id'=>'n34on2hojd78cm23oj8p957pds@group.calendar.google.com'
-            'calendar_id'=>'db3vp3irt7gkre717htb8a7ocqhfu0db@import.calendar.google.com'
-            //'calendar_id'=>'bercium@gmail.com'
-        )
-    );
-    
-    $this->render("calendar",array("response"=>$response));
+    /*echo "<pre>";
+    print_r($events);
+    echo "</pre>";*/
+    if (Yii::app()->user->isGuest){
+      $register = '<a href="'.Yii::app()->createUrl("user/registration").'" class="button small radius secondary ml10 mb0">'.Yii::t('app','register').'</a>';    
+      setFlash("discoverPerson", Yii::t('msg','To see all events please login or {register}',array('{register}'=>$register)), "alert", false);
+    }
+    $this->render("calendar",array("events"=>$events));
+  }
+  
+  /**
+   * apply for events
+   */
+  public function actionApplyForEvent($event){
+    if (!Yii::app()->user->isGuest){
+      
+
+      if(isset($_POST['Event'])) {
+        if (!isset($_POST['Event']['present']) || !isset($_POST['Event']['cofounder'])){
+          setFlash ('fields_problem', Yii::t('msg','Please fill all fields!'), 'alert');
+        }else{
+          $userTag = UserTag::model()->findByAttributes(array("user_id"=>Yii::app()->user->id,"tag"=>$event));
+          if (!$userTag){
+            $userTag = new UserTag();
+            $userTag->user_id = Yii::app()->user->id;
+            $userTag->tag = $event;
+
+            $userTag->content = $_POST['Event']['present']." is cofounder ".$_POST['Event']['cofounder'];
+            $userTag->save();
+
+
+            $message = new YiiMailMessage;
+            $message->view = 'system';
+            $message->subject = "Nov uporabnik (".Yii::app()->user->fullname.") prijavljen na dogodek ".$event;
+            // nam sporočilo o registraciji z mailom
+            $message->setBody(array("content"=>'Uporabnik '.Yii::app()->user->fullname.' se je pravkar prijavil na dogodek.<br /><br />'.$userTag->content.'<br />
+                                        Njegov email: '.Yii::app()->user->email.'<br />'.
+                                        'Rad bi: '.$_POST['Event']['present'].'<br />'.
+                                        'Je že kdaj bil ustanovitelj: '.$_POST['Event']['cofounder'].'<br /><br />'.
+                                        'Njegov profil na Cofinderju si lahko ogledate <a href="'.$this->createAbsoluteUrl("/person/view",array("id"=>Yii::app()->user->id)).'">tukaj</a>'), 'text/html');
+            $message->addTo("cofinder@hekovnik.si");
+            $message->from = Yii::app()->params['noreplyEmail'];
+            Yii::app()->mail->send($message);
+          }
+          $this->render('message',array('title'=>Yii::t('msg','Thank you for applying to this event'),
+                                        'content'=>Yii::t('msg','We need to confirm your application and will get back to you with further instructions.')));
+          return;
+        }
+      }
+      
+      $this->render("event");
+      return;
+      
+    }else{
+      $this->redirect(array("/user/registration","event"=>$event));
+      return;
+    }
+  }
+  
+  public function actionVote(){
+     $this->render('message',array('title'=>Yii::t('msg','Thank you for voting'),
+                                    'content'=>Yii::t('app','Go to ').'<a href="http://www.cofinder.eu">Cofinder</a>'));
+  }
+  
+  /**
+   * 
+   */
+  public function actionClearNotif($type){
+    Notifications::viewNotification($type);
   }
 	
 }

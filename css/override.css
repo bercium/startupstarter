@@ -342,8 +342,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7072', end
     border-color: #7cac51;
     color: white; }
   .alert-box.alert {
-    background-color: #a83c3c;
-    border-color: #953535;
+    background-color: #C64747;
+    border-color: #A83C3C;
+    background-image: url(../images/alert_bg.png);
     color: white; }
   .alert-box.secondary {
     background-color: #f9f9f7;
@@ -356,7 +357,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7072', end
   .alert-box.info {
     background-color: #a0d3e8;
     border-color: #8bc9e3;
-    color: #6d6d51; }
+    color: #666; }
 
 
 /*breadcrumbs*/
@@ -429,8 +430,8 @@ button.success, .button.success {
 }
 button.success:hover, button.success:focus, .button.success:hover, .button.success:focus { background-color: #6a9446; }
 button.alert, .button.alert {
-    background-color: #A83C3C;
-    border-color: #A83C3C;
+    background-color: #C64747;
+    border-color: #C64747;
 }
 button.alert:hover, button.alert:focus, .button.alert:hover, .button.alert:focus { background-color: #a5292c; }
 button.disabled, button[disabled], .button.disabled, .button[disabled] {
@@ -450,12 +451,12 @@ button.disabled.success:hover, button.disabled.success:focus, button[disabled].s
 button.disabled.success:hover, button.disabled.success:focus, button[disabled].success:hover, button[disabled].success:focus, .button.disabled.success:hover, .button.disabled.success:focus, .button[disabled].success:hover, .button[disabled].success:focus {
         background-color: #89b561; }
 button.disabled.alert, button[disabled].alert, .button.disabled.alert, .button[disabled].alert {
-      background-color: #A83C3C;
+      background-color: #C64747;
       border-color: #a5292c;}
 button.disabled.alert:hover, button.disabled.alert:focus, button[disabled].alert:hover, button[disabled].alert:focus, .button.disabled.alert:hover, .button.disabled.alert:focus, .button[disabled].alert:hover, .button[disabled].alert:focus {
         background-color: #a5292c; }
 button.disabled.alert:hover, button.disabled.alert:focus, button[disabled].alert:hover, button[disabled].alert:focus, .button.disabled.alert:hover, .button.disabled.alert:focus, .button[disabled].alert:hover, .button[disabled].alert:focus {
-        background-color: #A83C3C; }
+        background-color: #C64747; }
 
 
 
@@ -712,3 +713,9 @@ table {
  
   table tr.even, table tr.alt, table tr:nth-of-type(even) {
     background: inherit; }
+
+  
+.fc-sat { background-color:#F5F5F5; }
+.fc-sun { background-color:#F5F5F5; }
+.fc-today { background-color:#f1f6ec; font-weight: bold; }
+.fc-event{ margin-bottom: 2px; cursor: pointer;}

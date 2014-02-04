@@ -18,7 +18,7 @@
 <?php if (isset($_GET['key'])) echo CHtml::hiddenField('key',$_GET['key']); ?>
 <?php 
 foreach ($trans as $id => $row){
-  echo "<p>".CHtml::label($row['eng']."",'Translations_'.$id);
+  echo "<p>".CHtml::label(strtr($row['eng'],Array("<"=>"&lt;","&"=>"&amp;"))."",'Translations_'.$id);
   $class = "error";
   if ($row['trans']) $class="success";
   echo CHtml::textArea('Translations['.$id.']',$row['trans'],array("class"=>$class,"onchange"=>"$(this).removeClass()"))."</p>";

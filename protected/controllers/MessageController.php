@@ -53,6 +53,8 @@ class MessageController extends Controller
       if (!empty($_POST['user'])){
         $db_message->user_to_id = $_POST['user'];
         $replyParams = array('id'=>Yii::app()->user->id,'group'=>'user');
+        
+        Notifications::setNotification($_POST['user'],Notifications::NOTIFY_MESSAGE);
       }
       if (!empty($_POST['project'])){
         $db_message->idea_to_id = $_POST['project'];
@@ -73,7 +75,7 @@ class MessageController extends Controller
       $content = "This message was sent to you trough Cofinder by ".$sender->name." ".$sender->surname.'. '.
                  '<br />Check his <a href="'.Yii::app()->createAbsoluteUrl('/person/view',array('id'=>Yii::app()->user->id)).'">profile</a> or 
                   reply <a href="'.Yii::app()->createAbsoluteUrl('/message/view',$replyParams).'">here</a>.<br /><br /><br />'.
-                 GxHtml::encode($_POST['message']);
+                 $_POST['message'];
       $message->setBody(array("content"=>$content), 'text/html');
       //$message->setBody(array("content"=>$_POST['message'],"senderMail"=>$sender->email), 'text/html');
       
@@ -83,6 +85,13 @@ class MessageController extends Controller
           // send only to project and creator of a project
           $ideaMember = IdeaMember::model()->findByAttributes(array("idea_id"=>$_POST['project'],"type_id"=>1));
           $receiver = User::model()->findByPk($ideaMember->match->user_id);
+          
+          // add notification to all members
+          $ideaMembers = IdeaMember::model()->findAllByAttributes(array("idea_id"=>$_POST['project']));
+          foreach ($ideaMembers as $member){
+            Notifications::setNotification($member->match->user_id,Notifications::NOTIFY_PROJECT_INVITE);
+          }
+
         }else $receiver = User::model()->findByPk($_POST['user']); //reply to person sending to project
         
         $project = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$_POST['project']));
@@ -90,7 +99,7 @@ class MessageController extends Controller
         $message_self->subject = "Message send to project";
         $content_self = "You have sent this message trough Cofinder to ".$project->title.'. '.
                    '<br />To check project <a href="'.Yii::app()->createAbsoluteUrl('/project/view',array('id'=>$_POST['project'])).'">click here</a>.<br /><br /><br />'.
-                   GxHtml::encode($_POST['message']);
+                   $_POST['message'];
       }else{
         //$db_message->user_to_id = $_POST['user'];
         $receiver = User::model()->findByPk($_POST['user']);
@@ -98,7 +107,7 @@ class MessageController extends Controller
         $message_self->subject = "Message send to ".$receiver->name." ".$receiver->surname;
         $content_self = "You have sent this message trough Cofinder to ".$receiver->name." ".$receiver->surname.'. '.
                    '<br />To check his profile <a href="'.Yii::app()->createAbsoluteUrl('/person/view',array('id'=>$receiver->id)).'">click here</a>.<br /><br /><br />'.
-                   GxHtml::encode($_POST['message']);
+                   $_POST['message'];
       }
       
       $message->addTo($receiver->email);

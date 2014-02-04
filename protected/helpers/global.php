@@ -312,7 +312,7 @@ function decodeFlashMsg($msg){
     
     if (isset($msg['actions'])){
       foreach ($msg['actions'] as $action){
-        $actions[] = '<a href="'.$action['action'].'" class="action button radius tiny secondary" style="margin-bottom: 0;" alt="'.$action['hint'].'" title="'.$action['hint'].'">'.
+        $actions[] = '<a href="'.$action['action'].'" class="action button radius tiny secondary ml10" style="margin-bottom: 0;" alt="'.$action['hint'].'" title="'.$action['hint'].'">'.
                      $action['hint'].
                      '</a>';
       }
@@ -322,6 +322,12 @@ function decodeFlashMsg($msg){
   }else return $msg;
 }
 
+/**
+ * will return flash data as a string
+ */
+function clearFlashes(){
+  Yii::app()->user->getFlashes(true);
+}
 
 /**
  * will return flash data as a string
@@ -365,16 +371,22 @@ function writeFlashes(){
     foreach($flashMessages as $key => $flash) {
       Yii::app()->user->getFlash($key);
 
-      $html .= '<div style="height: 27px; padding-top:5px; font-weight:bold;" data-alert class="alert-box mb0 '.$flash['status'].' flash-hide-'.$i.' "><div class="row">';
-      $html .= decodeFlashMsg($flash['message']);
-      $html .= '<a href="#" class="close">&times;</a></div></div>';
-
       if ($flash["autoHide"]){
-        if ($flash['status'] != 'alert') $hide .= '$(".flash-hide-'.$i.'").animate({opacity: 1.0}, '.(4000+$i*1000).').fadeOut();';
-        else $hide .= '$(".flash-hide-'.$i.'").animate({opacity: 1.0}, '.(10000+$i*1000).').fadeOut();';
-      }else $nh++;
+        if ($flash['status'] != 'alert') $wait_time = 4000;
+        else $wait_time = 10000;
+        $hide .=  "$('.flash-hide-".$i."').oneTime(".($wait_time+$i*1000).", function() { $(this).fadeOut(); })"
+                . "                                   .hover( function() { $(this).stopTime();}, 
+                                                              function() { $(this).oneTime(".(4000+$i*1000).", function() { $(this).fadeOut(); }); });";
+      }else $nh++;      
+
+      $html .= '<div style="padding:4px 20px; height: 100%; font-weight:bold;" data-alert class="alert-box mb0 '.$flash['status'].' flash-hide-'.$i.' "><div class="row">';
+      $html .= decodeFlashMsg($flash['message']);
+      //$html .= '<a href="#" class="close">&times;</a></div></div>';
+      $html .= '</div></div>';
+
       $i++;
     }
+
     $html .= '</div></div>';
     if ($nh > 0){
       $html .= '<div></div>';

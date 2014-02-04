@@ -213,16 +213,17 @@ class Completeness{
             );      
       
       $stat = UserStat::model()->findByAttributes(array("user_id"=>$user_id));
-      $this->details[] = array(
-            "group"=>Yii::t('app',"Other"),
-            "name"=>Yii::t('app',"Invitations"),
-            "value"=>"", 
-            "hint"=>Yii::t('msg',"Send some invitations to your friends. On the left side you can find invitation button."),
-            "action"=>"",
-            "active"=>($stat->invites_send > 3),
-            "weight"=>7,
-            );
-      
+      if ($stat){
+        $this->details[] = array(
+              "group"=>Yii::t('app',"Other"),
+              "name"=>Yii::t('app',"Invitations"),
+              "value"=>"", 
+              "hint"=>Yii::t('msg',"Send some invitations to your friends. On the left side you can find invitation button."),
+              "action"=>"",
+              "active"=>($stat->invites_send > 3),
+              "weight"=>7,
+              );
+      }
       return $this->details;
     }
   }
@@ -261,9 +262,17 @@ class Completeness{
     if ($stat == null){
       $stat = new UserStat();
       $stat->user_id = $user_id;
+      $stat->completeness = 0;
     }
     $stat->completeness = $perc;
     $stat->save();
+    
+    // add invites
+    $user = User::model()->findByPk($user_id);
+    if (($user->invitations == 0) && ($stat->completeness > PROFILE_COMPLETENESS_MIN) && ($stat->invites_send == 0)){
+      $user->invitations = 5;
+      $user->save();
+    }
 
     return $perc;
   }

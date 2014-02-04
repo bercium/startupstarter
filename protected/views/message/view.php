@@ -1,7 +1,7 @@
 <?php // ckeditor files
  $baseUrl = Yii::app()->baseUrl; 
     $cs = Yii::app()->getClientScript();    
-    $cs->registerScriptFile($baseUrl.'/js/ckeditor/ckeditor.js',CClientScript::POS_HEAD);
+    $cs->registerScriptFile($baseUrl.'/js/ckeditor/ckeditor.js'.getVersionID(),CClientScript::POS_HEAD);
     ?>
 
 <div id="drop-msg" class="f-dropdown content medium" data-dropdown-content>
@@ -109,7 +109,7 @@
         <a href="<?php echo Yii::app()-> createUrl("project",array("id"=>$id)); ?>" >
           <h3 class="large-8"><?php echo $chatList['name']; ?></h3>
         </a>
-        <a class="button radius right secondary small" href="#" data-dropdown="drop-msg" onclick="setReplayID('','<?php echo $id; ?>');" ><?php echo Yii::t('app',"Group message"); ?></a>
+        <a class="button radius right secondary small" href="#" data-dropdown="drop-msg" data-tooltip title="<?php echo Yii::t('msg',"Send message to team members only"); ?>" onclick="setReplayID('','<?php echo $id; ?>');" ><?php echo Yii::t('app',"Team message"); ?></a>
         <?php } ?>
       </div>
     
@@ -124,8 +124,8 @@
           <?php if (($msg['from_id'] != Yii::app()->user->id) && ($group == 'project')){ ?>
             
             <ul class="button-group radius right">
-             <li><a class="button  secondary small" href="#" data-dropdown="drop-msg" onclick="setReplayID('<?php echo $msg['from_id']; ?>','');"><?php echo Yii::t('app',"PM"); ?></a></li>
-              <li><a class="button  secondary small" href="#" data-dropdown="drop-msg" onclick="setReplayID('<?php echo $msg['from_id']; ?>','<?php echo $id; ?>');"><?php echo Yii::t('app',"Replay"); ?></a></li>
+             <li><a class="button  secondary small" href="#" data-dropdown="drop-msg" data-tooltip title="<?php echo Yii::t('msg',"Send private message to user"); ?>" onclick="setReplayID('<?php echo $msg['from_id']; ?>','');"><?php echo Yii::t('app',"PM"); ?></a></li>
+              <li><a class="button  secondary small" href="#" data-dropdown="drop-msg" data-tooltip title="<?php echo Yii::t('msg',"Send private message to user and project team members"); ?>" onclick="setReplayID('<?php echo $msg['from_id']; ?>','<?php echo $id; ?>');"><?php echo Yii::t('app',"Replay"); ?></a></li>
             </ul>
           <?php } ?>
           <span class="description"><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($msg['time']),"medium","short"); ?></span><br />

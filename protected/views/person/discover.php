@@ -25,10 +25,10 @@
   </div>
 </div>
 
-<div class="panel-top mb20"><!-- panel-top -->
+<div class="panel-top mb20 bb"><!-- panel-top -->
 	<div class="row">
+		<div class="columns">
     <h1><?php echo Yii::t('app','Find talent'); ?></h1>
-
     
     <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[skill]'=>'Designer, GraphicDesigner', 'Category'=>'skill')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("msg","Search for designers") ?>"><?php echo Yii::t("app","Designers"); ?></a>
     <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[skill]'=>'Business developer', 'Category'=>'skill')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("msg","Search for people who can help you develop your business.") ?>"><?php echo Yii::t("app","Business developers"); ?></a>
@@ -39,13 +39,15 @@
     <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[available]'=>'60', 'Category'=>'available')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("msg","People that just can't stop working.") ?>" ><?php echo Yii::t("app","Workaholics"); ?></a>   
     <a href="<?php echo Yii::app()->createUrl("person/discover",array('SearchForm[collabPref]'=>'1', 'SearchForm[available]'=>'60', 'Category'=>'collabpref')); ?>" class="button success  radius small" data-tooltip title="<?php echo Yii::t("msg","People searching for regular jobs.") ?>" ><?php echo Yii::t("app","Employees"); ?></a>    
     <a href="#" data-dropdown="drop-local-project" onclick="$('#search_local').focus()" class="button success dropdown radius small" data-tooltip title="<?php echo Yii::t('app','People that are available in a specific area will be shown first!');?>" ><?php echo Yii::t("app","Local people"); ?></a>
-
+	</div>
 	</div>
   
   <div class="searchpanel">
     <div class="row">
-    <a class="button small radius secondary" href="#" style="margin-top:15px;" onclick="$('#searchpanel').slideToggle(); return false;"><?php echo Yii::t('app','Show search options'); ?></a>
-    </div>
+    	<div class="columns">
+	    <a class="button small radius secondary" href="#" style="margin-top:15px;" onclick="$('#searchpanel').slideToggle(); return false;"><?php echo Yii::t('app','More options'); ?></a>
+	    </div>
+		</div>
   </div>
 
 	<div id="searchpanel" class="searchpanel" <?php if (!$filter->checkSearchForm()) echo "style='display:none'"; ?> >
@@ -135,51 +137,47 @@
 </div><!-- panel-top end -->
 
 
-
-  
-
-
-
-
 <div class="row mb40" id="recent_projects">
-	<?php
-	if (!empty($searchResult['data']) && count($searchResult['data']) > 0){
-		Yii::log(arrayLog($searchResult), CLogger::LEVEL_INFO, 'custom.info.search_result'); 
-		?>
-  
-    <div class="hide-for-medium-down">
-      <div class="page-navigation">
-        <ul>
-          <li><a class="button secondary small radius" href="#page1"><?php echo Yii::t("app", "Page"); ?> 1</a></li>
-        </ul>
-      </div>
-    </div>
+	<div class="columns large-12 small-12">
+		<?php
+		if (!empty($searchResult['data']) && count($searchResult['data']) > 0){
+			Yii::log(arrayLog($searchResult), CLogger::LEVEL_INFO, 'custom.info.search_result'); 
+			?>
+	  
+	    <div class="hide-for-medium-down">
+	      <div class="page-navigation">
+	        <ul>
+	          <li><a class="button secondary small radius" href="#page1"><?php echo Yii::t("app", "Page"); ?> 1</a></li>
+	        </ul>
+	      </div>
+	    </div>
 
-		<div class="list-holder">
-      
-      <div class="list-items">
-        <a id="page<?php echo $searchResult['page']; ?>" class="anchor-link"></a>
-        
-        <h5><?php echo Yii::t("app","Page")." ".$searchResult['page']; ?></h5>
-        <ul class="small-block-grid-1 large-block-grid-3">
-          <?php 
-          foreach ($searchResult['data'] as $result){ ?>
-            <li>
-            <?php $this->renderPartial('//person/_user', array('user' => $result)); ?>
-            </li>
-          <?php } ?>
-        </ul>
-      </div>
-		</div>
+			<div class="list-holder">
+	      
+	      <div class="list-items">
+	        <a id="page<?php echo $searchResult['page']; ?>" class="anchor-link"></a>
+	        
+	        <h5><?php echo Yii::t("app","Page")." ".$searchResult['page']; ?></h5>
+	        <ul class="small-block-grid-1 large-block-grid-3">
+	          <?php 
+	          foreach ($searchResult['data'] as $result){ ?>
+	            <li>
+	            <?php $this->renderPartial('//person/_user', array('user' => $result)); ?>
+	            </li>
+	          <?php } ?>
+	        </ul>
+	      </div>
+			</div>
 
-		<div class="pagination-centered">
-			<?php if (!Yii::app()->user->isGuest) $this->widget('ext.Pagination.WPagination',array("url"=>"person/discover","page"=>$searchResult['page'],"maxPage"=>$searchResult['maxPage'],"getParams"=>$_GET)); ?>
-		</div>
-	<?php }else{	?>
-	
-	<h3><?php echo Yii::t('msg','No results found with these filters.') ?></h3>
-	
-	<?php } ?>
+			<div class="pagination-centered">
+				<?php if (!Yii::app()->user->isGuest) $this->widget('ext.Pagination.WPagination',array("url"=>"person/discover","page"=>$searchResult['page'],"maxPage"=>$searchResult['maxPage'],"getParams"=>$_GET)); ?>
+			</div>
+		<?php }else{	?>
+		
+		<h3><?php echo Yii::t('msg','No results found with these filters.') ?></h3>
+		
+		<?php } ?>
+	</div>
 </div>
 
 

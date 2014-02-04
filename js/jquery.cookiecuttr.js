@@ -25,7 +25,7 @@
     $.cookieCuttr = function (options) {
         var defaults = {
             cookieCutter: false, // you'd like to enable the div/section/span etc. hide feature? change this to true
-            cookieCutterDeclineOnly: false, // you'd like the CookieCutter to only hide when someone has clicked declined set this to true
+            cookieCutterDeclineOnly: true, // you'd like the CookieCutter to only hide when someone has clicked declined set this to true
             cookieAnalytics: true, // just using a simple analytics package? change this to true
             cookieDeclineButton: true, // this will disable non essential cookies
             cookieAcceptButton: true, // this will disable non essential cookies
@@ -33,7 +33,7 @@
             cookieOverlayEnabled: false, // don't want a discreet toolbar? Fine, set this to true
             cookiePolicyLink: '/privacy-policy/', // if applicable, enter the link to your privacy policy here...
             cookieMessage: 'We use cookies on this website, you can <a href="{{cookiePolicyLink}}" title="read about our cookies">read about them here</a>. To use the website as intended please...',
-            cookieAnalyticsMessage: 'Na spletni strani uporabljamo piškotke. Piškotki zagotovijo normalno delovanje in pomagajo pri štetju obiska strani.',
+            cookieAnalyticsMessage: 'Na strani uporabljamo piškotke, ki zagotovijo normalno delovanje in pomagajo pri štetju obiska strani.',
             cookieErrorMessage: "We\'re sorry, this feature places cookies in your browser and has been disabled. <br>To continue using this functionality, please",
             cookieWhatAreTheyLink: "http://www.allaboutcookies.org/",
             cookieDisable: '',

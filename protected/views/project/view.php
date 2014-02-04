@@ -16,10 +16,13 @@ else $this->pageDesc = trim_text(strip_tags($idea['pitch']), 150);
             <?php
             if (Yii::app()->user->isGuest) {
                 echo Yii::t('msg', 'You must be loged in to contact this person.');
-                echo Yii::t('msg', "If you don't have an account ");
+               /* echo Yii::t('msg', "If you don't have an account ");
                 ?> <a href="<?php echo Yii::app()->createUrl("site/notify"); ?>"
                       class="button tiny radius mt20 mb0"> <?php echo Yii::t('msg', 'Request invitation'); ?> </a> <?php
+                */
             } else {
+                $comp = new Completeness();
+                if ($comp->getPercentage() > PROFILE_COMPLETENESS_MIN){
                 ?>
                 <?php
                 /*$user_id = '';
@@ -45,6 +48,11 @@ else $this->pageDesc = trim_text(strip_tags($idea['pitch']), 150);
                 </div>
 
                 <?php echo CHtml::endForm();
+                }else{
+                  // not enough
+                  echo Yii::t('msg','Before you can contact people you must fill your profile.');
+                }
+                
             }
             ?>
         </div>
@@ -64,8 +72,8 @@ else $this->pageDesc = trim_text(strip_tags($idea['pitch']), 150);
                         $skills .= $skillset["skillset"];
                     }
             }
-            $summary = $this->pageTitle . " " . Yii::t('app', 'project is looking for people skilled in {skills}', array("{skills}" => $skills));
-            $title = Yii::t('app', '{n} job position opened|{n} job positions opened', array(count($idea['candidate']))); ?>
+            $title = Yii::t('app', '{n} job position opened|{n} job positions opened', array(count($idea['candidate'])));
+            $summary = $this->pageTitle . " " . Yii::t('app', 'Open positions: {skills}', array("{skills}" => $skills)); ?>
             <a href="http://www.facebook.com/sharer.php?s=100&p[title]=<?php echo $title; ?>&p[summary]=<?php echo $summary; ?>&p[url]=<?php echo $url; ?>"
                trk="social_facebook_share_project"
                onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
@@ -101,11 +109,12 @@ else $this->pageDesc = trim_text(strip_tags($idea['pitch']), 150);
 
             <h1 class="project-title"><?php echo $idea['title']; ?></h1>
 
-            <div class="right">
+            <hr>
+            <div class="right pb15">
 
 
-                <h4 class="l-inline mt10">
-                    <?php echo Yii::t('app', 'Stage'); ?>
+                <h4 class="l-inline mt10"><span class="icon-awesome icon-rocket"></span>
+                    
                 </h4>
                 <a style="font-size:14px;" data-tooltip
                    title="<?php echo Yii::t('app', "Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>">
@@ -113,11 +122,17 @@ else $this->pageDesc = trim_text(strip_tags($idea['pitch']), 150);
                 </a>
             </div>
 
-            <div class="">
-                <h4 class="l-inline mt10">Positions</h4>
-                <a href="#candidates">
-                    3 opened </a>
+            <?php if (count($idea['candidate']) > 0){ ?> 
+            <div class="left pb15">
+            <h4 class="l-inline mt10"><?php echo Yii::t('app','Positions') ?></h4>
+            
+            <a href="#candidates" style="font-size:14px;" >
+
+              <?php   echo Yii::t('app','{n} open|{n} opened', array(count($idea['candidate']))); ?></a>
+            </a>
             </div>
+            <?php } ?>
+
 
 
             <hr>
@@ -145,7 +160,7 @@ else $this->pageDesc = trim_text(strip_tags($idea['pitch']), 150);
                         <a id="candidates" class="anchor-link"></a>
                         <?php echo Yii::t('app', 'Looking for {n} candidate|Looking for {n} candidates', array(count($idea['candidate']))); ?>
                         <a href="#" class="button tiny radius secondary right" trk="project_button_shareCandidates"
-                           data-dropdown="drop-candidate-share"><span class="icon-share mr8"></span>share</a>
+                           data-dropdown="drop-candidate-share" data-options="is_hover:true"><span class="icon-share mr8"></span>share this position</a>
                     </h3>
 
                     <?php

@@ -2,6 +2,7 @@
 /* @var $this Controller */
 $fullTitle = Yii::app()->name; 
 if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTitle .= " - ".$this->pageTitle;
+if (!isset($this->justContent) || !$this->justContent) $notifications = Notifications::getNotifications();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -21,16 +22,16 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
   <meta property="og:title" content="<?php echo $fullTitle; ?>" />
   <meta property="og:site_name" content="<?php echo Yii::app()->name; ?>" />
   <meta property="og:description" content="<?php echo $this->pageDesc; ?>" />
-  <meta property="og:image" content="<?php echo Yii::app()->request->baseUrl; ?>/images/fb-logo.png" />
-  <meta property="og:url" content="http://www.cofinder.eu"/>
-  <link rel="canonical" href="http://www.cofinder.eu" />
+  <meta property="og:image" content="<?php echo Yii::app()->createAbsoluteUrl('/images/fb-logo.png'); ?>" />
+  <meta property="og:url" content="<?php echo Yii::app()->createAbsoluteUrl(Yii::app()->request->url); ?>"/>
+  <link rel="canonical" href="<?php echo Yii::app()->createAbsoluteUrl(Yii::app()->request->url); ?>" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:type" content="website" />
   
   <!-- M$ -->
   <meta name="application-name" content="<?php echo Yii::app()->name; ?>" />
   <meta name="msapplication-tooltip" content="<?php echo $this->pageDesc; ?>" />
-  <meta name="msapplication-starturl" content="http://www.cofinder.eu" />
+  <meta name="msapplication-starturl" content="<?php echo Yii::app()->createAbsoluteUrl(Yii::app()->request->url); ?>" />
   <meta name="msapplication-navbutton-color" content="#89b561" />
   
   <?php /* ?><meta property="fb:admins" content=""/>
@@ -38,16 +39,16 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
   <?php */ ?>
   
   <!-- Mobile icons -->
-  <link rel="apple-touch-icon" sizes="114x114" href="<?php echo Yii::app()->request->baseUrl; ?>/images/iphone-retina.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="<?php echo Yii::app()->request->baseUrl; ?>/images/ipad.png">
-  <link rel="apple-touch-icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/icons/iphone.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="<?php echo Yii::app()->createAbsoluteUrl('/images/iphone-retina.png'); ?>">
+  <link rel="apple-touch-icon" sizes="72x72" href="<?php echo Yii::app()->createAbsoluteUrl('/images/ipad.png'); ?>">
+  <link rel="apple-touch-icon" href="<?php echo Yii::app()->createAbsoluteUrl('/images/iphone.png'); ?>">
 		
-  <link rel="shortcut icon" type="image/x-icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/iphone.png">
+  <link rel="shortcut icon" type="image/x-icon" href="<?php echo Yii::app()->createAbsoluteUrl('/images/iphone.png'); ?>">
   <link rel="icon" type="image/ico" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico">
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700,700italic,600italic,600,400italic,300italic,300&subset=latin,cyrillic-ext,greek-ext,greek,latin-ext,cyrillic,vietnamese' rel='stylesheet' type='text/css'>
   
   <script> var fullURL= '<?php echo Yii::app()->request->baseUrl; ?>'; </script>
-	<title><?php echo $fullTitle; ?></title>
+	<title><?php if (isset($notifications) && $notifications['count'] > 0) echo "(".$notifications['count'].") "; echo $fullTitle; ?></title>
 </head>
 
 <body>
@@ -60,7 +61,7 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
     <div class="row header">
       <div>
         <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
-           <img alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title-mobile.png" />
+           <img class="ml10" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png" />
         </a>
       </div>
     </div>
@@ -82,13 +83,15 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
 							 </div>
                
                <?php if (!Yii::app()->user->isGuest){ ?>
-                <div class="show-for-small" style="margin-left:8px">
+                <div class="show-for-small ml8" >
                   <a href="<?php echo Yii::app()->createUrl("profile"); ?>">
                     <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
                   </a>
-                  <?php if ($this->getNotifications()){ ?>
-                    <a href="<?php echo Yii::app()->createUrl("profile/notification"); ?>" style="position:relative;top: 10px;left:20px;">
-                      <span class="icon-flag" style="cursor: pointer; color: /*#CD3438*/ #89B561;font-size: 1.4em;"> <?php echo $this->getNotifications(); ?></span>
+                  <?php 
+                    //$notifications = $this->getNotifications();
+                    if ($notifications['count'] > 0){ ?>
+                    <a href="#" data-options="is_hover:true" data-dropdown="notifications" style="position:relative;top: 13px;left:20px;">
+                       <span class="icon-envelope icon-msg-alert"></span><span class="el-msg-alert-mobile mb5 ml5"><?php echo $notifications['count']; ?></span>
                     </a>
                   <?php } ?>                  
                 </div>
@@ -123,6 +126,12 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
               <li class="<?php echo isMenuItemActive("discover","project"); ?> desc">
                 <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" trk="topMenu_click_projectDiscover" title="<?php echo Yii::t('app','Discover interesting projects'); ?>" >
                   <?php echo Yii::t('app','Discover {bs}projects{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
+                </a>
+              </li>
+              <li class="divider"></li>
+              <li class="<?php echo isMenuItemActive("startupEvents","site"); ?>">
+                <a href="<?php echo Yii::app()->createUrl("site/startupEvents"); ?>" trk="topMenu_click_startupEvents" title="<?php echo Yii::t('app','List of startup events'); ?>" >
+                  <?php echo Yii::t('app','Events'); ?>
                 </a>
               </li>
               <li class="divider"></li>
@@ -172,11 +181,12 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
                 </ul>
 
               </li>
-                <?php if ($this->getNotifications()){ ?>
+                <?php // href="<?php echo Yii::app()->createUrl("profile/notification"); ? >"
+                    if ($notifications['count'] > 0){ ?>
                 <li class="divider"></li>
                 <li class="desc">
-                  <a href="<?php echo Yii::app()->createUrl("profile/notification"); ?>" style="padding-top: 13px; background-color: #89B561;" data-tooltip title="<?php echo Yii::t("msg","You have been invited to a project.") ?>">
-                    <span class="icon-flag" style="cursor: pointer; color: /*#CD3438*/ #FFF;font-size: 1.4em;"> <?php echo $this->getNotifications(); ?></span>
+                  <a href="#" data-dropdown="notifications" data-options="is_hover:true" style="padding-top: 15px; position: relative;" >
+                    <span class="icon-envelope pr15 icon-msg-alert"></span><span class="el-msg-alert"><?php echo $notifications['count']; ?></span>
                   </a>
                 </li>
                 <?php } ?>
@@ -184,12 +194,12 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
                 <li>
                   <a href="#" data-dropdown="drop-login"><?php echo Yii::t('app','Login'); ?></a>
                 </li>
-              <?php /* ?><li class="divider"></li>
+              <?php  ?><li class="divider"></li>
                 <li>
                   <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>"><?php echo Yii::t('app','Register'); ?></a>
                 </li>
                
-               <?php */ ?>
+               <?php  ?>
               <?php } ?>
               <li class="divider"></li>
               <li class="desc">
@@ -210,12 +220,13 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
  writeFlashes();
 
 } ?>
-<?php echo $content; ?>  
+  
+
+<?php echo $content; ?>
+  
+  
 <?php if (!isset($this->justContent) || !$this->justContent){ ?>
 
-
-	
- 
 <!-- page -->
 <div id="langselect" class="f-dropdown content" data-dropdown-content>
   <ul class="side-nav" style="padding:0;">
@@ -241,6 +252,8 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
       <?php echo CHtml::label(Yii::t('app','Password'),'UserLogin_password'); ?>
       <?php echo CHtml::passwordField('UserLogin[password]') ?>
 
+      <?php echo CHtml::hiddenField('UserLogin[redirect]'); ?>
+    
       <div class="login-floater">
 				<?php echo CHtml::submitButton(Yii::t("app","Login"),array("class"=>"button small radius")); ?>
       </div>
@@ -258,7 +271,27 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
   </div>
 </div>
 
-<?php } ?>
+<?php if ($notifications['count'] > 0){ ?>
+<div id="notifications" class="f-dropdown small" data-dropdown-content>
+  <ul class="side-nav" style="padding:0;">
+  <?php 
+  
+  foreach ($notifications['messages'] as $notify){ ?>
+    <li style="padding:3px 8px; font-size: 1em; " onclick="markNotifications('<?php echo Yii::app()->createUrl("site/clearNotif",array("type"=>$notify['type'])); ?>')">
+      <a href="<?php echo $notify['link']; ?>" >
+        <span class="label radius left mb5 mr8" style="">
+        <?php echo $notify['count']; ?>
+        </span>
+        <small><?php echo $notify['message']; ?></small>
+      </a>
+    </li>
+  <?php } ?>
+  </ul>  
+</div>
+ <?php } ?>
+
+
+<?php }// end just content ?>
 
 <div class="push"></div>
 
@@ -266,20 +299,21 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
 
 <div class="footer">
     <div class="row">
-       <div class="large-3 columns">
+      <div class="large-4 push-8 columns">
+        <ul class="social-links">
+          <li><a href="https://www.facebook.com/cofinder.eu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-facebook.png"></a></li>
+          <li><a href="https://www.linkedin.com/company/cofinder" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-linkedin.png"></a></li>
+          <li><a href="https://plus.google.com/+CofinderEu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-gplus.png"></a></li>
+        </ul>
+        
+        
+      </div>
+       <div class="large-8 pull-4 columns"  style="background: #333">
 
          <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
-           <img class="logo-mini" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-mini.png" />
+           <img class="logo-mini mb20" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-mini.png" />
          </a>
-      </div>
-      <div class="large-9 columns footer-links">
-        <div class="social-links">
-          <a href="https://www.facebook.com/cofinder.eu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-facebook.png"></a>
-          <a href="https://www.linkedin.com/company/cofinder" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-linkedin.png"></a>
-          <a href="https://plus.google.com/+CofinderEu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-gplus.png"></a>
-        </div>
-        
-        <ul class="inline-list">
+         <ul class="footer-links">
           <?php /* ?><li><a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo Yii::t('app','Our team'); ?></a></li> <?php */ ?>
           <li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo Yii::t('app','About'); ?></a></li>
           <li><a href="#" onclick="contact(this);"><?php echo Yii::t('app','Contact'); ?></a></li>
@@ -287,6 +321,7 @@ if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTit
           <li><a href="<?php echo Yii::app()->createUrl("site/cookies"); ?>"><?php echo Yii::t('app','Cookies'); ?></a></li>
         </ul>
       </div>
+      
     </div>
   </div>
 

@@ -38,7 +38,7 @@
     
       <label for="UserEdit_vanityURL"><?php echo Yii::t('app',"Public name"); ?></label>
       <?php if (!$allowVanityURL){ ?>
-        <span class="description"><?php echo Yii::t('msg',"You must invite at least 3 people to be able to choose your own personal URL."); ?></span>
+        <span class="description"><?php echo Yii::t('msg',"<strong>Invite 3 people</strong> to enable your own personal URL."); ?></span>
       <?php }else{ ?>
         <span class="description"><?php echo Yii::t('msg',"Chose your own personal URL."); ?></span>
         
@@ -50,7 +50,11 @@
     </div>
     <div class="small-7 columns">
       <?php if (!$allowVanityURL) {
-         echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary readonly","disabled"=>true,"placeholder"=>substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")))); 
+         echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary readonly",
+                                                              "disabled"=>true,
+                                                              "title"=>Yii::t('app','Invite at least 3 people'),
+                                                              "data-tooltip"=>'',
+                                                              "placeholder"=>substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")))); 
         }else{ 
           echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary","placeholder"=>  substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")))); 
         }?>
@@ -108,7 +112,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row mb60">
   <div class="columns edit-header">
     <h3><?php echo Yii::t('app', 'Deactivate account'); ?></h3>
           <?php echo CHtml::submitButton(Yii::t("app","Open"),
@@ -150,7 +154,11 @@
     <?php echo CHtml::endForm(); ?>
   
   </div>
+ 
+
+
 </div>
+
 
 </div>
 
