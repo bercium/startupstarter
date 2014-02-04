@@ -109,13 +109,11 @@ class SiteController extends Controller
 			}*/
 			
 			if ($searchForm->isProject){
-				$searchResult['data'] = $sqlbuilder->load_array("search_idea", $filter);
-				$count = $sqlbuilder->load_array("search_idea_count", $filter);
-				$count = $count['num_of_rows'];
+				$searchResult['data'] = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skillset");
+				$count = $sqlbuilder->load_array("search_count_ideas", $filter);
 			} else {
-				$searchResult['data'] = $sqlbuilder->load_array("search_user", $filter);
-				$count = $sqlbuilder->load_array("search_user_count", $filter);
-				$count = $count['num_of_rows'];
+				$searchResult['data'] = $sqlbuilder->load_array("search_users", $filter, "skillset,num_of_ideas");
+				$count = $sqlbuilder->load_array("search_count_users", $filter);
 			}
 			
 			$searchResult['page'] = $id;
@@ -123,13 +121,13 @@ class SiteController extends Controller
 
     }else{
 			// last results
-			$data['idea'] = $sqlbuilder->load_array("recent_updated", $filter);
-      $pagedata = $sqlbuilder->load_array("count_idea", $filter);
-      $maxPageIdea = ceil($pagedata['num_of_rows'] / $pagedata['filter']['per_page']); 
+			$data['idea'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
+      $count = $sqlbuilder->load_array("count_ideas", $filter);
+      $maxPageIdea = ceil($count / $filter['per_page']); 
       
-			$data['user'] = $sqlbuilder->load_array("recent_user", $filter);
-      $pagedata = $sqlbuilder->load_array("count_user", $filter);
-      $maxPagePerson = ceil($pagedata['num_of_rows'] / $pagedata['filter']['per_page']); 
+			$data['user'] = $sqlbuilder->load_array("recent_users", $filter, "skillset,num_of_ideas");
+      $count = $sqlbuilder->load_array("count_users", $filter);
+      $maxPagePerson = ceil($count / $filter['per_page']); 
 		}
 		
 
@@ -143,7 +141,7 @@ class SiteController extends Controller
 		$filter = array( 'idea_id' => 1); // our idea ID
 		$filter['lang'] = Yii::app()->language;
 
-		$this->render('about', array('idea' => $sqlbuilder->load_array("idea", $filter)));
+		$this->render('about', array('idea' => $sqlbuilder->load_array("idea", $filter, "translation,member,candidate,skillset")));
 	}
   
 
