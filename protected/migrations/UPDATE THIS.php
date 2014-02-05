@@ -8,3 +8,4 @@ CREATE TABLE `action_log` (
  `details` text,
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+

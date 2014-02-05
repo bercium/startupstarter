@@ -1,15 +1,13 @@
 <?php
-	$this->pageTitle = Yii::t('app','Admin panel');
+	$this->pageTitle = 'Statistika';
 ?>
 
-<p>Tukaj naj bo seznam vseh povezav do avto zgeneriranih CRUDov:</p><br />
+<p>Tukaj je seznam vseh statistik</p><br />
 
 <p>
 <a href="<?php echo Yii::app()->createUrl("backendAuditTrail"); ?>">Action Trail</a><br />
 <a href="<?php echo Yii::app()->createUrl("site/contact", array("q"=>"test")); ?>">Contact</a><br />
 <a href="<?php echo Yii::app()->createUrl("newsletter"); ?>">Newsletter</a><br />
-<a href="<?php echo Yii::app()->createUrl("statistic"); ?>">Statistika</a><br />
-</p>
 
 <br />
 Šifranti:<br/>
@@ -46,3 +44,4 @@ Ideje:<br/>
 <br/>
 
 <a href="<?php echo Yii::app()->createUrl("site/recalcPerc"); ?>">Calculate percentage</a><br />
+</p>

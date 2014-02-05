@@ -113,7 +113,6 @@ class Controller extends CController
    * log all user actions
    */
   protected function afterAction($action){
-    
     if (Yii::app()->user->isGuest) $id = 'NULL';
     else $id = "'".Yii::app()->user->id."'";
     
