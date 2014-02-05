@@ -42,7 +42,7 @@ class Completeness{
             "weight"=>10,
             );
       
-      
+      /*
       $this->details[] = array(
             "group"=>Yii::t('app',"Personal information"),
             "name"=>Yii::t('app',"Address"),
@@ -51,7 +51,8 @@ class Completeness{
             "action"=>Yii::app()->createUrl("profile")."#link_personal",
             "active"=>($user->address != ''),
             "weight"=>0,
-            );      
+            );
+      */     
 
       $this->details[] = array(
             "group"=>Yii::t('app',"Personal information"),
