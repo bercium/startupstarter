@@ -99,9 +99,11 @@ else {
         <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-low.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','User has not been active recently'); ?>" data-tooltip>
       <?php } ?>
       
-      <?php if (($user['status'] == '0') && (Yii::app()->user->isAdmin())){
-        $us = User::model()->findByPk($user['id']);
-        $activation_url = $this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $us->activkey, "email" => $user['email']));
+      <?php if (Yii::app()->user->isAdmin()){
+        if ($user['status'] == '0'){
+          $us = User::model()->findByPk($user['id']);
+          $activation_url = $this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $us->activkey, "email" => $user['email']));
+        }
         ?>
         <a class="button alert small-12 radius" href="<?php echo $activation_url; ?>" ><?php echo Yii::t('app', 'Activate this user'); ?></a>
         <p><?php 
@@ -212,11 +214,11 @@ else {
           </a></p>
         </div>      
       
-      <?php }else{ ?>
+      <?php }/*else{ ?>
         <div class="l-block">
             <p>Cofinder</p>
         </div> 
-      <?php } ?>
+      <?php } */ ?>
     </div>
 
     <h4 class="l-inline"><?php echo Yii::t('app', 'Registered') ?></h4>

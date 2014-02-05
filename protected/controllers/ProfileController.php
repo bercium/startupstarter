@@ -137,6 +137,7 @@ class ProfileController extends GxController {
           if (isset($_POST['UserEdit']['vanityURL'])){
             if (!$allowVanityURL && ( $_POST['UserEdit']['vanityURL'] != '')) $_POST['UserEdit']['vanityURL'] = '';
             else{
+              if (strpos($_POST['UserEdit']['vanityURL'],'.') !== false) $user->addError('vanityURL', Yii::t('msg','Dots "." are not allowed in public name.'));
               // check validity of vanity URL in projects
               if ($_POST['UserEdit']['vanityURL'] != $user->vanityURL){
                 $ideaURL = Idea::model()->findByAttributes(array('vanityURL'=>$_POST['UserEdit']['vanityURL']));
@@ -146,7 +147,7 @@ class ProfileController extends GxController {
                 }
               }
             }
-          }
+          }// end vanity url check
           
           
 					$user->setAttributes($_POST['UserEdit']);
@@ -191,10 +192,12 @@ class ProfileController extends GxController {
 						}
 					}// end post check 
 
-					$user->validate();
-					$match->validate();
-
-					if ($user->save()) {
+          if (!$user->hasErrors()){
+    				$user->validate();
+  					$match->validate();
+          }
+          
+					if (!$user->hasErrors() && $user->save()) {
 
 						$_POST['UserMatch']['user_id'] = $user_id;
 						$match->setAttributes($_POST['UserMatch']);
@@ -317,6 +320,8 @@ class ProfileController extends GxController {
         if (!$allowVanityURL && (isset($_POST['UserEdit']['vanityURL']) && $_POST['UserEdit']['vanityURL'] != '')) $_POST['UserEdit']['vanityURL'] = '';
         else{
           // check validity of vanity URL in projects
+          if (strpos($_POST['UserEdit']['vanityURL'],'.') !== false) $user->addError('vanityURL', Yii::t('msg','Dots "." are not allowed in public name.'));
+          
           if ($_POST['UserEdit']['vanityURL'] != $user->vanityURL){
             $ideaURL = Idea::model()->findByAttributes(array('vanityURL'=>$_POST['UserEdit']['vanityURL']));
             if ($ideaURL){
