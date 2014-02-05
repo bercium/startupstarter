@@ -762,9 +762,16 @@ class ProfileController extends GxController {
 //      $this->redirect(Yii::app()->createUrl("user/login"));
     $user = User::model()->notsafe()->findByAttributes(array('email'=>$_GET['email']));
     if ((substr($user->activkey, 0, 10) !== $_GET['key']) || 
-        ($user->status != 0)){
+        ($user->status != 0)){      
       $this->render('/site/message',array('title'=>Yii::t('app','Registration finished'),"content"=>Yii::t('msg','Thank you for your registration. Please check your email for confirmation code.')));
       return;
+    }
+    if ($user){
+    //mark user but not as member yet
+     Yii::import('application.helpers.Hashids');
+     $hashids = new Hashids('cofinder');
+     $uid = $hashids->encrypt($user->id);
+     $cs->registerScript("ganalyticsregister","ga('send', 'event', 'registration', 'mark_user',{'dimension1':'".$uid."',})");      
     }
 
     $this->actionIndex();

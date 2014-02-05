@@ -64,8 +64,6 @@ class Controller extends CController
    
     $logedin = "";
     if (!Yii::app()->user->isGuest){
-      $uid = '';
-      
       //include_once("protected/helpers/Hashids.php");
       Yii::import('application.helpers.Hashids');
       $hashids = new Hashids('cofinder');

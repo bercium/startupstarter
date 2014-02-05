@@ -392,8 +392,9 @@ else $this->pageDesc = trim_text(strip_tags($idea['pitch']), 150);
                             <?php echo Yii::t('app', "Official web page") ?>
                         </h4>
 
-                        <img
-                            src="<?php echo getLinkIcon($idea['website']); ?>"> <?php echo '<a href="' . add_http($idea['website']) . '" class="wrapword" target="_blank">' . $idea['website'] . "</a>"; ?>
+                        <img src="<?php echo getLinkIcon($idea['website']); ?>">
+                        <a href="<?php echo add_http($idea['website']) ?>" class="wrapword" target="_blank" trk="project_outGoingLinks_<?php echo parse_url("http://".remove_http($idea['website']), PHP_URL_HOST); ?>"><?php echo $idea['website']; ?></a>  
+                        <?php // echo '<a href="' . add_http($idea['website']) . '" class="wrapword" target="_blank">' . $idea['website'] . "</a>"; ?>
                     </div>
 
                 <?php } ?>
@@ -403,8 +404,9 @@ else $this->pageDesc = trim_text(strip_tags($idea['pitch']), 150);
                         <h4 class="l-block">
                             <?php echo Yii::t('app', "Link to video") ?>
                         </h4>
-                        <img
-                            src="<?php echo getLinkIcon($idea['video_link']); ?>"><?php echo ' <a href="' . add_http($idea['video_link']) . '" class="wrapword" target="_blank">' . $idea['video_link'] . "</a>"; ?>
+                        <img src="<?php echo getLinkIcon($idea['video_link']); ?>">
+                        <a href="<?php echo add_http($idea['video_link']) ?>" class="wrapword" target="_blank" trk="project_outGoingLinks_<?php echo parse_url("http://".remove_http($idea['video_link']), PHP_URL_HOST); ?>"><?php echo $idea['video_link']; ?></a>  
+                          <?php //echo ' <a href="' . add_http($idea['video_link']) . '" class="wrapword" target="_blank">' . $idea['video_link'] . "</a>"; ?>
                     </div>
                 <?php } ?>
 
@@ -421,8 +423,7 @@ else $this->pageDesc = trim_text(strip_tags($idea['pitch']), 150);
                                 $i++;
                                 //if ($i > 3) break;
                                 ?>
-                                <img
-                                src="<?php echo getLinkIcon($link['url']); ?>"><?php echo ' <a href="' . add_http($link['url']) . '" class="wrapword" target="_blank">' . $link['url'] . "</a>"; ?>
+                                <img src="<?php echo getLinkIcon($link['url']); ?>"><a href="<?php echo add_http($link['url']) ?>" class="wrapword" target="_blank" trk="project_outGoingLinks_<?php echo parse_url("http://".remove_http($link['url']), PHP_URL_HOST); ?>"><?php echo $link['url']; ?></a>
                                 <br/>
                                 <br/>
                             <?php

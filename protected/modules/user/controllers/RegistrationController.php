@@ -110,6 +110,13 @@ class RegistrationController extends Controller
                         $identity->authenticate();
                         Yii::app()->user->login($identity,Yii::app()->controller->module->rememberMeTime);
                       }
+                      
+                     //mark user but not as member yet
+                      Yii::import('application.helpers.Hashids');
+                      $hashids = new Hashids('cofinder');
+                      $uid = $hashids->encrypt($model->id);
+                      $cs->registerScript("ganalyticsregister","ga('send', 'event', 'registration', 'mark_user',{'dimension1':'".$uid."',})");
+
 
                       // if someone is coming to an event
                       if (isset($_GET['event'])){
