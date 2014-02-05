@@ -8,6 +8,7 @@
 <a href="<?php echo Yii::app()->createUrl("backendAuditTrail"); ?>">Action Trail</a><br />
 <a href="<?php echo Yii::app()->createUrl("site/contact", array("q"=>"test")); ?>">Contact</a><br />
 <a href="<?php echo Yii::app()->createUrl("newsletter"); ?>">Newsletter</a><br />
+<a href="<?php echo Yii::app()->createUrl("backendUser/inactive"); ?>">Neaktivirani uporabniki</a><br />
 <a href="<?php echo Yii::app()->createUrl("statistic"); ?>">Statistika</a><br />
 </p>
 

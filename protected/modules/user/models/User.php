@@ -94,6 +94,8 @@ class User extends BaseUser
 			'clickUsers1' => array(self::HAS_MANY, 'ClickUser', 'user_id'),
 			'userLinks' => array(self::HAS_MANY, 'UserLink', 'user_id'),
 			'userMatches' => array(self::HAS_MANY, 'UserMatch', 'user_id'),
+      'userStat' => array(self::HAS_ONE, 'UserStat', 'user_id'),
+      'userTag' => array(self::HAS_MANY, 'UserTag', 'user_id'),
 		);
 	}  
 
