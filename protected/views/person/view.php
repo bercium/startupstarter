@@ -100,7 +100,8 @@ else {
       <?php } ?>
       
       <?php if (Yii::app()->user->isAdmin()){
-        if ($user['status'] == '0'){
+       $activation_url ='';
+        if  ($user['status'] == '0'){
           $us = User::model()->findByPk($user['id']);
           $activation_url = $this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $us->activkey, "email" => $user['email']));
         }
@@ -131,9 +132,9 @@ else {
         <?php if ($user['city'] || $user['country'] /*|| $user['address']*/) { ?>
         <span class="icon-map-marker icon-awesome"></span>
         <a>
-          <span class="" data-tooltip title="<img src='<?php echo getGMap($user['country'], $user['city'], $user['address']); ?>'>">
+          <span class="" data-tooltip title="<img src='<?php echo getGMap($user['country'], $user['city'] /*, $user['address'] */); ?>'>">
 
-          <?php if ($user['address']) echo $user['address']."<br />"; ?>
+          <?php // if ($user['address']) echo $user['address']."<br />"; ?>
           <?php
           echo $user['city'];
           if ($user['city'] && $user['country']) echo ', ';
