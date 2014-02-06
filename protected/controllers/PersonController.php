@@ -46,17 +46,17 @@ class PersonController extends GxController {
     
 		$sqlbuilder = new SqlBuilder;
 		$filter = array( 'user_id' => $id);
-		$data['user'] = $sqlbuilder->load_array("user", $filter);
+		$data['user'] = $sqlbuilder->load_array("user", $filter, "collabpref,link,skillset,idea,gallery,translation");
     
-    if ($data['user'] == array()){
-      throw new CHttpException(400, Yii::t('msg', 'Oops! This person does not exist.'));
-    }
-   
-    $vouched = false;
-    $invited = Invite::model()->findByAttributes(array("receiver_id"=>$id,"registered"=>1));
-    if ($invited){
-      $vouched = $invited->senderId;
-    }
+	    if ($data['user'] == array()){
+	      throw new CHttpException(400, Yii::t('msg', 'Oops! This person does not exist.'));
+	    }
+	   
+	    $vouched = false;
+	    $invited = Invite::model()->findByAttributes(array("receiver_id"=>$id,"registered"=>1));
+	    if ($invited){
+	      $vouched = $invited->senderId;
+	    }
 
 		$this->render('view', array('data' => $data,"vouched"=>$vouched));
 
@@ -70,14 +70,14 @@ class PersonController extends GxController {
 		
 		$filter['page'] = $id;
     
-    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
-    else $filter['per_page'] = 12;
+	    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
+	    else $filter['per_page'] = 12;
 		
 		$sqlbuilder = new SqlBuilder;
-		$users = $sqlbuilder->load_array("recent_user", $filter);
-		$pagedata = $sqlbuilder->load_array("count_user", $filter);
+		$users = $sqlbuilder->load_array("recent_users", $filter, "num_of_ideas,skillset");
+		$count = $sqlbuilder->load_array("count_users", $filter);
 
-		$maxPage = ceil($pagedata['num_of_rows'] / $pagedata['filter']['per_page']);
+		$maxPage = ceil($count / $filter['per_page']);
 		
 		//$maxPage = 3;  // !!! remove
 
@@ -104,7 +104,7 @@ class PersonController extends GxController {
 		$sqlbuilder = new SqlBuilder;
 		$filter = array( 'user_id' => $id);
 
-		$this->render('embed', array('user' => $sqlbuilder->load_array("user", $filter)));
+		$this->render('embed', array('user' => $sqlbuilder->load_array("user", $filter, "num_of_ideas,skillset")));
   }
   
   public function actionDiscover($id = 1){
@@ -154,18 +154,16 @@ class PersonController extends GxController {
 				    $filter['category'][] = $value;
 			}
 			
-    		$searchResult['data'] = $sqlbuilder->load_array("search_user", $filter);
-			$count = $sqlbuilder->load_array("search_user_count", $filter);
-			$count = $count['num_of_rows'];
+    		$searchResult['data'] = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skillset");
+			$count = $sqlbuilder->load_array("search_count_users", $filter);
 
 			$searchResult['page'] = $id;
 			$searchResult['maxPage'] = ceil($count / $filter['per_page']); 
 
     }else{
-    		$count = $sqlbuilder->load_array("count_user", $filter);
-    		$count = $count['num_of_rows'];
+    		$count = $sqlbuilder->load_array("count_users", $filter);
 
-			$searchResult['data'] = $sqlbuilder->load_array("recent_user", $filter);
+			$searchResult['data'] = $sqlbuilder->load_array("recent_users", $filter, "num_of_ideas,skillset");
 			$searchResult['page'] = $id;
 			$searchResult['maxPage'] = ceil($count / $filter['per_page']); 
     }

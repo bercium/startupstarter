@@ -69,7 +69,7 @@ class ProjectController extends GxController {
 			$filter['lang'] = $lang;
 		}
 
-		$data['idea'] = $sqlbuilder->load_array("idea", $filter);
+		$data['idea'] = $sqlbuilder->load_array("idea", $filter, "translation_other,link,member,gallery,candidate,skillset,collabpref");
 
 		if(!isset($data['idea']['id'])){
 			throw new CHttpException(400, Yii::t('msg', "Oops! This project does not exist."));
@@ -363,7 +363,7 @@ class ProjectController extends GxController {
 			$filter['idea_id'] = $idea_id;
 			if($lang)
 				$filter['lang'] = $lang;
-			$data['idea'] = $sqlbuilder->load_array("idea", $filter);
+			$data['idea'] = $sqlbuilder->load_array("idea", $filter, "translation_other,member,candidate,skillset,collabpref");
 
 			//if an existing user is to be inserted as a member
 
@@ -735,7 +735,7 @@ class ProjectController extends GxController {
 		$user_id = Yii::app()->user->id;
 		$filter['user_id'] = $user_id;
 		unset($filter['lang']);
-		$data['user'] = $sqlbuilder->load_array("user", $filter);
+		//$data['user'] = $sqlbuilder->load_array("user", $filter);
 
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
 
@@ -1282,10 +1282,10 @@ class ProjectController extends GxController {
 	    else $filter['per_page'] = 9;
 		
 		$sqlbuilder = new SqlBuilder;
-		$ideas = $sqlbuilder->load_array("recent_updated", $filter);
-		$pagedata = $sqlbuilder->load_array("count_idea", $filter);
+		$ideas = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
+		$count = $sqlbuilder->load_array("count_ideas", $filter);
 
-		$maxPage = ceil($pagedata['num_of_rows'] / $pagedata['filter']['per_page']);
+		$maxPage = ceil($count / $filter['per_page']);
 
 		if(isset($_GET['ajax'])){
 			$return['data'] = $this->renderPartial('_recent', array("ideas" => $ideas, 'page' => $id, 'maxPage' => $maxPage),true);
@@ -1356,18 +1356,16 @@ class ProjectController extends GxController {
 				    $filter['category'][] = $value;
 			}
 			
-			$searchResult['data'] = $sqlbuilder->load_array("search_idea", $filter);
-			$count = $sqlbuilder->load_array("search_idea_count", $filter);
-			$count = $count['num_of_rows'];
+			$searchResult['data'] = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skillset");
+			$count = $sqlbuilder->load_array("search_count_ideas", $filter);
 			
 			$searchResult['page'] = $id;
-			$searchResult['maxPage'] = ceil($count / $filter['per_page']); //!!! add page count
+			$searchResult['maxPage'] = ceil($count['num_of_ideas'] / $filter['per_page']); //!!! add page count
 
     }else{
-            $count = $sqlbuilder->load_array("count_idea", $filter);
-            $count = $count['num_of_rows'];
+            $count = $sqlbuilder->load_array("count_ideas", $filter);
 
-			$searchResult['data'] = $sqlbuilder->load_array("recent_updated", $filter);
+			$searchResult['data'] = $sqlbuilder->load_array("recent_updated", $filter, "translation,member,candidate,skillset");
 			$searchResult['page'] = $id;
 			$searchResult['maxPage'] = ceil($count / $filter['per_page']); ; //!!! add page count
     }
