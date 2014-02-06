@@ -155,16 +155,15 @@ return array(
 			),
 		),
 
-    /*
     'cache' => array (
-    'class' => 'CMemCache',
-    'servers'=>array(
-        array(
-            'host'=>'localhost',
-            'port'=>11211,
-            ),
-        ),
-    ),*/
+      'class' => 'CDummyCache', //system.caching.CMemCache
+      'servers'=>array(
+          array(
+              'host'=>'localhost',
+              'port'=>11211,
+              ),
+          ),
+    ),
     'mail' => array(
         'class' => 'ext.mail.YiiMail',
         'transportType' => 'php', //smtp
