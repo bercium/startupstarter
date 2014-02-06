@@ -165,7 +165,7 @@ class GeneralCommand extends CConsoleCommand{
       $event_tmp['location'] = 'Hekovnik, Teslova ulica 30, Ljubljana';//$event->location; // ni lokacije
       $event_tmp['link'] = "http://www.cofinder.eu/events/sestavi-svojo-ekipo/";
 
-      $event_tmp['start'] = "28.2.2014 16:30";
+      $event_tmp['start'] = "28.2.2014 17:00";
       $event_tmp['end'] = "28.2.2014 21:00";
       $event_tmp['color'] = "red";
       $event_tmp['allday'] = false;

@@ -157,12 +157,12 @@ return array(
 
     'cache' => array (
       'class' => 'CDummyCache', //system.caching.CMemCache
-      'servers'=>array(
+      /*'servers'=>array(
           array(
               'host'=>'localhost',
               'port'=>11211,
               ),
-          ),
+          ),*/
     ),
     'mail' => array(
         'class' => 'ext.mail.YiiMail',
