@@ -89,7 +89,7 @@ class MessageController extends Controller
           // add notification to all members
           $ideaMembers = IdeaMember::model()->findAllByAttributes(array("idea_id"=>$_POST['project']));
           foreach ($ideaMembers as $member){
-            Notifications::setNotification($member->match->user_id,Notifications::NOTIFY_PROJECT_INVITE);
+            Notifications::setNotification($member->match->user_id,Notifications::NOTIFY_MESSAGE);
           }
 
         }else $receiver = User::model()->findByPk($_POST['user']); //reply to person sending to project
