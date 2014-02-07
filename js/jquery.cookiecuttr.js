@@ -35,7 +35,7 @@
             cookieMessage: 'We use cookies on this website, you can <a href="{{cookiePolicyLink}}" title="read about our cookies">read about them here</a>. To use the website as intended please...',
             cookieAnalyticsMessage: 'Na strani uporabljamo piškotke, ki zagotovijo normalno delovanje in pomagajo pri štetju obiska strani.',
             cookieErrorMessage: "We\'re sorry, this feature places cookies in your browser and has been disabled. <br>To continue using this functionality, please",
-            cookieWhatAreTheyLink: "http://www.allaboutcookies.org/",
+            cookieWhatAreTheyLink: "http://www.cofinder.eu/site/cookies",
             cookieDisable: '',
             cookieExpires: 365,
             cookieAcceptButtonText: "SPREJMI PIŠKOTKE",

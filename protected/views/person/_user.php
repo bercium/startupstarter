@@ -98,8 +98,8 @@
        <div class="card-person-footer">
           <div class="left">
             <small class="meta">
-            <?php if ($user['num_of_rows']) { ?>
-              <?php echo Yii::t('app','Working on {n} project|Working on {n} projects',array($user['num_of_rows'])) ?>
+            <?php if ($user['num_of_ideas']) { ?>
+              <?php echo Yii::t('app','Working on {n} project|Working on {n} projects',array($user['num_of_ideas'])) ?>
             <?php } ?>
             </small>
           </div>

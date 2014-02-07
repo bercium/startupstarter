@@ -5,7 +5,7 @@ class SearchBuilder {
 	public function search($type, $filter){
 
 		/*Taking in from $filter[] and processing data into sql;
-		There's more than one user_match row per idea... We'll group by user_match, to preserve best match
+		There's more than one user_match row per idea... We'll group by idea_id in case of idea
 		
 		Input data structure (word is table, -field is $key)
 
@@ -20,7 +20,6 @@ class SearchBuilder {
 			-status_id
 
 		user_match -> $filter['$key'] = '$value';
-			Key
 			-country_id
 			-city_id
 			-available
@@ -432,9 +431,9 @@ class SearchBuilder {
 				$buffer = array();
 				if(isset($where[$value]) AND is_array($where[$value])){
 					if($value == 'extra') {
-						//$where_sql.="AND (i.website OR i.video_link) "; //this doesn't work for some reason
+						$where_sql.="AND (i.website OR i.video_link) ";
 					} elseif($value == 'collabpref') {
-						//this too doesn't work for some reason
+						$where_sql.="AND (c.id = ".$where['collabpref']['c.id'].") ";
 					} else {
 						$where_sql.="AND (";
 						foreach($where[$value] AS $key1 => $value1){
@@ -472,10 +471,6 @@ class SearchBuilder {
 			$sql.=	" WHERE m.user_id > 0 " . $where_sql . " GROUP BY m.id";
 		}
 
-		/*print_r($cols);
-		echo $sql;
-		die();*/
-
 		/*WE GOT SQL SENTENCE BUILT ($sql), DATA GATHERED ($cols) LETS RUN THIS STUFF*/
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
@@ -499,9 +494,6 @@ class SearchBuilder {
 			if($total > 0){
 
 				foreach($cols_backup AS $key => $value){
-					/*echo "ROW: ".$row[$col] . "\n";
-					echo "COL: ".$key . "\n";
-					echo "VAL: ".$value . "\n\n";*/
 					
 					if(	$key == "status_id" || 
 						$key == "available" ||
@@ -514,7 +506,7 @@ class SearchBuilder {
 						$key == "video_link" ){
 
 						//!!!isurl regex
-						if(strlen($value) > 3){
+						if(strlen($row[$key]) > 3){
 							$rank++;
 						}
 					} else {
@@ -527,18 +519,16 @@ class SearchBuilder {
 				$rank = round($rank / $total * 100, PHP_ROUND_HALF_UP);
 			}
 
-			//$array[$row['id']] = array( $rank => $row );
 			$array[$row['id']] = $row;
 			$array[$row['id']]['rank'] = $rank;
 
 			$rank_array[$row['id']] = $rank;
 		}
 		
-		if(isset($filter['idea_count']) || isset($filter['user_count'])){
+		if(isset($filter['count_ideas']) || isset($filter['count_users'])){
 			$count = count($array);
 		}
 
-		
 		if(count($array) > 0){
 			//Sort by relevance
 			array_multisort($rank_array, SORT_DESC, $array);
@@ -546,20 +536,22 @@ class SearchBuilder {
 			//Pagination
 			$array = array_slice($array, ($filter['page'] - 1) * $filter['per_page'], $filter['per_page']);
 		}
-			
+		
+		/*
 		//DEBUG
-		/*echo $type."\n";
+		echo $type."\n";
 		echo "# of conditions: $total\n";
-		print_r($cols_backup);
+		//print_r($cols_backup);
 		print_r($where);
 		echo $sql;
-		print_r($array);*/
+		print_r($array);
+		*/
 
 		//Load the array with data!
-		if(($type == "idea" || $type == "user") && !isset($filter['idea_count']) && !isset($filter['user_count'])) {
+		if(!isset($filter['count_ideas']) && !isset($filter['count_users'])) {
 			return $array;
-		} elseif(isset($filter['idea_count']) || isset($filter['user_count'])){
-			return array('num_of_rows' => $count);
+		} elseif(isset($filter['count_ideas']) || isset($filter['count_users'])) {
+			return $count;
 		}
 
 	}

@@ -13,7 +13,7 @@ class SqlBuilder {
 	//why a seperate function?
 	//because we want to build the array in desired depth, and this is the place to do so.
 	//also, we wish to keep the main function simple
-	public function load_array($action, $filter = Array()){
+	public function load_array($action, $filter = Array(), $structure = ""){
 
 	//INPUT VALUES VALIDATE
 	//NOTE: $_GET values get transmitted to this class. All values must be checked
@@ -51,69 +51,65 @@ class SqlBuilder {
 		$filter['action'] = $action;
 		$this->level = 0;
 
+	//STRUCTURE
+		if($structure == ""){
+			if($action == "recent_users" || $action == "search_users" || $action == "user" || $action == "regflow"){
+				$structure = "collabpref,link,skillset,num_of_ideas,idea,member,gallery,translation";
+			} elseif($action == "recent_ideas" || $action == "search_ideas" || $action == "idea" ){
+				$structure = "translation,translation_other,link,member,gallery,candidate,skillset,collabpref";
+			}
+		}
+
 	//UNSET VARIABLES
 		unset($filter['regflow']);
 
 	//WHICH ACTION IS PERFORMED?
 		switch ($action) {
+
 			//frontpage controller
-		    case "recent_updated":
-		    	return $this->idea("recent_updated", $filter);
+		    case "recent_ideas":
+		    	return $this->idea("recent_updated", $filter, array(), $structure);
 		        break;
-		    case "recent_candidate":
-		    	return $this->idea("recent_candidate", $filter);
+
+		    case "recent_users":
+		        return $this->user("recent", $filter, array(), $structure);
 		        break;
-		    case "recent_user":
-		        return $this->user("recent", $filter);
-		        break;
+
 		    //search
-		    //idea related data
-		    case "idea":
-		    	if(isset($filter['idea_id'])){
-		        	return $this->idea("idea", $filter);
-		        }
-		        break;
-		    case "search_idea":
+		    case "search_ideas":
 		   		$search = new SearchBuilder;
 		    	$search = $search->search("idea", $filter);
-		    	if(count($search) > 0) return $this->idea("search", $filter, $search);
+		    	if(count($search) > 0) return $this->idea("search", $filter, $search, $structure);
 		    	else return false;
 		        break;
-		    case "search_idea_count":
-		    	$filter['idea_count'] = true;
+
+		    case "search_users":
 		    	$search = new SearchBuilder;
-		        return $search->search("idea", $filter);
+		    	$search = $search->search("user", $filter);
+		    	if(count($search) > 0) return $this->user("search", $filter, $search, $structure);
+		    	else return false;
 		        break;
-		    //user related data
-		    case "user":
-		    	if(isset($filter['user_id'])){
-		    		//print_r($this->user("user", $filter));
-		        	return $this->user("user", $filter);
+
+		    //idea
+		    case "idea":
+		    	if(isset($filter['idea_id'])){
+		        	return $this->idea("idea", $filter, array(), $structure);
 		        }
 		        break;
+
+		    //user
+		    case "user":
+		    	if(isset($filter['user_id'])){
+		        	return $this->user("user", $filter, array(), $structure);
+		        }
+		        break;
+
 		    case "regflow":
 		    	if(isset($filter['user_id'])){
 			    	$filter['regflow'] = true;
-			    	return $this->user("user", $filter);
+			    	return $this->user("user", $filter, array(), $structure);
 			    }
-		    case "search_user":
-		    	$search = new SearchBuilder;
-		    	$search = $search->search("user", $filter);
-		    	if(count($search) > 0) return $this->user("search", $filter, $search);
-		    	else return false;
-		        break;
-		    case "search_user_count":
-		    	$filter['user_count'] = true;
-		    	$search = new SearchBuilder;
-		    	return $search->search("user", $filter);
-		        break;
-		    //pagination data
-		    case "count_idea":
-		    	return $this->idea("count_idea", $filter);
-		        break;
-		    case "count_user":
-		    	return $this->user("count_user", $filter);
-		        break;
+
 		    //collabpref
 		    case "collabpref":
 		    	return $this->collabpref("combined", $filter);
@@ -121,227 +117,33 @@ class SqlBuilder {
 		    case "collabpref_empty":
 		    	return $this->collabpref("empty", $filter);
 		        break;
+
+		    //pagination data
+		    case "count_ideas":
+		    	return $this->count("ideas", $filter);
+		        break;
+
+		    case "count_users":
+		    	return $this->count("users", $filter);
+		        break;
+
+		    //search pagination data
+		    case "search_count_users":
+		    	$filter['count_users'] = true;
+		    	$search = new SearchBuilder;
+		    	return $search->search("user", $filter);
+		        break;
+
+		    case "search_count_ideas":
+		    	$filter['count_ideas'] = true;
+		    	$search = new SearchBuilder;
+		        return $search->search("idea", $filter);
+		        break;
 		}
 
 	}
 
-	public function idea($type, $filter, $data = array()){
-
-		$this->level++;
-
-		if( $type == 'recent_candidate'){
-			//currently not in use
-			/*$sql =	"SELECT i.*, ist.name AS status FROM ".
-					"`idea` AS i, `idea_status` AS ist, `idea_member` AS im, `user_match` AS m ".
-					"WHERE i.id = im.idea_id ".
-					"AND i.status_id = ist.id ".
-					"AND i.deleted = 0 ".
-					"AND im.match_id = m.id ".
-					"AND m.user_id IS NULL ".
-					"AND it.deleted = 0 ".
-					"ORDER BY m.id DESC ".
-					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". ($filter['per_page']);*/
-
-		} elseif( $type == 'recent_updated' ) {
-			$sql =	"SELECT i.*, ist.name AS status, t.translation AS status_translation FROM ".
-					"`idea` AS i ".
-
-					"LEFT JOIN `idea_status` AS ist ".
-					"ON ist.id = i.status_id ".
-
-					"LEFT JOIN `translation` AS t ".
-					"ON ist.id = t.row_id ".
-					"AND t.table = 'idea_status' ".
-					"AND t.language_id = {$filter['site_lang']} ".
-
-					"WHERE i.deleted = 0 ".
-					"ORDER BY i.time_updated DESC ".
-					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". ($filter['per_page']);
-
-		} elseif( $type == 'user' ) {
-			$sql=	"SELECT i.*, ist.name AS status, t.translation AS status_translation, im.type_id FROM ".
-					"`idea` AS i ".
-
-					"INNER JOIN `idea_member` AS im ".
-					"ON i.id = im.idea_id ".
-					"AND im.match_id = '{$filter['match_id']}' ".
-
-					"LEFT JOIN `idea_status` AS ist	".
-					"ON i.status_id = ist.id ".
-
-					"LEFT JOIN `translation` AS t ".
-					"ON ist.id = t.row_id ".
-					"AND t.table = 'idea_status' ".
-					"AND t.language_id = {$filter['site_lang']} ".
-          
-					"WHERE i.deleted = 0 ".					
-					"ORDER BY im.type_id ASC, i.time_registered DESC";
-
-		} elseif( $type == 'idea' ){
-			$sql=	"SELECT i.*, ist.name AS status, t.translation AS status_translation FROM ".
-					"`idea` AS i ".
-
-					"LEFT JOIN `idea_status` AS ist	".
-					"ON i.status_id = ist.id ".
-
-					"LEFT JOIN `translation` AS t ".
-					"ON ist.id = t.row_id ".
-					"AND t.table = 'idea_status' ".
-					"AND t.language_id = {$filter['site_lang']} ".
-
-					"WHERE i.id = '{$filter['idea_id']}' ".
-					"AND i.deleted = 0 ";
-
-		} elseif( $type == 'count_idea' ){
-			//for pagination
-			$sql =	"SELECT count(i.id) as count FROM ".
-					"`idea` AS i ".
-					"WHERE i.deleted = 0 ";
-
-		} elseif( $type == 'count_clicks' ){
-			$sql =	"SELECT count(ci.id) as count FROM ".
-					"`click_idea` AS ci ".
-					"WHERE ci.idea_click_id = '{$filter['idea_id']}' ".
-					"GROUP BY ci.idea_click_id";
-
-		} elseif( $type == 'search' ){
-			$sql =	"SELECT i.*, ist.name AS status, t.translation AS status_translation FROM ".
-					"`idea` AS i ".
-
-					"LEFT JOIN `idea_status` AS ist	".
-					"ON i.status_id = ist.id ".
-
-					"LEFT JOIN `translation` AS t ".
-					"ON ist.id = t.row_id ".
-					"AND t.table = 'idea_status' ".
-					"AND t.language_id = {$filter['site_lang']} ".
-
-					"WHERE i.deleted = 0 ".
-					"AND ist.id = i.status_id ".
-					"AND ( ";
-
-			$keys = array();
-			foreach( $data AS $key => $value ){
-				$condition[] =	"i.id = {$value['id']}";
-				$keys[] = $value['id'];
-			}
-			$sql.= implode($condition, " OR ") . " ) ORDER BY FIELD(i.id, ".implode($keys, ', ').") ASC";
-		}
-
- 		$connection=Yii::app()->db;
-		$command=$connection->createCommand($sql);
-		$dataReader=$command->query();
-		$array = array();
-
-		while(($row=$dataReader->read())!==false) {
-			
-			if($type == "count_idea"){
-				$array['num_of_rows'] = $row['count'];
-				$array['filter'] = $filter;
-
-			} elseif($type == "count_clicks"){
-				$array = $row['count'];
-
-			} else {
-				//prepare filter
-				$filter['idea_id'] = $row['id'];
-
-				//translation..
-				$merge = $this->idea_translation( 'userlang', $filter );
-				if(isset($merge['language_id'])){
-					$row = array_merge($row, $merge);
-					$filter['default_lang'] = $merge['language_id'];
-				} else {
-					$filter['default_lang'] = $filter['lang'];
-				}
-				if(strlen($row['status_translation']) > 0){
-					$row['status'] = $row['status_translation'];
-				}
-				unset($row['status_translation']);
-
-				$row['date_updated'] = Yii::app()->dateFormatter->formatDateTime(strtotime($row['time_updated']));
-				$row['days_updated'] = floor( (time() - strtotime($row['time_updated'])) / 86400 );
-				$row['translation_other'] = $this->idea_translation( 'other', $filter );
-				if($type != 'user'){
-					$row['candidate'] = $this->user( 'candidate', $filter );
-					$row['member'] = $this->user( 'member', $filter );
-					$row['num_of_members'] = count($row['member']);
-				}
-				//add link
-				$row['link'] = $this->link( 'idea', $filter );
-				$row['gallery'] = $this->gallery( $filter );
-
-				if($type == 'user' && $this->level < 3){
-					$row['member'] = $this->user( 'member', $filter );
-				}
-
-				//add number of clicks
-				if($filter['action'] == ('user' || 'idea')){
-					$num_of_clicks = $this->idea('count_clicks', $filter);
-					if(!is_array($num_of_clicks) AND is_numeric($num_of_clicks)){
-						$row['num_of_clicks'] = $num_of_clicks;
-					} else {
-						$row['num_of_clicks'] = 0;
-					}
-						
-				}
-
-				//multi record array, or not?
-				if($type != 'idea'){
-					$array[$row['id']] = $row;
-				} else {
-					$array = $row;
-				}
-			}
-		}
-
-		$this->level--;
-
-		return $array;
-	}
-
-	public function idea_translation($type, $filter){
-
-		if($type == 'userlang'){
-			$sql=		"SELECT it.id AS translation_id, it.title, it.keywords, it.pitch, it.description, it.description_public, it.tweetpitch, it.language_id, l.native_name AS language, l.language_code FROM ".
-						"`idea` AS i,`idea_translation` AS it,`language` AS l ".
-						"WHERE i.id = it.idea_id ".
-						"AND l.id = it.language_id ".
-						"AND it.deleted = 0 ".
-						"AND it.idea_id = {$filter['idea_id']} ".
-						"ORDER BY FIELD(it.language_id, '{$filter['lang']}') DESC LIMIT 1";
-
-		} else {
-			$sql=		"SELECT it.id AS translation_id, it.title, it.keywords, it.pitch, it.description, it.description_public, it.tweetpitch, it.language_id, l.native_name AS language, l.language_code FROM ".
-						"`idea` AS i,`idea_translation` AS it,`language` AS l ".
-						"WHERE i.id = it.idea_id ".
-						"AND l.id = it.language_id ".
-						"AND it.deleted = 0 ".
-						"AND it.idea_id = {$filter['idea_id']} ".
-						"AND it.language_id != {$filter['default_lang']}";
-
-		}
-
-		$connection=Yii::app()->db;
-		$command=$connection->createCommand($sql);
-		$dataReader=$command->query();
-		$array = array();
-		while(($row=$dataReader->read())!==false) {
-			//multi record array, or not?
-			if($type == 'userlang'){
-				$array = $row;
-			} else {
-				$array[$row['translation_id']] = $row;
-			}
-		}
-
-		return $array;
-
-	}
-
-	public function user($type, $filter = 0, $data = array()){
-
-		$this->level++;
+	public function user($type, $filter = 0, $data = array(), $structure = ""){
 
 		if( $type == 'user' ) {
 			//return specific user's data
@@ -370,7 +172,6 @@ class SqlBuilder {
         if (!Yii::app()->user->isAdmin()) $sql.= " AND u.status = 1";
 			}
 			
-
 		} elseif( $type == 'recent' ){
 			//return recently registered users' data
 			$sql=	"SELECT m.id AS match_id, ".
@@ -391,8 +192,8 @@ class SqlBuilder {
 					"AND t.table = 'available' ".
 					"AND t.language_id = {$filter['site_lang']} ".
                   
-          "LEFT JOIN `user_stat` AS us ".
-          "ON u.id = us.user_id ".
+			        "LEFT JOIN `user_stat` AS us ".
+			        "ON u.id = us.user_id ".
 
 					"WHERE m.user_id > 0 AND u.status = 1 AND us.completeness >= ".PROFILE_COMPLETENESS_MIN." ".
 					"ORDER BY u.create_at DESC ".
@@ -448,14 +249,6 @@ class SqlBuilder {
 					"AND im.type_id = '3' ". //HARDCODED CANDIDATE
 					"ORDER BY m.id DESC";
 
-		} elseif($type == 'count_user'){
-			//for pagination
-			$sql=	"SELECT count(u.id) AS count FROM ".
-					"`user` AS u 
-           INNER JOIN `user_match` AS m ON u.id = m.user_id
-          LEFT JOIN `user_stat` AS us ON u.id = us.user_id
-
-           WHERE m.user_id > 0  AND u.status = 1 AND us.completeness >= ".PROFILE_COMPLETENESS_MIN;
 		} elseif( $type == 'search' ){
 
 			$sql=	"SELECT m.id AS match_id, ".
@@ -494,16 +287,17 @@ class SqlBuilder {
 
 		while(($row=$dataReader->read())!==false) {
 			
-			if($type == "count_user"){
-				$array['num_of_rows'] = $row['count'];
-				if($type == "count_user"){
-					$array['filter'] = $filter;
-				}
-			} else {
-				//set filter
-				$filter['match_id'] = $row['match_id'];
+			//set filter
+			$filter['match_id'] = $row['match_id'];
 
-				//collabpref data
+			//available & translation
+			if(strlen($row['available_translation']) > 0){
+				$row['available_name'] = $row['available_translation'];
+			}
+			unset($row['available_translation']);
+
+			//collabpref data
+			if(strpos($structure, 'collabpref') !== false){
 				if($type == 'user'){
 					//show complete list of available collabprefs when pulling user data
 					$row['collabpref'] = $this->collabpref( 'combined', $filter );
@@ -511,48 +305,257 @@ class SqlBuilder {
 					//show only existing collabprefs
 					$row['collabpref'] = $this->collabpref( 'normal', $filter );
 				}
+			}
 
-				//user's ideas, add and count
-				if($this->level <= 2){
-					$row['idea'] = $this->idea('user', $filter);
-					$i = 0;
-					if(count($row['idea']) > 0){
-						foreach($row['idea'] AS $key => $value)
-							$i++;
-					}
-					$row['num_of_rows'] = $i;
-				}
+			//user's ideas
+			if(strpos($structure, 'idea,') !== false){
+				$structure_idea = explode('idea,', $structure);
+				$row['idea'] = $this->idea('user', $filter, array(), $structure_idea[1]);
+			}
+			if(strpos($structure, 'num_of_ideas') !== false){
+				$row['num_of_ideas'] = $this->count('users_ideas', $filter);
+			}			
 
-				//skillset
+			//skillset
+			if(strpos($structure, 'skillset') !== false){
 				$row['skillset'] = $this->skillset( $filter );
+			}
+			
+			//add link
+			if(((isset($structure_idea) && strpos($structure_idea[0], 'link') !== false) ||
+				(strpos($structure, 'link') !== false && !isset($structure_idea))
+				&& $type != 'candidate')){
 
-				//translation
-				if(strlen($row['available_translation']) > 0){
-					$row['available_name'] = $row['available_translation'];
-				}
-				unset($row['available_translation']);
-				
-				//add link
-				if($type != 'candidate'){
-					$filter['uid'] = $row['id'];
-					$row['link'] = $this->link( 'user', $filter );
-				}
+				$filter['uid'] = $row['id'];
+				$row['link'] = $this->link( 'user', $filter );
+			}
 
-				//is it one to one or one to many array?
-				if( $type != 'user' ){
-					if( $type == 'candidate'){
-						$array[$row['match_id']] = $row;
-					} else {
-						$array[$row['id']] = $row;
-					}
+
+			//is it one to one or one to many array?
+			if( $type != 'user' ){
+				if( $type == 'candidate'){
+					$array[$row['match_id']] = $row;
 				} else {
-					$array = $row;
+					$array[$row['id']] = $row;
 				}
+			} else {
+				$array = $row;
+			}
 
+		}
+
+		return $array;
+	}
+
+	public function idea($type, $filter, $data = array(), $structure = ""){
+
+		if( $type == 'recent_updated' ) {
+			$sql =	"SELECT i.*, ist.name AS status, t.translation AS status_translation FROM ".
+					"`idea` AS i ".
+
+					"LEFT JOIN `idea_status` AS ist ".
+					"ON ist.id = i.status_id ".
+
+					"LEFT JOIN `translation` AS t ".
+					"ON ist.id = t.row_id ".
+					"AND t.table = 'idea_status' ".
+					"AND t.language_id = {$filter['site_lang']} ".
+
+					"WHERE i.deleted = 0 ".
+					"ORDER BY i.time_updated DESC ".
+					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". ($filter['per_page']);
+
+		} elseif( $type == 'user' ) {
+			$sql=	"SELECT i.*, ist.name AS status, t.translation AS status_translation, im.type_id FROM ".
+					"`idea` AS i ".
+
+					"INNER JOIN `idea_member` AS im ".
+					"ON i.id = im.idea_id ".
+					"AND im.match_id = '{$filter['match_id']}' ".
+
+					"LEFT JOIN `idea_status` AS ist	".
+					"ON i.status_id = ist.id ".
+
+					"LEFT JOIN `translation` AS t ".
+					"ON ist.id = t.row_id ".
+					"AND t.table = 'idea_status' ".
+					"AND t.language_id = {$filter['site_lang']} ".
+          
+					"WHERE i.deleted = 0 ".					
+					"ORDER BY im.type_id ASC, i.time_registered DESC";
+
+		} elseif( $type == 'idea' ){
+			$sql=	"SELECT i.*, ist.name AS status, t.translation AS status_translation FROM ".
+					"`idea` AS i ".
+
+					"LEFT JOIN `idea_status` AS ist	".
+					"ON i.status_id = ist.id ".
+
+					"LEFT JOIN `translation` AS t ".
+					"ON ist.id = t.row_id ".
+					"AND t.table = 'idea_status' ".
+					"AND t.language_id = {$filter['site_lang']} ".
+
+					"WHERE i.id = '{$filter['idea_id']}' ".
+					"AND i.deleted = 0 ";
+
+		} elseif( $type == 'search' ){
+			$sql =	"SELECT i.*, ist.name AS status, t.translation AS status_translation FROM ".
+					"`idea` AS i ".
+
+					"LEFT JOIN `idea_status` AS ist	".
+					"ON i.status_id = ist.id ".
+
+					"LEFT JOIN `translation` AS t ".
+					"ON ist.id = t.row_id ".
+					"AND t.table = 'idea_status' ".
+					"AND t.language_id = {$filter['site_lang']} ".
+
+					"WHERE i.deleted = 0 ".
+					"AND ist.id = i.status_id ".
+					"AND ( ";
+
+			$keys = array();
+			foreach( $data AS $key => $value ){
+				$condition[] =	"i.id = {$value['id']}";
+				$keys[] = $value['id'];
+			}
+			$sql.= implode($condition, " OR ") . " ) ORDER BY FIELD(i.id, ".implode($keys, ', ').") ASC";
+		}
+
+ 		$connection=Yii::app()->db;
+		$command=$connection->createCommand($sql);
+		$dataReader=$command->query();
+		$array = array();
+
+		while(($row=$dataReader->read())!==false){
+			
+			//prepare filter
+			$filter['idea_id'] = $row['id'];
+
+			//idea status
+			if(strlen($row['status_translation']) > 0){
+				$row['status'] = $row['status_translation'];
+			}
+			unset($row['status_translation']);
+
+			//time data
+			$row['date_updated'] = Yii::app()->dateFormatter->formatDateTime(strtotime($row['time_updated']));
+			$row['days_updated'] = floor( (time() - strtotime($row['time_updated'])) / 86400 );
+
+			//translation..
+			$merge = $this->idea_translation( 'userlang', $filter );
+			if(isset($merge['language_id'])){
+				$row = array_merge($row, $merge);
+				$filter['default_lang'] = $merge['language_id'];
+			} else {
+				$filter['default_lang'] = $filter['lang'];
+			}
+
+			//translation_other
+			if(strpos($structure, 'translation_other') !== false){
+				$row['translation_other'] = $this->idea_translation( 'other', $filter );
+			}
+
+			//candidates
+			if(strpos($structure, 'candidate') !== false){
+				$structure_candidate = explode('candidate,', $structure);
+				$row['candidate'] = $this->user('candidate', $filter, array(), $structure_candidate[1]);
+			}
+
+			//member
+			if(strpos($structure, 'member') !== false){
+				$row['member'] = $this->user( 'member', $filter );
+			}
+			//member count
+			if(strpos($structure, 'num_of_members') !== false){
+				$row['num_of_members'] = count($row['member']);
+			}
+			//add link
+			if(strpos($structure, 'link') !== false){
+				$row['link'] = $this->link( 'idea', $filter );
+			}
+			//gallery
+			if(strpos($structure, 'gallery') !== false){
+				$row['gallery'] = $this->gallery( $filter );
+			}
+
+			//add number of clicks
+			if($filter['action'] == ('user' || 'idea')){
+				$num_of_clicks = $this->count('idea_clicks', $filter);
+				if(!is_array($num_of_clicks) AND is_numeric($num_of_clicks)){
+					$row['num_of_clicks'] = $num_of_clicks;
+				} else {
+					$row['num_of_clicks'] = 0;
+				}
+					
+			}
+
+			//multi record array, or not?
+			if($type != 'idea'){
+				$array[$row['id']] = $row;
+			} else {
+				$array = $row;
 			}
 		}
 
-		$this->level--;
+		return $array;
+	}
+
+	public function idea_translation($type, $filter){
+
+		if($type == 'userlang'){
+			$sql=		"SELECT it.id AS translation_id, it.title, it.keywords, it.pitch, it.description, it.description_public, it.tweetpitch, it.language_id, l.native_name AS language, l.language_code FROM ".
+						"`idea` AS i,`idea_translation` AS it,`language` AS l ".
+						"WHERE i.id = it.idea_id ".
+						"AND l.id = it.language_id ".
+						"AND it.deleted = 0 ".
+						"AND it.idea_id = {$filter['idea_id']} ".
+						"ORDER BY FIELD(it.language_id, '{$filter['lang']}') DESC LIMIT 1";
+
+		} else {
+			$sql=		"SELECT it.id AS translation_id, it.title, it.keywords, it.pitch, it.description, it.description_public, it.tweetpitch, it.language_id, l.native_name AS language, l.language_code FROM ".
+						"`idea` AS i,`idea_translation` AS it,`language` AS l ".
+						"WHERE i.id = it.idea_id ".
+						"AND l.id = it.language_id ".
+						"AND it.deleted = 0 ".
+						"AND it.idea_id = {$filter['idea_id']} ".
+						"AND it.language_id != {$filter['default_lang']}";
+
+		}
+
+		$connection=Yii::app()->db;
+		$command=$connection->createCommand($sql);
+		$dataReader=$command->query();
+		$array = array();
+		while(($row=$dataReader->read())!==false) {
+			//multi record array, or not?
+			if($type == 'userlang'){
+				$array = $row;
+			} else {
+				$array[$row['translation_id']] = $row;
+			}
+		}
+
+		return $array;
+
+	}
+
+	public function gallery($filter){
+
+		$sql=		"SELECT ig.* FROM ".
+					"`idea_gallery` AS ig ".
+					"WHERE ig.idea_id = '{$filter['idea_id']}' ".
+					"ORDER BY ig.cover DESC";
+
+		$connection=Yii::app()->db;
+		$command=$connection->createCommand($sql);
+		$dataReader=$command->query();
+		$array = array();
+
+		while(($row=$dataReader->read())!==false) {
+			$array[] = $row;
+		}
 
 		return $array;
 	}
@@ -677,23 +680,48 @@ class SqlBuilder {
 		return $array;
 	}
 
-	public function gallery($filter){
+	public function count($type, $filter){
+		if($type == 'users'){
+			//for pagination
+			$sql=	"SELECT count(u.id) AS count FROM ".
+					"`user` AS u 
+           INNER JOIN `user_match` AS m ON u.id = m.user_id
+          LEFT JOIN `user_stat` AS us ON u.id = us.user_id
 
-		$sql=		"SELECT ig.* FROM ".
-					"`idea_gallery` AS ig ".
-					"WHERE ig.idea_id = '{$filter['idea_id']}' ".
-					"ORDER BY ig.cover DESC";
+           WHERE m.user_id > 0  AND u.status = 1 AND us.completeness >= ".PROFILE_COMPLETENESS_MIN;
+
+		} elseif( $type == 'ideas' ){
+			//for pagination
+			$sql =	"SELECT count(i.id) as count FROM ".
+					"`idea` AS i ".
+					"WHERE i.deleted = 0 ";
+
+		} elseif( $type == 'idea_clicks' ){
+			//number of clicks for idea
+			$sql =	"SELECT count(ci.id) as count FROM ".
+					"`click_idea` AS ci ".
+					"WHERE ci.idea_click_id = '{$filter['idea_id']}' ".
+					"GROUP BY ci.idea_click_id";
+		} elseif($type == 'users_ideas'){
+			$sql=	"SELECT COUNT(i.id) AS count FROM ".
+					"`idea` AS i ".
+
+					"INNER JOIN `idea_member` AS im ".
+					"ON i.id = im.idea_id ".
+					"AND im.match_id = '{$filter['match_id']}' ".
+
+					"WHERE i.deleted = 0 ".					
+					"ORDER BY im.type_id ASC, i.time_registered DESC";
+		}
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
 		$dataReader=$command->query();
 		$array = array();
-
-		while(($row=$dataReader->read())!==false) {
-			$array[] = $row;
-		}
-
+		
+		$row=$dataReader->read();
+		$array = $row['count'];
+		
 		return $array;
 	}
-
 }

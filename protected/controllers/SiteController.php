@@ -35,7 +35,7 @@ class SiteController extends Controller
 				'users'=>array('@'),
 			),*/
 			array('allow', // allow admin user to perform actions:
-				'actions'=>array('list','recalcPerc'),
+				'actions'=>array('list','recalcPerc','setVanityUrl'),
 				'users'=>Yii::app()->getModule('user')->getAdmins(),
 			),
 			array('deny',  // deny all users
@@ -110,13 +110,11 @@ class SiteController extends Controller
 			}*/
 			
 			if ($searchForm->isProject){
-				$searchResult['data'] = $sqlbuilder->load_array("search_idea", $filter);
-				$count = $sqlbuilder->load_array("search_idea_count", $filter);
-				$count = $count['num_of_rows'];
+				$searchResult['data'] = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skillset");
+				$count = $sqlbuilder->load_array("search_count_ideas", $filter);
 			} else {
-				$searchResult['data'] = $sqlbuilder->load_array("search_user", $filter);
-				$count = $sqlbuilder->load_array("search_user_count", $filter);
-				$count = $count['num_of_rows'];
+				$searchResult['data'] = $sqlbuilder->load_array("search_users", $filter, "skillset,num_of_ideas");
+				$count = $sqlbuilder->load_array("search_count_users", $filter);
 			}
 			
 			$searchResult['page'] = $id;
@@ -124,13 +122,13 @@ class SiteController extends Controller
 
     }else{
 			// last results
-			$data['idea'] = $sqlbuilder->load_array("recent_updated", $filter);
-      $pagedata = $sqlbuilder->load_array("count_idea", $filter);
-      $maxPageIdea = ceil($pagedata['num_of_rows'] / $pagedata['filter']['per_page']); 
+			$data['idea'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
+      $count = $sqlbuilder->load_array("count_ideas", $filter);
+      $maxPageIdea = ceil($count / $filter['per_page']); 
       
-			$data['user'] = $sqlbuilder->load_array("recent_user", $filter);
-      $pagedata = $sqlbuilder->load_array("count_user", $filter);
-      $maxPagePerson = ceil($pagedata['num_of_rows'] / $pagedata['filter']['per_page']); 
+			$data['user'] = $sqlbuilder->load_array("recent_users", $filter, "skillset,num_of_ideas");
+      $count = $sqlbuilder->load_array("count_users", $filter);
+      $maxPagePerson = ceil($count / $filter['per_page']); 
 		}
 		
 
@@ -144,7 +142,7 @@ class SiteController extends Controller
 		$filter = array( 'idea_id' => 1); // our idea ID
 		$filter['lang'] = Yii::app()->language;
 
-		$this->render('about', array('idea' => $sqlbuilder->load_array("idea", $filter)));
+		$this->render('about', array('idea' => $sqlbuilder->load_array("idea", $filter, "translation,member,candidate,skillset")));
 	}
   
 
@@ -693,6 +691,28 @@ EOD;
    */
   public function actionClearNotif($type){
     Notifications::viewNotification($type);
+  }
+  
+  
+  /**
+   * assign everyone a vanity url
+   */
+  public function actionSetVanityUrl(){
+    $users = User::model()->findAll(array('order'=>'status DESC'));
+    
+    foreach ($users as $user){
+      if ($user->vanityURL == ''){
+        $i = 0;
+        while ($i < 1000){
+          $user->vanityURL = strtolower($user->name."-".$user->surname);
+          if ($i > 0) $user->vanityURL .= "-".$i;
+          $i++;
+          if (Idea::model()->findByAttributes(array('vanityURL'=>$user->vanityURL))) continue;
+          if ($user->save()) break;
+        }
+      }
+    }
+     $this->render('message',array('title'=>"Fill vanity urls",'content'=>"Success!"));
   }
 	
 }

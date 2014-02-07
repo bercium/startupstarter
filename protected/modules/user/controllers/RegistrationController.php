@@ -54,6 +54,9 @@ class RegistrationController extends Controller
                     $model->verifyPassword=$model->password;
                     $model->superuser=0; //not admin
                     $model->status=(($invited)?User::STATUS_ACTIVE:User::STATUS_NOACTIVE);
+                    //$model->name = ucfirst(strtolower($model->name));
+                    //$model->surname = ucfirst(strtolower($model->surname));
+                    
 
 
                     if ($model->save()) {
@@ -61,6 +64,20 @@ class RegistrationController extends Controller
                       $user_match->user_id = $model->id;
                       $user_match->save();
                       
+                      // auo create vanity url
+                      $i = 0;
+                      $user = UserEdit::model()->findByPk($model->id);
+                      while ($i < 1000){
+                        $user->vanityURL = strtolower($user->name."-".$user->surname);
+                        if ($i > 0) $user->vanityURL .= "-".$i;
+                        $i++;
+                        if (Idea::model()->findByAttributes(array('vanityURL'=>$user->vanityURL))) continue;
+                        if ($user->save()){
+                          break;
+                        }
+                      }
+                      
+                      //completeness
                       $com = new Completeness();
                       $com->setPercentage($model->id);
                       
@@ -115,6 +132,9 @@ class RegistrationController extends Controller
                       Yii::import('application.helpers.Hashids');
                       $hashids = new Hashids('cofinder');
                       $uid = $hashids->encrypt($model->id);
+                      
+                      $baseUrl = Yii::app()->baseUrl; 
+                      $cs = Yii::app()->getClientScript();
                       $cs->registerScript("ganalyticsregister","ga('send', 'event', 'registration', 'mark_user',{'dimension1':'".$uid."',})");
 
 

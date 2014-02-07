@@ -19,6 +19,9 @@ class LoginController extends Controller
 				// validate user input and redirect to previous page if valid
 				if($model->validate()) {
 					$this->lastVisit();
+          
+          $com = new Completeness();
+          $com->setPercentage(Yii::app()->user->id);
 
           //Yii::app()->setLanguage();  // set language from user settings
           

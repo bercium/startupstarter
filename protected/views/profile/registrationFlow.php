@@ -121,8 +121,8 @@
       <?php echo CHtml::activeLabelEx($match,'city'); ?>
       <?php echo CHtml::activeTextField($match, 'city', array("class"=>"city")); ?>
 
-      <?php echo CHtml::activeLabelEx($user,'address'); ?>
-      <?php echo CHtml::activeTextField($user, 'address', array('maxlength' => 128)); ?>
+      <?php // echo CHtml::activeLabelEx($user,'address'); ?>
+      <?php // echo CHtml::activeTextField($user, 'address', array('maxlength' => 128)); ?>
 
       <?php echo CHtml::activeLabelEx($user,'bio'); ?>
       <span class="description"><?php echo Yii::t('msg','Tell people something interesting about yourself.'); ?></span>
