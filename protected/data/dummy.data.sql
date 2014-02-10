@@ -660,8 +660,8 @@ INSERT INTO `skillset_skill` VALUES (56, 83, 49, 1);
 -- Dumping data for table `user`
 -- 
 
-INSERT INTO `user` VALUES (1, 'admin@example.com', '21232f297a57a5a743894a0e4a801fc3', '9a24eff8c15a6a141ece27eb6947da0f', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 1, 1, 'Administrator', 'User', NULL, NULL, NULL, 1, 3);
-INSERT INTO `user` VALUES (2, 'demo@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, 'Demo', 'User', NULL, NULL, NULL, 1, 0);
+INSERT INTO `user` VALUES (1, 'admin@example.com', '21232f297a57a5a743894a0e4a801fc3', '9a24eff8c15a6a141ece27eb6947da0f', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 1, 1, 'Administrator', 'User', NULL, NULL, NULL, 1, 3,NULL,NULL);
+INSERT INTO `user` VALUES (2, 'demo@example.com', 'fe01ce2a7fbac8fafaed7c982a04e229', '099f825543f7850cc038b90aaff39fac', '2013-03-21 12:07:17', '0000-00-00 00:00:00', 0, 1, 'Demo', 'User', NULL, NULL, NULL, 1, 0,NULL,NULL);
 INSERT INTO `user` VALUES (8, 'blaz.beuermann@cofinder.eu', '461908213e93b0f9d9b33c5f0ed40baf', 'b8dd954ad2dccd645ba9941015700f00', '2013-07-25 06:33:15', '2014-01-20 09:07:19', 1, 1, 'Blaž', 'Beuermann', 'Reboljeva 7', '1374751288017.jpg', 145, 1, -28, 'Test bio. My life has previously been similar to a test, with these projects it''s becoming more and more real.', NULL);
 INSERT INTO `user` VALUES (14, 'urban.cetinski@gmail.com', 'sha256:1000:aE0ysvri9xw99TgfP8TU2O/Y2ktLhedn:zCKSS0Z8Y5z1GkYnbBAfgxU0KlevLFcb', 'ee0efcdbda9565a0778329eafcb31904', '2014-01-04 07:26:21', '2014-01-20 14:12:47', 1, 1, 'urban-test-povabila-ime', 'urban-test-povabila-priimek', 'asdasdas', NULL, NULL, 1, 0, 'dasdasdas', NULL);
 INSERT INTO `user` VALUES (15, 'mirtjernej@gmail.com', 'sha256:1000:mMYTUojWw6YzTP+4QNc47hpfs/4+TF/e:KKG69T5HEVUmr8YBcF2MKjS/hgQwVJ3d', '0db12a7d965f0275b1c02ae448d57c13', '2014-01-04 14:08:55', '2014-02-09 17:04:43', 1, 1, 'Jernej', 'Mirt', NULL, NULL, NULL, 1, 5, 'bla bla bla', NULL);
