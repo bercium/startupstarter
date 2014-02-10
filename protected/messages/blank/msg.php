@@ -51,6 +51,7 @@ return array (
   'Describe your project with comma separated keywords to increase visibility of your project.' => '',
   'Description isn\'t published!' => '',
   'Do it now' => '',
+  'Dots "." are not allowed in public name.' => '',
   'Drop file here to change your profile picture.' => '',
   'Drop file here to upload a new cover image.' => '',
   'Email cannot be changed at the moment.' => '',

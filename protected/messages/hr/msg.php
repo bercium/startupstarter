@@ -51,6 +51,7 @@ return array (
   'Describe your project with comma separated keywords to increase visibility of your project.' => 'Riječi koje opisuju Vaš projekt odvojite zarezima kako biste povećali vidljivost projekta.',
   'Description isn\'t published!' => 'Opis nije objavljen!',
   'Do it now' => '',
+  'Dots "." are not allowed in public name.' => '',
   'Drop file here to change your profile picture.' => 'Ovdje stavite datoteku ako želite promjeniti svoju profilnu sliku.',
   'Drop file here to upload a new cover image.' => 'Sliku možete promjeniti tako da ju povučete u okvir.',
   'Email cannot be changed at the moment.' => 'Trenutno nije moguće promjeniti email.',
