@@ -262,7 +262,7 @@ class ProfileController extends GxController {
           $this->render('registrationFlow', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link));
         }
         else {
-          $data['user'] = $sqlbuilder->load_array("user", $filter, "collabpref,link,idea,member");
+          $data['user'] = $sqlbuilder->load_array("user", $filter, "collabpref,link,idea,member,skillset");
           $this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea'], "allowVanityURL"=>$allowVanityURL));
         }
 
