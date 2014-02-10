@@ -872,7 +872,7 @@ class ProfileController extends GxController {
 
   
   public function actionNotification(){
-
+    Notifications::viewNotification(Notifications::NOTIFY_PROJECT_INVITE); //view notifications
 		$user_id = Yii::app()->user->id;
 		$user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
 		

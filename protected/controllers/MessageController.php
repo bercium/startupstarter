@@ -169,6 +169,7 @@ class MessageController extends Controller
 	*/
   
   public function actionIndex($id = 0, $group = ''){
+    Notifications::viewNotification(Notifications::NOTIFY_MESSAGE); //view notifications
     $user_id = Yii::app()->user->id;
     $match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
     $ideas = IdeaMember::Model()->findAllByAttributes( array( 'match_id' => $match->id ) );
