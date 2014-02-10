@@ -23,7 +23,7 @@
 <?php } */ ?>
 
 
-<?php /* ?>
+<?php /**/ ?>
 <div class="m-event">
 <?php $imeEventa = 'Sestavi svojo ekipo';?>
 
