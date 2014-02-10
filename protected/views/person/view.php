@@ -207,9 +207,9 @@ else {
       </div>
     <?php } ?>
 
+    <?php if ($vouched){ ?>
     <div class="item bb">
-      <h4><?php echo Yii::t('app', 'Invited by') ?></h4>
-      <?php if ($vouched){ ?>
+        <h4><?php echo Yii::t('app', 'Invited by') ?></h4>
       
         <div class="l-block">
           <p><a href="<?php echo Yii::app()->createUrl("person",array("id"=>$vouched['id'])); ?>">
@@ -218,12 +218,12 @@ else {
           </a></p>
         </div>      
       
+    </div>
       <?php }/*else{ ?>
         <div class="l-block">
             <p>Cofinder</p>
         </div> 
       <?php } */ ?>
-    </div>
 
     <h4 class="l-inline"><?php echo Yii::t('app', 'Registered') ?></h4>
     <span class=""><!-- <?php // echo Yii::t('app', 'Member since') ?>:  -->
