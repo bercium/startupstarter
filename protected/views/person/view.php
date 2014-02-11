@@ -40,7 +40,7 @@ else {
       }
       if ($firsttime) $workingOn .= ' '.Yii::t('app','as {preference}',array("{preference}"=>$firsttime));
     }
-    if ($firsttime || $workingOn)  $this->pageDesc .= " ".Yii::t('app',"I'm interested in working {typeofwork}",array('{typeofwork}'=>$workingOn))." ";
+    if ($firsttime || $workingOn)  $this->pageDesc .= " ".Yii::t('app',"I'm interested in working {typeofwork}",array('{typeofwork}'=>$workingOn)).". ";
   }
       
   if (count($user['idea']) > 0) $this->pageDesc .= ' '.Yii::t('app','I\'m curently working on a project of my own.');
