@@ -175,7 +175,7 @@ var UrlManager = (function () {
 var UrlRule = (function () {
 
     var urlRule = function (route, pattern) {
-        if (pattern == '') return false;
+        if (pattern == '') return false; //ziga
         
         this.references = {};
         this.params = {};
@@ -200,7 +200,7 @@ var UrlRule = (function () {
             if ('pattern' in route) {
                 pattern = route['pattern'];
             }
-            if ('connectionID' in route){
+            if ('connectionID' in route){ //ziga
               return false;
             }
 
@@ -336,7 +336,7 @@ var UrlRule = (function () {
 
         var suffix = this.urlSuffix === null ? manager.opts.urlSuffix : this.urlSuffix;
 
-        if (!this.template) return false;
+        if (!this.template) return false; //ziga
 
         var url = phpJS.strtr(this.template, tr);
 
