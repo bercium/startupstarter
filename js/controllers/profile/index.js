@@ -56,7 +56,7 @@ function removeLink(link_id, inUrl){
 	
   $(function() {
     
-    if ($('.skill').length != 0)
+    //if ($('.skill').length != 0)
       
      
           
@@ -81,6 +81,6 @@ function removeLink(link_id, inUrl){
 						}else alert(data.message);
 					});
         }
-      });    
-    
+      });
+      
   });

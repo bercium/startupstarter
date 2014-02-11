@@ -15,6 +15,7 @@ return array(
 	// preloading 'log' component
 	'preload'=>array(
       'log',
+      'EJSUrlManager',
       //'foundation',
   ),
 
@@ -75,6 +76,9 @@ return array(
 
 	// application components
 	'components'=>array(
+    'EJSUrlManager' => array(
+      'class' => 'ext.JSUrlManager.src.EJSUrlManager'
+    ),
     'clientScript'=>array(
       'coreScriptPosition'=>CClientScript::POS_END,
       'defaultScriptPosition'=>CClientScript::POS_END,
