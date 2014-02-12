@@ -23,8 +23,8 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
     echo "id: ".$count_events.",";
     echo "className:'secalendar-".$count_events."',";
     echo "title: '".stripslashes($event["title"])."',";
-    echo "start: '".strtotime($event["start"])."',";
-    if ($event["end"] > '') echo "end: '".strtotime($event["end"])."',";
+    echo "start: '".(strtotime($event["start"])-6*60*60)."',";
+    if ($event["end"] > '') echo "end: '".(strtotime($event["end"])-6*60*60)."',";
     else $event["end"] = $event["start"];
     
     echo "allDay: ";

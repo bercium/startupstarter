@@ -70,6 +70,7 @@ class User extends BaseUser
 			array('superuser, status, language_id, newsletter, invitations', 'numerical', 'integerOnly'=>true),
       array('id, password, email, activkey, create_at, lastvisit_at, superuser, status, name, surname, address, avatar_link, language_id, newsletter, invitations', 'safe', 'on'=>'search'),
       array('password, email, activkey, name, surname, address, avatar_link', 'length', 'max'=>128),
+      array('vanityURL', 'unique'),
 		):((Yii::app()->user->id==$this->id)?array(
 			array('password, email, create_at, name', 'required'),
 			array('email', 'email'),
@@ -94,6 +95,8 @@ class User extends BaseUser
 			'clickUsers1' => array(self::HAS_MANY, 'ClickUser', 'user_id'),
 			'userLinks' => array(self::HAS_MANY, 'UserLink', 'user_id'),
 			'userMatches' => array(self::HAS_MANY, 'UserMatch', 'user_id'),
+      'userStat' => array(self::HAS_ONE, 'UserStat', 'user_id'),
+      'userTag' => array(self::HAS_MANY, 'UserTag', 'user_id'),
 		);
 	}  
 

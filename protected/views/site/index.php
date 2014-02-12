@@ -23,7 +23,7 @@
 <?php } */ ?>
 
 
-<?php /* ?>
+<?php /**/ ?>
 <div class="m-event">
 <?php $imeEventa = 'Sestavi svojo ekipo';?>
 
@@ -90,7 +90,7 @@
 			<?php echo Yii::t('msg','Get your own personal url on Cofinder'); ?>
 			</p>
 
-			<a href="<?php echo Yii::app()->createUrl("profile/account"); ?>" trk="index_click_vanityURL" class="button success small radius small-12">www.cofinder.eu/ <?php echo substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")); ?></a>
+      <a href="<?php echo Yii::app()->createUrl("profile/account"); ?>" trk="index_click_vanityURL" class="button success small radius small-12">www.cofinder.eu/ <?php echo str_replace(".", "", substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")) ); ?></a>
 
 			</div>
 			</div>

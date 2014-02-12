@@ -40,7 +40,7 @@ else {
       }
       if ($firsttime) $workingOn .= ' '.Yii::t('app','as {preference}',array("{preference}"=>$firsttime));
     }
-    if ($firsttime || $workingOn)  $this->pageDesc .= " ".Yii::t('app',"I'm interested in working {typeofwork}",array('{typeofwork}'=>$workingOn))." ";
+    if ($firsttime || $workingOn)  $this->pageDesc .= " ".Yii::t('app',"I'm interested in working {typeofwork}",array('{typeofwork}'=>$workingOn)).". ";
   }
       
   if (count($user['idea']) > 0) $this->pageDesc .= ' '.Yii::t('app','I\'m curently working on a project of my own.');
@@ -90,20 +90,26 @@ else {
     
     <div class="panel" style="position: relative;">
       
-      <?php $days = timeDifference($user['lastvisit_at'], date('Y-m-d H:i:s'), "days_total"); 
+      <?php /*$days = timeDifference($user['lastvisit_at'], date('Y-m-d H:i:s'), "days_total"); 
        if ($days < 6){ ?>
         <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-high.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','Active user'); ?>" data-tooltip>
       <?php }else if ($days < 10){ ?>
         <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-med.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','Not so active user'); ?>" data-tooltip>
       <?php }else{ ?>
         <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-low.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','User has not been active recently'); ?>" data-tooltip>
-      <?php } ?>
+      <?php } */?>
       
-      <?php if (($user['status'] == '0') && (Yii::app()->user->isAdmin())){
-        $us = User::model()->findByPk($user['id']);
-        $activation_url = $this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $us->activkey, "email" => $user['email']));
+      <?php if (Yii::app()->user->isAdmin()){
+       $activation_url ='';
+        if  ($user['status'] == '0'){
+          $us = User::model()->findByPk($user['id']);
+          $activation_url = $this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $us->activkey, "email" => $user['email']));
+          ?>  
+            <a class="button alert small-12 radius" href="<?php echo $activation_url; ?>" ><?php echo Yii::t('app', 'Activate this user'); ?></a>
+          <?php
+        }
         ?>
-        <a class="button alert small-12 radius" href="<?php echo $activation_url; ?>" ><?php echo Yii::t('app', 'Activate this user'); ?></a>
+        
         <p><?php 
           $usertag = UserTag::model()->FindAllByAttributes(array("user_id"=>$user['id']));
           if ($usertag){
@@ -122,16 +128,26 @@ else {
 
       <img class="th panel-avatar" src="<?php echo avatar_image($user['avatar_link'], $user['id'], false); ?>" />
 
-      <h1 class=""><?php echo $user['name'] . " " . $user['surname']; ?></h1>
+      <h1 class="">
+              <?php $days = timeDifference($user['lastvisit_at'], date('Y-m-d H:i:s'), "days_total"); 
+     if ($days < 6){ ?>
+      <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-high-circle.png" class="" title="<?php echo Yii::t('app','Active user'); ?>" data-tooltip>
+    <?php }else if ($days < 10){ ?>
+      <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-med-circle.png" class="" title="<?php echo Yii::t('app','Not so active user'); ?>" data-tooltip>
+    <?php }else{ ?>
+      <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-low-circle.png" class="" title="<?php echo Yii::t('app','User has not been active recently'); ?>" data-tooltip>
+    <?php } ?>
+        
+        <?php echo $user['name'] . " " . $user['surname']; ?></h1>
 
       <div class="item">
         <p>
         <?php if ($user['city'] || $user['country'] /*|| $user['address']*/) { ?>
         <span class="icon-map-marker icon-awesome"></span>
         <a>
-          <span class="" data-tooltip title="<img src='<?php echo getGMap($user['country'], $user['city'], $user['address']); ?>'>">
+          <span class="" data-tooltip title="<img src='<?php echo getGMap($user['country'], $user['city'] /*, $user['address'] */); ?>'>">
 
-          <?php if ($user['address']) echo $user['address']."<br />"; ?>
+          <?php // if ($user['address']) echo $user['address']."<br />"; ?>
           <?php
           echo $user['city'];
           if ($user['city'] && $user['country']) echo ', ';
@@ -192,7 +208,7 @@ else {
         <?php foreach ($user['link'] as $link) { ?>
 
           <p>
-            <a href="<?php echo add_http($link['url']); ?>" target="_blank">
+            <a href="<?php echo add_http($link['url']); ?>" target="_blank" trk="person_outGoingLinks_<?php echo parse_url("http://".remove_http($link['url']), PHP_URL_HOST); ?>"> 
             <img class="link-icon" src="<?php echo getLinkIcon($link['url']); ?>">
             <?php echo $link['title']; ?>  </a>
           </p>
@@ -201,9 +217,9 @@ else {
       </div>
     <?php } ?>
 
+    <?php if ($vouched){ ?>
     <div class="item bb">
-      <h4><?php echo Yii::t('app', 'Invited by') ?></h4>
-      <?php if ($vouched){ ?>
+        <h4><?php echo Yii::t('app', 'Invited by') ?></h4>
       
         <div class="l-block">
           <p><a href="<?php echo Yii::app()->createUrl("person",array("id"=>$vouched['id'])); ?>">
@@ -212,12 +228,12 @@ else {
           </a></p>
         </div>      
       
-      <?php }else{ ?>
+    </div>
+      <?php }/*else{ ?>
         <div class="l-block">
             <p>Cofinder</p>
         </div> 
-      <?php } ?>
-    </div>
+      <?php } */ ?>
 
     <h4 class="l-inline"><?php echo Yii::t('app', 'Registered') ?></h4>
     <span class=""><!-- <?php // echo Yii::t('app', 'Member since') ?>:  -->

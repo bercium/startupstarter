@@ -35,7 +35,7 @@ class SiteController extends Controller
 				'users'=>array('@'),
 			),*/
 			array('allow', // allow admin user to perform actions:
-				'actions'=>array('list','recalcPerc'),
+				'actions'=>array('list','recalcPerc','setVanityUrl'),
 				'users'=>Yii::app()->getModule('user')->getAdmins(),
 			),
 			array('deny',  // deny all users
@@ -693,6 +693,28 @@ EOD;
    */
   public function actionClearNotif($type){
     Notifications::viewNotification($type);
+  }
+  
+  
+  /**
+   * assign everyone a vanity url
+   */
+  public function actionSetVanityUrl(){
+    $users = User::model()->findAll(array('order'=>'status DESC'));
+    
+    foreach ($users as $user){
+      if ($user->vanityURL == ''){
+        $i = 0;
+        while ($i < 1000){
+          $user->vanityURL = strtolower($user->name."-".$user->surname);
+          if ($i > 0) $user->vanityURL .= "-".$i;
+          $i++;
+          if (Idea::model()->findByAttributes(array('vanityURL'=>$user->vanityURL))) continue;
+          if ($user->save()) break;
+        }
+      }
+    }
+     $this->render('message',array('title'=>"Fill vanity urls",'content'=>"Success!"));
   }
 	
 }

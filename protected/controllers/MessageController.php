@@ -89,7 +89,7 @@ class MessageController extends Controller
           // add notification to all members
           $ideaMembers = IdeaMember::model()->findAllByAttributes(array("idea_id"=>$_POST['project']));
           foreach ($ideaMembers as $member){
-            Notifications::setNotification($member->match->user_id,Notifications::NOTIFY_PROJECT_INVITE);
+            Notifications::setNotification($member->match->user_id,Notifications::NOTIFY_MESSAGE);
           }
 
         }else $receiver = User::model()->findByPk($_POST['user']); //reply to person sending to project
@@ -169,6 +169,7 @@ class MessageController extends Controller
 	*/
   
   public function actionIndex($id = 0, $group = ''){
+    Notifications::viewNotification(Notifications::NOTIFY_MESSAGE); //view notifications
     $user_id = Yii::app()->user->id;
     $match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
     $ideas = IdeaMember::Model()->findAllByAttributes( array( 'match_id' => $match->id ) );

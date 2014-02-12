@@ -47,7 +47,9 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
   <link rel="icon" type="image/ico" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico">
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700,700italic,600italic,600,400italic,300italic,300&subset=latin,cyrillic-ext,greek-ext,greek,latin-ext,cyrillic,vietnamese' rel='stylesheet' type='text/css'>
   
-  <script> var fullURL= '<?php echo Yii::app()->request->baseUrl; ?>'; </script>
+  <script> var fullURL= '<?php echo Yii::app()->request->baseUrl; ?>'; 
+    <?php if(YII_DEBUG){ ?>var all_js_ok = setTimeout(function() {alert('Problem v enem izmed JS fajlov!');}, 5000); <?php } ?> </script>
+    
 	<title><?php if (isset($notifications) && $notifications['count'] > 0) echo "(".$notifications['count'].") "; echo $fullTitle; ?></title>
 </head>
 
@@ -144,6 +146,8 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
                   <li><a href="<?php echo Yii::app()->createUrl("translation"); ?>"><?php echo Yii::t('app','Translations'); ?></a></li>
                   <?php if(!Yii::app()->user->isGuest){  ?><li><a href="<?php echo Yii::app()->createUrl("profile/createInvitation"); ?>"><?php echo Yii::t('app','Create invitation'); ?></a></li>
                   <?php } ?>
+                  <li><a href="<?php echo Yii::app()->createUrl("backendUser/inactive"); ?>"><?php echo Yii::t('app','Inactive users'); ?></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("statistic"); ?>"><?php echo Yii::t('app','Statistic'); ?></a></li>
                   <li><a href="<?php echo Yii::app()->createUrl("backendAuditTrail"); ?>"><?php echo Yii::t('app','Logs'); ?></a></li>
                   <li class="has-dropdown">
                      <a href="#"><?php echo Yii::t('app','Mail styles'); ?></a>
@@ -277,8 +281,8 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
   <?php 
   
   foreach ($notifications['messages'] as $notify){ ?>
-    <li style="padding:3px 8px; font-size: 1em; " onclick="markNotifications('<?php echo Yii::app()->createUrl("site/clearNotif",array("type"=>$notify['type'])); ?>')">
-      <a href="<?php echo $notify['link']; ?>" >
+    <li style="padding:3px 8px; font-size: 1em; " onclick="$(this).fadeOut(); markNotifications('<?php echo Yii::app()->createUrl("site/clearNotif",array("type"=>$notify['type'])); ?>')">
+      <a href="<?php echo $notify['link']; ?>">
         <span class="label radius left mb5 mr8" style="">
         <?php echo $notify['count']; ?>
         </span>
@@ -345,3 +349,4 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
 </html><?php 
     // be the last to override any other CSS settings
     Yii::app()->getClientScript()->registerCssFile(Yii::app()->baseUrl.'/css/override.css'.getVersionID()); 
+    if(YII_DEBUG) Yii::app()->getClientScript()->registerScript("ganalytics","clearTimeout(all_js_ok);");

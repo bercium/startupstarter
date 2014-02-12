@@ -88,8 +88,8 @@
       <?php echo CHtml::activeLabelEx($match,'city'); ?>
       <?php echo CHtml::activeTextField($match, 'city', array("class"=>"city")); ?>
 
-      <?php echo CHtml::activeLabelEx($user,'address'); ?>
-      <?php echo CHtml::activeTextField($user, 'address', array('maxlength' => 128)); ?>
+      <?php // echo CHtml::activeLabelEx($user,'address'); ?>
+      <?php // echo CHtml::activeTextField($user, 'address', array('maxlength' => 128)); ?>
 
 
     </div>
@@ -129,7 +129,7 @@
                                                                     "data-tooltip"=>'',
                                                                     "placeholder"=>substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")))); 
               }else{ 
-                echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary","placeholder"=>  substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")))); 
+                echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary","placeholder"=>  str_replace(".", "", substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")) ) )); 
               }?>
           </div>        
             <?php /*if (!$allowVanityURL){ ?>

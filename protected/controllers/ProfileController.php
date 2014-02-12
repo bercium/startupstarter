@@ -129,14 +129,15 @@ class ProfileController extends GxController {
         // VANITY URL
         $us = UserStat::model()->findByAttributes(array("user_id"=>$user_id));
         // set only if has invited at least 3 other people
-        $allowVanityURL = ($us && (($user->vanityURL != '') || ($us->invites_send > 2)));
+        $allowVanityURL = ($us && (/*($user->vanityURL != '') || */($us->invites_send > 2)));
 
 				if (isset($_POST['UserEdit']) && isset($_POST['UserMatch'])) {
          
           //VANITY URL
           if (isset($_POST['UserEdit']['vanityURL'])){
-            if (!$allowVanityURL && ( $_POST['UserEdit']['vanityURL'] != '')) $_POST['UserEdit']['vanityURL'] = '';
+            if (!$allowVanityURL) $_POST['UserEdit']['vanityURL'] = $user->vanityURL;
             else{
+              if (strpos($_POST['UserEdit']['vanityURL'],'.') !== false) $user->addError('vanityURL', Yii::t('msg','Dots "." are not allowed in public name.'));
               // check validity of vanity URL in projects
               if ($_POST['UserEdit']['vanityURL'] != $user->vanityURL){
                 $ideaURL = Idea::model()->findByAttributes(array('vanityURL'=>$_POST['UserEdit']['vanityURL']));
@@ -146,7 +147,7 @@ class ProfileController extends GxController {
                 }
               }
             }
-          }
+          }// end vanity url check
           
           
 					$user->setAttributes($_POST['UserEdit']);
@@ -191,10 +192,12 @@ class ProfileController extends GxController {
 						}
 					}// end post check 
 
-					$user->validate();
-					$match->validate();
-
-					if ($user->save()) {
+          if (!$user->hasErrors()){
+    				$user->validate();
+  					$match->validate();
+          }
+          
+					if (!$user->hasErrors() && $user->save()) {
 
 						$_POST['UserMatch']['user_id'] = $user_id;
 						$match->setAttributes($_POST['UserMatch']);
@@ -259,7 +262,7 @@ class ProfileController extends GxController {
           $this->render('registrationFlow', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link));
         }
         else {
-          $data['user'] = $sqlbuilder->load_array("user", $filter, "collabpref,link,idea,member");
+          $data['user'] = $sqlbuilder->load_array("user", $filter, "collabpref,link,idea,member,skillset");
           $this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea'], "allowVanityURL"=>$allowVanityURL));
         }
 
@@ -301,7 +304,7 @@ class ProfileController extends GxController {
 
     $us = UserStat::model()->findByAttributes(array("user_id"=>$user_id));
         // set only if has invited at least 3 other people
-    $allowVanityURL = ($us && (($user->vanityURL != '') || ($us->invites_send > 2)));
+    $allowVanityURL = ($us && (/*($user->vanityURL != '') || */($us->invites_send > 2)));
         
 		if ($user) {
 
@@ -313,9 +316,9 @@ class ProfileController extends GxController {
 				//unset($_POST['UserEdit']['fpi']); // since we don't have it in our user model
 				$_POST['UserEdit']['email'] = $user->email; // can't change email at this time!!!
         
-        // set only if has invited at least 3 other people
-        if (!$allowVanityURL && (isset($_POST['UserEdit']['vanityURL']) && $_POST['UserEdit']['vanityURL'] != '')) $_POST['UserEdit']['vanityURL'] = '';
+        if (!$allowVanityURL) $_POST['UserEdit']['vanityURL'] = $user->vanityURL;
         else{
+          if (strpos($_POST['UserEdit']['vanityURL'],'.') !== false) $user->addError('vanityURL', Yii::t('msg','Dots "." are not allowed in public name.'));
           // check validity of vanity URL in projects
           if ($_POST['UserEdit']['vanityURL'] != $user->vanityURL){
             $ideaURL = Idea::model()->findByAttributes(array('vanityURL'=>$_POST['UserEdit']['vanityURL']));
@@ -325,6 +328,7 @@ class ProfileController extends GxController {
             }
           }
         }
+
         
 				$user->setAttributes($_POST['UserEdit']);
         
@@ -762,9 +766,19 @@ class ProfileController extends GxController {
 //      $this->redirect(Yii::app()->createUrl("user/login"));
     $user = User::model()->notsafe()->findByAttributes(array('email'=>$_GET['email']));
     if ((substr($user->activkey, 0, 10) !== $_GET['key']) || 
-        ($user->status != 0)){
+        ($user->status != 0)){      
       $this->render('/site/message',array('title'=>Yii::t('app','Registration finished'),"content"=>Yii::t('msg','Thank you for your registration. Please check your email for confirmation code.')));
       return;
+    }
+    if ($user){
+    //mark user but not as member yet
+     Yii::import('application.helpers.Hashids');
+     $hashids = new Hashids('cofinder');
+     $uid = $hashids->encrypt($user->id);
+     
+     $baseUrl = Yii::app()->baseUrl; 
+     $cs = Yii::app()->getClientScript();
+     $cs->registerScript("ganalyticsregister","ga('send', 'event', 'registration', 'mark_user',{'dimension1':'".$uid."',})");      
     }
 
     $this->actionIndex();
@@ -858,7 +872,7 @@ class ProfileController extends GxController {
 
   
   public function actionNotification(){
-
+    Notifications::viewNotification(Notifications::NOTIFY_PROJECT_INVITE); //view notifications
 		$user_id = Yii::app()->user->id;
 		$user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
 		

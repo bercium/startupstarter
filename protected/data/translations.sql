@@ -23,165 +23,327 @@ SET time_zone = "+00:00";
 -- Dumping data for table `translation`
 --
 
-INSERT INTO `translation` (`id`, `language_id`, `table`, `row_id`, `translation`) VALUES
-(NULL, 145, 'collabpref', 1, 'Plačano delo'),
-(NULL, 145, 'collabpref', 2, 'Delovni vložek'),
-(NULL, 145, 'collabpref', 3, 'Enakovreden investitor'),
-(NULL, 145, 'collabpref', 4, 'Investitor'),
-(NULL, 145, 'collabpref', 5, 'Prostovoljec'),
-(NULL, 145, 'membertype', 1, 'Lastnik'),
-(NULL, 145, 'membertype', 2, 'Član'),
-(NULL, 145, 'membertype', 3, 'Kandidat'),
-(NULL, 145, 'idea_status', 1, 'Ideja'),
-(NULL, 145, 'idea_status', 2, 'Poslovni načrt'),
-(NULL, 145, 'idea_status', 3, 'Prototip'),
-(NULL, 145, 'idea_status', 4, 'Stranke ki plačujejo'),
-(NULL, 145, 'idea_status', 5, 'Rast'),
-(NULL, 145, 'available', 8, 'Vikendi (8h na teden)'),
-(NULL, 145, 'available', 20, 'Polovični delovni čas (20h na teden)'),
-(NULL, 145, 'available', 40, 'Polni delovni čas (40h na teden)'),
-(NULL, 145, 'skillset', 1, 'Računovodstvo'),
-(NULL, 145, 'skillset', 2, 'Letalstvo'),
-(NULL, 145, 'skillset', 3, 'Izvensodna poravnava'),
-(NULL, 145, 'skillset', 4, 'Alternativna medicina'),
-(NULL, 145, 'skillset', 5, 'Animacija'),
-(NULL, 145, 'skillset', 6, 'Oblačila in moda'),
-(NULL, 145, 'skillset', 7, 'Arhitektura'),
-(NULL, 145, 'skillset', 8, 'Domača in umetnostna obrt'),
-(NULL, 145, 'skillset', 9, 'Avtomobilska industrija'),
-(NULL, 145, 'skillset', 10, 'Letalstvo & vesoljska industrija'),
-(NULL, 145, 'skillset', 11, 'Bančništvo'),
-(NULL, 145, 'skillset', 12, 'Biotehnologija'),
-(NULL, 145, 'skillset', 13, 'Radio in televizija'),
-(NULL, 145, 'skillset', 14, 'Gradbeni materiali'),
-(NULL, 145, 'skillset', 15, 'Poslovna in pisarniška oprema'),
-(NULL, 145, 'skillset', 16, 'Kapitalski trgi'),
-(NULL, 145, 'skillset', 17, 'Kemikalije'),
-(NULL, 145, 'skillset', 18, 'Civilna in socialna organizacija'),
-(NULL, 145, 'skillset', 19, 'Stavbarstvo'),
-(NULL, 145, 'skillset', 20, 'Komercialne nepremičnine'),
-(NULL, 145, 'skillset', 21, 'Varnost omrežij'),
-(NULL, 145, 'skillset', 22, 'Računalniške igre'),
-(NULL, 145, 'skillset', 23, 'Strojna oprema'),
-(NULL, 145, 'skillset', 24, 'Računalniška omrežja'),
-(NULL, 145, 'skillset', 25, 'Programska oprema'),
-(NULL, 145, 'skillset', 26, 'Gradnja'),
-(NULL, 145, 'skillset', 27, 'Potrošniška elektronika'),
-(NULL, 145, 'skillset', 28, 'Potrošniške dobrine'),
-(NULL, 145, 'skillset', 29, 'Potrošniške storitve'),
-(NULL, 145, 'skillset', 30, 'Kozmetika'),
-(NULL, 145, 'skillset', 31, 'Mleko in mlečni izdelki'),
-(NULL, 145, 'skillset', 32, 'Obramba in vesoljski program'),
-(NULL, 145, 'skillset', 33, 'Oblikovanje'),
-(NULL, 145, 'skillset', 34, 'Management izobraževanja'),
-(NULL, 145, 'skillset', 35, 'E-učenje'),
-(NULL, 145, 'skillset', 36, 'Proizvodnja elektronike'),
-(NULL, 145, 'skillset', 37, 'Zabavna industrija'),
-(NULL, 145, 'skillset', 38, 'Okoljske storitve'),
-(NULL, 145, 'skillset', 39, 'Organizacija dogodkov'),
-(NULL, 145, 'skillset', 41, 'Vzdrževalne storitve'),
-(NULL, 145, 'skillset', 42, 'Kmetijstvo'),
-(NULL, 145, 'skillset', 43, 'Finančne storitve'),
-(NULL, 145, 'skillset', 44, 'Likovna umetnost'),
-(NULL, 145, 'skillset', 45, 'Ribolov'),
-(NULL, 145, 'skillset', 46, 'Hrana in pijača'),
-(NULL, 145, 'skillset', 47, 'Proizvodnja hrane'),
-(NULL, 145, 'skillset', 48, 'Zbiranje sredstev'),
-(NULL, 145, 'skillset', 49, 'Pohištvo'),
-(NULL, 145, 'skillset', 50, 'Igralništvo in kazinoji'),
-(NULL, 145, 'skillset', 51, 'Steklo, keramika in beton'),
-(NULL, 145, 'skillset', 52, 'Javna uprava'),
-(NULL, 145, 'skillset', 53, 'Odnosi z javno upravo'),
-(NULL, 145, 'skillset', 54, 'Grafično oblikovanje'),
-(NULL, 145, 'skillset', 55, 'Zdravje, wellness in fitness'),
-(NULL, 145, 'skillset', 56, 'Visokošolska izobrazba'),
-(NULL, 145, 'skillset', 57, 'Zdravstvena nega in oskrba'),
-(NULL, 145, 'skillset', 59, 'Človeški viri'),
-(NULL, 145, 'skillset', 60, 'Uvoz in izvoz'),
-(NULL, 145, 'skillset', 62, 'Industrijska avtomatizacija'),
-(NULL, 145, 'skillset', 63, 'Informacijske storitve'),
-(NULL, 145, 'skillset', 64, 'Informacijska tehnologija in storitve'),
-(NULL, 145, 'skillset', 65, 'Zavarovalništvo'),
-(NULL, 145, 'skillset', 66, 'Mednarodni odnosi'),
-(NULL, 145, 'skillset', 67, 'Mednarodna trgovina in razvoj'),
-(NULL, 145, 'skillset', 68, 'Internet'),
-(NULL, 145, 'skillset', 69, 'Investicijsko bančništvo'),
-(NULL, 145, 'skillset', 70, 'Investicijski management'),
-(NULL, 145, 'skillset', 71, 'Sodstvo'),
-(NULL, 145, 'skillset', 72, 'Kazenski pregon'),
-(NULL, 145, 'skillset', 74, 'Pravne storitve'),
-(NULL, 145, 'skillset', 76, 'Prosti čas, potovanja in turizem'),
-(NULL, 145, 'skillset', 77, 'Knjižnjice'),
-(NULL, 145, 'skillset', 78, 'Logistika in dobaviteljske verige'),
-(NULL, 145, 'skillset', 79, 'Luksuzne dobrine in nakit'),
-(NULL, 145, 'skillset', 80, 'Stroji'),
-(NULL, 145, 'skillset', 81, 'Management svetovanje'),
-(NULL, 145, 'skillset', 82, 'Pomorstvo'),
-(NULL, 145, 'skillset', 83, 'Marketing in oglaševanje'),
-(NULL, 145, 'skillset', 84, 'Tržne raziskave'),
-(NULL, 145, 'skillset', 85, 'Mehanski in industrijski inžiniring'),
-(NULL, 145, 'skillset', 86, 'Medijska produkcija'),
-(NULL, 145, 'skillset', 87, 'Medicinske naprave'),
-(NULL, 145, 'skillset', 88, 'Medicina'),
-(NULL, 145, 'skillset', 89, 'Mentalna zdravstvena nega'),
-(NULL, 145, 'skillset', 90, 'Vojska'),
-(NULL, 145, 'skillset', 91, 'Rudarstvo in kovine'),
-(NULL, 145, 'skillset', 92, 'Filmi'),
-(NULL, 145, 'skillset', 93, 'Muzeji in institucije'),
-(NULL, 145, 'skillset', 94, 'Glasba'),
-(NULL, 145, 'skillset', 95, 'Nanotehnologija'),
-(NULL, 145, 'skillset', 96, 'Časopisi'),
-(NULL, 145, 'skillset', 97, 'Management neprofitne organizacije'),
-(NULL, 145, 'skillset', 98, 'Nafta in energetika'),
-(NULL, 145, 'skillset', 99, 'Spletni mediji'),
-(NULL, 145, 'skillset', 100, 'Outsourcing'),
-(NULL, 145, 'skillset', 101, 'Dostava paketov'),
-(NULL, 145, 'skillset', 102, 'Pakiranje in kontejnerji'),
-(NULL, 145, 'skillset', 103, 'Papir in izdelki iz lesa'),
-(NULL, 145, 'skillset', 105, 'Farmacija'),
-(NULL, 145, 'skillset', 106, 'Filantrofija'),
-(NULL, 145, 'skillset', 107, 'Fotografija'),
-(NULL, 145, 'skillset', 108, 'Plastika'),
-(NULL, 145, 'skillset', 109, 'Politična organizacija'),
-(NULL, 145, 'skillset', 110, 'Osnovnošolska/gimnazijska izobrazba'),
-(NULL, 145, 'skillset', 111, 'Tisk'),
-(NULL, 145, 'skillset', 112, 'Poslovno svetovanje'),
-(NULL, 145, 'skillset', 113, 'Razvoj programov'),
-(NULL, 145, 'skillset', 114, 'Javna politika'),
-(NULL, 145, 'skillset', 115, 'Odnosi z javnostmi in komunikacije'),
-(NULL, 145, 'skillset', 116, 'Javna varnost'),
-(NULL, 145, 'skillset', 117, 'Založništvo'),
-(NULL, 145, 'skillset', 118, 'Železniška proizvodnja'),
-(NULL, 145, 'skillset', 119, 'Rančing'),
-(NULL, 145, 'skillset', 120, 'Nepremičnine'),
-(NULL, 145, 'skillset', 121, 'Rekreacijski objekti in storitve'),
-(NULL, 145, 'skillset', 122, 'Verske institucije'),
-(NULL, 145, 'skillset', 123, 'Okolje in obnovljivi viri'),
-(NULL, 145, 'skillset', 124, 'Raziskave'),
-(NULL, 145, 'skillset', 125, 'Restavracije'),
-(NULL, 145, 'skillset', 126, 'Trgovina na drobno'),
-(NULL, 145, 'skillset', 127, 'Varovanje in preiskave'),
-(NULL, 145, 'skillset', 128, 'Polprevodniki'),
-(NULL, 145, 'skillset', 129, 'Ladjarstvo'),
-(NULL, 145, 'skillset', 130, 'Športna oprema'),
-(NULL, 145, 'skillset', 131, 'Športi'),
-(NULL, 145, 'skillset', 132, 'Kadrovanje'),
-(NULL, 145, 'skillset', 133, 'Supermarketi'),
-(NULL, 145, 'skillset', 134, 'Telekomunikacije'),
-(NULL, 145, 'skillset', 135, 'Tekstil'),
-(NULL, 145, 'skillset', 137, 'Tobak'),
-(NULL, 145, 'skillset', 138, 'Prevodi in lokalizacija'),
-(NULL, 145, 'skillset', 139, 'Transport, tovornjaki in železnica'),
-(NULL, 145, 'skillset', 141, 'Tvegani in privatni kapital'),
-(NULL, 145, 'skillset', 142, 'Veterinarstvo'),
-(NULL, 145, 'skillset', 143, 'Skladiščenje'),
-(NULL, 145, 'skillset', 144, 'Prodaja na debelo'),
-(NULL, 145, 'skillset', 145, 'Vino in žganja'),
-(NULL, 145, 'skillset', 146, 'Brezžična omrežja'),
-(NULL, 145, 'skillset', 147, 'Pisateljstvo in uredništvo'),
-(NULL, 145, 'collabpref', 5, 'Prostovoljec'),
-(NULL, 145, 'available', 1, 'Ne želim sodelovati'),
-(NULL, 145, 'available', 60, 'Vsak dan (60h na teden)');
+INSERT INTO `translation` VALUES (1, 145, 'collabpref', 1, 'Plačano delo');
+INSERT INTO `translation` VALUES (2, 145, 'collabpref', 2, 'Delovni vložek');
+INSERT INTO `translation` VALUES (3, 145, 'collabpref', 3, 'Enakovreden investitor');
+INSERT INTO `translation` VALUES (4, 145, 'collabpref', 4, 'Investitor');
+INSERT INTO `translation` VALUES (5, 145, 'membertype', 1, 'Lastnik');
+INSERT INTO `translation` VALUES (6, 145, 'membertype', 2, 'Član');
+INSERT INTO `translation` VALUES (7, 145, 'membertype', 3, 'Kandidat');
+INSERT INTO `translation` VALUES (8, 145, 'idea_status', 1, 'Ideja');
+INSERT INTO `translation` VALUES (9, 145, 'idea_status', 2, 'Poslovni načrt');
+INSERT INTO `translation` VALUES (10, 145, 'idea_status', 3, 'Prototip');
+INSERT INTO `translation` VALUES (11, 145, 'idea_status', 4, 'Stranke ki plačujejo');
+INSERT INTO `translation` VALUES (12, 145, 'idea_status', 5, 'Rast');
+INSERT INTO `translation` VALUES (13, 145, 'available', 8, 'Vikendi (8 ur na teden)');
+INSERT INTO `translation` VALUES (14, 145, 'available', 20, 'Polovični delovni čas (20 ur na teden)');
+INSERT INTO `translation` VALUES (15, 145, 'available', 40, 'Polni delovni čas (40 ur na teden)');
+INSERT INTO `translation` VALUES (16, 145, 'skillset', 1, 'Računovodstvo');
+INSERT INTO `translation` VALUES (17, 145, 'skillset', 2, 'Letalstvo');
+INSERT INTO `translation` VALUES (18, 145, 'skillset', 3, 'Izvensodna poravnava');
+INSERT INTO `translation` VALUES (19, 145, 'skillset', 4, 'Alternativna medicina');
+INSERT INTO `translation` VALUES (20, 145, 'skillset', 5, 'Animacija');
+INSERT INTO `translation` VALUES (21, 145, 'skillset', 6, 'Oblačila in moda');
+INSERT INTO `translation` VALUES (22, 145, 'skillset', 7, 'Arhitektura');
+INSERT INTO `translation` VALUES (23, 145, 'skillset', 8, 'Domača in umetnostna obrt');
+INSERT INTO `translation` VALUES (24, 145, 'skillset', 9, 'Avtomobilska industrija');
+INSERT INTO `translation` VALUES (25, 145, 'skillset', 10, 'Letalstvo & vesoljska industrija');
+INSERT INTO `translation` VALUES (26, 145, 'skillset', 11, 'Bančništvo');
+INSERT INTO `translation` VALUES (27, 145, 'skillset', 12, 'Biotehnologija');
+INSERT INTO `translation` VALUES (28, 145, 'skillset', 13, 'Radio in televizija');
+INSERT INTO `translation` VALUES (29, 145, 'skillset', 14, 'Gradbeni materiali');
+INSERT INTO `translation` VALUES (30, 145, 'skillset', 15, 'Poslovna in pisarniška oprema');
+INSERT INTO `translation` VALUES (31, 145, 'skillset', 16, 'Kapitalski trgi');
+INSERT INTO `translation` VALUES (32, 145, 'skillset', 17, 'Kemikalije');
+INSERT INTO `translation` VALUES (33, 145, 'skillset', 18, 'Civilna in socialna organizacija');
+INSERT INTO `translation` VALUES (34, 145, 'skillset', 19, 'Stavbarstvo');
+INSERT INTO `translation` VALUES (35, 145, 'skillset', 20, 'Komercialne nepremičnine');
+INSERT INTO `translation` VALUES (36, 145, 'skillset', 21, 'Varnost omrežij');
+INSERT INTO `translation` VALUES (37, 145, 'skillset', 22, 'Računalniške igre');
+INSERT INTO `translation` VALUES (38, 145, 'skillset', 23, 'Strojna oprema');
+INSERT INTO `translation` VALUES (39, 145, 'skillset', 24, 'Računalniška omrežja');
+INSERT INTO `translation` VALUES (40, 145, 'skillset', 25, 'Programska oprema');
+INSERT INTO `translation` VALUES (41, 145, 'skillset', 26, 'Gradnja');
+INSERT INTO `translation` VALUES (42, 145, 'skillset', 27, 'Potrošniška elektronika');
+INSERT INTO `translation` VALUES (43, 145, 'skillset', 28, 'Potrošniške dobrine');
+INSERT INTO `translation` VALUES (44, 145, 'skillset', 29, 'Potrošniške storitve');
+INSERT INTO `translation` VALUES (45, 145, 'skillset', 30, 'Kozmetika');
+INSERT INTO `translation` VALUES (46, 145, 'skillset', 31, 'Mleko in mlečni izdelki');
+INSERT INTO `translation` VALUES (47, 145, 'skillset', 32, 'Obramba in vesoljski program');
+INSERT INTO `translation` VALUES (48, 145, 'skillset', 33, 'Oblikovanje');
+INSERT INTO `translation` VALUES (49, 145, 'skillset', 34, 'Management izobraževanja');
+INSERT INTO `translation` VALUES (50, 145, 'skillset', 35, 'E-učenje');
+INSERT INTO `translation` VALUES (51, 145, 'skillset', 36, 'Proizvodnja elektronike');
+INSERT INTO `translation` VALUES (52, 145, 'skillset', 37, 'Zabavna industrija');
+INSERT INTO `translation` VALUES (53, 145, 'skillset', 38, 'Okoljske storitve');
+INSERT INTO `translation` VALUES (54, 145, 'skillset', 39, 'Organizacija dogodkov');
+INSERT INTO `translation` VALUES (55, 145, 'skillset', 41, 'Vzdrževalne storitve');
+INSERT INTO `translation` VALUES (56, 145, 'skillset', 42, 'Kmetijstvo');
+INSERT INTO `translation` VALUES (57, 145, 'skillset', 43, 'Finančne storitve');
+INSERT INTO `translation` VALUES (58, 145, 'skillset', 44, 'Likovna umetnost');
+INSERT INTO `translation` VALUES (59, 145, 'skillset', 45, 'Ribolov');
+INSERT INTO `translation` VALUES (60, 145, 'skillset', 46, 'Hrana in pijača');
+INSERT INTO `translation` VALUES (61, 145, 'skillset', 47, 'Proizvodnja hrane');
+INSERT INTO `translation` VALUES (62, 145, 'skillset', 48, 'Zbiranje sredstev');
+INSERT INTO `translation` VALUES (63, 145, 'skillset', 49, 'Pohištvo');
+INSERT INTO `translation` VALUES (64, 145, 'skillset', 50, 'Igralništvo in kazinoji');
+INSERT INTO `translation` VALUES (65, 145, 'skillset', 51, 'Steklo, keramika in beton');
+INSERT INTO `translation` VALUES (66, 145, 'skillset', 52, 'Javna uprava');
+INSERT INTO `translation` VALUES (67, 145, 'skillset', 53, 'Odnosi z javno upravo');
+INSERT INTO `translation` VALUES (68, 145, 'skillset', 54, 'Grafično oblikovanje');
+INSERT INTO `translation` VALUES (69, 145, 'skillset', 55, 'Zdravje, wellness in fitness');
+INSERT INTO `translation` VALUES (70, 145, 'skillset', 56, 'Visokošolska izobrazba');
+INSERT INTO `translation` VALUES (71, 145, 'skillset', 57, 'Zdravstvena nega in oskrba');
+INSERT INTO `translation` VALUES (72, 145, 'skillset', 59, 'Človeški viri');
+INSERT INTO `translation` VALUES (73, 145, 'skillset', 60, 'Uvoz in izvoz');
+INSERT INTO `translation` VALUES (74, 145, 'skillset', 62, 'Industrijska avtomatizacija');
+INSERT INTO `translation` VALUES (75, 145, 'skillset', 63, 'Informacijske storitve');
+INSERT INTO `translation` VALUES (76, 145, 'skillset', 64, 'Informacijska tehnologija in storitve');
+INSERT INTO `translation` VALUES (77, 145, 'skillset', 65, 'Zavarovalništvo');
+INSERT INTO `translation` VALUES (78, 145, 'skillset', 66, 'Mednarodni odnosi');
+INSERT INTO `translation` VALUES (79, 145, 'skillset', 67, 'Mednarodna trgovina in razvoj');
+INSERT INTO `translation` VALUES (80, 145, 'skillset', 68, 'Internet');
+INSERT INTO `translation` VALUES (81, 145, 'skillset', 69, 'Investicijsko bančništvo');
+INSERT INTO `translation` VALUES (82, 145, 'skillset', 70, 'Investicijski management');
+INSERT INTO `translation` VALUES (83, 145, 'skillset', 71, 'Sodstvo');
+INSERT INTO `translation` VALUES (84, 145, 'skillset', 72, 'Kazenski pregon');
+INSERT INTO `translation` VALUES (85, 145, 'skillset', 74, 'Pravne storitve');
+INSERT INTO `translation` VALUES (86, 145, 'skillset', 76, 'Prosti čas, potovanja in turizem');
+INSERT INTO `translation` VALUES (87, 145, 'skillset', 77, 'Knjižnjice');
+INSERT INTO `translation` VALUES (88, 145, 'skillset', 78, 'Logistika in dobaviteljske verige');
+INSERT INTO `translation` VALUES (89, 145, 'skillset', 79, 'Luksuzne dobrine in nakit');
+INSERT INTO `translation` VALUES (90, 145, 'skillset', 80, 'Stroji');
+INSERT INTO `translation` VALUES (91, 145, 'skillset', 81, 'Management svetovanje');
+INSERT INTO `translation` VALUES (92, 145, 'skillset', 82, 'Pomorstvo');
+INSERT INTO `translation` VALUES (93, 145, 'skillset', 83, 'Marketing in oglaševanje');
+INSERT INTO `translation` VALUES (94, 145, 'skillset', 84, 'Tržne raziskave');
+INSERT INTO `translation` VALUES (95, 145, 'skillset', 85, 'Mehanski in industrijski inžiniring');
+INSERT INTO `translation` VALUES (96, 145, 'skillset', 86, 'Medijska produkcija');
+INSERT INTO `translation` VALUES (97, 145, 'skillset', 87, 'Medicinske naprave');
+INSERT INTO `translation` VALUES (98, 145, 'skillset', 88, 'Medicina');
+INSERT INTO `translation` VALUES (99, 145, 'skillset', 89, 'Mentalna zdravstvena nega');
+INSERT INTO `translation` VALUES (100, 145, 'skillset', 90, 'Vojska');
+INSERT INTO `translation` VALUES (101, 145, 'skillset', 91, 'Rudarstvo in kovine');
+INSERT INTO `translation` VALUES (102, 145, 'skillset', 92, 'Filmi');
+INSERT INTO `translation` VALUES (103, 145, 'skillset', 93, 'Muzeji in institucije');
+INSERT INTO `translation` VALUES (104, 145, 'skillset', 94, 'Glasba');
+INSERT INTO `translation` VALUES (105, 145, 'skillset', 95, 'Nanotehnologija');
+INSERT INTO `translation` VALUES (106, 145, 'skillset', 96, 'Časopisi');
+INSERT INTO `translation` VALUES (107, 145, 'skillset', 97, 'Management neprofitne organizacije');
+INSERT INTO `translation` VALUES (108, 145, 'skillset', 98, 'Nafta in energetika');
+INSERT INTO `translation` VALUES (109, 145, 'skillset', 99, 'Spletni mediji');
+INSERT INTO `translation` VALUES (110, 145, 'skillset', 100, 'Outsourcing');
+INSERT INTO `translation` VALUES (121, 145, 'skillset', 101, 'Dostava paketov');
+INSERT INTO `translation` VALUES (122, 145, 'skillset', 102, 'Pakiranje in kontejnerji');
+INSERT INTO `translation` VALUES (123, 145, 'skillset', 103, 'Papir in izdelki iz lesa');
+INSERT INTO `translation` VALUES (124, 145, 'skillset', 105, 'Farmacija');
+INSERT INTO `translation` VALUES (125, 145, 'skillset', 106, 'Filantrofija');
+INSERT INTO `translation` VALUES (126, 145, 'skillset', 107, 'Fotografija');
+INSERT INTO `translation` VALUES (127, 145, 'skillset', 108, 'Plastika');
+INSERT INTO `translation` VALUES (128, 145, 'skillset', 109, 'Politična organizacija');
+INSERT INTO `translation` VALUES (129, 145, 'skillset', 110, 'Osnovnošolska/gimnazijska izobrazba');
+INSERT INTO `translation` VALUES (130, 145, 'skillset', 111, 'Tisk');
+INSERT INTO `translation` VALUES (131, 145, 'skillset', 112, 'Poslovno svetovanje');
+INSERT INTO `translation` VALUES (132, 145, 'skillset', 113, 'Razvoj programov');
+INSERT INTO `translation` VALUES (133, 145, 'skillset', 114, 'Javna politika');
+INSERT INTO `translation` VALUES (134, 145, 'skillset', 115, 'Odnosi z javnostmi in komunikacije');
+INSERT INTO `translation` VALUES (135, 145, 'skillset', 116, 'Javna varnost');
+INSERT INTO `translation` VALUES (136, 145, 'skillset', 117, 'Založništvo');
+INSERT INTO `translation` VALUES (137, 145, 'skillset', 118, 'Železniška proizvodnja');
+INSERT INTO `translation` VALUES (138, 145, 'skillset', 119, 'Rančing');
+INSERT INTO `translation` VALUES (139, 145, 'skillset', 120, 'Nepremičnine');
+INSERT INTO `translation` VALUES (140, 145, 'skillset', 121, 'Rekreacijski objekti in storitve');
+INSERT INTO `translation` VALUES (141, 145, 'skillset', 122, 'Verske institucije');
+INSERT INTO `translation` VALUES (142, 145, 'skillset', 123, 'Okolje in obnovljivi viri');
+INSERT INTO `translation` VALUES (143, 145, 'skillset', 124, 'Raziskave');
+INSERT INTO `translation` VALUES (144, 145, 'skillset', 125, 'Restavracije');
+INSERT INTO `translation` VALUES (145, 145, 'skillset', 126, 'Trgovina na drobno');
+INSERT INTO `translation` VALUES (146, 145, 'skillset', 127, 'Varovanje in preiskave');
+INSERT INTO `translation` VALUES (147, 145, 'skillset', 128, 'Polprevodniki');
+INSERT INTO `translation` VALUES (148, 145, 'skillset', 129, 'Ladjarstvo');
+INSERT INTO `translation` VALUES (149, 145, 'skillset', 130, 'Športna oprema');
+INSERT INTO `translation` VALUES (150, 145, 'skillset', 131, 'Športi');
+INSERT INTO `translation` VALUES (151, 145, 'skillset', 132, 'Kadrovanje');
+INSERT INTO `translation` VALUES (152, 145, 'skillset', 133, 'Supermarketi');
+INSERT INTO `translation` VALUES (153, 145, 'skillset', 134, 'Telekomunikacije');
+INSERT INTO `translation` VALUES (154, 145, 'skillset', 135, 'Tekstil');
+INSERT INTO `translation` VALUES (155, 145, 'skillset', 137, 'Tobak');
+INSERT INTO `translation` VALUES (156, 145, 'skillset', 138, 'Prevodi in lokalizacija');
+INSERT INTO `translation` VALUES (157, 145, 'skillset', 139, 'Transport, tovornjaki in železnica');
+INSERT INTO `translation` VALUES (158, 145, 'skillset', 141, 'Tvegani in privatni kapital');
+INSERT INTO `translation` VALUES (159, 145, 'skillset', 142, 'Veterinarstvo');
+INSERT INTO `translation` VALUES (160, 145, 'skillset', 143, 'Skladiščenje');
+INSERT INTO `translation` VALUES (161, 145, 'skillset', 144, 'Prodaja na debelo');
+INSERT INTO `translation` VALUES (162, 145, 'skillset', 145, 'Vino in žganja');
+INSERT INTO `translation` VALUES (163, 145, 'skillset', 146, 'Brezžična omrežja');
+INSERT INTO `translation` VALUES (164, 145, 'skillset', 147, 'Pisateljstvo in uredništvo');
+INSERT INTO `translation` VALUES (165, 145, 'collabpref', 5, 'Prostovoljec');
+INSERT INTO `translation` VALUES (166, 145, 'available', 1, 'Ne želim sodelovati');
+INSERT INTO `translation` VALUES (167, 145, 'available', 60, 'Vsak dan (60 ur na teden)');
+INSERT INTO `translation` VALUES (168, 35, 'collabpref', 1, 'Plačeni posao');
+INSERT INTO `translation` VALUES (169, 35, 'collabpref', 2, 'Djelomični kapital');
+INSERT INTO `translation` VALUES (170, 35, 'collabpref', 3, 'Jednakopravni investitori');
+INSERT INTO `translation` VALUES (171, 35, 'collabpref', 4, 'Investitor');
+INSERT INTO `translation` VALUES (172, 35, 'collabpref', 5, 'Volonter');
+INSERT INTO `translation` VALUES (173, 35, 'skillset', 1, 'Računovodstvo');
+INSERT INTO `translation` VALUES (174, 35, 'skillset', 2, 'Zrakoplovstvo');
+INSERT INTO `translation` VALUES (175, 35, 'skillset', 4, 'Alternativna medicina');
+INSERT INTO `translation` VALUES (176, 35, 'skillset', 5, 'Animacija');
+INSERT INTO `translation` VALUES (177, 35, 'skillset', 6, 'Odjeća i moda');
+INSERT INTO `translation` VALUES (178, 35, 'skillset', 7, 'Arhitektura');
+INSERT INTO `translation` VALUES (179, 35, 'skillset', 8, 'Umjetnost i obrtništvo');
+INSERT INTO `translation` VALUES (180, 35, 'skillset', 9, 'Automobilska industrija');
+INSERT INTO `translation` VALUES (181, 35, 'skillset', 10, 'Zrakoplovstvo i svemirska industrija');
+INSERT INTO `translation` VALUES (182, 35, 'skillset', 11, 'Bankarstvo');
+INSERT INTO `translation` VALUES (183, 35, 'skillset', 12, 'Biotehnologija');
+INSERT INTO `translation` VALUES (184, 35, 'skillset', 13, 'Radio i televizija');
+INSERT INTO `translation` VALUES (185, 35, 'skillset', 14, 'Građevinski materijali');
+INSERT INTO `translation` VALUES (186, 35, 'skillset', 15, 'Poslovna i uredska oprema');
+INSERT INTO `translation` VALUES (187, 35, 'skillset', 16, 'Trg kapitala');
+INSERT INTO `translation` VALUES (188, 35, 'skillset', 17, 'Kemikalije');
+INSERT INTO `translation` VALUES (189, 35, 'skillset', 18, 'Civilna i socijalna organizacija');
+INSERT INTO `translation` VALUES (190, 35, 'skillset', 19, 'Građevinarstvo');
+INSERT INTO `translation` VALUES (191, 35, 'skillset', 20, 'Komercijalne nekretnine');
+INSERT INTO `translation` VALUES (192, 35, 'skillset', 21, 'Sigurnost računala i mreža');
+INSERT INTO `translation` VALUES (193, 35, 'skillset', 22, 'Računalne igre');
+INSERT INTO `translation` VALUES (194, 35, 'skillset', 23, 'Strojna oprema');
+INSERT INTO `translation` VALUES (195, 35, 'skillset', 24, 'Računalno umrežavanje');
+INSERT INTO `translation` VALUES (196, 35, 'skillset', 25, 'Programska oprema');
+INSERT INTO `translation` VALUES (197, 35, 'skillset', 26, 'Graditeljstvo');
+INSERT INTO `translation` VALUES (198, 35, 'skillset', 27, 'Potrošačka elektronika');
+INSERT INTO `translation` VALUES (199, 35, 'skillset', 28, 'Potrošačka dobra');
+INSERT INTO `translation` VALUES (200, 35, 'skillset', 29, 'Usluge potrošača');
+INSERT INTO `translation` VALUES (201, 35, 'skillset', 30, 'Kozmetika');
+INSERT INTO `translation` VALUES (202, 35, 'skillset', 31, 'Mliječni proizvodi');
+INSERT INTO `translation` VALUES (203, 35, 'skillset', 32, 'Obrambeni i svemirski program');
+INSERT INTO `translation` VALUES (204, 35, 'skillset', 33, 'Oblikovanje');
+INSERT INTO `translation` VALUES (205, 35, 'skillset', 34, 'Management obrazovanja');
+INSERT INTO `translation` VALUES (206, 35, 'skillset', 35, 'E-učenje');
+INSERT INTO `translation` VALUES (207, 35, 'skillset', 36, 'Proizvodnja elektronike');
+INSERT INTO `translation` VALUES (208, 35, 'skillset', 37, 'Zabava');
+INSERT INTO `translation` VALUES (209, 35, 'skillset', 38, 'Usluge zaštite okoliša');
+INSERT INTO `translation` VALUES (210, 35, 'skillset', 39, 'Organizacija priredaba');
+INSERT INTO `translation` VALUES (211, 35, 'skillset', 42, 'Poljoprivreda');
+INSERT INTO `translation` VALUES (212, 35, 'skillset', 43, 'Financije');
+INSERT INTO `translation` VALUES (213, 35, 'skillset', 44, 'Likovna umjetnost');
+INSERT INTO `translation` VALUES (214, 35, 'skillset', 45, 'Ribolov');
+INSERT INTO `translation` VALUES (215, 35, 'skillset', 46, 'Hrana i piće');
+INSERT INTO `translation` VALUES (216, 35, 'skillset', 47, 'Proizvodnja hrane');
+INSERT INTO `translation` VALUES (217, 35, 'skillset', 48, 'Prikupljanje sredstava');
+INSERT INTO `translation` VALUES (218, 35, 'skillset', 49, 'Namještaj');
+INSERT INTO `translation` VALUES (219, 35, 'skillset', 50, 'Kockanje i kockarnice');
+INSERT INTO `translation` VALUES (220, 35, 'skillset', 51, 'Staklo, keramika i beton');
+INSERT INTO `translation` VALUES (221, 35, 'skillset', 52, 'Javna uprava');
+INSERT INTO `translation` VALUES (222, 35, 'skillset', 53, 'Odnosi s javnošću');
+INSERT INTO `translation` VALUES (223, 35, 'skillset', 54, 'Grafičko oblikovanje');
+INSERT INTO `translation` VALUES (224, 35, 'skillset', 55, 'Zdravlje, wellness i fitness');
+INSERT INTO `translation` VALUES (225, 35, 'skillset', 56, 'Visokoškolsko obrazovanje');
+INSERT INTO `translation` VALUES (226, 35, 'skillset', 57, 'Zdravstvena njega');
+INSERT INTO `translation` VALUES (227, 35, 'skillset', 58, 'Gostoprimstvo');
+INSERT INTO `translation` VALUES (228, 35, 'skillset', 59, 'Ljudski resursi');
+INSERT INTO `translation` VALUES (229, 35, 'skillset', 60, 'Uvoz i izvoz');
+INSERT INTO `translation` VALUES (230, 35, 'skillset', 62, 'Industrijska automatizacija');
+INSERT INTO `translation` VALUES (231, 35, 'skillset', 63, 'Informacijske usluge');
+INSERT INTO `translation` VALUES (232, 35, 'skillset', 64, 'Informacijska tehnologija i usluge');
+INSERT INTO `translation` VALUES (233, 35, 'skillset', 65, 'Osiguranje');
+INSERT INTO `translation` VALUES (234, 35, 'skillset', 66, 'Međunarodni odnosi');
+INSERT INTO `translation` VALUES (235, 35, 'skillset', 67, 'Međunarodna trgovina i razvoj');
+INSERT INTO `translation` VALUES (236, 35, 'skillset', 68, 'Internet');
+INSERT INTO `translation` VALUES (237, 35, 'skillset', 69, 'Investicijsko bankarstvo');
+INSERT INTO `translation` VALUES (238, 35, 'skillset', 70, 'Investicijski management');
+INSERT INTO `translation` VALUES (239, 35, 'skillset', 71, 'Pravosuđe');
+INSERT INTO `translation` VALUES (240, 35, 'skillset', 72, 'Provedba zakona');
+INSERT INTO `translation` VALUES (241, 35, 'skillset', 73, 'Pravo');
+INSERT INTO `translation` VALUES (242, 35, 'skillset', 74, 'Pravne usluge');
+INSERT INTO `translation` VALUES (243, 35, 'skillset', 77, 'Knjižnice');
+INSERT INTO `translation` VALUES (244, 35, 'skillset', 41, 'Usluge objekata');
+INSERT INTO `translation` VALUES (245, 35, 'skillset', 61, 'Osobne i obiteljske usluge');
+INSERT INTO `translation` VALUES (246, 35, 'skillset', 75, 'Ured za zakonodavstvo ');
+INSERT INTO `translation` VALUES (247, 35, 'skillset', 76, 'Slobodno vrijeme, putovanja i turizam');
+INSERT INTO `translation` VALUES (248, 35, 'skillset', 78, 'Logistika i lanac dobave');
+INSERT INTO `translation` VALUES (249, 35, 'skillset', 79, 'Luksuzna dobra i nakit');
+INSERT INTO `translation` VALUES (250, 35, 'skillset', 80, 'Strojevi');
+INSERT INTO `translation` VALUES (251, 35, 'skillset', 81, 'Management savjeti');
+INSERT INTO `translation` VALUES (252, 35, 'skillset', 82, 'Pomorstvo');
+INSERT INTO `translation` VALUES (253, 35, 'skillset', 83, 'Marketing i oglašavanje');
+INSERT INTO `translation` VALUES (254, 35, 'skillset', 84, 'Istraživanje trga');
+INSERT INTO `translation` VALUES (255, 35, 'skillset', 85, 'Mehaničko i industrijsko inženjerstvo');
+INSERT INTO `translation` VALUES (256, 35, 'skillset', 86, 'Medijska produkcija');
+INSERT INTO `translation` VALUES (257, 35, 'skillset', 87, 'Medicinski aparati');
+INSERT INTO `translation` VALUES (258, 35, 'skillset', 88, 'Medicinska praksa');
+INSERT INTO `translation` VALUES (259, 35, 'skillset', 89, 'Mentalna zdravstvena njega');
+INSERT INTO `translation` VALUES (260, 35, 'skillset', 90, 'Vojska');
+INSERT INTO `translation` VALUES (261, 35, 'skillset', 91, 'Rudarstvo i kovine');
+INSERT INTO `translation` VALUES (262, 35, 'skillset', 92, 'Kinematografija');
+INSERT INTO `translation` VALUES (263, 35, 'skillset', 93, 'Muzeji i institucije');
+INSERT INTO `translation` VALUES (264, 35, 'skillset', 94, 'Glazba');
+INSERT INTO `translation` VALUES (265, 35, 'skillset', 95, 'Nanotehnologija');
+INSERT INTO `translation` VALUES (266, 35, 'skillset', 96, 'Novine');
+INSERT INTO `translation` VALUES (267, 35, 'skillset', 97, 'Management neprofitne organizacije');
+INSERT INTO `translation` VALUES (268, 35, 'skillset', 98, 'Nafta i enerija');
+INSERT INTO `translation` VALUES (269, 35, 'skillset', 99, 'Online mediji');
+INSERT INTO `translation` VALUES (270, 35, 'skillset', 100, 'Vanjske usluge');
+INSERT INTO `translation` VALUES (271, 35, 'skillset', 101, 'Dostava paketa');
+INSERT INTO `translation` VALUES (272, 35, 'skillset', 102, 'Pakiranje i kontejneri');
+INSERT INTO `translation` VALUES (273, 35, 'skillset', 103, 'Papir i proizvodi od drva');
+INSERT INTO `translation` VALUES (274, 35, 'skillset', 104, 'Umjetničke priredbe');
+INSERT INTO `translation` VALUES (275, 35, 'skillset', 105, 'Farmacija');
+INSERT INTO `translation` VALUES (276, 35, 'skillset', 106, 'Filantropija');
+INSERT INTO `translation` VALUES (277, 35, 'skillset', 107, 'Fotografija');
+INSERT INTO `translation` VALUES (278, 35, 'skillset', 108, 'Plastika');
+INSERT INTO `translation` VALUES (279, 35, 'skillset', 109, 'Politička organizacija');
+INSERT INTO `translation` VALUES (280, 35, 'skillset', 110, 'Osnovnoškolsko/srednješkolsko obrazovanje');
+INSERT INTO `translation` VALUES (281, 35, 'skillset', 111, 'Printanje');
+INSERT INTO `translation` VALUES (282, 35, 'skillset', 112, 'Poslovni savjeti');
+INSERT INTO `translation` VALUES (283, 35, 'skillset', 113, 'Razvoj programa');
+INSERT INTO `translation` VALUES (284, 35, 'skillset', 114, 'Javna politika');
+INSERT INTO `translation` VALUES (285, 35, 'skillset', 115, 'Odnosi s javnošću i komunikacije');
+INSERT INTO `translation` VALUES (286, 35, 'skillset', 116, 'Javna sigurnost');
+INSERT INTO `translation` VALUES (287, 35, 'skillset', 117, 'Izdavaštvo');
+INSERT INTO `translation` VALUES (288, 35, 'skillset', 118, 'Željeznička proizvodnja');
+INSERT INTO `translation` VALUES (289, 35, 'skillset', 120, 'Nekretnine');
+INSERT INTO `translation` VALUES (290, 35, 'skillset', 121, 'Rekreacijski objekti i usluge');
+INSERT INTO `translation` VALUES (291, 35, 'skillset', 122, 'Vjerske institucije');
+INSERT INTO `translation` VALUES (292, 35, 'skillset', 123, 'Obnovljivi izvori i okoliš');
+INSERT INTO `translation` VALUES (293, 35, 'skillset', 124, 'Istraživanje');
+INSERT INTO `translation` VALUES (294, 35, 'skillset', 125, 'Restorani');
+INSERT INTO `translation` VALUES (295, 35, 'skillset', 126, 'Maloprodaja');
+INSERT INTO `translation` VALUES (296, 35, 'skillset', 127, 'Sigurnost i istraga');
+INSERT INTO `translation` VALUES (297, 35, 'skillset', 128, 'Poluvodiči');
+INSERT INTO `translation` VALUES (298, 35, 'skillset', 129, 'Gradnja brodova');
+INSERT INTO `translation` VALUES (299, 35, 'skillset', 130, 'Sportska oprema');
+INSERT INTO `translation` VALUES (300, 35, 'skillset', 131, 'Sport');
+INSERT INTO `translation` VALUES (301, 35, 'skillset', 132, 'Kadrovski odjel');
+INSERT INTO `translation` VALUES (302, 35, 'skillset', 133, 'Supermarketi');
+INSERT INTO `translation` VALUES (303, 35, 'skillset', 134, 'Telekomunikacije');
+INSERT INTO `translation` VALUES (304, 35, 'skillset', 135, 'Tekstil');
+INSERT INTO `translation` VALUES (305, 35, 'skillset', 136, 'Think tank');
+INSERT INTO `translation` VALUES (306, 35, 'skillset', 137, 'Duhan');
+INSERT INTO `translation` VALUES (307, 35, 'skillset', 138, 'Prijevodi i lokalizacija');
+INSERT INTO `translation` VALUES (308, 35, 'skillset', 139, 'Prijevoz/kamioni/željeznica');
+INSERT INTO `translation` VALUES (309, 35, 'skillset', 140, 'Komunalne usluge');
+INSERT INTO `translation` VALUES (310, 35, 'skillset', 141, 'Poduzetnički i privatni kapital');
+INSERT INTO `translation` VALUES (311, 35, 'skillset', 142, 'Veterinarstvo');
+INSERT INTO `translation` VALUES (312, 35, 'skillset', 143, 'Skladište');
+INSERT INTO `translation` VALUES (313, 35, 'skillset', 144, 'Veleprodaja');
+INSERT INTO `translation` VALUES (314, 35, 'skillset', 145, 'Vino i žestoka pića');
+INSERT INTO `translation` VALUES (315, 35, 'skillset', 146, 'Bežična mreža');
+INSERT INTO `translation` VALUES (316, 35, 'skillset', 147, 'Spisateljstvo i uredništvo');
+INSERT INTO `translation` VALUES (317, 35, 'membertype', 1, 'Vlasnik');
+INSERT INTO `translation` VALUES (318, 35, 'membertype', 2, 'Član');
+INSERT INTO `translation` VALUES (319, 35, 'membertype', 3, 'Kandidat');
+INSERT INTO `translation` VALUES (320, 35, 'idea_status', 1, 'Ideja');
+INSERT INTO `translation` VALUES (321, 35, 'idea_status', 2, 'Poslovni plan');
+INSERT INTO `translation` VALUES (322, 35, 'idea_status', 3, 'Prototip');
+INSERT INTO `translation` VALUES (323, 35, 'idea_status', 4, 'Stranke koje plačaju');
+INSERT INTO `translation` VALUES (324, 35, 'idea_status', 5, 'Rast');
+INSERT INTO `translation` VALUES (325, 35, 'available', 40, 'Puno radno vrijeme (40 sati na tjedan)');
+INSERT INTO `translation` VALUES (326, 35, 'available', 8, 'Vikendi (8 sati na tjedan)');
+INSERT INTO `translation` VALUES (327, 35, 'available', 1, 'Ne želim sudjelovati');
+INSERT INTO `translation` VALUES (328, 35, 'available', 60, 'Svaki dan (60 sat na tjedan)');
+INSERT INTO `translation` VALUES (329, 35, 'skillset', 119, 'Rančiranje');
+INSERT INTO `translation` VALUES (330, 35, 'available', 20, 'Pola radno vrijeme (20 sati na tjedan)');
+INSERT INTO `translation` VALUES (331, 35, 'skillset', 40, 'Glavni ured');
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

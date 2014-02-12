@@ -15,6 +15,7 @@ return array(
 	// preloading 'log' component
 	'preload'=>array(
       'log',
+      'EJSUrlManager',
       //'foundation',
   ),
 
@@ -75,6 +76,9 @@ return array(
 
 	// application components
 	'components'=>array(
+    'EJSUrlManager' => array(
+      'class' => 'ext.JSUrlManager.src.EJSUrlManager'
+    ),
     'clientScript'=>array(
       'coreScriptPosition'=>CClientScript::POS_END,
       'defaultScriptPosition'=>CClientScript::POS_END,
@@ -155,16 +159,15 @@ return array(
 			),
 		),
 
-    /*
     'cache' => array (
-    'class' => 'CMemCache',
-    'servers'=>array(
-        array(
-            'host'=>'localhost',
-            'port'=>11211,
-            ),
-        ),
-    ),*/
+      'class' => 'CDummyCache', //system.caching.CMemCache
+      /*'servers'=>array(
+          array(
+              'host'=>'localhost',
+              'port'=>11211,
+              ),
+          ),*/
+    ),
     'mail' => array(
         'class' => 'ext.mail.YiiMail',
         'transportType' => 'php', //smtp
