@@ -104,8 +104,6 @@ class SearchBuilder {
 			unset($filter['skillset']);
 			unset($filter['skillset_skill']);
 
-			//print_r($skills);
-
 			foreach($skills AS $key => $value){
 
 				//this is deficient... why?
@@ -184,8 +182,9 @@ class SearchBuilder {
 			$filter['status_id'] = $filter['stage'];
 		}
 
+		/*
 		//!!!debug
-		/*if(isset($filter['skillset'])){
+		if(isset($filter['skillset'])){
 			echo "Skillset";
 			print_r($filter['skillset']);
 		}
@@ -308,6 +307,7 @@ class SearchBuilder {
 		//at the same time we are also preparing $cols for result ranking
 
 		$cols = array();
+		$where = array();
 
 		if($type == "idea"){
 			//idea_keyword AS k
@@ -484,6 +484,7 @@ class SearchBuilder {
 		}
 		$dataReader=$command->query();
 		$array = array();
+		$count = 0;
 
 		/*rank results by matching fields and a ranking system*/
 		$total = count($cols_backup); //each field is worth 1 point right now
@@ -519,17 +520,17 @@ class SearchBuilder {
 				$rank = round($rank / $total * 100, PHP_ROUND_HALF_UP);
 			}
 
-			$array[$row['id']] = $row;
-			$array[$row['id']]['rank'] = $rank;
+			if($rank > 0){
+				$array[$row['id']] = $row;
+				$array[$row['id']]['rank'] = $rank;
 
-			$rank_array[$row['id']] = $rank;
+				$rank_array[$row['id']] = $rank;
+
+				$count++;
+			}
 		}
 		
-		if(isset($filter['count_ideas']) || isset($filter['count_users'])){
-			$count = count($array);
-		}
-
-		if(count($array) > 0){
+		if($count > 0){
 			//Sort by relevance
 			array_multisort($rank_array, SORT_DESC, $array);
 
@@ -548,12 +549,9 @@ class SearchBuilder {
 		*/
 
 		//Load the array with data!
-		if(!isset($filter['count_ideas']) && !isset($filter['count_users'])) {
-			return $array;
-		} elseif(isset($filter['count_ideas']) || isset($filter['count_users'])) {
-			return $count;
-		}
-
+		$return['count'] = $count;
+		$return['results'] = $array;
+		return $return;
 	}
 }
 

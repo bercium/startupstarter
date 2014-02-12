@@ -1356,8 +1356,9 @@ class ProjectController extends GxController {
 				    $filter['category'][] = $value;
 			}
 			
-			$searchResult['data'] = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skillset");
-			$count = $sqlbuilder->load_array("search_count_ideas", $filter);
+			$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skillset");
+			$searchResult['data'] = $search['results'];
+			$count = $search['count'];
 			
 			$searchResult['page'] = $id;
 			$searchResult['maxPage'] = ceil($count['num_of_ideas'] / $filter['per_page']); //!!! add page count
@@ -1365,7 +1366,7 @@ class ProjectController extends GxController {
     }else{
             $count = $sqlbuilder->load_array("count_ideas", $filter);
 
-			$searchResult['data'] = $sqlbuilder->load_array("recent_updated", $filter, "translation,member,candidate,skillset");
+			$searchResult['data'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
 			$searchResult['page'] = $id;
 			$searchResult['maxPage'] = ceil($count / $filter['per_page']); ; //!!! add page count
     }
