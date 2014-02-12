@@ -90,14 +90,14 @@ else {
     
     <div class="panel" style="position: relative;">
       
-      <?php $days = timeDifference($user['lastvisit_at'], date('Y-m-d H:i:s'), "days_total"); 
+      <?php /*$days = timeDifference($user['lastvisit_at'], date('Y-m-d H:i:s'), "days_total"); 
        if ($days < 6){ ?>
         <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-high.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','Active user'); ?>" data-tooltip>
       <?php }else if ($days < 10){ ?>
         <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-med.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','Not so active user'); ?>" data-tooltip>
       <?php }else{ ?>
         <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-low.png" style="position: absolute; top:0px; left:0px;" title="<?php echo Yii::t('app','User has not been active recently'); ?>" data-tooltip>
-      <?php } ?>
+      <?php } */?>
       
       <?php if (Yii::app()->user->isAdmin()){
        $activation_url ='';
@@ -128,7 +128,17 @@ else {
 
       <img class="th panel-avatar" src="<?php echo avatar_image($user['avatar_link'], $user['id'], false); ?>" />
 
-      <h1 class=""><?php echo $user['name'] . " " . $user['surname']; ?></h1>
+      <h1 class="">
+              <?php $days = timeDifference($user['lastvisit_at'], date('Y-m-d H:i:s'), "days_total"); 
+     if ($days < 6){ ?>
+      <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-high-circle.png" class="" title="<?php echo Yii::t('app','Active user'); ?>" data-tooltip>
+    <?php }else if ($days < 10){ ?>
+      <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-med-circle.png" class="" title="<?php echo Yii::t('app','Not so active user'); ?>" data-tooltip>
+    <?php }else{ ?>
+      <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-low-circle.png" class="" title="<?php echo Yii::t('app','User has not been active recently'); ?>" data-tooltip>
+    <?php } ?>
+        
+        <?php echo $user['name'] . " " . $user['surname']; ?></h1>
 
       <div class="item">
         <p>
