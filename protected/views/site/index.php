@@ -145,21 +145,42 @@
     
     <?php }else{ ?>
 
-     <div class="intro pb10 bb-strong" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
-  <div  class="row" >
-    
-    <div class="large-10 columns large-centered">
-    	
+	<div class="intro pb10 bb-strong pt20" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
+		<div  class="row" >
 
-<!-- Content if guest -->
-      <h1><?php echo Yii::t('msg','With the <span>right team</span> any <span>idea</span> can</br> change your life'); ?></h1>
-      
+		<div class="large-4 columns">  
+			<!-- Content if guest -->
 
-      <p>
-          <?php echo Yii::t('msg','We are a group of enthusiasts with a mission to help anyone with a great idea to assemble a successful start-up team capable of creating a viable business. We are developing a web platform through which you will be able to share your ideas with the like-minded entrepreneurs and search for interesting projects.'); ?>
-      </p><br />
-    </div>    
-    
+			<h1 style="font-size:1.4em;" ><?php echo Yii::t('app','Startups'); ?></h1>
+			<h2 style=" color: #89B561 !important;"><?php echo Yii::t('msg','Find people to join you'); ?></h2>
+
+			<p><?php echo Yii::t('msg','Share what you\'re working on and find people with amazing skills to join you.'); ?></p>	      
+		</div>
+
+		<div class="large-4 columns">  
+			<!-- Content if guest -->
+			<h1 style="font-size:1.4em; " ><?php echo Yii::t('app','Skilled individuals'); ?></h1>
+			<h2 style=" color: #89B561 !important;">Join a startup team</h2>
+
+			<p><?php echo Yii::t('msg','Offer your skills, get noticed and join an interesting project.'); ?></p>	      
+		</div>
+		<div class="large-4 columns">  
+			<!-- Content if guest -->
+			<h1 style="font-size:1.4em;" ><?php echo Yii::t('msg','Sign up for Cofinder'); ?></h1>
+			
+			<p><?php echo Yii::t('msg','Create your account, tell us about yourself and start exploring'); ?></p>	
+			<a class="button radius mb0" href=""><?php echo Yii::t('app','Start here'); ?></a>
+			<p class="description"><?php echo Yii::t('msg','Already have an account?'); ?> <a href="#"><?php echo Yii::t('app','Login here'); ?>.</a></p>
+		
+		
+		</div>
+
+
+
+
+	
+
+
     <?php /* ?>
    <div class="center columns">
       <div class="right large-5 small-12">
@@ -188,9 +209,9 @@
       </div>
     </div>
     <?php */ ?>
-     </div>
-    </div>
-    <?php } ?>
+	</div>
+	</div>
+	<?php } ?>
     
   
 <?php // } ?>
