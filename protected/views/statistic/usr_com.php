@@ -14,3 +14,8 @@
   Max length: <?php echo $max; ?><br />
   Msg/User: <?php echo round($all/$usersCanSendMsg,3); ?><br />
 </p>
+<p>
+  <?php foreach ($stat as $key => $val){
+    echo $key." - ".$val."<br />";
+  }?>
+</p>

@@ -94,9 +94,13 @@ class StatisticController extends Controller
       else $stat[$row['user_from_id']."-".$row['user_to_id']."-".$row['idea_to_id']] = $row['c'];
       $allMsg += $row['c'];
     }
+    sort($stat);
+    
+    //$stat
+    
     
     $this->render('usr_com',array('pairs'=>count($stat),'all'=>$allMsg,'max'=>max($stat),
-                  'activeUsers'=>$activeUsers,'allUsers'=>$allUsers,'usersCanSendMsg'=>$usersCanSendMsg));
+                  'activeUsers'=>$activeUsers,'allUsers'=>$allUsers,'usersCanSendMsg'=>$usersCanSendMsg,"stat"=>$stat));
  	}  
 	
 }

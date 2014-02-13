@@ -466,6 +466,14 @@ function shortenAvailable($value, $justValue = false){
   //	echo $startTime."=".$d1."-".$endTime."=".$d2."=".$diff_secs.".".($diff_secs / 60)."<br>";
     return $result;
   }
+  
+  
+  /**
+   * mail link click tracking
+   */
+  function mailLink($link){
+    return Yii::app()->createUrl("track/ml",array("l"=>$link));
+  }
 
 /**
  * will return you to previously called action
