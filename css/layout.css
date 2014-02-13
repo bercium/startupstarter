@@ -393,13 +393,12 @@ div[onclick].card-person-title, div[onclick].m-card-title{
 }
 
 
-.card-person .card-person-title img {
+.card-person .card-person-title .th-medium {
 	border: 1px solid #fff;
 	box-shadow: 0 0 0 1px #ddd;
 	border-radius: 2px; 
 	border-radius: 3px;
 }
-
 
 
 .card-person .card-person-title .columns {
@@ -812,6 +811,23 @@ ul, ol {
 /* #Special Styles
 ================================================== */
 
+.status-high.icon-circle {
+	font-size: 0.6em;
+	color: #89B561;
+}
+
+.status-medium.icon-circle {
+	font-size: 0.6em;
+	color: #CCC950;
+}
+
+.status-low.icon-circle {
+	font-size: 0.6em;
+	color: #999999;
+}
+
+
+
 .topright {
     position: absolute;
     top: 0;
@@ -829,7 +845,10 @@ ul, ol {
 
 .th-small {height:40px; margin-right: 10px; float:left; }
 
-
+.th-medium {
+	height:64px; margin-right: 10px;
+	float:left; 
+}
 
 .success-gradient.button {
 	background: rgb(200,249,134); /* Old browsers */

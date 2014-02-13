@@ -2,22 +2,22 @@
 
     <div class="row card-person-title" onclick="location.href='<?php echo Yii::app()->createUrl("person",array("id"=>$user['id'])); ?>';">
       <div class="columns" >
-        <img src="<?php echo avatar_image($user['avatar_link'],$user['id'],60); ?>" style="height:64px; margin-right: 10px; float:left; margin-top:5px;" />
+        <img class="th-medium" src="<?php echo avatar_image($user['avatar_link'],$user['id'],60); ?>"  />
         <h5>
       <?php $days = timeDifference($user['lastvisit_at'], date('Y-m-d H:i:s'), "days_total"); 
      if ($days < 6){ ?>
-      <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-high-circle.png" class="" title="<?php echo Yii::t('app','Active user'); ?>" data-tooltip>
+      <span class="icon-circle status-high mr5" title="<?php echo Yii::t('app','Active user'); ?>" data-tooltip></span>
     <?php }else if ($days < 10){ ?>
-      <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-med-circle.png" class="" title="<?php echo Yii::t('app','Not so active user'); ?>" data-tooltip>
+      <span class="icon-circle status-medium mr5" class="" title="<?php echo Yii::t('app','Not so active user'); ?>" data-tooltip></span>
     <?php }else{ ?>
-      <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-low-circle.png" class="" title="<?php echo Yii::t('app','User has not been active recently'); ?>" data-tooltip>
+      <span class="icon-circle status-low mr5" title="<?php echo Yii::t('app','User has not been active recently'); ?>" data-tooltip></span>
     <?php } ?>
           
           <?php echo $user['name']." ".$user['surname']; ?></h5>
 				<?php	if ($user['city'] || $user['country']){ ?>
             
 						<small >
-              <span class="l-inline  icon-map-marker"></span>
+              <span class="l-inline  icon-map-marker mr8"></span>
               <a class="tip-top" data-tooltip title="<img src='<?php echo getGMap($user['country'],$user['city'],$user['address']); ?>'>">
            
              
@@ -33,7 +33,7 @@
                   
                  <small>
                   <?php if ($user['available_name']) { ?>
-                     <span data-tooltip title="<?php echo Yii::t('app','Available') ?>" class="icon-time"></span>
+                     <span data-tooltip title="<?php echo Yii::t('app','Available') ?>" class="icon-time mr8" style="margin-left:-2px"></span>
                   
                     <?php echo shortenAvailable($user['available_name']); ?>
                     <?php } ?>
