@@ -68,9 +68,13 @@ class Controller extends CController
       Yii::import('application.helpers.Hashids');
       $hashids = new Hashids('cofinder');
       $uid = $hashids->encrypt(Yii::app()->user->id);
+      $comp = new Completeness();
+      $perc = $comp->getPercentage();
+      
       $logedin =",{
                     'dimension1':'".$uid."',
                     'dimension2':'true',
+                    'dimension3':'".$perc."',
                   }";
       $user = User::model()->findByPk(Yii::app()->user->id);
       $user->lastvisit_at = date('Y-m-d H:i:s');
