@@ -349,4 +349,4 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
 </html><?php 
     // be the last to override any other CSS settings
     Yii::app()->getClientScript()->registerCssFile(Yii::app()->baseUrl.'/css/override.css'.getVersionID()); 
-    if(YII_DEBUG) Yii::app()->getClientScript()->registerScript("ganalytics","clearTimeout(all_js_ok);");
+    if(YII_DEBUG) Yii::app()->getClientScript()->registerScript("cleartimeout","clearTimeout(all_js_ok);");

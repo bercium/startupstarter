@@ -32,6 +32,7 @@ class PersonController extends GxController {
 				'users'=>array('@'),
 			),
 			array('allow', // allow admins only
+        'actions'=>array("show"),  // remove after demo
 				'users'=>Yii::app()->getModule('user')->getAdmins(),
 			),
 			array('deny',  // deny all users
@@ -170,6 +171,18 @@ class PersonController extends GxController {
 		
 
 		$this->render('discover', array("filter"=>$searchForm, "searchResult"=>$searchResult));
+  }
+  
+  /**
+   * decode person form code and show his profile
+   */
+  public function actionShow($id) {
+    Yii::import('application.helpers.Hashids');
+    $hashids = new Hashids('cofinder');
+    $user_id = $hashids->decrypt($id);
+    
+    $this->redirect(Yii::app()->createUrl("person",array("id"=>$user_id)));
+    Yii::app()->end();
   }
 	
 }
