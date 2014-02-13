@@ -180,8 +180,9 @@ class PersonController extends GxController {
     Yii::import('application.helpers.Hashids');
     $hashids = new Hashids('cofinder');
     $user_id = $hashids->decrypt($id);
+    //die(print_r($user_id,true));
     
-    $this->redirect(Yii::app()->createUrl("person",array("id"=>$user_id)));
+    $this->redirect(Yii::app()->createUrl("person",array("id"=>$user_id[0])));
     Yii::app()->end();
   }
 	

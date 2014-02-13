@@ -15,6 +15,7 @@
  * @property string $idea_to_id
  * @property string $time_sent
  * @property string $message
+ * @property string $time_viewed
  *
  * @property Idea $ideaTo
  * @property User $userFrom
@@ -43,8 +44,8 @@ abstract class BaseMessage extends GxActiveRecord {
       array('time_sent', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
 			array('user_from_id,  message', 'required'),
 			array('user_from_id, user_to_id, idea_to_id', 'length', 'max'=>11),
-			array('user_to_id, idea_to_id', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, user_from_id, user_to_id, idea_to_id, time_sent, message', 'safe', 'on'=>'search'),
+			array('user_to_id, idea_to_id, time_viewed', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('id, user_from_id, user_to_id, idea_to_id, time_sent, message, time_viewed', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,6 +73,7 @@ abstract class BaseMessage extends GxActiveRecord {
 			'ideaTo' => null,
 			'userFrom' => null,
 			'userTo' => null,
+      'time_viewed' => null,
 		);
 	}
 
@@ -84,6 +86,7 @@ abstract class BaseMessage extends GxActiveRecord {
 		$criteria->compare('idea_to_id', $this->idea_to_id);
 		$criteria->compare('time_sent', $this->time_sent, true);
 		$criteria->compare('message', $this->message, true);
+    $criteria->compare('time_viewed', $this->time_viewed, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

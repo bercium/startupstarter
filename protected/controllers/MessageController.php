@@ -173,15 +173,32 @@ class MessageController extends Controller
     $user_id = Yii::app()->user->id;
     $match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
     $ideas = IdeaMember::Model()->findAllByAttributes( array( 'match_id' => $match->id ) );
-    $myideaid = '';
+    $myideaid = $myideaid_update =  '';
     if ($ideas){
       foreach ($ideas as $idea){
         if ($myideaid) $myideaid .= ',';
         $myideaid .= "'".$idea->idea_id."'";
       }
     }
+    if ($myideaid){
+      $myideaid_update = $myideaid;
+      $myideaid = "OR idea_to_id IN (".$myideaid.")";
+    }
     
-    if ($myideaid) $myideaid = "OR idea_to_id IN (".$myideaid.")";
+    $where =  '';
+    if ($group == 'project'){
+      if ($myideaid_update){
+        $where = "(user_from_id != ".$user_id." AND ISNULL(user_to_id) AND idea_to_id = ".$id." AND idea_to_id IN (".$myideaid_update.") AND ISNULL(time_viewed)) ".
+               " OR (user_from_id != ".$user_id." AND user_to_id = ".$user_id." AND idea_to_id = ".$id." AND idea_to_id IN (".$myideaid_update.") AND ISNULL(time_viewed)) ";
+      }
+    }else{
+      $where = "(user_to_id = ".$user_id." AND user_from_id = ".$id." AND ISNULL(time_viewed)) ";
+      if ($myideaid_update) $where .= " OR (user_from_id = ".$id." AND ISNULL(user_to_id) AND idea_to_id IN (".$myideaid_update.") AND ISNULL(time_viewed)) ";
+    }
+    //die("UPDATE message SET time_viewed = '".date('Y-m-d H:i:s')."' WHERE ".$where);
+    $command=Yii::app()->db->createCommand("UPDATE message SET time_viewed = '".date('Y-m-d H:i:s')."' WHERE ".$where);
+    $command->execute();
+    //Message::model()->
     
     $all_my_msgs = Message::model()->findAll('user_from_id = :myid OR user_to_id = :myid '.$myideaid.' ORDER BY time_sent DESC',
                               array(':myid'=>$user_id));
@@ -206,9 +223,10 @@ class MessageController extends Controller
                               "from_id"=>$msg->userFrom->id,
                               "avatar_link"=>$msg->userFrom->avatar_link,
                               "time"=>$msg->time_sent,
-                              "content"=>$msg->message);
+                              "content"=>$msg->message,
+                              "read_time"=>$msg->time_viewed);
         }
-      }else{
+      }//else{
         
         if ($msg->user_from_id != $user_id){
           // someone has send me a msg
@@ -224,9 +242,11 @@ class MessageController extends Controller
                                 "from_id"=>$msg->userFrom->id,
                                 "avatar_link"=>$msg->userFrom->avatar_link,
                                 "time"=>$msg->time_sent,
-                                "content"=>$msg->message);
+                                "content"=>$msg->message,
+                                "read_time"=>$msg->time_viewed);
           }
-        }else{
+        }else
+          if ($msg->user_to_id){
           // I have send somebody a msg
           $msgList['users'][$msg->user_to_id] = array("id"=>$msg->user_to_id,
                                       "name"=>$msg->userTo->name." ".$msg->userTo->surname);
@@ -240,11 +260,12 @@ class MessageController extends Controller
                                 "from_id"=>$msg->userFrom->id,
                                 "avatar_link"=>$msg->userFrom->avatar_link,
                                 "time"=>$msg->time_sent,
-                                "content"=>$msg->message);
+                                "content"=>$msg->message,
+                                "read_time"=>$msg->time_viewed);
           }
         }
           
-      } //end else idea to
+      //} //end else idea to
     }
     
     $this->render('view',array('id'=>$id,'msgList'=>$msgList,"chatList"=>$chatList,"group"=>$group));
