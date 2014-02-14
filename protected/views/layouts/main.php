@@ -281,7 +281,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
   <?php 
   
   foreach ($notifications['messages'] as $notify){ ?>
-    <li style="padding:3px 8px; font-size: 1em; " onclick="$(this).fadeOut(); markNotifications('<?php echo Yii::app()->createUrl("site/clearNotif",array("type"=>$notify['type'])); ?>')">
+    <li style="padding:3px 8px; font-size: 1em; " trk="top_notification_<?php echo $notify['type']; ?>" onclick="$(this).fadeOut(); markNotifications('<?php echo Yii::app()->createUrl("site/clearNotif",array("type"=>$notify['type'])); ?>')">
       <a href="<?php echo $notify['link']; ?>">
         <span class="label radius left mb5 mr8" style="">
         <?php echo $notify['count']; ?>
