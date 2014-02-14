@@ -493,3 +493,24 @@ function shortenAvailable($value, $justValue = false){
     if (strpos(Yii::app()->request->urlReferrer,"user/login") === false) $this->redirect(Yii::app()->request->urlReferrer);
     else $this->redirect(Yii::app()->user->returnUrl);  
 }*/
+
+
+function mailButton($name, $link, $type='', $tc = '') {
+    $html = '<a href="'.$link.'" ';
+
+    if ($type == '') $type = 'background-color: #4469a6; color: white;';
+    else if ($type == 'secondary') $type = 'background-color: #e9e9e9; border: 1px solid #d0d0d0; color: #333333;';
+    else if ($type == 'alert') $type = 'background-color: #c60f13; color: white;';
+    else if ($type == 'success') $type = ' background-color: #5da423; color: white;';
+    
+if($type != 'link'){
+    $html .= 'style="border-radius:3px; -webkit-border-radius:3px; border-style: solid;  border-width: 1px;  cursor: pointer;  font-family: inherit;  font-weight: bold;
+  line-height: 1;  margin: 0 0 1.25em;  position: relative; text-decoration: none;  text-align: center;  display: inline-block;
+  padding-top: 0.5625em; padding-right: 1.125em; padding-bottom: 0.625em; padding-left: 1.125em; font-size: 0.9em;
+  '. $type .'"';  
+
+  } 
+
+    $html.= '>'.$name.'</a>';
+      return $html;
+     }
