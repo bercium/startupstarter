@@ -61,6 +61,12 @@ class MessageController extends Controller
         $replyParams = array('id'=>$_POST['project'],'group'=>'project');
       }
       $db_message->save();
+
+      // message wrapper style
+
+      $wrapperStart = '<br /><br />
+                  <div style="border-left: 1px solid #ddd; margin-left: 15px; padding-left: 10px; padding-top:5px;">';
+      $wrapperEnd = '</div><br />';
       
       // create MAIL
       $sender = User::model()->findByPk(Yii::app()->user->id);
@@ -72,10 +78,11 @@ class MessageController extends Controller
       $message->view = 'system';
             // send to sender
       $message->subject = "New message from ".$sender->name." ".$sender->surname;
-      $content = "This message was sent to you trough Cofinder by ".$sender->name." ".$sender->surname.'.'.
-                 '<br /><br/>Check his <a href="'.Yii::app()->createAbsoluteUrl('/person/view',array('id'=>Yii::app()->user->id)).'">profile</a> or 
-                  reply '.mailButton('here', Yii::app()->createAbsoluteUrl('/message/view',$replyParams)).'<br /><br /><br />'.
-                 $_POST['message'];
+      $content = "This message was sent to you trough Cofinder by " .mailButton( $sender->name." ".$sender->surname, Yii::app()->createAbsoluteUrl('/person/view',array('id'=>Yii::app()->user->id)), 'link')
+
+               .$wrapperStart.$_POST['message'].$wrapperEnd
+                .mailButton('Reply to this message', Yii::app()->createAbsoluteUrl('/message/view',$replyParams));
+                 
       $message->setBody(array("content"=>$content), 'text/html');
       //$message->setBody(array("content"=>$_POST['message'],"senderMail"=>$sender->email), 'text/html');
       
@@ -97,17 +104,19 @@ class MessageController extends Controller
         $project = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$_POST['project']));
         
         $message_self->subject = "Message send to project";
-        $content_self = "You have sent this message trough Cofinder to ".$project->title.'. '.
-                   '<br />To check project <a href="'.Yii::app()->createAbsoluteUrl('/project/view',array('id'=>$_POST['project'])).'">click here</a>.<br /><br /><br />'.
-                   $_POST['message'];
+        $content_self = "You have sent this message trough Cofinder to ".$project->title.  
+                  $wrapperStart.$_POST['message'].$wrapperEnd
+                   .mailButton('View project', Yii::app()->createAbsoluteUrl('/project/view',array('id'=>$_POST['project']))).' <br />';
+                  
       }else{
         //$db_message->user_to_id = $_POST['user'];
         $receiver = User::model()->findByPk($_POST['user']);
         
         $message_self->subject = "Message send to ".$receiver->name." ".$receiver->surname;
-        $content_self = "You have sent this message trough Cofinder to ".$receiver->name." ".$receiver->surname.'. '.
-                   '<br />To check his profile <a href="'.Yii::app()->createAbsoluteUrl('/person/view',array('id'=>$receiver->id)).'">click here</a>.<br /><br /><br />'.
-                   $_POST['message'];
+        $content_self = "You have sent this message trough Cofinder to ".$receiver->name." ".$receiver->surname.
+                   $wrapperStart .$_POST['message'].$wrapperEnd
+                  .mailButton('View his profile', Yii::app()->createAbsoluteUrl('/person/view',array('id'=>$receiver->id))).' <br />';
+                   
       }
       
       $message->addTo($receiver->email);
