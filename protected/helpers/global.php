@@ -476,10 +476,10 @@ function shortenAvailable($value, $justValue = false){
 function mailButton($name, $link, $type='') {
     $html = '<a href="'.$link.'" ';
 
-    if ($type == '') $type = 'background-color: #2ba6cb;  border-color: #2ba6cb;  color: white;';
-    else if ($type == 'secondary') $type = 'background-color: #e9e9e9;    border-color: #d0d0d0;    color: #333333;';
-    else if ($type == 'alert') $type = 'background-color: #c60f13;    border-color: #c60f13;    color: white;';
-    else if ($type == 'success') $type = ' background-color: #5da423;    border-color: #5da423;    color: white;';
+    if ($type == '') $type = 'background-color: #4469a6; color: white;';
+    else if ($type == 'secondary') $type = 'background-color: #e9e9e9; color: #333333;';
+    else if ($type == 'alert') $type = 'background-color: #c60f13; color: white;';
+    else if ($type == 'success') $type = ' background-color: #5da423; color: white;';
 
     $html .= 'style="border-radius:3px; -webkit-border-radius:3px; border-style: solid;  border-width: 1px;  cursor: pointer;  font-family: inherit;  font-weight: bold;
   line-height: 1;  margin: 0 0 1.25em;  position: relative; text-decoration: none;  text-align: center;  display: inline-block;
