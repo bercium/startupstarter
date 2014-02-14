@@ -196,7 +196,7 @@ class SiteController extends Controller
                         <br><br>Thank you, Cofinder team!';
             $message->setBody(array("content"=>$content), 'text/html');
 
-            $message->addTo($_POST['email']);
+            $message->setTo($_POST['email']);
             $message->from = Yii::app()->params['noreplyEmail'];
             Yii::app()->mail->send($message);
       
@@ -662,7 +662,7 @@ EOD;
                                         'Rad bi: '.$_POST['Event']['present'].'<br />'.
                                         'Je že kdaj bil ustanovitelj: '.$_POST['Event']['cofounder'].'<br /><br />'.
                                         'Njegov profil na Cofinderju si lahko ogledate <a href="'.$this->createAbsoluteUrl("/person/view",array("id"=>Yii::app()->user->id)).'">tukaj</a>'), 'text/html');
-            $message->addTo("cofinder@hekovnik.si");
+            $message->setTo("cofinder@hekovnik.si");
             $message->from = Yii::app()->params['noreplyEmail'];
             Yii::app()->mail->send($message);
           }

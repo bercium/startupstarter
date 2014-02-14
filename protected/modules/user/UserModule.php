@@ -245,7 +245,7 @@ class UserModule extends CWebModule
 	    return mail($email,'=?UTF-8?B?'.base64_encode($subject).'?=',$message,$headers);*/
       $mail = new YiiMailMessage;
       $mail->from = Yii::app()->params['adminEmail'];
-      $mail->addTo($email);
+      $mail->setTo($email);
       $mail->view = 'register';
       $mail->subject = '=?UTF-8?B?'.base64_encode($subject).'?=';
       $mail->setBody(str_replace("\n.", "\n..", wordwrap($message, 70)), 'text/html', 'utf-8');
@@ -266,7 +266,7 @@ class UserModule extends CWebModule
         
         $mail = new YiiMailMessage;
         $mail->from = $from;
-        $mail->addTo($user->email);
+        $mail->setTo($user->email);
         $mail->view = 'register';
         $mail->subject = '=?UTF-8?B?'.base64_encode($subject).'?=';
         $mail->setBody(str_replace("\n.", "\n..", wordwrap($message, 70)), 'text/html', 'utf-8');

@@ -120,7 +120,7 @@
             <img class="th th-small" class="left" src="<?php echo avatar_image($msg['avatar_link'], $msg['from_id'], false); ?>" />
             <h3><?php echo $msg['from']; ?>
             <small class="right">
-              <?php if ($msg['read_time']) echo Yii::t('app','viewed {datetime}',array("{datetime}"=>$msg['read_time'])); /*else echo Yii::t('app','unread'); */ ?>
+              <?php if ($msg['read_time']) echo Yii::t('app','viewed {datetime}',array("{datetime}"=>Yii::app()->dateFormatter->formatDateTime(strtotime($msg['read_time']),"medium","short"))); /*else echo Yii::t('app','unread'); */ ?>
             </small>
             </h3>
           </a>

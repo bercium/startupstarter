@@ -31,7 +31,7 @@ class ActivationController extends Controller
           $message->view = 'system';
           $message->setBody(array("content"=>"You account on Cofinder has been approved. You can now <a href='http://www.cofinder.eu'>login</a>"), 'text/html');
           $message->subject = 'Cofinder account approved';
-          $message->addTo($find->email);
+          $message->setTo($find->email);
           $message->from = Yii::app()->params['noreplyEmail'];
           Yii::app()->mail->send($message);          
           

@@ -166,7 +166,7 @@ class WInvitation extends CWidget
       $message->subject = $subject;
       $message->setBody(array("content"=>$content), 'text/html');
       
-      $message->addTo($email);
+      $message->setTo($email);
       $message->from = Yii::app()->params['noreplyEmail'];
       Yii::app()->mail->send($message);
     }

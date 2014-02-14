@@ -853,7 +853,7 @@ class ProfileController extends GxController {
                                           <br /><br /> <strong>".$user->name." ".$user->surname."</strong> thinks you might be the right person to test our private beta.
                                           <br /><br /> If we got your attention you can ".$activation_url."!"), 'text/html');
 
-          $message->addTo($invitation->email);
+          $message->setTo($invitation->email);
           $message->from = Yii::app()->params['noreplyEmail'];
           Yii::app()->mail->send($message);          
           

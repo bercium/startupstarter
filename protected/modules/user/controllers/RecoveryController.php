@@ -54,7 +54,7 @@ class RecoveryController extends Controller
                 $message->view = 'system';
                 $message->setBody(array("content"=>$message1), 'text/html');
                 $message->subject = $subject;
-                $message->addTo($user->email);
+                $message->setTo($user->email);
                 $message->from = Yii::app()->params['noreplyEmail'];
                 Yii::app()->mail->send($message);
                 
