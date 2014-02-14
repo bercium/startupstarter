@@ -260,10 +260,12 @@ class SqlBuilder {
 					"AND ( ";
 
 			$keys = array();
+			$condition = array();
 			foreach( $data AS $key => $value ){
 				$condition[] =	"m.id = {$value['id']}";
 				$keys[] = $value['id'];
 			}
+			if(count($condition) == 0) return false;
 			$sql.= implode($condition, " OR ") . " ) ORDER BY FIELD(m.id, ".implode($keys, ', ').") ASC ";
 		}
 
@@ -403,10 +405,12 @@ class SqlBuilder {
 					"AND ( ";
 
 			$keys = array();
+			$condition = array();
 			foreach( $data AS $key => $value ){
 				$condition[] =	"i.id = {$value['id']}";
 				$keys[] = $value['id'];
 			}
+			if(count($condition) > 0) return false;
 			$sql.= implode($condition, " OR ") . " ) ORDER BY FIELD(i.id, ".implode($keys, ', ').") ASC";
 		}
 
