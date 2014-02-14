@@ -43,16 +43,16 @@ class RecoveryController extends Controller
 			    		$form->attributes=$_POST['UserRecoveryForm'];
 			    		if($form->validate()) {
 			    			$user = User::model()->notsafe()->findbyPk($form->user_id);
-							//$activation_url = 'http://' . $_SERVER['HTTP_HOST'].$this->createUrl(implode(Yii::app()->controller->module->recoveryUrl),array("activkey" => $user->activkey, "email" => $user->email));
+                //$activation_url = 'http://' . $_SERVER['HTTP_HOST'].$this->createUrl(implode(Yii::app()->controller->module->recoveryUrl),array("activkey" => $user->activkey, "email" => $user->email));
               
-              $activation_url = '<a href="'.$this->createAbsoluteUrl('/user/recovery',array("activkey" => $user->activkey, "email" => $user->email)).'">Activate</a>';
-							
-							$subject = "Password recovery for cofinder";
-			    		$message1 = 'You have requested the password recovery for <a href="www.cofinder.eu">cofinder</a>. To receive a new password, go to '.$activation_url;
-              
+                $activation_url = '<a href="'.$this->createAbsoluteUrl('/user/recovery',array("activkey" => $user->activkey, "email" => $user->email)).'">Activate</a>';
+
+                $subject = "Password recovery for cofinder";
+                $content = 'You have requested the password recovery for <a href="www.cofinder.eu">cofinder</a>. To receive a new password, go to '.$activation_url;
+
                 $message = new YiiMailMessage;
                 $message->view = 'system';
-                $message->setBody(array("content"=>$message1), 'text/html');
+                $message->setBody(array("content"=>$content), 'text/html');
                 $message->subject = $subject;
                 $message->setTo($user->email);
                 $message->from = Yii::app()->params['noreplyEmail'];

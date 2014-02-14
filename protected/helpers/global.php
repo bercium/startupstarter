@@ -471,10 +471,18 @@ function shortenAvailable($value, $justValue = false){
   /**
    * mail link click tracking
    */
-  function mailLink($link){
-    return Yii::app()->createUrl("track/ml",array("l"=>$link));
+  function mailLinkTracking($id,$link,$name){
+    return Yii::app()->createUrl("track/ml",array("id"=>$id,"l"=>$link,"ln"=>$name));
   }
 
+  /**
+   * generate tracking code for mail
+   */
+  function mailTrackingCode(){
+    Yii::import('application.helpers.Hashids');
+    $hashids = new Hashids('cofinder');
+    return $hashids->encrypt(time());
+  }
 /**
  * will return you to previously called action
  */

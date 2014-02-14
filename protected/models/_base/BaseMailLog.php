@@ -10,6 +10,7 @@
  * followed by relations of table "mail_log" available as properties of the model.
  *
  * @property string $id
+ * @property string $tracking_code
  * @property string $type
  * @property string $user_to_id
  * @property string $time_send
@@ -39,18 +40,19 @@ abstract class BaseMailLog extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('user_to_id, time_send', 'required'),
+			array('tracking_code, user_to_id, time_send', 'required'),
+			array('tracking_code', 'length', 'max'=>11),
 			array('type', 'length', 'max'=>100),
 			array('user_to_id, extra_id', 'length', 'max'=>10),
 			array('time_open', 'safe'),
 			array('type, time_open, extra_id', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('id, type, user_to_id, time_send, time_open, extra_id', 'safe', 'on'=>'search'),
+			array('id, tracking_code, type, user_to_id, time_send, time_open, extra_id', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
-			'mailClickLogs' => array(self::HAS_MANY, 'MailClickLog', 'mail_id'),
+			'mailClickLogs' => array(self::HAS_MANY, 'MailClickLog', 'mail_tracking_code'),
 			'userTo' => array(self::BELONGS_TO, 'User', 'user_to_id'),
 		);
 	}
@@ -63,6 +65,7 @@ abstract class BaseMailLog extends GxActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => Yii::t('app', 'ID'),
+			'tracking_code' => Yii::t('app', 'Tracking Code'),
 			'type' => Yii::t('app', 'Type'),
 			'user_to_id' => null,
 			'time_send' => Yii::t('app', 'Time Send'),
@@ -77,6 +80,7 @@ abstract class BaseMailLog extends GxActiveRecord {
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id, true);
+		$criteria->compare('tracking_code', $this->tracking_code, true);
 		$criteria->compare('type', $this->type, true);
 		$criteria->compare('user_to_id', $this->user_to_id);
 		$criteria->compare('time_send', $this->time_send, true);

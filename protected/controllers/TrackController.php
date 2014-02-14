@@ -24,7 +24,7 @@ class TrackController extends Controller
 	{
 		return array(
 			array('allow', // allow all users to perform actions
-        'actions'=>array('message','systemEmail','ml'),
+        'actions'=>array('mailOpen','ml'),
 				'users'=>array('*'),
 			),
 			/*array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -92,21 +92,46 @@ class TrackController extends Controller
 	/**
 	 * track message openers
 	 */
-	public function actionMessage($open){
+	public function actionMailOpen($id){
+    Yii::import('application.helpers.Hashids');
+    $hashids = new Hashids('cofinder');
+    $tid = $hashids->decrypt($id);
+    $id = $tid[0];
+    
+    $openedMail = MailLog::model()->findByAttributes(array("tracking_code"=>$id));
+    if ($openedMail){
+      $openedMail->time_open = date('Y-m-d H:i:s');
+      $openedMail->save();
+      // mark message as read
+      if ($openedMail->type == 'user-message'){
+        $message_read = Message::model()->findByPk($openedMail->extra_id);
+        if ($message_read){
+          $message_read->time_viewed =  date('Y-m-d H:i:s');
+          $message_read->save();
+        }
+      }
+    }
     
  	}
   
-  /**
-   * tracking system emails
-   */
-  public function actionSystemEmail() {
-    
-  }
+
   
   /**
    * tracking mail link clicks
    */
-  public function actionMl($l) {
+  public function actionMl($id, $l, $ln) {
+    Yii::import('application.helpers.Hashids');
+    $hashids = new Hashids('cofinder');
+    $tid = $hashids->decrypt($id);
+    $id = $tid[0];
+    
+    $mailLinkClick = new MailClickLog();
+    $mailLinkClick->link = $l;
+    $mailLinkClick->mail_tracking_code = $id;
+    $mailLinkClick->time_clicked = date('Y-m-d H:i:s');
+    $mailLinkClick->button_name = $ln;
+    $mailLinkClick->save();
+    
     $this->redirect($l);
     Yii::app()->end();
   }

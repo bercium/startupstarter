@@ -10,12 +10,12 @@
  * followed by relations of table "mail_click_log" available as properties of the model.
  *
  * @property integer $id
- * @property string $mail_id
+ * @property string $mail_tracking_code
  * @property string $link
  * @property string $time_clicked
  * @property string $button_name
  *
- * @property MailLog $mail
+ * @property MailLog $mailTrackingCode
  */
 abstract class BaseMailClickLog extends GxActiveRecord {
 
@@ -37,17 +37,17 @@ abstract class BaseMailClickLog extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('mail_id, link, time_clicked, button_name', 'required'),
-			array('mail_id', 'length', 'max'=>10),
+			array('mail_tracking_code, link, time_clicked, button_name', 'required'),
+			array('mail_tracking_code', 'length', 'max'=>10),
 			array('link', 'length', 'max'=>255),
 			array('button_name', 'length', 'max'=>200),
-			array('id, mail_id, link, time_clicked, button_name', 'safe', 'on'=>'search'),
+			array('id, mail_tracking_code, link, time_clicked, button_name', 'safe', 'on'=>'search'),
 		);
 	}
 
 	public function relations() {
 		return array(
-			'mail' => array(self::BELONGS_TO, 'MailLog', 'mail_id'),
+			'mailTrackingCode' => array(self::BELONGS_TO, 'MailLog', 'mail_tracking_code'),
 		);
 	}
 
@@ -59,11 +59,11 @@ abstract class BaseMailClickLog extends GxActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => Yii::t('app', 'ID'),
-			'mail_id' => null,
+			'mail_tracking_code' => null,
 			'link' => Yii::t('app', 'Link'),
 			'time_clicked' => Yii::t('app', 'Time Clicked'),
 			'button_name' => Yii::t('app', 'Button Name'),
-			'mail' => null,
+			'mailTrackingCode' => null,
 		);
 	}
 
@@ -71,7 +71,7 @@ abstract class BaseMailClickLog extends GxActiveRecord {
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id);
-		$criteria->compare('mail_id', $this->mail_id);
+		$criteria->compare('mail_tracking_code', $this->mail_tracking_code);
 		$criteria->compare('link', $this->link, true);
 		$criteria->compare('time_clicked', $this->time_clicked, true);
 		$criteria->compare('button_name', $this->button_name, true);
