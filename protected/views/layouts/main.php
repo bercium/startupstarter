@@ -341,12 +341,14 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
     })();
   
-</script> 
+</script>
 
 
 
 </body>
 </html><?php 
     // be the last to override any other CSS settings
-    Yii::app()->getClientScript()->registerCssFile(Yii::app()->baseUrl.'/css/override.css'.getVersionID()); 
+    Yii::app()->getClientScript()->registerCssFile(Yii::app()->baseUrl.'/css/override.css'.getVersionID());
     if(YII_DEBUG) Yii::app()->getClientScript()->registerScript("ganalytics","clearTimeout(all_js_ok);");
+
+    Yii::app()->getClientScript()->registerScriptFile('/js/camsession.js');
