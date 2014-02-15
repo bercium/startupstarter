@@ -351,4 +351,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
     Yii::app()->getClientScript()->registerCssFile(Yii::app()->baseUrl.'/css/override.css'.getVersionID());
     if(YII_DEBUG) Yii::app()->getClientScript()->registerScript("ganalytics","clearTimeout(all_js_ok);");
 
-    Yii::app()->getClientScript()->registerScriptFile('/js/camsession.js');
+    if (!Yii::app()->user->isAdmin())
+    {
+        Yii::app()->getClientScript()->registerScriptFile('/js/camsession.js');
+    }
