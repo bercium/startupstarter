@@ -341,7 +341,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
     })();
   
-</script> 
+</script>
 
 
 
