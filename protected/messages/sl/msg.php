@@ -67,6 +67,7 @@ return array (
   'Get your own personal url on Cofinder' => 'Izberi si svoj javni URL naslov na Cofinderju',
   'Getting content length is not supported.' => 'Pridobivanje dolžine vsebine ni podprto.',
   'Go to project home page' => 'Pojdi na spletno stran od projekta',
+  'Help to bring Cofinder to a new level with my ideas and experience in web development.' => 'Cofinder bom pripeljal na popolnoma nov nivo s svojimi idejami in izkušnjami iz razvoja spletnih rešitev.',
   'I have read and agree to the following {tos}' => 'Prebral sem in sprejemam {tos}',
   'I take care of the development, motivate the team and engage others to join our projects.' => 'Pri cofinderju skrbim za motivacijo ekipe in nemoten razvoj. Trudim pa se k sodelovanju privabiti čimveč ljudi.',
   'If you decide to decline cookies, a single cookie must be stored on your device to remember your decision.' => 'Če piškotke ne sprejmeš se bo na računalnik  shranil piškotek, ki si bo to odločitev zapomnil.',

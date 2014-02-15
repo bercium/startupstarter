@@ -67,6 +67,7 @@ return array (
   'Get your own personal url on Cofinder' => '',
   'Getting content length is not supported.' => '',
   'Go to project home page' => '',
+  'Help to bring Cofinder to a new level with my ideas and experience in web development.' => '',
   'I have read and agree to the following {tos}' => '',
   'I take care of the development, motivate the team and engage others to join our projects.' => '',
   'If you decide to decline cookies, a single cookie must be stored on your device to remember your decision.' => '',
