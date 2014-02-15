@@ -113,33 +113,56 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
               <li class="divider"></li>
               <?php */ ?>
               <li class="<?php echo isMenuItemActive("about"); ?> desc">
-                <a href="<?php echo Yii::app()->createUrl("site/about"); ?>" title="<?php echo Yii::t('app','What is Cofinder and who is behind it'); ?>">
-                <?php echo Yii::t('app','What is {bs}cofinder{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
+                <a class="nav-povezava" href="<?php echo Yii::app()->createUrl("site/about"); ?>" title="<?php echo Yii::t('app','What is Cofinder and who is behind it'); ?>">
+                    <div class="nav-icon">
+                        <img src="/images/cf.png" width="35" />
+                    </div>
+                    <div class="nav-title">
+                        <?php echo Yii::t('app','What is {bs}cofinder{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
+                    </div>
                 </a>
-                
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","person"); ?> desc">
-                <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" trk="topMenu_click_personDiscover" title="<?php echo Yii::t('app','Find talent for your project'); ?>" >
-                  <?php echo Yii::t('app','Find {bs}talent{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
-                </a>
+                  <a class="nav-povezava" href="<?php echo Yii::app()->createUrl("person/discover"); ?>" trk="topMenu_click_personDiscover" title="<?php echo Yii::t('app','Find talent for your project'); ?>" >
+                  <div class="nav-icon">
+                    <img src="/images/find-users.png" width="35" />
+                  </div>
+                  <div class="nav-title">
+                      <?php echo Yii::t('app','Find {bs}talent{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
+                  </div>
+                  </a>
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","project"); ?> desc">
-                <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" trk="topMenu_click_projectDiscover" title="<?php echo Yii::t('app','Discover interesting projects'); ?>" >
-                  <?php echo Yii::t('app','Discover {bs}projects{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
+                <a class="nav-povezava" href="<?php echo Yii::app()->createUrl("project/discover"); ?>" trk="topMenu_click_projectDiscover" title="<?php echo Yii::t('app','Discover interesting projects'); ?>" >
+                    <div class="nav-icon-projects">
+                        <img src="/images/nav-projects.png" width="25" />
+                    </div>
+                    <div class="nav-title">
+                        <?php echo Yii::t('app','Discover {bs}projects{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
+                    </div>
                 </a>
               </li>
               <li class="divider"></li>
-              <li class="<?php echo isMenuItemActive("startupEvents","site"); ?>">
-                <a href="<?php echo Yii::app()->createUrl("site/startupEvents"); ?>" trk="topMenu_click_startupEvents" title="<?php echo Yii::t('app','List of startup events'); ?>" >
-                  <?php echo Yii::t('app','Events'); ?>
+              <li class="<?php echo isMenuItemActive("startupEvents","site"); ?> desc">
+                <a class="nav-povezava" href="<?php echo Yii::app()->createUrl("site/startupEvents"); ?>" trk="topMenu_click_startupEvents" title="<?php echo Yii::t('app','List of startup events'); ?>" >
+                    <div class="nav-icon-calendar">
+                        <img src="/images/nav-calendar.png" width="28" />
+                    </div>
+                    <div class="nav-title">
+                        <?php echo Yii::t('app','Events {bs}calendar{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
+                    </div>
                 </a>
               </li>
               <li class="divider"></li>
               <?php if (Yii::app()->user->isAdmin()){ ?>
               <li class="<?php echo isMenuItemActive("list"); ?> has-dropdown">
-                <a href="<?php echo Yii::app()->createUrl("site/list"); ?>"><?php echo Yii::t('app','Admin'); ?></a>
+                <a class="nav-povezava" href="<?php echo Yii::app()->createUrl("site/list"); ?>">
+                    <div class="nav-icon-calendar">
+                        <img src="/images/nav-admin.png" width="28" />
+                    </div>
+                </a>
                 
                 <ul class="dropdown">
                   <li><a href="<?php echo Yii::app()->createUrl("newsletter"); ?>"><?php echo Yii::t('app','Newsletter'); ?></a></li>
