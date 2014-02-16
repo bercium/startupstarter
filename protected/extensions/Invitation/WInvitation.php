@@ -53,7 +53,8 @@ class WInvitation extends CWidget
                   $this->sendMail($invitation->email,
                                   "You have been invited to join a project on cofinder", 
                                   $user->name." ".$user->surname." invited you to become a member of a project called '".$idea->title."'".
-                                                  "<br /><br />You can accept his invitation inside your cofinder profile or by clicking ".$activation_url."!");
+                                                  "<br /><br />You can accept his invitation inside your cofinder profile or by clicking ".$activation_url."!",
+                                  $mailTracking);
 
                   setFlash("invitationMessage",Yii::t('msg','Invitation to add new member sent.'));
                 }else setFlash("invitationMessage",Yii::t('msg','Unable to send invitation! Eather user is already invited or the email you provided is incorrect.'),'alert');
@@ -105,7 +106,8 @@ class WInvitation extends CWidget
                                   "We've been hard at work on our new service called cofinder.
                                                   Cofinder is a web platform through which you can share your ideas with the like minded entrepreneurs, search for people to join your project or join an interesting project yourself. 
                                                   <br /><br /> <strong>".$user->name." ".$user->surname."</strong> thinks you might be the right person to test our private beta.
-                                                  <br /><br /> If we got your attention you can ".$activation_url."!");
+                                                  <br /><br /> If we got your attention you can ".$activation_url."!",
+                                  $mailTracking);
                   setFlash("invitationMessage",Yii::t('msg','Invitation to add new member sent.'));
 
                 }else setFlash("invitationMessage",Yii::t('msg','Unable to send invitation! Eather user is already invited or the email you provided is incorrect.'),'alert');
@@ -164,7 +166,8 @@ class WInvitation extends CWidget
                                 "We've been hard at work on our new service called cofinder.
                                                 Cofinder is a web platform through which you can share your ideas with the like minded entrepreneurs, search for people to join your project or join an interesting project yourself. 
                                                 <br /><br /> <strong>".$user->name." ".$user->surname."</strong> thinks you might be the right person to test our private beta.
-                                                <br /><br /> If we got your attention you can ".$activation_url."!");
+                                                <br /><br /> If we got your attention you can ".$activation_url."!",
+                                $mailTracking);
 
               setFlash("invitationMessage",Yii::t('msg','Invitation sent.'));
               //Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation sent.'));
