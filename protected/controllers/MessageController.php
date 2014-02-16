@@ -122,8 +122,9 @@ class MessageController extends Controller
 
       $ml = new MailLog();
       $ml->tracking_code = mailTrackingCodeDecode($mailTrackingTo);
-      $ml->type = 'message';
+      $ml->type = 'user-message';
       $ml->user_to_id = $receiver->id;
+      $ml->extra_id = $db_message->id;
       $ml->save();              
       
       $message->addTo($receiver->email);
