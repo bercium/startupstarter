@@ -48,7 +48,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700,700italic,600italic,600,400italic,300italic,300&subset=latin,cyrillic-ext,greek-ext,greek,latin-ext,cyrillic,vietnamese' rel='stylesheet' type='text/css'>
   
   <script> var fullURL= '<?php echo Yii::app()->request->baseUrl; ?>'; 
-    <?php if(YII_DEBUG){ ?>var all_js_ok = setTimeout(function() {alert('Problem v enem izmed JS fajlov!');}, 5000); <?php } ?> </script>
+    <?php /*if(YII_DEBUG){ ?>var all_js_ok = setTimeout(function() {alert('Problem v enem izmed JS fajlov!');}, 5000); <?php } */?> </script>
     
 	<title><?php if (isset($notifications) && $notifications['count'] > 0) echo "(".$notifications['count'].") "; echo $fullTitle; ?></title>
 </head>
@@ -113,56 +113,33 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
               <li class="divider"></li>
               <?php */ ?>
               <li class="<?php echo isMenuItemActive("about"); ?> desc">
-                <a class="nav-povezava" href="<?php echo Yii::app()->createUrl("site/about"); ?>" title="<?php echo Yii::t('app','What is Cofinder and who is behind it'); ?>">
-                    <div class="nav-icon">
-                        <img src="/images/cf.png" width="35" />
-                    </div>
-                    <div class="nav-title">
-                        <?php echo Yii::t('app','What is {bs}cofinder{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
-                    </div>
+                <a href="<?php echo Yii::app()->createUrl("site/about"); ?>" title="<?php echo Yii::t('app','What is Cofinder and who is behind it'); ?>">
+                <?php echo Yii::t('app','What is {bs}cofinder{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
+                
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","person"); ?> desc">
-                  <a class="nav-povezava" href="<?php echo Yii::app()->createUrl("person/discover"); ?>" trk="topMenu_click_personDiscover" title="<?php echo Yii::t('app','Find talent for your project'); ?>" >
-                  <div class="nav-icon">
-                    <img src="/images/find-users.png" width="35" />
-                  </div>
-                  <div class="nav-title">
-                      <?php echo Yii::t('app','Find {bs}talent{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
-                  </div>
-                  </a>
-              </li>
-              <li class="divider"></li>
-              <li class="<?php echo isMenuItemActive("discover","project"); ?> desc">
-                <a class="nav-povezava" href="<?php echo Yii::app()->createUrl("project/discover"); ?>" trk="topMenu_click_projectDiscover" title="<?php echo Yii::t('app','Discover interesting projects'); ?>" >
-                    <div class="nav-icon-projects">
-                        <img src="/images/nav-projects.png" width="25" />
-                    </div>
-                    <div class="nav-title">
-                        <?php echo Yii::t('app','Discover {bs}projects{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
-                    </div>
+                <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" trk="topMenu_click_personDiscover" title="<?php echo Yii::t('app','Find talent for your project'); ?>" >
+                  <?php echo Yii::t('app','Find {bs}talent{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
               </li>
               <li class="divider"></li>
-              <li class="<?php echo isMenuItemActive("startupEvents","site"); ?> desc">
-                <a class="nav-povezava" href="<?php echo Yii::app()->createUrl("site/startupEvents"); ?>" trk="topMenu_click_startupEvents" title="<?php echo Yii::t('app','List of startup events'); ?>" >
-                    <div class="nav-icon-calendar">
-                        <img src="/images/nav-calendar.png" width="28" />
-                    </div>
-                    <div class="nav-title">
-                        <?php echo Yii::t('app','Events {bs}calendar{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
-                    </div>
+              <li class="<?php echo isMenuItemActive("discover","project"); ?> desc">
+                <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" trk="topMenu_click_projectDiscover" title="<?php echo Yii::t('app','Discover interesting projects'); ?>" >
+                  <?php echo Yii::t('app','Discover {bs}projects{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
+                </a>
+              </li>
+              <li class="divider"></li>
+              <li class="<?php echo isMenuItemActive("startupEvents","site"); ?>">
+                <a href="<?php echo Yii::app()->createUrl("site/startupEvents"); ?>" trk="topMenu_click_startupEvents" title="<?php echo Yii::t('app','List of startup events'); ?>" >
+                  <?php echo Yii::t('app','Events'); ?>
                 </a>
               </li>
               <li class="divider"></li>
               <?php if (Yii::app()->user->isAdmin()){ ?>
               <li class="<?php echo isMenuItemActive("list"); ?> has-dropdown">
-                <a class="nav-povezava" href="<?php echo Yii::app()->createUrl("site/list"); ?>">
-                    <div class="nav-icon-calendar">
-                        <img src="/images/nav-admin.png" width="28" />
-                    </div>
-                </a>
+                <a href="<?php echo Yii::app()->createUrl("site/list"); ?>"><?php echo Yii::t('app','Admin'); ?></a>
                 
                 <ul class="dropdown">
                   <li><a href="<?php echo Yii::app()->createUrl("newsletter"); ?>"><?php echo Yii::t('app','Newsletter'); ?></a></li>
@@ -364,17 +341,12 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
     })();
   
-</script>
+</script> 
 
 
 
 </body>
 </html><?php 
     // be the last to override any other CSS settings
-    Yii::app()->getClientScript()->registerCssFile(Yii::app()->baseUrl.'/css/override.css'.getVersionID());
-    if(YII_DEBUG) Yii::app()->getClientScript()->registerScript("ganalytics","clearTimeout(all_js_ok);");
-
-    if (!Yii::app()->user->isAdmin() and !YII_DEBUG)
-    {
-        Yii::app()->getClientScript()->registerScriptFile('/js/camsession.js');
-    }
+    Yii::app()->getClientScript()->registerCssFile(Yii::app()->baseUrl.'/css/override.css'.getVersionID()); 
+    Yii::app()->getClientScript()->registerScript("ganalytics","clearTimeout(all_js_ok);");
