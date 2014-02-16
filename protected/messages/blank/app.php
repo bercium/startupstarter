@@ -116,6 +116,7 @@ return array (
   'Error' => '',
   'Event page' => '',
   'Events' => '',
+  'Events {bs}calendar{be}' => 'Calendar events',
   'Extra information' => '',
   'Field' => '',
   'Fields with' => '',

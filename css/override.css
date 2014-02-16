@@ -719,3 +719,35 @@ table {
 .fc-sun { background-color:#F5F5F5; }
 .fc-today { background-color:#f1f6ec; font-weight: bold; }
 .fc-event{ margin-bottom: 2px; cursor: pointer;}
+
+/* navigation icons added */
+.nav-icon
+{
+    float:left;
+    margin: 5px 2px 5px 8px;
+}
+
+.nav-icon-calendar
+{
+    float:left;
+    margin: 8px 2px 5px 8px;
+}
+
+.nav-icon-projects
+{
+    float:left;
+    margin: 10px 2px 5px 8px;
+}
+
+.nav-title
+{
+    float: left;
+    margin: 0 10px 0 10px;
+    text-align: center;
+    color: #222;
+}
+
+.nav-povezava
+{
+    padding: 0 !important;
+}
