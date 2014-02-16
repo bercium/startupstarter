@@ -842,7 +842,16 @@ class ProfileController extends GxController {
         if ($invitation->save()){
           $user = User::model()->findByPk(Yii::app()->user->id);
           
-          $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'"><strong>Register here</strong></a>';
+          // incognito tracking (no user in system yet)
+          $mailTracking = mailTrackingCode();
+          $ml = new MailLog();
+          $ml->tracking_code = mailTrackingCodeDecode($mailTracking);
+          $ml->type = 'cofinder-invite';
+          $ml->user_to_id = null;
+          $ml->save();
+
+          //$activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'"><strong>Register here</strong></a>';
+          $activation_url = mailButton("Register here", Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key, "success", $mailTracking);
           
           $message = new YiiMailMessage;
           $message->view = 'system';      

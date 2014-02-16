@@ -40,12 +40,12 @@ abstract class BaseMailLog extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('tracking_code, user_to_id, time_send', 'required'),
+			array('tracking_code, time_send', 'required'),
 			array('tracking_code', 'length', 'max'=>11),
 			array('type', 'length', 'max'=>100),
 			array('user_to_id, extra_id', 'length', 'max'=>10),
 			array('time_open', 'safe'),
-			array('type, time_open, extra_id', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('type, user_to_id, time_open, extra_id', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('id, tracking_code, type, user_to_id, time_send, time_open, extra_id', 'safe', 'on'=>'search'),
 		);
 	}

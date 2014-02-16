@@ -25,11 +25,18 @@ class ActivationController extends Controller
 				if ($find->save()){
           $this->render('/user/message',array('title'=>Yii::t('app',"User activation"),
                                           'content'=>Yii::t('msg',"You account is activated.").'<br /><br /><a href="#" data-dropdown="drop-login" class="button radius small" >'.Yii::t('app','Login now').'</a>'));
-          
+
+          //set mail tracking
+          $mailTracking = mailTrackingCode();
+          $ml = new MailLog();
+          $ml->tracking_code = mailTrackingCodeDecode($mailTracking);
+          $ml->type = 'account-approved';
+          $ml->user_to_id = $find->id;
+          $ml->save();
           // send notification
           $message = new YiiMailMessage;
           $message->view = 'system';
-          $message->setBody(array("content"=>"You account on Cofinder has been approved. You can now <a href='http://www.cofinder.eu'>login</a>"), 'text/html');
+          $message->setBody(array("content"=>"You account on Cofinder has been approved. You can now ".mailButton("login", "http://www.cofinder.eu/user/login",'',$mailTracking),"tc"=>$mailTracking), 'text/html');
           $message->subject = 'Cofinder account approved';
           $message->setTo($find->email);
           $message->from = Yii::app()->params['noreplyEmail'];

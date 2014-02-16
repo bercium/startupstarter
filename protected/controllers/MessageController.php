@@ -71,6 +71,7 @@ class MessageController extends Controller
       // create MAIL
       $sender = User::model()->findByPk(Yii::app()->user->id);
       
+      $mailTrackingTo = mailTrackingCode();
       
       $message = new YiiMailMessage;
       $message_self = new YiiMailMessage;
@@ -78,12 +79,12 @@ class MessageController extends Controller
       $message->view = 'system';
             // send to sender
       $message->subject = "New message from ".$sender->name." ".$sender->surname;
-      $content = "This message was sent to you trough Cofinder by " .mailButton( $sender->name." ".$sender->surname, Yii::app()->createAbsoluteUrl('/person/view',array('id'=>Yii::app()->user->id)), 'link')
+      $content = "This message was sent to you trough Cofinder by " .mailButton( $sender->name." ".$sender->surname, Yii::app()->createAbsoluteUrl('/person/view',array('id'=>Yii::app()->user->id)), 'link', $mailTrackingTo)
 
                .$wrapperStart.$_POST['message'].$wrapperEnd
-                .mailButton('Reply to this message', Yii::app()->createAbsoluteUrl('/message/view',$replyParams));
+                .mailButton('Reply to this message', Yii::app()->createAbsoluteUrl('/message/view',$replyParams),'',$mailTrackingTo);
                  
-      $message->setBody(array("content"=>$content), 'text/html');
+      $message->setBody(array("content"=>$content,"tc"=>$mailTrackingTo), 'text/html');
       //$message->setBody(array("content"=>$_POST['message'],"senderMail"=>$sender->email), 'text/html');
       
       if (!empty($_POST['project'])){
@@ -118,6 +119,12 @@ class MessageController extends Controller
                   .mailButton('View his profile', Yii::app()->createAbsoluteUrl('/person/view',array('id'=>$receiver->id))).' <br />';
                    
       }
+
+      $ml = new MailLog();
+      $ml->tracking_code = mailTrackingCodeDecode($mailTrackingTo);
+      $ml->type = 'message';
+      $ml->user_to_id = $receiver->id;
+      $ml->save();              
       
       $message->addTo($receiver->email);
       $message->from = Yii::app()->params['adminEmail'];

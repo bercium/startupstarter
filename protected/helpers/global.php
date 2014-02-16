@@ -479,10 +479,20 @@ function shortenAvailable($value, $justValue = false){
   /**
    * generate tracking code for mail
    */
-  function mailTrackingCode(){
+  function mailTrackingCode($extra = ''){
     Yii::import('application.helpers.Hashids');
     $hashids = new Hashids('cofinder');
-    return $hashids->encrypt(time());
+    return $hashids->encrypt(microtime().$extra);
+  }
+  
+  /**
+   * decode tracking code
+   */
+  function mailTrackingCodeDecode($tc){
+    Yii::import('application.helpers.Hashids');
+    $hashids = new Hashids('cofinder');
+    $tid = $hashids->decrypt($tc);
+    return $tid[0];
   }
 /**
  * will return you to previously called action

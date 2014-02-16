@@ -50,9 +50,16 @@ class RecoveryController extends Controller
                 $subject = "Password recovery for cofinder";
                 $content = 'You have requested the password recovery for <a href="www.cofinder.eu">cofinder</a>. To receive a new password, go to '.$activation_url;
 
+                $mailTracking = mailTrackingCode();
+                $ml = new MailLog();
+                $ml->tracking_code = mailTrackingCodeDecode($mailTracking);
+                $ml->type = 'pass-recovery';
+                $ml->user_to_id = $user->id;
+                $ml->save();
+      
                 $message = new YiiMailMessage;
                 $message->view = 'system';
-                $message->setBody(array("content"=>$content), 'text/html');
+                $message->setBody(array("content"=>$content,"tc"=>$mailTracking), 'text/html');
                 $message->subject = $subject;
                 $message->setTo($user->email);
                 $message->from = Yii::app()->params['noreplyEmail'];

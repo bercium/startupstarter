@@ -51,6 +51,7 @@ class NewsletterController extends GxController {
 			$model->attributes=$_POST['NewsletterForm'];
 			if($model->validate()){
         
+        
         $message = new YiiMailMessage;
         $message->view = 'newsletter';
         $message->subject = $model->newsletterTitle;
@@ -59,7 +60,16 @@ class NewsletterController extends GxController {
         // send to specific emails
         if ($model->newsletterEmails){
           $users = explode(",", $model->newsletterEmails);
+          $i = 0;
           foreach ($users as $user){
+            // incognito tracking (no user in system yet)
+            $mailTracking = mailTrackingCode($i++);
+            $ml = new MailLog();
+            $ml->tracking_code = mailTrackingCodeDecode($mailTracking);
+            $ml->type = 'newsletter';
+            $ml->user_to_id = null;
+            $ml->save();            
+            
             $message->setBody(array("content"=>$model->newsletter), 'text/html');
             $message->setTo(trim($user));
             Yii::app()->mail->send($message);
@@ -68,6 +78,13 @@ class NewsletterController extends GxController {
           // get all users with newsletter on
           $users = User::model()->findAllByAttributes(array('newsletter'=>'1'));
           foreach ($users as $user){
+            $mailTracking = mailTrackingCode($user->id);
+            $ml = new MailLog();
+            $ml->tracking_code = mailTrackingCodeDecode($mailTracking);
+            $ml->type = 'newsletter';
+            $ml->user_to_id = $user->id;
+            $ml->save();              
+            
             $message->setBody(array("content"=>$model->newsletter,"activkey"=>$user->activkey), 'text/html');
             $message->setTo($user->email);
             Yii::app()->mail->send($message);

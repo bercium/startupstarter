@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `mail_log` (
         `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
         `tracking_code` int(11) unsigned NOT NULL,
         `type` varchar(100) DEFAULT NULL,
-        `user_to_id` int(10) unsigned NOT NULL,
+        `user_to_id` int(10) unsigned  NULL DEFAULT NULL,
         `time_send` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `time_open` timestamp NULL DEFAULT NULL,
         `extra_id` int(10) unsigned DEFAULT NULL,

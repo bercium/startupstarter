@@ -93,10 +93,11 @@ class TrackController extends Controller
 	 * track message openers
 	 */
 	public function actionMailOpen($id){
-    Yii::import('application.helpers.Hashids');
+    /*Yii::import('application.helpers.Hashids');
     $hashids = new Hashids('cofinder');
     $tid = $hashids->decrypt($id);
-    $id = $tid[0];
+    $id = $tid[0];*/
+    $id = mailTrackingCodeDecode($id);
     
     $openedMail = MailLog::model()->findByAttributes(array("tracking_code"=>$id));
     if ($openedMail){
@@ -120,10 +121,11 @@ class TrackController extends Controller
    * tracking mail link clicks
    */
   public function actionMl($id, $l, $ln) {
-    Yii::import('application.helpers.Hashids');
+    /*Yii::import('application.helpers.Hashids');
     $hashids = new Hashids('cofinder');
     $tid = $hashids->decrypt($id);
-    $id = $tid[0];
+    $id = $tid[0];*/
+    $id = mailTrackingCodeDecode($id);
     
     $mailLinkClick = new MailClickLog();
     $mailLinkClick->link = $l;
