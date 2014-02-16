@@ -58,7 +58,7 @@ class Controller extends CController
     $cs->registerScriptFile($baseUrl.'/js/jquery.timers.min.js');
  
     //heatmap tracking on production only
-    if (!Yii::app()->user->isAdmin && !YII_DEBUG && !YII_TESTING) $cs->registerScriptFile('/js/camsession.js');  
+    if (!Yii::app()->user->isAdmin() && !YII_DEBUG && !YII_TESTING) $cs->registerScriptFile('/js/camsession.js');  
 
     //$cs->registerCoreScript($baseUrl.'jquery.ui');
     //$cs->registerCoreScript($baseUrl.'autocomplete');
