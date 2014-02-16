@@ -851,7 +851,7 @@ class ProfileController extends GxController {
           $ml->save();
 
           //$activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'"><strong>Register here</strong></a>';
-          $activation_url = mailButton("Register here", Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key, "success", $mailTracking);
+          $activation_url = mailButton("Register here", Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key, "success", $mailTracking,'register-button');
           
           $message = new YiiMailMessage;
           $message->view = 'system';      

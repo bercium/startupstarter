@@ -79,10 +79,10 @@ class MessageController extends Controller
       $message->view = 'system';
             // send to sender
       $message->subject = "New message from ".$sender->name." ".$sender->surname;
-      $content = "This message was sent to you trough Cofinder by " .mailButton( $sender->name." ".$sender->surname, Yii::app()->createAbsoluteUrl('/person/view',array('id'=>Yii::app()->user->id)), 'link', $mailTrackingTo)
-
+      $content = "This message was sent to you trough Cofinder by " .
+                mailButton( $sender->name." ".$sender->surname, Yii::app()->createAbsoluteUrl('/person/view',array('id'=>Yii::app()->user->id)), 'link', $mailTrackingTo,'user-profile-button')
                .$wrapperStart.$_POST['message'].$wrapperEnd
-                .mailButton('Reply to this message', Yii::app()->createAbsoluteUrl('/message/view',$replyParams),'',$mailTrackingTo);
+                .mailButton('Reply to this message', Yii::app()->createAbsoluteUrl('/message/view',$replyParams),'',$mailTrackingTo,'replay-button');
                  
       $message->setBody(array("content"=>$content,"tc"=>$mailTrackingTo), 'text/html');
       //$message->setBody(array("content"=>$_POST['message'],"senderMail"=>$sender->email), 'text/html');
@@ -125,7 +125,7 @@ class MessageController extends Controller
       $ml->type = 'user-message';
       $ml->user_to_id = $receiver->id;
       $ml->extra_id = $db_message->id;
-      $ml->save();              
+      $ml->save();
       
       $message->addTo($receiver->email);
       $message->from = Yii::app()->params['adminEmail'];

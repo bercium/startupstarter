@@ -266,7 +266,7 @@ class ProjectController extends GxController {
               $message->to = Yii::app()->params['teamEmail'];
               Yii::app()->mail->send($message);
               
-              if (YII_TESTING){
+              if (!YII_TESTING){
                 $message_ifttt = new YiiMailMessage;
                 $message_ifttt->view = 'none';
                 $message_ifttt->subject = "IFTTT: Cofinder project";

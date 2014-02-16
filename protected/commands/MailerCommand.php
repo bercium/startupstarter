@@ -79,7 +79,7 @@ class MailerCommand extends CConsoleCommand{
       $ml->save();
     
       //$activation_url = '<a href="'.absoluteURL()."/user/registration?id=".$user->key.'">Register here</a>';
-      $activation_url = mailButton("Register here", absoluteURL()."/user/registration?id=".$user->key,'success',$mailTracking);
+      $activation_url = mailButton("Register here", absoluteURL()."/user/registration?id=".$user->key,'success',$mailTracking,'register-button');
       $content = "This is just a friendly reminder to activate your account on Cofinder.
                   </br><br>
                   Cofinder is a web platform through which you can share your ideas with the like minded entrepreneurs, search for people to join your project or join an interesting project yourself.
@@ -115,7 +115,7 @@ class MailerCommand extends CConsoleCommand{
       
       $content = 'Your profile on Cofinder is not visible due to lack of information you provided. 
                   If you wish to be found we suggest you take a few minutes and '.
-              mailButton("fill it up", 'http://www.cofinder.eu/profile','success',$mailTracking);
+              mailButton("fill it up", 'http://www.cofinder.eu/profile','success',$mailTracking,'fill-up-button');
       
       $message->setBody(array("content"=>$content,"email"=>$email,"tc"=>$mailTracking), 'text/html');
       $message->setTo($email);

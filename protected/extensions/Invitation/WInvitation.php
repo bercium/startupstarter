@@ -49,7 +49,7 @@ class WInvitation extends CWidget
                   $idea = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$invitation->idea_id),array('order' => 'FIELD(language_id, 40) DESC'));
 
                   //$activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/profile/acceptInvitation')."?id=".$invitation->idea_id.'">Accept invitation</a>';
-                  $activation_url = mailButton("Accept invitation", Yii::app()->createAbsoluteUrl('/profile/acceptInvitation')."?id=".$invitation->idea_id, "success", $mailTracking);
+                  $activation_url = mailButton("Accept invitation", Yii::app()->createAbsoluteUrl('/profile/acceptInvitation')."?id=".$invitation->idea_id, "success", $mailTracking,'accept-invitation-button');
                   $this->sendMail($invitation->email,
                                   "You have been invited to join a project on cofinder", 
                                   $user->name." ".$user->surname." invited you to become a member of a project called '".$idea->title."'".
@@ -98,7 +98,7 @@ class WInvitation extends CWidget
                   $ml->save();
 
                   //$activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invite->key.'"><strong>Register here</strong></a>';
-                  $activation_url = mailButton("Register here", Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invite->key, "success", $mailTracking);
+                  $activation_url = mailButton("Register here", Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invite->key, "success", $mailTracking,'register-button');
 
                   $this->sendMail($invitation->email,
                                   "You have been invited to join cofinder", 
@@ -158,7 +158,7 @@ class WInvitation extends CWidget
                 $ml->save();
 
                 //$activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'"><strong>Register here</strong></a>';
-                $activation_url = mailButton("Register here", Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key, "success", $mailTracking);
+                $activation_url = mailButton("Register here", Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key, "success", $mailTracking,'register-button');
                 $this->sendMail($invitation->email,
                                 "You have been invited to join cofinder", 
                                 "We've been hard at work on our new service called cofinder.

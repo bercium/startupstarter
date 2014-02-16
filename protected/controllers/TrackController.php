@@ -92,14 +92,14 @@ class TrackController extends Controller
 	/**
 	 * track message openers
 	 */
-	public function actionMailOpen($id){
+	public function actionMailOpen($tc){
     /*Yii::import('application.helpers.Hashids');
     $hashids = new Hashids('cofinder');
     $tid = $hashids->decrypt($id);
     $id = $tid[0];*/
-    $id = mailTrackingCodeDecode($id);
+    $tc = mailTrackingCodeDecode($tc);
     
-    $openedMail = MailLog::model()->findByAttributes(array("tracking_code"=>$id));
+    $openedMail = MailLog::model()->findByAttributes(array("tracking_code"=>$tc));
     if ($openedMail){
       $openedMail->time_open = date('Y-m-d H:i:s');
       $openedMail->save();
@@ -120,16 +120,16 @@ class TrackController extends Controller
   /**
    * tracking mail link clicks
    */
-  public function actionMl($id, $l, $ln) {
+  public function actionMl($tc, $l, $ln) {
     /*Yii::import('application.helpers.Hashids');
     $hashids = new Hashids('cofinder');
     $tid = $hashids->decrypt($id);
     $id = $tid[0];*/
-    $id = mailTrackingCodeDecode($id);
+    $tc = mailTrackingCodeDecode($tc);
     
     $mailLinkClick = new MailClickLog();
     $mailLinkClick->link = $l;
-    $mailLinkClick->mail_tracking_code = $id;
+    $mailLinkClick->mail_tracking_code = $tc;
     $mailLinkClick->time_clicked = date('Y-m-d H:i:s');
     $mailLinkClick->button_name = $ln;
     $mailLinkClick->save();

@@ -40,7 +40,8 @@ abstract class BaseMailLog extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('tracking_code, time_send', 'required'),
+			array('tracking_code', 'required'),
+      array('time_send', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
 			array('tracking_code', 'length', 'max'=>11),
 			array('type', 'length', 'max'=>100),
 			array('user_to_id, extra_id', 'length', 'max'=>10),
