@@ -704,7 +704,7 @@ EOD;
       if ($user->vanityURL == ''){
         $i = 0;
         while ($i < 1000){
-          $user->vanityURL = strtolower($user->name."-".$user->surname);
+          $user->vanityURL = str_replace(" ", "", strtolower($user->name."-".$user->surname));
           if ($i > 0) $user->vanityURL .= "-".$i;
           $i++;
           if (Idea::model()->findByAttributes(array('vanityURL'=>$user->vanityURL))) continue;
