@@ -473,7 +473,7 @@ function shortenAvailable($value, $justValue = false){
    */
   function mailLinkTracking($id,$link,$name){
     if ($id == '') return $link;
-    return Yii::app()->createUrl("track/ml",array("id"=>$id,"l"=>$link,"ln"=>$name));
+    return Yii::app()->createAbsoluteUrl("track/ml",array("tc"=>$id,"l"=>$link,"ln"=>$name));
   }
 
   /**
@@ -482,7 +482,7 @@ function shortenAvailable($value, $justValue = false){
   function mailTrackingCode($extra = ''){
     Yii::import('application.helpers.Hashids');
     $hashids = new Hashids('cofinder');
-    return $hashids->encrypt(microtime().$extra);
+    return $hashids->encrypt(round(microtime(true)));
   }
   
   /**
@@ -492,7 +492,8 @@ function shortenAvailable($value, $justValue = false){
     Yii::import('application.helpers.Hashids');
     $hashids = new Hashids('cofinder');
     $tid = $hashids->decrypt($tc);
-    return $tid[0];
+    if (is_array($tid) && isset($tid[0])) return $tid[0];
+    else return $tid;
   }
 /**
  * will return you to previously called action
@@ -506,8 +507,9 @@ function shortenAvailable($value, $justValue = false){
 }*/
 
 
-  function mailButton($name, $link, $type='', $tc = '') {
-    $html = '<a href="'.mailLinkTracking($tc,$link,$name).'" ';
+  function mailButton($name, $link, $type='', $tc = '', $tc_name = '') {
+    if ($tc_name == '') $tc_name = $name;
+    $html = '<a href="'.mailLinkTracking($tc,$link,$tc_name).'" ';
 
     if ($type == '') $type = 'background-color: #4469a6; color: white;';
     else if ($type == 'secondary') $type = 'background-color: #e9e9e9; border: 1px solid #d0d0d0; color: #333333;';

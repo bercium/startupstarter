@@ -240,7 +240,7 @@
 															              <?php } ?>
 																</p>
                                                               <?php if (!empty($tc)){ ?>
-                                                                <img src="<?php echo absoluteURL().'/track/mailOpen?id='.$tc; ?>">
+                                                                <img src="<?php echo absoluteURL().'/track/mailOpen?tc='.$tc; ?>">
                                                               <?php } ?>
                                                         	</center>
                                                             </div>
