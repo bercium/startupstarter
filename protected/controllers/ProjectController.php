@@ -1355,10 +1355,6 @@ class ProjectController extends GxController {
 			$filter['available'] = $searchForm->available;
 			$filter['city'] = $searchForm->city;
 			$filter['collabpref'] = $searchForm->collabPref;
-			$filter['country'] = $searchForm->country;
-			$filter['extra'] = $searchForm->extraDetail; // like video or images
-			$filter['keywords'] = $searchForm->keywords;
-			$filter['language'] = $searchForm->language;
 			$filter['skill'] = $searchForm->skill;
 			$filter['stage'] = $searchForm->stage;
 
@@ -1373,12 +1369,12 @@ class ProjectController extends GxController {
 			$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skillset");
 			$searchResult['data'] = $search['results'];
 			$count = $search['count'];
-			
+
 			$searchResult['page'] = $id;
-			$searchResult['maxPage'] = ceil($count['num_of_ideas'] / $filter['per_page']); //!!! add page count
+			$searchResult['maxPage'] = ceil($count / $filter['per_page']); //!!! add page count
 
     }else{
-      $count = $sqlbuilder->load_array("count_ideas", $filter);
+      		$count = $sqlbuilder->load_array("count_ideas", $filter);
 
 			$searchResult['data'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
 			$searchResult['page'] = $id;

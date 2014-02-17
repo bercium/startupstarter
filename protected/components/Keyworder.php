@@ -4,9 +4,9 @@ class Keyworder {
 	//a function to convert a string to an array, with normalized values (no special characters)
 	//why a seperate function?
 	//because it is used more than one time, and we want the programmers to be aware of it
-	public function string2array($string){
+	public function string2array($string, $delimiter = ","){
 
-		$array = explode(",", $string);
+		$array = explode($delimiter, $string);
 
 		foreach($array AS $key => &$value){
 			$value = $this->clean($value);

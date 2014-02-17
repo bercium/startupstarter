@@ -32,10 +32,12 @@ class SearchBuilder {
 
 		user_skill  ---($s rows) -> $filter['skill'][N]['$key'];
 			-id = $value
-			-type = 2*/
+			-type = 2
 
-		//echo "\nFilter from input\n";
-		//print_r($filter);
+		user ---($u rows) -> $filter['user'];
+			-name
+			-surname
+		*/
 
 		/*Data preprocessing 1: breaking up keywords, finding matches, creating an array from IDs*/
 		if( isset($filter['country']) ){
@@ -178,23 +180,32 @@ class SearchBuilder {
 				}
 			}
 		}
+		if( isset($filter['user']) && strlen($filter['user']) > 0){
+			$keyworder = new Keyworder;
+			$user = $keyworder->string2array($filter['user'], " ");
+
+			unset($filter['user']);
+
+			foreach($user AS $key => $value){
+
+				if(strlen($value) >= 2){
+					$value = addcslashes($value, '%_'); // escape LIKE's special characters
+					$condition = new CDbCriteria( array(
+					    'condition' => "`name` LIKE :value OR `surname` LIKE :value",         // no quotes around :match
+					    'params'    => array(':value' => "%".$value."%")  // Aha! Wildcards go here
+					) );
+
+					$dataReader = User::Model()->findAll( $condition );
+
+					foreach($dataReader AS $row){
+						$filter['user'][] = $row['id'];
+					}
+				}
+			}
+		}
 		if( isset($filter['stage']) && is_numeric($filter['stage']) ){
 			$filter['status_id'] = $filter['stage'];
 		}
-
-		/*
-		//!!!debug
-		if(isset($filter['skillset'])){
-			echo "Skillset";
-			print_r($filter['skillset']);
-		}
-		if(isset($filter['skillset_skill'])){
-			echo "Skillset_skill";
-			print_r($filter['skillset_skill']);
-		}*/
-		//echo "\nFilter after processing input\n";
-		//print_r($filter);
-		//	die();
 
 		/*SQL query processing (idea data, grouped by candidates)*/
 		
@@ -228,6 +239,18 @@ class SearchBuilder {
 			//idea_translation AS it
 			if(isset($filter['language']) AND is_numeric($filter['language'])){
 				$sql.=	"it.language_id, ";
+			}
+		}
+
+		//only for user
+		if($type == "user"){
+			//user AS u
+			if( isset($filter['user']) && is_array($filter['user']) && count($filter['user']) > 0 ){
+				$u = -1;
+				foreach($filter['user'] AS $key => $value){
+					$u++;
+					$sql.= "u{$u}.id AS u{$u}_id, ";
+				}
 			}
 		}
 
@@ -321,7 +344,7 @@ class SearchBuilder {
 								AND k{$k}.row_id = i.id 
 								AND k{$k}.id = :k{$k}_id ";
 					$cols["k{$k}_id"] = $value; //this key is an _id here, but it's really a string
-					$where['keywords']["k{$k}.id"] = $value;
+					$where['keyword']["k{$k}.id"] = $value;
 				}
 			}
 
@@ -344,6 +367,22 @@ class SearchBuilder {
 							it.idea_id = i.id ";
 				$cols["language_id"] = $filter['language'];
 				$where['language']['it.id'] = $filter['language'];
+			}
+		}
+
+		if($type == 'user'){
+			//user AS u
+			if( isset($filter['user']) && is_array($filter['user']) && count($filter['user']) > 0 ){
+				$u = -1;
+				foreach($filter['user'] AS $key => $value){
+					//$VALUE INPUT VALIDATION NEEDED
+					$u++;
+					$sql.= "LEFT JOIN `user` AS u{$u} ON  
+								u{$u}.id = m.user_id 
+								AND u{$u}.id = :u{$u}_id ";
+					$cols["u{$u}_id"] = $value; //this key is an _id here, but it's really a string
+					$where['user']["u{$u}.id"] = $value;
+				}
 			}
 		}
 
@@ -538,7 +577,7 @@ class SearchBuilder {
 			$array = array_slice($array, ($filter['page'] - 1) * $filter['per_page'], $filter['per_page']);
 		}
 		
-		/*
+		
 		//DEBUG
 		echo $type."\n";
 		echo "# of conditions: $total\n";
@@ -546,7 +585,7 @@ class SearchBuilder {
 		print_r($where);
 		echo $sql;
 		print_r($array);
-		*/
+		
 
 		//Load the array with data!
 		$return['count'] = $count;

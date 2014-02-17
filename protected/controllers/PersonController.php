@@ -139,12 +139,10 @@ class PersonController extends GxController {
 			$filter['available'] = $searchForm->available;
 			$filter['city'] = $searchForm->city;
 			$filter['collabpref'] = $searchForm->collabPref;
-			$filter['country'] = $searchForm->country;
-			$filter['extra'] = $searchForm->extraDetail; // like video or images
-			$filter['keywords'] = $searchForm->keywords;
-			$filter['language'] = $searchForm->language;
 			$filter['skill'] = $searchForm->skill;
 			$filter['stage'] = $searchForm->stage;
+			$filter['user'] = $searchForm->user; //this one is IN
+
 
 			if(isset($_GET['Category'])){
                 $keyworder = new Keyworder;

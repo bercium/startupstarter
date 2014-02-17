@@ -76,14 +76,14 @@ class SqlBuilder {
 
 		    //search
 		    case "search_ideas":
-		   		$search = new SearchBuilder;
+		   		$search = new SearchBuilder2;
 		    	$search = $search->search("idea", $filter);
 		    	$search['results'] = $this->idea("search", $filter, $search['results'], $structure);
 		    	return $search;
 		        break;
 
 		    case "search_users":
-		    	$search = new SearchBuilder;
+		    	$search = new SearchBuilder2;
 		    	$search = $search->search("user", $filter);
 		    	$search['results'] = $this->user("search", $filter, $search['results'], $structure);
 		    	return $search;
@@ -410,7 +410,7 @@ class SqlBuilder {
 				$condition[] =	"i.id = {$value['id']}";
 				$keys[] = $value['id'];
 			}
-			if(count($condition) > 0) return false;
+			if(count($condition) == 0) return false;
 			$sql.= implode($condition, " OR ") . " ) ORDER BY FIELD(i.id, ".implode($keys, ', ').") ASC";
 		}
 
