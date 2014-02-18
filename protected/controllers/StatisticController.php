@@ -43,6 +43,12 @@ class StatisticController extends Controller
 		);
 	}
   
+  protected function beforeAction($action){
+    $baseUrl = Yii::app()->baseUrl; 
+    $cs = Yii::app()->getClientScript();
+    $cs->registerScriptFile('https://www.google.com/jsapi');
+    return true;
+  }  
   
 	/**
 	 * Declares class-based actions.
@@ -96,11 +102,21 @@ class StatisticController extends Controller
     }
     sort($stat);
     
+    $msgs_bydate = Yii::app()->db->createCommand('SELECT time_sent, COUNT(*) As c FROM message GROUP BY DATE(time_sent)')->queryAll();
     //$stat
+    $msgs_read_result = Yii::app()->db->createCommand('SELECT time_open, type, COUNT(*) As c FROM mail_log GROUP BY type, ISNULL(time_open)')->queryAll();
     
+    $msgs_read = array();
+    foreach ($msgs_read_result as $msg){
+      if (!isset($msgs_read[$msg['type']]['r'])) $msgs_read[$msg['type']]['r'] = 0;
+      if (!isset($msgs_read[$msg['type']]['ur'])) $msgs_read[$msg['type']]['ur'] = 0;
+      if ($msg['time_open']) $msgs_read[$msg['type']]['r'] = $msg['c'];
+      else $msgs_read[$msg['type']]['ur'] = $msg['c'];
+    }
     
     $this->render('usr_com',array('pairs'=>count($stat),'all'=>$allMsg,'max'=>max($stat),
-                  'activeUsers'=>$activeUsers,'allUsers'=>$allUsers,'usersCanSendMsg'=>$usersCanSendMsg,"stat"=>$stat));
+                  'activeUsers'=>$activeUsers,'allUsers'=>$allUsers,'usersCanSendMsg'=>$usersCanSendMsg,"stat"=>$stat,
+                  'msgs_bydate'=>$msgs_bydate,"msgs_read"=>$msgs_read));
  	}  
 	
 }
