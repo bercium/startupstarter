@@ -151,52 +151,32 @@
 					
 			<div  class="columns large-8 mb0 pl20">
 				<div class="ml40">
-					<div class="large-12 columns">
-
-				 	
-				 	<h2 class="big-text mt20 mb0"><?php echo Yii::t('msg','<span class="alt-1">Work for a Startup</span>'); ?></h2>
-				 	<h2 class="big-text mb40 mt0"><?php echo Yii::t('msg','<span class="alt-2">or find a Cofounder</span>'); ?></h2>
-				 	<h2 class="mb20"><?php echo Yii::t('msg','<span class="alt-3">Resource of skills & interesting projects</span>'); ?></h2>
-				 	<br>
-				 	<br>
-
-				 	
+					<div class="large-12 columns">				 	
+					 	<h2 class="big-text mt20 mb0"><span class="alt-1"><?php echo Yii::t('msg','Work for a Startup'); ?></span></h2>
+					 	<h2 class="big-text mb40 mt0"><span class="alt-2"><?php echo Yii::t('msg','or find a Cofounder'); ?></span></h2>
+					 	<h2 class="mb60"><span class="alt-3"><?php echo Yii::t('msg','Resource of skills & interesting projects'); ?></span></h2>
 					</div>	
-
-				 	<div class="large-6 columns">  
-				 		<div class="">
-					<!-- Content if guest -->
-					<span class="icon-rocket left mr15 mt5"></span>
-					<h2 style="font-weight: bold; text-transform: uppercase; margin-bottom:0">Startups</h2>
-					
-					<h3 class="call-to mb20"><?php echo Yii::t('msg','Find a talent'); ?></h3>
-
-					<p><?php echo Yii::t('msg','Share what you\'re working on<br> find people with the right skills'); ?></p>	      
+				 	<div class="large-6 columns">	 							
+						<span class="icon-rocket left mr15 mt5"></span>
+						<h2 class="alt-4">Startups</h2>					
+						<h3 class="call-to mb20"><?php echo Yii::t('msg','Find a talent'); ?></h3>
+						<p><?php echo Yii::t('msg','Share what you\'re working on<br /> find people with the right skills'); ?></p>	 				
 					</div>
-					</div>
-
-					<div class="large-6 columns"> 
-					<div class=""> 
+					<div class="large-6 columns"> 					
 						<!-- Content if guest -->
 						<span class="icon-user left mr15 mt5"></span>
-						<h2 style="font-weight: bold; text-transform: uppercase; margin-bottom:0;">Individuals</h2>
-						
+						<h2 class="alt-4">Individuals</h2>						
 						<h3 class="call-to mb20"><?php echo Yii::t('msg','Join a project'); ?></h3>
-
-						<p><?php echo Yii::t('msg','Tell us about what you\'re good at<br>Get invited to join a startup'); ?></p>	      
-					</div>
+						<p><?php echo Yii::t('msg','Tell us about what you\'re good at<br />Get invited to join a startup'); ?></p>					
 					</div>
 				</div>
 			</div>
-
 			<div class="large-4 columns panel fancy-border radius">
 				<img class="mt10 ml50" src='<?php echo Yii::app()->request->baseUrl; ?>/images/logo-big.png'>
 				<h2 style="font-size:1.6em; color: #689142;" ><?php echo Yii::t('msg','Sign up for Cofinder'); ?></h2>
-			
-			<p><?php echo Yii::t('msg','Create your account, tell us about yourself and start exploring'); ?></p>	
-			<a class="button radius large large-12 mb0" href=""><?php echo Yii::t('app','Start here'); ?></a>
-			<p class="description"><?php echo Yii::t('msg','Already have an account?'); ?> <a href="#"><?php echo Yii::t('app','Login here'); ?>.</a></p>
-		
+				<p><?php echo Yii::t('msg','Create your account, tell us about yourself and start exploring'); ?></p>	
+				<a class="button radius large large-12 mb0" href=""><?php echo Yii::t('app','Start here'); ?></a>
+				<p class="description"><?php echo Yii::t('msg','Already have an account?'); ?> <a href="#"><?php echo Yii::t('app','Login here'); ?>.</a></p>		
 			</div>
 
 		</div>
