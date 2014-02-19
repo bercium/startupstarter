@@ -11,14 +11,10 @@ class SearchForm extends CFormModel
 	
 	public $collabPref;
 	public $available;
-	public $country;
 	public $city;
 	public $skill;
-	
+	public $user;
 	public $stage;
-	public $keywords;
-	public $extraDetail;
-	public $language;
   
 	/**
 	 * Declares the validation rules.
@@ -34,7 +30,7 @@ class SearchForm extends CFormModel
 			//array('rememberMe', 'boolean'),
 			// password needs to be authenticated
 			//array('password', 'authenticate'),
-		  array('isProject, collabPref, available, country, city, skill, stage, keywords, language, extraDetail','safe'),
+		  array('isProject, collabPref, available, city, skill, stage, user','safe'),
 		);
 	}
 
@@ -51,11 +47,8 @@ class SearchForm extends CFormModel
 		return (!empty($this->available)) ||
 					 (!empty($this->city)) ||
 					 (!empty($this->collabPref)) ||
-					 (!empty($this->country)) ||
-					 (!empty($this->extraDetail)) ||
-					 (!empty($this->keywords)) ||
-					 (!empty($this->language)) ||
 					 (!empty($this->stage)) ||
+					 (!empty($this->user)) ||
 					 (!empty($this->skill));
 	}
 
@@ -64,8 +57,6 @@ class SearchForm extends CFormModel
 			return (!empty($this->available)) ||
 						 (!empty($this->city)) ||
 						 (!empty($this->collabPref)) ||
-						 (!empty($this->country)) ||
-						 (!empty($this->extraDetail)) ||
 						 (!empty($this->skill));
 		}else{
 			return (!empty($this->city)) ||
