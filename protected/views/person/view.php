@@ -86,6 +86,7 @@ else {
 
 <div class="row idea-details">
 
+
   <div class="large-4 columns profile side side-profile">
     
     <div class="panel" style="position: relative;">
@@ -154,7 +155,7 @@ else {
           echo $user['country'];
           ?>
           <?php //echo $user['address'];  ?>
-          </span>	
+          </span> 
         </a>
         <?php } ?>
         </p>
@@ -164,41 +165,6 @@ else {
         <a class="button success small-12 radius" href="#" trk="contact_person"  data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send me a message') ?></a>
       <?php } ?>
     </div>
-
-    <div class="panel">
-       <div class="item bb">  
-       <h4><?php echo Yii::t('app','Share my profile'); ?></h4>
-       <?php /* ?><p class="l-inline"><?php echo Yii::t('app','You are viewing this in'); ?> <?php echo $idea['language']; ?></p><?php */ ?>
-       </div>
-        <?php $url = Yii::app()->createAbsoluteUrl('person',array("id"=>$user["id"]));
-              $summary = $this->pageDesc; 
-              $title = $this->pageTitle; ?>
-           <a href="http://www.facebook.com/sharer.php?s=100&p[title]=<?php echo $title; ?>&p[summary]=<?php echo $summary; ?>&p[url]=<?php echo $url; ?>" trk="social_facebook_share_person" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-             <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-fb.jpg"  width="30">
-           </a>
-         &nbsp;
-           <a href="http://twitter.com/share?text=<?php echo $summary; ?>" trk="social_twitter_share_person" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-             <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-tw.jpg"  width="30">
-           </a>
-          &nbsp;
-            <a href="https://plus.google.com/share?url=<?php echo $url; ?>&title=<?php echo $title; ?>&summary=<?php echo $summary; ?>" trk="social_plus_share_person" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-              <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-gp.jpg" width="30">
-            </a>
-          &nbsp;
-            <a href="http://www.linkedin.com/shareArticle?mini=true&url=<?php echo $url; ?>&title=<?php echo $title; ?>&summary=<?php echo $summary; ?>&source=Cofinder" trk="social_linkedin_share_person" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-              <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-li.jpg" width="30">
-            </a>         
-     </div>
-    
-    <?php if ($user['available_name']) { ?>
-      <div class="panel">
-        <h4 class="l-iblock"> <?php echo Yii::t('app', 'Available') ?></h4>
-        <h2 style="margin-top:3px;" >
-          <span class="icon-time" style="margin-right:10px;"></span><?php echo shortenAvailable($user['available_name']); ?>
-        </h2>
-      </div>
-    <?php } ?>
-
 
     <!-- <p class="meta-field"><?php // echo Yii::t('app', 'My links') ?>:</p> -->
     <div class="panel">
@@ -239,88 +205,137 @@ else {
     <span class=""><!-- <?php // echo Yii::t('app', 'Member since') ?>:  -->
     <?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($user['create_at']), "long", null); ?></span>
     </div>
+
+    <div class="panel">
+       <div class="item bb">  
+       <h4><?php echo Yii::t('app','Share my profile'); ?></h4>
+       <?php /* ?><p class="l-inline"><?php echo Yii::t('app','You are viewing this in'); ?> <?php echo $idea['language']; ?></p><?php */ ?>
+       </div>
+        <?php $url = Yii::app()->createAbsoluteUrl('person',array("id"=>$user["id"]));
+              $summary = $this->pageDesc; 
+              $title = $this->pageTitle; ?>
+           <a href="http://www.facebook.com/sharer.php?s=100&p[title]=<?php echo $title; ?>&p[summary]=<?php echo $summary; ?>&p[url]=<?php echo $url; ?>" trk="social_facebook_share_person" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+             <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-fb.jpg"  width="30">
+           </a>
+         &nbsp;
+           <a href="http://twitter.com/share?text=<?php echo $summary; ?>" trk="social_twitter_share_person" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+             <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-tw.jpg"  width="30">
+           </a>
+          &nbsp;
+            <a href="https://plus.google.com/share?url=<?php echo $url; ?>&title=<?php echo $title; ?>&summary=<?php echo $summary; ?>" trk="social_plus_share_person" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+              <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-gp.jpg" width="30">
+            </a>
+          &nbsp;
+            <a href="http://www.linkedin.com/shareArticle?mini=true&url=<?php echo $url; ?>&title=<?php echo $title; ?>&summary=<?php echo $summary; ?>&source=Cofinder" trk="social_linkedin_share_person" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+              <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-li.jpg" width="30">
+            </a>         
+     </div>
+
+
   </div>
 
 
   <div class="large-8 right main">
     <div class="skills large-12 columns"  >
         <div class="panel radius secondary">
-          <h3 class="edit-content-title mb20">
-            <?php	echo Yii::t('app', 'Skilled in'); ?>
-          </h3>
-          <hr>
-          <?php
-          if (isset($user['skillset']) && count($user['skillset'])){
-          foreach ($user['skillset'] as $skillset){
-            ?>
-            <div class='item'>
-              <h4>
-              <?php echo $skillset['skillset']; ?>
-              </h4><?php
-              foreach ($skillset['skill'] as $skill){ ?>
 
-              <span data-alert class="label radius profile-skills" id="skill_<?php echo $skill['id']; ?>">
-              <?php echo $skill['skill'].""; ?>
-              </span>
-
-              <?php
-              } ?>
+          <div class="row"><!-- collaboration available -->
+            <div class="columns large-3">
+              <h3><?php echo Yii::t('app', 'Collaboration');?></h3>
             </div>
-          <?php }
-          }else{ ?>
-            <div class="description"><?php  echo Yii::t('msg','User has not filled this out yet.');  ?></div>
-          <?php } ?>
-        
-      </div>
-    </div>
+            
+            <div class="large-9 columns mb20">
+              <h4 class=''>
+                    <?php if ($user['available_name']) { ?>    
+                        
+                    <?php echo shortenAvailable($user['available_name']); ?>        
+
+                    <?php } ?>        
+                    </h4>
+
+                      
+                     <?php if (count($user['collabpref']) > 0) { ?>
+                        <?php
+                        $firsttime = true;
+                        if (is_array($user['collabpref'])){ ?>
+
+                          <?php
+                          foreach ($user['collabpref'] as $collab) {
+                            if (!$collab['active']) continue;
+                            if (!$firsttime) echo "";
+                            $firsttime = false;
+                            ?>
+                            <span class="label radius success">
+                              <?php /* ?><span class="icon-custom icon-<?php echo $collab['name']; ?>"></span><?php */ ?>
+                              <?php echo $collab['name']; ?>
+                            </span>
+                          <?php } ?>
+                      <?php }
+
+                      }
+                      if ($firsttime){ ?>
+                        <div class="description"><?php  echo Yii::t('msg','User has not filled this out yet.');  ?></div>
+                      <?php } ?>
+            </div>  
+          </div><!-- collaboration available  END -->
 
 
-    <div class="large-12 columns  collaboration" >
-      <div class="panel radius">
 
-        <?php if (count($user['collabpref']) > 0) { ?>
-        <h3 class=''>
-        <?php echo Yii::t('app', 'Collaboration'); ?>
-        </h3>
-        <hr>
+          <hr>
+
+
+      <div class="row">
+
+        <div class="large-3 columns">
+          <h3 class="edit-content-title mb20">
+          <?php echo Yii::t('app', 'Skilled in'); ?>
+          </h3>
+        </div>      
+        <div class="columns large-9">
+           
+            
             <?php
-            $firsttime = true;
-            if (is_array($user['collabpref'])){ ?>
+            if (isset($user['skillset']) && count($user['skillset'])){
+            foreach ($user['skillset'] as $skillset){
+              ?>
+              <div class='item'>
+                <h4 class="mr5">
+                <?php echo $skillset['skillset']; ?>
+                </h4><?php
+                foreach ($skillset['skill'] as $skill){ ?>
 
-              <?php
-              foreach ($user['collabpref'] as $collab) {
-                if (!$collab['active']) continue;
-                if (!$firsttime) echo "";
-                $firsttime = false;
-                ?>
-                <span class="label radius success">
-                  <?php /* ?><span class="icon-custom icon-<?php echo $collab['name']; ?>"></span><?php */ ?>
-                  <strong><?php echo $collab['name']; ?></strong>
+                <span data-alert class="label radius profile-skills" id="skill_<?php echo $skill['id']; ?>">
+                <?php echo $skill['skill'].""; ?>
                 </span>
-              <?php } ?>
-          <?php }
 
-          }
-          if ($firsttime){ ?>
-            <div class="description"><?php  echo Yii::t('msg','User has not filled this out yet.');  ?></div>
-          <?php } ?>	
-
+                <?php
+                } ?>
+              </div>
+            <?php }
+            }else{ ?>
+              <div class="description"><?php  echo Yii::t('msg','User has not filled this out yet.');  ?></div>
+            <?php } ?>        
+        </div>
       </div>
-    </div>
 
-    <?php if ($user['bio']){ ?>
-    <div class="large-12 columns about-me"  >
-      <div class="panel radius success">
-        <h3 class="edit-content-title">
-        <?php echo Yii::t('app','Something about me'); ?>
-        </h3>
+          <?php if ($user['bio']){ ?>
+          <hr>
+            <div class="row">
+              <div class="large-3 columns">
+                <h3 class="edit-content-title">
+                  <?php echo Yii::t('app','About me'); ?>
+                  </h3>
+              </div>   
 
-        <p class="meta-field">
-          <?php echo strip_tags($user['bio']); ?>
-        </p>
-       </div>
+              <div class="large-9 columns about-me"  >
+                <p class="meta-field">
+                    <?php echo strip_tags($user['bio']); ?>
+                </p>      
+              </div>
+             </div>
+          <?php } ?>
+        </div>
     </div>
-    <?php } ?>
 
     <?php if (is_array($user['idea']) && (count($user['idea']) > 0)) { ?>
     <div class="large-12 columns"  >
@@ -368,6 +383,8 @@ else {
   <?php } ?>
     
   </div>
+
+  
 </div>
 
 <?php

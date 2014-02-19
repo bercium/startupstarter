@@ -181,14 +181,7 @@
 
 		</div>
 
-		<div  class="row" >   	
-		
-
-		
-	
-
-
-	
+		<div  class="row" >  
 
 
     <?php /* ?>
