@@ -78,6 +78,7 @@ class Controller extends CController
                     'dimension1':'".$uid."',
                     'dimension2':'true',
                     'dimension3':'".$perc."',
+                    'metric1':'".$perc."',
                   }";
       $user = User::model()->findByPk(Yii::app()->user->id);
       $user->lastvisit_at = date('Y-m-d H:i:s');
