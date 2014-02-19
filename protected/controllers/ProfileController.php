@@ -842,7 +842,16 @@ class ProfileController extends GxController {
         if ($invitation->save()){
           $user = User::model()->findByPk(Yii::app()->user->id);
           
-          $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'"><strong>Register here</strong></a>';
+          // incognito tracking (no user in system yet)
+          $mailTracking = mailTrackingCode();
+          $ml = new MailLog();
+          $ml->tracking_code = mailTrackingCodeDecode($mailTracking);
+          $ml->type = 'cofinder-invite';
+          $ml->user_to_id = null;
+          $ml->save();
+
+          //$activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'"><strong>Register here</strong></a>';
+          $activation_url = mailButton("Register here", Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key, "success", $mailTracking,'register-button');
           
           $message = new YiiMailMessage;
           $message->view = 'system';      
@@ -853,7 +862,7 @@ class ProfileController extends GxController {
                                           <br /><br /> <strong>".$user->name." ".$user->surname."</strong> thinks you might be the right person to test our private beta.
                                           <br /><br /> If we got your attention you can ".$activation_url."!"), 'text/html');
 
-          $message->addTo($invitation->email);
+          $message->setTo($invitation->email);
           $message->from = Yii::app()->params['noreplyEmail'];
           Yii::app()->mail->send($message);          
           

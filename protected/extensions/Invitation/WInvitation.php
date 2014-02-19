@@ -38,14 +38,23 @@ class WInvitation extends CWidget
 
                 if ($invitation->save()){
                   Notifications::setNotification($user->id,Notifications::NOTIFY_PROJECT_INVITE);
+
+                  $mailTracking = mailTrackingCode();
+                  $ml = new MailLog();
+                  $ml->tracking_code = mailTrackingCodeDecode($mailTracking);
+                  $ml->type = 'project-invite';
+                  $ml->user_to_id = $user->id;
+                  $ml->save();                  
       
                   $idea = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$invitation->idea_id),array('order' => 'FIELD(language_id, 40) DESC'));
 
-                  $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/profile/acceptInvitation')."?id=".$invitation->idea_id.'">Accept invitation</a>';
+                  //$activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/profile/acceptInvitation')."?id=".$invitation->idea_id.'">Accept invitation</a>';
+                  $activation_url = mailButton("Accept invitation", Yii::app()->createAbsoluteUrl('/profile/acceptInvitation')."?id=".$invitation->idea_id, "success", $mailTracking,'accept-invitation-button');
                   $this->sendMail($invitation->email,
                                   "You have been invited to join a project on cofinder", 
                                   $user->name." ".$user->surname." invited you to become a member of a project called '".$idea->title."'".
-                                                  "<br /><br />You can accept his invitation inside your cofinder profile or by clicking ".$activation_url."!");
+                                                  "<br /><br />You can accept his invitation inside your cofinder profile or by clicking ".$activation_url."!",
+                                  $mailTracking);
 
                   setFlash("invitationMessage",Yii::t('msg','Invitation to add new member sent.'));
                 }else setFlash("invitationMessage",Yii::t('msg','Unable to send invitation! Eather user is already invited or the email you provided is incorrect.'),'alert');
@@ -81,13 +90,24 @@ class WInvitation extends CWidget
                   }
                   $invite->save();
 
-                  $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invite->key.'"><strong>Register here</strong></a>';
+                  // incognito tracking (no user in system yet)
+                  $mailTracking = mailTrackingCode();
+                  $ml = new MailLog();
+                  $ml->tracking_code = mailTrackingCodeDecode($mailTracking);
+                  $ml->type = 'cofinder-invite';
+                  $ml->user_to_id = null;
+                  $ml->save();
+
+                  //$activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invite->key.'"><strong>Register here</strong></a>';
+                  $activation_url = mailButton("Register here", Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invite->key, "success", $mailTracking,'register-button');
+
                   $this->sendMail($invitation->email,
                                   "You have been invited to join cofinder", 
                                   "We've been hard at work on our new service called cofinder.
                                                   Cofinder is a web platform through which you can share your ideas with the like minded entrepreneurs, search for people to join your project or join an interesting project yourself. 
                                                   <br /><br /> <strong>".$user->name." ".$user->surname."</strong> thinks you might be the right person to test our private beta.
-                                                  <br /><br /> If we got your attention you can ".$activation_url."!");
+                                                  <br /><br /> If we got your attention you can ".$activation_url."!",
+                                  $mailTracking);
                   setFlash("invitationMessage",Yii::t('msg','Invitation to add new member sent.'));
 
                 }else setFlash("invitationMessage",Yii::t('msg','Unable to send invitation! Eather user is already invited or the email you provided is incorrect.'),'alert');
@@ -130,14 +150,24 @@ class WInvitation extends CWidget
                 $stat = UserStat::model()->findByAttributes(array('user_id'=>$user->id));
                 $stat->invites_send = $stat->invites_send+1;
                 $stat->save();
+                
+                // incognito tracking (no user in system yet)
+                $mailTracking = mailTrackingCode();
+                $ml = new MailLog();
+                $ml->tracking_code = mailTrackingCodeDecode($mailTracking);
+                $ml->type = 'cofinder-invite';
+                $ml->user_to_id = null;
+                $ml->save();
 
-                $activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'"><strong>Register here</strong></a>';
+                //$activation_url = '<a href="'.Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key.'"><strong>Register here</strong></a>';
+                $activation_url = mailButton("Register here", Yii::app()->createAbsoluteUrl('/user/registration')."?id=".$invitation->key, "success", $mailTracking,'register-button');
                 $this->sendMail($invitation->email,
                                 "You have been invited to join cofinder", 
                                 "We've been hard at work on our new service called cofinder.
                                                 Cofinder is a web platform through which you can share your ideas with the like minded entrepreneurs, search for people to join your project or join an interesting project yourself. 
                                                 <br /><br /> <strong>".$user->name." ".$user->surname."</strong> thinks you might be the right person to test our private beta.
-                                                <br /><br /> If we got your attention you can ".$activation_url."!");
+                                                <br /><br /> If we got your attention you can ".$activation_url."!",
+                                $mailTracking);
 
               setFlash("invitationMessage",Yii::t('msg','Invitation sent.'));
               //Yii::app()->user->setFlash("invitationMessage",Yii::t('msg','Invitation sent.'));
@@ -158,15 +188,15 @@ class WInvitation extends CWidget
     }
     
     
-    private function sendMail($email, $subject, $content){
+    private function sendMail($email, $subject, $content, $tc = ''){
       // send mail
       $message = new YiiMailMessage;
       $message->view = 'system';      
       
       $message->subject = $subject;
-      $message->setBody(array("content"=>$content), 'text/html');
+      $message->setBody(array("content"=>$content, 'tc' => $tc), 'text/html');
       
-      $message->addTo($email);
+      $message->setTo($email);
       $message->from = Yii::app()->params['noreplyEmail'];
       Yii::app()->mail->send($message);
     }

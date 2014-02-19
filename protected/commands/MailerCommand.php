@@ -59,6 +59,9 @@ class MailerCommand extends CConsoleCommand{
   
   // do this every first wednesday of month
   public function actionNotifyToJoin(){
+
+
+    
     $message = new YiiMailMessage;
     $message->view = 'system';
     $message->subject = "Cofinder invitation reminder";
@@ -67,14 +70,22 @@ class MailerCommand extends CConsoleCommand{
     // send newsletter to all in waiting list
     $invites = Invite::model()->findAll("NOT ISNULL(`key`)");
     foreach ($invites as $user){
-      
-      $activation_url = '<a href="'.absoluteURL()."/user/registration?id=".$user->key.'">Register here</a>';
+      //set mail tracking
+      $mailTracking = mailTrackingCode($user->id);
+      $ml = new MailLog();
+      $ml->tracking_code = mailTrackingCodeDecode($mailTracking);
+      $ml->type = 'invitation-reminder';
+      $ml->user_to_id = $user->id;
+      $ml->save();
+    
+      //$activation_url = '<a href="'.absoluteURL()."/user/registration?id=".$user->key.'">Register here</a>';
+      $activation_url = mailButton("Register here", absoluteURL()."/user/registration?id=".$user->key,'success',$mailTracking,'register-button');
       $content = "This is just a friendly reminder to activate your account on Cofinder.
                   </br><br>
                   Cofinder is a web platform through which you can share your ideas with the like minded entrepreneurs, search for people to join your project or join an interesting project yourself.
                   <br /><br />If we got your attention you can ".$activation_url."!";
       
-      $message->setBody(array("content"=>$content,"email"=>$user->email), 'text/html');
+      $message->setBody(array("content"=>$content,"email"=>$user->email,"tc"=>$mailTracking), 'text/html');
       $message->setTo($user->email);
       Yii::app()->mail->send($message);
     }
@@ -91,15 +102,22 @@ class MailerCommand extends CConsoleCommand{
     // send newsletter to all in waiting list
     $hidden = UserStat::model()->findAll("completeness < :comp AND status = :status",array(":comp"=>PROFILE_COMPLETENESS_MIN, ":status"=>1));
     foreach ($hidden as $stat){
+      //set mail tracking
+      $mailTracking = mailTrackingCode($stat->user->id);
+      $ml = new MailLog();
+      $ml->tracking_code = mailTrackingCodeDecode($mailTracking);
+      $ml->type = 'invitation-reminder';
+      $ml->user_to_id = $stat->user->id;
+      $ml->save();
+      
       $email = $stat->user->email;
       $message->subject = $stat->user->name." your profile is not visible!";
       
       $content = 'Your profile on Cofinder is not visible due to lack of information you provided. 
-                  If you wish to be found we suggest you take a few minutes and fill it up.
-                  <br /><br />
-                  Just click here and <strong><a href="http://www.cofinder.eu/profile">do it now</a></strong>!';
+                  If you wish to be found we suggest you take a few minutes and '.
+              mailButton("fill it up", 'http://www.cofinder.eu/profile','success',$mailTracking,'fill-up-button');
       
-      $message->setBody(array("content"=>$content,"email"=>$email), 'text/html');
+      $message->setBody(array("content"=>$content,"email"=>$email,"tc"=>$mailTracking), 'text/html');
       $message->setTo($email);
       Yii::app()->mail->send($message);
 

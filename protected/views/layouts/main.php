@@ -3,8 +3,7 @@
 $fullTitle = Yii::app()->name; 
 if (!empty($this->pageTitle) && (Yii::app()->name != $this->pageTitle)) $fullTitle .= " - ".$this->pageTitle;
 if (!isset($this->justContent) || !$this->justContent) $notifications = Notifications::getNotifications();
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -48,7 +47,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700,700italic,600italic,600,400italic,300italic,300&subset=latin,cyrillic-ext,greek-ext,greek,latin-ext,cyrillic,vietnamese' rel='stylesheet' type='text/css'>
   
   <script> var fullURL= '<?php echo Yii::app()->request->baseUrl; ?>'; 
-    <?php if(YII_DEBUG){ ?>var all_js_ok = setTimeout(function() {alert('Problem v enem izmed JS fajlov!');}, 5000); <?php } ?> </script>
+    <?php /*if(YII_DEBUG){ ?>var all_js_ok = setTimeout(function() {alert('Problem v enem izmed JS fajlov!');}, 5000); <?php } */?> </script>
     
 	<title><?php if (isset($notifications) && $notifications['count'] > 0) echo "(".$notifications['count'].") "; echo $fullTitle; ?></title>
 </head>
@@ -281,7 +280,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
   <?php 
   
   foreach ($notifications['messages'] as $notify){ ?>
-    <li style="padding:3px 8px; font-size: 1em; " onclick="$(this).fadeOut(); markNotifications('<?php echo Yii::app()->createUrl("site/clearNotif",array("type"=>$notify['type'])); ?>')">
+    <li style="padding:3px 8px; font-size: 1em; " trk="top_notification_<?php echo $notify['type']; ?>" onclick="$(this).fadeOut(); markNotifications('<?php echo Yii::app()->createUrl("site/clearNotif",array("type"=>$notify['type'])); ?>')">
       <a href="<?php echo $notify['link']; ?>">
         <span class="label radius left mb5 mr8" style="">
         <?php echo $notify['count']; ?>
@@ -349,4 +348,4 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
 </html><?php 
     // be the last to override any other CSS settings
     Yii::app()->getClientScript()->registerCssFile(Yii::app()->baseUrl.'/css/override.css'.getVersionID()); 
-    if(YII_DEBUG) Yii::app()->getClientScript()->registerScript("ganalytics","clearTimeout(all_js_ok);");
+    if(YII_DEBUG) Yii::app()->getClientScript()->registerScript("cleartimeout","clearTimeout(all_js_ok);");

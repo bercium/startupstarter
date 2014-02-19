@@ -115,7 +115,7 @@ return array (
   'Engineers' => 'Inžinirji',
   'Error' => 'Napaka',
   'Event page' => 'Stran za dogodek',
-  'Events' => 'Dogodki',
+  'Events {bs}calendar{be}' => 'Dogodki {bs}koledar{be}',
   'Extra information' => 'Dodatne informacije',
   'Field' => 'Polje',
   'Fields with' => 'Polja z',

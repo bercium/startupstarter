@@ -66,6 +66,7 @@
   'Get your own personal url on Cofinder' => 'Dobijte svoj osobni url na Cofinderu',
   'Getting content length is not supported.' => 'Pridobivanje dužine sadržaja nije podržano.',
   'Go to project home page' => 'Idite na domaću stranicu projekta',
+   'Help to bring Cofinder to a new level with my ideas and experience in web development.' => 'Cofinder bom pripeljal na popolnoma nov nivo s svojimi idejami in izkušnjami iz razvoja spletnih rešitev.',
   'I have read and agree to the following {tos}' => 'Pročitao/la sam i slažem se sa sljedećim {tos}',
   'I take care of the development, motivate the team and engage others to join our projects.' => 'Bavim se razvojem, motiviram našu skupinu i uključujem ostale u projekte.',
   'If you decide to decline cookies, a single cookie must be stored on your device to remember your decision.' => 'Iako ne prihvatite kolačiće, jedan kolačić se mora spremiti na Vaš kompjuter kako bi taj zapamtio Vašu odluku.',

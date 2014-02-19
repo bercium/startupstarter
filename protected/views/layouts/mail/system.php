@@ -84,7 +84,7 @@
                                                 	<tbody>
                                                         <tr>
                                                             <td align="left" valign="top"  bgcolor="#f1f69d" style="background-color:#FFF; padding:20px;">
-                                                            <a href="http://www.cofinder.eu/" style="text-decoration: none;">
+                                                            <a href="<?php if (!empty($tc)) echo mailLinkTracking($tc,"http://www.cofinder.eu/","cofinder-logo"); else echo "http://www.cofinder.eu/"; ?>" style="text-decoration: none;">
                                                             <img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/mail-logo.png" alt="cofinder" title="cofinder" style="border: 0;height: auto;line-height: 100%;outline: none;text-decoration: none;display: inline;margin: 0;padding: 0; float:left; margin-top:10px;" border="0" height="38" width="40"></img>
                                                             <div style="color:#9a9a9a; font-weight: bold; text-decoration: none; font-size: 38px;  font-family:Sans,Helvetica,Arial,sans-serif; margin-top:9px;">co<span style="color:#89b561">finder</span>
                                                             </div>
@@ -185,14 +185,14 @@
                                                     	
                                                         <td style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;">
                                                         	<div style="color: #89B561;font-family: Helvetica, Arial;font-size: 14px;line-height: 100%;text-align: right;">
-                                                            	 <p style="margin-top: 3px; margin-bottom: 0;  font-family: Helvetica, Arial;font-size: 14px;line-height: 130%;text-align: left;">This email was sent from <a style="color: #ffffff; text-decoration: none;" href="http://www.cofinder.eu">www.cofinder.eu</a>  </p>
+                                                            	 <p style="margin-top: 3px; margin-bottom: 0;  font-family: Helvetica, Arial;font-size: 14px;line-height: 130%;text-align: left;">This email was sent from <a style="color: #ffffff; text-decoration: none;" href="<?php if (!empty($tc)) echo mailLinkTracking($tc,"http://www.cofinder.eu/","cofinder-logo-bottom"); else echo "http://www.cofinder.eu/";?>">www.cofinder.eu</a>  </p>
    														    </div>
                                                         </td>
                                                         <td>
 																<p style="text-align:right;" >
-										                          <a href="https://www.facebook.com/cofinder.eu"><img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/bottom-facebook.png"></a>
-										                          <a href="https://www.linkedin.com/company/cofinder"><img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/bottom-linkedin.png"></a> 
-										                          <a href="https://plus.google.com/+CofinderEu/posts"><img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/bottom-gplus.png"></a> 
+										                          <a href="<?php if (!empty($tc)) echo mailLinkTracking($tc,"https://www.facebook.com/cofinder.eu","social-facebook"); else echo "https://www.facebook.com/cofinder.eu"; ?>"><img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/bottom-facebook.png"></a>
+										                          <a href="<?php if (!empty($tc)) echo mailLinkTracking($tc,"https://www.linkedin.com/company/cofinder","social-linkedin"); else echo "https://www.linkedin.com/company/cofinder"; ?>"><img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/bottom-linkedin.png"></a> 
+										                          <a href="<?php if (!empty($tc)) echo mailLinkTracking($tc,"https://plus.google.com/+CofinderEu/posts","social-gplus"); else echo "https://plus.google.com/+CofinderEu/posts"; ?>"><img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/bottom-gplus.png"></a> 
 										                        </p>
                                                         </td>
                                                         <td colspan="2" style="border-collapse: collapse;font-family: Helvetica, Arial;font-weight: 300;"><img src="<?php echo Yii::app()->getBaseUrl(true); ?>/images/newsletter/divider.png" style="border: 0;height: 10px; line-height: 100%;outline: none;text-decoration: none;display: inline;margin: 0;padding: 0;" height="10" width="100%"></td>
@@ -230,12 +230,18 @@
                                                             	
                                                             <center>                                                            
                                                                 <p class="links">
-																		<a style="color: #333; text-decoration: none;" href="http://www.cofinder.eu/site/terms">Terms</a> |
-																		<a style="color: #333; text-decoration: none;" href="http://www.cofinder.eu/site/terms#privacy">Privacy</a>
+																		<a style="color: #333; text-decoration: none;" href="<?php if (!empty($tc)) echo mailLinkTracking($tc,"http://www.cofinder.eu/site/terms","terms"); else echo "http://www.cofinder.eu/site/terms"; ?>">Terms</a> |
+																		<a style="color: #333; text-decoration: none;" href="<?php if (!empty($tc)) echo mailLinkTracking($tc,"http://www.cofinder.eu/site/terms#privacy","privacy"); else echo "http://www.cofinder.eu/site/terms#privacy"; ?>">Privacy</a>
 															              <?php if (isset($email) || isset($activkey)){ ?> |
-															              <a style="color: #333; text-decoration: none;" href="<?php echo absoluteURL(); ?>/site/unbsucribeFromNews?<?php if (isset($email)) echo "email=".$email; else echo "id=".$activkey; ?>">Unsubscribe</a>
+															              <a style="color: #333; text-decoration: none;" href="<?php
+                                              $link = absoluteURL(); ?>/site/unbsucribeFromNews?<?php if (isset($email)) echo "email=".$email; else echo "id=".$activkey; ;
+                                              if (!empty($tc)) echo mailLinkTracking($tc,$link,"unsubscribe"); else echo $link; 
+                                              ?>">Unsubscribe</a>
 															              <?php } ?>
-																</p>                                                                   
+																</p>
+                                                              <?php if (!empty($tc)){ ?>
+                                                                <img src="<?php echo absoluteURL().'/track/mailOpen?tc='.$tc; ?>">
+                                                              <?php } ?>
                                                         	</center>
                                                             </div>
                                                         </td>

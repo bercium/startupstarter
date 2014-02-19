@@ -104,12 +104,12 @@
         <a href="<?php echo Yii::app()-> createUrl("person",array("id"=>$id)); ?>" >
           <h3 class="large-8"><?php echo $chatList['name']; ?></h3>
         </a>
-        <a class="button radius right secondary small" href="#" data-dropdown="drop-msg" onclick="setReplayID('<?php echo $id; ?>','');"><?php echo Yii::t('app',"Send message"); ?></a>
+        <a class="button radius right secondary small" href="#" data-dropdown="drop-msg" trk="contact_history_person" onclick="setReplayID('<?php echo $id; ?>','');"><?php echo Yii::t('app',"Send message"); ?></a>
         <?php }else{ ?>
         <a href="<?php echo Yii::app()-> createUrl("project",array("id"=>$id)); ?>" >
           <h3 class="large-8"><?php echo $chatList['name']; ?></h3>
         </a>
-        <a class="button radius right secondary small" href="#" data-dropdown="drop-msg" data-tooltip title="<?php echo Yii::t('msg',"Send message to team members only"); ?>" onclick="setReplayID('','<?php echo $id; ?>');" ><?php echo Yii::t('app',"Team message"); ?></a>
+        <a class="button radius right secondary small" href="#" data-dropdown="drop-msg" trk="contact_history_team" data-tooltip title="<?php echo Yii::t('msg',"Send message to team members only"); ?>" onclick="setReplayID('','<?php echo $id; ?>');" ><?php echo Yii::t('app',"Team message"); ?></a>
         <?php } ?>
       </div>
     
@@ -118,14 +118,18 @@
         
           <a href="<?php echo Yii::app()->createURL('person',array('id'=>$msg['from_id'])); ?>">
             <img class="th th-small" class="left" src="<?php echo avatar_image($msg['avatar_link'], $msg['from_id'], false); ?>" />
-            <h3><?php echo $msg['from']; ?></h3>
+            <h3><?php echo $msg['from']; ?>
+            <small class="right">
+              <?php if ($msg['read_time']) echo Yii::t('app','viewed {datetime}',array("{datetime}"=>Yii::app()->dateFormatter->formatDateTime(strtotime($msg['read_time']),"medium","short"))); /*else echo Yii::t('app','unread'); */ ?>
+            </small>
+            </h3>
           </a>
           
           <?php if (($msg['from_id'] != Yii::app()->user->id) && ($group == 'project')){ ?>
             
             <ul class="button-group radius right">
-             <li><a class="button  secondary small" href="#" data-dropdown="drop-msg" data-tooltip title="<?php echo Yii::t('msg',"Send private message to user"); ?>" onclick="setReplayID('<?php echo $msg['from_id']; ?>','');"><?php echo Yii::t('app',"PM"); ?></a></li>
-              <li><a class="button  secondary small" href="#" data-dropdown="drop-msg" data-tooltip title="<?php echo Yii::t('msg',"Send private message to user and project team members"); ?>" onclick="setReplayID('<?php echo $msg['from_id']; ?>','<?php echo $id; ?>');"><?php echo Yii::t('app',"Replay"); ?></a></li>
+             <?php /*?><li><a class="button  secondary small" href="#" data-dropdown="drop-msg" data-tooltip title="<?php echo Yii::t('msg',"Send private message to user"); ?>" trk="contact_history_pm" onclick="setReplayID('<?php echo $msg['from_id']; ?>','');"><?php echo Yii::t('app',"PM"); ?></a></li>
+              <?php */ ?><li><a class="button  secondary small" href="#" data-dropdown="drop-msg" data-tooltip title="<?php echo Yii::t('msg',"Send private message to user and project team members"); ?>" trk="contact_history_replay" onclick="setReplayID('<?php echo $msg['from_id']; ?>','<?php echo $id; ?>');"><?php echo Yii::t('app',"Replay"); ?></a></li>
             </ul>
           <?php } ?>
           <span class="description"><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($msg['time']),"medium","short"); ?></span><br />

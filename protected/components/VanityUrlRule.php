@@ -49,7 +49,7 @@ class VanityUrlRule extends CBaseUrlRule
         }else $search = $pathInfo;
 
         // get vanity name for users
-        $user = User::model()->findByAttributes(array('vanityURL'=>$search,'status'=>1));
+        $user = User::model()->findByAttributes(array('vanityURL'=>$search));
         if ($user){
           Yii::log($user->id, CLogger::LEVEL_INFO, 'USERFOUND');
           $_GET['id'] = $user->id;

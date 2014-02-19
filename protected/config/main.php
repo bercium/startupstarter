@@ -11,6 +11,8 @@ return array(
 	'name'=>'Cofinder',
   'sourceLanguage'=>'en',
   /*'language' => "sl",*/
+  //
+  'timeZone'=>'GMT',
 
 	// preloading 'log' component
 	'preload'=>array(
@@ -118,6 +120,7 @@ return array(
 												array(
 															'enableProfiling'=>YII_DEBUG,
 															'enableParamLogging'=>YII_DEBUG,
+                              'initSQLs'=>array("set time_zone='+00:00';"),
 														)
 												),
 		'errorHandler'=>array(

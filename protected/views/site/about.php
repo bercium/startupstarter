@@ -108,6 +108,21 @@
           </div>
         </div>
         </li>
+
+      <li>
+          <div class="row">
+              <div class="small-4 columns">
+                  <p><a href="<?php echo Yii::app()->createUrl("person",array('id'=>'urbancetinski')); ?>"><img class="th" src="<?php echo Yii::app()->request->baseUrl; ?>/images/team/team-urban.jpg" alt="Urban Cetinski" title="Urban Cetinski"></a>
+                  </p>
+              </div>
+              <div class="small-8 columns">
+                  <h3><a href="<?php echo Yii::app()->createUrl("person",array('id'=>'urbancetinski')); ?>">Urban Cetinski</a></h3>
+                  <p>
+                      <?php echo Yii::t('msg',"Help to bring Cofinder to a new level with my ideas and experience in web development."); ?>
+                  </p>
+              </div>
+          </div>
+      </li>
         
       </ul>
 

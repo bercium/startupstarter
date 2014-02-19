@@ -54,10 +54,9 @@ class RegistrationController extends Controller
                     $model->verifyPassword=$model->password;
                     $model->superuser=0; //not admin
                     $model->status=(($invited)?User::STATUS_ACTIVE:User::STATUS_NOACTIVE);
-                    //$model->name = ucfirst(strtolower($model->name));
-                    //$model->surname = ucfirst(strtolower($model->surname));
+                    $model->name = trim($model->name);
+                    $model->surname = trim($model->surname);
                     
-
 
                     if ($model->save()) {
                       $user_match = new UserMatch();
@@ -68,7 +67,7 @@ class RegistrationController extends Controller
                       $i = 0;
                       $user = UserEdit::model()->findByPk($model->id);
                       while ($i < 1000){
-                        $user->vanityURL = strtolower($user->name."-".$user->surname);
+                        $user->vanityURL = str_replace(" ", "-", strtolower(trim($user->name)."-".trim($user->surname)));
                         if ($i > 0) $user->vanityURL .= "-".$i;
                         $i++;
                         if (Idea::model()->findByAttributes(array('vanityURL'=>$user->vanityURL))) continue;
