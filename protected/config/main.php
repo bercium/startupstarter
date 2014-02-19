@@ -197,7 +197,7 @@ return array(
       
     'tempFolder'=>'temp/',
     'avatarFolder'=>'uploads/avatars/',
-    'ideaGalleryFolder'=>'uploads/ideagalleries/',
+    'projectGalleryFolder'=>'uploads/project_gallery/', //project ID as subfolder
     'mapsFolder'=>'uploads/maps/',
     'iconsFolder'=>'uploads/icons/',
     'dbbackup'=>'protected/data/backup/',

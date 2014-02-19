@@ -201,14 +201,12 @@
 
 
 	<?php if (isset($data['idea'])){ ?>
-		<div class="row" id="recent_projects">			
+		<div class="row mt40" id="recent_projects">			
 			<?php $this->renderPartial('//project/_recent', array('ideas' => $data['idea'],"page"=>1,"maxPage"=>$maxPageIdea)); ?>		  
 	  </div>
-
 	<?php } ?>
-  <br />
-	<?php if (isset($data['user'])){ ?>
 
+	<?php if (isset($data['user'])){ ?>
 		<div class="row mt40" id="recent_users">
 			<?php $this->renderPartial('//person/_recent', array('users' => $data['user'],"page"=>1,"maxPage"=>$maxPagePerson)); ?>			
 		</div>

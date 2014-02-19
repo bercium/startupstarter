@@ -1,5 +1,19 @@
  <div class="columns radius m-card">
+   
+    <?php 
+     $pathFileName = Yii::app()->params['projectGalleryFolder'].$idea['id']."/main.jpg";
+     if (file_exists(Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.$pathFileName)){
+     ?>
+    <div class="row">
+      <div style="height:120px; margin-top:-2px; width:100%; background-image:url('<?php echo Yii::app()->getBaseUrl(true)."/".$pathFileName; ?>'); background-repeat:no-repeat; background-position: center; background-size: cover; ">
+        &nbsp;
+      </div>
+      
+    </div>
+    <?php }  ?>
     <div class="row m-card-title" onclick="location.href='<?php echo Yii::app()->createUrl("project",array("id"=>$idea['id'])); ?>';">
+
+        
       <div class="columns" >
         <h5><?php echo trim_text($idea['title'],60); ?></h5>
         
