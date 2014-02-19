@@ -109,7 +109,7 @@ h1 span{
 
 .intro{
 
-background: url(../images/custom_bg.jpg) center center;	
+background: url(../images/custom_bg.jpg) center center no-repeat;	
 
     margin-bottom: 40px;
 }
@@ -124,14 +124,44 @@ background: url(../images/custom_bg.jpg) center center;
  
 }
 
-.intro h1 {
-	 font-size:2.6em;
-   font-weight: bold;
+.intro .big-text {
+	 font-size:3.5em;
+	 line-height: 140%;
+	 color:#666;
    
+   
+      
 }
 
-.intro h1 span{
-  color:#89b561;
+
+.intro .icon-rocket,
+.intro .icon-user {
+	font-size: 3em;
+	
+}
+
+.intro .big-text .alt-1 {
+	font-weight: bold;
+	line-height: 80%;
+
+}
+
+
+
+.intro .alt-3{
+  color:#67913F;
+  border-top: 2px solid #555;
+  border-bottom: 2px solid #555;
+  font-size: 1.2em;
+  padding: 10px 0;
+ font-weight: bold;
+line-height: 100%;
+}
+
+
+.intro .call-to { 
+	color: #67913F;
+	font-weight: bold;
 }
 
 
@@ -877,18 +907,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 	margin-left:  40px;
 }
 
-.mr5 {
-	margin-right: 5px;
-}
-
-.mr15 {
-	margin-right:  15px;
-}
-
-
-.mr20 {
-	margin-right:  20px !important;
-}
 
 .ml8 {
 	margin-left: 8px;
@@ -1159,12 +1177,34 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 	border-radius: 3px !important;
 }
 
+.mr5 {
+	margin-right: 5px;
+}
+
+.mr15 {
+	margin-right:  15px;
+}
+
+
+
 .mr8 {
 	margin-right: 8px !important;
 }
 
 .mr10 {
 	margin-right:  10px !important;
+}
+
+.mr20 {
+	margin-right:  20px !important;
+}
+
+
+.mr40 {
+	margin-right:  40px !important;
+}
+.mr60 {
+	margin-right:  60px !important;
 }
 
 .mb0 {
@@ -1190,6 +1230,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 	margin-left: 5px !important;
 }
 
+.ml50 {
+	margin-left: 50px !important;
+}
+
+.ml60 {
+	margin-left: 60px !important;
+}
 
 .mt10 {
 	margin-top: 10px !important;
@@ -1274,6 +1321,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 	padding-top: 40px !important;
 }
 
+.pt60 {
+
+	padding-top: 60px !important;
+}
 .pall5 {
 	padding: 5px;
 }

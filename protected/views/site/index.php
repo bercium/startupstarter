@@ -23,7 +23,7 @@
 <?php } */ ?>
 
 
-<?php /**/ ?>
+<?php /* ?>
 <div class="m-event">
 <?php $imeEventa = 'Sestavi svojo ekipo';?>
 
@@ -145,37 +145,67 @@
     
     <?php }else{ ?>
 
-	<div class="intro pb10 bb-strong pt20" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
-		<div  class="row" >
+	<div class="intro pb10 bb-strong pt60" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
+		
+		<div class="row">
+					
+			<div  class="columns large-8 mb0 pl20">
+				<div class="ml40">
+					<div class="large-12 columns">
 
-		<div class="large-4 columns">  
-			<!-- Content if guest -->
+				 	
+				 	<h2 class="big-text mt20 mb0"><?php echo Yii::t('msg','<span class="alt-1">Work for a Startup</span>'); ?></h2>
+				 	<h2 class="big-text mb40 mt0"><?php echo Yii::t('msg','<span class="alt-2">or find a Cofounder</span>'); ?></h2>
+				 	<h2 class="mb20"><?php echo Yii::t('msg','<span class="alt-3">Resource of skills & interesting projects</span>'); ?></h2>
+				 	<br>
+				 	<br>
 
-			<h1 style="font-size:1.4em;" ><?php echo Yii::t('app','Startups'); ?></h1>
-			<h2 style=" color: #89B561 !important;"><?php echo Yii::t('msg','Find people to join you'); ?></h2>
+				 	
+					</div>	
 
-			<p><?php echo Yii::t('msg','Share what you\'re working on and find people with amazing skills to join you.'); ?></p>	      
-		</div>
+				 	<div class="large-6 columns">  
+				 		<div class="">
+					<!-- Content if guest -->
+					<span class="icon-rocket left mr15 mt5"></span>
+					<h2 style="font-weight: bold; text-transform: uppercase; margin-bottom:0">Startups</h2>
+					
+					<h3 class="call-to mb20"><?php echo Yii::t('msg','Find a talent'); ?></h3>
 
-		<div class="large-4 columns">  
-			<!-- Content if guest -->
-			<h1 style="font-size:1.4em; " ><?php echo Yii::t('app','Skilled individuals'); ?></h1>
-			<h2 style=" color: #89B561 !important;">Join a startup team</h2>
+					<p><?php echo Yii::t('msg','Share what you\'re working on<br> find people with the right skills'); ?></p>	      
+					</div>
+					</div>
 
-			<p><?php echo Yii::t('msg','Offer your skills, get noticed and join an interesting project.'); ?></p>	      
-		</div>
-		<div class="large-4 columns">  
-			<!-- Content if guest -->
-			<h1 style="font-size:1.4em;" ><?php echo Yii::t('msg','Sign up for Cofinder'); ?></h1>
+					<div class="large-6 columns"> 
+					<div class=""> 
+						<!-- Content if guest -->
+						<span class="icon-user left mr15 mt5"></span>
+						<h2 style="font-weight: bold; text-transform: uppercase; margin-bottom:0;">Individuals</h2>
+						
+						<h3 class="call-to mb20"><?php echo Yii::t('msg','Join a project'); ?></h3>
+
+						<p><?php echo Yii::t('msg','Tell us about what you\'re good at<br>Get invited to join a startup'); ?></p>	      
+					</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="large-4 columns panel fancy-border radius">
+				<img class="mt10 ml50" src='<?php echo Yii::app()->request->baseUrl; ?>/images/logo-big.png'>
+				<h2 style="font-size:1.6em; color: #689142;" ><?php echo Yii::t('msg','Sign up for Cofinder'); ?></h2>
 			
 			<p><?php echo Yii::t('msg','Create your account, tell us about yourself and start exploring'); ?></p>	
-			<a class="button radius mb0" href=""><?php echo Yii::t('app','Start here'); ?></a>
+			<a class="button radius large large-12 mb0" href=""><?php echo Yii::t('app','Start here'); ?></a>
 			<p class="description"><?php echo Yii::t('msg','Already have an account?'); ?> <a href="#"><?php echo Yii::t('app','Login here'); ?>.</a></p>
 		
-		
+			</div>
+
 		</div>
 
+		<div  class="row" >   	
+		
 
+		
+	
 
 
 	
