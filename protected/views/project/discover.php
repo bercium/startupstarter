@@ -61,11 +61,6 @@
 				<div class="row filter_projects">
 						
 					<div class="large-3 columns">
-						<label><?php echo Yii::t('app','Keywords'); ?></label>
-						<?php echo CHtml::textField('SearchForm[keywords]',$filter->keywords); ?>
-					</div>
-
-					<div class="large-3 columns">
 						<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
 						
 						<?php echo CHtml::label(Yii::t('app','Stage of project'),''); ?>
@@ -74,17 +69,6 @@
 		              CHtml::listData(IdeaStatus::model()->findAllTranslated(),"id","name")
 									, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
 					</div>
-
-					<div class="large-3 columns">
-						<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
-
-						<?php echo CHtml::label(Yii::t('app','Language'),''); ?>
-						<?php echo CHtml::activedropDownList($filter,'language', 
-									//GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
-									CHtml::listData(Language::model()->findAllAttributes(null, true),"id","native_name")
-									, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
-					</div>
-
 
 					<div class="large-3 columns" style="text-align: center; padding-top: 16px;">
 							<?php echo CHtml::submitButton(Yii::t("app","Search"),
@@ -102,11 +86,6 @@
             <label><?php echo Yii::t('app','Skill'); ?></label>
             <?php echo CHtml::textField('SearchForm[skill]',$filter->skill,array("class"=>"skill")); ?>
           </div>				
-
-          <div class="large-3 columns">
-            <label><?php echo Yii::t('app','Country'); ?></label>
-            <?php echo CHtml::textField('SearchForm[country]',$filter->country,array("class"=>"country")); ?>
-          </div>
 
           <div class="large-3 columns">
             <label><?php echo Yii::t('app','City'); ?></label>
@@ -132,14 +111,6 @@
                   CHtml::listData(Available::model()->findAllTranslated(),"id","name")
                   , array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
           </div>	
-
-          <div class="large-3 columns end" style="padding-top:20px">
-            <label for="SearchForm_extraDetail">
-              <?php echo CHtml::activeCheckBox($filter,'extraDetail',array("style"=>"display:none")); ?>
-              <?php echo Yii::t('app','Has extra detail'); ?>
-            </label>
-          </div>
-							
 
 				</div>
 				<?php echo CHtml::endForm(); ?>		

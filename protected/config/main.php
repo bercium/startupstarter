@@ -11,6 +11,8 @@ return array(
 	'name'=>'Cofinder',
   'sourceLanguage'=>'en',
   /*'language' => "sl",*/
+  //
+  'timeZone'=>'GMT',
 
 	// preloading 'log' component
 	'preload'=>array(
@@ -118,6 +120,7 @@ return array(
 												array(
 															'enableProfiling'=>YII_DEBUG,
 															'enableParamLogging'=>YII_DEBUG,
+                              'initSQLs'=>array("set time_zone='+00:00';"),
 														)
 												),
 		'errorHandler'=>array(
@@ -194,7 +197,7 @@ return array(
       
     'tempFolder'=>'temp/',
     'avatarFolder'=>'uploads/avatars/',
-    'ideaGalleryFolder'=>'uploads/ideagalleries/',
+    'projectGalleryFolder'=>'uploads/project_gallery/', //project ID as subfolder
     'mapsFolder'=>'uploads/maps/',
     'iconsFolder'=>'uploads/icons/',
     'dbbackup'=>'protected/data/backup/',

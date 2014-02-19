@@ -110,11 +110,13 @@ class SiteController extends Controller
 			}*/
 			
 			if ($searchForm->isProject){
-				$searchResult['data'] = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skillset");
-				$count = $sqlbuilder->load_array("search_count_ideas", $filter);
+				$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skillset");
+				$searchResult['data'] = $search['results'];
+				$count = $search['count'];
 			} else {
-				$searchResult['data'] = $sqlbuilder->load_array("search_users", $filter, "skillset,num_of_ideas");
-				$count = $sqlbuilder->load_array("search_count_users", $filter);
+				$search = $sqlbuilder->load_array("search_users", $filter, "skillset,num_of_ideas");
+				$searchResult['data'] = $search['results'];
+				$count = $search['count'];
 			}
 			
 			$searchResult['page'] = $id;
@@ -704,7 +706,7 @@ EOD;
       if ($user->vanityURL == ''){
         $i = 0;
         while ($i < 1000){
-          $user->vanityURL = strtolower($user->name."-".$user->surname);
+          $user->vanityURL = str_replace(" ", "", strtolower($user->name."-".$user->surname));
           if ($i > 0) $user->vanityURL .= "-".$i;
           $i++;
           if (Idea::model()->findByAttributes(array('vanityURL'=>$user->vanityURL))) continue;

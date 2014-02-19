@@ -140,12 +140,10 @@ class PersonController extends GxController {
 			$filter['available'] = $searchForm->available;
 			$filter['city'] = $searchForm->city;
 			$filter['collabpref'] = $searchForm->collabPref;
-			$filter['country'] = $searchForm->country;
-			$filter['extra'] = $searchForm->extraDetail; // like video or images
-			$filter['keywords'] = $searchForm->keywords;
-			$filter['language'] = $searchForm->language;
 			$filter['skill'] = $searchForm->skill;
 			$filter['stage'] = $searchForm->stage;
+			$filter['user'] = $searchForm->user; //this one is IN
+
 
 			if(isset($_GET['Category'])){
                 $keyworder = new Keyworder;
@@ -155,8 +153,9 @@ class PersonController extends GxController {
 				    $filter['category'][] = $value;
 			}
 			
-    		$searchResult['data'] = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skillset");
-			$count = $sqlbuilder->load_array("search_count_users", $filter);
+			$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skillset");
+    		$searchResult['data'] = $search['results'];
+			$count = $search['count'];
 
 			$searchResult['page'] = $id;
 			$searchResult['maxPage'] = ceil($count / $filter['per_page']); 

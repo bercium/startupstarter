@@ -80,7 +80,10 @@
 					, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
 					</div>
 
-					
+					<div class="large-3 columns">
+					<label><?php echo Yii::t('app','Name Surname'); ?></label>
+					<?php echo CHtml::textField('SearchForm[user]',$filter->user,array("class"=>"user")); ?>
+					</div>
 
 
 				</div>			
@@ -112,10 +115,6 @@
 		              CHtml::listData(Country::model()->findAll(),"id","name")
 									, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
 					</div><?php */ ?>
-					<div class="large-3 columns">
-						<label><?php echo Yii::t('app','Country'); ?></label>
-						<?php echo CHtml::textField('SearchForm[country]',$filter->country,array("class"=>"country")); ?>
-					</div>
 
 					<div class="large-3 columns mt10">
 							<?php echo CHtml::submitButton(Yii::t("app","Search"),
