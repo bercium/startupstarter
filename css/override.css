@@ -751,3 +751,11 @@ table {
 {
     padding: 0 !important;
 }
+
+.orbit-container{
+  background: none;
+}
+
+.orbit-slide-number, .orbit-timer, .paused{
+  display: none;
+}
