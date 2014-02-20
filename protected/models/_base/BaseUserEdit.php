@@ -68,7 +68,7 @@ abstract class BaseUserEdit extends GxActiveRecord {
 			'clickUsers' => array(self::HAS_MANY, 'ClickUser', 'user_id'),
 			'clickUsers1' => array(self::HAS_MANY, 'ClickUser', 'user_click_id'),
 			'userLinks' => array(self::HAS_MANY, 'UserLink', 'user_id'),
-			'userMatches' => array(self::HAS_MANY, 'UserMatch', 'user_id'),
+			'userMatches' => array(self::HAS_ONE, 'UserMatch', 'user_id'),
 		);
 	}
 
