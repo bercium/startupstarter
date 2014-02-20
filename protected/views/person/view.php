@@ -161,8 +161,10 @@ else {
       </div>
       
       <?php if ($user['id'] != Yii::app()->user->id){ ?>
-        <a class="button success small-12 radius" href="#" trk="contact_person"  data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send me a message') ?></a>
+        <a class="button success small-12 radius mb5" href="#" trk="contact_person"  data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send me a message') ?>
+        </a>
       <?php } ?>
+        <?php if ($responseTime) echo '<span class="description mt0">'.Yii::t('app','Response time').': '.prettyDate($responseTime).'</span>'; ?>
     </div>
 
     <div class="panel">
