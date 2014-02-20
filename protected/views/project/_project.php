@@ -5,7 +5,7 @@
      if (file_exists(Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.$pathFileName)){
      ?>
     <div class="row">
-      <div style="height:120px; margin-top:-2px; width:100%; background-image:url('<?php echo Yii::app()->getBaseUrl(true)."/".$pathFileName; ?>'); background-repeat:no-repeat; background-position: center; background-size: cover; ">
+      <div class="i-main" style="background-image:url('<?php echo Yii::app()->getBaseUrl(true)."/".$pathFileName; ?>');  ">
         &nbsp;
       </div>
       

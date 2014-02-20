@@ -16,7 +16,7 @@
   <div class="columns edit-header">
     <a id="link_personal" class="anchor-link"></a>
     <h3><?php echo Yii::t('app', 'Personal information'); ?></h3>
-    <a class="button radius small  right secondary" href="person/<?php echo $user['id']; ?>" target="_blank"><?php echo Yii::t('app',"Preview"); ?> </a>    
+    <a class="button radius small  right secondary" href="person/<?php echo $user['id']; ?>" target="_blank"><?php echo Yii::t('app',"View my profile"); ?> </a>    
   </div>
   <div class="columns panel edit-content">
     

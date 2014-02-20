@@ -173,7 +173,7 @@
 			</div>
 			<div class="large-4 columns panel fancy-border radius">
 				<img class="mt10 ml50" src='<?php echo Yii::app()->request->baseUrl; ?>/images/logo-big.png'>
-				<h2 style="font-size:1.6em; color: #689142;" ><?php echo Yii::t('msg','Sign up for Cofinder'); ?></h2>
+				<h2 class="alt-5" ><?php echo Yii::t('msg','Sign up for Cofinder'); ?></h2>
 				<p><?php echo Yii::t('msg','Create your account, tell us about yourself and start exploring'); ?></p>	
 				<a class="button radius large large-12 mb0" href=""><?php echo Yii::t('app','Start here'); ?></a>
 				<p class="description"><?php echo Yii::t('msg','Already have an account?'); ?> <a href="#"><?php echo Yii::t('app','Login here'); ?>.</a></p>		

@@ -134,12 +134,19 @@ background: url(../images/custom_bg.jpg) center center no-repeat;
 .intro .big-text .alt-1 {
 	font-weight: bold;
 	line-height: 80%;
+	color:#555;
 }
+
+
+.intro .big-text .alt-2 {
+	color: #777;
+}
+
 
 .intro .alt-3{
   	color:#67913F;
-	border-top: 2px solid #555;
-	border-bottom: 2px solid #555;
+	border-top: 2px solid #67913F;
+	border-bottom: 2px solid #67913F;
 	font-size: 1.2em;
 	padding: 10px 0;
 	font-weight: bold;
@@ -149,6 +156,11 @@ background: url(../images/custom_bg.jpg) center center no-repeat;
 .intro .alt-4 {
 	font-weight: bold; text-transform: uppercase; margin-bottom:0;
 font-weight: bold; text-transform: uppercase; margin-bottom:0;
+}
+
+
+.intro .alt-5 {
+	font-size:1.6em; color: #689142; text-align: center;
 }
 
 .intro .call-to { 
@@ -1348,19 +1360,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
  .m-card .m-card-title {
   padding-top:0.5em; 
   padding-bottom:0.1em; 
-  height: 70px; 
+  height: 55px; 
   }
 
   .m-card .m-card-title .columns {
   	display: table !important;
-  	height: 70px;
+  	height: 55px;
   }
 
 .m-card .m-card-title h5 {
 	display: table-cell !important;
 	line-height: 1.4em;
 	vertical-align: middle !important;
-	padding-bottom: 17px;
+	padding-bottom: 8px;
 }
 
 .m-card .card-floater {
@@ -1373,12 +1385,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 	border-radius:  3px;
 }
 
-.m-card .card-abstract {
-	min-height: 150px;
 
-}
+
 .m-card .card-abstract p {
-		line-height: 1.4em;
+		line-height: 1.2em;
 }
 
 .m-card .card-content {
@@ -1394,7 +1404,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 
 
 .m-card .stageinfo {
-	padding-bottom: 10px;
+	padding-bottom: 4px;
 }
 
 
@@ -1406,6 +1416,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 	line-height: 0;	
 	color: #444;
 	left: 20px;
+}
+
+
+.m-card .i-main {
+	height:120px;
+	margin-top:-2px;
+	width:100%; 
+	background-repeat:no-repeat;
+	background-position: center;
+	background-size: cover;
+	border-radius: 4px 4px 0 0;
 }
 
 
@@ -2045,6 +2066,16 @@ html, body {
 
 @media only screen and (max-width: 767px) {
   
+
+.m-card {    
+    min-height: 240px;
+}
+
+.m-card .section-container.tabs > section .content,
+.m-card .section-container.tabs > .section .content {
+	margin-bottom: 50px;
+}
+
  .top-bar-holder {
     box-shadow: none !important;
     padding-top: 5px;
