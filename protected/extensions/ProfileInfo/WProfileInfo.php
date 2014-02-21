@@ -26,7 +26,7 @@ class WProfileInfo extends CWidget
           //$this->calculatePerc();
         }
 
-        $views = ClickUser::model()->count("user_id = :userID",array(":userID"=>Yii::app()->user->id));
+        $views = ClickUser::model()->count("user_click_id = :userID",array(":userID"=>Yii::app()->user->id));
         
    
         
