@@ -66,7 +66,7 @@ class VanityUrlRule extends CBaseUrlRule
         // redirect to the right url
         $idea = Idea::model()->findByAttributes(array('vanityURL'=>$search,'deleted'=>0));
         if ($idea){
-          Yii::log(" | ".$rawPathInfo." | ".  implode(",", $matches), CLogger::LEVEL_INFO, 'IDEA-FOUND');
+          //Yii::log(" | ".$rawPathInfo." | ".  implode(",", $matches), CLogger::LEVEL_INFO, 'IDEA-FOUND');
           $_GET['id'] = $idea->id;
           $_GET['lang'] = '';
           if (isset($language)) $_GET['lang'] = $language;

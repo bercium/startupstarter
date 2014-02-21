@@ -52,49 +52,49 @@
 			<?php $this->widget('ext.Invitation.WInvitation'); ?> 
 
 			<ul class="large-block-grid-3">
-			<li>
-			<div class="small-12">
+        <li>
+            <div class="small-12">
+              
+              <div class="pall125em radius-all whats-new radius fancy-border">
+                <h2 ><?php echo Yii::t('app', 'Invite friends'); ?></h2>
+                <p>
+                  <?php echo Yii::t('msg', 'Invite team members and friends to Cofinder'); ?>
+                </p>
+                <a href="<?php echo Yii::app()->createUrl("profile"); ?>" trk="index_click_invite" data-dropdown="drop-invitation-msg" class="button success radius small small-12"><?php echo Yii::t('msg', 'Invite to Cofinder'); ?></a>
+                  
+              </div>
+            </div>
+          </li>
+            
+        <li>
+          <div class="">
 
-			<div class="pall125em radius-all whats-new radius fancy-border">
-			<h2 ><?php echo Yii::t('app','Invite friends'); ?></h2>
-			<p>
-			<?php echo Yii::t('msg','Invite team members and friends to Cofinder'); ?>
-			</p>
-			<a href="<?php echo Yii::app()->createUrl("profile"); ?>" trk="index_click_invite" data-dropdown="drop-invitation-msg" class="button success radius small small-12"><?php echo Yii::t('msg','Invite to Cofinder'); ?></a>
+            <div class="pall125em radius-all  whats-new radius fancy-border" style="min-height:203px;">
+              <h2><?php echo Yii::t('app', 'Open position sharing'); ?></h2>
+              <p>
+                <?php echo Yii::t('msg', 'Share open positions with your friends and help projects with your social reach'); ?>
+              </p>
+              <?php /* ?><a href="<?php echo Yii::app()->createUrl("project/create"); ?>" trk="index_click_createProject" class="button small  radius small-12" ><?php echo Yii::t('app','Create your project'); ?> </a>
+                <?php */ ?>
 
-			</div>
-			</div>
-			</li>
+            </div>
+          </div>
+        </li>
 
-			<li>
-			<div class="">
+        <li>
+          <div class="small-12">
 
-			<div class="pall125em radius-all  whats-new radius fancy-border" style="min-height:203px;">
-			<h2><?php echo Yii::t('app','Open position sharing'); ?></h2>
-			<p>
-			<?php echo Yii::t('msg','Share open positions with your friends and help projects with your social reach'); ?>
-			</p>
-			<?php /* ?><a href="<?php echo Yii::app()->createUrl("project/create"); ?>" trk="index_click_createProject" class="button small  radius small-12" ><?php echo Yii::t('app','Create your project'); ?> </a>
-      <?php */ ?>
-       
-			</div>
-			</div>
-			</li>
+            <div class="pall125em radius-all  whats-new radius fancy-border">
+              <h2><?php echo Yii::t('app','Public profile'); ?></h2>
+              <p>
+              <?php echo Yii::t('msg','Get your own personal url on Cofinder'); ?>
+              </p>
 
-			<li>
-			<div class="small-12">
+              <a href="<?php echo Yii::app()->createUrl("profile/account"); ?>" trk="index_click_vanityURL" class="button success small radius small-12">www.cofinder.eu/ <?php echo str_replace(".", "", substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")) ); ?></a>
 
-			<div class="pall125em radius-all  whats-new radius fancy-border">
-			<h2><?php echo Yii::t('app','Public profile'); ?></h2>
-			<p>
-			<?php echo Yii::t('msg','Get your own personal url on Cofinder'); ?>
-			</p>
-
-      <a href="<?php echo Yii::app()->createUrl("profile/account"); ?>" trk="index_click_vanityURL" class="button success small radius small-12">www.cofinder.eu/ <?php echo str_replace(".", "", substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")) ); ?></a>
-
-			</div>
-			</div>
-			</li>
+            </div>
+          </div>
+        </li>
 			</ul>
 
 
@@ -138,10 +138,6 @@
     </div>
 </div>
 
-	
-
-
-    
     
     <?php }else{ ?>
 
@@ -153,21 +149,21 @@
 				<div class="ml40">
 					<div class="large-12 columns">				 	
 					 	<h2 class="big-text mt20 mb0"><span class="alt-1"><?php echo Yii::t('msg','Work for a Startup'); ?></span></h2>
-					 	<h2 class="big-text mb40 mt0"><span class="alt-2"><?php echo Yii::t('msg','or find a Cofounder'); ?></span></h2>
+					 	<h2 class="big-text mb40 mt0"><span class="alt-2"><?php echo Yii::t('msg','or find a cofounder'); ?></span></h2>
 					 	<h2 class="mb60"><span class="alt-3"><?php echo Yii::t('msg','Resource of skills & interesting projects'); ?></span></h2>
 					</div>	
 				 	<div class="large-6 columns">	 							
 						<span class="icon-rocket left mr15 mt5"></span>
 						<h2 class="alt-4">Startups</h2>					
 						<h3 class="call-to mb20"><?php echo Yii::t('msg','Find a talent'); ?></h3>
-						<p><?php echo Yii::t('msg','Share what you\'re working on<br /> find people with the right skills'); ?></p>	 				
+						<p><?php echo Yii::t('msg','Share what you\'re working on<br />Find people with the right skills'); ?></p>	 				
 					</div>
 					<div class="large-6 columns"> 					
 						<!-- Content if guest -->
 						<span class="icon-user left mr15 mt5"></span>
 						<h2 class="alt-4">Individuals</h2>						
 						<h3 class="call-to mb20"><?php echo Yii::t('msg','Join a project'); ?></h3>
-						<p><?php echo Yii::t('msg','Tell us about what you\'re good at<br />Get invited to join a startup'); ?></p>					
+						<p><?php echo Yii::t('msg','Tell us what you\'re good at<br />Get invited to startup'); ?></p>					
 					</div>
 				</div>
 			</div>
@@ -175,8 +171,8 @@
 				<img class="mt10 ml50" src='<?php echo Yii::app()->request->baseUrl; ?>/images/logo-big.png'>
 				<h2 class="alt-5" ><?php echo Yii::t('msg','Sign up for Cofinder'); ?></h2>
 				<p><?php echo Yii::t('msg','Create your account, tell us about yourself and start exploring'); ?></p>	
-				<a class="button radius large large-12 mb0" href=""><?php echo Yii::t('app','Start here'); ?></a>
-				<p class="description"><?php echo Yii::t('msg','Already have an account?'); ?> <a href="#"><?php echo Yii::t('app','Login here'); ?>.</a></p>		
+        <a class="button radius large large-12 mb0" href="<?php echo Yii::app()->createUrl("user/registration"); ?>"><?php echo Yii::t('app','Start here'); ?></a>
+				<p class="description"><?php echo Yii::t('msg','Already have an account?'); ?> <a href="#" data-dropdown="drop-login"><?php echo Yii::t('app','Login here'); ?>.</a></p>		
 			</div>
 
 		</div>
@@ -249,7 +245,7 @@
       
       <ul data-orbit data-options="timer_speed:8000; bullets:false; navigation_arrows:false; resume_on_mouseout:true;">
       <li>  
-        <blockquote class="columns pt0 pb0 mt10 large-8 large-centered">
+        <div class="columns pt0 pb0 mt10 large-8 large-centered">
           <span class="icon-quote-left large"></span>
           <?php echo Yii::t('cont','As a yung startup we were looking for specific type of profesionals. We were able to quickly find them with the help of Cofinder.'); ?>
           <span class="icon-quote-right large"></span
@@ -257,20 +253,20 @@
           <span class="mt20 right">
            <a href="http://www.cofinder.eu/project/view/9"><?php echo Yii::t('cont','Peter from Biometrics'); ?></a>
           </span>
-        </blockquote>
+        </div>
       </li>
       
       <li>
-        <blockquote class="columns pt0 pb0 mt10 large-8 large-centered">
+        <div class="columns pt0 pb0 mt10 large-8 large-centered">
           <span class="icon-quote-left large"></span>
-          <?php echo Yii::t('cont','Almost every day after I opened a new position for my project I get contacted by interesting people.'); ?>
+          <?php echo Yii::t('cont','After I opened a new position for my project I immediately got contacted by interesting people.'); ?>
           
           <span class="icon-quote-right large"></span
           <br />
           <span class="mt20 right">
            <a href="http://www.cofinder.eu/project/view/32"><?php echo Yii::t('cont','Boštjan from Studio 404'); ?></a>
           </span>
-        </blockquote>
+        </div>
       </li>
       
      </ul>

@@ -1084,7 +1084,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 
 
 .main-quote{
-  background-color: #88B460; 
+  background-color: #89b561; /*#88B460; */
   margin-top:60px; 
   color:#fff;
   padding: 20px 0 30px 0; 
