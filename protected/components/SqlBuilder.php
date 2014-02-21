@@ -49,7 +49,6 @@ class SqlBuilder {
 		}
 
 		$filter['action'] = $action;
-		$this->level = 0;
 
 	//STRUCTURE
 		if($structure == ""){
@@ -77,17 +76,17 @@ class SqlBuilder {
 
 		    //search
 		    case "search_ideas":
-		   		$search = new SearchBuilder;
+		   		$search = new SearchBuilder2;
 		    	$search = $search->search("idea", $filter);
-		    	if(count($search) > 0) return $this->idea("search", $filter, $search, $structure);
-		    	else return false;
+		    	$search['results'] = $this->idea("search", $filter, $search['results'], $structure);
+		    	return $search;
 		        break;
 
 		    case "search_users":
-		    	$search = new SearchBuilder;
+		    	$search = new SearchBuilder2;
 		    	$search = $search->search("user", $filter);
-		    	if(count($search) > 0) return $this->user("search", $filter, $search, $structure);
-		    	else return false;
+		    	$search['results'] = $this->user("search", $filter, $search['results'], $structure);
+		    	return $search;
 		        break;
 
 		    //idea
@@ -127,18 +126,6 @@ class SqlBuilder {
 		    	return $this->count("users", $filter);
 		        break;
 
-		    //search pagination data
-		    case "search_count_users":
-		    	$filter['count_users'] = true;
-		    	$search = new SearchBuilder;
-		    	return $search->search("user", $filter);
-		        break;
-
-		    case "search_count_ideas":
-		    	$filter['count_ideas'] = true;
-		    	$search = new SearchBuilder;
-		        return $search->search("idea", $filter);
-		        break;
 		}
 
 	}
@@ -273,10 +260,12 @@ class SqlBuilder {
 					"AND ( ";
 
 			$keys = array();
+			$condition = array();
 			foreach( $data AS $key => $value ){
 				$condition[] =	"m.id = {$value['id']}";
 				$keys[] = $value['id'];
 			}
+			if(count($condition) == 0) return false;
 			$sql.= implode($condition, " OR ") . " ) ORDER BY FIELD(m.id, ".implode($keys, ', ').") ASC ";
 		}
 
@@ -416,10 +405,12 @@ class SqlBuilder {
 					"AND ( ";
 
 			$keys = array();
+			$condition = array();
 			foreach( $data AS $key => $value ){
 				$condition[] =	"i.id = {$value['id']}";
 				$keys[] = $value['id'];
 			}
+			if(count($condition) == 0) return false;
 			$sql.= implode($condition, " OR ") . " ) ORDER BY FIELD(i.id, ".implode($keys, ', ').") ASC";
 		}
 

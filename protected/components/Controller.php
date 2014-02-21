@@ -74,12 +74,18 @@ class Controller extends CController
       $comp = new Completeness();
       $perc = $comp->getPercentage();
       
+      $user = User::model()->findByPk(Yii::app()->user->id);
+      $personProjects =  count($user->userMatches[0]->ideaMembers);
+      
       $logedin =",{
                     'dimension1':'".$uid."',
                     'dimension2':'true',
                     'dimension3':'".$perc."',
+                    'metric1':'".$perc."',
+                    'metric2':'".$personProjects."',
                   }";
-      $user = User::model()->findByPk(Yii::app()->user->id);
+      
+      
       $user->lastvisit_at = date('Y-m-d H:i:s');
       $user->save();
     }

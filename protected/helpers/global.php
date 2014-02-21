@@ -467,6 +467,38 @@ function shortenAvailable($value, $justValue = false){
     return $result;
   }
   
+  /**
+   * prety date
+   */
+  function prettyDate($timeDiffInSec, $ago = false){
+    
+    if($timeDiffInSec < 60){
+      $when = round($timeDiffInSec);
+      if ($ago)  return Yii::t('app','{n} second ago|{n} seconds ago',array(round($when)));
+      else return Yii::t('app','{n} second|{n} seconds',array(round($when)));
+    }elseif($timeDiffInSec < 3600){
+      $when = round($timeDiffInSec / 60);
+      if ($ago)  return Yii::t('app','{n} minute ago|{n} minutes ago',array(round($when)));
+      else return Yii::t('app','{n} minute|{n} minutes',array(round($when)));
+    }elseif($timeDiffInSec >= 3600 && $timeDiffInSec < 86400){
+      $when = round($timeDiffInSec / 60 / 60);
+      if ($ago)  return Yii::t('app','{n} hour ago|{n} hours ago',array(round($when)));
+      else return Yii::t('app','{n} hour|{n} hours',array(round($when)));
+    }elseif($timeDiffInSec >= 86400 && $timeDiffInSec < 2629743.83){
+      $when = round($timeDiffInSec / 60 / 60 / 24);
+      if ($ago)  return Yii::t('app','{n} day ago|{n} days ago',array(round($when)));
+      else return Yii::t('app','{n} day|{n} days',array(round($when)));
+    }elseif($timeDiffInSec >= 2629743.83 && $timeDiffInSec < 31556926){
+      $when = round($timeDiffInSec / 60 / 60 / 24 / 30.4375);
+      if ($ago)  return Yii::t('app','{n} month ago|{n} months ago',array(round($when)));
+      else return Yii::t('app','{n} month|{n} months',array(round($when)));
+    }else{
+      $when = round($timeDiffInSec / 60 / 60 / 24 / 365);
+      if ($ago)  return Yii::t('app','{n} year ago|{n} years ago',array(round($when)));
+      else return Yii::t('app','{n} year|{n} years',array(round($when)));
+    }
+  }
+  
   
   /**
    * mail link click tracking

@@ -59,7 +59,35 @@ class PersonController extends GxController {
 	      $vouched = $invited->senderId;
 	    }
 
-		$this->render('view', array('data' => $data,"vouched"=>$vouched));
+    $responseTime = 0;
+    if (Yii::app()->user->isAdmin()){
+      // time to respond on message
+      $result = Yii::app()->db->createCommand('SELECT TIMEDIFF(mt.time_sent,mf.time_sent) AS tdif, mt.user_from_id, mt.user_to_id, mt.idea_to_id,mt.time_sent AS rt,mf.time_sent AS rf FROM `message` mf
+            LEFT JOIN message mt ON (mt.`user_to_id` = mf.`user_from_id` AND mt.`user_from_id` = mf.`user_to_id` ) OR ((mt.`user_to_id` = mf.`user_from_id` OR mf.`user_to_id` = mt.`user_from_id`) AND mt.`idea_to_id` = mf.`idea_to_id`)
+            WHERE NOT ISNULL(mt.id) AND mf.time_sent < mt.time_sent AND mt.user_from_id = '.$id.'
+            ORDER BY mf.time_sent ASC')->queryAll();
+
+      if ($result){
+        $responseTimeArray = array();
+
+        foreach ($result as $rt_length){
+          if (!isset($responseTimeArray[$rt_length['user_to_id']])){
+            $rt = timeDifference($rt_length['rt'], $rt_length['rf'],'seconds_total');
+            $responseTime += $rt;
+            $responseTimeArray[$rt_length['user_to_id']] = 1;
+                    //$rt_length['rt']." | ".$rt_length['rf']." = ".timeDifference($rt_length['rt'], $rt_length['rf']);;
+          }
+        }
+        //print_r($responseTimeArray);
+        //echo "...".$responseTime;
+        if ($responseTime > 0) $responseTime = $responseTime / count($responseTimeArray);
+        //echo "...".$responseTime;
+      }
+    }
+    
+		$this->render('view', array('data' => $data,"vouched"=>$vouched, 'responseTime'=>$responseTime));
+    
+    
 
 		$click = new Click;
 		$click->user($id, Yii::app()->user->id);
@@ -140,12 +168,10 @@ class PersonController extends GxController {
 			$filter['available'] = $searchForm->available;
 			$filter['city'] = $searchForm->city;
 			$filter['collabpref'] = $searchForm->collabPref;
-			$filter['country'] = $searchForm->country;
-			$filter['extra'] = $searchForm->extraDetail; // like video or images
-			$filter['keywords'] = $searchForm->keywords;
-			$filter['language'] = $searchForm->language;
 			$filter['skill'] = $searchForm->skill;
 			$filter['stage'] = $searchForm->stage;
+			$filter['user'] = $searchForm->user; //this one is IN
+
 
 			if(isset($_GET['Category'])){
                 $keyworder = new Keyworder;
@@ -155,8 +181,9 @@ class PersonController extends GxController {
 				    $filter['category'][] = $value;
 			}
 			
-    		$searchResult['data'] = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skillset");
-			$count = $sqlbuilder->load_array("search_count_users", $filter);
+			$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skillset");
+    		$searchResult['data'] = $search['results'];
+			$count = $search['count'];
 
 			$searchResult['page'] = $id;
 			$searchResult['maxPage'] = ceil($count / $filter['per_page']); 
