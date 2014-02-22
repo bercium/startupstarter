@@ -74,12 +74,12 @@ class ProfileController extends GxController {
 
 		if (true) {
 			//throw new Exception(print_r($result,true));
-			Yii::import("ext.EPhpThumb.EPhpThumb");
+			Yii::import("ext.EPhpThumb.*");
 			$thumb = new EPhpThumb();
 			$thumb->init(); //this is needed
       $thumb->create($folder . $fileName)
-            ->adaptiveResize(250, 250);
-			$thumb->save($folder . $fileName);
+            ->adaptiveResize(250, 250)
+            ->save($folder . $fileName);
 		}
 
 		echo $return; // it's array

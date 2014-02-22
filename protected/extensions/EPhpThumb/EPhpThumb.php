@@ -41,6 +41,7 @@ class EPhpThumb extends CComponent
      */
     public function create($filePath)
     {
+        ini_set('memory_limit', '96M');
         return new EThumbnail(EPhpThumb::thumbFactory($filePath));
     }
         
