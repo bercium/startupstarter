@@ -81,6 +81,7 @@ class Controller extends CController
                     'dimension1':'".$uid."',
                     'dimension2':'true',
                     'dimension3':'".$perc."',
+                    'dimension4':'".$personProjects."',
                   }";
       
       /*
