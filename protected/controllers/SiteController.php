@@ -83,8 +83,8 @@ class SiteController extends Controller
     $maxPagePerson = 0;
     $maxPageIdea = 0;
 		
-		if (isset($_GET['SearchForm'])) $searchForm->setAttributes($_GET['SearchForm']);
-		
+	if (isset($_GET['SearchForm'])) $searchForm->setAttributes($_GET['SearchForm']);
+
     if ($searchForm->checkSearchForm()){
 			// search results
       $searchForm->setAttributes($_GET['SearchForm']);
@@ -123,15 +123,34 @@ class SiteController extends Controller
 			$searchResult['maxPage'] = ceil($count / $filter['per_page']);
 
     }else{
+
+    	if(Yii::app()->user->id > 0){
+    		$filter = new FilterFromProfile;
+    		$filter = $filter->search("ideaByProfile", Yii::app()->user->id);
+    		$filter['per_page'] = 3;
+    		$search = $sqlbuilder->load_array("search_ideas", $filter, "num_of_ideas,skillset");
+    		$data['idea'] = $search['results'];
+    		$maxPageIdea = ceil($search['count'] / $filter['per_page']);
+		 	
+		 	$filter = new FilterFromProfile;
+		 	$filter = $filter->search("userByProject", Yii::app()->user->id);
+		 	$filter['per_page'] = 3;
+			$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skillset");
+    		$data['user'] = $search['results'];
+    		$maxPagePerson = ceil($search['count'] / $filter['per_page']);
+
+    	} else {
 			// last results
-			$data['idea'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
-      $count = $sqlbuilder->load_array("count_ideas", $filter);
-      $maxPageIdea = ceil($count / $filter['per_page']); 
+		  	$data['idea'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
+	      	$count = $sqlbuilder->load_array("count_ideas", $filter);
+	      	$maxPageIdea = ceil($count / $filter['per_page']); 
       
 			$data['user'] = $sqlbuilder->load_array("recent_users", $filter, "skillset,num_of_ideas");
-      $count = $sqlbuilder->load_array("count_users", $filter);
-      $maxPagePerson = ceil($count / $filter['per_page']); 
-		}
+	      	$count = $sqlbuilder->load_array("count_users", $filter);
+	      	$maxPagePerson = ceil($count / $filter['per_page']); 
+    	}
+
+	}
 		
 
 		$this->render('index', array('data' => $data, "filter"=>$searchForm, "searchResult"=>$searchResult, "maxPageIdea"=>$maxPageIdea, "maxPagePerson"=>$maxPagePerson));
