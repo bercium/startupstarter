@@ -11,6 +11,17 @@ $this->pageTitle = $idea['title'];
 if ($idea['tweetpitch']) $this->pageDesc = $idea['tweetpitch'];
 else $this->pageDesc = trim_text(strip_tags($idea['pitch']), 150);
 ?>
+
+<?php
+$canEdit = false;
+foreach ($idea['member'] as $member) {
+    if (Yii::app()->user->id == $member['id']) {
+        $canEdit = true;
+        break;
+    }
+}
+
+?>
     <div id="drop-msg" class="f-dropdown content medium" data-dropdown-content>
         <div class="contact-form">
             <?php
@@ -149,21 +160,28 @@ else $this->pageDesc = trim_text(strip_tags($idea['pitch']), 150);
             </div>
         </div>
 
-
         <!-- jobs -->
-
-        <?php if (count($idea['candidate']) > 0) { ?>
+        <?php if ((count($idea['candidate']) > 0) || $canEdit) { ?>
 
             <div class="panel radius">
                 <div class="jobs large-12">
                     <h3>
                         <a id="candidates" class="anchor-link"></a>
                         <?php echo Yii::t('app', 'Looking for {n} candidate|Looking for {n} candidates', array(count($idea['candidate']))); ?>
+                        <?php if ($canEdit) { ?>
+                          <a class="button tiny radius" href="<?php echo Yii::app()->createUrl("project/edit", array("id" => $idea['id'],"candidate"=>"new")); ?>#link_position">
+                            <?php echo Yii::t('app', 'Open new position') ?>
+                          </a>
+                        <?php } ?> 
+                        
+                        <?php if (count($idea['candidate']) > 0){ ?>
                         <a href="#" class="button tiny radius secondary right" trk="project_button_shareCandidates"
                            data-dropdown="drop-candidate-share" data-options="is_hover:true"><span class="icon-share mr8"></span>share this position</a>
+                        <?php } ?> 
                     </h3>
 
                     <?php
+                    if (count($idea['candidate']) > 0){
                     $cnum = 0;
                     foreach ($idea['candidate'] as $candidate) {
                         $cnum++;
@@ -240,7 +258,7 @@ else $this->pageDesc = trim_text(strip_tags($idea['pitch']), 150);
 
                         </div><!-- panel end -->
 
-                    <?php } ?>
+                    <?php } } ?>
                 </div>
 
             </div>
@@ -252,16 +270,6 @@ else $this->pageDesc = trim_text(strip_tags($idea['pitch']), 150);
     <!-- large-8 end -->
 
     <div class="large-4 columns side side-profile">
-        <?php
-        $canEdit = false;
-        foreach ($idea['member'] as $member) {
-            if (Yii::app()->user->id == $member['id']) {
-                $canEdit = true;
-                break;
-            }
-        }
-
-        ?>
 
         <div class="panel">
             <?php

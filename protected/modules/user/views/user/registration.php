@@ -1,5 +1,8 @@
 <?php
 $this->pageTitle = Yii::t('app', 'Registration');
+
+if (isset($_GET['event'])) unset($_GET['event']);
+
 if (isset($_GET['event'])) $this->pageTitle .= " - ".$_GET['event'];
 ?>
 
@@ -16,7 +19,7 @@ if (isset($_GET['event'])) $this->pageTitle .= " - ".$_GET['event'];
 	<p class="note"><?php echo Yii::t('msg','Fields with <span class="required">*</span> are required.'); ?></p>
 	
 	<?php */ //echo $form->errorSummary(array($model,$profile)); ?>
-<?php if (isset($_GET['event'])){ ?>
+<?php if (isset($_GET['event'])){  ?>
 <div class="right panel radius large-5 small-12">
   <p><?php echo Yii::t('msg','Cofinder members login to apply for this event'); ?></p>
   <a href="#" onclick="$('#UserLogin_redirect').val('<?php echo Yii::app()->createUrl('site/applyForEvent',array("event"=>$_GET['event'])); ?>')" data-dropdown="drop-login" class="button small radius small-12"><?php echo Yii::t('app','Login here'); ?></a>

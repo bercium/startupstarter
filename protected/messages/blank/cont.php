@@ -17,7 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Almost every day after I opened a new position for my project I get contacted by interesting people.' => '',
+  'After I opened a new position for my project I immediately got contacted by interesting people.' => '',
   'Any claim relating to Cofinder\'s web site shall be governed by the laws of the State of Slovenia without regard to its conflict of law provisions.' => '',
   'Any of the information we collect from you may be used in one of the following ways: ' => '',
   'As a yung startup we were looking for specific type of profesionals. We were able to quickly find them with the help of Cofinder.' => '',
