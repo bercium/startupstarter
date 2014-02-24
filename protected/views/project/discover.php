@@ -60,39 +60,40 @@
 				
 				<div class="row filter_projects">
 						
-					<div class="large-3 columns">
-						<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
-						
-						<?php echo CHtml::label(Yii::t('app','Stage of project'),''); ?>
-						<?php echo CHtml::activedropDownList($filter,'stage', 
-		              //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
-		              CHtml::listData(IdeaStatus::model()->findAllTranslated(),"id","name")
-									, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
-					</div>
-
-					<div class="large-3 columns" style="text-align: center; padding-top: 16px;">
-							<?php echo CHtml::submitButton(Yii::t("app","Search"),
-										array('class'=>"button small radius")
-								); ?>
-						 &nbsp; 
-							<?php echo CHtml::button(Yii::t("app","Reset"),
-										array('class'=>"button small radius secondary")
-								); ?>
-		      </div>
 					
-						
 	
           <div class="large-6 columns">
             <label><?php echo Yii::t('app','Skill'); ?></label>
             <?php echo CHtml::textField('SearchForm[skill]',$filter->skill,array("class"=>"skill")); ?>
-          </div>				
+          </div>			
 
-          <div class="large-3 columns">
+            <div class="large-3 columns left">
+            <?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
+            
+            <?php echo CHtml::label(Yii::t('app','Stage of project'),''); ?>
+            <?php echo CHtml::activedropDownList($filter,'stage', 
+                  //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
+                  CHtml::listData(IdeaStatus::model()->findAllTranslated(),"id","name")
+                  , array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
+          </div>
+            
+            
+
+        
+
+         
+
+				</div>
+
+
+        <div class="row">
+
+            <div class="large-3 columns">
             <label><?php echo Yii::t('app','City'); ?></label>
             <?php echo CHtml::textField('SearchForm[city]',$filter->city,array("class"=>"city")); ?>
           </div>
 
-          <div class="large-3 columns">
+           <div class="large-3 columns">
             <?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
 
             <?php echo CHtml::label(Yii::t('app','Collaboration'),''); ?>
@@ -101,6 +102,7 @@
                   CHtml::listData(Collabpref::model()->findAllTranslated(),"id","name")
                   , array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
           </div>
+          
 
           <div class="large-3 columns">
             <?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
@@ -110,9 +112,22 @@
                   //GxHtml::listDataEx(Language::model()->findAllAttributes(null, true))
                   CHtml::listData(Available::model()->findAllTranslated(),"id","name")
                   , array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
-          </div>	
+          </div>  
 
-				</div>
+            <div class="large-3 columns" style="text-align: center; padding-top: 16px;">
+              <?php echo CHtml::submitButton(Yii::t("app","Search"),
+                    array('class'=>"button small radius")
+                ); ?>
+             &nbsp; 
+              <?php echo CHtml::button(Yii::t("app","Reset"),
+                    array('class'=>"button small radius secondary")
+                ); ?>
+          </div>
+
+        </div>
+
+
+
 				<?php echo CHtml::endForm(); ?>		
 			
 		</div><!-- searchpanel end -->
