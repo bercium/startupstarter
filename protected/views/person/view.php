@@ -177,7 +177,7 @@ else {
 
           <p>
             <a href="<?php echo add_http($link['url']); ?>" target="_blank" trk="person_outGoingLinks_<?php echo parse_url("http://".remove_http($link['url']), PHP_URL_HOST); ?>"> 
-            <img class="link-icon" src="<?php echo getLinkIcon($link['url']); ?>">
+            <img class="mb5" src="<?php echo getLinkIcon($link['url']); ?>">
             <?php echo $link['title']; ?>  </a>
           </p>
 

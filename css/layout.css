@@ -133,13 +133,14 @@ background: url(../images/custom_bg.jpg) center center no-repeat;
 
 .intro .big-text .alt-1 {
 	font-weight: bold;
-	line-height: 80%;
+	line-height: 90%;
 	color:#555;
 }
 
 
 .intro .big-text .alt-2 {
 	color: #777;
+	line-height: 90%;
 }
 
 
@@ -151,6 +152,9 @@ background: url(../images/custom_bg.jpg) center center no-repeat;
 	padding: 10px 0;
 	font-weight: bold;
 	line-height: 100%;
+	display: block;
+	width: 90%;
+	text-align: center;
 }
 
 .intro .alt-4 {
@@ -802,6 +806,12 @@ ul, ol {
 /* #Special Styles
 ================================================== */
 
+.f-bold {
+	font-weight: bold !important; 
+}
+
+
+
 .status-high.icon-circle {
 	font-size: 0.6em;
 	color: #89B561;
@@ -867,9 +877,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 
 
 
-.link-icon {
-	margin-bottom: 4px; 
-}
+
+
 
 .ml8 {
 	margin-left: 8px;
@@ -1103,6 +1112,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
   border-left: 1px solid #fff;
 }
 
+.main-quote a,
+.main-quote a:hover {
+	color:#fff;
+
+}
+
 /* #login PAGE
 ================================================== */
 .loginbox {
@@ -1189,6 +1204,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 
 .mb0 {
 	margin-bottom: 0 !important;
+}
+
+.mb4 {
+	margin-bottom: 5px !important;
 }
 
 .mb8 {
@@ -2064,8 +2083,43 @@ html, body {
     white-space: normal;
 }
 
+
+
 @media only screen and (max-width: 767px) {
   
+
+	.intro {
+		background: none;
+		text-align: center;
+	}
+
+	.intro .big-text {
+		font-size: 3em;
+		padding-bottom: 20px;
+	}
+
+	
+
+	.intro .icon-rocket,
+	.intro .icon-user {
+		display: none;
+	}
+
+
+	.intro .large-6 {
+		margin-top: 10px;
+		margin-bottom: 30px;
+	}
+
+	.intro .alt-3 {
+		border: none;
+		text-align: center;
+		width: 100%;
+		border-top: 2px solid;
+		border-bottom: 2px solid;
+	}
+
+
 
 .m-card {    
     min-height: 240px;
@@ -2091,8 +2145,6 @@ html, body {
     text-align: center;
 }
 
-
-
   .footer .logo-mini {
     margin: 0 auto;
       display: block;
@@ -2104,5 +2156,9 @@ html, body {
       margin: 0;
       padding-bottom: 30px;
   }
+
+
+
+
 
 }

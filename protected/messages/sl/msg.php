@@ -290,7 +290,7 @@
   'Your profile is {n}% completed.' => 'Vaš profil je {n}% izpolnjen',
   'Your profile will not be visible to the public because it is only {n}% completed! %s' => 'Vaš profil ne bo viden. Imate le {n}% izpolnjen profil! %s',
   'Your request is invalid.' => 'Vaša zahteva je neveljavna.',
-  'or find a cofounder' => 'ali najdi soustanovitelja',
+  'or find a cofounder' => 'najdi soustanovitelja',
   '{file} has invalid extension. Only {extensions} are allowed.' => '{file} ima neveljavno končnico. Samo {extensions} so dovoljene.',
   '{file} is empty, please select files again without it.' => '{file} je prazna, prosimo izberite ponovno datoteke brez te ki je prazna.',
   '{file} is too large, maximum file size is {sizeLimit}.' => '{file} je prevelika, največja velikost datoteke je lahko {sizeLimit}.',
