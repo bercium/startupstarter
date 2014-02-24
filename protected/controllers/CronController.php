@@ -102,5 +102,12 @@ class CronController extends Controller
   public function actionLoadCalendars(){
     echo $this->consoleCommand('general','loadCalendars');
   }
+
+  /**
+   * post projects on FB
+   */
+  public function actionDailyProjectsPost(){
+    echo $this->consoleCommand('general','dailyProjectsPost');
+  }
   
 }

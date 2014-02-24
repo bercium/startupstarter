@@ -219,4 +219,71 @@ class GeneralCommand extends CConsoleCommand{
     }
   }
   
+  /**
+   * daily projects
+   */
+  public function actionDailyProjectsPost(){
+    
+    $projects = Idea::model()->findAll('time_registered >= DATE_ADD(CURDATE(), INTERVAL -1 DAY);');
+    
+    if ($projects){
+      $message_ifttt = new YiiMailMessage;
+      $message_ifttt->view = 'none';
+      $message_ifttt->subject = "IFTTT: Cofinder project";
+      // $message_ifttt->subject = "Na Cofinder TEST imamo nov projekt z imenom '".$translation->title."'.";
+      $message_ifttt->from = Yii::app()->params['adminEmail'];
+
+      $i = 0;
+      $content_self = '';
+      if (count($projects) > 1) $content_self = "Na Cofinderju imamo nekaj novih projektov! <br /><br />'";
+      foreach ($projects as $idea){
+        $i++;
+        $title = '';
+        foreach ($idea->ideaTranslations as $pt){
+          $title = $pt->title;
+          break;
+        }
+        
+        $openPositions = count(IdeaMember::model()->findAllBySql("SELECT * FROM idea_member WHERE idea_id = :id AND type_id = 3 GROUP BY match_id",array(":id"=>$idea->id)));
+        
+        if (count($projects) == 1){
+          $content_self .= "Na Cofinderju imamo nov projekt z imenom '".$title;
+          if ($openPositions == 0);
+          else
+          if ($openPositions == 1) $content_self .= ", ki išče eno osebo za sodelovanje";
+          else
+          if ($openPositions == 2) $content_self .= ", ki išče dve osebi za sodelovanje";
+          else
+          if ($openPositions < 5) $content_self .= ", ki išče ".$openPositions." osebe za sodelovanje";
+          else
+          $content_self .= ", ki išče ".$openPositions." oseb za sodelovanje";
+            
+          $content_self .= "'. Več o projektu na ".Yii::app()->createAbsoluteUrl('/project/view',array('id'=>$idea->id));
+          break;
+        }
+        else{
+          
+          $content_self .= $title;
+          if ($openPositions == 0);
+          else
+          if ($openPositions == 1) $content_self .= ", ki išče eno osebo za sodelovanje";
+          else
+          if ($openPositions == 2) $content_self .= ", ki išče dve osebi za sodelovanje";
+          else
+          if ($openPositions < 5) $content_self .= ", ki išče ".$openPositions." osebe za sodelovanje";
+          else
+          $content_self .= ", ki išče ".$openPositions." oseb za sodelovanje";
+          
+          $content_self .= "'. Več o projektu na ".Yii::app()->createAbsoluteUrl('/project/view',array('id'=>$idea->id))."<br />";
+        }
+        
+        if ($i > 4) break;
+      }
+
+      $message_ifttt->setBody(array("content"=>$content_self), 'text/html');
+      $message_ifttt->setTo("bercium@gmail.com");
+      Yii::app()->mail->send($message_ifttt);
+    }
+  }
+  
 }

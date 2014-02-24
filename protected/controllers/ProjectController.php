@@ -266,19 +266,6 @@ class ProjectController extends GxController {
               $message->to = Yii::app()->params['teamEmail'];
               Yii::app()->mail->send($message);
               
-              if (!YII_TESTING){
-                $message_ifttt = new YiiMailMessage;
-                $message_ifttt->view = 'none';
-                $message_ifttt->subject = "IFTTT: Cofinder project";
-                // $message_ifttt->subject = "Na Cofinder TEST imamo nov projekt z imenom '".$translation->title."'.";
-                $message_ifttt->from = Yii::app()->params['adminEmail'];
-
-                $content_self = "Na Cofinderju imamo nov projekt z imenom '".$translation->title."'. Več o projektu na ".Yii::app()->createAbsoluteUrl('/project/view',array('id'=>$idea->id));
-
-                $message_ifttt->setBody(array("content"=>$content_self), 'text/html');
-                $message_ifttt->setTo("bercium@gmail.com");
-                Yii::app()->mail->send($message_ifttt);              
-              }
 							//redirect
 							if(!$id)
 								$this->redirect(array('project/create', 'step' => 2));
