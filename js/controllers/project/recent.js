@@ -18,3 +18,11 @@
           $('.card-content').foundation('section', 'reflow');
       });
  });
+
+    // slimScroll  
+  $(function(){
+    $('.slimscroll140').slimScroll({
+        height: '140px'
+        
+    });
+});
