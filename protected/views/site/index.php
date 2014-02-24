@@ -168,11 +168,14 @@
 				</div>
 			</div>
 			<div class="large-4 columns panel fancy-border radius">
-				<img class="mt10 ml50" src='<?php echo Yii::app()->request->baseUrl; ?>/images/logo-big.png'>
-				<h2 class="alt-5" ><?php echo Yii::t('msg','Sign up for Cofinder'); ?></h2>
+       
+				<img class="mt10 ml50 hide-for-small" src='<?php echo Yii::app()->request->baseUrl; ?>/images/logo-big.png'>
+				<div class="small-12 large-12 columns">
+        <h2 class="alt-5" ><?php echo Yii::t('msg','Sign up for Cofinder'); ?></h2>
 				<p><?php echo Yii::t('msg','Create your account, tell us about yourself and start exploring'); ?></p>	
         <a class="button radius large large-12 mb0" href="<?php echo Yii::app()->createUrl("user/registration"); ?>"><?php echo Yii::t('app','Start here'); ?></a>
-				<p class="description"><?php echo Yii::t('msg','Already have an account?'); ?> <a href="#" data-dropdown="drop-login"><?php echo Yii::t('app','Login here'); ?>.</a></p>		
+				<p class="description small-8 small-centered"><?php echo Yii::t('msg','Already have an account?'); ?> <a href="#" data-dropdown="drop-login"><?php echo Yii::t('app','Login here'); ?>.</a></p>		
+        </div>       
 			</div>
 
 		</div>
@@ -250,8 +253,8 @@
           <?php echo Yii::t('cont','As a yung startup we were looking for specific type of profesionals. We were able to quickly find them with the help of Cofinder.'); ?>
           <span class="icon-quote-right large"></span
           <br />
-          <span class="mt20 right">
-           <a href="http://www.cofinder.eu/project/view/9"><?php echo Yii::t('cont','Peter from Biometrics'); ?></a>
+          <span class="mt40 right l-iblock" >
+           <a class="f-bold mt20" href="http://www.cofinder.eu/project/view/9"><?php echo Yii::t('cont','Peter from Biometrics'); ?></a>
           </span>
         </div>
       </li>
@@ -263,8 +266,8 @@
           
           <span class="icon-quote-right large"></span
           <br />
-          <span class="mt20 right">
-           <a href="http://www.cofinder.eu/project/view/32"><?php echo Yii::t('cont','Boštjan from Studio 404'); ?></a>
+          <span class="mt40 right l-iblock">
+           <a class="f-bold mt20" href="http://www.cofinder.eu/project/view/32"><?php echo Yii::t('cont','Boštjan from Studio 404'); ?></a>
           </span>
         </div>
       </li>
