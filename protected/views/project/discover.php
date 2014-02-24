@@ -148,13 +148,13 @@
   		Yii::log(arrayLog($searchResult), CLogger::LEVEL_INFO, 'custom.info.search_result'); 
   		?>
     
-      <div class="hide-for-medium-down">
-        <div class="page-navigation">
+      <!-- <div class="hide-for-medium-down">
+        <div class="page-navigation hide">
           <ul class="button-group">
-            <li><a class="button secondary small radius" href="#page1"><?php echo Yii::t("app", "Page"); ?> 1</a></li>
+            <li><a class="button secondary small radius" href="#page1"><?php // echo  Yii::t("app", "Page"); ?> 1</a></li>
           </ul>
         </div>
-      </div>
+      </div> -->
 
   		<div class="list-holder">
         
