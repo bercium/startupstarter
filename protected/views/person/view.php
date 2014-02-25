@@ -228,6 +228,14 @@ else {
                 <a class="button success small-12 radius mb5" href="#" trk="contact_person"  data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send me a message') ?></a>
               </div>     
               <?php } ?>
+          
+            <?php if ($lastMsg){ ?>
+            <span class="meta hide-for-small">
+              <h4><?php echo Yii::t('app','You send him'); ?></h4>
+              <?php echo trim_text($lastMsg->message,150,false); ?>
+              <a class="button tiny secondary radius" href="<?php echo Yii::app()->createUrl("message/view",array('id'=>$user['id'],'group'=>'user')); ?>">...</a>
+            </span>
+            <?php } ?>          
 
         </div>     
 
