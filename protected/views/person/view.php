@@ -88,6 +88,11 @@ else {
 
 
   <div class="large-4 columns profile side side-profile">
+    <?php if ($user['id'] == Yii::app()->user->id){ ?>
+        <a class="button secondary small-12 radius" href="<?php echo Yii::app()->createURL('profile'); ?>"><span class="icon-awesome icon-pencil"></span> <?php echo Yii::t('app', 'Edit profile') ?>
+          
+        </a>
+      <?php } ?>
     
     <div class="panel" style="position: relative;">
       
@@ -111,7 +116,7 @@ else {
         }
         ?>
         
-        <p><?php 
+        <p><?php /*
           $usertag = UserTag::model()->FindAllByAttributes(array("user_id"=>$user['id']));
           if ($usertag){
             foreach ($usertag as $usrtag){
@@ -119,57 +124,68 @@ else {
             }
           }
         ?></p>
-      <?php } ?>
-        
-      <?php if ($user['id'] == Yii::app()->user->id){ ?>
-        <a class="button secondary small small-12 radius" href="<?php echo Yii::app()->createURL('profile'); ?>"><?php echo Yii::t('app', 'Edit profile') ?>
-          <span class="icon-awesome icon-wrench"></span>
-        </a>
-      <?php } ?>
+      <?php */ } ?>
+    
 
-      <img class="th panel-avatar" src="<?php echo avatar_image($user['avatar_link'], $user['id'], false); ?>" />
-
-      <h1 class="">
-              <?php $days = timeDifference($user['lastvisit_at'], date('Y-m-d H:i:s'), "days_total"); 
-     if ($days < 6){ ?>
-      <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-high-circle.png" class="" title="<?php echo Yii::t('app','Active user'); ?>" data-tooltip>
-    <?php }else if ($days < 10){ ?>
-      <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-med-circle.png" class="" title="<?php echo Yii::t('app','Not so active user'); ?>" data-tooltip>
-    <?php }else{ ?>
-      <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-low-circle.png" class="" title="<?php echo Yii::t('app','User has not been active recently'); ?>" data-tooltip>
-    <?php } ?>
-        
-        <?php echo $user['name'] . " " . $user['surname']; ?></h1>
-
-      <div class="item">
-        <p>
-        <?php if ($user['city'] || $user['country'] /*|| $user['address']*/) { ?>
-        <span class="icon-map-marker icon-awesome"></span>
-        <a>
-          <span class="" data-tooltip title="<img src='<?php echo getGMap($user['country'], $user['city'] /*, $user['address'] */); ?>'>">
-
-          <?php // if ($user['address']) echo $user['address']."<br />"; ?>
-          <?php
-          echo $user['city'];
-          if ($user['city'] && $user['country']) echo ', ';
-          echo $user['country'];
-          ?>
-          <?php //echo $user['address'];  ?>
-          </span> 
-        </a>
-        <?php } ?>
-        </p>
-      </div>
       
-      <?php if ($user['id'] != Yii::app()->user->id){ ?>
-        <a class="button success small-12 radius mb5" href="#" trk="contact_person"  data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send me a message') ?>
-        </a>
+
+
+        <div class="row">
+
+          <div class="large-12 columns small-4">
+            <img class="th panel-avatar" src="<?php echo avatar_image($user['avatar_link'], $user['id'], false); ?>" />
+          </div>
+
+            <div class="large-12 columns small-8">
+
+              <h1 class="">
+                        <?php $days = timeDifference($user['lastvisit_at'], date('Y-m-d H:i:s'), "days_total"); 
+               if ($days < 6){ ?>
+                <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-high-circle.png" class="" title="<?php echo Yii::t('app','Active user'); ?>" data-tooltip>
+              <?php }else if ($days < 10){ ?>
+                <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-med-circle.png" class="" title="<?php echo Yii::t('app','Not so active user'); ?>" data-tooltip>
+              <?php }else{ ?>
+                <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-low-circle.png" class="" title="<?php echo Yii::t('app','User has not been active recently'); ?>" data-tooltip>
+              <?php } ?>
+                  
+               <?php echo $user['name'] . " " . $user['surname']; ?></h1>
+               
+                <div class="item">
+                <h3>
+                <?php if ($user['city'] || $user['country'] /*|| $user['address']*/) { ?>
+                <span class="icon-map-marker l-iblock icon-awesome mr5"></span>
+                <a>
+                  <span class="" data-tooltip title="<img src='<?php echo getGMap($user['country'], $user['city'] /*, $user['address'] */); ?>'>">
+
+                  <?php // if ($user['address']) echo $user['address']."<br />"; ?>
+                  <?php
+                  echo $user['city'];
+                  if ($user['city'] && $user['country']) echo ', ';
+                  echo $user['country'];
+                  ?>
+                  <?php //echo $user['address'];  ?>
+                  </span> 
+                </span>
+                <?php } ?>
+                </h3>
+                </div>
+
+                <?php if ($responseTime) echo '<span class="meta mt0">'.Yii::t('app','Response Time').'</span> </span>'.prettyDate($responseTime).'</span>'; ?>
+
+
+                <?php if ($user['id'] != Yii::app()->user->id){ ?>
+        <a class="button success small-12 radius mb5" href="#" trk="contact_person"  data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send me a message') ?></a>
       <?php } ?>
-        <?php if ($responseTime) echo '<span class="description mt0">'.Yii::t('app','Response time').': '.prettyDate($responseTime).'</span>'; ?>
+
+            </div>
+
+        </div>     
+
+        
     </div>
 
     <!-- <p class="meta-field"><?php // echo Yii::t('app', 'My links') ?>:</p> -->
-    <div class="panel">
+    <div class="panel small-6 columns">
     <?php if (count($user['link']) > 0) { ?>
       <div class="item bb">
         <h4 class=""> <?php echo Yii::t('app', 'Links') ?></h4>
@@ -208,7 +224,7 @@ else {
     <?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($user['create_at']), "long", null); ?></span>
     </div>
 
-    <div class="panel">
+    <div class="panel large-12 small-12 columns">
        <div class="item bb">  
        <h4><?php echo Yii::t('app','Share my profile'); ?></h4>
        <?php /* ?><p class="l-inline"><?php echo Yii::t('app','You are viewing this in'); ?> <?php echo $idea['language']; ?></p><?php */ ?>
@@ -216,14 +232,14 @@ else {
         <?php $url = Yii::app()->createAbsoluteUrl('person',array("id"=>$user["id"]));
               $summary = $this->pageDesc; 
               $title = $this->pageTitle; ?>
-           <a href="http://www.facebook.com/sharer.php?s=100&p[title]=<?php echo $title; ?>&p[summary]=<?php echo $summary; ?>&p[url]=<?php echo $url; ?>" trk="social_facebook_share_person" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-             <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-fb.jpg"  width="30">
+           <a  href="http://www.facebook.com/sharer.php?s=100&p[title]=<?php echo $title; ?>&p[summary]=<?php echo $summary; ?>&p[url]=<?php echo $url; ?>" trk="social_facebook_share_person" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+             <img  src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-fb.jpg"  width="30">
            </a>
          &nbsp;
-           <a href="http://twitter.com/share?text=<?php echo $summary; ?>" trk="social_twitter_share_person" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
-             <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-tw.jpg"  width="30">
+           <a  href="http://twitter.com/share?text=<?php echo $summary; ?>" trk="social_twitter_share_person" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+             <img  src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-tw.jpg"  width="30">
            </a>
-          &nbsp;
+          
             <a href="https://plus.google.com/share?url=<?php echo $url; ?>&title=<?php echo $title; ?>&summary=<?php echo $summary; ?>" trk="social_plus_share_person" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
               <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-gp.jpg" width="30">
             </a>

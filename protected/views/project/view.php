@@ -270,6 +270,12 @@ foreach ($idea['member'] as $member) {
     <!-- large-8 end -->
 
     <div class="large-4 columns side side-profile">
+        <?php if ($canEdit) { ?>
+                <a class="button secondary small-12 radius"
+                   href="<?php echo Yii::app()->createUrl("project/edit", array("id" => $idea['id'])); ?>">
+                    <span class="icon-awesome icon-pencil"></span> <?php echo Yii::t('app', 'Edit project') ?>
+                </a>
+            <?php } ?>
 
         <div class="panel">
             <?php
@@ -296,12 +302,7 @@ foreach ($idea['member'] as $member) {
             ?>
 
 
-            <?php if ($canEdit) { ?>
-                <a class="button secondary small small-12 radius"
-                   href="<?php echo Yii::app()->createUrl("project/edit", array("id" => $idea['id'])); ?>">
-                    <?php echo Yii::t('app', 'Edit project') ?> <span class="icon-awesome icon-wrench"></span>
-                </a>
-            <?php } ?>
+            
 
             <div class="item">
                 <h4 class="">

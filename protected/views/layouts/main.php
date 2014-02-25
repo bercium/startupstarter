@@ -80,7 +80,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
                 <div class="left l-iblock">
                 <div>
                 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
-                <img class="ml10" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png" />
+                <img class="ml10" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title-mobile.png" />
                 </a>
                 </div>
                 </div>
