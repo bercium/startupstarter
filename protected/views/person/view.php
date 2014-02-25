@@ -153,7 +153,7 @@ else {
                
                 <p class="mb10">
                 <?php if ($user['city'] || $user['country'] /*|| $user['address']*/) { ?>
-                <span class="icon-map-marker l-iblock icon-awesome mr5"></span>
+                <span class="icon-map-marker l-iblock icon-awesome mr5 ml5"></span>
                 <a>
                   <span class="" data-tooltip title="<img src='<?php echo getGMap($user['country'], $user['city'] /*, $user['address'] */); ?>'>">
 
@@ -309,7 +309,7 @@ else {
 
           <div class="row"><!-- collaboration available -->
             <div class="columns large-3">
-              <h3><?php echo Yii::t('app', 'Collaboration');?></h3>
+              <h3 class="mt10"><?php echo Yii::t('app', 'Collaboration');?>:</h3>
             </div>
             
             <div class="large-9 columns mb20">
@@ -354,12 +354,12 @@ else {
 
       <div class="row">
 
-        <div class="large-3 columns">
+        <div class="large-2 columns">
           <h3 class="edit-content-title mb20">
-          <?php echo Yii::t('app', 'Skilled in'); ?>
+          <?php echo Yii::t('app', 'Skills'); ?>:
           </h3>
         </div>      
-        <div class="columns large-9">
+        <div class="columns large-10">
            
             
             <?php
@@ -367,7 +367,7 @@ else {
             foreach ($user['skillset'] as $skillset){
               ?>
               <div class='item'>
-                <h4 class="mr5">
+                <h4 class="mr5 l-iblock meta">
                 <?php echo $skillset['skillset']; ?>
                 </h4><?php
                 foreach ($skillset['skill'] as $skill){ ?>
@@ -389,13 +389,13 @@ else {
           <?php if ($user['bio']){ ?>
           <hr>
             <div class="row">
-              <div class="large-3 columns">
+              <div class="large-2 columns">
                 <h3 class="edit-content-title">
-                  <?php echo Yii::t('app','About me'); ?>
+                  <?php echo Yii::t('app','About me'); ?>:
                   </h3>
               </div>   
 
-              <div class="large-9 columns about-me"  >
+              <div class="large-10 columns about-me"  >
                 <p class="meta-field">
                     <?php echo strip_tags($user['bio']); ?>
                 </p>      

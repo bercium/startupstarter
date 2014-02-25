@@ -12,11 +12,9 @@
 */
 
 body {
-	background: #f2f2f2;
+	background: #eee;
 		height: 100%;
 }
-
-
 
 
 .header-wrap {
@@ -566,7 +564,7 @@ sidebar .section-container.auto .section {
 .f-boldup
 {
 
-    font-size: 1em;
+    font-size: 0.75em;
     font-weight: 600;
     text-transform: uppercase;
     margin-bottom: 20px;
@@ -1643,7 +1641,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 .idea-sidebar .panel,
 .idea-panel {
 background-color: #e5e8ee;
-border: 1px solid #fff;
+
 
 border-radius: 2px;
 }
@@ -2042,6 +2040,11 @@ label{
     width: 150px;
     margin: 10px 10px 10px 0;
 
+    }
+
+	/****** @ panel-colors ******/
+    .panel-color-1 {
+    	background: #DFE8D7 !important;
     }
 
 

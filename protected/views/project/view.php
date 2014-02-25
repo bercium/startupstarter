@@ -186,7 +186,7 @@ foreach ($idea['member'] as $member) {
                     foreach ($idea['candidate'] as $candidate) {
                         $cnum++;
                         ?>
-                        <div class="panel radius">
+                        <div class="panel panel-color-1 radius">
                             <h3 class="mb0">
                                 <?php echo Yii::t('app', 'Candidate {n}', array($cnum)) ?>
                             </h3>
@@ -210,7 +210,7 @@ foreach ($idea['member'] as $member) {
                             <?php } ?>
 
                             <div class="mb10 mt10">
-                                <?php
+                                <h4 class="l-iblock"><?php echo Yii::t('app', 'Required skills') ?></h4><?php
                                 foreach ($candidate['skillset'] as $skillset) {
                                     foreach ($skillset['skill'] as $skill) {
                                         ?>
@@ -222,14 +222,12 @@ foreach ($idea['member'] as $member) {
                                     }
                                 } ?>
                             </div>
-                            <!-- skillset-wrap end -->
-
-
+                          
 
 
                             <?php if ($candidate['available_name']) { ?>
                                 <div class="mb10">
-                                    <h4 class="l-inline"><?php echo Yii::t('app', 'Available') ?></h4>
+                                    <h4 class="l-inline"><?php echo Yii::t('app', 'Should be Available') ?></h4>
 
                                     <p class="l-inline"><?php echo $candidate['available_name']; ?></p>
 
