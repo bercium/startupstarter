@@ -105,6 +105,16 @@ $(function() {
       });
   });
   
+  //slimscroll
+  $('.slimscroll140').slimScroll({
+    height: '140px'
+  });
+  
+  $('.slimscroll300').slimScroll({
+    height: '300px'
+  });
+  
+  
 })(jQuery, this);
 
 

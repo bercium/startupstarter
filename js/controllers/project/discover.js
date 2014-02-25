@@ -166,15 +166,3 @@ $(window).load(function() {
 
 
  });
-
-
-    // slimScroll  
-  $(function(){
-    $('.slimscroll140').slimScroll({
-        height: '140px'
-        
-    });
-});
-
-
-		
