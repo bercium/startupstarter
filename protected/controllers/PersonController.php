@@ -96,20 +96,38 @@ class PersonController extends GxController {
 
 	public function actionRecent($id = 1) {
 
-		$filter = Yii::app()->request->getQuery('filter', array());
-		
-		$filter['page'] = $id;
-    
-	    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
-	    else $filter['per_page'] = 12;
-		
-		$sqlbuilder = new SqlBuilder;
-		$users = $sqlbuilder->load_array("recent_users", $filter, "num_of_ideas,skillset");
-		$count = $sqlbuilder->load_array("count_users", $filter);
+		if(Yii::app()->user->id > 0){
+		 	$filter = new FilterFromProfile;
+		 	$filter = $filter->search("userByProject", Yii::app()->user->id);
 
-		$maxPage = ceil($count / $filter['per_page']);
-		
-		//$maxPage = 3;  // !!! remove
+			$filter['page'] = $id;
+	    
+		    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
+		    else $filter['per_page'] = 9;
+
+		    $sqlbuilder = new SqlBuilder;
+			$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skillset");
+    		$users = $search['results'];
+			$count = $search['count'];
+
+			$maxPage = ceil($count / $filter['per_page']); 
+
+		} else {
+			$filter = Yii::app()->request->getQuery('filter', array());
+			
+			$filter['page'] = $id;
+	    
+		    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
+		    else $filter['per_page'] = 12;
+			
+			$sqlbuilder = new SqlBuilder;
+			$users = $sqlbuilder->load_array("recent_users", $filter, "num_of_ideas,skillset");
+			$count = $sqlbuilder->load_array("count_users", $filter);
+
+			$maxPage = ceil($count / $filter['per_page']);
+			
+			//$maxPage = 3;  // !!! remove
+		}
 
 		if(isset($_GET['ajax'])){
 			$return['data'] = $this->renderPartial('_recent', array("users" => $users, 'page' => $id, 'maxPage' => $maxPage), true);
@@ -152,7 +170,7 @@ class PersonController extends GxController {
     }else{      
       $filter['per_page'] = 9;
       $filter['page'] = $id;
-    }    
+    }  
     
     $searchForm = new SearchForm();
     $searchForm->isProject = false;
@@ -170,7 +188,6 @@ class PersonController extends GxController {
 			$filter['city'] = $searchForm->city;
 			$filter['collabpref'] = $searchForm->collabPref;
 			$filter['skill'] = $searchForm->skill;
-			$filter['stage'] = $searchForm->stage;
 			$filter['user'] = $searchForm->user; //this one is IN
 
 

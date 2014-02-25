@@ -2,7 +2,7 @@
 
 class SearchBuilder2 {
 
-	public function search($type, $filter){
+	public function search($type, $filter, $where = ""){
 		/*Taking in from $filter[] and processing data into sql;
 		There's more than one user_match row per idea... We'll group by idea_id in case of idea
 		
@@ -45,42 +45,51 @@ class SearchBuilder2 {
 					   +ime
 		*/
 
+		/*$where user:
+			-search by user_match, user table variables
+
+		  $where idea:
+		  	-search by idea table variables*/
+
 		$rank = array();
 
 		if($type == 'user'){
 
-			//signle number filter entry
+			//number filter entries
 				//available
-					$rank = $this->singleEntry($rank, $filter, 'available', 'userAvailable');
+					$rank = $this->numberEntries($rank, $filter, 'available', 'userAvailable', $where);
 				//collabpref
-					$rank = $this->singleEntry($rank, $filter, 'collabpref', 'userCollabpref');
-			//multiple text filter entries
+					$rank = $this->numberEntries($rank, $filter, 'collabpref', 'userCollabpref', $where);
+			//text filter entries
 				//city
-					$rank = $this->multipleEntries($rank, $filter, 'city', 'userCity');
+					$rank = $this->textEntries($rank, $filter, 'city', 'userCity', $where);
 				//name
-					$rank = $this->multipleEntries($rank, $filter, 'user', 'userNameSurname', " ");
+					$rank = $this->textEntries($rank, $filter, 'user', 'userNameSurname', $where, " ");
 				//skill
-					$rank = $this->multipleEntries($rank, $filter, 'skill', 'userSkillsetTranslation');
-					$rank = $this->multipleEntries($rank, $filter, 'skill', 'userSkillset');
-					$rank = $this->multipleEntries($rank, $filter, 'skill', 'userSkill');
+					$rank = $this->textEntries($rank, $filter, 'skill', 'userSkillsetTranslation', $where);
+					$rank = $this->textEntries($rank, $filter, 'skill', 'userSkillset', $where);
+					$rank = $this->textEntries($rank, $filter, 'skill', 'userSkill', $where);
+			//recent users call
+					$rank = $this->textEntries($rank, $filter, 'recent', 'userRecent', $where);
 
 		} elseif( $type == 'idea' ){
 
-			//signle number filter entry
+			//number filter entries
 				//available
-					$rank = $this->singleEntry($rank, $filter, 'available', 'ideaAvailable');
+					$rank = $this->numberEntries($rank, $filter, 'available', 'ideaAvailable', $where);
 				//collabpref
-					$rank = $this->singleEntry($rank, $filter, 'collabpref', 'ideaCollabpref');
+					$rank = $this->numberEntries($rank, $filter, 'collabpref', 'ideaCollabpref', $where);
 				//stage
-					$rank = $this->singleEntry($rank, $filter, 'stage', 'ideaStage');
-			//multiple text filter entries
+					$rank = $this->numberEntries($rank, $filter, 'stage', 'ideaStage', $where);
+			//text filter entries
 				//city
-					$rank = $this->multipleEntries($rank, $filter, 'city', 'ideaCity');
+					$rank = $this->textEntries($rank, $filter, 'city', 'ideaCity', $where);
 				//skill
-					$rank = $this->multipleEntries($rank, $filter, 'skill', 'ideaSkillsetTranslation');
-					$rank = $this->multipleEntries($rank, $filter, 'skill', 'ideaSkillset');
-					$rank = $this->multipleEntries($rank, $filter, 'skill', 'ideaSkill');
-
+					$rank = $this->textEntries($rank, $filter, 'skill', 'ideaSkillsetTranslation', $where);
+					$rank = $this->textEntries($rank, $filter, 'skill', 'ideaSkillset', $where);
+					$rank = $this->textEntries($rank, $filter, 'skill', 'ideaSkill', $where);
+			//recent ideas call
+					$rank = $this->textEntries($rank, $filter, 'recent', 'ideaRecent', $where);
 		}
 
 		$array = $rank['array'];
@@ -105,7 +114,7 @@ class SearchBuilder2 {
 		return $return;
 	}
 
-	private function multipleEntries($rank, $filter, $key, $functionName, $delimiter = ","){
+	private function textEntries($rank, $filter, $key, $functionName, $where, $delimiter = ","){
 		
 		if( isset($filter[$key]) && strlen($filter[$key]) > 0 ){
 			$keyworder = new Keyworder;
@@ -113,7 +122,7 @@ class SearchBuilder2 {
 
 			foreach($strings AS $key => $value){
 				if(strlen($value) >= 2){
-					$rank = $this->queryRank($this->$functionName(), "%".$value."%", $rank);
+					$rank = $this->queryRank($this->$functionName($where), "%".$value."%", $rank);
 				}
 			}
 		}
@@ -121,10 +130,18 @@ class SearchBuilder2 {
 		return $rank;
 	}
 
-	private function singleEntry($rank, $filter, $key, $functionName){
+	private function numberEntries($rank, $filter, $key, $sqlFunctionName, $where, $delimiter = ","){
 
 		if( isset($filter[$key]) && strlen($filter[$key]) > 0 ){
-			$rank = $this->queryRank($this->$functionName(), $filter[$key], $rank);
+
+			$keyworder = new Keyworder;
+			$numbers = $keyworder->string2array($filter[$key], $delimiter);
+
+			foreach($numbers AS $key => $value){
+				if(strlen($value) >= 1){
+					$rank = $this->queryRank($this->$sqlFunctionName($where), $value, $rank);
+				}
+			}
 		}
 
 		return $rank;
@@ -172,42 +189,48 @@ class SearchBuilder2 {
 
 	}
 
-	private function userAvailable(){
+	private function userAvailable($where = ""){
 
 		$sql = 	"SELECT m.id ".
 				"FROM  `user_match` AS m ".
+				"LEFT JOIN `user` AS u ON m.user_id = u.id ".
 				"WHERE m.available = :value ".
 				"AND m.user_id >0 ".
+				$where." ".
 				"GROUP BY m.id";
 		return $sql;
 
 	}
 
-	private function userCollabpref(){
+	private function userCollabpref($where = ""){
 
 		$sql = 	"SELECT m.id ".
 				"FROM  `user_collabpref` AS c ".
 				"LEFT JOIN `user_match` AS m ON m.id = c.match_id ".
+				"LEFT JOIN `user` AS u ON m.user_id = u.id ".
 				"WHERE c.collab_id = :value ".
 				"AND m.user_id > 0 ".
+				$where." ".
 				"GROUP BY m.id";
 		return $sql;
 
 	}
 
-	private function userCity(){
+	private function userCity($where = ""){
 
 		$sql = 	"SELECT m.id ".
 				"FROM  `city` AS c ".
 				"LEFT JOIN `user_match` AS m ON m.city_id = c.id ".
+				"LEFT JOIN `user` AS u ON m.user_id = u.id ".
 				"WHERE c.name LIKE :value ".
 				"AND m.user_id >0 ".
+				$where." ".
 				"GROUP BY m.id";
 		return $sql;
 
 	}
 
-	private function userNameSurname(){
+	private function userNameSurname($where = ""){
 
 		$sql = 	"SELECT m.id ".
 				"FROM  `user` AS u ".
@@ -215,138 +238,182 @@ class SearchBuilder2 {
 				"WHERE u.name LIKE :value ".
 				"OR u.surname LIKE :value ".
 				"AND m.user_id >0 ".
+				$where." ".
 				"GROUP BY m.id";
 		return $sql;
 
 	}
 
-	private function userSkillsetTranslation(){
+	private function userRecent($where = ""){
+
+		$sql = 	"SELECT m.id ".
+				"FROM  `user` AS u ".
+				"LEFT JOIN `user_match` AS m ON m.user_id = u.id ".
+				"LEFT JOIN `user` AS u ON m.user_id = u.id ".
+				"WHERE m.user_id >0 ".
+				$where." ".
+				"ORDER BY u.create_at DESC ".
+				"GROUP BY m.id";
+		return $sql;
+
+	}
+
+	private function userSkillsetTranslation($where = ""){
 
 		$sql =	"SELECT m.id ".
 				"FROM  `translation` AS tss ".
 				"LEFT JOIN `skillset` AS ss ON tss.table = 'skillset' AND tss.row_id = ss.id ".
 				"LEFT JOIN `user_skill` AS us ON ss.id = us.skillset_id ".
 				"LEFT JOIN `user_match` AS m ON us.match_id = m.id ".
+				"LEFT JOIN `user` AS u ON m.user_id = u.id ".
 				"WHERE tss.translation LIKE :value ".
 				"AND m.user_id >0 ".
+				$where." ".
 				"GROUP BY m.id";
 		return $sql;
 
 	}
 
-	private function userSkillset(){
+	private function userSkillset($where = ""){
 
 		$sql =	"SELECT m.id ".
 				"FROM  `skillset` AS ss ".
 				"LEFT JOIN `user_skill` AS us ON ss.id = us.skillset_id ".
 				"LEFT JOIN `user_match` AS m ON us.match_id = m.id ".
+				"LEFT JOIN `user` AS u ON m.user_id = u.id ".
 				"WHERE ss.name LIKE :value ".
 				"AND m.user_id >0 ".
+				$where." ".
 				"GROUP BY m.id";
 		return $sql;
 
 	}
 
-	private function userSkill(){
+	private function userSkill($where = ""){
 
 		$sql =	"SELECT m.id ".
 				"FROM  `skill` AS s ".
 				"LEFT JOIN `user_skill` AS us ON s.id = us.skill_id ".
 				"LEFT JOIN `user_match` AS m ON us.match_id = m.id ".
+				"LEFT JOIN `user` AS u ON m.user_id = u.id ".
 				"WHERE s.name LIKE :value ".
 				"AND m.user_id >0 ".
+				$where." ".
 				"GROUP BY m.id";
 		return $sql;
 
 	}
 
-	private function ideaAvailable(){
+	private function ideaAvailable($where = ""){
 
-		$sql =	"SELECT i.idea_id AS id ".
+		$sql =	"SELECT im.idea_id AS id ".
 				"FROM  `user_match` AS m ".
-				"LEFT JOIN `idea_member` AS i ON m.id = i.match_id ".
+				"LEFT JOIN `idea_member` AS im ON m.id = im.match_id ".
+				"LEFT JOIN `idea` AS i ON i.id = im.idea_id ".
 				"WHERE m.available = :value ".
 				"AND m.user_id IS NULL ".
-				"GROUP BY i.idea_id";
+				$where." ".
+				"GROUP BY im.idea_id";
 		return $sql;
 
 	}
 
-	private function ideaCity(){
+	private function ideaCity($where = ""){
 
-		$sql = 	"SELECT i.idea_id AS id ".
+		$sql = 	"SELECT im.idea_id AS id ".
 				"FROM  `city` AS c ".
 				"LEFT JOIN `user_match` AS m ON m.city_id = c.id ".
-				"LEFT JOIN `idea_member` AS i ON m.id = i.match_id ".
+				"LEFT JOIN `idea_member` AS im ON m.id = im.match_id ".
+				"LEFT JOIN `idea` AS i ON i.id = im.idea_id ".
 				"WHERE c.name LIKE :value ".
 				"AND m.user_id IS NULL ".
-				"GROUP BY i.idea_id";
+				$where." ".
+				"GROUP BY im.idea_id";
 		return $sql;
 
 	}
 
-	private function ideaCollabpref(){
+	private function ideaCollabpref($where = ""){
 
-		$sql =	"SELECT i.idea_id AS id ".
+		$sql =	"SELECT im.idea_id AS id ".
 				"FROM  `user_collabpref` AS c ".
 				"LEFT JOIN `user_match` AS m ON m.id = c.match_id ".
-				"LEFT JOIN `idea_member` AS i ON i.match_id = m.id ".
+				"LEFT JOIN `idea_member` AS im ON im.match_id = m.id ".
+				"LEFT JOIN `idea` AS i ON i.id = im.idea_id ".
 				"WHERE c.collab_id = :value ".
 				"AND m.user_id IS NULL ".
-				"GROUP BY i.idea_id";
+				$where." ".
+				"GROUP BY im.idea_id";
 		return $sql;
 
 	}
 
-	private function ideaSkillsetTranslation(){
+	private function ideaRecent($where = ""){
 
-		$sql =	"SELECT i.idea_id AS id ".
+		$sql=	"SELECT i.id AS id ".
+				"FROM `idea` AS i ".
+				"WHERE i.id > 0 ".
+				$where." ".
+				"ORDER BY i.time_registered";
+		return $sql;
+
+	}
+
+	private function ideaSkillsetTranslation($where = ""){
+
+		$sql =	"SELECT im.idea_id AS id ".
 				"FROM  `translation` AS tss ".
 				"LEFT JOIN `skillset` AS ss ON tss.table = 'skillset' AND tss.row_id = ss.id ".
 				"LEFT JOIN `user_skill` AS us ON ss.id = us.skillset_id ".
 				"LEFT JOIN `user_match` AS m ON us.match_id = m.id ".
-				"LEFT JOIN `idea_member` AS i ON i.match_id = m.id ".
+				"LEFT JOIN `idea_member` AS im ON im.match_id = m.id ".
+				"LEFT JOIN `idea` AS i ON i.id = im.idea_id ".
 				"WHERE tss.translation LIKE :value ".
 				"AND m.user_id IS NULL ".
-				"GROUP BY i.idea_id";
+				$where." ".
+				"GROUP BY im.idea_id";
 		return $sql;
 
 	}
 
-	private function ideaSkillset(){
+	private function ideaSkillset($where = ""){
 
-		$sql =	"SELECT i.idea_id AS id ".
+		$sql =	"SELECT im.idea_id AS id ".
 				"FROM  `skillset` AS ss ".
 				"LEFT JOIN `user_skill` AS us ON ss.id = us.skillset_id ".
 				"LEFT JOIN `user_match` AS m ON us.match_id = m.id ".
-				"LEFT JOIN `idea_member` AS i ON i.match_id = m.id ".
+				"LEFT JOIN `idea_member` AS im ON im.match_id = m.id ".
+				"LEFT JOIN `idea` AS i ON i.id = im.idea_id ".
 				"WHERE ss.name LIKE :value ".
 				"AND m.user_id IS NULL ".
-				"GROUP BY i.idea_id";
+				$where." ".
+				"GROUP BY im.idea_id";
 		return $sql;
 
 	}
 
-	private function ideaSkill(){
+	private function ideaSkill($where = ""){
 
-		$sql =	"SELECT i.idea_id AS id ".
+		$sql =	"SELECT im.idea_id AS id ".
 				"FROM  `skill` AS s ".
 				"LEFT JOIN `user_skill` AS us ON s.id = us.skill_id ".
 				"LEFT JOIN `user_match` AS m ON us.match_id = m.id ".
-				"LEFT JOIN `idea_member` AS i ON i.match_id = m.id ".
+				"LEFT JOIN `idea_member` AS im ON im.match_id = m.id ".
+				"LEFT JOIN `idea` AS i ON i.id = im.idea_id ".
 				"WHERE s.name LIKE :value ".
 				"AND m.user_id IS NULL ".
-				"GROUP BY i.idea_id";
+				$where." ".
+				"GROUP BY im.idea_id";
 		return $sql;
 
 	}
 
-	private function ideaStage(){
+	private function ideaStage($where = ""){
 
 		$sql=	"SELECT i.id AS id ".
 				"FROM `idea` AS i ".
 				"WHERE i.status_id = :value ". 
-				"GROUP BY i.id";
+				$where;
 		return $sql;
 
 	}

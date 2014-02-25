@@ -96,7 +96,7 @@
                 <div class="idea-skills <?php if ($hasImg) echo "slimscroll140"; else echo "slimscroll300"; ?>">
                   
                   <?php
-                  if (is_array($idea['candidate']) && count($idea['candidate']) > 0){
+                  if (isset($idea['candidate']) && count($idea['candidate']) > 0){
                   $skills = array();
                   $c = 0;
                   foreach ($idea['candidate'] as $candidate){
