@@ -136,9 +136,9 @@ else {
             <img class="th panel-avatar" src="<?php echo avatar_image($user['avatar_link'], $user['id'], false); ?>" />
           </div>
 
-            <div class="large-12 columns small-8">
+            <div class="large-12 columns small-8 mb20">
 
-              <h1 class="">
+              <h1 class="mb5">
                         <?php $days = timeDifference($user['lastvisit_at'], date('Y-m-d H:i:s'), "days_total"); 
                if ($days < 6){ ?>
                 <img src="<?php echo Yii::app()->getBaseUrl(true)?>/images/act-high-circle.png" class="" title="<?php echo Yii::t('app','Active user'); ?>" data-tooltip>
@@ -150,8 +150,8 @@ else {
                   
                <?php echo $user['name'] . " " . $user['surname']; ?></h1>
                
-                <div class="item">
-                <h3>
+               
+                <p class="mb10">
                 <?php if ($user['city'] || $user['country'] /*|| $user['address']*/) { ?>
                 <span class="icon-map-marker l-iblock icon-awesome mr5"></span>
                 <a>
@@ -167,17 +167,67 @@ else {
                   </span> 
                 </span>
                 <?php } ?>
-                </h3>
-                </div>
-
-                <?php if ($responseTime) echo '<span class="meta mt0">'.Yii::t('app','Response Time').'</span> </span>'.prettyDate($responseTime).'</span>'; ?>
+                </p>
+                <?php if ($responseTime) echo '<h4 class="l-iblock">'.Yii::t('app','Response Time').'</h4> <p class="l-iblock">'.prettyDate($responseTime).'</p>'; ?>
 
 
-                <?php if ($user['id'] != Yii::app()->user->id){ ?>
-        <a class="button success small-12 radius mb5" href="#" trk="contact_person"  data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send me a message') ?></a>
-      <?php } ?>
+
+                <!--- show for mobile -->
+
+                  <div class="show-for-small">
+
+                  <?php if (count($user['link']) > 0) { ?>
+                    <div class="">
+                      <h4 class="l-iblock"> <?php echo Yii::t('app', 'Links') ?></h4>
+                      <?php foreach ($user['link'] as $link) { ?>
+
+                      
+                          <a class="ml5 mr5" href="<?php echo add_http($link['url']); ?>" target="_blank" trk="person_outGoingLinks_<?php echo parse_url("http://".remove_http($link['url']), PHP_URL_HOST); ?>"> 
+                          <img class="mb5" src="<?php echo getLinkIcon($link['url']); ?>"></a>
+                   
+
+                      <?php } ?>
+                    </div>
+                  <?php } ?>
+
+                  <?php if ($vouched){ ?>
+                  <div class="">
+                      <h4><?php echo Yii::t('app', 'Invited by') ?></h4>
+                    
+                      <div class="l-block">
+                        <p><a href="<?php echo Yii::app()->createUrl("person",array("id"=>$vouched['id'])); ?>">
+                          <img  src="<?php echo avatar_image($vouched['avatar_link'],$vouched['id']); ?>" alt="<?php echo $vouched['name']." ".$vouched['surname']; ?>" class="card-avatar mb8" />
+                          <?php echo $vouched['name']." ".$vouched['surname']; ?>
+                        </a></p>
+                      </div>      
+                    
+                  </div>
+                    <?php }/*else{ ?>
+                      <div class="l-block">
+                          <p>Cofinder</p>
+                      </div> 
+                    <?php } */ ?>
+
+                  <h4 class="l-iblock"><?php echo Yii::t('app', 'Registered') ?></h4>
+                  <span class=""><!-- <?php // echo Yii::t('app', 'Member since') ?>:  -->
+                  <?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($user['create_at']), "long", null); ?></span>
+
+
+                  </div>
+
+                <!-- end show for mobile -->
+
+
+
+
 
             </div>
+
+              <?php if ($user['id'] != Yii::app()->user->id){ ?>  
+              <div class="large-12 small-12 columns">
+                <a class="button success small-12 radius mb5" href="#" trk="contact_person"  data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send me a message') ?></a>
+              </div>     
+              <?php } ?>
 
         </div>     
 
@@ -185,7 +235,8 @@ else {
     </div>
 
     <!-- <p class="meta-field"><?php // echo Yii::t('app', 'My links') ?>:</p> -->
-    <div class="panel small-6 columns">
+    <div class="panel small-12 columns hide-for-small">
+
     <?php if (count($user['link']) > 0) { ?>
       <div class="item bb">
         <h4 class=""> <?php echo Yii::t('app', 'Links') ?></h4>
@@ -224,7 +275,7 @@ else {
     <?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($user['create_at']), "long", null); ?></span>
     </div>
 
-    <div class="panel large-12 small-12 columns">
+    <div class="panel large-12 small-12 columns hide-for-small">
        <div class="item bb">  
        <h4><?php echo Yii::t('app','Share my profile'); ?></h4>
        <?php /* ?><p class="l-inline"><?php echo Yii::t('app','You are viewing this in'); ?> <?php echo $idea['language']; ?></p><?php */ ?>
@@ -398,6 +449,37 @@ else {
       </div>
     </div>
   <?php } ?>
+
+
+      <div class="columns">
+      <div class="panel large-12 small-12 columns radius show-for-small">
+       <div class="item bb">  
+       <h4><?php echo Yii::t('app','Share my profile'); ?></h4>
+       <?php /* ?><p class="l-inline"><?php echo Yii::t('app','You are viewing this in'); ?> <?php echo $idea['language']; ?></p><?php */ ?>
+       </div>
+        <?php $url = Yii::app()->createAbsoluteUrl('person',array("id"=>$user["id"]));
+              $summary = $this->pageDesc; 
+              $title = $this->pageTitle; ?>
+           <a  href="http://www.facebook.com/sharer.php?s=100&p[title]=<?php echo $title; ?>&p[summary]=<?php echo $summary; ?>&p[url]=<?php echo $url; ?>" trk="social_facebook_share_person" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+             <img  src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-fb.jpg"  width="30">
+           </a>
+         &nbsp;
+           <a  href="http://twitter.com/share?text=<?php echo $summary; ?>" trk="social_twitter_share_person" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+             <img  src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-tw.jpg"  width="30">
+           </a>
+          
+            <a href="https://plus.google.com/share?url=<?php echo $url; ?>&title=<?php echo $title; ?>&summary=<?php echo $summary; ?>" trk="social_plus_share_person" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+              <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-gp.jpg" width="30">
+            </a>
+          &nbsp;
+            <a href="http://www.linkedin.com/shareArticle?mini=true&url=<?php echo $url; ?>&title=<?php echo $title; ?>&summary=<?php echo $summary; ?>&source=Cofinder" trk="social_linkedin_share_person" rel="nofollow" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+              <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-li.jpg" width="30">
+            </a>         
+     </div>
+
+     </div>
+
+
     
   </div>
 
