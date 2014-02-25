@@ -84,7 +84,10 @@ class PersonController extends GxController {
         //echo "...".$responseTime;
       }
     //}
-    $lastMsg = Message::model()->findByAttributes(array('user_from_id'=>Yii::app()->user->id,'user_to_id'=>$id),array('order'=>'time_sent DESC'));
+
+    $lastMsg = '';
+    if (!Yii::app()->user->isGuest)      
+      $lastMsg = Message::model()->findByAttributes(array('user_from_id'=>Yii::app()->user->id,'user_to_id'=>$id),array('order'=>'time_sent DESC'));
     
 		$this->render('view', array('data' => $data,"vouched"=>$vouched, 'responseTime'=>$responseTime,'lastMsg'=>$lastMsg));
     

@@ -79,7 +79,11 @@ class ProjectController extends GxController {
 		$click = new Click;
 		$click->idea($id, Yii::app()->user->id);
 
-		$this->render('view', array('data' => $data));
+    $lastMsg = '';
+    if (!Yii::app()->user->isGuest)
+      $lastMsg = Message::model()->findByAttributes(array('user_from_id'=>Yii::app()->user->id,'idea_to_id'=>$id),array('order'=>'time_sent DESC'));
+    
+		$this->render('view', array('data' => $data,'lastMsg'=>$lastMsg));
 	}
   
   /**

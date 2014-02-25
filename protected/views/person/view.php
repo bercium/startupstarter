@@ -168,11 +168,12 @@ else {
         <?php if ($responseTime) echo '<span class="description mt0">'.Yii::t('app','Response time').': '.prettyDate($responseTime).'</span>'; ?>
     
       <?php if ($lastMsg){ ?>
-      <small>
+      <span class="meta hide-for-small">
         <hr>
-        <h6><?php echo Yii::t('app','Last message send to this person'); ?></h6>
-        <?php echo $lastMsg->message; ?>
-      </small>
+        <h4><?php echo Yii::t('app','Last message send'); ?></h4>
+        <?php echo trim_text($lastMsg->message,150,false); ?>
+        <a class="button tiny secondary radius" href="<?php echo Yii::app()->createUrl("message/view",array('id'=>$user['id'],'group'=>'user')); ?>">...</a>
+      </span>
       <?php } ?>
     
     </div>
