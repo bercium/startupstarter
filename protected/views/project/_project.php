@@ -1,13 +1,15 @@
- <div class="columns radius m-card">
+<div class="columns radius m-card">
    
     <?php 
      $pathFileName = Yii::app()->params['projectGalleryFolder'].$idea['id']."/main.jpg";
      if (file_exists(Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.$pathFileName)){
      ?>
+
     <div class="row">
+      <a href="<?php echo Yii::app()->createUrl("project",array("id"=>$idea['id'])); ?>" target="">
       <div class="i-main" style="background-image:url('<?php echo Yii::app()->getBaseUrl(true)."/".$pathFileName; ?>');  ">
         &nbsp;
-      </div>
+      </div></a>
       
     </div>
     <?php }  ?>
