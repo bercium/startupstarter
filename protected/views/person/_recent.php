@@ -1,9 +1,7 @@
 <div class="columns large-12 small-12"> 
-<h2 class="meta-title l-inline"><?php echo Yii::t('app','Recent users'); ?></h2>
-	
-  
 
  <?php if (!Yii::app()->user->isGuest){ ?>
+  <h2 class="meta-title l-inline"><?php echo Yii::t('app','Suggested users'); ?></h2>
 	<div class="right">
 		
 		
@@ -32,6 +30,7 @@
 	</small>
 
   <?php }else{ ?>
+  <h2 class="meta-title l-inline"><?php echo Yii::t('app','Recent users'); ?></h2>
 	<div class="right l-inline">
 		
 		<ul class="pagination hide-for-small">
