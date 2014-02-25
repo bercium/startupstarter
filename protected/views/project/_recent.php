@@ -1,9 +1,8 @@
 <div class="columns large-12 small-12"> 
-	<h2 class="meta-title l-inline"><?php echo Yii::t('app','Recent projects'); ?></h2>
-		
-	 
 
 	 <?php if (!Yii::app()->user->isGuest){ ?>
+    <h2 class="meta-title l-inline"><?php echo Yii::t('app','Suggested projects'); ?></h2>
+    
 		<div class="right l-inline">
 			
 			
@@ -36,6 +35,8 @@
 			</small>
 
 	  <?php }else{ ?>
+    <h2 class="meta-title l-inline"><?php echo Yii::t('app','Recent projects'); ?></h2>
+    
 		<div class="right l-inline">
 			
 			<ul class="pagination hide-for-small">
@@ -60,6 +61,7 @@
 			//$i = 0;
 			//$page = 1;
 			//$maxPage = 3;
+      if ($ideas)
 			foreach ($ideas as $idea){
 				?>
 				<li>

@@ -336,6 +336,14 @@ foreach ($idea['member'] as $member) {
             <a class="button success radius small-12" href="#" trk="contact_team"
                data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send message to members') ?></a>
             <?php //} ?>
+            <?php if ($lastMsg){ ?>
+            <span class="meta hide-for-small">
+              <hr>
+              <h4><?php echo Yii::t('app','Last message send'); ?></h4>
+              <?php echo trim_text($lastMsg->message,150,false); ?>
+              <a class="button tiny secondary radius" href="<?php echo Yii::app()->createUrl("message/view",array('id'=>$idea['id'],'group'=>'project')); ?>">...</a>
+            </span>
+            <?php } ?>                        
         </div>
 
         <div class="panel">

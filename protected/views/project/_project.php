@@ -2,7 +2,9 @@
    
     <?php 
      $pathFileName = Yii::app()->params['projectGalleryFolder'].$idea['id']."/main.jpg";
+     $hasImg = false;
      if (file_exists(Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.$pathFileName)){
+       $hasImg = true;
      ?>
 
     <div class="row">
@@ -27,8 +29,10 @@
     <div  class="row">
       <div class="card-content">
         <div class="section-container tabs" data-section="tabs">
+          
+          
           <section class="active">
-          <p class="title" data-section-title style="border-left: none;" ><a href="#panel1"><?php echo Yii::t('app','Overview') ?></a></p>
+          <p class="title" data-section-title style="border-left: none;width:50%;" ><a href="#panel1"><?php echo Yii::t('app','Project overview') ?></a></p>
             <div class="content" data-section-content>
               <div class="stageinfo">
                 
@@ -60,7 +64,7 @@
             </div>
             </div>
           </section>
-
+          <?php /* ?>
           <section>
             <?php if(isset($idea['member'])) $cm = count($idea['member']); else $cm = 0; ?>
             <p class="title" data-section-title><a href="#panel3"><?php echo Yii::t('app','{n} member|{n} members',array($cm)); ?></a></p>
@@ -85,16 +89,16 @@
                   ?>
 
               </div>
-          </section>
+          </section><?php */ ?>
           
           <section>
             <?php if(isset($idea['candidate'])) $cd = count($idea['candidate']); else $cd = 0; ?>
-            <p class="title" data-section-title><a href="#panel2"><?php echo Yii::t('app','{n} position|{n} positions',array($cd)); ?></a></p>
+            <p class="title" data-section-title style="border-right: none;width:50%"><a href="#panel2"><?php echo Yii::t('app','{n} open position|{n} open positions',array($cd)); ?></a></p>
               <div class="content" data-section-content>
-                <div class="idea-skills">
+                <div class="idea-skills <?php if ($hasImg) echo "slimscroll140"; else echo "slimscroll300"; ?>">
                   
                   <?php
-                  if (is_array($idea['candidate']) && count($idea['candidate']) > 0){
+                  if (isset($idea['candidate']) && count($idea['candidate']) > 0){
                   $skills = array();
                   $c = 0;
                   foreach ($idea['candidate'] as $candidate){
@@ -140,6 +144,7 @@
                     }
                   }
                   ?> 
+                  
                 </div>
               </div>
           </section>
@@ -149,10 +154,15 @@
       <div class="idea-info">
         <div class="columns subinfo">
           
-          <small class="meta"><?php 
+          <small class="meta">
+          <?php if(isset($idea['member'])) { ?>
+            <?php echo Yii::t('app','Has {n} member|Has {n} members',array(count($idea['member']))); ?>
+          <?php } ?>
+            <?php /*
           if ($idea['days_updated'] == 0) echo Yii::t('app','Updated today');
           else if ($idea['days_updated'] == 1) echo Yii::t('app','Updated yesterday');
-          else echo Yii::t('app','Updated {n} day ago|Updated {n} days ago',array($idea['days_updated'])); ?></small>
+          else echo Yii::t('app','Updated {n} day ago|Updated {n} days ago',array($idea['days_updated']));*/ ?>
+          </small>
           <div class="card-floater">
             <a class="tiny button secondary radius" style="margin-bottom:0;" href="<?php echo Yii::app()->createUrl("project",array("id"=>$idea['id'])); ?>" target=""><?php echo Yii::t('app','details').' <span class="icon-angle-right"></span>'; ?></a>
           </div>

@@ -60,7 +60,7 @@ class PersonController extends GxController {
 	    }
 
     $responseTime = 0;
-    if (Yii::app()->user->isAdmin()){
+    //if (Yii::app()->user->isAdmin()){
       // time to respond on message
       $result = Yii::app()->db->createCommand('SELECT TIMEDIFF(mt.time_sent,mf.time_sent) AS tdif, mt.user_from_id, mt.user_to_id, mt.idea_to_id,mt.time_sent AS rt,mf.time_sent AS rf FROM `message` mf
             LEFT JOIN message mt ON (mt.`user_to_id` = mf.`user_from_id` AND mt.`user_from_id` = mf.`user_to_id` ) OR ((mt.`user_to_id` = mf.`user_from_id` OR mf.`user_to_id` = mt.`user_from_id`) AND mt.`idea_to_id` = mf.`idea_to_id`)
@@ -83,9 +83,13 @@ class PersonController extends GxController {
         if ($responseTime > 0) $responseTime = $responseTime / count($responseTimeArray);
         //echo "...".$responseTime;
       }
-    }
+    //}
+
+    $lastMsg = '';
+    if (!Yii::app()->user->isGuest)      
+      $lastMsg = Message::model()->findByAttributes(array('user_from_id'=>Yii::app()->user->id,'user_to_id'=>$id),array('order'=>'time_sent DESC'));
     
-		$this->render('view', array('data' => $data,"vouched"=>$vouched, 'responseTime'=>$responseTime));
+		$this->render('view', array('data' => $data,"vouched"=>$vouched, 'responseTime'=>$responseTime,'lastMsg'=>$lastMsg));
     
     
 
@@ -95,20 +99,38 @@ class PersonController extends GxController {
 
 	public function actionRecent($id = 1) {
 
-		$filter = Yii::app()->request->getQuery('filter', array());
-		
-		$filter['page'] = $id;
-    
-	    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
-	    else $filter['per_page'] = 12;
-		
-		$sqlbuilder = new SqlBuilder;
-		$users = $sqlbuilder->load_array("recent_users", $filter, "num_of_ideas,skillset");
-		$count = $sqlbuilder->load_array("count_users", $filter);
+		if(Yii::app()->user->id > 0){
+		 	$filter = new FilterFromProfile;
+		 	$filter = $filter->search("userByProject", Yii::app()->user->id);
 
-		$maxPage = ceil($count / $filter['per_page']);
-		
-		//$maxPage = 3;  // !!! remove
+			$filter['page'] = $id;
+	    
+		    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
+		    else $filter['per_page'] = 9;
+
+		    $sqlbuilder = new SqlBuilder;
+			$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skillset");
+    		$users = $search['results'];
+			$count = $search['count'];
+
+			$maxPage = ceil($count / $filter['per_page']); 
+
+		} else {
+			$filter = Yii::app()->request->getQuery('filter', array());
+			
+			$filter['page'] = $id;
+	    
+		    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
+		    else $filter['per_page'] = 12;
+			
+			$sqlbuilder = new SqlBuilder;
+			$users = $sqlbuilder->load_array("recent_users", $filter, "num_of_ideas,skillset");
+			$count = $sqlbuilder->load_array("count_users", $filter);
+
+			$maxPage = ceil($count / $filter['per_page']);
+			
+			//$maxPage = 3;  // !!! remove
+		}
 
 		if(isset($_GET['ajax'])){
 			$return['data'] = $this->renderPartial('_recent', array("users" => $users, 'page' => $id, 'maxPage' => $maxPage), true);
@@ -151,7 +173,7 @@ class PersonController extends GxController {
     }else{      
       $filter['per_page'] = 9;
       $filter['page'] = $id;
-    }    
+    }  
     
     $searchForm = new SearchForm();
     $searchForm->isProject = false;
@@ -169,7 +191,6 @@ class PersonController extends GxController {
 			$filter['city'] = $searchForm->city;
 			$filter['collabpref'] = $searchForm->collabPref;
 			$filter['skill'] = $searchForm->skill;
-			$filter['stage'] = $searchForm->stage;
 			$filter['user'] = $searchForm->user; //this one is IN
 
 

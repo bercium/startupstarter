@@ -79,7 +79,11 @@ class ProjectController extends GxController {
 		$click = new Click;
 		$click->idea($id, Yii::app()->user->id);
 
-		$this->render('view', array('data' => $data));
+    $lastMsg = '';
+    if (!Yii::app()->user->isGuest)
+      $lastMsg = Message::model()->findByAttributes(array('user_from_id'=>Yii::app()->user->id,'idea_to_id'=>$id),array('order'=>'time_sent DESC'));
+    
+		$this->render('view', array('data' => $data,'lastMsg'=>$lastMsg));
 	}
   
   /**
@@ -1276,17 +1280,34 @@ class ProjectController extends GxController {
 	//AJAX
 	public function actionRecent($id = 1) {
 
-		$filter = Yii::app()->request->getQuery('filter', array());
-		$filter['page'] = $id;
+		if(Yii::app()->user->id > 0){
+    		$filter = new FilterFromProfile;
+    		$filter = $filter->search("ideaByProfile", Yii::app()->user->id);
+    		$filter['page'] = $id;
 
-	    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
-	    else $filter['per_page'] = 9;
-		
-		$sqlbuilder = new SqlBuilder;
-		$ideas = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
-		$count = $sqlbuilder->load_array("count_ideas", $filter);
+		    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
+		    else $filter['per_page'] = 9;
 
-		$maxPage = ceil($count / $filter['per_page']);
+		    $sqlbuilder = new SqlBuilder;
+    		$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skillset");
+    		$ideas = $search['results'];
+
+    		$maxPage = ceil($search['count'] / $filter['per_page']);
+    	} else {
+			$filter = Yii::app()->request->getQuery('filter', array());
+			$filter['page'] = $id;
+
+		    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
+		    else $filter['per_page'] = 6;
+			
+			$sqlbuilder = new SqlBuilder;
+			$ideas = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
+			$count = $sqlbuilder->load_array("count_ideas", $filter);
+
+			$maxPage = ceil($count / $filter['per_page']);
+    	}
+
+
 
 		if(isset($_GET['ajax'])){
 			$return['data'] = $this->renderPartial('_recent', array("ideas" => $ideas, 'page' => $id, 'maxPage' => $maxPage),true);
