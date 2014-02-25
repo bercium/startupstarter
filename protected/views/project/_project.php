@@ -62,24 +62,26 @@
           <section>
             <?php if(isset($idea['member'])) $cm = count($idea['member']); else $cm = 0; ?>
             <p class="title" data-section-title><a href="#panel3"><?php echo Yii::t('app','{n} member|{n} members',array($cm)); ?></a></p>
-              <div class="content" data-section-content>
-                <?php 
-                $i = 0;
-                // show first 4 members
-                if(isset($idea['member'])){
-                foreach ($idea['member'] as $member){
-                $i++; if ($i > 7) break;
-              ?>
-                <div class="l-block"><a href="<?php echo Yii::app()->createUrl("person",array("id"=>$member['id'])); ?>">
-                  <img  src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="card-avatar mb8" />
-                  <?php echo $member['name']." ".$member['surname']; ?>
-                </a>
-              </div>
-                <?php } 
-                // extra members
-                if (count($idea['member']) > 7) echo '<font class="meta">+'.(count($idea['member'])-7).'</font>';
-                }
-                ?>
+              <div class="content"  data-section-content>
+                  <div class="slimscroll140">
+                  <?php 
+                  $i = 0;
+                  // show first 4 members
+                  if(isset($idea['member'])){
+                  foreach ($idea['member'] as $member){
+                  $i++; if ($i > 7) break;
+                  ?>
+                  <div class="l-block"><a href="<?php echo Yii::app()->createUrl("person",array("id"=>$member['id'])); ?>">
+                    <img  src="<?php echo avatar_image($member['avatar_link'],$member['id']); ?>" alt="<?php echo $member['name']." ".$member['surname']; ?>" class="card-avatar mb8" />
+                    <?php echo $member['name']." ".$member['surname']; ?>
+                  </a>
+                 </div>
+                  <?php } 
+                  // extra members
+                  if (count($idea['member']) > 7) echo '<font class="meta">+'.(count($idea['member'])-7).'</font>';
+                  }
+                  ?>
+
               </div>
           </section>
           

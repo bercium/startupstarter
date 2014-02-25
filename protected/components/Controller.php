@@ -45,7 +45,7 @@ class Controller extends CController
 
 		// JAVASCRIPTS
     $cs->registerCoreScript('jquery');  //core jquery lib
-    
+
 		$cs->registerScriptFile($baseUrl.'/js/vendor/custom.modernizr.js',CClientScript::POS_HEAD);  //modernizer
     
     //$cs->registerScriptFile($baseUrl.'/js/respond.min.js');
@@ -56,6 +56,7 @@ class Controller extends CController
     $cs->registerScriptFile($baseUrl.'/js/jquery.cookie.js');
     $cs->registerScriptFile($baseUrl.'/js/jquery.cookiecuttr.js');
     $cs->registerScriptFile($baseUrl.'/js/jquery.timers.min.js');
+     $cs->registerScriptFile($baseUrl.'/js/jquery.slimscroll.min.js');
  
     //heatmap tracking on production only
     if (!Yii::app()->user->isAdmin() && !YII_DEBUG && !YII_TESTING) $cs->registerScriptFile('/js/camsession.js');  

@@ -70,6 +70,23 @@
 					<?php echo CHtml::textField('SearchForm[skill]',$filter->skill,array("class"=>"skill")); ?>
 					</div>
 
+					
+
+					<div class="large-3 columns left">
+					<label><?php echo Yii::t('app','Name Surname'); ?></label>
+					<?php echo CHtml::textField('SearchForm[user]',$filter->user,array("class"=>"user")); ?>
+					</div>
+
+
+				</div>			
+				
+				<div class="row">
+
+					<div class="large-3 columns">
+						<label><?php echo Yii::t('app','City'); ?></label>
+						<?php echo CHtml::textField('SearchForm[city]',$filter->city,array("class"=>"city")); ?>
+					</div>
+
 					<div class="large-3 columns left">
 					<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
 
@@ -81,16 +98,6 @@
 					</div>
 
 					<div class="large-3 columns">
-					<label><?php echo Yii::t('app','Name Surname'); ?></label>
-					<?php echo CHtml::textField('SearchForm[user]',$filter->user,array("class"=>"user")); ?>
-					</div>
-
-
-				</div>			
-				
-				<div class="row">
-
-					<div class="large-3 columns">
 					<?php //echo CHtml::activeTextField($filter,"colabPref"); ?>
 
 					<?php echo CHtml::label(Yii::t('app','Availability'),''); ?>
@@ -100,10 +107,7 @@
 					, array('empty' => '&nbsp;',"class"=>"large-3","style"=>"display:none")); ?>
 					</div>	     
 
-					<div class="large-3 columns">
-						<label><?php echo Yii::t('app','City'); ?></label>
-						<?php echo CHtml::textField('SearchForm[city]',$filter->city,array("class"=>"city")); ?>
-					</div>
+					
 
 					<?php /* ?>
 					<div class="large-3 columns">
@@ -143,13 +147,13 @@
 			Yii::log(arrayLog($searchResult), CLogger::LEVEL_INFO, 'custom.info.search_result'); 
 			?>
 	  
-	    <div class="hide-for-medium-down">
-	      <div class="page-navigation">
+	   <!-- <div class="hide-for-medium-down">
+	      <div class="page-navigation hide">
 	        <ul>
-	          <li><a class="button secondary small radius" href="#page1"><?php echo Yii::t("app", "Page"); ?> 1</a></li>
+	          <li><a class="button secondary small radius" href="#page1"><?php // echo Yii::t("app", "Page"); ?> 1</a></li>
 	        </ul>
 	      </div>
-	    </div>
+	    </div> -->
 
 			<div class="list-holder">
 	      
