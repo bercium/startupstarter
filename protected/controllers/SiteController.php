@@ -128,7 +128,7 @@ class SiteController extends Controller
     		$filter = new FilterFromProfile;
     		$filter = $filter->search("ideaByProfile", Yii::app()->user->id);
     		$filter['per_page'] = 3;
-    		$search = $sqlbuilder->load_array("search_ideas", $filter, "num_of_ideas,skillset");
+    		$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skillset");
     		$data['idea'] = $search['results'];
     		$maxPageIdea = ceil($search['count'] / $filter['per_page']);
 		 	

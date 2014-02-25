@@ -147,7 +147,7 @@ class PersonController extends GxController {
     
     $searchResult = array();
 		
-		if (isset($_GET['SearchForm'])) $searchForm->setAttributes($_GET['SearchForm']);
+	if (isset($_GET['SearchForm'])) $searchForm->setAttributes($_GET['SearchForm']);
 		
     if ($searchForm->checkSearchForm()){
 			// search results
