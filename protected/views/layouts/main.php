@@ -59,15 +59,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
 
   <?php if (!isset($this->justContent) || !$this->justContent){ ?>
   
-  <div class="header-wrap show-for-small">
-    <div class="row header">
-      <div>
-        <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
-           <img class="ml10" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png" />
-        </a>
-      </div>
-    </div>
-  </div><!-- end header-wrap -->
+  
   
   <div class="top-bar-holder sticky">
       <div class="row">
@@ -83,35 +75,109 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
                  </a>
                  
 							 </div>
+
+                <div class="show-for-small">
+                <div class="left l-iblock">
+                <div>
+                <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
+                <img class="ml10" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png" />
+                </a>
+                </div>
+                </div>
+                </div><!-- end header-wrap -->
                
                <?php if (!Yii::app()->user->isGuest){ ?>
                 <div class="show-for-small ml8" >
-                  <a href="<?php echo Yii::app()->createUrl("profile"); ?>">
-                    <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
-                  </a>
+                  
                   <?php 
                     //$notifications = $this->getNotifications();
                     if ($notifications['count'] > 0){ ?>
-                    <a href="#" data-options="is_hover:true" data-dropdown="notifications" style="position:relative;top: 13px;left:20px;">
+                    <div href="#"  style="float: right; position:relative; top: 13px;right:70px; backgrou width:">
                        <span class="icon-envelope icon-msg-alert"></span><span class="el-msg-alert-mobile mb5 ml5"><?php echo $notifications['count']; ?></span>
-                    </a>
+                    </div>
                   <?php } ?>                  
                 </div>
                <?php } ?>
               </li>
             <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-            <li class="toggle-topbar menu-icon"><a href="#"><span><?php echo Yii::t('app','Menu'); ?></span></a></li>
+            <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
           </ul>
 
         <section class="top-bar-section">
+
+            <ul class="right">
+              <li class="divider"></li>
+              <?php if (!Yii::app()->user->isGuest){ ?>
+              <li class="has-dropdown minwidth20">
+                <a href="<?php echo Yii::app()->createUrl("person",array('id'=>Yii::app()->user->id)); ?>" >
+                  <div class="">
+                  <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
+                  </div>                  
+                  
+                 </a>
+
+                <ul class="dropdown">
+                  <li><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><?php echo Yii::t('app','Edit profile'); ?><span class="icon-user"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>"><?php echo Yii::t('app','My projects'); ?><span class="icon-lightbulb"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo Yii::t('app','Create a new project'); ?><span class="icon-plus"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("message"); ?>"><?php echo Yii::t('app','Message history'); ?><span class="icon-envelope"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><?php echo Yii::t('app','Settings'); ?><span class="icon-wrench"></span></a></li>
+                  
+                  <li><a class="altli" href="<?php echo Yii::app()->createUrl(Yii::app()->getModule('user')->logoutUrl[0]); ?>"><?php echo Yii::t('app','Logout'); ?></a></li>
+                </ul>
+
+              </li>
+                <?php // href="<?php echo Yii::app()->createUrl("profile/notification"); ? >"
+                    if ($notifications['count'] > 0){ ?>
+                      <?php 
+                      
+                      foreach ($notifications['messages'] as $notify){ ?>
+                        <li class="divider show-for-small"></li>
+                        <li class="show-for-small" style="padding:3px 8px; font-size: 1em; " trk="top_notification_<?php echo $notify['type']; ?>" onclick="$(this).fadeOut(); markNotifications('<?php echo Yii::app()->createUrl("site/clearNotif",array("type"=>$notify['type'])); ?>')">
+                          <a href="<?php echo $notify['link']; ?>">
+                            <span class="label radius left mb5 mr8" style="">
+                            <?php echo $notify['count']; ?>
+                            </span>
+                            <small><?php echo $notify['message']; ?></small>
+                          </a>
+                        </li>
+                      <?php } ?>
+
+                <li class="divider"></li>
+                <li class="desc hide-for-small">
+                  <a href="#" data-dropdown="notifications" data-options="is_hover:true" style="padding-top: 15px; position: relative;" >
+                    <span class="icon-envelope pr15 icon-msg-alert"></span><span class="el-msg-alert"><?php echo $notifications['count']; ?></span>
+                  </a>
+                </li>
+                <?php } ?>
+              <?php }else{ ?>
+                <li>
+                  <a href="#" data-dropdown="drop-login"><?php echo Yii::t('app','Login'); ?></a>
+                </li>
+              <?php  ?><li class="divider"></li>
+                <li>
+                  <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>"><?php echo Yii::t('app','Register'); ?></a>
+                </li>
+               
+               <?php  ?>
+              <?php } ?>
+              <li class="divider"></li>
+              <li class="desc">
+                <a href="#" data-dropdown="langselect" title="<?php echo Yii::t('msg','Select page language'); ?>"><?php echo Yii::app()->getLanguage(); ?>
+                <br /><small>language</small>
+                </a>
+              </li>
+
+            </ul> 
             <!-- Left Nav Section -->
             <ul class="left">
-              <li class="divider"></li>
+               <li class="divider"></li>            
               <?php /* ?><li class="<?php echo isMenuItemActive("team"); ?>">
                 <a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo Yii::t('app','Our team'); ?></a>
               </li>
               <li class="divider"></li>
               <?php */ ?>
+
               <li class="<?php echo isMenuItemActive("about"); ?> desc">
                 <a href="<?php echo Yii::app()->createUrl("site/about"); ?>" title="<?php echo Yii::t('app','What is Cofinder and who is behind it'); ?>">
                 <?php echo Yii::t('app','What is {bs}cofinder{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
@@ -162,57 +228,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
               <?php } ?>
             </ul>
 
-            <ul class="right">
-              <?php if (!Yii::app()->user->isGuest){ ?>
-              <li class="has-dropdown minwidth20">
-                <a href="<?php echo Yii::app()->createUrl("person",array('id'=>Yii::app()->user->id)); ?>" style="height:45px">
-                  <div class="hide-for-small">
-                  <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
-                  </div>
-                  <div class="show-for-small">
-                    <?php echo Yii::t('app',"Me"); ?>
-                  </div>
-                 </a>
-
-                <ul class="dropdown">
-                  <li><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><?php echo Yii::t('app','Edit profile'); ?><span class="icon-user"></span></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>"><?php echo Yii::t('app','My projects'); ?><span class="icon-lightbulb"></span></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo Yii::t('app','Create a new project'); ?><span class="icon-plus"></span></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("message"); ?>"><?php echo Yii::t('app','Message history'); ?><span class="icon-envelope"></span></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><?php echo Yii::t('app','Settings'); ?><span class="icon-wrench"></span></a></li>
-                  
-                  <li><a class="altli" href="<?php echo Yii::app()->createUrl(Yii::app()->getModule('user')->logoutUrl[0]); ?>"><?php echo Yii::t('app','Logout'); ?></a></li>
-                </ul>
-
-              </li>
-                <?php // href="<?php echo Yii::app()->createUrl("profile/notification"); ? >"
-                    if ($notifications['count'] > 0){ ?>
-                <li class="divider"></li>
-                <li class="desc">
-                  <a href="#" data-dropdown="notifications" data-options="is_hover:true" style="padding-top: 15px; position: relative;" >
-                    <span class="icon-envelope pr15 icon-msg-alert"></span><span class="el-msg-alert"><?php echo $notifications['count']; ?></span>
-                  </a>
-                </li>
-                <?php } ?>
-              <?php }else{ ?>
-                <li>
-                  <a href="#" data-dropdown="drop-login"><?php echo Yii::t('app','Login'); ?></a>
-                </li>
-              <?php  ?><li class="divider"></li>
-                <li>
-                  <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>"><?php echo Yii::t('app','Register'); ?></a>
-                </li>
-               
-               <?php  ?>
-              <?php } ?>
-              <li class="divider"></li>
-              <li class="desc">
-                <a href="#" data-dropdown="langselect" title="<?php echo Yii::t('msg','Select page language'); ?>"><?php echo Yii::app()->getLanguage(); ?>
-                <br /><small>language</small>
-                </a>
-              </li>
-
-            </ul>
+            
           </section>
         </nav>
     </div>

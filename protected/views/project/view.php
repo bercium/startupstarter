@@ -169,7 +169,7 @@ foreach ($idea['member'] as $member) {
                         <a id="candidates" class="anchor-link"></a>
                         <?php echo Yii::t('app', 'Looking for {n} candidate|Looking for {n} candidates', array(count($idea['candidate']))); ?>
                         <?php if ($canEdit) { ?>
-                          <a class="button tiny radius" href="<?php echo Yii::app()->createUrl("project/edit", array("id" => $idea['id'],"candidate"=>"new")); ?>#link_position">
+                          <a class="button tiny radius right ml20" href="<?php echo Yii::app()->createUrl("project/edit", array("id" => $idea['id'],"candidate"=>"new")); ?>#link_position">
                             <?php echo Yii::t('app', 'Open new position') ?>
                           </a>
                         <?php } ?> 
