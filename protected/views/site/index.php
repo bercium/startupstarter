@@ -174,7 +174,7 @@
         <h2 class="alt-5" ><?php echo Yii::t('msg','Sign up for Cofinder'); ?></h2>
 				<p><?php echo Yii::t('msg','Create your account, tell us about yourself and start exploring'); ?></p>	
         <a class="button radius large large-12 mb0" href="<?php echo Yii::app()->createUrl("user/registration"); ?>"><?php echo Yii::t('app','Start here'); ?></a>
-				<p class="description small-8 small-centered"><?php echo Yii::t('msg','Already have an account?'); ?> <a href="#" data-dropdown="drop-login"><?php echo Yii::t('app','Login here'); ?>.</a></p>		
+				<p class="description small-8 small-centered large-12"><?php echo Yii::t('msg','Already have an account?'); ?> <a href="#" data-dropdown="drop-login"><?php echo Yii::t('app','Login here'); ?>.</a></p>		
         </div>       
 			</div>
 
