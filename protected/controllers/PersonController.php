@@ -60,7 +60,7 @@ class PersonController extends GxController {
 	    }
 
     $responseTime = 0;
-    if (Yii::app()->user->isAdmin()){
+    //if (Yii::app()->user->isAdmin()){
       // time to respond on message
       $result = Yii::app()->db->createCommand('SELECT TIMEDIFF(mt.time_sent,mf.time_sent) AS tdif, mt.user_from_id, mt.user_to_id, mt.idea_to_id,mt.time_sent AS rt,mf.time_sent AS rf FROM `message` mf
             LEFT JOIN message mt ON (mt.`user_to_id` = mf.`user_from_id` AND mt.`user_from_id` = mf.`user_to_id` ) OR ((mt.`user_to_id` = mf.`user_from_id` OR mf.`user_to_id` = mt.`user_from_id`) AND mt.`idea_to_id` = mf.`idea_to_id`)
@@ -83,9 +83,10 @@ class PersonController extends GxController {
         if ($responseTime > 0) $responseTime = $responseTime / count($responseTimeArray);
         //echo "...".$responseTime;
       }
-    }
+    //}
+    $lastMsg = Message::model()->findByAttributes(array('user_from_id'=>Yii::app()->user->id,'user_to_id'=>$id),array('order'=>'time_sent DESC'));
     
-		$this->render('view', array('data' => $data,"vouched"=>$vouched, 'responseTime'=>$responseTime));
+		$this->render('view', array('data' => $data,"vouched"=>$vouched, 'responseTime'=>$responseTime,'lastMsg'=>$lastMsg));
     
     
 

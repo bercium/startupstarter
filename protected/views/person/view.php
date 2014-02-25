@@ -166,6 +166,15 @@ else {
         </a>
       <?php } ?>
         <?php if ($responseTime) echo '<span class="description mt0">'.Yii::t('app','Response time').': '.prettyDate($responseTime).'</span>'; ?>
+    
+      <?php if ($lastMsg){ ?>
+      <small>
+        <hr>
+        <h6><?php echo Yii::t('app','Last message send to this person'); ?></h6>
+        <?php echo $lastMsg->message; ?>
+      </small>
+      <?php } ?>
+    
     </div>
 
     <!-- <p class="meta-field"><?php // echo Yii::t('app', 'My links') ?>:</p> -->
@@ -232,7 +241,6 @@ else {
               <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-li.jpg" width="30">
             </a>         
      </div>
-
 
   </div>
 
