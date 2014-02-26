@@ -122,7 +122,7 @@ class PersonController extends GxController {
 			$userType = Yii::t('app', "Found users");
 
     }else{
-    	if(!Yii::app()->user->isGuest){
+    	if(!Yii::app()->user->isGuest && isset($_SESSION['suggested']) && $_SESSION['suggested'] == true){
 
     		$filter = new FilterFromProfile;
 		 	$filter = $filter->search("userByProject", Yii::app()->user->id);
@@ -153,8 +153,6 @@ class PersonController extends GxController {
 			$searchResult['maxPage'] = ceil($search['count'] / $filter['per_page']); 
 
     	} else {
-
-			$filter['per_page'] = 3;
 
     		$count = $sqlbuilder->load_array("count_users", $filter);
 

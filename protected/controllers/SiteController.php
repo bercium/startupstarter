@@ -72,8 +72,15 @@ class SiteController extends Controller
 	{
     	$this->layout="//layouts/none";
 		$sqlbuilder = new SqlBuilder;
+
+		//suggested / recent switch button
+		if(isset($_GET['suggested']) && $_GET['suggested'] == true){
+			$_SESSION['suggested'] = true;
+		} elseif(isset($_GET['suggested']) && $_GET['suggested'] == false) {
+			$_SESSION['suggested'] = false;
+		}
 		
-    	if(!Yii::app()->user->isGuest){
+    	if(!Yii::app()->user->isGuest && isset($_SESSION['suggested']) && $_SESSION['suggested'] == true){
 
 		//users
 		 	$filter = new FilterFromProfile;
