@@ -565,7 +565,7 @@ sidebar .section-container.auto .section {
 {
 
     font-size: 0.75em;
-    font-weight: 600;
+    font-weight: bold;
     text-transform: uppercase;
     margin-bottom: 20px;
       
@@ -807,6 +807,10 @@ ul, ol {
 	font-weight: bold !important; 
 }
 
+.f-medium {
+	font-size: 1.375em !important; 
+}
+
 
 .status-high.icon-circle {
 	font-size: 0.6em;
@@ -900,6 +904,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 
 .btop {
 	border-top: 1px solid #ddd;
+}
+
+.bleft {
+	border-left: 1px solid #ddd;
+}
+
+.bright {
+	border-right: 1px solid #ddd;
 }
 
 .bb {
@@ -2042,10 +2054,17 @@ label{
 
     }
 
-	/****** @ panel-colors ******/
-    .panel-color-1 {
+	/****** @ bg-colors ******/
+    .bg-color-1 {
     	background: #DFE8D7 !important;
     }
+
+     .bg-color-2 {
+    	background: #555 !important;
+    }
+
+
+
 
 
   
