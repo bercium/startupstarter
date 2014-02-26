@@ -4,7 +4,7 @@
 	 
 
 	 <?php if (!Yii::app()->user->isGuest){ ?>
-    <h2 class="meta-title l-inline"><?php echo Yii::t('app','Suggested projects'); ?></h2>
+
     
 		<div class="right l-inline">
 			
@@ -38,7 +38,7 @@
 			</small>
 
 	  <?php }else{ ?>
-    <h2 class="meta-title l-inline"><?php echo Yii::t('app','Recent projects'); ?></h2>
+
     
 		<div class="right l-inline">
 			
