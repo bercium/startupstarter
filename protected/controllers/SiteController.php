@@ -70,90 +70,83 @@ class SiteController extends Controller
 	 */
 	public function actionIndex($id = 1)
 	{
-    $this->layout="//layouts/none";
-    
+    	$this->layout="//layouts/none";
 		$sqlbuilder = new SqlBuilder;
-		$filter = Yii::app()->request->getQuery('filter', array());
-		$filter['per_page'] = 3;
+
+		//suggested / recent switch button
+		if(isset($_GET['suggested']) && $_GET['suggested'] == true){
+			$_SESSION['suggested'] = true;
+		} elseif(isset($_GET['suggested']) && $_GET['suggested'] == false) {
+			$_SESSION['suggested'] = false;
+		}
 		
-    
-    $searchForm = new SearchForm();
-    $searchResult = array();
-		$data = array();
-    $maxPagePerson = 0;
-    $maxPageIdea = 0;
-		
-	if (isset($_GET['SearchForm'])) $searchForm->setAttributes($_GET['SearchForm']);
+    	if(!Yii::app()->user->isGuest && isset($_SESSION['suggested']) && $_SESSION['suggested'] == true){
 
-    if ($searchForm->checkSearchForm()){
-			// search results
-      $searchForm->setAttributes($_GET['SearchForm']);
-			
-			$filter['per_page'] = 9;
-			$filter['page'] = $id;
-			
-			$filter['available'] = $searchForm->available;
-			$filter['city'] = $searchForm->city;
-			$filter['collabpref'] = $searchForm->collabPref;
-			$filter['country'] = $searchForm->country;
-			$filter['extra'] = $searchForm->extraDetail; // like video or images
-			$filter['keywords'] = $searchForm->keywords;
-			$filter['language'] = $searchForm->language;
-			$filter['skill'] = $searchForm->skill;
-			$filter['stage'] = $searchForm->stage;
-
-			//categories work like this
-			/*foreach($filter AS $key => $value){
-				if(strlen($value) > 0 && $value){
-					$filter['category'][] = $key;
-				}
-			}*/
-			
-			if ($searchForm->isProject){
-				$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skillset");
-				$searchResult['data'] = $search['results'];
-				$count = $search['count'];
-			} else {
-				$search = $sqlbuilder->load_array("search_users", $filter, "skillset,num_of_ideas");
-				$searchResult['data'] = $search['results'];
-				$count = $search['count'];
-			}
-			
-			$searchResult['page'] = $id;
-			$searchResult['maxPage'] = ceil($count / $filter['per_page']);
-
-    }else{
-
-    	if(Yii::app()->user->id > 0){
-    		$filter = new FilterFromProfile;
-    		$filter = $filter->search("ideaByProfile", Yii::app()->user->id);
-    		$filter['per_page'] = 3;
-    		$search = $sqlbuilder->load_array("search_ideas", $filter, "num_of_ideas,skillset");
-    		$data['idea'] = $search['results'];
-    		$maxPageIdea = ceil($search['count'] / $filter['per_page']);
-		 	
+		//users
 		 	$filter = new FilterFromProfile;
 		 	$filter = $filter->search("userByProject", Yii::app()->user->id);
+		 	$filter['page'] = 1;
 		 	$filter['per_page'] = 3;
+		 	$filter['recent'] = 'recent';
+		 	$filter['where'] = "AND u.create_at > ".(time() - 3600 * 24 * 14);
 			$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skillset");
+			$userType = Yii::t('app', "Suggested users");
+
+			//if there's not plenty of results...
+			if($search['count'] < 3){
+			 	$filter['where'] = "AND u.create_at > ".(time() - 3600 * 24 * 31);
+				$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skillset");
+				if($search['count'] < 3){
+					$search['results'] = $sqlbuilder->load_array("recent_users", $filter, "skillset,num_of_ideas");
+					$search['count'] = $sqlbuilder->load_array("count_users", $filter);
+					$userType = Yii::t('app', "Recent users");
+				}
+			}
+
     		$data['user'] = $search['results'];
     		$maxPagePerson = ceil($search['count'] / $filter['per_page']);
 
+    	//ideas
+    		$filter = new FilterFromProfile;
+    		$filter = $filter->search("ideaByProfile", Yii::app()->user->id);
+    		$filter['page'] = 1;
+    		$filter['per_page'] = 3;
+    		$filter['recent'] = 'recent';
+    		$filter['where'] = "AND i.time_updated > ".(time() - 3600 * 24 * 14);
+    		$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skillset");
+    		$ideaType = Yii::t('app', "Suggested projects");
+    		
+			//if there's not plenty of results...
+			if($search['count'] < 3){
+			 	$filter['where'] = "AND i.time_updated > ".(time() - 3600 * 24 * 31);
+				$search = $sqlbuilder->load_array("search_users", $filter, "translation,member,candidate,skillset");
+				if($search['count'] < 3){
+		  			$search['results'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
+					$search['count'] = $count = $sqlbuilder->load_array("count_ideas", $filter);
+					$ideaType = Yii::t('app', "Recent projects");
+				}
+			}
+
+    		$data['idea'] = $search['results'];
+    		$maxPageIdea = ceil($search['count'] / $filter['per_page']);
+
     	} else {
 			// last results
-		  	$data['idea'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
-	      	$count = $sqlbuilder->load_array("count_ideas", $filter);
-	      	$maxPageIdea = ceil($count / $filter['per_page']); 
-      
+
+			$filter['per_page'] = 3;
+
 			$data['user'] = $sqlbuilder->load_array("recent_users", $filter, "skillset,num_of_ideas");
 	      	$count = $sqlbuilder->load_array("count_users", $filter);
-	      	$maxPagePerson = ceil($count / $filter['per_page']); 
+	      	$maxPagePerson = ceil($count / $filter['per_page']);
+	      	$userType = Yii::t('app', "Recent users");
+
+		  	$data['idea'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
+	      	$count = $sqlbuilder->load_array("count_ideas", $filter);
+	      	$maxPageIdea = ceil($count / $filter['per_page']);
+	      	$ideaType = Yii::t('app', "Recent projects");
     	}
 
-	}
-		
-
-		$this->render('index', array('data' => $data, "filter"=>$searchForm, "searchResult"=>$searchResult, "maxPageIdea"=>$maxPageIdea, "maxPagePerson"=>$maxPagePerson));
+		$this->render('index', array('data' => $data, "maxPageIdea"=>$maxPageIdea, "maxPagePerson"=>$maxPagePerson, "ideaType"=>$ideaType, "userType"=>$userType));
 	}
 
 	public function actionAbout()

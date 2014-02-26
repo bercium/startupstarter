@@ -52,8 +52,14 @@ class SearchBuilder2 {
 		  	-search by idea table variables*/
 
 		$rank = array();
+		$array = array();
 
 		if($type == 'user'){
+
+			//set exclude users where query
+			if(isset($filter['exclude'])){
+				$where.= " AND u.id != " . implode($filter['exclude'], " AND u.id != ");
+			}
 
 			//number filter entries
 				//available
@@ -73,6 +79,11 @@ class SearchBuilder2 {
 					$rank = $this->textEntries($rank, $filter, 'recent', 'userRecent', $where);
 
 		} elseif( $type == 'idea' ){
+
+			//set exclude ideas where query
+			if(isset($filter['exclude'])){
+				$where.= " AND i.id != " . implode($filter['exclude'], " AND i.id != ");
+			}
 
 			//number filter entries
 				//available
@@ -104,7 +115,7 @@ class SearchBuilder2 {
 			//Pagination
 			$array = array_slice($array, ($filter['page'] - 1) * $filter['per_page'], $filter['per_page']);
 		
-		}
+		}	
 
 		$return['count'] = $count;
 		$return['results'] = $array;
@@ -194,8 +205,10 @@ class SearchBuilder2 {
 		$sql = 	"SELECT m.id ".
 				"FROM  `user_match` AS m ".
 				"LEFT JOIN `user` AS u ON m.user_id = u.id ".
+				"LEFT JOIN `user_stat` AS ustat ON u.id = ustat.user_id ".
 				"WHERE m.available = :value ".
 				"AND m.user_id >0 ".
+				"AND ustat.completeness >= ".PROFILE_COMPLETENESS_MIN." ".
 				$where." ".
 				"GROUP BY m.id";
 		return $sql;
@@ -208,8 +221,10 @@ class SearchBuilder2 {
 				"FROM  `user_collabpref` AS c ".
 				"LEFT JOIN `user_match` AS m ON m.id = c.match_id ".
 				"LEFT JOIN `user` AS u ON m.user_id = u.id ".
+				"LEFT JOIN `user_stat` AS ustat ON u.id = ustat.user_id ".
 				"WHERE c.collab_id = :value ".
 				"AND m.user_id > 0 ".
+				"AND ustat.completeness >= ".PROFILE_COMPLETENESS_MIN." ".
 				$where." ".
 				"GROUP BY m.id";
 		return $sql;
@@ -222,8 +237,10 @@ class SearchBuilder2 {
 				"FROM  `city` AS c ".
 				"LEFT JOIN `user_match` AS m ON m.city_id = c.id ".
 				"LEFT JOIN `user` AS u ON m.user_id = u.id ".
+				"LEFT JOIN `user_stat` AS ustat ON u.id = ustat.user_id ".
 				"WHERE c.name LIKE :value ".
 				"AND m.user_id >0 ".
+				"AND ustat.completeness >= ".PROFILE_COMPLETENESS_MIN." ".
 				$where." ".
 				"GROUP BY m.id";
 		return $sql;
@@ -235,9 +252,11 @@ class SearchBuilder2 {
 		$sql = 	"SELECT m.id ".
 				"FROM  `user` AS u ".
 				"LEFT JOIN `user_match` AS m ON m.user_id = u.id ".
+				"LEFT JOIN `user_stat` AS ustat ON u.id = ustat.user_id ".
 				"WHERE u.name LIKE :value ".
 				"OR u.surname LIKE :value ".
 				"AND m.user_id >0 ".
+				"AND ustat.completeness >= ".PROFILE_COMPLETENESS_MIN." ".
 				$where." ".
 				"GROUP BY m.id";
 		return $sql;
@@ -249,11 +268,12 @@ class SearchBuilder2 {
 		$sql = 	"SELECT m.id ".
 				"FROM  `user` AS u ".
 				"LEFT JOIN `user_match` AS m ON m.user_id = u.id ".
-				"LEFT JOIN `user` AS u ON m.user_id = u.id ".
+				"LEFT JOIN `user_stat` AS ustat ON u.id = ustat.user_id ".
 				"WHERE m.user_id >0 ".
+				"AND ustat.completeness >= ".PROFILE_COMPLETENESS_MIN." ".
 				$where." ".
-				"ORDER BY u.create_at DESC ".
-				"GROUP BY m.id";
+				"GROUP BY m.id ".
+				"ORDER BY u.create_at DESC";
 		return $sql;
 
 	}
@@ -266,8 +286,10 @@ class SearchBuilder2 {
 				"LEFT JOIN `user_skill` AS us ON ss.id = us.skillset_id ".
 				"LEFT JOIN `user_match` AS m ON us.match_id = m.id ".
 				"LEFT JOIN `user` AS u ON m.user_id = u.id ".
+				"LEFT JOIN `user_stat` AS ustat ON u.id = ustat.user_id ".
 				"WHERE tss.translation LIKE :value ".
 				"AND m.user_id >0 ".
+				"AND ustat.completeness >= ".PROFILE_COMPLETENESS_MIN." ".
 				$where." ".
 				"GROUP BY m.id";
 		return $sql;
@@ -281,8 +303,10 @@ class SearchBuilder2 {
 				"LEFT JOIN `user_skill` AS us ON ss.id = us.skillset_id ".
 				"LEFT JOIN `user_match` AS m ON us.match_id = m.id ".
 				"LEFT JOIN `user` AS u ON m.user_id = u.id ".
+				"LEFT JOIN `user_stat` AS ustat ON u.id = ustat.user_id ".
 				"WHERE ss.name LIKE :value ".
 				"AND m.user_id >0 ".
+				"AND ustat.completeness >= ".PROFILE_COMPLETENESS_MIN." ".
 				$where." ".
 				"GROUP BY m.id";
 		return $sql;
@@ -296,8 +320,10 @@ class SearchBuilder2 {
 				"LEFT JOIN `user_skill` AS us ON s.id = us.skill_id ".
 				"LEFT JOIN `user_match` AS m ON us.match_id = m.id ".
 				"LEFT JOIN `user` AS u ON m.user_id = u.id ".
+				"LEFT JOIN `user_stat` AS ustat ON u.id = ustat.user_id ".
 				"WHERE s.name LIKE :value ".
 				"AND m.user_id >0 ".
+				"AND ustat.completeness >= ".PROFILE_COMPLETENESS_MIN." ".
 				$where." ".
 				"GROUP BY m.id";
 		return $sql;
@@ -354,7 +380,7 @@ class SearchBuilder2 {
 				"FROM `idea` AS i ".
 				"WHERE i.id > 0 ".
 				$where." ".
-				"ORDER BY i.time_registered";
+				"ORDER BY i.time_registered DESC";
 		return $sql;
 
 	}

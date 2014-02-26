@@ -1276,51 +1276,6 @@ class ProjectController extends GxController {
 			}
 		}
 	}
-
-	//AJAX
-	public function actionRecent($id = 1) {
-
-		if(Yii::app()->user->id > 0){
-    		$filter = new FilterFromProfile;
-    		$filter = $filter->search("ideaByProfile", Yii::app()->user->id);
-    		$filter['page'] = $id;
-
-		    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
-		    else $filter['per_page'] = 9;
-
-		    $sqlbuilder = new SqlBuilder;
-    		$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skillset");
-    		$ideas = $search['results'];
-
-    		$maxPage = ceil($search['count'] / $filter['per_page']);
-    	} else {
-			$filter = Yii::app()->request->getQuery('filter', array());
-			$filter['page'] = $id;
-
-		    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
-		    else $filter['per_page'] = 6;
-			
-			$sqlbuilder = new SqlBuilder;
-			$ideas = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
-			$count = $sqlbuilder->load_array("count_ideas", $filter);
-
-			$maxPage = ceil($count / $filter['per_page']);
-    	}
-
-
-
-		if(isset($_GET['ajax'])){
-			$return['data'] = $this->renderPartial('_recent', array("ideas" => $ideas, 'page' => $id, 'maxPage' => $maxPage),true);
-			$return['message'] = '';
-			$return['status'] = 0;
-			$return = json_encode($return);
-			echo $return; //return array
-			Yii::app()->end();
-		} else {
-			$this->render('recent', array('ideas' => $ideas, 'page' => $id, 'maxPage' => $maxPage));
-		}
-		
-	}
   
   public function actionEmbed($id){
     $this->layout="//layouts/blank";
@@ -1344,9 +1299,13 @@ class ProjectController extends GxController {
       $filter['page'] = 1;
       $register = '<a href="'.Yii::app()->createUrl("user/registration").'" class="button small radius secondary ml10 mb0">'.Yii::t('app','register').'</a>';
       setFlash("discoverPerson", Yii::t('msg','Only recent three results are shown!<br />To get full functionality please login or {register}',array('{register}'=>$register)), "alert", false);
-    }else{      
-      $filter['per_page'] = 6;
-      $filter['page'] = $id;
+    }else{
+    	if(isset($_GET['ajax'])){
+    		$filter['per_page'] = 3;
+    	} else {
+    		$filter['per_page'] = 6;
+    	}
+      	$filter['page'] = $id;
     }
     
     $searchForm = new SearchForm();
@@ -1365,14 +1324,6 @@ class ProjectController extends GxController {
 			$filter['collabpref'] = $searchForm->collabPref;
 			$filter['skill'] = $searchForm->skill;
 			$filter['stage'] = $searchForm->stage;
-
-			if(isset($_GET['Category'])){
-                $keyworder = new Keyworder;
-                $category = $keyworder->string2array($_GET['Category']);
-
-				foreach($category AS $value)
-				    $filter['category'][] = $value;
-			}
 			
 			$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skillset");
 			$searchResult['data'] = $search['results'];
@@ -1381,16 +1332,56 @@ class ProjectController extends GxController {
 			$searchResult['page'] = $id;
 			$searchResult['maxPage'] = ceil($count / $filter['per_page']); //!!! add page count
 
+			$ideaType = Yii::t('app', "Found projects");
     }else{
+    	if(!Yii::app()->user->isGuest && isset($_SESSION['suggested']) && $_SESSION['suggested'] == true){
+    		$filter = new FilterFromProfile;
+    		$filter = $filter->search("ideaByProfile", Yii::app()->user->id);
+    		$filter['page'] = $id;
+
+		    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
+		    else $filter['per_page'] = 6;
+
+    		$filter['recent'] = 'recent';
+    		$filter['where'] = "AND i.time_updated > ".(time() - 3600 * 24 * 14);
+    		$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skillset");
+    		$ideaType = Yii::t('app', "Suggested projects");
+    		
+			//if there's not plenty of results...
+			if($search['count'] < 3){
+			 	$filter['where'] = "AND i.time_updated > ".(time() - 3600 * 24 * 31);
+				$search = $sqlbuilder->load_array("search_users", $filter, "translation,member,candidate,skillset");
+				if($search['count'] < 3){
+		  			$search['results'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
+					$search['count'] = $count = $sqlbuilder->load_array("count_ideas", $filter);
+					$ideaType = Yii::t('app', "Recent projects");
+				}
+			}
+
+			$searchResult['data'] = $search['results'];
+			$searchResult['page'] = $id;
+			$searchResult['maxPage'] = ceil($search['count'] / $filter['per_page']);
+    	} else {
       		$count = $sqlbuilder->load_array("count_ideas", $filter);
 
 			$searchResult['data'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
 			$searchResult['page'] = $id;
 			$searchResult['maxPage'] = ceil($count / $filter['per_page']); ; //!!! add page count
+    	
+			$ideaType = Yii::t('app', "Recent projects");
+    	}
     }
-		
-
-		$this->render('discover', array("filter"=>$searchForm, "searchResult"=>$searchResult));
+	
+    if(isset($_GET['ajax'])){
+		$return['data'] = $this->renderPartial('_recent', array("ideas" => $searchResult['data'], 'page' => $id, 'maxPage' => $searchResult['maxPage'], 'ideaType' => $ideaType), true);
+		$return['message'] = '';//Yii::t('msg', "Success!");
+		$return['status'] = 0;
+		$return = json_encode($return);
+		echo $return; //return array
+		Yii::app()->end();
+    } else {
+		$this->render('discover', array("filter"=>$searchForm, "searchResult"=>$searchResult, "ideaType"=>$ideaType));
+  	}
   }
 
 	public function actionSuggestUser() {

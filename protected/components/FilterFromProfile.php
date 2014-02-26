@@ -10,6 +10,9 @@ class FilterFromProfile {
 		if($type == 'userByProject'){
 			$data = $sqlbuilder->load_array("user", $user_id, "idea,candidate,collabpref,skillset");
 
+			//don't show me
+			$filter['exclude'][] = $user_id['user_id'];
+
 			//search user's ideas and generate candidate profile
 			if(isset($data['idea']) && count($data['idea'] > 0)){
 			foreach($data['idea'] AS $key => $idea){
@@ -53,14 +56,27 @@ class FilterFromProfile {
 
 			//group by same value
 			foreach($filter AS $key => $results){
-				$filter[$key] = implode(", ", $results);
+				if($key != 'exclude'){
+					$filter[$key] = implode(", ", $results);
+				}
 			}
 
 			return $filter;
 
 		} elseif($type == 'ideaByProfile'){
-			$data = $sqlbuilder->load_array("user", $user_id, "collabpref,skillset");
-			
+			$data = $sqlbuilder->load_array("user", $user_id, "collabpref,skillset,idea,");
+
+			//exclude ideas that user is member of
+			if(isset($data['idea']) && count($data['idea']) > 0){
+			foreach($data['idea'] AS $key => $idea){
+				$filter['exclude'][] = $idea['id'];
+			}
+			}
+
+			if(isset($data['available']) && $data['available'] > 0){
+				$filter['available'][] = $data['available'];
+			}
+
 			if(isset($data['collabpref']) && count($data['collabpref']) > 0){
 			foreach($data['collabpref'] AS $key => $collabpref){
 				
@@ -86,7 +102,9 @@ class FilterFromProfile {
 
 			//group by same value
 			foreach($filter AS $key => $results){
-				$filter[$key] = implode(", ", $results);
+				if($key != 'exclude'){
+					$filter[$key] = implode(", ", $results);
+				}
 			}
 
 			return $filter;

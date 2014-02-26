@@ -231,6 +231,14 @@ else {
               <?php if ($responseTime) echo '<div class="hide-for-small"><p class="meta"><small">'.Yii::t('app','Response time').':'.prettyDate($responseTime).'</small></p></div>'; ?>
               </div>     
               <?php } ?>
+          
+            <?php if ($lastMsg){ ?>
+            <span class="meta hide-for-small">
+              <h4><?php echo Yii::t('app','You send him'); ?></h4>
+              <?php echo trim_text($lastMsg->message,150,false); ?>
+              <a class="button tiny secondary radius" href="<?php echo Yii::app()->createUrl("message/view",array('id'=>$user['id'],'group'=>'user')); ?>">...</a>
+            </span>
+            <?php } ?>          
 
         </div>     
 

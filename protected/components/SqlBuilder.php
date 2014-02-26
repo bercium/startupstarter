@@ -77,14 +77,26 @@ class SqlBuilder {
 		    //search
 		    case "search_ideas":
 		   		$search = new SearchBuilder2;
-		    	$search = $search->search("idea", $filter);
+
+		   		if(isset($filter['where'])){
+		   			$search = $search->search("idea", $filter, $filter['where']);
+		   		} else {
+		   			$search = $search->search("idea", $filter);
+		   		}
+
 		    	$search['results'] = $this->idea("search", $filter, $search['results'], $structure);
 		    	return $search;
 		        break;
 
 		    case "search_users":
 		    	$search = new SearchBuilder2;
-		    	$search = $search->search("user", $filter);
+		    	
+		    	if(isset($filter['where'])){
+		    		$search = $search->search("user", $filter, $filter['where']);
+		    	} else {
+		    		$search = $search->search("user", $filter);
+		    	}
+		    	
 		    	$search['results'] = $this->user("search", $filter, $search['results'], $structure);
 		    	return $search;
 		        break;
@@ -554,7 +566,7 @@ class SqlBuilder {
 	public function collabpref($type, $filter){
 
 		if($type == 'combined'){
-			$sql=	"SELECT uc.id, collabpref.id AS collab_id, collabpref.name, t.translation, uc.id AS active FROM collabpref LEFT JOIN ".
+			$sql=	"SELECT uc.id, collabpref.id AS collab_id, collabpref.name, t.translation, uc.collab_id AS active FROM collabpref LEFT JOIN ".
 					"(SELECT * FROM user_collabpref WHERE match_id = {$filter['match_id']}) AS uc ON uc.collab_id = collabpref.id ".
 					"LEFT JOIN translation AS t ".
 					"ON collabpref.id = t.row_id ".
