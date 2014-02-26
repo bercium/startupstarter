@@ -168,7 +168,7 @@ else {
                 </span>
                 <?php } ?>
                 </p>
-                <?php if ($responseTime) echo '<div class="hide-for-small"><h4 class="l-iblock">'.Yii::t('app','Response Time').'</h4> <p class="l-iblock">'.prettyDate($responseTime).'</p></div>'; ?>
+                
 
 
 
@@ -227,6 +227,8 @@ else {
               <?php if ($user['id'] != Yii::app()->user->id){ ?>  
               <div class="large-12 small-12 columns">
                 <a class="button success small-12 radius mb5" href="#" trk="contact_person"  data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send me a message') ?></a>
+              
+              <?php if ($responseTime) echo '<div class="hide-for-small"><p class="meta"><small">'.Yii::t('app','Response time').':'.prettyDate($responseTime).'</small></p></div>'; ?>
               </div>     
               <?php } ?>
 
@@ -304,28 +306,29 @@ else {
   </div>
 
 
-  <div class="large-8 right main">
-    <div class="skills large-12 columns"  >
-        <div class="panel radius secondary">
+  <div class="large-8 main columns">
+    
+        <div class="panel radius">
 
           <div class="row"><!-- collaboration available -->
-            <div class="columns large-6 bright">
-              <div class="" style="text-align: center;">
+            <div class="columns large-6 small-12 bright" style="text-align: center;">
+             
                    <h4 class="mt10 mb0"><?php echo Yii::t('app', 'Available');?></h4>
-                   <h4 class='mt0'>
-                    <?php if ($user['available_name']) { ?> 
-                   </h4>   
                    
-                   <p class="mb0 f-medium"> <?php echo shortenAvailable($user['available_name'], true); ?>         
-                   <p class="mb0"> <?php echo shortenAvailable($user['available_name'], true, true); ?>
+                    <?php if ($user['available_name']) { ?> 
+                      
+                   
+                   <p class="mb0 f-medium"> <?php echo shortenAvailable($user['available_name'], true); ?>         </p> 
+                   <p class="mb0"> <?php echo shortenAvailable($user['available_name'], true, true); ?></p> 
 
 
-                    <?php } ?></p>                   
-                </div>
+                    <?php } ?>                  
+                
             </div>
+
             
-            <div class="large-6 columns mb20">
-              <div class="" style="text-align:center;">
+            <div class="large-6 columns mb20" style="text-align:center;">
+              
                <h4 class="mt10"><?php echo Yii::t('app', 'Collaboration');?></h4>
 
                       
@@ -353,8 +356,9 @@ else {
 
                       <?php } ?>
 
-              </div>
-            </div>  
+              
+            </div> 
+
            
           </div><!-- collaboration available  END -->
 
@@ -365,13 +369,12 @@ else {
 
       <div class="row">
 
-
-        <div class="large-2 columns">
+        <div class="large-2 small-12 columns">
           <h4 class="edit-content-title mb20">
           <?php echo Yii::t('app', 'Skills'); ?>
           </h4>
         </div>      
-        <div class="columns large-10">
+        <div class="columns large-10 small-12">
            
             
             <?php
@@ -379,7 +382,7 @@ else {
             foreach ($user['skillset'] as $skillset){
               ?>
               <div class='mb10'>
-                <h4 class="mr5">
+                <h4 class=" mr5">
                 <?php echo $skillset['skillset']; ?>
                 </h4><?php
                 foreach ($skillset['skill'] as $skill){ ?>
@@ -415,10 +418,10 @@ else {
              </div>
           <?php } ?>
         </div>
-    </div>
+    
 
     <?php if (is_array($user['idea']) && (count($user['idea']) > 0)) { ?>
-    <div class="large-12 columns"  >
+    
       <div class="panel radius inside-panel">
         <!-- <hr> -->
         <h4 class="edit-content-title">
@@ -459,7 +462,7 @@ else {
           ?>
         
       </div>
-    </div>
+   
   <?php } ?>
 
 
@@ -493,7 +496,7 @@ else {
 
 
     
-  </div>
+  </div><!-- end main large-8 -->
 
   
 </div>
