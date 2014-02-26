@@ -56,6 +56,11 @@ class SearchBuilder2 {
 
 		if($type == 'user'){
 
+			//set exclude users where query
+			if(isset($filter['exclude'])){
+				$where.= " AND u.id != " . implode($filter['exclude'], " AND u.id != ");
+			}
+
 			//number filter entries
 				//available
 					$rank = $this->numberEntries($rank, $filter, 'available', 'userAvailable', $where);
@@ -74,6 +79,11 @@ class SearchBuilder2 {
 					$rank = $this->textEntries($rank, $filter, 'recent', 'userRecent', $where);
 
 		} elseif( $type == 'idea' ){
+
+			//set exclude ideas where query
+			if(isset($filter['exclude'])){
+				$where.= " AND i.id != " . implode($filter['exclude'], " AND i.id != ");
+			}
 
 			//number filter entries
 				//available

@@ -1276,49 +1276,6 @@ class ProjectController extends GxController {
 			}
 		}
 	}
-
-	//AJAX
-	public function actionRecent($id = 1) {
-
-		if(Yii::app()->user->id > 0){
-    		$filter = new FilterFromProfile;
-    		$filter = $filter->search("ideaByProfile", Yii::app()->user->id);
-    		$filter['page'] = $id;
-
-		    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
-		    else $filter['per_page'] = 9;
-
-		    $sqlbuilder = new SqlBuilder;
-    		$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skillset");
-    		$ideas = $search['results'];
-
-    		$maxPage = ceil($search['count'] / $filter['per_page']);
-    	} else {
-			$filter = Yii::app()->request->getQuery('filter', array());
-			$filter['page'] = $id;
-
-		    if(isset($_GET['ajax'])) $filter['per_page'] = 3;
-		    else $filter['per_page'] = 6;
-			
-			$sqlbuilder = new SqlBuilder;
-			$ideas = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
-			$count = $sqlbuilder->load_array("count_ideas", $filter);
-
-			$maxPage = ceil($count / $filter['per_page']);
-    	}
-
-		if(isset($_GET['ajax'])){
-			$return['data'] = $this->renderPartial('_recent', array("ideas" => $ideas, 'page' => $id, 'maxPage' => $maxPage),true);
-			$return['message'] = '';
-			$return['status'] = 0;
-			$return = json_encode($return);
-			echo $return; //return array
-			Yii::app()->end();
-		} else {
-			$this->render('recent', array('ideas' => $ideas, 'page' => $id, 'maxPage' => $maxPage));
-		}
-		
-	}
   
   public function actionEmbed($id){
     $this->layout="//layouts/blank";
@@ -1377,7 +1334,7 @@ class ProjectController extends GxController {
 
 			$ideaType = Yii::t('app', "Found projects");
     }else{
-    	if(!Yii::app()->user->isGuest){
+    	if(!Yii::app()->user->isGuest && isset($_SESSION['suggested']) && $_SESSION['suggested'] == true){
     		$filter = new FilterFromProfile;
     		$filter = $filter->search("ideaByProfile", Yii::app()->user->id);
     		$filter['page'] = $id;
@@ -1406,8 +1363,6 @@ class ProjectController extends GxController {
 			$searchResult['maxPage'] = ceil($search['count'] / $filter['per_page']);
     	} else {
       		$count = $sqlbuilder->load_array("count_ideas", $filter);
-
-      		$filter['per_page'] = 3;
 
 			$searchResult['data'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
 			$searchResult['page'] = $id;
