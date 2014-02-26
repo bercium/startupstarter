@@ -413,12 +413,13 @@ function absoluteURL(){
 /**
  * shorten available from fulltime (40h / week) => fulltime, with a hint how many hours per week
  */
-function shortenAvailable($value, $justValue = false){
+function shortenAvailable($value, $justValue = false, $justHint = false){
   if (strpos($value, "(") !== false){
     $hint = substr($value, strpos($value, "("), strpos($value, ")"));
     $value = substr($value, 0, strpos($value, "(")-1);
-    
+    if (!$justHint) $value = str_replace('(','',str_replace(')','',$hint));
     if (!$justValue) $value = '<span title="'.$hint.'" data-tooltip>'.$value.'</span>';
+    
   }
   return $value;
 }

@@ -315,8 +315,10 @@ else {
                    <h4 class='mt0'>
                     <?php if ($user['available_name']) { ?> 
                    </h4>   
-                    <p class="f-medium mb0">20 hours</p>
-                   <p class="mb0"> <?php echo shortenAvailable($user['available_name']); ?>        
+                   
+                   <p class="mb0 f-medium"> <?php echo shortenAvailable($user['available_name'], true); ?>         
+                   <p class="mb0"> <?php echo shortenAvailable($user['available_name'], true, true); ?>
+
 
                     <?php } ?></p>                   
                 </div>

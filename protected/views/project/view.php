@@ -239,7 +239,7 @@ foreach ($idea['member'] as $member) {
                                         foreach ($candidate['collabpref'] as $collab) {
                                             //if (!$firsttime) echo ", ";
                                             //$firsttime = false;
-                                            echo "<p class='label success'>" . $collab['name'] . "</p>";
+                                            echo "<p class='label success radius'>" . $collab['name'] . "</p>";
                                         }
                                     ?>
 
