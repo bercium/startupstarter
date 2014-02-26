@@ -309,20 +309,20 @@ else {
         <div class="panel radius secondary">
 
           <div class="row"><!-- collaboration available -->
-            <div class="columns large-4 bright">
+            <div class="columns large-6 bright">
               <div class="" style="text-align: center;">
                    <h3 class="mt10 mb0"><?php echo Yii::t('app', 'Available');?></h3>
-                   <h4 class=''>
+                   <h4 class='mt0'>
                     <?php if ($user['available_name']) { ?> 
                    </h4>   
                     <p class="f-medium mb0">20 hours</p>
-                   <p> <?php echo shortenAvailable($user['available_name']); ?>        
+                   <p class="mb0"> <?php echo shortenAvailable($user['available_name']); ?>        
 
                     <?php } ?></p>                   
                 </div>
             </div>
             
-            <div class="large-8 columns mb20">
+            <div class="large-6 columns mb20">
               <div class="" style="text-align:center;">
                <h3 class="mt10"><?php echo Yii::t('app', 'Collaboration');?></h3>
 
