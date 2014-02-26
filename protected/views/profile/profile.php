@@ -184,7 +184,7 @@
     <span class="description">
       <?php echo Yii::t('msg','We know you have some awesome skills so why not show them to the others. Add all the things you are really good at and do not limit yourself by writing only formal education or job specific subjects.'); ?>
     </span>
-    <input type="text" name="skill" placeholder="<?php echo Yii::t('app','Skills');  ?>" value="<?php echo $skillList; ?>" class="tm-input skill"/>
+    <input type="text" name="skill" placeholder="<?php echo Yii::t('app','short skill tags');  ?>" value="<?php echo $skillList; ?>" class="tm-input skill"/>
     <br />
     
 

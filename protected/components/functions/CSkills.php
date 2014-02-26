@@ -8,4 +8,16 @@
 
 class CSkills{
   
+  public static function skillSuggest($term) {
+    if (!$term) return array();
+    
+    $skills = Skill::model()->findAll("name LIKE :skill",array(':skill'=>'%'.$term.'%')/*,array('order'=>'count DESC')*/);
+    if (!$skills) return array();
+    $result = array();
+    foreach ($skills as $skill){
+      $result[] = $skill->name;
+    }
+    return $result;
+  }
+  
 }

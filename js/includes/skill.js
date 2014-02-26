@@ -103,7 +103,7 @@ $(function() {
         focus: function( event, ui ) {
           //$('.skillset').val( ui.item.skill );
           // prevent value inserted on focus
-          this.value = ui.item.skill;
+          this.value = ui.item.value;
           return false;
         },
         select: function( event, ui ) {
@@ -113,8 +113,8 @@ $(function() {
           //terms.pop();
           // add the selected item
           //terms.push( ui.item.skill );
-          this.value = ui.item.skill;
-          tagApi.tagsManager("pushTag", ui.item.skill);
+          this.value = ui.item.value;
+          tagApi.tagsManager("pushTag", ui.item.value);
           return false;
 
       		$('.skillset').val(ui.item.skillset_id); 
@@ -126,13 +126,13 @@ $(function() {
           //this.value = terms.join( ", " );
           return false;
         }
-      })
+      })/*
      .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
       return $( "<li>" )
         .append( "<a>" + item.skill + "</a>" )
         //.append( "<a>" + item.skill + "<br><small>" + item.skillset + "</small></a>" )
         .appendTo( ul );
-    };
+    }*/;
     
     
     var tagApi = $(".skill").tagsManager({
