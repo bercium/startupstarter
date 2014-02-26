@@ -121,7 +121,7 @@ foreach ($idea['member'] as $member) {
             <div class="left pb15">
             <h4 class="l-inline mt10"><?php echo Yii::t('app','Positions') ?></h4>
             
-            <a class="button ml5 radius tiny mb0" href="#candidates"  >
+            <a class="button ml5 radius tiny mb0" href="#candidates" trk="project_button_openPositions">
 
               <?php   echo Yii::t('app','{n} open|{n} opened', array(count($idea['candidate']))); ?></a>
             </a>
@@ -167,18 +167,22 @@ foreach ($idea['member'] as $member) {
         <!-- jobs -->
         <?php if ((count($idea['candidate']) > 0) || $canEdit) { ?>
 
-            <div class="panel radius">
-                <div class="jobs large-12">
-                    <div class="l-block">
+            <div class="panel">
+                <div class="jobs large-12">         
 
-                    <h3 class="l-iblock">
+
+
+
+                   <div>
+
+                    <h2 class="l-iblock mt0 pt0">
                         <a id="candidates" class="anchor-link"></a>
                         <?php echo Yii::t('app', 'Looking for {n} candidate|Looking for {n} candidates', array(count($idea['candidate']))); ?>
-                    </h3>
+                    </h2>
 
                     <?php if (count($idea['candidate']) > 0){ ?>
                         <a href="#" class="button tiny radius secondary right" trk="project_button_shareCandidates"
-                           data-dropdown="drop-candidate-share" data-options="is_hover:true"><span class="icon-share mr8"></span>share this position</a>
+                           data-dropdown="drop-candidate-share" data-options="is_hover:true"><span class="icon-share mr8"></span><?php echo Yii::t('app', 'Share this positions')?></a>
                         <?php } ?> 
 
                     </div>
@@ -189,59 +193,45 @@ foreach ($idea['member'] as $member) {
                     foreach ($idea['candidate'] as $candidate) {
                         $cnum++;
                         ?>
-                        <div class="panel bg-color-1 radius">
-                            <h2 class="mb0">
-                                <?php echo Yii::t('app', 'Candidate {n}', array($cnum)) ?>
-                            </h2>
 
-                            <?php if ($candidate['city'] || $candidate['country']) { ?>
+                        <div class="panel radius">
+
+
+                        <!-- start -->
+                        <div class="row">
+                            <div class="large-5 columns">
+                                <h2 class="mb0">
+                                <?php echo Yii::t('app', 'Position {n}', array($cnum)) ?>
+                                </h2>
+
+                                <?php if ($candidate['city'] || $candidate['country']) { ?>
                                 <div class="">
-
                                     <p class="l-inline"><a>
-                    <span class="" data-tooltip
-                          title="<img src='<?php echo getGMap($candidate['country'], $candidate['city']); ?>'>">
-                    <?php
-                    echo $candidate['city'];
-                    if ($candidate['city'] && $candidate['country']) echo ', ';
-                    echo $candidate['country'];
-                    ?>
-                    <?php //echo $candidate['address']; ?>
-                    </span>
-                                        </a></p>
+                                    <span class="" data-tooltip
+                                        title="<img src='<?php echo getGMap($candidate['country'], $candidate['city']); ?>'>">
+                                        <?php 
 
-                                </div>
-                            <?php } ?>
-
-                            <div class="mb10 mt10">
-                                <h4 class="l-iblock"><?php echo Yii::t('app', 'Required skills') ?></h4><?php
-                                foreach ($candidate['skillset'] as $skillset) {
-                                    foreach ($skillset['skill'] as $skill) {
+                                        echo $candidate['city'];
+                                        if ($candidate['city'] && $candidate['country']) echo ', ';
+                                        echo $candidate['country'];
+                                        
                                         ?>
-
-                                        <span class="label radius" data-tooltip
-                                              title="<?php echo $skillset['skillset']; ?>"><?php echo $skill['skill']; ?></span>
-
-                                    <?php
-                                    }
-                                } ?>
-                            </div>
-                          
-
-
-                            <?php if ($candidate['available_name']) { ?>
-                                <div class="mb10">
-                                    <h4 class="l-inline"><?php echo Yii::t('app', 'Should be Available') ?></h4>
-
-                                    <p class="l-inline f-medium"><?php echo $candidate['available_name']; ?></p>
-
+                                        <?php //echo $candidate['address']; ?>
+                                    </span>
+                                    </a></p>
                                 </div>
-                            <?php } ?>
+                                <?php } ?>
 
+                                 <?php if ($candidate['available_name']) { ?>
+                                <div class="mb5">  
+                                 <p class="l-inline"><?php echo $candidate['available_name']; ?></p>
+                                 </div>
+                                <?php } ?>
 
-
-                            <?php if (count($candidate['collabpref']) > 0) { ?>
-                                <div class="mb10"><h4
-                                        class="l-inline"><?php echo Yii::t('app', 'Collaboration'); ?></h4>
+                                <div class="">
+                                <?php if (count($candidate['collabpref']) > 0) { ?>
+                                <div class="">
+                                    
 
                                     <?php
                                     $firsttime = true;
@@ -254,8 +244,37 @@ foreach ($idea['member'] as $member) {
                                     ?>
 
                                 </div>
-                            <?php } ?>
+                                <?php } ?>
+                                </div>
 
+                            </div>                            
+
+
+                            <div class="large-7 mt10 columns">                      
+                            
+                                <h4 class="l-block"><?php echo Yii::t('app', 'Required skills') ?></h4><?php
+                                foreach ($candidate['skillset'] as $skillset) {
+                                    foreach ($skillset['skill'] as $skill) {
+                                        ?>
+
+                                        <span class="label radius" data-tooltip
+                                              title="<?php echo $skillset['skillset']; ?>"><?php echo $skill['skill']; ?></span>
+
+                                    <?php
+                                    }
+                                } ?>                  
+
+                             
+                        </div>
+                       
+
+                        </div>
+                        <!-- end -->
+
+
+                            
+
+                               
 
                         </div><!-- panel end -->
 
@@ -271,7 +290,7 @@ foreach ($idea['member'] as $member) {
         <div class="radius panel">
             <div class="large-12">
                 <center>
-                          <a class="button radius small-12 mb0 large-11" href="<?php echo Yii::app()->createUrl("project/edit", array("id" => $idea['id'],"candidate"=>"new")); ?>#link_position">
+                          <a trk="project_view_newPosition" class="button radius small-12 mb0 large-11" href="<?php echo Yii::app()->createUrl("project/edit", array("id" => $idea['id'],"candidate"=>"new")); ?>#link_position">
                             <?php echo Yii::t('app', 'Open new position') ?>
                           </a>
                 </center>
@@ -285,7 +304,7 @@ foreach ($idea['member'] as $member) {
 
     <div class="large-4 columns side side-profile">
         <?php if ($canEdit) { ?>
-                <a class="button secondary small-12 radius"
+                <a trk="project_view_editProject" class="button secondary small-12 radius"
                    href="<?php echo Yii::app()->createUrl("project/edit", array("id" => $idea['id'])); ?>">
                     <span class="icon-awesome icon-pencil"></span> <?php echo Yii::t('app', 'Edit project') ?>
                 </a>

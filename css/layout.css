@@ -563,14 +563,17 @@ sidebar .section-container.auto .section {
 .main h3,
 .f-boldup
 {
-
-    font-size: 0.75em;
+    font-size: 1em;
     font-weight: bold;
     text-transform: uppercase;
-    margin-bottom: 20px;
-      
+    margin-bottom: 20px;  
 
 
+}
+
+
+.main h4 {
+	font-weight: bold;
 }
 
 .side-profile {
@@ -1244,6 +1247,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c8f986', end
 .ml60 {
 	margin-left: 60px !important;
 }
+
+.mt0 {
+	margin-top: 0px !important;
+}
+
 
 .mt10 {
 	margin-top: 10px !important;

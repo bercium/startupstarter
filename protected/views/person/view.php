@@ -311,7 +311,7 @@ else {
           <div class="row"><!-- collaboration available -->
             <div class="columns large-6 bright">
               <div class="" style="text-align: center;">
-                   <h3 class="mt10 mb0"><?php echo Yii::t('app', 'Available');?></h3>
+                   <h4 class="mt10 mb0"><?php echo Yii::t('app', 'Available');?></h4>
                    <h4 class='mt0'>
                     <?php if ($user['available_name']) { ?> 
                    </h4>   
@@ -324,7 +324,7 @@ else {
             
             <div class="large-6 columns mb20">
               <div class="" style="text-align:center;">
-               <h3 class="mt10"><?php echo Yii::t('app', 'Collaboration');?></h3>
+               <h4 class="mt10"><?php echo Yii::t('app', 'Collaboration');?></h4>
 
                       
                      <?php if (count($user['collabpref']) > 0) { ?>
@@ -365,9 +365,9 @@ else {
 
 
         <div class="large-2 columns">
-          <h3 class="edit-content-title mb20">
+          <h4 class="edit-content-title mb20">
           <?php echo Yii::t('app', 'Skills'); ?>
-          </h3>
+          </h4>
         </div>      
         <div class="columns large-10">
            
@@ -400,9 +400,9 @@ else {
           <hr>
             <div class="row">
               <div class="large-2 columns">
-                <h3 class="edit-content-title">
+                <h4 class="edit-content-title">
                   <?php echo Yii::t('app','About me'); ?>
-                  </h3>
+                  </h4>
               </div>   
 
               <div class="large-10 columns about-me"  >
@@ -419,9 +419,9 @@ else {
     <div class="large-12 columns"  >
       <div class="panel radius inside-panel">
         <!-- <hr> -->
-        <h3 class="edit-content-title">
+        <h4 class="edit-content-title">
         <?php echo Yii::t('app', 'Working on {n} project|Involved in {n} projects', array(count($user['idea']))) ?>
-        </h3>
+        </h4>
 
         <?php
           foreach ($user['idea'] as $idea_data) {
