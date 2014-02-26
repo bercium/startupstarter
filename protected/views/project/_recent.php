@@ -1,5 +1,5 @@
 <div class="columns large-12 small-12"> 
-	<h2 class="meta-title l-inline"><?php echo Yii::t('app','Recent projects'); ?></h2>
+	<h2 class="meta-title l-inline"><?php echo $ideaType; ?></h2>
 		
 	 
 
@@ -9,7 +9,7 @@
 			
 			<ul class="pagination hide-for-small">
 				<?php if ($page > 1){ ?>
-				<li class="arrow"><a class="button secondary small radius" href="#" onclick="recentProjectsPage('<?php echo Yii::app()->createUrl("project/recent",array("id"=>$page-1)); ?>'); return false;"><span class="icon-angle-left"></span>
+				<li class="arrow"><a class="button secondary small radius" href="#" onclick="recentProjectsPage('<?php echo Yii::app()->createUrl("project/discover",array("id"=>$page-1)); ?>'); return false;"><span class="icon-angle-left"></span>
 	</a></li>
 				<?php }else{ ?>
 	      <li class="arrow unavailable"><a class="button small radius secondary disabled"><span class="icon-angle-left"></span>
@@ -17,7 +17,7 @@
 				<?php } ?>
 				
 				<?php if ($page < $maxPage){ ?>
-				<li class="arrow"><a class="button secondary small radius" href="#" onclick="recentProjectsPage('<?php echo Yii::app()->createUrl("project/recent",array("id"=>$page+1)); ?>'); return false;"><span class="icon-angle-right"></span>
+				<li class="arrow"><a class="button secondary small radius" href="#" onclick="recentProjectsPage('<?php echo Yii::app()->createUrl("project/discover",array("id"=>$page+1)); ?>'); return false;"><span class="icon-angle-right"></span>
 	</a></li>
 				<?php }else{ ?>
 	      <li class="arrow unavailable"><a class="button small radius secondary disabled"><span class="icon-angle-right"></span>

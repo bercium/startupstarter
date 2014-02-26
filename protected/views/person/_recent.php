@@ -1,5 +1,5 @@
 <div class="columns large-12 small-12"> 
-<h2 class="meta-title l-inline"><?php echo Yii::t('app','Recent users'); ?></h2>
+<h2 class="meta-title l-inline"><?php echo $userType; ?></h2>
 	
   
 
@@ -9,14 +9,14 @@
 		
 		<ul class="right l-inline pagination hide-for-small">
 			<?php if ($page > 1){ ?>
-			<li class="arrow"><a class="button small secondary radius" href="#" onclick="recentUsersPage('<?php echo Yii::app()->createUrl("person/recent",array("id"=>$page-1)); ?>'); return false;"><span class="icon-angle-left"></span></a></li>
+			<li class="arrow"><a class="button small secondary radius" href="#" onclick="recentUsersPage('<?php echo Yii::app()->createUrl("person/discover",array("id"=>$page-1)); ?>'); return false;"><span class="icon-angle-left"></span></a></li>
 			<?php }else{ ?>
       <li class="arrow unavailable"><a class="button small secondary radius disabled "><span class="icon-angle-left"></span>
 </a></li>
 			<?php } ?>
 			
 			<?php if ($page < $maxPage){ ?>
-			<li class="arrow"><a class="button small secondary radius" href="#" onclick="recentUsersPage('<?php echo Yii::app()->createUrl("person/recent",array("id"=>$page+1)); ?>'); return false;"><span class="icon-angle-right"></span>
+			<li class="arrow"><a class="button small secondary radius" href="#" onclick="recentUsersPage('<?php echo Yii::app()->createUrl("person/discover",array("id"=>$page+1)); ?>'); return false;"><span class="icon-angle-right"></span>
 </a></li>
 			<?php }else{ ?>
       <li class="arrow unavailable"><a class="button small secondary radius disabled"><span class="icon-angle-right"></span>
@@ -57,11 +57,12 @@
 		//$page = 1;
 		//$maxPage = 3;
 		foreach ($users as $user){
+			if(isset($user['id'])){
 			?>
 			<li>
 			<?php  $this->renderPartial('//person/_user', array('user' => $user));  ?>
 			</li>
-		<?php } ?>
+		<?php }} ?>
   </ul>
 
   </div>

@@ -214,11 +214,10 @@ $("#showhide").click(function() {
 
 
 
-<?php if (!$filter->checkSearchForm()){ ?>
 	<?php if (isset($data['user'])){ ?>
 
 		<div class="row mt40" id="recent_users">			
-			<?php $this->renderPartial('//person/_recent', array('users' => $data['user'],"page"=>1,"maxPage"=>$maxPagePerson)); ?>			
+			<?php $this->renderPartial('//person/_recent', array('users' => $data['user'],"page"=>1,"maxPage"=>$maxPagePerson, "userType"=>$userType)); ?>			
 			</div>
 
 	<?php } ?>
@@ -227,7 +226,7 @@ $("#showhide").click(function() {
 <br />
 
 		<div class="row" id="recent_projects">			
-			<?php $this->renderPartial('//project/_recent', array('ideas' => $data['idea'],"page"=>1,"maxPage"=>$maxPageIdea)); ?>		  
+			<?php $this->renderPartial('//project/_recent', array('ideas' => $data['idea'],"page"=>1,"maxPage"=>$maxPageIdea, "ideaType"=>$ideaType)); ?>		  
 	    </div>
 
 	<?php } 
@@ -236,7 +235,7 @@ $("#showhide").click(function() {
 Yii::log(arrayLog($data['idea']), CLogger::LEVEL_INFO, 'custom.info.idea'); 
 Yii::log(arrayLog($data['user']), CLogger::LEVEL_INFO, 'custom.info.user'); 
 
-} ?>
+?>
 
 
 

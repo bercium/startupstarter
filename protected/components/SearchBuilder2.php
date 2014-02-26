@@ -52,6 +52,7 @@ class SearchBuilder2 {
 		  	-search by idea table variables*/
 
 		$rank = array();
+		$array = array();
 
 		if($type == 'user'){
 
@@ -104,7 +105,7 @@ class SearchBuilder2 {
 			//Pagination
 			$array = array_slice($array, ($filter['page'] - 1) * $filter['per_page'], $filter['per_page']);
 		
-		}
+		}	
 
 		$return['count'] = $count;
 		$return['results'] = $array;
@@ -257,13 +258,12 @@ class SearchBuilder2 {
 		$sql = 	"SELECT m.id ".
 				"FROM  `user` AS u ".
 				"LEFT JOIN `user_match` AS m ON m.user_id = u.id ".
-				"LEFT JOIN `user` AS u ON m.user_id = u.id ".
 				"LEFT JOIN `user_stat` AS ustat ON u.id = ustat.user_id ".
 				"WHERE m.user_id >0 ".
 				"AND ustat.completeness >= ".PROFILE_COMPLETENESS_MIN." ".
 				$where." ".
-				"ORDER BY u.create_at DESC ".
-				"GROUP BY m.id";
+				"GROUP BY m.id ".
+				"ORDER BY u.create_at DESC";
 		return $sql;
 
 	}
@@ -370,7 +370,7 @@ class SearchBuilder2 {
 				"FROM `idea` AS i ".
 				"WHERE i.id > 0 ".
 				$where." ".
-				"ORDER BY i.time_registered";
+				"ORDER BY i.time_registered DESC";
 		return $sql;
 
 	}
