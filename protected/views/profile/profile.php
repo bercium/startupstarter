@@ -1,5 +1,14 @@
 <?php
   $this->pageTitle = Yii::t('app','Profile');
+  
+  $baseUrl = Yii::app()->baseUrl; 
+    $cs = Yii::app()->getClientScript();
+  
+    
+    
+    
+    $cs->registerCssFile($baseUrl.'/css/tagmanager.css'.getVersionID());
+    $cs->registerScriptFile($baseUrl.'/js/tagmanager.js');
 ?>
 
 
@@ -157,6 +166,27 @@
     
   </div>
   <div class="columns panel edit-content profile-details">
+    
+    <?php 
+    $skillList = '';
+    if(isset($data['user']['skillset'])){
+      foreach ($data['user']['skillset'] as $skillset){
+        foreach ($skillset['skill'] as $skill){
+          $skillList .= $skill['skill'].', ';
+        }}} 
+    //hidden-skill
+    ?>
+    
+    <a id="link_skills" class="anchor-link"></a>
+    <label for="skill">
+    <?php echo Yii::t('app','What are you good at');  ?> 
+    </label>
+    <span class="description">
+      <?php echo Yii::t('msg','We know you have some awesome skills so why not show them to the others. Add all the things you are really good at and do not limit yourself by writing only formal education or job specific subjects.'); ?>
+    </span>
+    <input type="text" name="skill" placeholder="<?php echo Yii::t('app','Skills');  ?>" value="<?php echo $skillList; ?>" class="tm-input skill"/>
+    <br />
+    
 
     <!-- moved alert-box success to \protected\views\layouts\edit.php -->
     
@@ -266,7 +296,7 @@
       <?php echo '</label>'; ?>
 
       <span class="description"><?php echo Yii::t('msg','Tell others what you are good at in the selected industry. Add one skill at a time.') ?></span>
-      <?php echo CHtml::textField("skill","", array('maxlength' => 128,'class'=>'skill')); ?>
+      <?php echo CHtml::textField("skill-","", array('maxlength' => 128,'class'=>'skill')); ?>
       <span class="description"><strong><?php echo Yii::t('msg','Switch industry to diversity your skillset') ?></strong></span>
 
       <?php echo CHtml::submitButton(Yii::t("app","Add skill"),
