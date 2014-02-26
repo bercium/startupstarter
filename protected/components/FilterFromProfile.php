@@ -60,7 +60,11 @@ class FilterFromProfile {
 
 		} elseif($type == 'ideaByProfile'){
 			$data = $sqlbuilder->load_array("user", $user_id, "collabpref,skillset");
-			
+
+			if(isset($data['available']) && $data['available'] > 0){
+				$filter['available'][] = $data['available'];
+			}
+
 			if(isset($data['collabpref']) && count($data['collabpref']) > 0){
 			foreach($data['collabpref'] AS $key => $collabpref){
 				
