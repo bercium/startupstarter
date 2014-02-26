@@ -113,31 +113,15 @@ foreach ($idea['member'] as $member) {
 
 
     <div class="row idea-details">
-
-    <div class="large-8 columns main">
-
-        <div class="panel radius">
-
-            <h1 class="project-title"><?php echo $idea['title']; ?></h1>
-
-            <hr>
-            <div class="right pb15">
-
-
-                <h4 class="l-inline mt10"><span class="icon-awesome icon-rocket"></span>
-                    
-                </h4>
-                <a style="font-size:14px;" data-tooltip
-                   title="<?php echo Yii::t('app', "Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>">
-                    <?php echo $idea['status']; ?>
-                </a>
-            </div>
+        <div class="main columns large-12">
+        
+            
 
             <?php if (count($idea['candidate']) > 0){ ?> 
             <div class="left pb15">
             <h4 class="l-inline mt10"><?php echo Yii::t('app','Positions') ?></h4>
             
-            <a href="#candidates" style="font-size:14px;" >
+            <a class="button ml5 radius tiny mb0" href="#candidates"  >
 
               <?php   echo Yii::t('app','{n} open|{n} opened', array(count($idea['candidate']))); ?></a>
             </a>
@@ -146,7 +130,27 @@ foreach ($idea['member'] as $member) {
 
 
 
+            
+        </div>
+
+    <div class="large-8 columns main">
+         
+
+        <div class="panel radius">
+
+            <h1 class="project-title"><?php echo $idea['title']; ?></h1>
+            
             <hr>
+                <div class="left pb15">
+                    <h4 class="l-inline mt10">
+                    </h4>
+                    <a style="font-size:14px;" data-tooltip
+                    title="<?php echo Yii::t('app', "Stage of project"); ?><br /><img src='<?php echo Yii::app()->request->baseUrl; ?>/images/stage-<?php echo $idea['status_id']; ?>.png'>">
+                    <span class="icon-awesome icon-rocket mr8"></span><?php echo $idea['status']; ?>
+                    </a>
+                </div>
+            <hr>
+            
             <p class="pitch">
                 <?php echo strip_tags($idea['pitch']); ?>
             </p>
@@ -165,20 +169,19 @@ foreach ($idea['member'] as $member) {
 
             <div class="panel radius">
                 <div class="jobs large-12">
-                    <h3>
+                    <div class="l-block">
+
+                    <h3 class="l-iblock">
                         <a id="candidates" class="anchor-link"></a>
                         <?php echo Yii::t('app', 'Looking for {n} candidate|Looking for {n} candidates', array(count($idea['candidate']))); ?>
-                        <?php if ($canEdit) { ?>
-                          <a class="button tiny radius right ml20" href="<?php echo Yii::app()->createUrl("project/edit", array("id" => $idea['id'],"candidate"=>"new")); ?>#link_position">
-                            <?php echo Yii::t('app', 'Open new position') ?>
-                          </a>
-                        <?php } ?> 
-                        
-                        <?php if (count($idea['candidate']) > 0){ ?>
+                    </h3>
+
+                    <?php if (count($idea['candidate']) > 0){ ?>
                         <a href="#" class="button tiny radius secondary right" trk="project_button_shareCandidates"
                            data-dropdown="drop-candidate-share" data-options="is_hover:true"><span class="icon-share mr8"></span>share this position</a>
                         <?php } ?> 
-                    </h3>
+
+                    </div>
 
                     <?php
                     if (count($idea['candidate']) > 0){
@@ -186,10 +189,10 @@ foreach ($idea['member'] as $member) {
                     foreach ($idea['candidate'] as $candidate) {
                         $cnum++;
                         ?>
-                        <div class="panel panel-color-1 radius">
-                            <h3 class="mb0">
+                        <div class="panel bg-color-1 radius">
+                            <h2 class="mb0">
                                 <?php echo Yii::t('app', 'Candidate {n}', array($cnum)) ?>
-                            </h3>
+                            </h2>
 
                             <?php if ($candidate['city'] || $candidate['country']) { ?>
                                 <div class="">
@@ -229,7 +232,7 @@ foreach ($idea['member'] as $member) {
                                 <div class="mb10">
                                     <h4 class="l-inline"><?php echo Yii::t('app', 'Should be Available') ?></h4>
 
-                                    <p class="l-inline"><?php echo $candidate['available_name']; ?></p>
+                                    <p class="l-inline f-medium"><?php echo $candidate['available_name']; ?></p>
 
                                 </div>
                             <?php } ?>
@@ -262,6 +265,19 @@ foreach ($idea['member'] as $member) {
             </div>
         <?php } ?>
         <!-- jobs end -->
+
+
+        <?php if ($canEdit) { ?>
+        <div class="radius panel">
+            <div class="large-12">
+                <center>
+                          <a class="button radius small-12 mb0 large-11" href="<?php echo Yii::app()->createUrl("project/edit", array("id" => $idea['id'],"candidate"=>"new")); ?>#link_position">
+                            <?php echo Yii::t('app', 'Open new position') ?>
+                          </a>
+                </center>
+        </div>
+        </div>
+        <?php } ?> 
 
 
     </div>

@@ -308,18 +308,38 @@ else {
         <div class="panel radius secondary">
 
           <div class="row"><!-- collaboration available -->
-            <div class="columns large-3">
-              <h3 class="mt10"><?php echo Yii::t('app', 'Collaboration');?>:</h3>
+            <div class="columns large-5 bright">
+             
+              <div class="row">
+                <div class="large-5 columns">
+                   <h3 class="mt10"><?php echo Yii::t('app', 'Available');?>:</h3>
+
+             
+
+                </div>
+
+                <div class="large-7  columns">
+
+                   <h4 class=''>
+                    <?php if ($user['available_name']) { ?> 
+               </h4>   
+                        <p class="f-medium mb0">20 hours</p>
+                   <p> <?php echo shortenAvailable($user['available_name']); ?>        
+
+                    <?php } ?></p>
+
+
+                </div>
+
+             
+
+              </div>
+
+                   
             </div>
             
-            <div class="large-9 columns mb20">
-              <h4 class=''>
-                    <?php if ($user['available_name']) { ?>    
-                        
-                    <?php echo shortenAvailable($user['available_name']); ?>        
-
-                    <?php } ?>        
-                    </h4>
+            <div class="large-7 columns mb20">
+               <h3 class="mt10"><?php echo Yii::t('app', 'Collaboration');?>:</h3>
 
                       
                      <?php if (count($user['collabpref']) > 0) { ?>
@@ -345,6 +365,7 @@ else {
                         <div class="description"><?php  echo Yii::t('msg','User has not filled this out yet.');  ?></div>
                       <?php } ?>
             </div>  
+            
           </div><!-- collaboration available  END -->
 
 
