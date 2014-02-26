@@ -808,7 +808,7 @@ ul, ol {
 }
 
 .f-medium {
-	font-size: 1.25em !important; 
+	font-size: 1.375em !important; 
 }
 
 
@@ -2058,6 +2058,13 @@ label{
     .bg-color-1 {
     	background: #DFE8D7 !important;
     }
+
+     .bg-color-2 {
+    	background: #555 !important;
+    }
+
+
+
 
 
   

@@ -168,7 +168,7 @@ else {
                 </span>
                 <?php } ?>
                 </p>
-                <?php if ($responseTime) echo '<h4 class="l-iblock">'.Yii::t('app','Response Time').'</h4> <p class="l-iblock">'.prettyDate($responseTime).'</p>'; ?>
+                <?php if ($responseTime) echo '<div class="hide-for-small"><h4 class="l-iblock">'.Yii::t('app','Response Time').'</h4> <p class="l-iblock">'.prettyDate($responseTime).'</p></div>'; ?>
 
 
 
@@ -208,10 +208,11 @@ else {
                       </div> 
                     <?php } */ ?>
 
+                  <div class="hide-for-small">
                   <h4 class="l-iblock"><?php echo Yii::t('app', 'Registered') ?></h4>
                   <span class=""><!-- <?php // echo Yii::t('app', 'Member since') ?>:  -->
                   <?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($user['create_at']), "long", null); ?></span>
-
+                  </div>
 
                   </div>
 
@@ -308,38 +309,22 @@ else {
         <div class="panel radius secondary">
 
           <div class="row"><!-- collaboration available -->
-            <div class="columns large-5 bright">
-             
-              <div class="row">
-                <div class="large-5 columns">
-                   <h3 class="mt10"><?php echo Yii::t('app', 'Available');?>:</h3>
-
-             
-
-                </div>
-
-                <div class="large-7  columns">
-
+            <div class="columns large-4 bright">
+              <div class="" style="text-align: center;">
+                   <h3 class="mt10 mb0"><?php echo Yii::t('app', 'Available');?></h3>
                    <h4 class=''>
                     <?php if ($user['available_name']) { ?> 
-               </h4>   
-                        <p class="f-medium mb0">20 hours</p>
+                   </h4>   
+                    <p class="f-medium mb0">20 hours</p>
                    <p> <?php echo shortenAvailable($user['available_name']); ?>        
 
-                    <?php } ?></p>
-
-
+                    <?php } ?></p>                   
                 </div>
-
-             
-
-              </div>
-
-                   
             </div>
             
-            <div class="large-7 columns mb20">
-               <h3 class="mt10"><?php echo Yii::t('app', 'Collaboration');?>:</h3>
+            <div class="large-8 columns mb20">
+              <div class="" style="text-align:center;">
+               <h3 class="mt10"><?php echo Yii::t('app', 'Collaboration');?></h3>
 
                       
                      <?php if (count($user['collabpref']) > 0) { ?>
@@ -363,21 +348,25 @@ else {
                       }
                       if ($firsttime){ ?>
                         <div class="description"><?php  echo Yii::t('msg','User has not filled this out yet.');  ?></div>
+
                       <?php } ?>
+
+              </div>
             </div>  
-            
+           
           </div><!-- collaboration available  END -->
 
-
-
           <hr>
+
+          
 
 
       <div class="row">
 
+
         <div class="large-2 columns">
           <h3 class="edit-content-title mb20">
-          <?php echo Yii::t('app', 'Skills'); ?>:
+          <?php echo Yii::t('app', 'Skills'); ?>
           </h3>
         </div>      
         <div class="columns large-10">
@@ -387,8 +376,8 @@ else {
             if (isset($user['skillset']) && count($user['skillset'])){
             foreach ($user['skillset'] as $skillset){
               ?>
-              <div class='item'>
-                <h4 class="mr5 l-iblock meta">
+              <div class='mb10'>
+                <h4 class="mr5">
                 <?php echo $skillset['skillset']; ?>
                 </h4><?php
                 foreach ($skillset['skill'] as $skill){ ?>
@@ -412,7 +401,7 @@ else {
             <div class="row">
               <div class="large-2 columns">
                 <h3 class="edit-content-title">
-                  <?php echo Yii::t('app','About me'); ?>:
+                  <?php echo Yii::t('app','About me'); ?>
                   </h3>
               </div>   
 
