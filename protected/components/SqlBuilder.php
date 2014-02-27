@@ -318,8 +318,13 @@ class SqlBuilder {
 			}			
 
 			//skillset
-			if(strpos($structure, 'skillset') !== false){
-				$row['skillset'] = $this->skillset( $filter );
+			if(strpos($structure, 'skill') !== false){
+				$row['skill'] = $this->skill( $filter );
+			}
+
+			//industry
+			if(strpos($structure, 'industry') !== false){
+				$row['industry'] = $this->industry( $filter );
 			}
 			
 			//add link
@@ -605,47 +610,13 @@ class SqlBuilder {
 		return $array;
 	}
 
-	public function skillset($filter){
-
-		$sql=		"SELECT ss.id, ss.name AS skillset, t.translation FROM ".
-					"`user_skill` AS us ".
-					"LEFT JOIN `skillset` AS ss ".
-					"ON ss.id = us.skillset_id ".
-					"LEFT JOIN translation AS t ".
-					"ON ss.id = t.row_id ".
-					"AND t.table = 'skillset'".
-					"AND language_id = '{$filter['site_lang']}'".
-					"WHERE us.match_id = '{$filter['match_id']}' ".
-					"GROUP BY ss.id";
-
-		$connection=Yii::app()->db;
-		$command=$connection->createCommand($sql);
-		$dataReader=$command->query();
-		$array = array();
-
-		while(($row=$dataReader->read())!==false) {
-
-			if(strlen($row['translation']) > 0){
-				$row['skillset'] = $row['translation'];
-			}
-
-			$filter['skillset_id'] = $row['id'];
-
-			$array[$row['id']] = $row;
-			$array[$row['id']]['skill'] = $this->skillset_skill( $filter );
-		}
-
-		return $array;
-	}
-
-	public function skillset_skill($filter){
+	public function skill($filter){
 
 		$sql=		"SELECT s.id, s.name AS skill FROM ".
 					"`user_skill` AS us ".
 					"LEFT JOIN `skill` AS s ".
 					"ON s.id = us.skill_id ".
-					"WHERE us.skillset_id = '{$filter['skillset_id']}' ".
-					"AND us.match_id = '{$filter['match_id']}' ".
+					"WHERE us.match_id = '{$filter['match_id']}' ".
 					"GROUP BY s.id";
 
 		$connection=Yii::app()->db;
@@ -656,6 +627,36 @@ class SqlBuilder {
 		while(($row=$dataReader->read())!==false) {
 			$array[$row['id']] = $row;
 		}
+		return $array;
+	}
+
+	public function industry($filter){
+
+		$sql=		"SELECT i.id, i.name AS industry, t.translation FROM ".
+					"`user_industry` AS ui ".
+					"LEFT JOIN `industry` AS i ".
+					"ON i.id = ui.industry_id ".
+					"LEFT JOIN translation AS t ".
+					"ON i.id = t.row_id ".
+					"AND t.table = 'industry'".
+					"AND t.language_id = '{$filter['site_lang']}'".
+					"WHERE ui.match_id = '{$filter['match_id']}' ".
+					"GROUP BY i.id";
+
+		$connection=Yii::app()->db;
+		$command=$connection->createCommand($sql);
+		$dataReader=$command->query();
+		$array = array();
+
+		while(($row=$dataReader->read())!==false) {
+
+			if(strlen($row['translation']) > 0){
+				$row['industry'] = $row['translation'];
+			}
+
+			$array[$row['id']] = $row;
+		}
+
 		return $array;
 	}
 

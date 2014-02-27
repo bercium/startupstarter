@@ -69,7 +69,7 @@ class ProjectController extends GxController {
 			$filter['lang'] = $lang;
 		}
 
-		$data['idea'] = $sqlbuilder->load_array("idea", $filter, "translation_other,link,member,gallery,candidate,skillset,collabpref");
+		$data['idea'] = $sqlbuilder->load_array("idea", $filter, "translation_other,link,member,gallery,candidate,skill,industry,collabpref");
 
 		if(!isset($data['idea']['id'])){
 			throw new CHttpException(400, Yii::t('msg', "Oops! This project does not exist."));
@@ -368,7 +368,7 @@ class ProjectController extends GxController {
 			$filter['idea_id'] = $idea_id;
 			if($lang)
 				$filter['lang'] = $lang;
-			$data['idea'] = $sqlbuilder->load_array("idea", $filter, "translation_other,member,candidate,skillset,collabpref");
+			$data['idea'] = $sqlbuilder->load_array("idea", $filter, "translation_other,member,candidate,skill,industry,collabpref");
 
 			//if an existing user is to be inserted as a member
 
@@ -1325,7 +1325,7 @@ class ProjectController extends GxController {
 			$filter['skill'] = $searchForm->skill;
 			$filter['stage'] = $searchForm->stage;
 			
-			$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skillset");
+			$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skill,industry");
 			$searchResult['data'] = $search['results'];
 			$count = $search['count'];
 
@@ -1344,15 +1344,15 @@ class ProjectController extends GxController {
 
     		$filter['recent'] = 'recent';
     		$filter['where'] = "AND i.time_updated > ".(time() - 3600 * 24 * 14);
-    		$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skillset");
+    		$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skill,industry");
     		$ideaType = Yii::t('app', "Suggested projects");
     		
 			//if there's not plenty of results...
 			if($search['count'] < 3){
 			 	$filter['where'] = "AND i.time_updated > ".(time() - 3600 * 24 * 31);
-				$search = $sqlbuilder->load_array("search_users", $filter, "translation,member,candidate,skillset");
+				$search = $sqlbuilder->load_array("search_users", $filter, "translation,member,candidate,skill,industry");
 				if($search['count'] < 3){
-		  			$search['results'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
+		  			$search['results'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skill,industry");
 					$search['count'] = $count = $sqlbuilder->load_array("count_ideas", $filter);
 					$ideaType = Yii::t('app', "Recent projects");
 				}
@@ -1364,7 +1364,7 @@ class ProjectController extends GxController {
     	} else {
       		$count = $sqlbuilder->load_array("count_ideas", $filter);
 
-			$searchResult['data'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
+			$searchResult['data'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skill,industry");
 			$searchResult['page'] = $id;
 			$searchResult['maxPage'] = ceil($count / $filter['per_page']); ; //!!! add page count
     	
