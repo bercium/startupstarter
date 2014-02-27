@@ -15,14 +15,14 @@
  * @property SkillsetSkill[] $skillsetSkills
  * @property UserSkill[] $userSkills
  */
-abstract class BaseSkillset extends GxActiveRecord {
+abstract class BaseIndustry extends GxActiveRecord {
 
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
 	}
 
 	public function tableName() {
-		return 'skillset';
+		return 'industry';
 	}
 
 	public static function label($n = 1) {
@@ -43,8 +43,8 @@ abstract class BaseSkillset extends GxActiveRecord {
 
 	public function relations() {
 		return array(
-			'skillsetSkills' => array(self::HAS_MANY, 'SkillsetSkill', 'skillset_id'),
-			'userSkills' => array(self::HAS_MANY, 'UserSkill', 'skillset_id'),
+			'industries' => array(self::HAS_MANY, 'Industry', 'industry_id'),
+			'userIndustries' => array(self::HAS_MANY, 'UserIndustry', 'industry_id'),
 		);
 	}
 
@@ -57,8 +57,8 @@ abstract class BaseSkillset extends GxActiveRecord {
 		return array(
 			'id' => Yii::t('app', 'ID'),
 			'name' => Yii::t('app', 'Name'),
-			'skillsetSkills' => null,
-			'userSkills' => null,
+			'industries' => null,
+			'userIndustries' => null,
 		);
 	}
 
