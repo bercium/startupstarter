@@ -43,7 +43,7 @@ class PersonController extends GxController {
     
 		$sqlbuilder = new SqlBuilder;
 		$filter = array( 'user_id' => $id);
-		$data['user'] = $sqlbuilder->load_array("user", $filter, "collabpref,link,skillset,idea,gallery,translation");
+		$data['user'] = $sqlbuilder->load_array("user", $filter, "collabpref,link,skill,industry,idea,gallery,translation");
     
 	    if ($data['user'] == array()){
 	      throw new CHttpException(400, Yii::t('msg', 'Oops! This person does not exist.'));
@@ -103,7 +103,7 @@ class PersonController extends GxController {
 		$sqlbuilder = new SqlBuilder;
 		$filter = array( 'user_id' => $id);
 
-		$this->render('embed', array('user' => $sqlbuilder->load_array("user", $filter, "num_of_ideas,skillset")));
+		$this->render('embed', array('user' => $sqlbuilder->load_array("user", $filter, "num_of_ideas,skill,industry")));
   }
   
   public function actionDiscover($id = 1){
@@ -145,7 +145,7 @@ class PersonController extends GxController {
 			$filter['skill'] = $searchForm->skill;
 			$filter['user'] = $searchForm->user;
 
-			$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skillset");
+			$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skill,industry");
     		$searchResult['data'] = $search['results'];
 			$count = $search['count'];
 
@@ -167,15 +167,15 @@ class PersonController extends GxController {
 
 		 	$filter['recent'] = 'recent';
 		 	$filter['where'] = "AND u.create_at > ".(time() - 3600 * 24 * 14);
-			$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skillset");
+			$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skill,industry");
 			$userType = Yii::t('app', "Suggested users");
 
 			//if there's not plenty of results...
 			if($search['count'] < 3){
 			 	$filter['where'] = "AND u.create_at > ".(time() - 3600 * 24 * 31);
-				$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skillset");
+				$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skill,industry");
 				if($search['count'] < 3){
-					$search['results'] = $sqlbuilder->load_array("recent_users", $filter, "skillset,num_of_ideas");
+					$search['results'] = $sqlbuilder->load_array("recent_users", $filter, "num_of_ideas,skill,industry");
 					$search['count'] = $sqlbuilder->load_array("count_users", $filter);
 					$userType = Yii::t('app', "Recent users");
 				}
@@ -189,7 +189,7 @@ class PersonController extends GxController {
 
     		$count = $sqlbuilder->load_array("count_users", $filter);
 
-			$searchResult['data'] = $sqlbuilder->load_array("recent_users", $filter, "num_of_ideas,skillset");
+			$searchResult['data'] = $sqlbuilder->load_array("recent_users", $filter, "num_of_ideas,skill,industry");
 			$searchResult['page'] = $id;
 			$searchResult['maxPage'] = ceil($count / $filter['per_page']);
 

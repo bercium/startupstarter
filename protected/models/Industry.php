@@ -1,8 +1,8 @@
 <?php
 
-Yii::import('application.models._base.BaseSkillset');
+Yii::import('application.models._base.BaseIndustry');
 
-class Skillset extends BaseSkillset
+class Skillset extends BaseIndustry
 {
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
@@ -13,7 +13,7 @@ class Skillset extends BaseSkillset
 		else{
 			$lang = Language::model()->findByAttributes(array("language_code"=>Yii::app()->getLanguage()));
 			$criteria=new CDbCriteria();
-			$criteria->condition = " `table` = 'skillset' AND language_id=".$lang->id;
+			$criteria->condition = " `table` = 'industry' AND language_id=".$lang->id;
       $trans = Translation::model()->findAll($criteria);
 			$result = array();
 			// does not use original values if not translated
@@ -27,7 +27,7 @@ class Skillset extends BaseSkillset
   
   public function defaultScope(){
     return array(
-       'order'=>'name',
+       'order'=>'name, count',
     );
   }  
 }

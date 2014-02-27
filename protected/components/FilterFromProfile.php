@@ -8,7 +8,7 @@ class FilterFromProfile {
 		$user_id = array( 'user_id' => $user_id);
     
 		if($type == 'userByProject'){
-			$data = $sqlbuilder->load_array("user", $user_id, "idea,candidate,collabpref,skillset");
+			$data = $sqlbuilder->load_array("user", $user_id, "idea,candidate,collabpref,skill,industry");
 
 			//don't show me
 			$filter['exclude'][] = $user_id['user_id'];
@@ -34,18 +34,21 @@ class FilterFromProfile {
 					}
 					}
 					
-					if(isset($candidate['skillset']) && count($candidate['skillset']) > 0){
-					foreach($candidate['skillset'] AS $key2 => $skillset){
+					if(isset($candidate['skill']) && count($candidate['skill']) > 0){
+					foreach($candidate['skill'] AS $key2 => $skill){
 
-						//if(strlen($skillset['skillset']) > 0)
-							$filter['skill'][$skillset['skillset']] = $skillset['skillset'];
+						if(strlen($skill['skill']) > 0)
+							$filter['skill'][$skill['skill']] = $skill['skill'];
 
-						if(isset($skillset['skill']) && count($skillset['skill']) > 0){
-						foreach($skillset['skill'] AS $key2 => $skill){
-							//if(strlen($skill['skill']) > 0)
-								$filter['skill'][$skill['skill']] = $skill['skill'];
-						}
-						}
+					}
+					}
+
+					if(isset($industry['industry']) && count($industry['industry']) > 0){
+					foreach($industry['industry'] AS $key2 => $industry){
+
+						if(strlen($industry['industry']) > 0)
+							$filter['industry'][$industry['industry']] = $industry['industry'];
+
 					}
 					}
 				}
@@ -64,7 +67,7 @@ class FilterFromProfile {
 			return $filter;
 
 		} elseif($type == 'ideaByProfile'){
-			$data = $sqlbuilder->load_array("user", $user_id, "collabpref,skillset,idea,");
+			$data = $sqlbuilder->load_array("user", $user_id, "collabpref,skill,industry,idea,");
 
 			//exclude ideas that user is member of
 			if(isset($data['idea']) && count($data['idea']) > 0){
@@ -85,18 +88,19 @@ class FilterFromProfile {
 			}
 			}
 			
-			if(isset($data['skillset']) && count($data['skillset']) > 0){
-			foreach($data['skillset'] AS $key => $skillset){
+			if(isset($data['skill']) && count($data['skill']) > 0){
+			foreach($data['skill'] AS $key => $skill){
 
-				if(strlen($skillset['skillset']) > 0)
-					$filter['skill'][$skillset['skillset']] = $skillset['skillset'];
+				if(strlen($skill['skill']) > 0)
+					$filter['skill'][$skill['skill']] = $skill['skill'];
+			}
+			}
 
-				if(isset($skillset['skill']) && count($skillset['skill']) > 0){
-				foreach($skillset['skill'] AS $key1 => $skill){
-					if(strlen($skill['skill']) > 0)
-						$filter['skill'][$skill['skill']] = $skill['skill'];
-				}
-				}
+			if(isset($data['industry']) && count($data['industry']) > 0){
+			foreach($data['industry'] AS $key => $industry){
+
+				if(strlen($industry['industry']) > 0)
+					$filter['industry'][$industry['industry']] = $industry['industry'];
 			}
 			}
 
