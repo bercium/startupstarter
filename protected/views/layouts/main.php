@@ -44,7 +44,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
 		
   <link rel="shortcut icon" type="image/x-icon" href="<?php echo Yii::app()->createAbsoluteUrl('/images/iphone.png'); ?>">
   <link rel="icon" type="image/ico" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico">
-  <?php if (!YII_DEBUG){ ?>
+  <?php if (YII_DEBUG){ ?>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700,700italic,600italic,600,400italic,300italic,300&subset=latin,cyrillic-ext,greek-ext,greek,latin-ext,cyrillic,vietnamese' rel='stylesheet' type='text/css'>
   <?php } ?>
   <script> var fullURL= '<?php echo Yii::app()->request->baseUrl; ?>'; 
