@@ -46,7 +46,7 @@ else {
   if (count($user['idea']) > 0) $this->pageDesc .= ' '.Yii::t('app','I\'m curently working on a project of my own.');
 }
 ?>
-<div id="myModal" class="reveal-modal large">
+<div id="myModal" class="reveal-modal large radius-all">
    <a class="close-reveal-modal">&#215;</a>
 	<div class="contact-form">
 	<?php

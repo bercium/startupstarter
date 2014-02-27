@@ -23,7 +23,7 @@ foreach ($idea['member'] as $member) {
 
 ?>
 
-<div id="myModal" class="reveal-modal large" style="border-radius: 4px;">
+<div id="myModal" class="reveal-modal large radius-all">
                 <a class="close-reveal-modal">&#215;</a>
         <div class="contact-form">
             <?php
