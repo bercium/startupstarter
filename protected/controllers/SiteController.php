@@ -35,7 +35,7 @@ class SiteController extends Controller
 				'users'=>array('@'),
 			),*/
 			array('allow', // allow admin user to perform actions:
-				'actions'=>array('list','recalcPerc','setVanityUrl'),
+				'actions'=>array('list','recalcPerc','setVanityUrl','sqlIndustry'),
 				'users'=>Yii::app()->getModule('user')->getAdmins(),
 			),
 			array('deny',  // deny all users
@@ -727,6 +727,28 @@ EOD;
       }
     }
      $this->render('message',array('title'=>"Fill vanity urls",'content'=>"Success!"));
+  }
+
+  /**
+   * Sql Script for Skill -> Industry (delete later)
+   */
+  public function actionSqlIndustry(){
+
+  	//foreach user copy USER_SKILL . SKILLSET_ID to USER_INDUSTRY . INDUSTRY_ID
+
+  		$sql = "SELECT * FROM user_skill";
+  		
+		$connection=Yii::app()->db;
+		$command=$connection->createCommand($sql);
+		$dataReader=$command->query();
+		$array = array();
+
+		while(($row=$dataReader->read())!==false) {
+			$userindustry = New UserIndustry();
+			$userindustry->match_id = $row['match_id'];
+			$userindustry->industry_id = $row['skillset_id'];
+			$userindustry->save();
+		}
   }
 	
 }
