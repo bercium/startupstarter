@@ -31,3 +31,5 @@ ALTER TABLE  `user_industry` ADD FOREIGN KEY (  `industry_id` ) REFERENCES  `cof
 `id`
 ) ON DELETE CASCADE ON UPDATE CASCADE ;
 
+ALTER TABLE  `user_skill` CHANGE  `skillset_id`  `skillset_id` SMALLINT( 2 ) UNSIGNED NULL DEFAULT NULL ;
+

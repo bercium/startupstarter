@@ -34,6 +34,8 @@ class m140226_171053_industry extends CDbMigration
 		$this->execute("ALTER TABLE  `user_industry` ADD FOREIGN KEY (  `industry_id` ) REFERENCES  `cofinder`.`industry` (
 			`id`
 			) ON DELETE CASCADE ON UPDATE CASCADE ;");
+
+		$this->execute("ALTER TABLE  `user_skill` CHANGE  `skillset_id`  `skillset_id` SMALLINT( 2 ) UNSIGNED NULL DEFAULT NULL ;");
 	}
 
 	public function down()
