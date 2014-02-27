@@ -46,7 +46,8 @@ else {
   if (count($user['idea']) > 0) $this->pageDesc .= ' '.Yii::t('app','I\'m curently working on a project of my own.');
 }
 ?>
-<div id="drop-msg" class="f-dropdown content medium" data-dropdown-content>
+<div id="myModal" class="reveal-modal large">
+   <a class="close-reveal-modal">&#215;</a>
 	<div class="contact-form">
 	<?php
   if (Yii::app()->user->isGuest){
@@ -224,7 +225,7 @@ else {
 
               <?php if ($user['id'] != Yii::app()->user->id){ ?>  
               <div class="large-12 small-12 columns">
-                <a class="button success small-12 radius mb10" href="#" trk="contact_person"  data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send me a message') ?></a>
+                <a class="button success small-12 radius mb10" href="#" trk="contact_person" data-reveal-id="myModal"><?php echo Yii::t('app', 'Send me a message') ?></a>
               
               <?php if ($responseTime) echo '<p class="meta mb0"><small">'.Yii::t('app','Response time').':'.prettyDate($responseTime).'</small></p>'; ?>
               </div>     
@@ -339,7 +340,7 @@ else {
 
                     <?php } else { ?>
 
-                      <p class="description meta"><?php echo Yii::t('app', 'User didn\'t set this yet');?></p>
+                      <p class="description meta"><?php echo Yii::t('app', 'User has not filled this out yet.');?></p>
                       <?php }  ?>                  
                 
             </div>

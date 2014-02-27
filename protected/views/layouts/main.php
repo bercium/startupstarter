@@ -62,7 +62,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
   
   
   <div class="top-bar-holder sticky">
-      <div class="row">
+      <div class="">
         <div class="">
           <nav class="top-bar contain-to-grid">
           <ul class="title-area">
@@ -70,7 +70,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
              <li class="name ">
                <div class="hide-for-small">
 								 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
-									<img class="logo" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png" />
+									<img class="logo ml10" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png" />
 								 
                  </a>
                  

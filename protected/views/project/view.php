@@ -22,6 +22,54 @@ foreach ($idea['member'] as $member) {
 }
 
 ?>
+
+<div id="myModal" class="reveal-modal large" style="border-radius: 4px;">
+                <a class="close-reveal-modal">&#215;</a>
+        <div class="contact-form">
+            <?php
+            if (Yii::app()->user->isGuest) {
+                echo Yii::t('msg', 'You must be loged in to contact this person.');
+               /* echo Yii::t('msg', "If you don't have an account ");
+                ?> <a href="<?php echo Yii::app()->createUrl("site/notify"); ?>"
+                      class="button tiny radius mt20 mb0"> <?php echo Yii::t('msg', 'Request invitation'); ?> </a> <?php
+                */
+            } else {
+                $comp = new Completeness();
+                if ($comp->getPercentage() > PROFILE_COMPLETENESS_MIN){
+                ?>
+                <?php
+                /*$user_id = '';
+                foreach ($idea['member'] as $member){
+                if ($member['type_id'] == 1){
+                $user_id = $member['id'];
+                break;
+                }
+                }*/
+                echo CHtml::beginForm(Yii::app()->createUrl("message/contact"), 'post', array("class" => "customs")); ?>
+                <?php echo CHtml::hiddenField("project", $idea['id']); ?>
+                <?php echo CHtml::label(Yii::t('app', 'Message') . ":", 'message'); ?>
+                <?php echo CHtml::textArea('message', '', array('class' => 'ckeditor')) ?>
+                <br/>
+
+                <label for="notify_me">
+                    <?php echo CHtml::checkBox('notify_me', true); ?>
+                    <?php echo Yii::t('app', 'Send me a copy via email'); ?>
+                </label>
+                <br/>
+                <div class="login-floater">
+                    <?php echo CHtml::submitButton(Yii::t("app", "Send"), array("class" => "button small radius")); ?>
+                </div>
+
+                <?php echo CHtml::endForm();
+                }else{
+                  // not enough
+                  echo Yii::t('msg','Before you can contact people you must fill your profile.');
+                }
+                
+            }
+            ?>
+        </div>
+    </div>
     
 
 
@@ -69,56 +117,6 @@ foreach ($idea['member'] as $member) {
 
     <div class="row idea-details">
         <div class="main columns large-12">
-
-            <div id="myModal" class="reveal-modal large">
-                <a class="close-reveal-modal">&#215;</a>
-        <div class="contact-form">
-            <?php
-            if (Yii::app()->user->isGuest) {
-                echo Yii::t('msg', 'You must be loged in to contact this person.');
-               /* echo Yii::t('msg', "If you don't have an account ");
-                ?> <a href="<?php echo Yii::app()->createUrl("site/notify"); ?>"
-                      class="button tiny radius mt20 mb0"> <?php echo Yii::t('msg', 'Request invitation'); ?> </a> <?php
-                */
-            } else {
-                $comp = new Completeness();
-                if ($comp->getPercentage() > PROFILE_COMPLETENESS_MIN){
-                ?>
-                <?php
-                /*$user_id = '';
-                foreach ($idea['member'] as $member){
-                if ($member['type_id'] == 1){
-                $user_id = $member['id'];
-                break;
-                }
-                }*/
-                echo CHtml::beginForm(Yii::app()->createUrl("message/contact"), 'post', array("class" => "customs")); ?>
-                <?php echo CHtml::hiddenField("project", $idea['id']); ?>
-                <?php echo CHtml::label(Yii::t('app', 'Message') . ":", 'message'); ?>
-                <?php echo CHtml::textArea('message', '', array('class' => 'ckeditor')) ?>
-                <br/>
-
-                <label for="notify_me">
-                    <?php echo CHtml::checkBox('notify_me', true); ?>
-                    <?php echo Yii::t('app', 'Send me a copy via email'); ?>
-                </label>
-                <br/>
-                <div class="login-floater">
-                    <?php echo CHtml::submitButton(Yii::t("app", "Send"), array("class" => "button small radius")); ?>
-                </div>
-
-                <?php echo CHtml::endForm();
-                }else{
-                  // not enough
-                  echo Yii::t('msg','Before you can contact people you must fill your profile.');
-                }
-                
-            }
-            ?>
-        </div>
-    </div>
-        
-            
 
             <?php if (count($idea['candidate']) > 0){ ?> 
             <div class="left pb15">
@@ -380,7 +378,7 @@ foreach ($idea['member'] as $member) {
          <div class="panel">
             <div class="meta hide-for-small pb10">
                          <h4 class="l-iblock left"><?php echo Yii::t('app','Your last message'); ?></h4>
-                           <p class="l-iblock right"><small>viewed POPRAVI TO ČIMPREJ</small></p>
+                           <p class="l-iblock right button"><small>viewed POPRAVI TO ČIMPREJ</small></p>
                            <br><br>
               <p><span class="meta"><?php echo trim_text($lastMsg->message,150,false); ?></span>
               <a class="right" href="<?php echo Yii::app()->createUrl("message/view",array('id'=>$idea['id'],'group'=>'project')); ?>"><?php echo yii::t('msg', 'View all'); ?></a></p>
