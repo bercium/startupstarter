@@ -37,7 +37,10 @@ abstract class BaseIndustry extends GxActiveRecord {
 		return array(
 			array('name', 'required'),
 			array('name', 'length', 'max'=>128),
-			array('id, name', 'safe', 'on'=>'search'),
+			array('count' 'numerical', 'integerOnly'=>true),
+			array('count', 'length', 'max'=>11),
+			array('count', 'default', 'setOnEmpty' => true, 'value' => 1),
+			array('id, name, count', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,6 +60,7 @@ abstract class BaseIndustry extends GxActiveRecord {
 		return array(
 			'id' => Yii::t('app', 'ID'),
 			'name' => Yii::t('app', 'Name'),
+			'count' => null,
 			'industries' => null,
 			'userIndustries' => null,
 		);
@@ -67,6 +71,7 @@ abstract class BaseIndustry extends GxActiveRecord {
 
 		$criteria->compare('id', $this->id);
 		$criteria->compare('name', $this->name, true);
+		$criteria->compare('count', $this->count, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,

@@ -36,6 +36,8 @@ class m140226_171053_industry extends CDbMigration
 			) ON DELETE CASCADE ON UPDATE CASCADE ;");
 
 		$this->execute("ALTER TABLE  `user_skill` CHANGE  `skillset_id`  `skillset_id` SMALLINT( 2 ) UNSIGNED NULL DEFAULT NULL ;");
+
+		$this->execute("ALTER TABLE  `industry` ADD  `count` INT( 11 ) UNSIGNED NULL ;");
 	}
 
 	public function down()

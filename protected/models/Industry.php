@@ -27,7 +27,7 @@ class Skillset extends BaseIndustry
   
   public function defaultScope(){
     return array(
-       'order'=>'name',
+       'order'=>'name, count',
     );
   }  
 }
