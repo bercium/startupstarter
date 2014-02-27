@@ -135,7 +135,7 @@ class SiteController extends Controller
 
 			$filter['per_page'] = 3;
 
-			$data['user'] = $sqlbuilder->load_array("recent_users", $filter, "skillset,num_of_ideas");
+			$data['user'] = $sqlbuilder->load_array("recent_users", $filter, "num_of_ideas,skill,industry");
 	      	$count = $sqlbuilder->load_array("count_users", $filter);
 	      	$maxPagePerson = ceil($count / $filter['per_page']);
 	      	$userType = Yii::t('app', "Recent users");

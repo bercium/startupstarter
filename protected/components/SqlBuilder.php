@@ -53,9 +53,9 @@ class SqlBuilder {
 	//STRUCTURE
 		if($structure == ""){
 			if($action == "recent_users" || $action == "search_users" || $action == "user" || $action == "regflow"){
-				$structure = "collabpref,link,skillset,num_of_ideas,idea,member,gallery,translation";
+				$structure = "collabpref,link,skill,industry,num_of_ideas,idea,member,gallery,translation";
 			} elseif($action == "recent_ideas" || $action == "search_ideas" || $action == "idea" ){
-				$structure = "translation,translation_other,link,member,gallery,candidate,skillset,collabpref";
+				$structure = "translation,translation_other,link,member,gallery,candidate,skill,industry,collabpref";
 			}
 		}
 
@@ -317,7 +317,7 @@ class SqlBuilder {
 				$row['num_of_ideas'] = $this->count('users_ideas', $filter);
 			}			
 
-			//skillset
+			//skill
 			if(strpos($structure, 'skill') !== false){
 				$row['skill'] = $this->skill( $filter );
 			}
