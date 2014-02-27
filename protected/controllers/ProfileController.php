@@ -150,6 +150,9 @@ class ProfileController extends GxController {
           }// end vanity url check
           
           
+          //user skills
+          if (isset($_POST['hidden-skill'])) CSkills::saveSkills($_POST['hidden-skill'],$user_id);
+          
 					$user->setAttributes($_POST['UserEdit']);
 					//$user->avatar_link = '';
 
@@ -640,35 +643,15 @@ class ProfileController extends GxController {
 			$response = array("data" => null,
 								"status" => 1,
 								"message" => Yii::t('msg', "No search query."));
-		}else{
-			$connection=Yii::app()->db;
-			
-      $cat = '';
-      if (!empty($_GET['category'])) $cat = " AND skillset_id = ".$_GET['category'];
-			// needs translation as well
-      	if (Yii::app()->getLanguage() != 'en'){
-      		$lang = Language::model()->findByAttributes(array("language_code"=>Yii::app()->getLanguage()));
-        	$command=$connection->createCommand("SELECT s.name AS skill, ss.translation AS skillset, s.id, ss.row_id AS skillset_id FROM skill s
-                                             	LEFT JOIN skillset_skill sss ON sss.skill_id = s.id
-                                             	LEFT JOIN (SELECT * FROM translation WHERE language_id = ".$lang->id." AND `table`='skillset') ss ON ss.row_id = sss.skillset_id
-                                             	WHERE s.name LIKE '%".$_GET['term']."%'".$cat);
-      	} else {
-        	$command=$connection->createCommand("SELECT s.name AS skill, ss.name AS skillset, s.id, ss.id AS skillset_id FROM skill s
-                                             	LEFT JOIN skillset_skill sss ON sss.skill_id = s.id
-                                             	LEFT JOIN skillset ss ON ss.id = sss.skillset_id
-                                             	WHERE s.name LIKE '%".$_GET['term']."%'".$cat);
-      	}
-      
-		$dataReader=$command->query();
+    }else{
+      $data = CSkills::skillSuggest($_GET['term']);
+      /*foreach ($dataReader as $row){
+        $data[] = $row;
+      }*/
 
-		$data = array();
-		foreach ($dataReader as $row){
-			$data[] = $row;
-		}
-			
-		$response = array("data" => $data,
-							"status" => 0,
-							"message" => '');
+      $response = array("data" => $data,
+                "status" => 0,
+                "message" => '');
 		}
 		
 		echo json_encode($response);

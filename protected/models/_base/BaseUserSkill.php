@@ -38,7 +38,7 @@ abstract class BaseUserSkill extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('match_id, skillset_id, skill_id', 'required'),
+			array('match_id, skill_id', 'required'),
 			array('skillset_id, skill_id', 'numerical', 'integerOnly'=>true),
 			array('match_id', 'length', 'max'=>8),
 			array('id, match_id, skillset_id, skill_id', 'safe', 'on'=>'search'),

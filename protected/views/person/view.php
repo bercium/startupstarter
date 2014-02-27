@@ -244,7 +244,9 @@ else {
     <div class="meta hide-for-small panel small-12 columns">
       
         <h4 class="l-iblock left"><?php echo Yii::t('app','Your last message'); ?></h4>
-        <p class="l-iblock right button"><small>viewed POPRAVI TO ČIMPREJ</small></p>
+        <p class="l-iblock right"><small>
+         <?php if ($lastMsg->time_viewed) echo Yii::t('app','viewed {datetime}',array("{datetime}"=>Yii::app()->dateFormatter->formatDateTime(strtotime($lastMsg->time_viewed),"short",null))); /*else echo Yii::t('app','unread'); */ ?>
+        </small></p>
       <br><br>
 
       <p><span class="meta"><?php echo trim_text($lastMsg->message,150,false); ?></span>
