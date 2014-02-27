@@ -22,7 +22,9 @@ foreach ($idea['member'] as $member) {
 }
 
 ?>
-    <div id="drop-msg" class="f-dropdown content medium" data-dropdown-content>
+
+<div id="myModal" class="reveal-modal large" style="border-radius: 4px;">
+                <a class="close-reveal-modal">&#215;</a>
         <div class="contact-form">
             <?php
             if (Yii::app()->user->isGuest) {
@@ -68,6 +70,7 @@ foreach ($idea['member'] as $member) {
             ?>
         </div>
     </div>
+    
 
 
 
@@ -114,8 +117,6 @@ foreach ($idea['member'] as $member) {
 
     <div class="row idea-details">
         <div class="main columns large-12">
-        
-            
 
             <?php if (count($idea['candidate']) > 0){ ?> 
             <div class="left pb15">
@@ -366,18 +367,24 @@ foreach ($idea['member'] as $member) {
                 ?>
             </div>
             <?php //if (!$canEdit) { ?>
-            <a class="button success radius small-12" href="#" trk="contact_team" 
-               data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send message to members') ?></a>
+            <a class="button success radius small-12" data-reveal-id="myModal" href="#" trk="contact_team">
+                <?php echo Yii::t('app', 'Send message to members') ?></a>
             <?php //} ?>
-            <?php if ($lastMsg){ ?>
-            <span class="meta hide-for-small">
-              <hr>
-              <h4><?php echo Yii::t('app','You send them'); ?></h4>
-              <?php echo trim_text($lastMsg->message,150,false); ?>
-              <a class="button tiny secondary radius" href="<?php echo Yii::app()->createUrl("message/view",array('id'=>$idea['id'],'group'=>'project')); ?>">...</a>
-            </span>
-            <?php } ?>                        
+
+                                
         </div>
+
+         <?php if ($lastMsg){ ?>
+         <div class="panel">
+            <div class="meta hide-for-small pb10">
+                         <h4 class="l-iblock left"><?php echo Yii::t('app','Your last message'); ?></h4>
+                           <p class="l-iblock right button"><small>viewed POPRAVI TO ČIMPREJ</small></p>
+                           <br><br>
+              <p><span class="meta"><?php echo trim_text($lastMsg->message,150,false); ?></span>
+              <a class="right" href="<?php echo Yii::app()->createUrl("message/view",array('id'=>$idea['id'],'group'=>'project')); ?>"><?php echo yii::t('msg', 'View all'); ?></a></p>
+            </div>
+        </div>
+            <?php } ?>   
 
         <div class="panel">
             <div class="item bbottom">

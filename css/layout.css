@@ -814,6 +814,10 @@ ul, ol {
 	font-size: 1.375em !important; 
 }
 
+.f-large {
+	font-size: 1.6875em !important; 
+}
+
 
 .status-high.icon-circle {
 	font-size: 0.6em;

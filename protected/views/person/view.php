@@ -46,7 +46,8 @@ else {
   if (count($user['idea']) > 0) $this->pageDesc .= ' '.Yii::t('app','I\'m curently working on a project of my own.');
 }
 ?>
-<div id="drop-msg" class="f-dropdown content medium" data-dropdown-content>
+<div id="myModal" class="reveal-modal large">
+   <a class="close-reveal-modal">&#215;</a>
 	<div class="contact-form">
 	<?php
   if (Yii::app()->user->isGuest){
@@ -224,7 +225,7 @@ else {
 
               <?php if ($user['id'] != Yii::app()->user->id){ ?>  
               <div class="large-12 small-12 columns">
-                <a class="button success small-12 radius mb10" href="#" trk="contact_person"  data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send me a message') ?></a>
+                <a class="button success small-12 radius mb10" href="#" trk="contact_person" data-reveal-id="myModal"><?php echo Yii::t('app', 'Send me a message') ?></a>
               
               <?php if ($responseTime) echo '<p class="meta mb0"><small">'.Yii::t('app','Response time').':'.prettyDate($responseTime).'</small></p>'; ?>
               </div>     
@@ -241,9 +242,13 @@ else {
 
     <?php if ($lastMsg){ ?>
     <div class="meta hide-for-small panel small-12 columns">
-      <h4><?php echo Yii::t('app','Last sent message'); ?></h4>
-      <?php echo trim_text($lastMsg->message,150,false); ?>
-      <a class="button tiny secondary radius ml5" href="<?php echo Yii::app()->createUrl("message/view",array('id'=>$user['id'],'group'=>'user')); ?>"><span class="icon-ellipsis-horizontal f-medium"></span></a>
+      
+        <h4 class="l-iblock left"><?php echo Yii::t('app','Your last message'); ?></h4>
+        <p class="l-iblock right button"><small>viewed POPRAVI TO ČIMPREJ</small></p>
+      <br><br>
+
+      <p><span class="meta"><?php echo trim_text($lastMsg->message,150,false); ?></span>
+      <a class="right" href="<?php echo Yii::app()->createUrl("message/view",array('id'=>$user['id'],'group'=>'user')); ?>"><?php echo yii::t('msg', 'View all'); ?></a></p>
 
     </div>  
     <?php } ?>  
@@ -335,7 +340,7 @@ else {
 
                     <?php } else { ?>
 
-                      <p class="description meta"><?php echo Yii::t('app', 'User didn\'t set this yet');?></p>
+                      <p class="description meta"><?php echo Yii::t('app', 'User has not filled this out yet.');?></p>
                       <?php }  ?>                  
                 
             </div>
