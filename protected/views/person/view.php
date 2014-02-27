@@ -228,17 +228,20 @@ else {
               <div class="large-12 small-12 columns">
                 <a class="button success small-12 radius mb5" href="#" trk="contact_person"  data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send me a message') ?></a>
               
-              <?php if ($responseTime) echo '<div class="hide-for-small"><p class="meta"><small">'.Yii::t('app','Response time').':'.prettyDate($responseTime).'</small></p></div>'; ?>
+              <?php if ($responseTime) echo '<div class="hide-for-small mb10"><p class="meta"><small">'.Yii::t('app','Response time').':'.prettyDate($responseTime).'</small></p></div>'; ?>
               </div>     
               <?php } ?>
           
-            <?php if ($lastMsg){ ?>
-            <span class="meta hide-for-small">
-              <h4><?php echo Yii::t('app','You send him'); ?></h4>
+            <div class="item bbottom large-12 small-12 columns btop pt10">
+              <?php if ($lastMsg){ ?>
+              <div class="meta hide-for-small">
+              <h4><?php echo Yii::t('app','Last sent message'); ?></h4>
               <?php echo trim_text($lastMsg->message,150,false); ?>
-              <a class="button tiny secondary radius" href="<?php echo Yii::app()->createUrl("message/view",array('id'=>$user['id'],'group'=>'user')); ?>">...</a>
-            </span>
-            <?php } ?>          
+              <a class="button tiny secondary radius ml5" href="<?php echo Yii::app()->createUrl("message/view",array('id'=>$user['id'],'group'=>'user')); ?>"><span class="icon-ellipsis-horizontal f-medium"></span></a>
+              
+              </div>
+              <?php } ?>  
+            </div>        
 
         </div>     
 
@@ -319,7 +322,7 @@ else {
         <div class="panel radius">
 
           <div class="row"><!-- collaboration available -->
-            <div class="columns large-6 small-12 bright" style="text-align: center;">
+            <div class="columns large-6 small-12" style="text-align: center;">
              
                    <h4 class="mt10 mb0"><?php echo Yii::t('app', 'Available');?></h4>
                    
@@ -330,12 +333,15 @@ else {
                    <p class="mb0"> <?php echo shortenAvailable($user['available_name'], true, true); ?></p> 
 
 
-                    <?php } ?>                  
+                    <?php } else { ?>
+
+                      <p class="description meta"><?php echo Yii::t('app', 'User didn\'t set this yet');?></p>
+                      <?php }  ?>                  
                 
             </div>
 
             
-            <div class="large-6 columns mb20" style="text-align:center;">
+            <div class="large-6 columns bleft" style="text-align:center;">
               
                <h4 class="mt10"><?php echo Yii::t('app', 'Collaboration');?></h4>
 
