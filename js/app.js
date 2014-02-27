@@ -106,12 +106,12 @@ $(function() {
   });
   
   //slimscroll
-  $('.slimscroll140').slimScroll({
-    height: '140px'
+  $('.slimscrollSmall').slimScroll({
+    height: '130px'
   });
   
-  $('.slimscroll300').slimScroll({
-    height: '300px'
+  $('.slimscrollBig').slimScroll({
+    height: '250px'
   });
   
   
