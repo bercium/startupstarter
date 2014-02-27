@@ -153,7 +153,7 @@ else {
                
                 <p class="mb10">
                 <?php if ($user['city'] || $user['country'] /*|| $user['address']*/) { ?>
-                <span class="icon-map-marker l-iblock icon-awesome mr5 ml5"></span>
+                <span class="icon-map-marker l-iblock icon-awesome mr8 ml5"></span>
                 <a>
                   <span class="" data-tooltip title="<img src='<?php echo getGMap($user['country'], $user['city'] /*, $user['address'] */); ?>'>">
 
@@ -170,15 +170,13 @@ else {
                 </p>
                 
 
-
-
                 <!--- show for mobile -->
 
                   <div class="show-for-small">
 
                   <?php if (count($user['link']) > 0) { ?>
                     <div class="">
-                      <h4 class="l-iblock"> <?php echo Yii::t('app', 'Links') ?></h4>
+                      <h4 class="l-iblock"><span class="icon-external-link-sign ml5 mr8"></span><?php echo Yii::t('app', 'Links') ?></h4>
                       <?php foreach ($user['link'] as $link) { ?>
 
                       
@@ -226,34 +224,36 @@ else {
 
               <?php if ($user['id'] != Yii::app()->user->id){ ?>  
               <div class="large-12 small-12 columns">
-                <a class="button success small-12 radius mb5" href="#" trk="contact_person"  data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send me a message') ?></a>
+                <a class="button success small-12 radius mb10" href="#" trk="contact_person"  data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send me a message') ?></a>
               
-              <?php if ($responseTime) echo '<div class="hide-for-small mb10"><p class="meta"><small">'.Yii::t('app','Response time').':'.prettyDate($responseTime).'</small></p></div>'; ?>
+              <?php if ($responseTime) echo '<p class="meta mb0"><small">'.Yii::t('app','Response time').':'.prettyDate($responseTime).'</small></p>'; ?>
               </div>     
               <?php } ?>
           
-            <div class="item bbottom large-12 small-12 columns btop pt10">
-              <?php if ($lastMsg){ ?>
-              <div class="meta hide-for-small">
-              <h4><?php echo Yii::t('app','Last sent message'); ?></h4>
-              <?php echo trim_text($lastMsg->message,150,false); ?>
-              <a class="button tiny secondary radius ml5" href="<?php echo Yii::app()->createUrl("message/view",array('id'=>$user['id'],'group'=>'user')); ?>"><span class="icon-ellipsis-horizontal f-medium"></span></a>
-              
-              </div>
-              <?php } ?>  
-            </div>        
+            
+             
+                  
 
         </div>     
 
         
     </div>
 
+    <?php if ($lastMsg){ ?>
+    <div class="meta hide-for-small panel small-12 columns">
+      <h4><?php echo Yii::t('app','Last sent message'); ?></h4>
+      <?php echo trim_text($lastMsg->message,150,false); ?>
+      <a class="button tiny secondary radius ml5" href="<?php echo Yii::app()->createUrl("message/view",array('id'=>$user['id'],'group'=>'user')); ?>"><span class="icon-ellipsis-horizontal f-medium"></span></a>
+
+    </div>  
+    <?php } ?>  
+
     <!-- <p class="meta-field"><?php // echo Yii::t('app', 'My links') ?>:</p> -->
     <div class="panel small-12 columns hide-for-small">
 
     <?php if (count($user['link']) > 0) { ?>
       <div class="item bb">
-        <h4 class=""> <?php echo Yii::t('app', 'Links') ?></h4>
+        <h4 class=""><?php echo Yii::t('app', 'Links') ?></h4>
         <?php foreach ($user['link'] as $link) { ?>
 
           <p>

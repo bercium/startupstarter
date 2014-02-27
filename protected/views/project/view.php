@@ -291,7 +291,7 @@ foreach ($idea['member'] as $member) {
             <div class="large-12">
                 <center>
                           <a trk="project_view_newPosition" class="button radius small-12 mb0 large-11" href="<?php echo Yii::app()->createUrl("project/edit", array("id" => $idea['id'],"candidate"=>"new")); ?>#link_position">
-                            <?php echo Yii::t('app', 'Open new position') ?>
+                            <?php echo Yii::t('app', 'Add more positions') ?>
                           </a>
                 </center>
         </div>
@@ -366,7 +366,7 @@ foreach ($idea['member'] as $member) {
                 ?>
             </div>
             <?php //if (!$canEdit) { ?>
-            <a class="button success radius small-12" href="#" trk="contact_team"
+            <a class="button success radius small-12" href="#" trk="contact_team" 
                data-dropdown="drop-msg"><?php echo Yii::t('app', 'Send message to members') ?></a>
             <?php //} ?>
             <?php if ($lastMsg){ ?>
