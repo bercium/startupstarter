@@ -36,7 +36,9 @@ abstract class BaseSkill extends GxActiveRecord {
 			array('name', 'required'),
 			array('name', 'unique'),
 			array('name', 'length', 'max'=>128),
-			array('id, name', 'safe', 'on'=>'search'),
+			array('count', 'length', 'max'=>11),
+			array('count', 'default', 'setOnEmpty' => true, 'value' => 1),
+			array('id, name, count', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,6 +58,7 @@ abstract class BaseSkill extends GxActiveRecord {
 		return array(
 			'id' => Yii::t('app', 'ID'),
 			'name' => Yii::t('app', 'Name'),
+			'count' => NULL,
 		);
 	}
 
@@ -64,6 +67,7 @@ abstract class BaseSkill extends GxActiveRecord {
 
 		$criteria->compare('id', $this->id);
 		$criteria->compare('name', $this->name, true);
+		$criteria->compare('count', $this->count, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
