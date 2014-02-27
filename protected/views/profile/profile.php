@@ -253,7 +253,7 @@
 	<?php echo CHtml::endForm(); ?>
 
 
-
+<?php /* ?>
 <div class="">
   <div class="columns edit-header">
     <a id="link_skills" class="anchor-link"></a>
@@ -274,8 +274,8 @@
 //             'enableClientValidation'=>true,
                'htmlOptions'=>array(
                               //'class'=>'customs',
-                              'onsubmit'=>"return false;",/* Disable normal form submit */
-                              //'onkeypress'=>" if(event.keyCode == 13){ addSkill('".Yii::app()->createUrl("profile/addSkill")."'); } " /* Do ajax call when user presses enter key */
+                              'onsubmit'=>"return false;",//* Disable normal form submit * /
+                              //'onkeypress'=>" if(event.keyCode == 13){ addSkill('".Yii::app()->createUrl("profile/addSkill")."'); } " ///* Do ajax call when user presses enter key * /
                               ),
           )); ?>
       
@@ -330,9 +330,7 @@
   </div>
 </div>
 
-
-
-
+<?php */ ?>
 
 
 
