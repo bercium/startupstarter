@@ -146,7 +146,7 @@ function trim_text($input, $length, $ellipses = true, $strip_html = true) {
 function getGMap($country = '', $city = '', $addr = ''){
   //include_once "httpclient.php";
 	//if(!class_exists('elhttpclient')){
-	Yii::import('application.helpers.elHttpClient');
+	//Yii::import('application.helpers.elHttpClient');
 	//}
   $httpClient = new elHttpClient();
   $httpClient->setUserAgent("ff3");
@@ -205,7 +205,7 @@ function getGMap($country = '', $city = '', $addr = ''){
 function getLinkIcon($link){
   //include_once "httpclient.php";
 	//if(!class_exists('elhttpclient')){
-	Yii::import('application.helpers.elHttpClient');
+	//Yii::import('application.helpers.elHttpClient');
 	//}
   $httpClient = new elHttpClient();
   $httpClient->setUserAgent("ff3");
@@ -415,11 +415,12 @@ function absoluteURL(){
  */
 function shortenAvailable($value, $justValue = false, $justHint = false){
   if (strpos($value, "(") !== false){
-    $hint = substr($value, strpos($value, "("), strpos($value, ")"));
+    $hint = substr($value, strpos($value, "(")+1, strpos($value, ")")-strpos($value, "(")-1);
     $value = substr($value, 0, strpos($value, "(")-1);
-    if (!$justHint) $value = str_replace('(','',str_replace(')','',$hint));
-    if (!$justValue) $value = '<span title="'.$hint.'" data-tooltip>'.$value.'</span>';
     
+    //if (!$justHint) $value = str_replace('(','',str_replace(')','',$hint));
+    if ($justHint) $value = $hint;
+    if (!$justValue) $value = '<span title="'.$hint.'" data-tooltip>'.$value.'</span>';
   }
   return $value;
 }
@@ -513,7 +514,7 @@ function shortenAvailable($value, $justValue = false, $justHint = false){
    * generate tracking code for mail
    */
   function mailTrackingCode($extra = ''){
-    Yii::import('application.helpers.Hashids');
+    //Yii::import('application.helpers.Hashids');
     $hashids = new Hashids('cofinder');
     return $hashids->encrypt(round(microtime(true)));
   }
@@ -522,7 +523,7 @@ function shortenAvailable($value, $justValue = false, $justHint = false){
    * decode tracking code
    */
   function mailTrackingCodeDecode($tc){
-    Yii::import('application.helpers.Hashids');
+    //Yii::import('application.helpers.Hashids');
     $hashids = new Hashids('cofinder');
     $tid = $hashids->decrypt($tc);
     if (is_array($tid) && isset($tid[0])) return $tid[0];

@@ -1,5 +1,5 @@
 <?php
-require(dirname(__FILE__).DIRECTORY_SEPARATOR.'../helpers/global.php');
+require(dirname(__FILE__).DIRECTORY_SEPARATOR.'../components/functions/global.php');
 require(dirname(__FILE__).DIRECTORY_SEPARATOR.'constants.php');
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
@@ -25,6 +25,10 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+    'application.components.functions.*',
+    'application.components.extenders.*',
+    'application.components.behaviours.*',
+    'application.components.lib.*',
     'ext.giix-components.*', // giix components
     'application.extensions.auditTrail.models.AuditTrail', // system for loging models
     'application.modules.user.models.*',  // yii-user login system
