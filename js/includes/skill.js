@@ -84,7 +84,8 @@ $(function() {
             response( cache[ term ] );
             return;
           }
-
+          
+          //Yii.app().createUrl("profile/suggestSkill",{ajax:1})
           $.getJSON( skillSuggest_url, { term: term, category:$("#skillset").val() }, function( data, status, xhr ) {
             if (data.status == 0){
               cache[ term ] = data.data;
@@ -102,6 +103,7 @@ $(function() {
         focus: function( event, ui ) {
           //$('.skillset').val( ui.item.skill );
           // prevent value inserted on focus
+          this.value = ui.item.value;
           return false;
         },
         select: function( event, ui ) {
@@ -111,7 +113,9 @@ $(function() {
           //terms.pop();
           // add the selected item
           //terms.push( ui.item.skill );
-          this.value = ui.item.skill;
+          this.value = ui.item.value;
+          tagApi.tagsManager("pushTag", ui.item.value);
+          return false;
 
       		$('.skillset').val(ui.item.skillset_id); 
     			//Foundation.libs.forms.refresh_custom_select($('.skillset'),true);
@@ -122,12 +126,22 @@ $(function() {
           //this.value = terms.join( ", " );
           return false;
         }
-      })
+      })/*
      .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
       return $( "<li>" )
-        .append( "<a>" + item.skill + "<br><small>" + item.skillset + "</small></a>" )
+        .append( "<a>" + item.skill + "</a>" )
+        //.append( "<a>" + item.skill + "<br><small>" + item.skillset + "</small></a>" )
         .appendTo( ul );
-    };
+    }*/;
     
+    
+    var tagApi = $(".skill").tagsManager({
+     prefilled:$(".skill").val(),
+     delimiters: [9, 13, 44, 59],
+     backspace:[],
+     blinkBGColor_1:'#C64747',
+     blinkBGColor_2:'#999999',
+     tagClass:'label radius'
+   });
    
   });
