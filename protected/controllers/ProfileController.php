@@ -755,7 +755,7 @@ class ProfileController extends GxController {
     }
     if ($user){
     //mark user but not as member yet
-     Yii::import('application.helpers.Hashids');
+     //Yii::import('application.helpers.Hashids');
      $hashids = new Hashids('cofinder');
      $uid = $hashids->encrypt($user->id);
      

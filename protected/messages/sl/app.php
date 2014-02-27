@@ -318,7 +318,7 @@
   'Remember me' => 'Zapomni si me',
   'Remember me next time' => 'Zapomni si me za naslednjič',
   'Remove' => 'Odstrani',
-  'Replay' => 'Odgovori',
+  'Reply' => 'Odgovori',
   'Reputation' => 'Ugled',
   'Reset' => 'Resetiraj',
   'Response time' => 'Odzivni čas',

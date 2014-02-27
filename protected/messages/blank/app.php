@@ -318,7 +318,7 @@ return array (
   'Remember me' => '',
   'Remember me next time' => '',
   'Remove' => '',
-  'Replay' => '',
+  'Reply' => '',
   'Reputation' => '',
   'Reset' => '',
   'Response time' => '',

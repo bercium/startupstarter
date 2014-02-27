@@ -214,7 +214,7 @@ class PersonController extends GxController {
    * decode person form code and show his profile
    */
   public function actionShow($id) {
-    Yii::import('application.helpers.Hashids');
+    //Yii::import('application.helpers.Hashids');
     $hashids = new Hashids('cofinder');
     $user_id = $hashids->decrypt($id);
     //die(print_r($user_id,true));

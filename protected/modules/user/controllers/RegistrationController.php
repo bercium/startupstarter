@@ -82,6 +82,7 @@ class RegistrationController extends Controller
                       
                       $activation_url = '<a href="'.$this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $model->activkey, "email" => $model->email)).'">Activate</a>';
 
+                      $fix_url = Yii::app()->createAbsoluteUrl("/profile/registrationFlow",array("key"=>substr($model->activkey,0, 10),"email"=>$model->email));
                       // if invitation set
                       if ($id == '' || $invited == null) {
                         //notify us
@@ -91,7 +92,7 @@ class RegistrationController extends Controller
                         $message->setBody(array("content"=>"To check his profile go to ".$this->createAbsoluteUrl("/person/view",array("id"=>$model->id)).
                                                 "<br /><br />".
                                                 "If something is wrong send him (".$model->email.") this url to fix his profile: ".
-                                                Yii::app()->createAbsoluteUrl("/profile/registrationFlow",array("key"=>substr($model->activkey,0, 10),"email"=>$model->email)).
+                                                $fix_url.
                                                 "<br /><br />".
                                                 "To activate his account go to ".$activation_url), 'text/html');
                         
@@ -100,13 +101,19 @@ class RegistrationController extends Controller
                         Yii::app()->mail->send($message);
                       }else{
                         // if user was invited then allow him to register
-                        /*$message = new YiiMailMessage;
+                        $message = new YiiMailMessage;
                         $message->view = 'system';
-                        $message->setBody(array("content"=>"To activate your account go to ".$activation_url), 'text/html');
-                        $message->subject = 'Registration for cofinder';
+                        $message->subject = 'Registration for Cofinder';
+                        $tc = mailTrackingCode();
+                        $message->setBody(array("content"=>"We are really happy you have decided to join our community. "
+                                . "We strive to offer high quality profiles and project. "
+                                . "This is why we decide on per person basis if we approve your registration or not.<br /><br />"
+                                . "Complete your profile information if you haven't done that already ".  mailButton("Fill my profile", $fix_url, 'success', $tc, 'registration-profile-fix')
+                                ,"tc"=>$tc), 'text/html');
+                        
                         $message->addTo($model->email);
                         $message->from = Yii::app()->params['noreplyEmail'];
-                        Yii::app()->mail->send($message);*/
+                        Yii::app()->mail->send($message);
 
                         //$invited->delete(); // delete invite (depreched)
                         $invited->key = null;
@@ -128,7 +135,7 @@ class RegistrationController extends Controller
                       }
                       
                      //mark user but not as member yet
-                      Yii::import('application.helpers.Hashids');
+                      //Yii::import('application.helpers.Hashids');
                       $hashids = new Hashids('cofinder');
                       $uid = $hashids->encrypt($model->id);
                       

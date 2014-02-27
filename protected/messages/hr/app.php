@@ -318,7 +318,7 @@ return array (
   'Remember me' => 'Zapamti me',
   'Remember me next time' => 'Zapamti me za sljedeći put',
   'Remove' => 'Makni',
-  'Replay' => 'Odgovori',
+  'Reply' => 'Odgovori',
   'Reputation' => 'Ugled',
   'Reset' => 'Resetiraj',
   'Response time' => '',

@@ -82,7 +82,7 @@ class MessageController extends Controller
       $content = "This message was sent to you trough Cofinder by " .
                 mailButton( $sender->name." ".$sender->surname, Yii::app()->createAbsoluteUrl('/person/view',array('id'=>Yii::app()->user->id)), 'link', $mailTrackingTo,'user-profile-button')
                .$wrapperStart.$_POST['message'].$wrapperEnd
-                .mailButton('Reply to this message', Yii::app()->createAbsoluteUrl('/message/view',$replyParams),'',$mailTrackingTo,'replay-button');
+                .mailButton('Reply to this message', Yii::app()->createAbsoluteUrl('/message/view',$replyParams),'',$mailTrackingTo,'reply-button');
                  
       $message->setBody(array("content"=>$content,"tc"=>$mailTrackingTo), 'text/html');
       //$message->setBody(array("content"=>$_POST['message'],"senderMail"=>$sender->email), 'text/html');
