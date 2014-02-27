@@ -8,7 +8,11 @@
   <div class="columns panel edit-content">
     <?php //writeFlash("notificationMessage"); ?>
     
-    <?php foreach ($invites as $row){ ?>
+
+
+    <?php 
+      if ( count($invites) > 0) {
+     foreach ($invites as $row){ ?>
         
     <div class="panel">
         <div class="edit-floater">
@@ -42,6 +46,12 @@
       </small>
     </div>
     
+    <?php } ?>
+
+    <?php } else { ?>
+
+     <div class="alert-box secondary"><center><?php echo yii::t('msg', 'Currently no pending invitations to join a project.'); ?></center></div>
+
     <?php } ?>
   </div>
 

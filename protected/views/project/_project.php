@@ -32,7 +32,7 @@
           
           
           <section class="active">
-          <p class="title" data-section-title style="border-left: none;width:50%;" ><a href="#panel1"><?php echo Yii::t('app','Project overview') ?></a></p>
+          <p class="title" data-section-title style="border-left: none; width:50%;" ><a href="#panel1"><?php echo Yii::t('app','Project overview') ?></a></p>
             <div class="content" data-section-content>
               <div class="stageinfo">
                 
@@ -58,7 +58,7 @@
                 </div>
               </div>
             <div class="card-abstract btop">
-            <p>
+            <p class="mb0">
             <?php echo trim_text( strip_tags($idea['pitch']), 240); ?>
             </p>
             </div>
@@ -69,7 +69,7 @@
             <?php if(isset($idea['member'])) $cm = count($idea['member']); else $cm = 0; ?>
             <p class="title" data-section-title><a href="#panel3"><?php echo Yii::t('app','{n} member|{n} members',array($cm)); ?></a></p>
               <div class="content"  data-section-content>
-                  <div class="slimscroll140">
+                  <div class="slimscrollSmall">
                   <?php 
                   $i = 0;
                   // show first 4 members
@@ -91,11 +91,12 @@
               </div>
           </section><?php */ ?>
           
+          
           <section>
             <?php if(isset($idea['candidate'])) $cd = count($idea['candidate']); else $cd = 0; ?>
-            <p class="title" data-section-title style="border-right: none;width:50%"><a href="#panel2"><?php echo Yii::t('app','{n} open position|{n} open positions',array($cd)); ?></a></p>
+            <p class="title" data-section-title style="border-right: none; width:50%  "><a href="#panel2"><?php echo Yii::t('app','{n} open position|{n} open positions',array($cd)); ?></a></p>
               <div class="content" data-section-content>
-                <div class="idea-skills <?php if ($hasImg) echo "slimscroll140"; else echo "slimscroll300"; ?>">
+                <div class="idea-skills <?php if ($hasImg) echo "slimscrollSmall"; else echo "slimscrollBig"; ?>">
                   
                   <?php
                   if (isset($idea['candidate']) && count($idea['candidate']) > 0){
@@ -148,6 +149,8 @@
                 </div>
               </div>
           </section>
+
+        
 
         </div>     
       </div>
