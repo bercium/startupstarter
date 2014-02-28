@@ -49,11 +49,6 @@ $('.search-form form').submit(function(){
 				'filter'=>GxHtml::listDataEx(UserMatch::model()->findAllAttributes(null, true)),
 				),
 		array(
-				'name'=>'skillset_id',
-				'value'=>'GxHtml::valueEx($data->skillset)',
-				'filter'=>GxHtml::listDataEx(Skillset::model()->findAllAttributes(null, true)),
-				),
-		array(
 				'name'=>'skill_id',
 				'value'=>'GxHtml::valueEx($data->skill)',
 				'filter'=>GxHtml::listDataEx(Skill::model()->findAllAttributes(null, true)),

@@ -591,6 +591,15 @@ class ProfileController extends GxController {
 			$skill = UserSkill::Model()->findByAttributes(array('skill_id' => $skill_id,'match_id'=>$match->id));
 
 			if ($skill->delete()) { //delete
+
+				$skill = Skill::Model()->findByAttributes(array('id' => $skill_id));
+
+				//usage count
+				$count = $skill->count;
+				$count = $count - 1;
+				$skill->count = $count;
+				$skill->save();
+
 				$return['message'] = '';
 				$return['status'] = 0;
         
@@ -628,7 +637,7 @@ class ProfileController extends GxController {
 			
 			echo json_encode($response);
 			Yii::app()->end();
-	}		
+	}	
 	
 	public function actionAddLink() {
 

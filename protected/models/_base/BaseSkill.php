@@ -36,18 +36,18 @@ abstract class BaseSkill extends GxActiveRecord {
 			array('name', 'required'),
 			array('name', 'unique'),
 			array('name', 'length', 'max'=>128),
+			array('count', 'numerical', 'integerOnly'=>true),
 			array('count', 'length', 'max'=>11),
 			array('count', 'default', 'setOnEmpty' => true, 'value' => 1),
 			array('id, name, count', 'safe', 'on'=>'search'),
 		);
 	}
 
-	/*public function relations() {
+	public function relations() {
 		return array(
-			'skillsetSkills' => array(self::HAS_MANY, 'SkillsetSkill', 'skill_id'),
 			'userSkills' => array(self::HAS_MANY, 'UserSkill', 'skill_id'),
 		);
-	}*/
+	}
 
 	public function pivotModels() {
 		return array(

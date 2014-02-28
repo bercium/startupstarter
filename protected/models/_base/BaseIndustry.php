@@ -37,7 +37,7 @@ abstract class BaseIndustry extends GxActiveRecord {
 		return array(
 			array('name', 'required'),
 			array('name', 'length', 'max'=>128),
-			array('count' 'numerical', 'integerOnly'=>true),
+			array('count', 'numerical', 'integerOnly'=>true),
 			array('count', 'length', 'max'=>11),
 			array('count', 'default', 'setOnEmpty' => true, 'value' => 1),
 			array('id, name, count', 'safe', 'on'=>'search'),

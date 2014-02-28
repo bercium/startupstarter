@@ -376,70 +376,25 @@ class SiteController extends Controller
 		Yii::app()->end();
 	}	
 	
-
 	public function actionSuggestSkill() {
 
 		if (!isset($_GET['term'])){
 			$response = array("data" => null,
-												"status" => 1,
-												"message" => Yii::t('msg', "No search query."));
-		}else{
-			$language = Yii::app()->language;
-			$language = Language::Model()->findByAttributes( array( 'language_code' => $language ) );
-			$language = $language->id;
+								"status" => 1,
+								"message" => Yii::t('msg', "No search query."));
+	    }else{
+	      $data = CSkills::skillSuggest($_GET['term']);
+	      /*foreach ($dataReader as $row){
+	        $data[] = $row;
+	      }*/
 
-			$connection=Yii::app()->db;
-			$data = array();
-      $dataReader = array();
-			
-			$criteria=new CDbCriteria();
-			
-			// translated skill sets
-			//!!!language
-      
-			if($language != 40){
-				$criteria->condition = " `translation` LIKE :name AND `table` = 'skillset'"; //AND language_id = 
-				$criteria->params = array(":name"=>"%".$_GET['term']."%");
-				$dataReader = Translation::model()->findAll($criteria);
+	      $response = array("data" => $data,
+	                "status" => 0,
+	                "message" => '');
 			}
-
-			//$data = array();
-      if ($dataReader){
-        foreach ($dataReader as $row){
-          $data[] = array("value"=>$row['translation']);
-        }
-      }
 			
-			$criteria->condition = " `name` LIKE :name";
-			$criteria->params = array(":name"=>"%".$_GET['term']."%");
-			
-			// original skill sets
-			$dataReader = Skillset::model()->findAll($criteria);
-
-			//$data = array();
-      if ($dataReader){
-        foreach ($dataReader as $row){
-          $data[] = array("value"=>$row['name']);
-        }
-      }
-
-			// skills
-			$dataReader = Skill::model()->findAll($criteria);
-			
-      if ($dataReader){
-        foreach ($dataReader as $row){
-          $data[] = array("value"=>$row['name']);
-        }
-      }
-			
-			
-			$response = array("data" => $data,
-												"status" => 0,
-												"message" => '');
-		}
-		
-		echo json_encode($response);
-		Yii::app()->end();
+			echo json_encode($response);
+			Yii::app()->end();
 	}
   
   // recalculate percentage for all users
@@ -750,7 +705,10 @@ EOD;
 			$userindustry->save();
 		}
 
-		//count -> skill tabela
+		//count skill in user_skill and assign count
+
+		//count industry in user_industry and assign count
+		
   }
 	
 }

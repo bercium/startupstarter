@@ -2,14 +2,14 @@
 
 Yii::import('application.models._base.BaseIndustry');
 
-class Skillset extends BaseIndustry
+class Industry extends BaseIndustry
 {
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
 	}
 	
 	public function findAllTranslated(){
-		if (Yii::app()->getLanguage() == 'en') return Skillset::model()->findAll();
+		if (Yii::app()->getLanguage() == 'en') return Industry::model()->findAll();
 		else{
 			$lang = Language::model()->findByAttributes(array("language_code"=>Yii::app()->getLanguage()));
 			$criteria=new CDbCriteria();
