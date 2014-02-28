@@ -691,12 +691,11 @@ EOD;
 
   	//foreach user copy USER_SKILL . SKILLSET_ID to USER_INDUSTRY . INDUSTRY_ID
 
-  		$sql = "SELECT * FROM user_skill";
+  		$sql = "SELECT * FROM user_skill GROUP BY skillset_id, match_id";
   		
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
 		$dataReader=$command->query();
-		$array = array();
 
 		while(($row=$dataReader->read())!==false) {
 			$userindustry = New UserIndustry();
@@ -705,9 +704,30 @@ EOD;
 			$userindustry->save();
 		}
 
-		//count skill in user_skill and assign count
+	//count skill in user_skill and assign count
 
-		//count industry in user_industry and assign count
+		$sql = "SELECT skill_id, count(skill_id) as count FROM `user_skill` GROUP BY skill_id";
+  		
+		$command=$connection->createCommand($sql);
+		$dataReader=$command->query();
+
+		while(($row=$dataReader->read())!==false) {
+			$skill = Skill::model()->findByAttributes(array('id'=>$row['skill_id']));
+			$skill->count = $row['count'];
+			$skill->save();
+		}
+
+	//count industry in user_industry and assign count
+		$sql = "SELECT industry_id, count(industry_id) as count FROM `user_industry` GROUP BY industry_id";
+  		
+		$command=$connection->createCommand($sql);
+		$dataReader=$command->query();
+
+		while(($row=$dataReader->read())!==false) {
+			$industry = Industry::model()->findByAttributes(array('id'=>$row['industry_id']));
+			$industry->count = $row['count'];
+			$industry->save();
+		}
 		
   }
 	
