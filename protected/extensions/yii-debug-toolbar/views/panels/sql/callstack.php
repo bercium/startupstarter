@@ -8,10 +8,15 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach($callstack as $id=>$entry):?>
+        <?php foreach($callstack as $id=>$entry):?> 
         <tr class="<?php echo ($entry[1]>$this->timeLimit ? ' warning':'') ?>">
             <td data-ydtb-data-type="number"><?php echo $id; ?></td>
-            <td data-ydtb-data-type="varchar"><?php echo $entry[0]; ?></td>
+            <td data-ydtb-data-type="varchar" onclick="jQuery('.details', this).toggleClass('hide');">
+              <?php echo $entry[0]; ?>
+              <div class="hide details">
+                <?php if (isset($entry[3])) print_r($entry[3]); ?>
+              <div>
+            </td>
             <td data-ydtb-data-type="number"><?php echo sprintf('%0.6F',$entry[1]); ?></td>
         </tr>
     <?php endforeach; ?>
