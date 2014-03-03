@@ -73,12 +73,12 @@
                     <?php 
                      foreach ($skills as $key=>$skill){
                           ?>
-                          <?php if ($key != '...'){ ?>
+                          <?php if (!is_array($skill)){ ?>
                             <a href="<?php echo Yii::app()->createURL("person/discover",array("SearchForm"=>array("skill"=>$skill))); ?>">
                           <?php } ?>
                               
                             <span class="label radius"<?php if(is_array($skill)) echo ' data-tooltip title="'.addslashes(implode("<br />",$skill)).'"'; ?>><?php if(is_array($skill)){ echo $key; } else { echo $skill; } ?></span>
-                          <?php if ($key != '...') { ?></a><?php } ?>
+                          <?php if (!is_array($skill)){ ?></a><?php } ?>
                             <?php 
                           }
                           

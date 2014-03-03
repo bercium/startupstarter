@@ -121,13 +121,13 @@
                   //echo " ".Yii::t('app','skilled in').":<br />";
                   foreach ($skills as $key=>$skill){
                   ?>
-                    <?php if ($key != '...'){ ?>
+                    <?php if (!is_array($skill)){ ?>
                       <a href="<?php echo Yii::app()->createURL("project/discover",array("SearchForm"=>array("skill"=>$skill))); ?>">
                     <?php } ?>
 
                       <span class="label radius"<?php if(is_array($skill)) echo ' data-tooltip title="'.addslashes(implode("<br />",$skill)).'"'; ?>><?php if(is_array($skill)){ echo $key; } else { echo $skill; } ?></span>
                       
-                    <?php if ($key != '...') { ?>
+                    <?php if (!is_array($skill)){ ?>
                       </a>
                       <br />
                       <?php } ?>
