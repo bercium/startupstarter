@@ -10,7 +10,7 @@ class Skill extends BaseSkill
 
   public function defaultScope(){
     return array(
-       'order'=>'name',
+       'order'=>'name, count',
     );
   }  
 }

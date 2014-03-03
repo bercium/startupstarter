@@ -67,7 +67,7 @@ class TranslationController extends Controller
 	public function actionIndex()
 	{
     $db_codeLists = array('collabpref'=>Yii::t('app',"Collaborations"),
-                       'skillset'=>Yii::t('app',"Skill sets"),
+                       'industry'=>Yii::t('app',"Industries"),
                        'membertype'=>Yii::t('app',"Member types"),
                        'idea_status'=>Yii::t('app',"Project status"),
                        'available'=>Yii::t('app',"User availability"),);
@@ -123,7 +123,7 @@ class TranslationController extends Controller
 	public function actionTranslate()
 	{
     $db_codeLists = array('collabpref'=>Yii::t('app',"Collaborations"),
-                       'skillset'=>Yii::t('app',"Skill sets"),
+                       'industry'=>Yii::t('app',"Industries"),
                        'membertype'=>Yii::t('app',"Member types"),
                        'idea_status'=>Yii::t('app',"Project status"),
                        'available'=>Yii::t('app',"User availability"),);

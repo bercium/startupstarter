@@ -26,11 +26,6 @@ array(
 			'value' => $model->match !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->match)), array('backendUserMatch/view', 'id' => GxActiveRecord::extractPkValue($model->match, true))) : null,
 			),
 array(
-			'name' => 'skillset',
-			'type' => 'raw',
-			'value' => $model->skillset !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->skillset)), array('backendSkillset/view', 'id' => GxActiveRecord::extractPkValue($model->skillset, true))) : null,
-			),
-array(
 			'name' => 'skill',
 			'type' => 'raw',
 			'value' => $model->skill !== null ? GxHtml::link(GxHtml::encode(GxHtml::valueEx($model->skill)), array('backendSkill/view', 'id' => GxActiveRecord::extractPkValue($model->skill, true))) : null,

@@ -1,31 +1,38 @@
-ALTER TABLE `message` ADD `time_viewed` TIMESTAMP NULL ;
-ALTER TABLE `message` CHANGE `time_sent` `time_sent` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ;
-    
-CREATE TABLE IF NOT EXISTS `mail_log` (
-        `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-        `tracking_code` int(11) unsigned NOT NULL,
-        `type` varchar(100) DEFAULT NULL,
-        `user_to_id` int(10) unsigned  NULL DEFAULT NULL,
-        `time_send` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        `time_open` timestamp NULL DEFAULT NULL,
-        `extra_id` int(10) unsigned DEFAULT NULL,
-        PRIMARY KEY (`id`),
-        KEY `user_to_id` (`user_to_id`),
-        KEY `tracking_code` (`tracking_code`)
-      ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-    
-ALTER TABLE `mail_log` ADD CONSTRAINT `mail_log_ibfk_1` FOREIGN KEY (`user_to_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-    
- CREATE TABLE IF NOT EXISTS `mail_click_log` (
-          `id` int(11) NOT NULL AUTO_INCREMENT,
-          `mail_tracking_code` int(10) unsigned NOT NULL,
-          `link` varchar(255) NOT NULL,
-          `time_clicked` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-          `button_name` varchar(200) NOT NULL,
-          PRIMARY KEY (`id`),
-          KEY `mail_id` (`mail_tracking_code`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-     
-  ALTER TABLE `mail_click_log` ADD CONSTRAINT `mail_click_log_ibfk_1` FOREIGN KEY (`mail_tracking_code`) REFERENCES `mail_log` (`tracking_code`) ON DELETE CASCADE ON UPDATE CASCADE;
+RENAME TABLE  `skillset` TO  `industry` ;
 
+ALTER TABLE  `skill` ADD UNIQUE (
+`name`
+);
 
+ALTER TABLE  `skill` ADD  `count` INT( 6 ) NOT NULL ;
+
+UPDATE  `translation` SET  `table` =  'industry' WHERE  `translation`.`table` LIKE "%skillset%";
+
+CREATE TABLE IF NOT EXISTS `user_industry` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `match_id` int(11) NOT NULL,
+  `industry_id` smallint(3) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+ALTER TABLE  `user_industry` CHANGE  `match_id`  `match_id` INT( 11 ) UNSIGNED NOT NULL ;
+
+ALTER TABLE  `user_industry` CHANGE  `industry_id`  `industry_id` SMALLINT( 3 ) UNSIGNED NOT NULL ;
+
+ALTER TABLE  `user_industry` ADD INDEX (  `match_id` ) ;
+
+ALTER TABLE  `user_industry` ADD INDEX (  `industry_id` ) ;
+
+ALTER TABLE  `user_industry` ADD FOREIGN KEY (  `match_id` ) REFERENCES  `cofinder`.`user_match` (
+`id`
+) ON DELETE CASCADE ON UPDATE CASCADE ;
+
+ALTER TABLE  `user_industry` ADD FOREIGN KEY (  `industry_id` ) REFERENCES  `cofinder`.`industry` (
+`id`
+) ON DELETE CASCADE ON UPDATE CASCADE ;
+
+ALTER TABLE  `user_skill` CHANGE  `skillset_id`  `skillset_id` SMALLINT( 2 ) UNSIGNED NULL DEFAULT NULL ;
+
+ALTER TABLE  `industry` ADD  `count` INT( 11 ) UNSIGNED NULL ;
+
+ALTER TABLE  `user` ADD  `personal_achievement` VARCHAR( 140 ) NULL DEFAULT NULL AFTER  `bio` ;

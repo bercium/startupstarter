@@ -265,7 +265,7 @@ class ProfileController extends GxController {
           $this->render('registrationFlow', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link));
         }
         else {
-          $data['user'] = $sqlbuilder->load_array("user", $filter, "collabpref,link,idea,member,skillset");
+          $data['user'] = $sqlbuilder->load_array("user", $filter, "collabpref,link,idea,member,skill,industry");
           $this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea'], "allowVanityURL"=>$allowVanityURL));
         }
 
@@ -496,100 +496,72 @@ class ProfileController extends GxController {
 		$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
 		$match_id = $match->id;
 
-    $response = '';
+    	$response = '';
 		//check for permission
 		if ($user_id > 0) {
 
-			if (!empty($_POST['skill']) && !empty($_POST['skillset'])) {
-        //$skill = new UserSkill;
+			if (!empty($_POST['skill'])) {
+		        //$skill = new UserSkill;
+		        
+		        $skillsExtractor = new Keyworder;
+		        $skills = $skillsExtractor->string2array($_POST['skill']);
+
+		        foreach ($skills as $row){
+		          if ($row == '') continue; // if empty
+		          
+		          $skill = new Skill;
+		          $skill->name = $row;
+		          if (!$skill->save()) $skill = Skill::model()->findByAttributes(array("name"=>$row));
+
+
+
+		          $user_skill = UserSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
+		                                                                  "match_id"=>$match_id,));
+		          if ($user_skill == null){
+		            $user_skill = new UserSkill;
+		            $user_skill->skill_id = $skill->id;
+		            $user_skill->match_id = $match_id;
+
+		            if ($user_skill->save()){
+		              $c = new Completeness();
+		              $c->setPercentage($user_id);
+
+				        //update usage count
+				        $count = $skill->count;
+				        $count++;
+				        $skill->count = $count;
+				        $skill->save();
+
+		              $response = array("data" => array("title" => $_POST['skill'],
+		                                                "id" => $user_skill->id,
+		                                                "location" => Yii::app()->createUrl("profile/deleteSkill"),
+		                                                "desc" => $row, 
+		                                                "multi" => count($skills),
+		                                ),
+		              "status" => 0,
+		              "message" => Yii::t('msg', "Skill added."));
+		            }else{
+		              $response = array("data" => null,
+		                "status" => 1,
+		                "message" => Yii::t('msg', "Problem saving skill. Please check fields for correct values."));
+		              break;
+		            }
+		          }else{
+		              $response = array("data" => null,
+		                "status" => 1,
+		                "message" => Yii::t('msg', "You already have this skill."));
+		          }
+
+		        }
+		        echo json_encode($response);
+		        Yii::app()->end();
         
-        $skillsExtractor = new Keyworder;
-        $skills = $skillsExtractor->string2array($_POST['skill']);
-
-        foreach ($skills as $row){
-          if ($row == '') continue; // if empty
-          
-          $skill = new Skill;
-          $skill->name = $row;
-          if (!$skill->save()) $skill = Skill::model()->findByAttributes(array("name"=>$row));
-
-          $skillset_skill = SkillsetSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
-                                                                           "skillset_id"=>$_POST['skillset']));
-          // save skillset skill connection
-          $usage_count = false;
-          if ($skillset_skill == null){
-              $skillset_skill = new SkillsetSkill;
-              $skillset_skill->skill_id = $skill->id;
-              $skillset_skill->skillset_id = $_POST['skillset'];
-              $skillset_skill->usage_count = 1;
-              $skillset_skill->save();
-          } else {
-              $usage_count = true;
-          }
-
-          $user_skill = UserSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
-                                                                  "skillset_id"=>$_POST['skillset'],
-                                                                  "match_id"=>$match_id,));
-          if ($user_skill == null){
-            $user_skill = new UserSkill;
-            $user_skill->skill_id = $skill->id;
-            $user_skill->skillset_id = $_POST['skillset'];
-            $user_skill->match_id = $match_id;
-
-            if($usage_count){
-              $skillset_skill->usage_count = $skillset_skill->usage_count + 1;
-              $skillset_skill->save();
-            }
-
-            if ($user_skill->save()){
-              $c = new Completeness();
-              $c->setPercentage($user_id);
-              
-              $skillset = Skillset::model()->findByPk($_POST['skillset']);
-
-              $language = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
-              if($language->id == 40){
-                $skillset_name = $skillset->name; //id$skillset->name
-              } else {
-                $translation = Translation::Model()->findByAttributes(array('language_id' => $language->id, 'table' => 'skillset', 'row_id' => $skillset->id));
-                $skillset_name = $translation->translation; //id$skillset->name
-              }
-
-              $response = array("data" => array("title" => $_POST['skill'],
-                                                "id" => $user_skill->id,
-                                                "location" => Yii::app()->createUrl("profile/deleteSkill"),
-                                                "desc" => $skillset_name, 
-                                                "multi" => count($skills),
-                                ),
-              "status" => 0,
-              "message" => Yii::t('msg', "Skill added."));
-            }else{
-              $response = array("data" => null,
-                "status" => 1,
-                "message" => Yii::t('msg', "Problem saving skill. Please check fields for correct values."));
-              break;
-            }
-          }else{
-              $response = array("data" => null,
-                "status" => 1,
-                "message" => Yii::t('msg', "You already have this skill."));
-          }
-
-        }
-        echo json_encode($response);
-        Yii::app()->end();
-        
-      		// end set skill and skillset
+      		// end set skill
 			}else{
-				if (empty($_POST['skillset'])){
-					$response = array("data" => null,
-							"status" => 1,
-							"message" => Yii::t('msg', "Please select correct skill group."));
-				}else{
-					$response = array("data" => null,
-							"status" => 1,
-							"message" => Yii::t('msg', "Problem saving skill. Please check fields for correct values."));
-				}
+				$response = array("data" => null,
+						"status" => 1,
+						"message" => Yii::t('msg', "Please enter a skill."));
+
 				echo json_encode($response);
 				Yii::app()->end();
 			}
@@ -619,6 +591,15 @@ class ProfileController extends GxController {
 			$skill = UserSkill::Model()->findByAttributes(array('skill_id' => $skill_id,'match_id'=>$match->id));
 
 			if ($skill->delete()) { //delete
+
+				$skill = Skill::Model()->findByAttributes(array('id' => $skill_id));
+
+				//usage count
+				$count = $skill->count;
+				$count = $count - 1;
+				$skill->count = $count;
+				$skill->save();
+
 				$return['message'] = '';
 				$return['status'] = 0;
         
@@ -643,22 +624,20 @@ class ProfileController extends GxController {
 			$response = array("data" => null,
 								"status" => 1,
 								"message" => Yii::t('msg', "No search query."));
-    }else{
-      $data = CSkills::skillSuggest($_GET['term']);
-      /*foreach ($dataReader as $row){
-        $data[] = $row;
-      }*/
+	    }else{
+	      $data = CSkills::skillSuggest($_GET['term']);
+	      /*foreach ($dataReader as $row){
+	        $data[] = $row;
+	      }*/
 
-      $response = array("data" => $data,
-                "status" => 0,
-                "message" => '');
-		}
-		
-		echo json_encode($response);
-		Yii::app()->end();
+	      $response = array("data" => $data,
+	                "status" => 0,
+	                "message" => '');
+			}
+			
+			echo json_encode($response);
+			Yii::app()->end();
 	}	
-	
-	
 	
 	public function actionAddLink() {
 

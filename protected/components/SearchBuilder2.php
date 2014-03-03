@@ -69,11 +69,12 @@ class SearchBuilder2 {
 			//text filter entries
 				//city
 					$rank = $this->textEntries($rank, $filter, 'city', 'userCity', $where);
+				//industry
+					$rank = $this->textEntries($rank, $filter, 'industry', 'userIndustryTranslation', $where);
+					$rank = $this->textEntries($rank, $filter, 'industry', 'userIndustry', $where);
 				//name
 					$rank = $this->textEntries($rank, $filter, 'user', 'userNameSurname', $where, " ");
 				//skill
-					$rank = $this->textEntries($rank, $filter, 'skill', 'userSkillsetTranslation', $where);
-					$rank = $this->textEntries($rank, $filter, 'skill', 'userSkillset', $where);
 					$rank = $this->textEntries($rank, $filter, 'skill', 'userSkill', $where);
 			//recent users call
 					$rank = $this->textEntries($rank, $filter, 'recent', 'userRecent', $where);
@@ -95,9 +96,10 @@ class SearchBuilder2 {
 			//text filter entries
 				//city
 					$rank = $this->textEntries($rank, $filter, 'city', 'ideaCity', $where);
+				//industry
+					$rank = $this->textEntries($rank, $filter, 'industry', 'ideaIndustryTranslation', $where);
+					$rank = $this->textEntries($rank, $filter, 'industry', 'ideaIndustry', $where);
 				//skill
-					$rank = $this->textEntries($rank, $filter, 'skill', 'ideaSkillsetTranslation', $where);
-					$rank = $this->textEntries($rank, $filter, 'skill', 'ideaSkillset', $where);
 					$rank = $this->textEntries($rank, $filter, 'skill', 'ideaSkill', $where);
 			//recent ideas call
 					$rank = $this->textEntries($rank, $filter, 'recent', 'ideaRecent', $where);
@@ -107,6 +109,8 @@ class SearchBuilder2 {
 		$rank_array = $rank['rank_array'];
 		$count = count($array);
 
+		//print_r($rank);
+
 		if($count > 0){
 
 			//Sort by relevance
@@ -115,7 +119,9 @@ class SearchBuilder2 {
 			//Pagination
 			$array = array_slice($array, ($filter['page'] - 1) * $filter['per_page'], $filter['per_page']);
 		
-		}	
+		}
+
+		//print_r($array);
 
 		$return['count'] = $count;
 		$return['results'] = $array;
@@ -247,6 +253,42 @@ class SearchBuilder2 {
 
 	}
 
+
+	private function userIndustryTranslation($where = ""){
+
+		$sql =	"SELECT m.id ".
+				"FROM  `translation` AS ti ".
+				"LEFT JOIN `industry` AS ind ON ti.table = 'industry' AND ti.row_id = ind.id ".
+				"LEFT JOIN `user_industry` AS ui ON ind.id = ui.industry_id ".
+				"LEFT JOIN `user_match` AS m ON us.match_id = m.id ".
+				"LEFT JOIN `user` AS u ON m.user_id = u.id ".
+				"LEFT JOIN `user_stat` AS ustat ON u.id = ustat.user_id ".
+				"WHERE ti.translation LIKE :value ".
+				"AND m.user_id >0 ".
+				"AND ustat.completeness >= ".PROFILE_COMPLETENESS_MIN." ".
+				$where." ".
+				"GROUP BY m.id";
+		return $sql;
+
+	}
+
+	private function userIndustry($where = ""){
+
+		$sql =	"SELECT m.id ".
+				"FROM  `industry` AS ind ".
+				"LEFT JOIN `user_industry` AS ui ON ind.id = ui.industry_id ".
+				"LEFT JOIN `user_match` AS m ON ui.match_id = m.id ".
+				"LEFT JOIN `user` AS u ON m.user_id = u.id ".
+				"LEFT JOIN `user_stat` AS ustat ON u.id = ustat.user_id ".
+				"WHERE ind.name LIKE :value ".
+				"AND m.user_id >0 ".
+				"AND ustat.completeness >= ".PROFILE_COMPLETENESS_MIN." ".
+				$where." ".
+				"GROUP BY m.id";
+		return $sql;
+
+	}
+
 	private function userNameSurname($where = ""){
 
 		$sql = 	"SELECT m.id ".
@@ -274,41 +316,6 @@ class SearchBuilder2 {
 				$where." ".
 				"GROUP BY m.id ".
 				"ORDER BY u.create_at DESC";
-		return $sql;
-
-	}
-
-	private function userSkillsetTranslation($where = ""){
-
-		$sql =	"SELECT m.id ".
-				"FROM  `translation` AS tss ".
-				"LEFT JOIN `skillset` AS ss ON tss.table = 'skillset' AND tss.row_id = ss.id ".
-				"LEFT JOIN `user_skill` AS us ON ss.id = us.skillset_id ".
-				"LEFT JOIN `user_match` AS m ON us.match_id = m.id ".
-				"LEFT JOIN `user` AS u ON m.user_id = u.id ".
-				"LEFT JOIN `user_stat` AS ustat ON u.id = ustat.user_id ".
-				"WHERE tss.translation LIKE :value ".
-				"AND m.user_id >0 ".
-				"AND ustat.completeness >= ".PROFILE_COMPLETENESS_MIN." ".
-				$where." ".
-				"GROUP BY m.id";
-		return $sql;
-
-	}
-
-	private function userSkillset($where = ""){
-
-		$sql =	"SELECT m.id ".
-				"FROM  `skillset` AS ss ".
-				"LEFT JOIN `user_skill` AS us ON ss.id = us.skillset_id ".
-				"LEFT JOIN `user_match` AS m ON us.match_id = m.id ".
-				"LEFT JOIN `user` AS u ON m.user_id = u.id ".
-				"LEFT JOIN `user_stat` AS ustat ON u.id = ustat.user_id ".
-				"WHERE ss.name LIKE :value ".
-				"AND m.user_id >0 ".
-				"AND ustat.completeness >= ".PROFILE_COMPLETENESS_MIN." ".
-				$where." ".
-				"GROUP BY m.id";
 		return $sql;
 
 	}
@@ -374,6 +381,39 @@ class SearchBuilder2 {
 
 	}
 
+	private function ideaIndustryTranslation($where = ""){
+
+		$sql =	"SELECT im.idea_id AS id ".
+				"FROM  `translation` AS ti ".
+				"LEFT JOIN `industry` AS ind ON ti.table = 'industry' AND ti.row_id = ind.id ".
+				"LEFT JOIN `user_industry` AS ui ON ind.id = ui.industry_id ".
+				"LEFT JOIN `user_match` AS m ON ui.match_id = m.id ".
+				"LEFT JOIN `idea_member` AS im ON im.match_id = m.id ".
+				"LEFT JOIN `idea` AS i ON i.id = im.idea_id ".
+				"WHERE ti.translation LIKE :value ".
+				"AND m.user_id IS NULL ".
+				$where." ".
+				"GROUP BY im.idea_id";
+		return $sql;
+
+	}
+
+	private function ideaIndustry($where = ""){
+
+		$sql =	"SELECT im.idea_id AS id ".
+				"FROM  `industry` AS ind ".
+				"LEFT JOIN `user_industry` AS ui ON ind.id = ui.industry_id ".
+				"LEFT JOIN `user_match` AS m ON ui.match_id = m.id ".
+				"LEFT JOIN `idea_member` AS im ON im.match_id = m.id ".
+				"LEFT JOIN `idea` AS i ON i.id = im.idea_id ".
+				"WHERE ind.name LIKE :value ".
+				"AND m.user_id IS NULL ".
+				$where." ".
+				"GROUP BY im.idea_id";
+		return $sql;
+
+	}
+
 	private function ideaRecent($where = ""){
 
 		$sql=	"SELECT i.id AS id ".
@@ -381,39 +421,6 @@ class SearchBuilder2 {
 				"WHERE i.id > 0 ".
 				$where." ".
 				"ORDER BY i.time_registered DESC";
-		return $sql;
-
-	}
-
-	private function ideaSkillsetTranslation($where = ""){
-
-		$sql =	"SELECT im.idea_id AS id ".
-				"FROM  `translation` AS tss ".
-				"LEFT JOIN `skillset` AS ss ON tss.table = 'skillset' AND tss.row_id = ss.id ".
-				"LEFT JOIN `user_skill` AS us ON ss.id = us.skillset_id ".
-				"LEFT JOIN `user_match` AS m ON us.match_id = m.id ".
-				"LEFT JOIN `idea_member` AS im ON im.match_id = m.id ".
-				"LEFT JOIN `idea` AS i ON i.id = im.idea_id ".
-				"WHERE tss.translation LIKE :value ".
-				"AND m.user_id IS NULL ".
-				$where." ".
-				"GROUP BY im.idea_id";
-		return $sql;
-
-	}
-
-	private function ideaSkillset($where = ""){
-
-		$sql =	"SELECT im.idea_id AS id ".
-				"FROM  `skillset` AS ss ".
-				"LEFT JOIN `user_skill` AS us ON ss.id = us.skillset_id ".
-				"LEFT JOIN `user_match` AS m ON us.match_id = m.id ".
-				"LEFT JOIN `idea_member` AS im ON im.match_id = m.id ".
-				"LEFT JOIN `idea` AS i ON i.id = im.idea_id ".
-				"WHERE ss.name LIKE :value ".
-				"AND m.user_id IS NULL ".
-				$where." ".
-				"GROUP BY im.idea_id";
 		return $sql;
 
 	}

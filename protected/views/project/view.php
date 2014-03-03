@@ -81,9 +81,9 @@ foreach ($idea['member'] as $member) {
             $skills = '';
             if (count($idea['candidate']) > 0) {
                 foreach ($idea['candidate'] as $candidate)
-                    foreach ($candidate['skillset'] as $skillset) {
+                    foreach ($candidate['skill'] as $skill) {
                         if ($skills) $skills .= ", ";
-                        $skills .= $skillset["skillset"];
+                        $skills .= $skill["skill"];
                     }
             }
             $title = Yii::t('app', '{n} job position opened|{n} job positions opened', array(count($idea['candidate'])));
@@ -254,15 +254,12 @@ foreach ($idea['member'] as $member) {
                             <div class="large-7 mt10 columns">                      
                             
                                 <h4 class="l-block"><?php echo Yii::t('app', 'Required skills') ?></h4><?php
-                                foreach ($candidate['skillset'] as $skillset) {
-                                    foreach ($skillset['skill'] as $skill) {
+                                foreach ($candidate['skill'] as $skill) {
                                         ?>
 
-                                        <span class="label radius" data-tooltip
-                                              title="<?php echo $skillset['skillset']; ?>"><?php echo $skill['skill']; ?></span>
+                                        <span class="label radius"><?php echo $skill['skill']; ?></span>
 
                                     <?php
-                                    }
                                 } ?>                  
 
                              
