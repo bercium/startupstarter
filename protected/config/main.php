@@ -81,14 +81,24 @@ return array(
 	),
 
 	// application components
-	'components'=>array(
+	'components'=>array(      
     'EJSUrlManager' => array(
       'class' => 'ext.JSUrlManager.src.EJSUrlManager'
     ),
     'clientScript'=>array(
       'coreScriptPosition'=>CClientScript::POS_END,
       'defaultScriptPosition'=>CClientScript::POS_END,
-      'defaultScriptFilePosition'=>CClientScript::POS_END
+      'defaultScriptFilePosition'=>CClientScript::POS_END,
+      'class' => 'ext.yii-eclient-script.EClientScript',
+ //     'combineScriptFiles' => !YII_DEBUG, // By default this is set to true, set this to true if you'd like to combine the script files
+ //     'combineCssFiles' => !YII_DEBUG, // By default this is set to true, set this to true if you'd like to combine the css files
+      'combineScriptFiles' => true, // By default this is set to true, set this to true if you'd like to combine the script files
+      'combineCssFiles' => true, // By default this is set to true, set this to true if you'd like to combine the css files
+      'optimizeScriptFiles' => true, // @since: 1.1
+      'optimizeCssFiles' => false, // @since: 1.1
+      'optimizeInlineScript' => false, // @since: 1.6, This may case response slower
+      'optimizeInlineCss' => false, // @since: 1.6, This may case response slower
+      'saveGzippedCopy' => true,
     ),
     //'foundation' => array("class" => "ext.foundation.components.Foundation"),
 		'user'=>array(

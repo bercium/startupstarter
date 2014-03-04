@@ -3,7 +3,7 @@
     $cs = Yii::app()->getClientScript();
 
     
-    $cs->registerScriptFile($baseUrl.'/js/ckeditor/ckeditor.js'.getVersionID(),CClientScript::POS_HEAD);
+    $cs->registerScriptFile($baseUrl.'/js/ckeditor/ckeditor.js',CClientScript::POS_HEAD);
 
     ?>
 

@@ -1,7 +1,7 @@
 <?php // ckeditor files
  $baseUrl = Yii::app()->baseUrl; 
     $cs = Yii::app()->getClientScript();    
-    $cs->registerScriptFile($baseUrl.'/js/ckeditor/ckeditor.js'.getVersionID(),CClientScript::POS_HEAD);
+    $cs->registerScriptFile($baseUrl.'/js/ckeditor/ckeditor.js',CClientScript::POS_HEAD);
     ?>
 
 <div id="drop-msg" class="f-dropdown content medium" data-dropdown-content>

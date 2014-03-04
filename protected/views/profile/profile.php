@@ -7,7 +7,7 @@
     
     
     
-    $cs->registerCssFile($baseUrl.'/css/tagmanager.css'.getVersionID());
+    $cs->registerCssFile($baseUrl.'/css/tagmanager.css');
     $cs->registerScriptFile($baseUrl.'/js/tagmanager.js');
 ?>
 

@@ -32,13 +32,13 @@ class Controller extends CController
     $cs = Yii::app()->getClientScript();
   
     
-    $cs->registerCssFile($baseUrl.'/css/foundation.css'.getVersionID());
-    $cs->registerCssFile($baseUrl.'/css/normalize.css'.getVersionID()); 
-    $cs->registerCssFile($baseUrl.'/css/layout.css'.getVersionID());   
-    $cs->registerCssFile($baseUrl.'/css/font-awesome-mini.css'.getVersionID());    
-    $cs->registerCssFile($baseUrl.'/css/chosen/chosen.min.css'.getVersionID());
-    $cs->registerCssFile($baseUrl.'/css/ui/jquery-ui-1.10.3.custom.min.css'.getVersionID());
-    $cs->registerCssFile($baseUrl.'/css/cookiecuttr.css'.getVersionID());
+    $cs->registerCssFile($baseUrl.'/css/foundation.css');
+    $cs->registerCssFile($baseUrl.'/css/normalize.css'); 
+    $cs->registerCssFile($baseUrl.'/css/layout.css');   
+    $cs->registerCssFile($baseUrl.'/css/font-awesome-mini.css');    
+    $cs->registerCssFile($baseUrl.'/css/chosen/chosen.min.css');
+    $cs->registerCssFile($baseUrl.'/css/ui/jquery-ui-1.10.3.custom.min.css');
+    $cs->registerCssFile($baseUrl.'/css/cookiecuttr.css');
     
     
     new JsTrans('js',Yii::app()->language);  // js translation
@@ -106,7 +106,7 @@ class Controller extends CController
      ");    
     
     // startup scripts
-    $cs->registerScriptFile($baseUrl.'/js/app.js'.getVersionID());  
+    $cs->registerScriptFile($baseUrl.'/js/app.js');  
 
     parent::init();
   }
