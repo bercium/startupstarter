@@ -124,6 +124,22 @@ $(function() {
 })(jQuery, this);
 
 
+function qrLoad(){
+  //alert('d');
+//  $.get(Yii.app.createUrl("profile/suggestSkil",{ajax:1,term:'ski'}), function( data ) {
+  $.get("/startupstarter/profile/suggestSkill?ajax=1&term=ski", function( data ) {
+    id = 3;
+    $(".login-qrcode" ).html('<img src="https://chart.googleapis.com/chart?cht=qr&chld=M|0&chs=400&chl=www.cofinder.eu/qr/start?id='+id+'">');
+    $(".login-qrcode" ).everyTime('5s',function(i){qrCheck();},0);
+  });
+}
+
+function qrCheck(){
+  $.get("/startupstarter/profile/suggestSkill?ajax=1&term=ski", function( data ) {
+    if (data) location.reload();
+  });
+}
+
 function contact(e){
 	var pri = "@";
 	e.href = "mailto:info";
