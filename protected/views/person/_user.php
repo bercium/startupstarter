@@ -2,7 +2,7 @@
 
     <div class="row card-person-title" onclick="location.href='<?php echo Yii::app()->createUrl("person",array("id"=>$user['id'])); ?>';">
       <div class="columns" >
-        <img class="th-medium" src="<?php echo avatar_image($user['avatar_link'],$user['id'],60); ?>"  />
+        <img class="th-medium" src="<?php echo avatar_image($user['avatar_link'],$user['id'],60); ?>" width="60" height="60" />
         <h5>
       <?php $days = timeDifference($user['lastvisit_at'], date('Y-m-d H:i:s'), "days_total"); 
      if ($days < 6){ ?>

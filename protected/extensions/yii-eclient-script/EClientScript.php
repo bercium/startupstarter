@@ -99,7 +99,7 @@ class EClientScript extends CClientScript
 		}
     $fpath = Yii::app()->assetManager->basePath . DIRECTORY_SEPARATOR . 'combined' . DIRECTORY_SEPARATOR;
     if (!is_dir($fpath)) {
-      mkdir($fpath, 0666, true);
+      mkdir($fpath, 0777, true);
     }
 		parent::init();
 	}
@@ -286,7 +286,7 @@ class EClientScript extends CClientScript
 					$this->saveFile($fpath, $charsetLine . $fileBuffer);
 				}
 				// real url of combined file
-				$url = Yii::app()->assetManager->baseUrl . '/combined/' . $fname . '?' . filemtime($fpath);
+				$url = Yii::app()->assetManager->baseUrl . '/combined/' . $fname;// . '?' . filemtime($fpath);
         //$url = Yii::app()->assetManager->baseUrl . '/' . $fname . '?' . filemtime($fpath);
 			}
 			$this->cssFiles[$url] = $media;
@@ -356,7 +356,7 @@ class EClientScript extends CClientScript
 				$this->saveFile($fpath, $fileBuffer);
 			}
 			// add the combined file into scriptFiles
-			$url = Yii::app()->assetManager->baseUrl . '/combined/' . $fname . '?' . filemtime($fpath);
+			$url = Yii::app()->assetManager->baseUrl . '/combined/' . $fname;// . '?' . filemtime($fpath);
       //$url = Yii::app()->assetManager->baseUrl . '/' . $fname . '?' . filemtime($fpath);
 			$scriptName[$indexCombine] = $url;
 			$scriptValue[$indexCombine] = $url;
