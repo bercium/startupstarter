@@ -1,52 +1,51 @@
-
-     <?php // ckeditor files
- $baseUrl = Yii::app()->baseUrl; 
-    $cs = Yii::app()->getClientScript();
-
-    
-    $cs->registerScriptFile($baseUrl.'/js/ckeditor/ckeditor.js'.getVersionID(),CClientScript::POS_HEAD);
-
-    ?>
-
-   <?php echo CHtml::beginForm('','post',array('class'=>"custom formidea")); ?>
+<?php // ckeditor files
+$baseUrl = Yii::app()->baseUrl;
+$cs = Yii::app()->getClientScript();
 
 
-    <?php echo CHtml::errorSummary($idea,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
-    <?php echo CHtml::errorSummary($translation,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
+$cs->registerScriptFile($baseUrl . '/js/ckeditor/ckeditor.js' . getVersionID(), CClientScript::POS_HEAD);
 
-    <?php echo CHtml::activeLabelEx($translation,'language_id'); ?>
-    <span class="description">
-      <?php echo Yii::t('msg','Choose the language you want to write your idea in. Later you can add more translations for the same idea'); ?>
+?>
+
+<?php echo CHtml::beginForm('', 'post', array('class' => "custom formidea")); ?>
+
+
+<?php echo CHtml::errorSummary($idea, "<div data-alert class='alert-box radius alert'>", '</div>'); ?>
+<?php echo CHtml::errorSummary($translation, "<div data-alert class='alert-box radius alert'>", '</div>'); ?>
+
+<?php echo CHtml::activeLabelEx($translation, 'language_id'); ?>
+<span class="description">
+      <?php echo Yii::t('msg', 'Choose the language you want to write your idea in. Later you can add more translations for the same idea'); ?>
     </span>
 
-    <?php
-    $lang = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
-    $lang = $lang->id;
-    ?>
+<?php
+$lang = Language::Model()->findByAttributes(array('language_code' => Yii::app()->language));
+$lang = $lang->id;
+?>
 
-    <?php echo CHtml::activedropDownList($translation, 'language_id', GxHtml::listDataEx(Language::model()->findAllAttributes(array("id","native_name"), true, array('order' => 'FIELD(id, '.$lang.', 40) DESC')),"id","native_name"), array('style'=>'display:none')); ?>
+<?php echo CHtml::activedropDownList($translation, 'language_id', GxHtml::listDataEx(Language::model()->findAllAttributes(array("id", "native_name"), true, array('order' => 'FIELD(id, ' . $lang . ', 40) DESC')), "id", "native_name"), array('style' => 'display:none')); ?>
 
-    <?php echo CHtml::activeLabelEx($idea,'status_id'); ?>
-     <span class="description">
-      <?php echo Yii::t('msg','Status of the project.'); ?>
+<?php echo CHtml::activeLabelEx($idea, 'status_id'); ?>
+<span class="description">
+      <?php echo Yii::t('msg', 'Status of the project.'); ?>
      </span>
-    <?php echo CHtml::activedropDownList($idea, 'status_id', GxHtml::listData(IdeaStatus::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;', 'style' => 'display: none;')); ?>
+<?php echo CHtml::activedropDownList($idea, 'status_id', GxHtml::listData(IdeaStatus::model()->findAllTranslated(), 'id', 'name'), array('empty' => '&nbsp;', 'style' => 'display: none;')); ?>
 
 
-    <?php echo CHtml::activeLabelEx($translation,'title'); ?>
-    <span class="description">
-      <?php echo Yii::t('msg','What do you call it? Write one or two words, please. You can always change it later.'); ?>
+<?php echo CHtml::activeLabelEx($translation, 'title'); ?>
+<span class="description">
+      <?php echo Yii::t('msg', 'What do you call it? Write one or two words, please. You can always change it later.'); ?>
     </span>
-    <?php echo CHtml::activeTextField($translation,"title", array('maxlength' => 128)); ?>
+<?php echo CHtml::activeTextField($translation, "title", array('maxlength' => 128)); ?>
 
-    <?php echo CHtml::activeLabelEx($translation,'pitch'); ?>
-    <span class="description">
-        <?php echo Yii::t('msg','This is your pitch. Be brief and to the point.'); ?>
+<?php echo CHtml::activeLabelEx($translation, 'pitch'); ?>
+<span class="description">
+        <?php echo Yii::t('msg', 'This is your pitch. Be brief and to the point.'); ?>
     </span>
-    <?php echo CHtml::activeTextArea($translation,"pitch"); ?>
+<?php echo CHtml::activeTextArea($translation, "pitch"); ?>
 
-<br />
-     <?php /* ?>
+<br/>
+<?php /* ?>
       <div class="large-4 small-4 columns">
       <?php 
        //echo Yii::app()->getBaseUrl(true)."/".Yii::app()->params['tempFolder'];
@@ -88,12 +87,13 @@
 
        ?>
       <input name="IdeaGallery[url]" id="IdeaImage_avatar_link" type="hidden" value="<?php echo $ideagallery;?>" />
-      </div><?php */ ?>
+      </div><?php */
+?>
 </div>
-    
-    
+
+
 <hr>
-    <?php echo CHtml::submitButton(Yii::t("app","Next >>"),
-          array('class'=>"button small success radius right")
-      ); ?>
-    <?php echo CHtml::endForm(); ?>  
+<?php echo CHtml::submitButton(Yii::t("app", "Next >>"),
+    array('class' => "button small success radius right")
+); ?>
+<?php echo CHtml::endForm(); ?>

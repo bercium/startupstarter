@@ -112,55 +112,136 @@ class ProjectController extends GxController {
 		Yii::app()->end();
   }
 
-	public function actionEdit(){
+    public function actionCreate(){
+
+        $idea = new Idea;
+        $translation = new IdeaTranslation;
+        $member = new IdeaMember;
+        $language = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
+
+
+        if (isset($_POST['Idea']) AND isset($_POST['IdeaTranslation']))
+        {
+            $_POST['Idea']['time_updated'] = date("Y-m-d h:m:s",time());
+            $idea->setAttributes($_POST['Idea']);
+
+            //translation data
+            $translation->idea_id = 1; //dummy value, just for validation
+            $translation->setAttributes($_POST['IdeaTranslation']);
+
+            //idea owner objects
+            $user_id = Yii::app()->user->id;
+            $match = UserMatch::Model()->findByAttributes( array( 'user_id' => $user_id ) );
+
+            //member data
+            $_POST['IdeaMember']['idea_id'] = 1; //dummy value, just for validation
+            $_POST['IdeaMember']['match_id'] = $match->id;
+            $_POST['IdeaMember']['type_id'] = 1;
+            $member->setAttributes($_POST['IdeaMember']);
+
+            //validate models and save idea
+            if ($translation->validate() && $member->validate() && $idea->save())
+            {
+                //idea member data
+                $member->idea_id = $idea->id;
+
+                //idea translation data
+                $translation->idea_id = $idea->id;
+
+                if ($translation->save() && $member->save()){
+                    //set session and go to step 2
+                    $_SESSION['IdeaCreated'] = $idea->id;
+                }
+
+                setFlash('projectMessage', Yii::t('msg',"Project successfully saved."));
+
+
+                // send message to our email when
+                $message = new YiiMailMessage;
+                $message->view = 'system';
+                $message->subject = "New project created on Cofinder";
+                $message->from = Yii::app()->params['adminEmail'];
+
+                $content_self = "New project named ".$translation->title.'. '.
+                    '<br />To check project <a href="'.Yii::app()->createAbsoluteUrl('/project/view',array('id'=>$idea->id)).'">click here</a>.';
+
+                $message->setBody(array("content"=>$content_self), 'text/html');
+                //$message->setTo("team@cofinder.eu");
+                $message->to = Yii::app()->params['teamEmail'];
+                Yii::app()->mail->send($message);
+
+                //redirect
+                $this->redirect(array('project/edit', 'id' => $idea->id, 'step' => 2));
+            } else {
+                setFlash('projectMessage', Yii::t('msg',"Unable to create a project."),'alert');
+            }
+
+        }
+
+        $this->render('createidea_1', array( 'idea' => $idea, 'translation' => $translation, 'language' => $language ));
+    }
+
+	public function actionEdit($id, $step = 1){
 		//1. korak - splošni podatki
 		//ID prebrat iz sešna, če je že, naloadat podatke, drugače nič
 		//naloadat modele
 		//naloadat view
-		switch($step){
-			case 1:
-				//1. korak - splošni podatki
-				$this->actionCreateStep1();
-				break;
-			case 2:
-				//2. korak - koga iščemo
 
-				break;	
-			case 3:
-				//3. korak - story
+        //insert/edit priviledges
+        $hasPriviledges = true;
+        if($id){
+            $match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+            $criteria=new CDbCriteria();
+            $criteria->addInCondition('type_id',array(1, 2)); //owner
+            $hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
 
-				break;
-			case 4:
-				//4. korak - dodajanje linkov in ostalo
+            //TO-DO
+            //no permission to edit projects idea - add response text
 
-				break;
+            switch($step){
+                case 1:
+                    //1. korak - splošni podatki
+                    $this->actionEditStep1($id);
+                    break;
+                case 2:
+                    //2. korak - koga iščemo
+                    $this->actionEditStep2($id);
+                    break;
+                case 3:
+                    //3. korak - story
 
-		}
+                    break;
+                case 4:
+                    //4. korak - dodajanje linkov in ostalo
 
+                    break;
+
+            }
+
+        }
 	}
 
 
-	public function actionCreateStep1(){
+	public function actionEditStep2($id){
 
-		if(isset($_SESSION['idea_id'])){
-			$idea = Idea::Model()->findByAttributes(array('id' => $_SESSION['idea_id']));
-			$translation = IdeaTranslation::Model()->findByAttributes(array('idea_id' => $_SESSION['idea_id']));
+        //load idea data
+        $idea_id = $id;
+        $filter['idea_id'] = $idea_id;
 
-			if(isset($_POST[' ']))
-		} else {
-			$idea = new Idea;
-			$translation = new IdeaTranslation;
-		}
+        //sql builder
+        $sqlbuilder = new SqlBuilder();
+        $data['idea'] = $sqlbuilder->load_array("idea", $filter, "translation_other,member,candidate,skill,industry,collabpref");
 
-		if(isset($_POST['']))
+        //$this->render('createidea_2', array( 'idea' => $idea, 'idea_id' => $id, 'translation' => $translation, 'language' => $language ));
+    }
 
+    public function actionEditStep1($id){
+
+        $idea = Idea::Model()->findByAttributes(array('id' => $id));
+        $translation = IdeaTranslation::Model()->findByAttributes(array('idea_id' => $id));
 		$language = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
 
-		$this->render('createidea_1', array( 'idea' => $idea, 'translation' => $translation, 'language' => $language ));
-
-	}
-
-	public function actionEdit($id){ //can take different languages to edit
+		$this->render('createidea_1', array( 'idea' => $idea, 'idea_id' => $id, 'translation' => $translation, 'language' => $language ));
 
 	}
 
