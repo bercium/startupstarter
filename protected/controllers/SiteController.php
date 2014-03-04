@@ -90,7 +90,7 @@ class SiteController extends Controller
 		 	$filter['recent'] = 'recent';
 		 	$filter['where'] = "AND u.create_at > ".(time() - 3600 * 24 * 14);
 			$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skill,industry");
-			$userType = Yii::t('app', "Suggested users").' <a href="?suggested=0" class="button radius tiny">'.Yii::t('app', "Switch to recent").'</a>';
+			$userType = Yii::t('app', "Suggested users").' <a href="?suggested=0" trk="person_switch_recent" class="button radius tiny">'.Yii::t('app', "Switch to recent").'</a>';
 
 			//if there's not plenty of results...
 			if($search['count'] < 3){
@@ -114,7 +114,7 @@ class SiteController extends Controller
       $filter['recent'] = 'recent';
       $filter['where'] = "AND i.time_updated > ".(time() - 3600 * 24 * 14);
       $search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skill,industry");
-      $ideaType = Yii::t('app', "Suggested projects").' <a href="?suggested=0" class="button radius tiny">'.Yii::t('app', "Switch to recent").'</a>';
+      $ideaType = Yii::t('app', "Suggested projects").' <a href="?suggested=0" trk="project_switch_recent" class="button radius tiny">'.Yii::t('app', "Switch to recent").'</a>';
     		
 			//if there's not plenty of results...
 			if($search['count'] < 3){
@@ -139,13 +139,13 @@ class SiteController extends Controller
 	      	$count = $sqlbuilder->load_array("count_users", $filter);
 	      	$maxPagePerson = ceil($count / $filter['per_page']);
 	    $userType = Yii::t('app', "Recent users");
-      if (!Yii::app()->user->isGuest) $userType .= ' <a href="?suggested=1" class="button radius tiny">'.Yii::t('app', "Switch to suggested").'</a>';
+      if (!Yii::app()->user->isGuest) $userType .= ' <a href="?suggested=1" trk="person_switch_suggested" class="button radius tiny">'.Yii::t('app', "Switch to suggested").'</a>';
 
       $data['idea'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skill,industry");
         $count = $sqlbuilder->load_array("count_ideas", $filter);
         $maxPageIdea = ceil($count / $filter['per_page']);
       $ideaType = Yii::t('app', "Recent projects");
-      if (!Yii::app()->user->isGuest) $ideaType .= ' <a href="?suggested=1" class="button radius tiny">'.Yii::t('app', "Switch to suggested").'</a>';        
+      if (!Yii::app()->user->isGuest) $ideaType .= ' <a href="?suggested=1" trk="project_switch_suggested" class="button radius tiny">'.Yii::t('app', "Switch to suggested").'</a>';        
     }
 
 		$this->render('index', array('data' => $data, "maxPageIdea"=>$maxPageIdea, "maxPagePerson"=>$maxPagePerson, "ideaType"=>$ideaType, "userType"=>$userType));

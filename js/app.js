@@ -62,13 +62,13 @@ $(function() {
     });
   }
   
-  $(window).scroll(function(){
+  /*$(window).scroll(function(){
     var visibility = (20-$(document).scrollTop())/20;
     if ($(document).scrollTop() > 20) visibility = 0;
     $(".image-beta").fadeTo(0,visibility);
     //if ($(document).scrollTop() > 10) $("#image-beta").fadeOut();
     //else if ($("#image-beta").is(':hidden')) $("#image-beta").fadeIn();
-  });
+  });*/
   
   $(".lin-hidden").each(function(){
     if ($(this).find('.lin-edit').val() == '') $(this).hide();
@@ -114,6 +114,11 @@ $(function() {
     height: '250px'
   });
   
+  //scroll events
+  $.scrollDepth(/*{
+  percentage: false,
+  userTiming: false,
+  pixelDepth: false }*/);
   
 })(jQuery, this);
 
