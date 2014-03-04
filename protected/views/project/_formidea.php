@@ -26,6 +26,13 @@
 
     <?php echo CHtml::activedropDownList($translation, 'language_id', GxHtml::listDataEx(Language::model()->findAllAttributes(array("id","native_name"), true, array('order' => 'FIELD(id, '.$lang.', 40) DESC')),"id","native_name"), array('style'=>'display:none')); ?>
 
+    <?php echo CHtml::activeLabelEx($idea,'status_id'); ?>
+     <span class="description">
+      <?php echo Yii::t('msg','Status of the project.'); ?>
+     </span>
+    <?php echo CHtml::activedropDownList($idea, 'status_id', GxHtml::listData(IdeaStatus::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;', 'style' => 'display: none;')); ?>
+
+
     <?php echo CHtml::activeLabelEx($translation,'title'); ?>
     <span class="description">
       <?php echo Yii::t('msg','What do you call it? Write one or two words, please. You can always change it later.'); ?>
@@ -39,72 +46,6 @@
     <?php echo CHtml::activeTextArea($translation,"pitch"); ?>
 
 <br />
-    <?php echo CHtml::activeLabelEx($idea,'status_id'); ?>
-     <span class="description">
-      <?php echo Yii::t('msg','Status of the project.'); ?>
-     </span>
-    <?php echo CHtml::activedropDownList($idea, 'status_id', GxHtml::listData(IdeaStatus::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;', 'style' => 'display: none;')); ?>
-
-
-
-    <?php echo CHtml::activeLabelEx($translation,'description'); ?>
-    
-     <span class="description">
-      
-    <?php echo CHtml::activeTextArea($translation,"description",array('class'=>'lin-edit ckeditor')); ?> 
-     <br />
-    <?php echo CHtml::activeLabelEx($translation,'description_public'); ?>
-    <div class="switch small round" style="text-align: center; width:120px;">
-      <input id="description_public_0" name="IdeaTranslation[description_public]" type="radio" value="0" <?php if (!$translation->description_public) echo 'checked="checked"' ?>>
-      <label for="description_public_0" onclick=""><?php echo Yii::t('app','Off'); ?></label>
-
-      <input id="description_public_1" name="IdeaTranslation[description_public]" type="radio" value="1" <?php if ($translation->description_public) echo 'checked="checked"' ?>>
-      <label for="description_public_1" onclick=""><?php echo Yii::t('app','On'); ?></label>
-      <span></span>
-   </div>
-     
-  <div class="lin-trigger panel">
-    <?php echo CHtml::activeLabelEx($translation,'keywords'); ?>
-    <div class="lin-hidden">
-     <span class="description">
-      <?php echo Yii::t('msg','Describe your project with comma separated keywords to increase visibility of your project.'); ?>
-     </span>
-    <?php echo CHtml::activeTextArea($translation,"keywords",array('class'=>'lin-edit')); ?>
-    </div>
-  </div>
-     
-  <div class="lin-trigger panel">
-    <?php echo CHtml::activeLabelEx($translation,'tweetpitch'); ?>
-    <div class="lin-hidden">
-     <span class="description">
-      <?php echo Yii::t('msg','Describe your project with 120 characters or less for sharing on social networks.'); ?>
-     </span>
-    <?php echo CHtml::activeTextArea($translation,"tweetpitch", array('class'=>'lin-edit','maxlength' => 120,"onkeydown"=>'countTweetChars()',"onkeyup"=>'countTweetChars()',"onchange"=>'countTweetChars()')); ?>
-    <div class="meta" id="tweetCount"><?php echo (120-strlen($translation->tweetpitch)) ?></div>
-    <br /><br />
-     <span class="description">
-      <?php echo Yii::t('msg','At the end, we will append a link like this <strong>{url}</strong> to your project.',array('{url}'=>short_url_google(Yii::app()->createAbsoluteUrl("project/view",array("id"=>0))) )); ?>
-     </span>
-    </div>
-  </div>      
-
-  <div class="lin-trigger panel">
-    <?php echo CHtml::activeLabelEx($idea,'website'); ?>
-    <div class="lin-hidden">
-    <?php echo CHtml::activeTextField($idea,"website", array('maxlength' => 128,'class'=>'lin-edit')); ?> 
-    </div>
-  </div>
-
-  <div class="lin-trigger panel">
-    <?php echo CHtml::activeLabelEx($idea,'video_link'); ?>
-    <div class="lin-hidden">
-     <span class="description">
-      <?php echo Yii::t('msg','Link of the project\'s video presentation.'); ?>
-     </span>
-    <?php echo CHtml::activeTextField($idea,"video_link", array('maxlength' => 128,'class'=>'lin-edit')); ?> 
-    </div>
-  </div>
-
      <?php /* ?>
       <div class="large-4 small-4 columns">
       <?php 
@@ -156,10 +97,3 @@
           array('class'=>"button small success radius right")
       ); ?>
     <?php echo CHtml::endForm(); ?>  
-
-    <?php
-      $this->renderPartial('_addlink', array(
-          'link' => $link,
-          'links' => $links,
-          'idea_id' => $idea_id ));
-    ?>
