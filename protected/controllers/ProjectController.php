@@ -112,7 +112,7 @@ class ProjectController extends GxController {
 		Yii::app()->end();
   }
 
-	public function actionCreate($step = 1){
+	public function actionEdit(){
 		//1. korak - splošni podatki
 		//ID prebrat iz sešna, če je že, naloadat podatke, drugače nič
 		//naloadat modele
@@ -139,15 +139,20 @@ class ProjectController extends GxController {
 
 	}
 
+
 	public function actionCreateStep1(){
 
 		if(isset($_SESSION['idea_id'])){
 			$idea = Idea::Model()->findByAttributes(array('id' => $_SESSION['idea_id']));
-			$translation = IdeaTranslation::Model()->findByAttributes(array('idea_id' => $_SESSION['idea_id']));;
+			$translation = IdeaTranslation::Model()->findByAttributes(array('idea_id' => $_SESSION['idea_id']));
+
+			if(isset($_POST[' ']))
 		} else {
 			$idea = new Idea;
 			$translation = new IdeaTranslation;
 		}
+
+		if(isset($_POST['']))
 
 		$language = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
 
