@@ -23,11 +23,11 @@ class UserIdentity extends CUserIdentity
 	public function authenticate()
 	{
     /*throw new ErrorException("test|".$this->username."|");*/
-      
-			$user=User::model()->notsafe()->findByAttributes(array('email'=>$this->username));
 
-      if($user===null)
-				$this->errorCode=self::ERROR_EMAIL_INVALID;
+    $user=User::model()->notsafe()->findByAttributes(array('email'=>$this->username));
+
+    if($user===null)
+      $this->errorCode=self::ERROR_EMAIL_INVALID;
       
 		else if(!Yii::app()->getModule('user')->validate($this->password,$user->password))
 			$this->errorCode=self::ERROR_PASSWORD_INVALID;

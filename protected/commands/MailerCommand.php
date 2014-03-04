@@ -59,9 +59,6 @@ class MailerCommand extends CConsoleCommand{
   
   // do this every first wednesday of month
   public function actionNotifyToJoin(){
-
-
-    
     $message = new YiiMailMessage;
     $message->view = 'system';
     $message->subject = "Cofinder invitation reminder";
@@ -125,5 +122,38 @@ class MailerCommand extends CConsoleCommand{
     }
     return 0;
   }
+  
+  // do this every first of month
+  public function actionNotifyUnExeptedProfiles(){
+    $message = new YiiMailMessage;
+    $message->view = 'system';
+    $message->from = Yii::app()->params['noreplyEmail'];
+    
+    // send newsletter to all in waiting list
+    $hidden = UserStat::model()->findAll("completeness < :comp AND status = :status AND lastvisit_at = :lastvisit",array(":comp"=>PROFILE_COMPLETENESS_MIN, ":status"=>0, ":lastvisit" => "0000-00-00 00:00:00"));
+    foreach ($hidden as $stat){
+      //set mail tracking
+      $mailTracking = mailTrackingCode($stat->user->id);
+      $ml = new MailLog();
+      $ml->tracking_code = mailTrackingCodeDecode($mailTracking);
+      $ml->type = 'registration-flow-reminder';
+      $ml->user_to_id = $stat->user->id;
+      $ml->save();
+      
+      $email = $stat->user->email;
+      $message->subject = $stat->user->name." your profile is still not approved!";
+      
+      $content = 'Your profile on Cofinder is not visible due to lack of information you provided. 
+                  If you wish to be found we suggest you take a few minutes and '.
+              mailButton("fill it up", 'http://www.cofinder.eu/profile','success',$mailTracking,'fill-up-button');
+      
+      $message->setBody(array("content"=>$content,"email"=>$email,"tc"=>$mailTracking), 'text/html');
+      $message->setTo($email);
+      //Yii::app()->mail->send($message);
+
+      Notifications::setNotification($stat->user_id,Notifications::NOTIFY_INVISIBLE);
+    }
+    return 0;
+  }  
   
 }
