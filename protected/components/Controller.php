@@ -127,6 +127,18 @@ class Controller extends CController
     parent::run($in_actionID);
   }
   
+  
+  /**
+   * before action
+   */
+  /*protected function beforeAction($action){
+    // in debuging mode force refresh assets
+    if(YII_DEBUG){
+        Yii::app()->assetManager->forceCopy = true;
+    }
+    return parent::beforeAction($action);
+  }*/
+  
   /**
    * log all user actions
    */

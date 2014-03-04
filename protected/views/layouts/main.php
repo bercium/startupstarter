@@ -44,7 +44,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
 		
   <link rel="shortcut icon" type="image/x-icon" href="<?php echo Yii::app()->createAbsoluteUrl('/images/iphone.png'); ?>">
   <link rel="icon" type="image/ico" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico">
-  <?php if (YII_DEBUG){ ?>
+  <?php if (!YII_DEBUG){ ?>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700,700italic,600italic,600,400italic,300italic,300&subset=latin,cyrillic-ext,greek-ext,greek,latin-ext,cyrillic,vietnamese' rel='stylesheet' type='text/css'>
   <?php } ?>
   <script> var fullURL= '<?php echo Yii::app()->request->baseUrl; ?>'; 
@@ -92,7 +92,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
                   <?php 
                     //$notifications = $this->getNotifications();
                     if ($notifications['count'] > 0){ ?>
-                    <div href="#"  style="float: right; position:relative; top: 13px;right:70px; backgrou width:">
+                    <div href="#"  style="float: right; position:relative; top: 13px;right:70px;">
                        <span class="icon-envelope icon-msg-alert"></span><span class="el-msg-alert-mobile mb5 ml5"><?php echo $notifications['count']; ?></span>
                     </div>
                   <?php } ?>                  

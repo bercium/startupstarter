@@ -77,6 +77,11 @@ class EClientScript extends CClientScript
 	 * @var string base request url
 	 */
 	private $_baseUrl;
+  
+ /**
+	 * @var version number (force remake on version change)
+	 */
+	public $version = '';
 
 	/**
 	 * init base url map
@@ -234,11 +239,12 @@ class EClientScript extends CClientScript
 				// get unique combined filename
 				$fname = $this->getCombinedFileName($this->cssFileName, $files, $media);
 				$fpath = Yii::app()->assetManager->basePath . DIRECTORY_SEPARATOR . 'combined' . DIRECTORY_SEPARATOR . $fname;
-				// check exists file
+        //$fpath = Yii::app()->assetManager->basePath . DIRECTORY_SEPARATOR . $fname;        
 				if (($valid = file_exists($fpath)) === true) {
 					$mtime = filemtime($fpath);
 					foreach ($files as $file) {
 						if ($mtime < filemtime($file)) {
+              //Yii::trace('File: '.$file);
 							$valid = false;
 							break;
 						}
@@ -255,6 +261,7 @@ class EClientScript extends CClientScript
 							// Reset relative url() in css file
 							if (preg_match($urlRegex, $contents)) {
 								$reurl = $this->getRelativeUrl(Yii::app()->assetManager->baseUrl.'/combined', dirname($url));
+                //$reurl = $this->getRelativeUrl(Yii::app()->assetManager->baseUrl, dirname($url));
 								$contents = preg_replace($urlRegex, 'url(${1}' . $reurl . '/${2}', $contents);
 							}
 							// Check @charset line
@@ -280,6 +287,7 @@ class EClientScript extends CClientScript
 				}
 				// real url of combined file
 				$url = Yii::app()->assetManager->baseUrl . '/combined/' . $fname . '?' . filemtime($fpath);
+        //$url = Yii::app()->assetManager->baseUrl . '/' . $fname . '?' . filemtime($fpath);
 			}
 			$this->cssFiles[$url] = $media;
 		}
@@ -317,11 +325,12 @@ class EClientScript extends CClientScript
 			// get unique combined filename
 			$fname = $this->getCombinedFileName($this->scriptFileName, array_values($toCombine), $type);
 			$fpath = Yii::app()->assetManager->basePath . DIRECTORY_SEPARATOR . 'combined' . DIRECTORY_SEPARATOR . $fname;
-			// check exists file
+      //$fpath = Yii::app()->assetManager->basePath . DIRECTORY_SEPARATOR . $fname;
 			if (($valid = file_exists($fpath)) === true) {
 				$mtime = filemtime($fpath);
 				foreach ($toCombine as $file) {
 					if ($mtime < filemtime($file)) {
+            //Yii::trace('File: '.$file);
 						$valid = false;
 						break;
 					}
@@ -348,6 +357,7 @@ class EClientScript extends CClientScript
 			}
 			// add the combined file into scriptFiles
 			$url = Yii::app()->assetManager->baseUrl . '/combined/' . $fname . '?' . filemtime($fpath);
+      //$url = Yii::app()->assetManager->baseUrl . '/' . $fname . '?' . filemtime($fpath);
 			$scriptName[$indexCombine] = $url;
 			$scriptValue[$indexCombine] = $url;
 		}
@@ -402,8 +412,10 @@ class EClientScript extends CClientScript
 	{
 		$raw = '';
 		foreach ($files as $file) {
-			$raw .= "\0" . $file . "\0" . @filemtime($file);
+      //Yii::trace('File: '.$file);
+			$raw .= "\0" . $file . "\0". @filemtime($file);
 		}
+    $raw .= $this->version;
 		$ext = ($type === '' ? '' : '-' . $type) . '-' . substr(base64_encode(md5($raw, true)), 0, -2);
 		$pos = strrpos($name, '.');
 		$name = $pos === false ? $name . $ext : substr_replace($name, $ext, $pos, 0);

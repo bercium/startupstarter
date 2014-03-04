@@ -90,15 +90,16 @@ return array(
       'defaultScriptPosition'=>CClientScript::POS_END,
       'defaultScriptFilePosition'=>CClientScript::POS_END,
       'class' => 'ext.yii-eclient-script.EClientScript',
- //     'combineScriptFiles' => !YII_DEBUG, // By default this is set to true, set this to true if you'd like to combine the script files
- //     'combineCssFiles' => !YII_DEBUG, // By default this is set to true, set this to true if you'd like to combine the css files
-      'combineScriptFiles' => true, // By default this is set to true, set this to true if you'd like to combine the script files
-      'combineCssFiles' => true, // By default this is set to true, set this to true if you'd like to combine the css files
+      'combineScriptFiles' => !YII_DEBUG, // By default this is set to true, set this to true if you'd like to combine the script files
+      'combineCssFiles' => !YII_DEBUG, // By default this is set to true, set this to true if you'd like to combine the css files
+//      'combineScriptFiles' => true, 
+//      'combineCssFiles' => true, 
       'optimizeScriptFiles' => true, // @since: 1.1
       'optimizeCssFiles' => false, // @since: 1.1
       'optimizeInlineScript' => false, // @since: 1.6, This may case response slower
       'optimizeInlineCss' => false, // @since: 1.6, This may case response slower
       'saveGzippedCopy' => true,
+      //'version' => require(dirname(__FILE__) . '/version.php'),
     ),
     //'foundation' => array("class" => "ext.foundation.components.Foundation"),
 		'user'=>array(
@@ -177,7 +178,9 @@ return array(
 		),
 
     'cache' => array (
-      'class' => 'CDummyCache', //system.caching.CMemCache
+      //'class' => 'CDummyCache', //system.caching.CMemCache
+      'class' => 'CApcCache', //system.caching.CMemCache
+        
       /*'servers'=>array(
           array(
               'host'=>'localhost',
