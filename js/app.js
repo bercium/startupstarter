@@ -115,10 +115,11 @@ $(function() {
   });
   
   //scroll events
-  $.scrollDepth(/*{
+  $.scrollDepth();
+  /*{
   percentage: false,
   userTiming: false,
-  pixelDepth: false }*/);
+  pixelDepth: false }*/
   
 })(jQuery, this);
 
