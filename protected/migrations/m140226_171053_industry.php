@@ -27,11 +27,11 @@ class m140226_171053_industry extends CDbMigration
 
 		 $this->execute("ALTER TABLE  `user_industry` ADD INDEX (  `industry_id` ) ;");
 
-		 $this->execute("ALTER TABLE  `user_industry` ADD FOREIGN KEY (  `match_id` ) REFERENCES  `cofinder`.`user_match` (
+		 $this->execute("ALTER TABLE  `user_industry` ADD FOREIGN KEY (  `match_id` ) REFERENCES  `user_match` (
 						`id`
 						) ON DELETE CASCADE ON UPDATE CASCADE ;");
 
-		$this->execute("ALTER TABLE  `user_industry` ADD FOREIGN KEY (  `industry_id` ) REFERENCES  `cofinder`.`industry` (
+		$this->execute("ALTER TABLE  `user_industry` ADD FOREIGN KEY (  `industry_id` ) REFERENCES `industry` (
 			`id`
 			) ON DELETE CASCADE ON UPDATE CASCADE ;");
 

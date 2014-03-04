@@ -23,11 +23,11 @@ ALTER TABLE  `user_industry` ADD INDEX (  `match_id` ) ;
 
 ALTER TABLE  `user_industry` ADD INDEX (  `industry_id` ) ;
 
-ALTER TABLE  `user_industry` ADD FOREIGN KEY (  `match_id` ) REFERENCES  `cofinder`.`user_match` (
+ALTER TABLE  `user_industry` ADD FOREIGN KEY (  `match_id` ) REFERENCES  `user_match` (
 `id`
 ) ON DELETE CASCADE ON UPDATE CASCADE ;
 
-ALTER TABLE  `user_industry` ADD FOREIGN KEY (  `industry_id` ) REFERENCES  `cofinder`.`industry` (
+ALTER TABLE  `user_industry` ADD FOREIGN KEY (  `industry_id` ) REFERENCES  `industry` (
 `id`
 ) ON DELETE CASCADE ON UPDATE CASCADE ;
 

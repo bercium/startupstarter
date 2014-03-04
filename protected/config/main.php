@@ -178,9 +178,9 @@ return array(
 		),
 
     'cache' => array (
-      //'class' => 'CDummyCache', //system.caching.CMemCache
-      'class' => 'CApcCache', //system.caching.CMemCache
-        
+      'class' => 'CDummyCache', //system.caching.CMemCache
+      //'class' => 'CApcCache', //system.caching.CMemCache
+      //'class' => 'CMemCache',
       /*'servers'=>array(
           array(
               'host'=>'localhost',
