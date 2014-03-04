@@ -35,7 +35,7 @@ class Controller extends CController
     $cs->registerCssFile($baseUrl.'/css/foundation.css');
     $cs->registerCssFile($baseUrl.'/css/normalize.css'); 
     $cs->registerCssFile($baseUrl.'/css/layout.css');   
-    $cs->registerCssFile($baseUrl.'/css/font-awesome-mini.css');    
+    $cs->registerCssFile($baseUrl.'/css/font-awesome.min.css');    
     $cs->registerCssFile($baseUrl.'/css/chosen/chosen.min.css');
     $cs->registerCssFile($baseUrl.'/css/ui/jquery-ui-1.10.3.custom.min.css');
     $cs->registerCssFile($baseUrl.'/css/cookiecuttr.css');
