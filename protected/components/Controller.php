@@ -84,17 +84,15 @@ class Controller extends CController
                     'dimension3':'".$perc."',
                     'dimension4':'".$personProjects."',
                   }";
-      
       /*
                     'metric1':'".$perc."',
                     'metric2':'".$personProjects."',
        */
-      
-      
       $user->lastvisit_at = date('Y-m-d H:i:s');
       $user->save();
     }
     
+    // google analytics
     $cs->registerScript("ganalytics","
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -103,7 +101,19 @@ class Controller extends CController
 
         ga('create', 'UA-45467622-1', 'cofinder.eu');
         ga('send', 'pageview'".$logedin.");
+     ");
+    
+    // disable when not needed anymore
+    $cs->registerScript("userreport","
+        var _urq = _urq || [];
+        _urq.push(['initSite', 'ff32f930-ced3-4aca-8673-23bef9c3ecc6']);
+        (function() {
+        var ur = document.createElement('script'); ur.type = 'text/javascript'; ur.async = true;
+        ur.src = 'http://sdscdn.userreport.com/userreport.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
+        })();
      ");    
+        
     
     // startup scripts
     $cs->registerScriptFile($baseUrl.'/js/app.js');  
