@@ -5,9 +5,9 @@
     </p>
     
     <?php if($candidate['id'] != 'new' && $candidate['id'] != '' && is_numeric($candidate['id'])){
-        echo CHtml::beginForm(Yii::app()->createUrl('project/create?step=2&candidate='.$candidate['id']),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
+        echo CHtml::beginForm(Yii::app()->createUrl('project/edit',array('id'=>$idea_id,'step'=>2,'candidate'=>$candidate['id'])),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
       } else {
-        echo CHtml::beginForm(Yii::app()->createUrl('project/create?step=2&candidate'),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
+        echo CHtml::beginForm(Yii::app()->createUrl('project/edit',array('id'=>$idea_id,'step'=>2,'candidate'=>'')),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
       } ?>
       
     <p>      
@@ -63,13 +63,6 @@
                               //'onkeypress'=>" if(event.keyCode == 13){ addSkill('".Yii::app()->createUrl("profile/addSkill")."'); } " /* Do ajax call when user presses enter key */
                               ),
           )); ?>
-  
-    <?php echo CHtml::label(Yii::t('app','Industry'),''); ?>
-    <span class="description">
-       <?php echo Yii::t('msg','Select group which represents skills above the closest.'); ?>
-    </span>
-    <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none','class'=>'skillset')); ?>
-
       
     <?php echo '<label for="skill">'.Yii::t('app','Skill')."</label>";  ?> 
     <span class="description" >
@@ -85,10 +78,6 @@
                     array('class'=>"button small success radius",
                         'onclick'=>'addSkill(\''.Yii::app()->createUrl("project/sAddSkill").'\');')
                 ); ?>
-      
-    <span class="description">
-       <?php echo Yii::t('msg','Add more skills under different industry.'); ?>
-    </span>
     
     <?php $this->endWidget(); ?>  
   
@@ -99,7 +88,7 @@
       foreach ($candidate['skills'] as $key => $skill){ 
               ?>
       <span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $key; ?>">
-          <?php echo $skill['skill']."<br /><small class='meta'>".$skill['skillset_name']."</small>"; ?>
+          <?php echo $skill."<br />"; ?>
           <a href="#" class="close" onclick="removeSkill('<?php echo $key; ?>','<?php echo Yii::app()->createUrl("project/sDeleteSkill"); ?>')">&times;</a>
      </span>
     <?php }
@@ -122,7 +111,7 @@
           ); 
         }?>
 
-    <a href="<?php echo Yii::app()->createUrl('project/create',array('step'=>2)); ?>" class="button small secondary radius"><?php echo Yii::t("app","Cancel"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl('project/edit',array('id'=>$idea_id, 'step'=>2)); ?>" class="button small secondary radius"><?php echo Yii::t("app","Cancel"); ?></a>
  
 <?php 
 
@@ -143,9 +132,9 @@ if(is_array($ideadata['candidate'])){
         <div class="edit-floater">
           
       <?php  
-        echo "<a class='button tiny radius' href='".Yii::app()->createUrl('project/create?step=2&candidate='.$value['match_id'])."'>".Yii::t('app',"Edit")."</a> ";
+        echo "<a class='button tiny radius' href='".Yii::app()->createUrl('project/edit',array('id'=>$idea_id, 'step'=>2, 'candidate'=>$value['match_id']))."'>".Yii::t('app',"Edit")."</a> ";
             
-        echo CHtml::link(Yii::t("app","Remove"),Yii::app()->createUrl('project/create',array('step'=>2,'delete_candidate'=>$value['match_id'])),
+        echo CHtml::link(Yii::t("app","Remove"),Yii::app()->createUrl('project/edit',array('id'=>$idea_id,'step'=>2,'delete_candidate'=>$value['match_id'])),
                   array('class'=>"button tiny alert radius",
                         'confirm'=>Yii::t("msg","You are about to remove this candidate!")."\n".Yii::t("msg","Are you sure?"),
                         'onclick'=>"$(document).stopPropagation();",
@@ -178,16 +167,13 @@ if(is_array($ideadata['candidate'])){
              <p class="meta person-skills">
                 <?php
                 
-                if(is_array($value['skillset'])){
-                foreach ($value['skillset'] as $skillset){
-                  if(is_array($skillset['skill'])){
-                  foreach ($skillset['skill'] as $skill){
+                if(is_array($value['skill'])){
+                foreach ($value['skill'] as $skill){
                     ?>
-                    <span class="label radius default-light meta_tags" data-tooltip title="<?php echo $skillset['skillset']; ?>"><?php echo $skill['skill']; ?></span>
+                    <span class="label radius default-light meta_tags"><?php echo $skill['skill']; ?></span>
                     <?php
-                  }
                 }
-                }} ?>
+                } ?>
             </p>
              
            
