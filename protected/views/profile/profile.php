@@ -7,7 +7,7 @@
     
     
     
-    $cs->registerCssFile($baseUrl.'/css/tagmanager.css'.getVersionID());
+    $cs->registerCssFile($baseUrl.'/css/tagmanager.css');
     $cs->registerScriptFile($baseUrl.'/js/tagmanager.js');
 ?>
 
@@ -169,11 +169,10 @@
     
     <?php 
     $skillList = '';
-    if(isset($data['user']['skillset'])){
-      foreach ($data['user']['skillset'] as $skillset){
-        foreach ($skillset['skill'] as $skill){
+    if(isset($data['user']['skill'])){
+      foreach ($data['user']['skill'] as $skill){
           $skillList .= $skill['skill'].', ';
-        }}} 
+        }}
     //hidden-skill
     ?>
     

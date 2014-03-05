@@ -1,7 +1,7 @@
 <?php // ckeditor files
  $baseUrl = Yii::app()->baseUrl; 
     $cs = Yii::app()->getClientScript();    
-    $cs->registerScriptFile($baseUrl.'/js/ckeditor/ckeditor.js'.getVersionID(),CClientScript::POS_HEAD);
+    $cs->registerScriptFile($baseUrl.'/js/ckeditor/ckeditor.js',CClientScript::POS_HEAD);
     ?>
 
 <?php
@@ -399,14 +399,10 @@ else {
            
             
             <?php
-            if (isset($user['skillset']) && count($user['skillset'])){
-            foreach ($user['skillset'] as $skillset){
+            if (isset($user['skill']) && count($user['skill'])){
               ?>
               <div class='mb10'>
-                <h4 class=" mr5">
-                <?php echo $skillset['skillset']; ?>
-                </h4><?php
-                foreach ($skillset['skill'] as $skill){ ?>
+                <?php foreach ($user['skill'] as $skill){ ?>
 
                 <span data-alert class="label radius profile-skills" id="skill_<?php echo $skill['id']; ?>">
                 <?php echo $skill['skill'].""; ?>
@@ -415,8 +411,7 @@ else {
                 <?php
                 } ?>
               </div>
-            <?php }
-            }else{ ?>
+            <?php }else{ ?>
               <div class="description"><?php  echo Yii::t('msg','User has not filled this out yet.');  ?></div>
             <?php } ?>        
         </div>

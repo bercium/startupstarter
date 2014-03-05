@@ -157,8 +157,8 @@
     
     <div id="customSkills" class="hide">
       <?php echo CHtml::label(Yii::t('app','Industry'),''); ?>
-      <span class="description"><?php echo Yii::t('msg','Chose a group that best represents skills you are about to add.'); ?></span>
-      <?php echo CHtml::dropDownList('skillset', '', CHtml::listData(Skillset::model()->findAll(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none', 'class'=>'skillset')); ?>
+      <span class="description"><?php echo Yii::t('msg','Choose an industry.'); ?></span>
+      <?php echo CHtml::dropDownList('industry', '', CHtml::listData(Industry::model()->findAll(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none', 'class'=>'industry')); ?>
 
       
       <?php echo '<label for="skill">'.Yii::t('app','What are you good at');  ?> 
@@ -176,17 +176,16 @@
       
   
       <div class="skillList">
-        <?php if(isset($data['user']['skillset'])){
-              foreach ($data['user']['skillset'] as $skillset){
-                foreach ($skillset['skill'] as $skill){
+        <?php if(isset($data['user']['skill'])){
+                foreach ($data['user']['skill'] as $skill){
                   ?>
 
           <span data-alert class="label radius secondary profile-skills" id="skill_<?php echo $skill['id']; ?>">
               
               <a href="#" class="close right" onclick="removeSkill(<?php echo $skill['id']; ?>,'<?php echo Yii::app()->createUrl("profile/deleteSkill"); ?>')">&times;</a>
-              <?php echo $skill['skill']."<small class='skill-industry'>".$skillset['skillset']."</small>"; ?>
+              <?php echo $skill['skill']."<small class='skill-industry'>".$skill['skill']."</small>"; ?>
          </span>
-        <?php }}} ?>    
+        <?php }} ?>    
       </div> 
       
     </div>

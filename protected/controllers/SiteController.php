@@ -35,7 +35,7 @@ class SiteController extends Controller
 				'users'=>array('@'),
 			),*/
 			array('allow', // allow admin user to perform actions:
-				'actions'=>array('list','recalcPerc','setVanityUrl'),
+				'actions'=>array('list','recalcPerc','setVanityUrl','sqlIndustry'),
 				'users'=>Yii::app()->getModule('user')->getAdmins(),
 			),
 			array('deny',  // deny all users
@@ -80,7 +80,7 @@ class SiteController extends Controller
 			$_SESSION['suggested'] = false;
 		}
 		
-    	if(!Yii::app()->user->isGuest && isset($_SESSION['suggested']) && $_SESSION['suggested'] == true){
+    if(!Yii::app()->user->isGuest && isset($_SESSION['suggested']) && $_SESSION['suggested'] == true){
 
 		//users
 		 	$filter = new FilterFromProfile;
@@ -89,62 +89,64 @@ class SiteController extends Controller
 		 	$filter['per_page'] = 3;
 		 	$filter['recent'] = 'recent';
 		 	$filter['where'] = "AND u.create_at > ".(time() - 3600 * 24 * 14);
-			$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skillset");
-			$userType = Yii::t('app', "Suggested users");
+			$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skill,industry");
+			$userType = Yii::t('app', "Suggested users").' <a href="?suggested=0" class="button radius tiny">'.Yii::t('app', "Switch to recent").'</a>';
 
 			//if there's not plenty of results...
 			if($search['count'] < 3){
 			 	$filter['where'] = "AND u.create_at > ".(time() - 3600 * 24 * 31);
-				$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skillset");
+				$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skill,industy");
 				if($search['count'] < 3){
-					$search['results'] = $sqlbuilder->load_array("recent_users", $filter, "skillset,num_of_ideas");
+					$search['results'] = $sqlbuilder->load_array("recent_users", $filter, "num_of_ideas,skill,industry");
 					$search['count'] = $sqlbuilder->load_array("count_users", $filter);
-					$userType = Yii::t('app', "Recent users");
+					$userType = Yii::t('app', "No suggested users showing recent");
 				}
 			}
 
-    		$data['user'] = $search['results'];
-    		$maxPagePerson = ceil($search['count'] / $filter['per_page']);
+      $data['user'] = $search['results'];
+      $maxPagePerson = ceil($search['count'] / $filter['per_page']);
 
-    	//ideas
-    		$filter = new FilterFromProfile;
-    		$filter = $filter->search("ideaByProfile", Yii::app()->user->id);
-    		$filter['page'] = 1;
-    		$filter['per_page'] = 3;
-    		$filter['recent'] = 'recent';
-    		$filter['where'] = "AND i.time_updated > ".(time() - 3600 * 24 * 14);
-    		$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skillset");
-    		$ideaType = Yii::t('app', "Suggested projects");
+    //ideas
+      $filter = new FilterFromProfile;
+      $filter = $filter->search("ideaByProfile", Yii::app()->user->id);
+      $filter['page'] = 1;
+      $filter['per_page'] = 3;
+      $filter['recent'] = 'recent';
+      $filter['where'] = "AND i.time_updated > ".(time() - 3600 * 24 * 14);
+      $search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skill,industry");
+      $ideaType = Yii::t('app', "Suggested projects").' <a href="?suggested=0" class="button radius tiny">'.Yii::t('app', "Switch to recent").'</a>';
     		
 			//if there's not plenty of results...
 			if($search['count'] < 3){
 			 	$filter['where'] = "AND i.time_updated > ".(time() - 3600 * 24 * 31);
-				$search = $sqlbuilder->load_array("search_users", $filter, "translation,member,candidate,skillset");
+				$search = $sqlbuilder->load_array("search_users", $filter, "translation,member,candidate,skill,industry");
 				if($search['count'] < 3){
-		  			$search['results'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
+		  			$search['results'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skill,industry");
 					$search['count'] = $count = $sqlbuilder->load_array("count_ideas", $filter);
-					$ideaType = Yii::t('app', "Recent projects");
+					$ideaType = Yii::t('app', "No suggested projects showing recent");
 				}
 			}
 
     		$data['idea'] = $search['results'];
     		$maxPageIdea = ceil($search['count'] / $filter['per_page']);
 
-    	} else {
+    } else {
 			// last results
 
 			$filter['per_page'] = 3;
 
-			$data['user'] = $sqlbuilder->load_array("recent_users", $filter, "skillset,num_of_ideas");
+			$data['user'] = $sqlbuilder->load_array("recent_users", $filter, "num_of_ideas,skill,industry");
 	      	$count = $sqlbuilder->load_array("count_users", $filter);
 	      	$maxPagePerson = ceil($count / $filter['per_page']);
-	      	$userType = Yii::t('app', "Recent users");
+	    $userType = Yii::t('app', "Recent users");
+      if (!Yii::app()->user->isGuest) $userType .= ' <a href="?suggested=1" class="button radius tiny">'.Yii::t('app', "Switch to suggested").'</a>';
 
-		  	$data['idea'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skillset");
-	      	$count = $sqlbuilder->load_array("count_ideas", $filter);
-	      	$maxPageIdea = ceil($count / $filter['per_page']);
-	      	$ideaType = Yii::t('app', "Recent projects");
-    	}
+      $data['idea'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skill,industry");
+        $count = $sqlbuilder->load_array("count_ideas", $filter);
+        $maxPageIdea = ceil($count / $filter['per_page']);
+      $ideaType = Yii::t('app', "Recent projects");
+      if (!Yii::app()->user->isGuest) $ideaType .= ' <a href="?suggested=1" class="button radius tiny">'.Yii::t('app', "Switch to suggested").'</a>';        
+    }
 
 		$this->render('index', array('data' => $data, "maxPageIdea"=>$maxPageIdea, "maxPagePerson"=>$maxPagePerson, "ideaType"=>$ideaType, "userType"=>$userType));
 	}
@@ -156,7 +158,7 @@ class SiteController extends Controller
 		$filter = array( 'idea_id' => 1); // our idea ID
 		$filter['lang'] = Yii::app()->language;
 
-		$this->render('about', array('idea' => $sqlbuilder->load_array("idea", $filter, "translation,member,candidate,skillset")));
+		$this->render('about', array('idea' => $sqlbuilder->load_array("idea", $filter, "translation,member,candidate,skill,industry")));
 	}
   
 
@@ -376,70 +378,25 @@ class SiteController extends Controller
 		Yii::app()->end();
 	}	
 	
-
 	public function actionSuggestSkill() {
 
 		if (!isset($_GET['term'])){
 			$response = array("data" => null,
-												"status" => 1,
-												"message" => Yii::t('msg', "No search query."));
-		}else{
-			$language = Yii::app()->language;
-			$language = Language::Model()->findByAttributes( array( 'language_code' => $language ) );
-			$language = $language->id;
+								"status" => 1,
+								"message" => Yii::t('msg', "No search query."));
+	    }else{
+	      $data = CSkills::skillSuggest($_GET['term']);
+	      /*foreach ($dataReader as $row){
+	        $data[] = $row;
+	      }*/
 
-			$connection=Yii::app()->db;
-			$data = array();
-      $dataReader = array();
-			
-			$criteria=new CDbCriteria();
-			
-			// translated skill sets
-			//!!!language
-      
-			if($language != 40){
-				$criteria->condition = " `translation` LIKE :name AND `table` = 'skillset'"; //AND language_id = 
-				$criteria->params = array(":name"=>"%".$_GET['term']."%");
-				$dataReader = Translation::model()->findAll($criteria);
+	      $response = array("data" => $data,
+	                "status" => 0,
+	                "message" => '');
 			}
-
-			//$data = array();
-      if ($dataReader){
-        foreach ($dataReader as $row){
-          $data[] = array("value"=>$row['translation']);
-        }
-      }
 			
-			$criteria->condition = " `name` LIKE :name";
-			$criteria->params = array(":name"=>"%".$_GET['term']."%");
-			
-			// original skill sets
-			$dataReader = Skillset::model()->findAll($criteria);
-
-			//$data = array();
-      if ($dataReader){
-        foreach ($dataReader as $row){
-          $data[] = array("value"=>$row['name']);
-        }
-      }
-
-			// skills
-			$dataReader = Skill::model()->findAll($criteria);
-			
-      if ($dataReader){
-        foreach ($dataReader as $row){
-          $data[] = array("value"=>$row['name']);
-        }
-      }
-			
-			
-			$response = array("data" => $data,
-												"status" => 0,
-												"message" => '');
-		}
-		
-		echo json_encode($response);
-		Yii::app()->end();
+			echo json_encode($response);
+			Yii::app()->end();
 	}
   
   // recalculate percentage for all users
@@ -727,6 +684,53 @@ EOD;
       }
     }
      $this->render('message',array('title'=>"Fill vanity urls",'content'=>"Success!"));
+  }
+
+  /**
+   * Sql Script for Skill -> Industry (delete later)
+   */
+  public function actionSqlIndustry(){
+
+  	//foreach user copy USER_SKILL . SKILLSET_ID to USER_INDUSTRY . INDUSTRY_ID
+
+  		$sql = "SELECT * FROM user_skill GROUP BY skillset_id, match_id";
+  		
+		$connection=Yii::app()->db;
+		$command=$connection->createCommand($sql);
+		$dataReader=$command->query();
+
+		while(($row=$dataReader->read())!==false) {
+			$userindustry = New UserIndustry();
+			$userindustry->match_id = $row['match_id'];
+			$userindustry->industry_id = $row['skillset_id'];
+			$userindustry->save();
+		}
+
+	//count skill in user_skill and assign count
+
+		$sql = "SELECT skill_id, count(skill_id) as count FROM `user_skill` GROUP BY skill_id";
+  		
+		$command=$connection->createCommand($sql);
+		$dataReader=$command->query();
+
+		while(($row=$dataReader->read())!==false) {
+			$skill = Skill::model()->findByAttributes(array('id'=>$row['skill_id']));
+			$skill->count = $row['count'];
+			$skill->save();
+		}
+
+	//count industry in user_industry and assign count
+		$sql = "SELECT industry_id, count(industry_id) as count FROM `user_industry` GROUP BY industry_id";
+  		
+		$command=$connection->createCommand($sql);
+		$dataReader=$command->query();
+
+		while(($row=$dataReader->read())!==false) {
+			$industry = Industry::model()->findByAttributes(array('id'=>$row['industry_id']));
+			$industry->count = $row['count'];
+			$industry->save();
+		}
+		
   }
 	
 }

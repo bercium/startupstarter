@@ -2,7 +2,7 @@
 
     <div class="row card-person-title" onclick="location.href='<?php echo Yii::app()->createUrl("person",array("id"=>$user['id'])); ?>';">
       <div class="columns" >
-        <img class="th-medium" src="<?php echo avatar_image($user['avatar_link'],$user['id'],60); ?>"  />
+        <img class="th-medium" src="<?php echo avatar_image($user['avatar_link'],$user['id'],60); ?>" width="60" height="60" />
         <h5>
       <?php $days = timeDifference($user['lastvisit_at'], date('Y-m-d H:i:s'), "days_total"); 
      if ($days < 6){ ?>
@@ -49,20 +49,18 @@
                   <?php 
                       $skills = array();
                       $c = 0;
-                      foreach ($user['skillset'] as $skillset){ 
-                        if(isset($skillset['skill'])){
-                          foreach ($skillset['skill'] as $skill){
+                        if(isset($user['skill'])){
+                          foreach ($user['skill'] as $skill){
                             $c++;
                             $tmp_skils = $skills;
-                            $tmp_skils[$skillset['skillset']][] = $skill['skill'];
-                            if (count($tmp_skils) > 3) $skills['...'][$skillset['skillset']] = $skillset['skillset'];
+                            $tmp_skils[] = $skill['skill'];
+                            if (count($tmp_skils) > 3) $skills['...'][] = $skill['skill'];
                             else $skills = $tmp_skils;
                             //$skills[$skillset['skillset']][] = $skill['skill'];
                           }
                         } else {
-                          $skills[$skillset['skillset']] = array();
+                          $skills = array();
                         }
-                      }
                       
                       //echo Yii::t('app','Skill|Skills',array($c)).":"; 
                     ?>
@@ -73,14 +71,14 @@
                        
                     <small>
                     <?php 
-                     foreach ($skills as $skillset=>$skill){
+                     foreach ($skills as $key=>$skill){
                           ?>
-                          <?php if ($skillset != '...'){ ?>
-                            <a href="<?php echo Yii::app()->createURL("person/discover",array("SearchForm"=>array("skill"=>$skillset))); ?>">
+                          <?php if ($key != '...'){ ?>
+                            <a href="<?php echo Yii::app()->createURL("person/discover",array("SearchForm"=>array("skill"=>$skill))); ?>">
                           <?php } ?>
                               
-                            <span class="label radius"<?php if(count($skill)) echo ' data-tooltip title="'.addslashes(implode("<br />",$skill)).'"'; ?>><?php echo $skillset; ?></span>
-                          <?php if ($skillset != '...') { ?></a><?php } ?>
+                            <span class="label radius"<?php if(is_array($skill)) echo ' data-tooltip title="'.addslashes(implode("<br />",$skill)).'"'; ?>><?php if(is_array($skill)){ echo $key; } else { echo $skill; } ?></span>
+                          <?php if ($key != '...') { ?></a><?php } ?>
                             <?php 
                           }
                           

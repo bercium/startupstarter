@@ -22,11 +22,9 @@
 <a href="<?php echo Yii::app()->createUrl("backendIdeaStatus"); ?>">IdeasStatuses</a><br />
 <a href="<?php echo Yii::app()->createUrl("backendLanguage"); ?>">Languages</a><br />
 <a href="<?php echo Yii::app()->createUrl("backendSkill"); ?>">Skills</a><br />
-<a href="<?php echo Yii::app()->createUrl("backendSkillset"); ?>">Skillsets</a><br />
 
 <br />
 
-<a href="<?php echo Yii::app()->createUrl("backendSkillsetSkill"); ?>">Skillset Skills</a><br />
 <a href="<?php echo Yii::app()->createUrl("backendTranslation"); ?>">Translations</a><br />
 
 <br />

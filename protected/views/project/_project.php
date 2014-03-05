@@ -103,19 +103,15 @@
                   $skills = array();
                   $c = 0;
                   foreach ($idea['candidate'] as $candidate){
-                  if (is_array($candidate['skillset']))
-                    foreach ($candidate['skillset'] as $skillset){
-                      if(isset($skillset['skill'])){
-                        foreach ($skillset['skill'] as $skill){
-                          $c++;
-                          $tmp_skils = $skills;
-                          $tmp_skils[$skillset['skillset']][] = $skill['skill'];
-                          if (count($tmp_skils) > 8) $skills['...'][$skillset['skillset']] = $skillset['skillset'];
-                          else $skills = $tmp_skils;
-                        }
-                      }
+                  if (isset($candidate['skill']))
+                    foreach ($candidate['skill'] as $skill){
+                      $c++;
+                      $tmp_skils = $skills;
+                      $tmp_skils[] = $skill['skill'];
+                      if (count($tmp_skils) > 8) $skills['...'][] = $skill['skill'];
+                      else $skills = $tmp_skils;
                     }
-                }
+                  }
 								
 //								echo Yii::t('app','Looking for <a>{n} person</a>|Looking for <a>{n} people</a>',array(count($idea['candidate'])));
 								//echo Yii:: (app','Looking for').' <a>'.Yii:: ('app','{n} person|{n} people',array(count($idea['candidate']))).'</a>';
@@ -124,15 +120,15 @@
                   if (count($skills) > 0){
                   //echo " ".Yii::t('app','with skill|with skills',array($c)).":<br />";
                   //echo " ".Yii::t('app','skilled in').":<br />";
-                  foreach ($skills as $skillset=>$skill){
+                  foreach ($skills as $key=>$skill){
                   ?>
-                    <?php if ($skillset != '...'){ ?>
-                      <a href="<?php echo Yii::app()->createURL("project/discover",array("SearchForm"=>array("skill"=>$skillset))); ?>">
+                    <?php if ($key != '...'){ ?>
+                      <a href="<?php echo Yii::app()->createURL("project/discover",array("SearchForm"=>array("skill"=>$skill))); ?>">
                     <?php } ?>
 
-                      <span class="label radius"<?php if(count($skill)) echo ' data-tooltip title="'.addslashes(implode("<br />",$skill)).'"'; ?>><?php echo $skillset; ?></span>
+                      <span class="label radius"<?php if(is_array($skill)) echo ' data-tooltip title="'.addslashes(implode("<br />",$skill)).'"'; ?>><?php if(is_array($skill)){ echo $key; } else { echo $skill; } ?></span>
                       
-                    <?php if ($skillset != '...') { ?>
+                    <?php if ($key != '...') { ?>
                       </a>
                       <br />
                       <?php } ?>

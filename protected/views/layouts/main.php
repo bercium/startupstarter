@@ -10,7 +10,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <meta charset="utf-8" />
+  <?php /* ?><meta charset="utf-8" /><?php */ ?>
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width" />
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -44,12 +44,14 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
 		
   <link rel="shortcut icon" type="image/x-icon" href="<?php echo Yii::app()->createAbsoluteUrl('/images/iphone.png'); ?>">
   <link rel="icon" type="image/ico" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico">
-  <?php if (YII_DEBUG){ ?>
+  <script> 
+    var fullURL= '<?php echo Yii::app()->request->baseUrl; ?>'; 
+    <?php if(YII_DEBUG){ ?>var all_js_ok = setTimeout(function() {alert('Problem v enem izmed JS fajlov!');}, 5000); <?php } ?> 
+  </script>
+    
+  <?php if (!YII_DEBUG){ ?>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700,700italic,600italic,600,400italic,300italic,300&subset=latin,cyrillic-ext,greek-ext,greek,latin-ext,cyrillic,vietnamese' rel='stylesheet' type='text/css'>
   <?php } ?>
-  <script> var fullURL= '<?php echo Yii::app()->request->baseUrl; ?>'; 
-    <?php if(YII_DEBUG){ ?>var all_js_ok = setTimeout(function() {alert('Problem v enem izmed JS fajlov!');}, 5000); <?php } ?> </script>
-    
 	<title><?php if (isset($notifications) && $notifications['count'] > 0) echo "(".$notifications['count'].") "; echo $fullTitle; ?></title>
 </head>
 
@@ -70,7 +72,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
              <li class="name ">
                <div class="hide-for-small">
 								 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
-									<img class="logo ml10" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png" />
+									<img class="logo ml10" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png"  width="216" height="42" />
 								 
                  </a>
                  
@@ -80,7 +82,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
                 <div class="left l-iblock">
                 <div>
                 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
-                <img class="ml10" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title-mobile.png" />
+                <img class="ml10" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title-mobile.png"  width="216" height="42"  />
                 </a>
                 </div>
                 </div>
@@ -92,7 +94,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
                   <?php 
                     //$notifications = $this->getNotifications();
                     if ($notifications['count'] > 0){ ?>
-                    <div href="#"  style="float: right; position:relative; top: 13px;right:70px; backgrou width:">
+                    <div href="#"  style="float: right; position:relative; top: 13px;right:70px;">
                        <span class="icon-envelope icon-msg-alert"></span><span class="el-msg-alert-mobile mb5 ml5"><?php echo $notifications['count']; ?></span>
                     </div>
                   <?php } ?>                  
@@ -322,9 +324,9 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
     <div class="row">
       <div class="large-4 push-8 columns">
         <ul class="social-links">
-          <li><a href="https://www.facebook.com/cofinder.eu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-facebook.png"></a></li>
-          <li><a href="https://www.linkedin.com/company/cofinder" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-linkedin.png"></a></li>
-          <li><a href="https://plus.google.com/+CofinderEu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-gplus.png"></a></li>
+          <li><a href="https://www.facebook.com/cofinder.eu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-facebook.png" width="32" height="32"></a></li>
+          <li><a href="https://www.linkedin.com/company/cofinder" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-linkedin.png" width="32" height="32"></a></li>
+          <li><a href="https://plus.google.com/+CofinderEu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-gplus.png" width="32" height="32"></a></li>
         </ul>
         
         
@@ -332,7 +334,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
        <div class="large-8 pull-4 columns"  style="background: #333">
 
          <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
-           <img class="logo-mini mb20" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-mini.png" />
+           <img class="logo-mini mb20" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-mini.png"  width="180" height="35" />
          </a>
          <ul class="footer-links">
           <?php /* ?><li><a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo Yii::t('app','Our team'); ?></a></li> <?php */ ?>
@@ -347,23 +349,8 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
   </div>
 
 
-<!-- userreport.com snippet -->
-<script type="text/javascript">
- 
-    var _urq = _urq || [];
-    _urq.push(['initSite', 'ff32f930-ced3-4aca-8673-23bef9c3ecc6']);
-    (function() {
-    var ur = document.createElement('script'); ur.type = 'text/javascript'; ur.async = true;
-    ur.src = 'http://sdscdn.userreport.com/userreport.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
-    })();
-  
-</script> 
-
-
-
 </body>
 </html><?php 
     // be the last to override any other CSS settings
-    Yii::app()->getClientScript()->registerCssFile(Yii::app()->baseUrl.'/css/override.css'.getVersionID()); 
+    Yii::app()->getClientScript()->registerCssFile(Yii::app()->baseUrl.'/css/override.css'); 
     if(YII_DEBUG) Yii::app()->getClientScript()->registerScript("cleartimeout","clearTimeout(all_js_ok);");

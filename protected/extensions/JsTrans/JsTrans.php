@@ -34,7 +34,7 @@ class JsTrans
         $dictionaryFile = "dictionary-{$hash}.js";
 
         // generate dictionary file if not exists or YII DEBUG is set
-        if (!file_exists(Yii::app()->params['tempFolder'] .  $dictionaryFile) || YII_DEBUG) {
+        if (!file_exists($this->getLocalPath($baseUrl) . DIRECTORY_SEPARATOR .  $dictionaryFile) || YII_DEBUG) {
             // declare config (passed to JS)
             $config = array('language' => $defaultLanguage);
 
@@ -58,17 +58,28 @@ class JsTrans
 
 
             // save to dictionary file
-            if(!file_put_contents(Yii::app()->params['tempFolder'] .  $dictionaryFile, $data))
+            if(!file_put_contents($this->getLocalPath($baseUrl) . DIRECTORY_SEPARATOR .  $dictionaryFile, $data))
                Yii::log('Error: Could not write dictionary file, check file permissions', 'trace', 'jstrans');
         }
 
         // publish library and dictionary
-        if (file_exists(Yii::app()->params['tempFolder'] .  $dictionaryFile)) {
+        if (file_exists($this->getLocalPath($baseUrl) . DIRECTORY_SEPARATOR .  $dictionaryFile)) {
             Yii::app()->getClientScript()
                     ->registerScriptFile($baseUrl . '/JsTrans.min.js', CClientScript::POS_END)
-                    ->registerScriptFile(Yii::app()->baseUrl.'/'.Yii::app()->params['tempFolder'] .  $dictionaryFile.getVersionID(), CClientScript::POS_END);
+                    ->registerScriptFile($baseUrl .'/' .  $dictionaryFile, CClientScript::POS_END);
         } else {
             Yii::log('Error: Could not publish dictionary file, check file permissions', 'trace', 'jstrans');
         }
     }
+    
+    private function getLocalPath($url)
+    {
+      $_baseUrlMap[Yii::app()->request->baseUrl.'/'] = dirname(Yii::app()->request->scriptFile) . DIRECTORY_SEPARATOR;
+      foreach ($_baseUrlMap as $baseUrl => $basePath) {
+        if (!strncmp($url, $baseUrl, strlen($baseUrl))) {
+          return $basePath . substr($url, strlen($baseUrl));
+        }
+      }
+      return false;
+    }    
 }

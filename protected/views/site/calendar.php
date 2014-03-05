@@ -10,7 +10,7 @@ $this->pageTitle = Yii::t('app','Calendar of startup events');
 $baseUrl = Yii::app()->baseUrl; 
 $cs = Yii::app()->getClientScript();
 
-$cs->registerCssFile($baseUrl.'/js/fullcalendar/fullcalendar.css'.getVersionID());
+$cs->registerCssFile($baseUrl.'/js/fullcalendar/fullcalendar.css');
 $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
 
   echo "<script>";

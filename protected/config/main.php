@@ -81,14 +81,25 @@ return array(
 	),
 
 	// application components
-	'components'=>array(
+	'components'=>array(      
     'EJSUrlManager' => array(
       'class' => 'ext.JSUrlManager.src.EJSUrlManager'
     ),
     'clientScript'=>array(
       'coreScriptPosition'=>CClientScript::POS_END,
       'defaultScriptPosition'=>CClientScript::POS_END,
-      'defaultScriptFilePosition'=>CClientScript::POS_END
+      'defaultScriptFilePosition'=>CClientScript::POS_END,
+      'class' => 'ext.yii-eclient-script.EClientScript',
+      'combineScriptFiles' => !YII_DEBUG, // By default this is set to true, set this to true if you'd like to combine the script files
+      'combineCssFiles' => !YII_DEBUG, // By default this is set to true, set this to true if you'd like to combine the css files
+//      'combineScriptFiles' => true, 
+//      'combineCssFiles' => true, 
+      'optimizeScriptFiles' => true, // @since: 1.1
+      'optimizeCssFiles' => false, // @since: 1.1
+      'optimizeInlineScript' => false, // @since: 1.6, This may case response slower
+      'optimizeInlineCss' => false, // @since: 1.6, This may case response slower
+      'saveGzippedCopy' => true,
+      //'version' => require(dirname(__FILE__) . '/version.php'),
     ),
     //'foundation' => array("class" => "ext.foundation.components.Foundation"),
 		'user'=>array(
@@ -136,7 +147,7 @@ return array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
 				array(
-					//'class'=>'CFileLogRoute',
+					//'class'=>'CWebLogRoute',
 					'levels'=>'error, warning, trace, info',
 					'class'=>'ext.yii-debug-toolbar.YiiDebugToolbarRoute',
           'ipFilters'=>array('127.0.0.1'),
@@ -168,6 +179,8 @@ return array(
 
     'cache' => array (
       'class' => 'CDummyCache', //system.caching.CMemCache
+      //'class' => 'CApcCache', //system.caching.CMemCache
+      //'class' => 'CMemCache',
       /*'servers'=>array(
           array(
               'host'=>'localhost',
