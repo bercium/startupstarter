@@ -171,19 +171,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
             </ul> 
             <!-- Left Nav Section -->
             <ul class="left">
-               <li class="divider"></li>            
-              <?php /* ?><li class="<?php echo isMenuItemActive("team"); ?>">
-                <a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo Yii::t('app','Our team'); ?></a>
-              </li>
-              <li class="divider"></li>
-              <?php */ ?>
-
-              <li class="<?php echo isMenuItemActive("about"); ?> desc">
-                <a href="<?php echo Yii::app()->createUrl("site/about"); ?>" title="<?php echo Yii::t('app','What is Cofinder and who is behind it'); ?>">
-                <?php echo Yii::t('app','What is {bs}cofinder{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
-                </a>
-                
-              </li>
+              
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","person"); ?> desc">
                 <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" trk="topMenu_click_personDiscover" title="<?php echo Yii::t('app','Find talent for your project'); ?>" >
@@ -201,6 +189,19 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
                 <a href="<?php echo Yii::app()->createUrl("site/startupEvents"); ?>" trk="topMenu_click_startupEvents" title="<?php echo Yii::t('app','List of startup events'); ?>" >
                   <?php echo Yii::t('app','Events'); ?>
                 </a>
+              </li>
+               <li class="divider"></li>            
+              <?php /* ?><li class="<?php echo isMenuItemActive("team"); ?>">
+                <a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo Yii::t('app','Our team'); ?></a>
+              </li>
+              <li class="divider"></li>
+              <?php */ ?>
+
+              <li class="<?php echo isMenuItemActive("about"); ?> desc">
+                <a href="<?php echo Yii::app()->createUrl("site/about"); ?>" title="<?php echo Yii::t('app','What is Cofinder and who is behind it'); ?>">
+                <?php echo Yii::t('app','What is {bs}cofinder{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
+                </a>
+                
               </li>
               <li class="divider"></li>
               <?php if (Yii::app()->user->isAdmin()){ ?>
