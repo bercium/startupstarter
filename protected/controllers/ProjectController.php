@@ -208,8 +208,8 @@ class ProjectController extends GxController {
                     $this->actionEditStep2($id);
                     break;
                 case 3:
-                    //3. korak - story
-
+                    //3. korak - project info/story
+                    $this->actionEditStep3($id);
                     break;
                 case 4:
                     //4. korak - dodajanje linkov in ostalo
@@ -318,10 +318,7 @@ class ProjectController extends GxController {
 
 		//assign changes to currently edited candidate
 		if(isset($_GET['candidate']) && isset($_POST['UserMatch']) && $candidate_in_edit){
-
-			print_r($_POST);
-
-			//assign changes ($_POST) to session array 
+			//assign changes ($_POST) to session array
 			$match->setAttributes($_POST['UserMatch']);
 
             if (!empty($_POST['UserMatch']['city'])){
@@ -431,7 +428,6 @@ class ProjectController extends GxController {
 
 		//delete candidate
 		if(isset($_GET['delete_candidate']) && is_numeric($_GET['delete_candidate']) && $_GET['delete_candidate'] > 0){
-
 			$criteria=new CDbCriteria();
 			$criteria->addInCondition('type_id',array(3)); //candidate
 			$isMember = IdeaMember::Model()->findByAttributes(array('match_id' => $_GET['delete_candidate'], 'idea_id' => $idea_id), $criteria);
@@ -455,6 +451,33 @@ class ProjectController extends GxController {
 		} else {
 			$this->render('createidea_2', array( 'idea' => $data['idea'], 'idea_id' => $id ));
 		}
+    }
+
+    public function actionEditStep3($id){
+
+        $idea = Idea::Model()->findByAttributes(array('id' => $id));
+        $translation = IdeaTranslation::Model()->findByAttributes(array('idea_id' => $id));
+        $language = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
+
+        if (isset($_POST['Idea']) AND isset($_POST['IdeaTranslation']))
+        {
+            $_POST['Idea']['time_updated'] = date("Y-m-d h:m:s",time());
+            $idea->setAttributes($_POST['Idea']);
+
+            //translation data
+            $translation->idea_id = $id; //dummy value, just for validation
+            $translation->setAttributes($_POST['IdeaTranslation']);
+
+            //validate models and save idea
+            if ($translation->save() && $idea->save())
+            {
+                setFlash('projectMessage', Yii::t('msg',"Project successfully edited."));
+                $this->redirect(array('project/edit', 'id' => $id, 'step' => 2));
+            }
+        }
+
+        $this->render('createidea_1', array( 'idea' => $idea, 'idea_id' => $id, 'translation' => $translation, 'language' => $language ));
+
     }
 
 	public function addKeywords($idea_id, $language_id, $keywords){

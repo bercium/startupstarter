@@ -9,16 +9,6 @@ $this->pageTitle = Yii::t('app', 'Create - step 2');
 
 <div class="row">
     <div class="columns edit-header">
-        <div class="right">
-            <?php if (!isset($candidate)) { ?>
-                <a class="small button abtn secondary radius" style="margin-bottom:0;"
-                   href="<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 2, 'candidate' => 'new')); ?>">
-                    <?php echo Yii::t('app', 'Add new') ?>
-                    <span class="icon-plus"></span>
-                </a>
-            <?php } ?>
-        </div>
-
         <h3><?php if (!isset($candidate)) {
                 echo Yii::t('app', 'Open positions');
             } else echo Yii::t('app', 'New positions');?>
@@ -32,6 +22,17 @@ $this->pageTitle = Yii::t('app', 'Create - step 2');
       </ul>
     </div>
     <div class="columns panel edit-content">
+        <div class="row">
+            <div class="left mb20">
+                <?php if (!isset($candidate)) { ?>
+                    <a class="small button abtn secondary radius" style="margin-bottom:0;"
+                       href="<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 2, 'candidate' => 'new')); ?>">
+                        <?php echo Yii::t('app', 'Add new') ?>
+                        <span class="icon-plus"></span>
+                    </a>
+                <?php } ?>
+            </div>
+        </div>
 
         <?php if (isset($candidate) && isset($match)) {
             $this->renderPartial('_formteam', array(
@@ -46,18 +47,17 @@ $this->pageTitle = Yii::t('app', 'Create - step 2');
                 'idea_id' => $idea_id,
                 'buttons' => 'create'));
         }?>
-
-
-        <?php
-
-        if (!isset($_GET['candidate'])) {
-
-            echo "<hr>" . CHtml::submitButton(Yii::t("app", "Finish"),
-                    array('class' => "button small success radius",
-                        'onclick' => 'window.location.href=(\'' . $idea_id . '\');')
-                );
-
-        } ?>
-
     </div>
-</div>    
+
+    <?php
+
+    if (!isset($_GET['candidate'])) {
+        ?>
+            <a href="<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 3)); ?>" class="button large success radius right">
+                <?php echo Yii::t("app", "Next >>"); ?>
+            </a>
+        <?
+    } ?>
+
+    <?php echo CHtml::endForm(); ?>
+</div>
