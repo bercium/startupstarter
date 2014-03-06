@@ -495,13 +495,11 @@ class ProjectController extends GxController {
             $links[$value['url']] = $value['title'];
         }
 
-        //idea gallery cover photo stuff
-        $ideagallery = IdeaGallery::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'cover' => 1 ) );
-        if ($ideagallery) $ideagallery = $ideagallery->url;
-        else $ideagallery = '';
-
-        if(isset($_POST['IdeaGallery']['url']) && $_POST['IdeaGallery']['url'] != $ideagallery){
-            $ideagallery = $this->uploadToGallery($idea->id, $_POST['IdeaGallery']['url'], $cover = true);
+        $pathFileName = Yii::app()->params['projectGalleryFolder'].$idea['id']."/main.jpg";
+        if (file_exists($pathFileName)){
+            $ideagallery = $pathFileName;
+        } else {
+            $ideagallery = '';
         }
 
         $this->render('createidea_4', array( 'idea' => $idea, 'idea_id' => $id, 'link' => $link, 'links' => $links, 'ideagallery' => $ideagallery ));
@@ -957,38 +955,28 @@ class ProjectController extends GxController {
 		$sizeLimit = 10 * 1024 * 1024; // maximum file size in bytes
 		$uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
 		$result = $uploader->handleUpload($folder);
-		$return = json_encode($result);
 
         //add to galler as main image for cover project profile
-        $this->uploadToGallery($_SESSION['actionEditStep4-idea_id'], $result['filename'], 1);
+        $result['filename'] = $this->uploadToGallery($_SESSION['actionEditStep4-idea_id'], $result['filename'], 1).'main.jpg';
+
+        //json data
+        $return = json_encode($result);
 
 		echo $return; // it's array
 	}
 
 	public function uploadToGallery($id, $link, $cover = true){
-
-		/*
-		add to gallery
-			-action to upload image
-		edit gallery
-			-action/view to edit gallery
-		set cover image
-			-action to 
-		remove from gallery
-			-action to unlink image/unset from db
-		*/
-
 		$filename = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . Yii::app()->params['tempFolder'] . $link;
 
 		// if we need to create avatar image
 		if (is_file($filename)) {
-			$newFilePath = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . Yii::app()->params['ideaGalleryFolder'];
-			//$newFilePath = Yii::app()->params['avatarFolder'];
+			$newFilePath = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . Yii::app()->params['projectGalleryFolder'] . $id . DIRECTORY_SEPARATOR;
+			$newFilePath_html =  DIRECTORY_SEPARATOR . Yii::app()->params['projectGalleryFolder'] . $id . DIRECTORY_SEPARATOR;
 			if (!is_dir($newFilePath)) {
 				mkdir($newFilePath, 0777, true);
 				//chmod( $newFilePath, 0777 );
 			}
-			$newFileName = str_replace(".", "", microtime(true)) . "." . pathinfo($filename, PATHINFO_EXTENSION);
+			$newFileName = "main.jpg";
 
 			if (rename($filename, $newFilePath . $newFileName)) {
 				// make a thumbnail for avatar
@@ -1018,7 +1006,7 @@ class ProjectController extends GxController {
 
 				$idea_gallery->save();
 
-				return $newFileName;
+				return $newFilePath_html;
 			}
 		}
 

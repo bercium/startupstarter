@@ -56,7 +56,7 @@ $this->pageTitle = Yii::t('app', 'Edit - step 2');
                                     $('.avatar').unbind();
                                     $('#IdeaImage_avatar_link').val(responseJSON['filename']);
                                   });
-                                  $('.avatar').attr('src', '" . Yii::app()->baseUrl . "/" . Yii::app()->params['tempFolder'] . "'+responseJSON['filename']);
+                                  $('.avatar').attr('src', '" . Yii::app()->baseUrl . "'+responseJSON['filename']);
                                 }",
                 'messages' => array(
                     'typeError' => Yii::t('msg', "{file} has invalid extension. Only {extensions} are allowed."),
