@@ -204,18 +204,17 @@ class ProjectController extends GxController {
                     $this->actionEditStep1($id);
                     break;
                 case 2:
-                    //3. korak - project info/story
+                    //2. korak - project info/story
                     $this->actionEditStep2($id);
                     break;
                 case 3:
-                    //2. korak - koga iščemo
+                    //3. korak - koga iščemo
                     $this->actionEditStep3($id);
                     break;
                 case 4:
-                    //4. korak - dodajanje linkov in ostalo
-
+                    //4. korak - dodajanje linkov in slike
+                    $this->actionEditStep4($id);
                     break;
-
             }
 
         }
@@ -476,6 +475,36 @@ class ProjectController extends GxController {
 
         $this->render('createidea_3', array( 'idea' => $idea, 'idea_id' => $id, 'translation' => $translation ));
 
+    }
+
+    public function actionEditStep4($id){
+        //session ideda id set for image upload
+        $_SESSION['actionEditStep4-idea_id'] = $id;
+
+        //idea object
+        $idea = Idea::Model()->findByAttributes(array('id' => $id));
+
+        //links placeholder
+        $link = new IdeaLink;
+        $links = false;
+
+        $sqlbuilder = new SqlBuilder();
+        $filter['idea_id'] = $id;
+        $links_buffer = $sqlbuilder->link('idea', $filter);
+        foreach($links_buffer AS $key => $value){
+            $links[$value['url']] = $value['title'];
+        }
+
+        //idea gallery cover photo stuff
+        $ideagallery = IdeaGallery::Model()->findByAttributes( array( 'idea_id' => $idea->id, 'cover' => 1 ) );
+        if ($ideagallery) $ideagallery = $ideagallery->url;
+        else $ideagallery = '';
+
+        if(isset($_POST['IdeaGallery']['url']) && $_POST['IdeaGallery']['url'] != $ideagallery){
+            $ideagallery = $this->uploadToGallery($idea->id, $_POST['IdeaGallery']['url'], $cover = true);
+        }
+
+        $this->render('createidea_4', array( 'idea' => $idea, 'idea_id' => $id, 'link' => $link, 'links' => $links, 'ideagallery' => $ideagallery ));
     }
 
 	public function addKeywords($idea_id, $language_id, $keywords){
@@ -885,6 +914,7 @@ class ProjectController extends GxController {
 
 		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
 		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $idea->id,'type_id'=>1));
+        $link_id = $_POST['id'];
 
 		if($idea && $hasPriviledges){
 
@@ -928,6 +958,9 @@ class ProjectController extends GxController {
 		$uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
 		$result = $uploader->handleUpload($folder);
 		$return = json_encode($result);
+
+        //add to galler as main image for cover project profile
+        $this->uploadToGallery($_SESSION['actionEditStep4-idea_id'], $result['filename'], 1);
 
 		echo $return; // it's array
 	}
