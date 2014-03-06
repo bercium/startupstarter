@@ -5,9 +5,9 @@
     </p>
     
     <?php if($candidate['id'] != 'new' && $candidate['id'] != '' && is_numeric($candidate['id'])){
-        echo CHtml::beginForm(Yii::app()->createUrl('project/edit',array('id'=>$idea_id,'step'=>2,'candidate'=>$candidate['id'])),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
+        echo CHtml::beginForm(Yii::app()->createUrl('project/edit',array('id'=>$idea_id,'step'=>3,'candidate'=>$candidate['id'])),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
       } else {
-        echo CHtml::beginForm(Yii::app()->createUrl('project/edit',array('id'=>$idea_id,'step'=>2,'candidate'=>'')),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
+        echo CHtml::beginForm(Yii::app()->createUrl('project/edit',array('id'=>$idea_id,'step'=>3,'candidate'=>'')),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
       } ?>
       
     <p>      
@@ -111,7 +111,7 @@
           ); 
         }?>
 
-    <a href="<?php echo Yii::app()->createUrl('project/edit',array('id'=>$idea_id, 'step'=>2)); ?>" class="button small secondary radius"><?php echo Yii::t("app","Cancel"); ?></a>
+    <a href="<?php echo Yii::app()->createUrl('project/edit',array('id'=>$idea_id, 'step'=>3)); ?>" class="button small secondary radius"><?php echo Yii::t("app","Cancel"); ?></a>
  
 <?php 
 
@@ -132,9 +132,9 @@ if(is_array($ideadata['candidate'])){
         <div class="edit-floater">
           
       <?php  
-        echo "<a class='button tiny radius' href='".Yii::app()->createUrl('project/edit',array('id'=>$idea_id, 'step'=>2, 'candidate'=>$value['match_id']))."'>".Yii::t('app',"Edit")."</a> ";
+        echo "<a class='button tiny radius' href='".Yii::app()->createUrl('project/edit',array('id'=>$idea_id, 'step'=>3, 'candidate'=>$value['match_id']))."'>".Yii::t('app',"Edit")."</a> ";
             
-        echo CHtml::link(Yii::t("app","Remove"),Yii::app()->createUrl('project/edit',array('id'=>$idea_id,'step'=>2,'delete_candidate'=>$value['match_id'])),
+        echo CHtml::link(Yii::t("app","Remove"),Yii::app()->createUrl('project/edit',array('id'=>$idea_id,'step'=>3,'delete_candidate'=>$value['match_id'])),
                   array('class'=>"button tiny alert radius",
                         'confirm'=>Yii::t("msg","You are about to remove this candidate!")."\n".Yii::t("msg","Are you sure?"),
                         'onclick'=>"$(document).stopPropagation();",

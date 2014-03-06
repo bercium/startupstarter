@@ -204,11 +204,11 @@ class ProjectController extends GxController {
                     $this->actionEditStep1($id);
                     break;
                 case 2:
-                    //2. korak - koga iščemo
+                    //3. korak - project info/story
                     $this->actionEditStep2($id);
                     break;
                 case 3:
-                    //3. korak - project info/story
+                    //2. korak - koga iščemo
                     $this->actionEditStep3($id);
                     break;
                 case 4:
@@ -248,7 +248,7 @@ class ProjectController extends GxController {
 
 	}
 
-	public function actionEditStep2($id){
+	public function actionEditStep3($id){
 
         //load idea data
         $idea_id = $id;
@@ -422,7 +422,7 @@ class ProjectController extends GxController {
 				setFlash('projectPositionMessage', Yii::t('msg',"Unable to save open position."),'alert');
 			}
 
-			$this->redirect(array('project/edit', 'id' => $id, 'step' => 2));
+			$this->redirect(array('project/edit', 'id' => $id, 'step' => 3));
 
 		}
 
@@ -443,7 +443,7 @@ class ProjectController extends GxController {
 				setFlash('projectPositionMessage', Yii::t('msg',"Could not delete open position."),'alert');
 			}
 
-			$this->redirect(array('project/edit', 'id' => $id,'step'=>2));
+			$this->redirect(array('project/edit', 'id' => $id,'step'=>3));
 		}
 
 		if(isset($_SESSION['Candidate']) && $candidate_in_edit){
@@ -453,30 +453,28 @@ class ProjectController extends GxController {
 		}
     }
 
-    public function actionEditStep3($id){
+    public function actionEditStep2($id){
 
         $idea = Idea::Model()->findByAttributes(array('id' => $id));
-        $translation = IdeaTranslation::Model()->findByAttributes(array('idea_id' => $id));
-        $language = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
+        $translation = IdeaTranslationStory::Model()->findByAttributes(array('idea_id' => $id));
 
-        if (isset($_POST['Idea']) AND isset($_POST['IdeaTranslation']))
+        if (isset($_POST['IdeaTranslationStory']))
         {
             $_POST['Idea']['time_updated'] = date("Y-m-d h:m:s",time());
             $idea->setAttributes($_POST['Idea']);
 
             //translation data
-            $translation->idea_id = $id; //dummy value, just for validation
-            $translation->setAttributes($_POST['IdeaTranslation']);
+            $translation->setAttributes($_POST['IdeaTranslationStory']);
 
             //validate models and save idea
             if ($translation->save() && $idea->save())
             {
                 setFlash('projectMessage', Yii::t('msg',"Project successfully edited."));
-                $this->redirect(array('project/edit', 'id' => $id, 'step' => 2));
+                $this->redirect(array('project/edit', 'id' => $id, 'step' => 3));
             }
         }
 
-        $this->render('createidea_1', array( 'idea' => $idea, 'idea_id' => $id, 'translation' => $translation, 'language' => $language ));
+        $this->render('createidea_3', array( 'idea' => $idea, 'idea_id' => $id, 'translation' => $translation ));
 
     }
 

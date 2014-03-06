@@ -15,8 +15,8 @@ $this->pageTitle = Yii::t('app', 'Create - step 2');
         </h3>
       <ul class="button-group radius">
          <li><a class="button tiny secondary">1.<?php echo Yii::t('app', 'Presentation'); ?></a></li>
-         <li><a class="button tiny">2.<?php echo Yii::t('app', 'Team'); ?></a></li>
-         <li><a class="button tiny secondary">3.<?php echo Yii::t('app', 'Story'); ?></a></li>
+         <li><a class="button tiny secondary">2.<?php echo Yii::t('app', 'Story'); ?></a></li>
+         <li><a class="button tiny ">3.<?php echo Yii::t('app', 'Team'); ?></a></li>
          <li><a class="button tiny secondary">4.<?php echo Yii::t('app', 'Extras'); ?></a></li>
         <li><a  class="button tiny secondary"><?php echo Yii::t('app',"You are done!");?></a></li>
       </ul>
@@ -26,7 +26,7 @@ $this->pageTitle = Yii::t('app', 'Create - step 2');
             <div class="left mb20">
                 <?php if (!isset($candidate)) { ?>
                     <a class="small button abtn secondary radius" style="margin-bottom:0;"
-                       href="<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 2, 'candidate' => 'new')); ?>">
+                       href="<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 3, 'candidate' => 'new')); ?>">
                         <?php echo Yii::t('app', 'Add new') ?>
                         <span class="icon-plus"></span>
                     </a>
@@ -53,7 +53,7 @@ $this->pageTitle = Yii::t('app', 'Create - step 2');
 
     if (!isset($_GET['candidate'])) {
         ?>
-            <a href="<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 3)); ?>" class="button large success radius right">
+            <a href="<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 4)); ?>" class="button large success radius right">
                 <?php echo Yii::t("app", "Next >>"); ?>
             </a>
         <?
