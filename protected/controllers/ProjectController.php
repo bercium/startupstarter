@@ -490,6 +490,7 @@ class ProjectController extends GxController {
         $data['idea'] = $sqlbuilder->load_array("idea", $filter, "member");
 
         //invites
+        $user = User::model()->findByPk(Yii::app()->user->id);
         $invites['data'] = Invite::model()->findAllByAttributes(array("idea_id"=>$id,"sender_id"=>Yii::app()->user->id),'NOT ISNULL(idea_id)');
 	    $invites['count'] = $user->invitations;
 
@@ -512,7 +513,7 @@ class ProjectController extends GxController {
         }
 
 
-        $this->render('createidea_4', array( 'idea' => $idea, 'idea_id' => $id, 'link' => $link, 'links' => $links, 'ideagallery' => $ideagallery, 'ideadata' => $idea['data'], 'invites' => $invites ));
+        $this->render('createidea_4', array( 'idea' => $idea, 'idea_id' => $id, 'link' => $link, 'links' => $links, 'ideagallery' => $ideagallery, 'ideadata' => $data['idea'], 'invites' => $invites ));
     }
 
 	public function addKeywords($idea_id, $language_id, $keywords){
