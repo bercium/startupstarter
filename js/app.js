@@ -124,18 +124,21 @@ $(function() {
 })(jQuery, this);
 
 
+var qrActive = false;
 function qrLoad(){
   //alert('d');
 //  $.get(Yii.app.createUrl("profile/suggestSkil",{ajax:1,term:'ski'}), function( data ) {
-  $.get("/startupstarter/profile/suggestSkill?ajax=1&term=ski", function( data ) {
-    id = 3;
-    $(".login-qrcode" ).html('<img src="https://chart.googleapis.com/chart?cht=qr&chld=M|0&chs=400&chl=www.cofinder.eu/qr/start?id='+id+'">');
-    $(".login-qrcode" ).everyTime('5s',function(i){qrCheck();},0);
+  if (qrActive) return;
+  $.get("/startupstarter/qr/create?ajax=1", function( id ) {
+    qrActive = true;
+    link = 'http://192.168.1.10/startupstarter/qr/scan?id='+id;
+    $(".login-qrcode" ).html('<hr>'+Yii.t('msg','Scan with phone to login')+'<br /><img src="https://chart.googleapis.com/chart?cht=qr&chld=M|0&chs=400&chl='+link+'">');
+    $(".login-qrcode" ).everyTime('1s',function(i){qrCheck(id);},0);
   });
 }
 
-function qrCheck(){
-  $.get("/startupstarter/profile/suggestSkill?ajax=1&term=ski", function( data ) {
+function qrCheck(id){
+  $.get("/startupstarter/qr/validate?ajax=1&id="+id, function( data ) {
     if (data) location.reload();
   });
 }
