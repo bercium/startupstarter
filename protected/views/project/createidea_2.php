@@ -13,7 +13,7 @@ $this->pageTitle = Yii::t('app', 'Create - step 2');
                 echo Yii::t('app', 'Open positions');
             } else echo Yii::t('app', 'New positions');?>
         </h3>
-      <ul class="button-group radius">
+      <ul class="button-group radius right mt10">
          <li><a class="button tiny secondary">1.<?php echo Yii::t('app', 'Presentation'); ?></a></li>
          <li><a class="button tiny secondary">2.<?php echo Yii::t('app', 'Story'); ?></a></li>
          <li><a class="button tiny ">3.<?php echo Yii::t('app', 'Team'); ?></a></li>
@@ -56,8 +56,7 @@ $this->pageTitle = Yii::t('app', 'Create - step 2');
             <a href="<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 4)); ?>" class="button large success radius right">
                 <?php echo Yii::t("app", "Next >>"); ?>
             </a>
-        <?
+        <?php
     } ?>
 
-    <?php echo CHtml::endForm(); ?>
 </div>

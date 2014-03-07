@@ -11,7 +11,7 @@ $this->pageTitle = Yii::t('app', 'Create - step 1');
             <?php echo Yii::t('app', 'Project presentation'); ?>
         </h3>
 
-        <ul class="button-group radius">
+        <ul class="button-group radius right mt10">
             <li><a class="button tiny">1.<?php echo Yii::t('app', 'Presentation'); ?></a></li>
             <li><a class="button tiny secondary">2.<?php echo Yii::t('app', 'Story'); ?></a></li>
             <li><a class="button tiny secondary">3.<?php echo Yii::t('app', 'Team'); ?></a></li>
