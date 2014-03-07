@@ -2,7 +2,8 @@
 $this->pageTitle = Yii::t('app', 'Edit - step 2');
 ?>
 <script>
-    var userSuggest_url = '<?php echo Yii::app()->createUrl("project/suggestUser",array("ajax"=>1)) ?>';
+  var userSuggest_url = '<?php echo Yii::app()->createUrl("project/suggestUser",array("ajax"=>1)) ?>';
+  var inviteMember_url = '<?php echo Yii::app()->createUrl("project/suggestUser",array("ajax"=>1)) ?>'; 
 </script>
 
 <div class="row createidea">

@@ -1,5 +1,11 @@
 <?php
 $this->pageTitle = Yii::t('app', 'Create - step 2');
+
+  $baseUrl = Yii::app()->baseUrl; 
+    $cs = Yii::app()->getClientScript();
+  
+    $cs->registerCssFile($baseUrl.'/css/tagmanager.css'.getVersionID());
+    $cs->registerScriptFile($baseUrl.'/js/tagmanager.js');
 ?>
 <script>
     var skillSuggest_url = '<?php echo Yii::app()->createUrl("profile/suggestSkill",array("ajax"=>1)) ?>';
@@ -38,6 +44,7 @@ $this->pageTitle = Yii::t('app', 'Create - step 2');
                 'ideadata' => $idea,
                 'idea_id' => $idea_id,
                 'candidate' => $candidate,
+                'collabprefs' => $collabprefs,
                 'match' => $match,
                 'buttons' => 'create'));
         } else {

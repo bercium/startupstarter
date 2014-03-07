@@ -31,9 +31,9 @@ class CSkills{
    * @param string $user_id - id of user to add/remove skills from
    * 
    */
-  public static function saveSkills($skills, $user_id) {
-    $userMatch = UserMatch::model()->findByAttributes(array('user_id'=>$user_id));
-    $match_id = $userMatch->id;
+  public static function saveSkills($skills, $match_id) {
+    //$userMatch = UserMatch::model()->findByAttributes(array('user_id'=>$user_id));
+    //$match_id = $userMatch->id;
     
     $prevSkills = UserSkill::model()->findAllByAttributes(array('match_id'=>$match_id));
     $newSkills = explode(",", $skills);

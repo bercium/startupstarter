@@ -402,8 +402,7 @@ class SqlBuilder {
 					"AND t.table = 'idea_status' ".
 					"AND t.language_id = {$filter['site_lang']} ".
 
-					"WHERE i.id = '{$filter['idea_id']}' ".
-					"AND i.deleted = 0 ";
+					"WHERE i.id = '{$filter['idea_id']}' ";
 
 		} elseif( $type == 'search' ){
 			$sql =	"SELECT i.*, ist.name AS status, t.translation AS status_translation FROM ".

@@ -151,7 +151,7 @@ class ProfileController extends GxController {
           
           
           //user skills
-          if (isset($_POST['hidden-skill'])) CSkills::saveSkills($_POST['hidden-skill'],$user_id);
+          if (isset($_POST['hidden-skill'])) CSkills::saveSkills($_POST['hidden-skill'],$match->id);
           
 					$user->setAttributes($_POST['UserEdit']);
 					//$user->avatar_link = '';

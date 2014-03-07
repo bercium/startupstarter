@@ -1,13 +1,13 @@
     
-    <?php if(isset($candidate['id'])){ ?>
+    <?php if(isset($candidate)){ ?>
     <p>
       <?php echo Yii::t('msg',"Fill out as many fields as possible to describe your perfect candidate. If you are not sure or you do not need some information, leave them blank.") ?>
     </p>
     
-    <?php if($candidate['id'] != 'new' && $candidate['id'] != '' && is_numeric($candidate['id'])){
-        echo CHtml::beginForm(Yii::app()->createUrl('project/edit',array('id'=>$idea_id,'step'=>3,'candidate'=>$candidate['id'])),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
+    <?php if($candidate != 'new' && $candidate != '' && is_numeric($candidate)){
+        echo CHtml::beginForm(Yii::app()->createUrl('project/edit',array('id'=>$idea_id,'step'=>3,'candidate'=>$candidate)),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
       } else {
-        echo CHtml::beginForm(Yii::app()->createUrl('project/edit',array('id'=>$idea_id,'step'=>3,'candidate'=>'')),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
+        echo CHtml::beginForm(Yii::app()->createUrl('project/edit',array('id'=>$idea_id,'step'=>3,'candidate'=>'new')),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
       } ?>
       
     <p>      
@@ -22,8 +22,8 @@
        <?php echo Yii::t('msg','What kind of Collaboration do you prefer when working on a project? Paid work - get paid for your work, Sweat equity - work for a share in a company, Equal investors - invest an equal sum of money, Sole investor – be the only investor, Volunteer - just want to help'); ?>
     </span>
       
-    <?php if(isset($candidate['collabpref'])){
-      foreach ($candidate['collabpref'] as $collabpref){ ?>
+    <?php if(isset($collabprefs)){
+      foreach ($collabprefs as $collabpref){ ?>
         <label for="CollabPref_<?php echo $collabpref['collab_id']; ?>"><?php echo CHtml::checkBox('CollabPref['.$collabpref['collab_id'].']',$collabpref['active'],array('style'=>'display:none')); ?>
          <?php echo $collabpref['name'] ?></label>
          <?php
@@ -45,59 +45,28 @@
     <?php echo CHtml::textArea("extraInformation"); ?>
     <?php //*/ ?> 
           
-    </p>
+    </p> 
 
-
-  <?php echo CHtml::endForm(); ?>   
+    <?php 
+    $skillList = '';
+    if(isset($idea['candidate'][$_GET['candidate']]['skill'])){
+      foreach (isset($idea['candidate'][$_GET['candidate']]['skill']) as $skill){
+          $skillList .= $skill['skill'].', ';
+        }}
+    //hidden-skill
+    ?>
     
-
-    <div class="addSkils">
-
-  
-          <?php $form=$this->beginWidget('CActiveForm', array(
-              'id'=>'SkillForm',
-//             'enableClientValidation'=>true,
-               'htmlOptions'=>array(
-                              'class'=>'custom',
-                              'onsubmit'=>"return false;",/* Disable normal form submit */
-                              //'onkeypress'=>" if(event.keyCode == 13){ addSkill('".Yii::app()->createUrl("profile/addSkill")."'); } " /* Do ajax call when user presses enter key */
-                              ),
-          )); ?>
-      
-    <?php echo '<label for="skill">'.Yii::t('app','Skill')."</label>";  ?> 
-    <span class="description" >
-       <?php echo Yii::t('msg','Name a skill your candidate should posses. You can write multiple skills for the same industry separating them with commas.'); ?>
-      <br />
-      <strong><?php echo Yii::t('msg','Only write the skills within the same industry. Later you can add more of them under the different industry.'); ?>
-      </strong>
+    <a id="link_skills" class="anchor-link"></a>
+    <label for="skill">
+    <?php echo Yii::t('app','Skills');  ?> 
+    </label>
+    <span class="description">
+      <?php echo Yii::t('msg','Name a skill your candidate should posses. You can write multiple skills for the same industry separating them with commas.'); ?>
     </span>
-    <?php echo CHtml::textField("skill","", array('maxlength' => 128,'class'=>'skill')); ?>
-  
-  
-    <?php echo CHtml::submitButton(Yii::t("app","Add skill"),
-                    array('class'=>"button small success radius",
-                        'onclick'=>'addSkill(\''.Yii::app()->createUrl("project/sAddSkill").'\');')
-                ); ?>
-    
-    <?php $this->endWidget(); ?>  
-  
-    </div>
-  
-    <div class="skillList">
-    <?php if(isset($candidate['skills']) && count($candidate['skills']) > 0){
-      foreach ($candidate['skills'] as $key => $skill){ 
-              ?>
-      <span data-alert class="label alert-box radius secondary profile-skils" id="skill_<?php echo $key; ?>">
-          <?php echo $skill."<br />"; ?>
-          <a href="#" class="close" onclick="removeSkill('<?php echo $key; ?>','<?php echo Yii::app()->createUrl("project/sDeleteSkill"); ?>')">&times;</a>
-     </span>
-    <?php }
-        } else {
-          //what happens when something is not a skill, but merely a skillset?
-          //is that even possible?
-          //!!!debug
-        } ?>
-    </div>
+    <input type="text" name="skill" placeholder="<?php echo Yii::t('app','short skill tags');  ?>" value="<?php echo $skillList; ?>" class="tm-input skill"/>
+    <br />
+
+      <?php echo CHtml::endForm(); ?>  
 
 <hr>
         <?php 
@@ -177,7 +146,7 @@ if(is_array($ideadata['candidate'])){
             </p>
              
            
-              <?php if (count($value['collabpref']) > 0) { ?>
+              <?php if (isset($value['collabpref']) && count($value['collabpref']) > 0) { ?>
                 <small class="meta">
                     <?php
                     $firsttime = true;

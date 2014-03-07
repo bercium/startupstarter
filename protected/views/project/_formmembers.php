@@ -1,7 +1,3 @@
-<script>
-  var userSuggest_url = '<?php echo Yii::app()->createUrl("project/suggestUser",array("ajax"=>1)) ?>';
-</script>
-
 <?php
 if(is_array($ideadata['member'])){
   foreach($ideadata['member'] AS $key => $member){

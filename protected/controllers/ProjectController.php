@@ -85,32 +85,6 @@ class ProjectController extends GxController {
     
 		$this->render('view', array('data' => $data,'lastMsg'=>$lastMsg));
 	}
-  
-  /**
-   * suggest members
-   */
-  public function actionSuggestMember($term){
-    
-    $dataReader = User::model()->findAll("(name LIKE :name OR surname LIKE :name) AND status = 1", array(":name"=>"%".$term."%"));
-
-    if ($dataReader){
-      foreach ($dataReader as $row){
-        $avatar = avatar_image($row->avatar_link,$row->id,60);
-        $data[] = array("fullname"=>$row->name." ".$row->surname,
-                        "user_id"=>$row->id,
-                        //"img"=>avatar_image($row->avatar_link,$row->id),
-                        "img"=>$avatar,
-                        );
-      }
-    }
-    
-    $response = array("data" => $data,
-												"status" => 0,
-												"message" => '');
-		
-		echo json_encode($response);
-		Yii::app()->end();
-  }
 
     public function actionCreate(){
 
@@ -119,10 +93,10 @@ class ProjectController extends GxController {
         $member = new IdeaMember;
         $language = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
 
-
         if (isset($_POST['Idea']) AND isset($_POST['IdeaTranslation']))
         {
             $_POST['Idea']['time_updated'] = date("Y-m-d h:m:s",time());
+            $_POST['Idea']['deleted'] = 2;
             $idea->setAttributes($_POST['Idea']);
 
             //translation data
@@ -253,66 +227,32 @@ class ProjectController extends GxController {
         $idea_id = $id;
         $filter['idea_id'] = $idea_id;
         $sqlbuilder = new SqlBuilder();
-        $data['idea'] = $sqlbuilder->load_array("idea", $filter, "translation_other,member,candidate,skill,industry,collabpref");
+        $data['idea'] = $sqlbuilder->load_array("idea", $filter, "candidate,skill,collabpref");
 
 		//candidate in edit reset
 		$candidate_in_edit = false;
-		if(!isset($_GET['candidate'])) $this->sessionReset('candidate');
 
-		//start new candidate session
+		//new candidate session
 		if( isset($_GET['candidate']) && $_GET['candidate'] == 'new' ){
 
-			$this->sessionReset('candidate');
-			$_SESSION['Candidate']['id'] = 'new';
-
 			$candidate_in_edit = true;
-
 			$match = new UserMatch();
+			
 			$collabprefs = new SqlBuilder;
 			$collabprefs = $collabprefs->load_array('collabpref_empty');
-			$_SESSION['Candidate']['collabpref'] = $collabprefs;
-		}
-
-		//new candidate session is open
-		if( isset($_GET['candidate']) && strlen($_GET['candidate']) == 0 ){
-			//just in case
-			if( !isset($_SESSION['Candidate']['id']) || !$_SESSION['Candidate']['id'] == 'new'){
-
-				$this->sessionReset('candidate');
-				$_SESSION['Candidate']['id'] = 'new';
-				$collabprefs = new SqlBuilder;
-				$collabprefs = $collabprefs->load_array('collabpref_empty');
-				$_SESSION['Candidate']['collabpref'] = $collabprefs;
-			}
-
-			$candidate_in_edit = true;
-			$match = new UserMatch();
 		}
 
 		//existent candidate session
 		if( isset($_GET['candidate']) && ($_GET['candidate'] != 'new' && $_GET['candidate'] != '' && is_numeric($_GET['candidate']))){
-			//load up session array if it doesn't exist yet
-			if( !isset($_SESSION['Candidate']['id']) || $_SESSION['Candidate']['id'] != $_GET['candidate']){
-
-				$this->sessionReset('candidate');
-				$_SESSION['Candidate']['id'] = $_GET['candidate'];
-
-				//load collabprefs
-				$collabprefs = new SqlBuilder();
-				$filter['match_id'] = $_SESSION['Candidate']['id'];
-				$collabprefs = $collabprefs->load_array('collabpref', $filter);
-				$_SESSION['Candidate']['collabpref'] = $collabprefs;
-
-				//load skills
-				if(isset($data['idea']['candidate'][$_GET['candidate']]['skill']) && count($data['idea']['candidate'][$_GET['candidate']]['skill']) > 0){
-					foreach($data['idea']['candidate'][$_GET['candidate']]['skill'] AS $key => $skill){
-						$_SESSION['Candidate']['skills'][$skill['skill']] = $skill['skill']; //id
-					}
-				}
-			}
 
 			$candidate_in_edit = true;
 			$match = UserMatch::Model()->findByAttributes(array('id' => $_GET['candidate']));
+
+			//load collabprefs
+			$collabprefs = new SqlBuilder();
+			$filter['match_id'] = $_GET['candidate'];
+			$collabprefs = $collabprefs->load_array('collabpref', $filter);
+			print_r($collabprefs);
 		}
 
 		//assign changes to currently edited candidate
@@ -336,14 +276,13 @@ class ProjectController extends GxController {
 			$match_saved = false;
 			if( isset($_GET['candidate']) && ($_GET['candidate'] != 'new' && $_GET['candidate'] != '' && is_numeric($_GET['candidate']))){
 
-				$match_id = $_SESSION['Candidate']['id'];		
+				$match_id = $_GET['candidate'];
 				$criteria=new CDbCriteria();
 				$criteria->addInCondition('type_id',array(3)); //candidate
 				$isMember = IdeaMember::Model()->findByAttributes(array('match_id' => $match_id, 'idea_id' => $idea_id), $criteria);
 
 				if($isMember){
 					UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
-					UserSkill::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
 				} else {
 					setFlash('projectPositionMessage', Yii::t('msg',"Wrong candidate ID supplied, could not update candidate."),'alert');
 				}
@@ -359,14 +298,14 @@ class ProjectController extends GxController {
 
 			//save idea_member
 			$ideamember_saved = false;
-			if($match_saved){
+			if($match_saved && $_GET['candidate'] == 'new'){
 				$ideaMember = new IdeaMember;
 				$ideaMember->idea_id = $idea_id;
 				$ideaMember->match_id = $match_id;
 				$ideaMember->type_id = 3;
 				if($ideaMember->save())
 					$ideamember_saved = true;
-			}
+			} else $ideamember_saved = true;
 
 			//collabprefs
 	        $c = 0;
@@ -383,40 +322,16 @@ class ProjectController extends GxController {
 	        }
 
 			//skills
-			$s = 0;
-			if(isset($_SESSION['Candidate']['skills']) && $match_saved && $ideamember_saved){
-				$s = count($_SESSION['Candidate']['skills']);
-				foreach($_SESSION['Candidate']['skills'] AS $key => $value){
-		            $skillsExtractor = new Keyworder;
-		            $skills = $skillsExtractor->string2array($value);
-
-		            foreach ($skills as $row){
-		              if ($row == '') continue; // if empty
-
-		              $skill = Skill::model()->findByAttributes(array("name"=>$row));
-		              $skill = new Skill;
-		              $skill->name = $row;
-		              if (!$skill->save()) $skill = Skill::model()->findByAttributes(array("name"=>$row));
-
-		              $user_skill = UserSkill::model()->findByAttributes(array("skill_id"=>$skill->id,
-		                                                                      "match_id"=>$match_id,));
-		              if ($user_skill == null){
-		                $user_skill = new UserSkill;
-		                $user_skill->skill_id = $skill->id;
-		                $user_skill->match_id = $match_id;
-
-		                if ($user_skill->save()) $s--;
-					  }
-					}
-				}
-			}
+			if (isset($_POST['hidden-skill']) && $match_saved && $ideamember_saved){
+				setFlash('projectPositionMessage', $_POST['hidden-skill']);
+				CSkills::saveSkills($_POST['hidden-skill'],$match_id);
+			} 
 
 			//check if it went okay
-			if ($c == 0 && $s == 0 && $match_saved && $ideamember_saved) {
+			if ($c == 0 && $match_saved && $ideamember_saved) {
 				setFlash('projectPositionMessage', Yii::t('msg',"Position successfully opened."));
 				//reset session
 				$candidate_in_edit = false;
-				$this->sessionReset('candidate');
 			}else{
 				setFlash('projectPositionMessage', Yii::t('msg',"Unable to save open position."),'alert');
 			}
@@ -445,8 +360,8 @@ class ProjectController extends GxController {
 			$this->redirect(array('project/edit', 'id' => $id,'step'=>3));
 		}
 
-		if(isset($_SESSION['Candidate']) && $candidate_in_edit){
-			$this->render('createidea_2', array( 'idea' => $data['idea'], 'idea_id' => $id, 'candidate' => $_SESSION['Candidate'], 'match' => $match ));
+		if(isset($_GET['candidate']) && $candidate_in_edit){
+			$this->render('createidea_2', array( 'idea' => $data['idea'], 'idea_id' => $id, 'candidate' => $_GET['candidate'], 'collabprefs' => $collabprefs, 'match' => $match ));
 		} else {
 			$this->render('createidea_2', array( 'idea' => $data['idea'], 'idea_id' => $id ));
 		}
@@ -664,7 +579,7 @@ class ProjectController extends GxController {
 	    }
 	    $this->redirect(Yii::app()->createUrl('profile/projects'));
 	}
-
+/*
 	//ajax functions
 	public function actionSAddSkill() {
 
@@ -725,7 +640,7 @@ class ProjectController extends GxController {
 			//not ajax stuff
 		}
 	}
-
+*/
 	public function actionAddLink($id, $post = false) {
 
 		if($post != false){
@@ -887,39 +802,6 @@ class ProjectController extends GxController {
 		return false;
 	}
 
-	public function sessionReset($type){
-
-		if($type == 'candidate'){
-			if(isset($_SESSION['Candidate']['collabprefs'])){
-				foreach($_SESSION['Candidate']['collabprefs'] as $key => $value){
-					unset($_SESSION['Candidate']['collabprefs'][$key]);
-				}
-				unset($_SESSION['Candidate']['collabprefs']);
-			}
-			if(isset($_SESSION['Candidate']['skills'])){
-				foreach($_SESSION['Candidate']['skills'] as $key => $value){
-					unset($_SESSION['Candidate']['skills'][$key]);
-				}
-				unset($_SESSION['Candidate']['skills']);
-			}
-			if(isset($_SESSION['Candidate']['id'])){
-				unset($_SESSION['Candidate']['id']);
-			}
-			if(isset($_SESSION['Candidate'])){
-				unset($_SESSION['Candidate']);
-			}		
-			
-		} elseif($type == 'idea'){
-			unset($_SESSION['IdeaCreated']);
-		} elseif($type == 'links'){
-			if(isset($_SESSION['Links'])){
-				foreach($_SESSION['Links'] as $key => $value){
-					unset($_SESSION['Links'][$key]);
-				}
-				unset($_SESSION['Links']);
-			}
-		}
-	}
   
   public function actionEmbed($id){
     $this->layout="//layouts/blank";
