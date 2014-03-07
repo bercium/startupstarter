@@ -49,8 +49,8 @@ class RegistrationController extends Controller
                 if($model->validate()/*&&$profile->validate()*/ && $isOK)
                 {
                     $soucePassword = $model->password;
-                    $model->activkey=UserModule::encrypting(microtime().$model->password);
                     $model->password=UserModule::createHash($model->password);
+                    $model->activkey=UserModule::encrypting(microtime().$model->password);
                     $model->verifyPassword=$model->password;
                     $model->superuser=0; //not admin
                     $model->status=(($invited)?User::STATUS_ACTIVE:User::STATUS_NOACTIVE);

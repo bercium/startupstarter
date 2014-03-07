@@ -157,9 +157,11 @@ class Controller extends CController
     if (Yii::app()->user->isGuest) $id = 'NULL';
     else $id = "'".Yii::app()->user->id."'";
     
-    $sql = 'INSERT INTO action_log VALUES (\'NULL\','.$id.',\''.$_SERVER['REMOTE_ADDR'].'\',\''.date("Y-m-d H:i:s").'\',\''.$this->getId().'\',\''.$this->getAction()->getId().'\',\''.'\')';
-    $command = Yii::app()->db->createCommand($sql);
-    $command->execute();
+    if (!(($this->getId() == 'qr') && ($this->getAction()->getId() == 'validate'))){
+      $sql = 'INSERT INTO action_log VALUES (\'NULL\','.$id.',\''.$_SERVER['REMOTE_ADDR'].'\',\''.date("Y-m-d H:i:s").'\',\''.$this->getId().'\',\''.$this->getAction()->getId().'\',\''.'\')';
+      $command = Yii::app()->db->createCommand($sql);
+      $command->execute();
+    }
   }
 
 }

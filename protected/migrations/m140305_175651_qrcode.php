@@ -15,7 +15,8 @@ class m140305_175651_qrcode extends CDbMigration
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
 
     $this->execute("ALTER TABLE `qr_login` ADD CONSTRAINT `qr_login_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;");
-  
+    $this->execute("ALTER TABLE `user` ADD `qrcode` VARCHAR( 128 ) NULL DEFAULT NULL AFTER `activkey` ");
+    
 	}
 
 	public function down()
