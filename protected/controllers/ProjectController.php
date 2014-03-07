@@ -483,6 +483,15 @@ class ProjectController extends GxController {
 
         //idea object
         $idea = Idea::Model()->findByAttributes(array('id' => $id));
+        $sqlbuilder = new SqlBuilder();
+
+        //members
+        $filter['idea_id'] = $id;
+        $data['idea'] = $sqlbuilder->load_array("idea", $filter, "member");
+
+        //invites
+        $invites['data'] = Invite::model()->findAllByAttributes(array("idea_id"=>$id,"sender_id"=>Yii::app()->user->id),'NOT ISNULL(idea_id)');
+	    $invites['count'] = $user->invitations;
 
         //links placeholder
         $link = new IdeaLink;
@@ -502,7 +511,8 @@ class ProjectController extends GxController {
             $ideagallery = '';
         }
 
-        $this->render('createidea_4', array( 'idea' => $idea, 'idea_id' => $id, 'link' => $link, 'links' => $links, 'ideagallery' => $ideagallery ));
+
+        $this->render('createidea_4', array( 'idea' => $idea, 'idea_id' => $id, 'link' => $link, 'links' => $links, 'ideagallery' => $ideagallery, 'ideadata' => $idea['data'], 'invites' => $invites ));
     }
 
 	public function addKeywords($idea_id, $language_id, $keywords){
@@ -521,7 +531,7 @@ class ProjectController extends GxController {
           $keyword->save();
 		}
 	}
-
+/*
 	public function actionTranslate($id) {
 
 		//general layout
@@ -624,7 +634,7 @@ class ProjectController extends GxController {
 			}
 		}
 	}
-
+*/
 	public function actionDeleteIdea($id) {
 		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
 		
@@ -713,143 +723,6 @@ class ProjectController extends GxController {
 		} else {
 			//not ajax stuff
 		}
-	}
-
-	public function actionAddMember($id) {
-
-		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-
-		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
-		$criteria=new CDbCriteria();
-		$criteria->addInCondition('type_id',array(1)); //owner
-		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
-
-		if($idea && $hasPriviledges){
-
-			$member = new IdeaMember;
-
-			if (isset($_POST['IdeaMember'])) {
-
-				$_POST['IdeaMember']['idea_id'] = $id;
-
-				$match = UserMatch::Model()->findByAttributes( array( 'user_id' => $_POST['IdeaMember']['user_id'] ) );
-				$_POST['IdeaMember']['idea_id'] = $id;
-				$_POST['IdeaMember']['match_id'] = $match->id;
-				$_POST['IdeaMember']['type_id'] = '2'; //HARDCODED MEMBER
-
-				$exists = IdeaMember::Model()->findByAttributes( array( 'match_id' => $match->id, 'idea_id' => $id ) );
-				if(!$exists){
-
-					$member->setAttributes($_POST['IdeaMember']);
-
-					if ($member->save()) {
-						$return['status'] = 0;
-
-						$time_updated = new TimeUpdated;
-						$time_updated->idea($id);
-					} else {
-						$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to add a new member to the project.");
-						$return['status'] = 1;
-					}
-					
-					if(isset($_GET['ajax'])){
-						$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
-						echo $return; //return array
-						Yii::app()->end();
-					}					
-				}
-			}
-		}
-	}
-
-	public function actionDeleteMember($id, $user_id) {
-		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
-
-		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
-		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id,'type_id'=>1));
-
-		if($idea && $hasPriviledges){
-			$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
-			$member = IdeaMember::Model()->findByAttributes( array( 'match_id' => $match->id, 'idea_id' => $id ) );
-
-			if($member->delete()){
-				$return['status'] = 0;
-
-        $idea->time_updated = date('Y-m-d H:i:s');
-        $idea->save();
-				//$time_updated = new TimeUpdated;
-				//$time_updated->idea($id);
-        //setFlash("projectMessage", Yii::t('msg','Member removed from the project'));
-        setFlash('projectMessage', Yii::t('msg','Member removed from the project'));
-			} else {
-				$return['message'] = Yii::t('msg', "Oops! Something went wrong. Unable to remove member from the project.");
-				$return['status'] = 1;
-			}
-			
-			if(isset($_GET['ajax'])){
-				$return = htmlspecialchars(json_encode($return), ENT_NOQUOTES);
-				echo $return; //return array
-				Yii::app()->end();
-			} else {
-        $this->redirect(Yii::app()->request->urlReferrer);
-	           	//not ajax stuff
-			}
-		}else throw new CHttpException(400, Yii::t('msg', 'Your request is invalid.'));
-	}
-
-	//used before the idea is created
-	public function actionSAddLink() {
-		//check for permission
-		$user_id = Yii::app()->user->id;
-
-		//idea does not exist yet, no use in checking anything
-
-		//status
-		$status = 1;
-
-		if (!empty($_POST['IdeaLink']['title']) && !empty($_POST['IdeaLink']['url'])) {
-
-			$key = $_POST['IdeaLink']['url'];
-
-			if(!isset($_SESSION['Links'][$key])){
-
-				$_SESSION['Links'][$key] = $_POST['IdeaLink']['title']; //url -> title
-				$status = 0;
-			} else $status = 1;
-		}
-
-		if($status == 0){
-			$response = array("data" => array("title" => $_POST['IdeaLink']['title'],
-			                                "id" => $key,
-			                                "location" => Yii::app()->createUrl("project/sDeleteLink"),
-			                                "url" => $key,
-			                                "session" => addslashes(serialize($_SESSION)),
-                                      "multi" => 1
-			                ),
-			"status" => 0,
-			"message" => "");
-		} else {
-			$response = array("data" => null,
-							"status" => 1,
-							"message" => Yii::t('msg', "Problem saving link. Please check fields for correct values."));
-		}
-    	echo json_encode($response);
-    	Yii::app()->end();
-	}
-	//used before the idea is created
-	public function actionSDeleteLink() {
-		if (isset($_SESSION['Links'][$_POST['id']])){
-			unset($_SESSION['Links'][$_POST['id']]);
-			$return['message'] = $_POST['id'];
-			$return['status'] = 0;
-		} else {
-			$return['message'] = Yii::t('msg', "Unable to remove link.");
-			$return['status'] = 1;
-		}
-
-			$return = json_encode($return);
-			echo $return; //return array
-			Yii::app()->end();
 	}
 
 	public function actionAddLink($id, $post = false) {
@@ -980,7 +853,7 @@ class ProjectController extends GxController {
 
 			if (rename($filename, $newFilePath . $newFileName)) {
 				// make a thumbnail for avatar
-				Yii::import("ext.EPhpThumb.EPhpThumb");
+/*				Yii::import("ext.EPhpThumb.EPhpThumb");
 				$thumb = new EPhpThumb();
 				$thumb->init(); //this is needed
 				$thumb->create($newFilePath . $newFileName)
@@ -992,7 +865,7 @@ class ProjectController extends GxController {
 				$thumb->create($newFilePath . $newFileName)
 								->resize(150, 150)
 								->save($newFilePath . "thumb_150_" . $newFileName);
-
+*/
 				//insert
 				$idea_gallery = new IdeaGallery;
 				$idea_gallery->cover = 0;

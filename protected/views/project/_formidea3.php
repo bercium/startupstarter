@@ -23,8 +23,3 @@ echo CHtml::activeLabelEx($translation, 'description'); ?>
     <!--        <label for="description_public_1" onclick="">--><?php //echo Yii::t('app', 'On'); ?><!--</label>-->
     <!--        <span></span>-->
     <!--    </div>-->
-
-<?php echo CHtml::submitButton(Yii::t("app", "Next >>"),
-    array('class' => "button large success radius right mt10")
-); ?>
-<?php echo CHtml::endForm(); ?>

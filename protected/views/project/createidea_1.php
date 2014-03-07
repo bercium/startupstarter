@@ -12,11 +12,11 @@ $this->pageTitle = Yii::t('app', 'Create - step 1');
         </h3>
 
         <ul class="button-group radius right mt10">
-            <li><a class="button tiny">1.<?php echo Yii::t('app', 'Presentation'); ?></a></li>
-            <li><a class="button tiny secondary">2.<?php echo Yii::t('app', 'Story'); ?></a></li>
-            <li><a class="button tiny secondary">3.<?php echo Yii::t('app', 'Team'); ?></a></li>
-            <li><a class="button tiny secondary">4.<?php echo Yii::t('app', 'Extras'); ?></a></li>
-            <li><a class="button tiny secondary"><?php echo Yii::t('app', "You are done!"); ?></a></li>
+            <li><a class="button tiny">1. <?php echo Yii::t('app', 'Presentation'); ?></a></li>
+            <li><a class="button tiny secondary">2. <?php echo Yii::t('app', 'Story'); ?></a></li>
+            <li><a class="button tiny secondary">3. <?php echo Yii::t('app', 'Team'); ?></a></li>
+            <li><a class="button tiny secondary">4. <?php echo Yii::t('app', "You are done!"); ?></a></li>
+
         </ul>
     </div>
     <div class="columns panel edit-content">

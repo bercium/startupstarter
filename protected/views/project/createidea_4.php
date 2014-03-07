@@ -21,6 +21,12 @@ $this->pageTitle = Yii::t('app', 'Edit - step 2');
     </div>
     <div class="columns panel edit-content">
         <?php
+        $this->renderPartial('_formmembers', array(
+            'ideadata' => $ideadata,
+            'invitees' => $invites));
+        ?>
+
+        <?php
         $this->renderPartial('_addlink', array(
             'link' => $link,
             'links' => $links,

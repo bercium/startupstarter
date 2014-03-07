@@ -26,3 +26,8 @@ $this->pageTitle = Yii::t('app', 'Edit - step 2');
             'buttons' => 'create'));
         ?>
     </div>
+
+    <?php echo CHtml::submitButton(Yii::t("app", "Next >>"),
+    array('class' => "button large success radius right mt10")
+); ?>
+<?php echo CHtml::endForm(); ?>
