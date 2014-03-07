@@ -114,6 +114,7 @@ $(function() {
     height: '250px'
   });
   
+  $.scrollDepth();
   
 })(jQuery, this);
 
