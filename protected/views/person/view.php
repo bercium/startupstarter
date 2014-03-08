@@ -427,7 +427,7 @@ else {
               </div>   
 
               <div class="large-10 columns about-me"  >
-                <p class="meta-field">
+                <p class="f-small">
                     <?php echo strip_tags($user['bio']); ?>
                 </p>      
               </div>

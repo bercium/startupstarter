@@ -3,10 +3,7 @@
   
   $baseUrl = Yii::app()->baseUrl; 
     $cs = Yii::app()->getClientScript();
-  
-    
-    
-    
+
     $cs->registerCssFile($baseUrl.'/css/tagmanager.css');
     $cs->registerScriptFile($baseUrl.'/js/tagmanager.js');
 ?>

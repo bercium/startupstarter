@@ -111,7 +111,7 @@ class ProfileController extends GxController {
     if (Yii::app()->user->isGuest && isset($_GET['key']) && isset($_GET['email']) && !empty($_GET['key']) && !empty($_GET['email'])){
       $user_register = User::model()->notsafe()->findByAttributes(array('email'=>$_GET['email']));    
       if ((substr($user_register->activkey, 0, 10) !== $_GET['key']) || ($user_register->status != 0)){
-        $this->render('/site/message',array('title'=>Yii::t('app','Registration finished'),"content"=>Yii::t('msg','Thank you for your registration. Please check your email for confirmation code.')));
+        $this->render('/site/message',array('title'=>Yii::t('app','Registration finished'),"content"=>Yii::t('msg','Thank you for your registration.')));
         return;
       }
       $user_id = $user_register->id;
@@ -246,8 +246,9 @@ class ProfileController extends GxController {
           }
           
           if (($c == 0) && ($match->save())) {
-            if (Yii::app()->user->isGuest) setFlash('profileMessage', Yii::t('msg',"Profile details saved. We will let you know when your account is activated."));
-            else setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
+            //if (Yii::app()->user->isGuest) 
+            setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
+            //else setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
             $c = new Completeness();
             $c->setPercentage($user_id);
           }else{
@@ -262,7 +263,9 @@ class ProfileController extends GxController {
         
 				if (Yii::app()->user->isGuest){
           $data['user'] = $sqlbuilder->load_array("regflow", $filter);
-          $this->render('registrationFlow', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link));
+          if (isset($_GET['step'])){
+            $this->render('registrationFlow_'.$_GET['step'], array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link));
+          }else $this->render('registrationFlow_1', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link));
         }
         else {
           $data['user'] = $sqlbuilder->load_array("user", $filter, "collabpref,link,idea,member,skill,industry");
@@ -732,6 +735,7 @@ class ProfileController extends GxController {
       $this->render('/site/message',array('title'=>Yii::t('app','Registration finished'),"content"=>Yii::t('msg','Thank you for your registration. Please check your email for confirmation code.')));
       return;
     }
+    
     if ($user){
     //mark user but not as member yet
      //Yii::import('application.helpers.Hashids');

@@ -1,5 +1,5 @@
 <?php 
-  $this->pageTitle = Yii::t('app', 'Thanks, your account is pending confirmation');
+  $this->pageTitle = Yii::t('app', 'Thanks! Now show off yourself!');
 ?>
 
 <script>
@@ -9,24 +9,22 @@
 </script>
 
 
-<p>
 
-  <?php echo Yii::t('msg','We are really happy you have decided to join our community. We strive to offer high quality profiles and project. This is why we decide on per person basis if we approve your registration or not.'); ?>
-  <br /><br />
-  
+  <ul class="button-group radius left">
+    <?php $step = 1; if (isset($_GET['step'])) $step = $_GET['step']; ?>
+    <li><a class="button tiny <?php if ($step != 1) echo "secondary"; ?>" href="<?php echo Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>1)); ?>">1. <?php echo Yii::t('app','Personal'); ?></a></li>
+    <li><a class="button tiny <?php if ($step != 2) echo "secondary"; ?>" href="<?php echo Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>2)); ?>">2. <?php echo Yii::t('app','Skills'); ?></a></li>
+    <li><a class="button tiny <?php if ($step != 3) echo "secondary"; ?>" href="<?php echo Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>3)); ?>">3. <?php echo Yii::t('app','Done'); ?></a></li>
+  </ul>
 
-  
-  <strong>
-    <?php echo Yii::t('msg','We will decide based on folowing form:'); ?>
-  </strong>
-  
-    
-</p>
+<hr>
+<br />
 
 
 <br />
 
-  <?php echo CHtml::beginForm('','post',array('class'=>"custom",'id'=>'after_register_form')); ?>
+  <?php echo CHtml::beginForm(Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>4)),'post',array('class'=>"custom",'id'=>'after_register_form')); ?>
+  
   <p>
 
   <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
@@ -193,8 +191,7 @@
     <?php $this->endWidget(); ?>     
 
     
-    <hr>
-    <?php echo CHtml::button(Yii::t("app","Save your profile"),
-      array('class'=>"button small success radius",'onclick'=>"$('#after_register_form').submit();")
-      ); ?>
 
+    <?php echo CHtml::button(Yii::t("app","Finish"),
+      array('class'=>"button success radius right",'onclick'=>"$('#after_register_form').submit();")
+      ); ?>
