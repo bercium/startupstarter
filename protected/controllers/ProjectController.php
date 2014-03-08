@@ -123,29 +123,29 @@ class ProjectController extends GxController {
                 $translation->idea_id = $idea->id;
 
                 if ($translation->save() && $member->save()){
-                    //set session and go to step 2
-                    $_SESSION['IdeaCreated'] = $idea->id;
-                }
+                    //go to step 2
+                    setFlash('projectMessage', Yii::t('msg',"Project successfully saved."));
 
-                setFlash('projectMessage', Yii::t('msg',"Project successfully saved."));
+	                // send message to our email when
+	                $message = new YiiMailMessage;
+	                $message->view = 'system';
+	                $message->subject = "New project created on Cofinder";
+	                $message->from = Yii::app()->params['adminEmail'];
 
+	                $content_self = "New project named ".$translation->title.'. '.
+	                    '<br />To check project <a href="'.Yii::app()->createAbsoluteUrl('/project/view',array('id'=>$idea->id)).'">click here</a>.';
 
-                // send message to our email when
-                $message = new YiiMailMessage;
-                $message->view = 'system';
-                $message->subject = "New project created on Cofinder";
-                $message->from = Yii::app()->params['adminEmail'];
+	                $message->setBody(array("content"=>$content_self), 'text/html');
+	                //$message->setTo("team@cofinder.eu");
+	                $message->to = Yii::app()->params['teamEmail'];
+	                Yii::app()->mail->send($message);
 
-                $content_self = "New project named ".$translation->title.'. '.
-                    '<br />To check project <a href="'.Yii::app()->createAbsoluteUrl('/project/view',array('id'=>$idea->id)).'">click here</a>.';
-
-                $message->setBody(array("content"=>$content_self), 'text/html');
-                //$message->setTo("team@cofinder.eu");
-                $message->to = Yii::app()->params['teamEmail'];
-                Yii::app()->mail->send($message);
-
-                //redirect
-                $this->redirect(array('project/edit', 'id' => $idea->id, 'step' => 2));
+	                //redirect
+	                $this->redirect(array('project/edit', 'id' => $idea->id, 'step' => 2));
+                } else {
+                	setFlash('projectMessage', Yii::t('msg',"Unable to create a project."),'alert');
+            	}
+    
             } else {
                 setFlash('projectMessage', Yii::t('msg',"Unable to create a project."),'alert');
             }
@@ -168,6 +168,17 @@ class ProjectController extends GxController {
             $criteria=new CDbCriteria();
             $criteria->addInCondition('type_id',array(1, 2)); //owner
             $hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $id), $criteria);
+
+            //publish/unpublish
+            if(isset($_GET['publish']) && $_GET['publish'] == 1) {
+            	$idea = Idea::Model()->findByAttributes(array('id' => $id));
+            	$idea->deleted = 0;
+            	$idea->save();
+            } elseif(isset($_GET['publish']) && $_GET['publish'] == 0) {
+            	$idea = Idea::Model()->findByAttributes(array('id' => $id));
+            	$idea->deleted = 2;
+            	$idea->save();
+            }
 
             //TO-DO
             //no permission to edit projects idea - add response text
@@ -221,9 +232,35 @@ class ProjectController extends GxController {
 
 	}
 
+    public function actionEditStep2($id){
+
+        $idea = Idea::Model()->findByAttributes(array('id' => $id));
+        $translation = IdeaTranslationStory::Model()->findByAttributes(array('idea_id' => $id));
+
+        if (isset($_POST['IdeaTranslationStory']))
+        {
+            $_POST['Idea']['time_updated'] = date("Y-m-d h:m:s",time());
+            $idea->setAttributes($_POST['Idea']);
+
+            //translation data
+            $translation->setAttributes($_POST['IdeaTranslationStory']);
+
+            //validate models and save idea
+            if ($translation->save() && $idea->save())
+            {
+                setFlash('projectMessage', Yii::t('msg',"Project successfully edited."));
+                $this->redirect(array('project/edit', 'id' => $id, 'step' => 3));
+            }
+        }
+
+        $this->render('createidea_3', array( 'idea' => $idea, 'idea_id' => $id, 'translation' => $translation ));
+
+    }
+
 	public function actionEditStep3($id){
 
         //load idea data
+        $idea = Idea::Model()->findByAttributes(array('id' => $id));
         $idea_id = $id;
         $filter['idea_id'] = $idea_id;
         $sqlbuilder = new SqlBuilder();
@@ -361,35 +398,10 @@ class ProjectController extends GxController {
 		}
 
 		if(isset($_GET['candidate']) && $candidate_in_edit){
-			$this->render('createidea_2', array( 'idea' => $data['idea'], 'idea_id' => $id, 'candidate' => $_GET['candidate'], 'collabprefs' => $collabprefs, 'match' => $match ));
+			$this->render('createidea_2', array( 'idea' => $idea, 'ideadata' => $data['idea'], 'idea_id' => $id, 'candidate' => $_GET['candidate'], 'collabprefs' => $collabprefs, 'match' => $match ));
 		} else {
-			$this->render('createidea_2', array( 'idea' => $data['idea'], 'idea_id' => $id ));
+			$this->render('createidea_2', array( 'idea' => $idea, 'ideadata' => $data['idea'], 'idea_id' => $id ));
 		}
-    }
-
-    public function actionEditStep2($id){
-
-        $idea = Idea::Model()->findByAttributes(array('id' => $id));
-        $translation = IdeaTranslationStory::Model()->findByAttributes(array('idea_id' => $id));
-
-        if (isset($_POST['IdeaTranslationStory']))
-        {
-            $_POST['Idea']['time_updated'] = date("Y-m-d h:m:s",time());
-            $idea->setAttributes($_POST['Idea']);
-
-            //translation data
-            $translation->setAttributes($_POST['IdeaTranslationStory']);
-
-            //validate models and save idea
-            if ($translation->save() && $idea->save())
-            {
-                setFlash('projectMessage', Yii::t('msg',"Project successfully edited."));
-                $this->redirect(array('project/edit', 'id' => $id, 'step' => 3));
-            }
-        }
-
-        $this->render('createidea_3', array( 'idea' => $idea, 'idea_id' => $id, 'translation' => $translation ));
-
     }
 
     public function actionEditStep4($id){

@@ -49,8 +49,8 @@
 
     <?php 
     $skillList = '';
-    if(isset($idea['candidate'][$_GET['candidate']]['skill'])){
-      foreach (isset($idea['candidate'][$_GET['candidate']]['skill']) as $skill){
+    if(isset($ideadata['candidate'][$_GET['candidate']]['skill'])){
+      foreach (isset($ideadata['candidate'][$_GET['candidate']]['skill']) as $skill){
           $skillList .= $skill['skill'].', ';
         }}
     //hidden-skill
