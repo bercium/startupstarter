@@ -36,53 +36,76 @@ class QrController extends Controller
 		);
 	}
   
+  /**
+   * create code
+   */
 	public function actionCreate() {
-    $qr = new QrLogin();
-    $qr->save();
-    echo $qr->id;
+    $qrLogin = new QrLogin();
+    $qrLogin->save();
+    
+    $hashids = new Hashids('cofinder');
+    echo $hashids->encrypt_hex($qrLogin->id);
     Yii::app()->end();
 	}
   
-	public function actionValidate($id) {
-    $qr = QrLogin::model()->findByPk($id);
+  
+  /**
+   * check validity
+   */
+	public function actionValidate($qr) {
+    $hashids = new Hashids('cofinder');
+    $id = $hashids->decrypt_hex($qr);
+
+    $qrLogin = QrLogin::model()->findByPk($id);
+    if (!$qrLogin){
+      echo false;
+      return;
+    }
     
     // code has expired
-    $td = timeDifference(time(), $qr->create_at,'minutes_total');
+    $td = timeDifference(time(), $qrLogin->create_at,'minutes_total');
     if ($td >= 5){
       echo false;
       return;
     }
     
     // check code
-    if ($qr && $qr->user_id){
-      $identity=new UserIdentity($qr->user->email,$qr->user->password);
+    if ($qrLogin && $qrLogin->user_id){
+      $identity=new UserIdentity($qrLogin->user->email,$qrLogin->user->password);
       $identity->qrcode = true;
       if ($identity->authenticate()) Yii::app()->user->login($identity);
       
-      $this->log('validate',$qr->user_id);
+      $this->log('qr','validate',$qrLogin->user_id);
       
-      $qr->delete(); // one time use
+      $qrLogin->delete(); // one time use
       echo true;
     }else echo false;
     Yii::app()->end();
 	}
 
-	public function actionScan($id) {
-    $qr = QrLogin::model()->findByPk($id);
+  /**
+   * scann the code
+   */
+	public function actionScan($qr) {
     
-    if (!$qr || $qr->user_id){
-      $this->render('//site/message',array("title"=>Yii::t('msg','Problem scaning code'),"content"=>Yii::t('msg','Something went wrong while scaning the code!<br /> Please refresh the page and rescan the code.')));
+    $hashids = new Hashids('cofinder');
+    $id = $hashids->decrypt_hex($qr);
+    
+    $qrLogin = QrLogin::model()->findByPk($id);
+    
+    if (!$qrLogin || $qrLogin->user_id){
+      $this->render('//site/message',array("title"=>Yii::t('msg','Problem scaning code'),"content"=>Yii::t('msg','1Something went wrong while scaning the code!<br /> Please refresh the page and rescan the code.')));
       return;
     }
 
-    $this->log('scan');
+    $this->log('qr','scan');
 
     // check validity of token (5min)
-    $td = timeDifference(time(), $qr->create_at,'minutes_total');
+    $td = timeDifference(time(), $qrLogin->create_at,'minutes_total');
     if ($td < 5){
-      if ($qr->user_id == null && $qr->scan_at == null){
-        $qr->scan_at = date('Y-m-d H:i:s');
-        $qr->save();
+      if ($qrLogin->user_id == null && $qrLogin->scan_at == null){
+        $qrLogin->scan_at = date('Y-m-d H:i:s');
+        $qrLogin->save();
       }
       
       // has cookie auto login
@@ -91,20 +114,20 @@ class QrController extends Controller
         $usr = User::model()->findByAttributes(array('qrcode'=>$code));
         
         if ($usr){
-          $qr->user_id = $usr->id;
-          $qr->save();
+          $qrLogin->user_id = $usr->id;
+          $qrLogin->save();
           // user found
           $this->render('//site/message',array('title'=>Yii::t('msg','Loged in'),"content"=>Yii::t('msg','You should be loged in shortly.')));
         }else{
           // no user
           unset(Yii::app()->request->cookies['mblg']);
-          $this->render('//site/message',array("title"=>Yii::t('msg','Problem scaning code'),"content"=>Yii::t('msg','sssSomething went wrong while scaning the code!<br /> Please refresh the page and rescan the code.')));
+          $this->render('//site/message',array("title"=>Yii::t('msg','Problem scaning code'),"content"=>Yii::t('msg','2Something went wrong while scaning the code!<br /> Please refresh the page and rescan the code.')));
         }
         return;
       }
      
       // go to login form and login from phone
-      $this->redirect(Yii::app()->createUrl("qr/login",array("id"=>$id)));
+      $this->redirect(Yii::app()->createUrl("qr/login",array("qr"=>$qr)));
     }
     else{
       $this->render('//site/message',array('title'=>Yii::t('msg','Code expired'),"content"=>Yii::t('msg','The code has expired!<br /> Please refresh the page and rescan the code.')));
@@ -115,14 +138,20 @@ class QrController extends Controller
   }
   
   
-	public function actionLogin($id) {
-    $qr = QrLogin::model()->findByPk($id);
-    if (!$qr || $qr->user_id){
-      $this->render('//site/message',array("title"=>Yii::t('msg','Problem scaning code'),"content"=>Yii::t('msg','Something went wrong while scaning the code!<br /> Please refresh the page and rescan the code.')));
+  /**
+   * login user if not already
+   */
+	public function actionLogin($qr) {
+    $hashids = new Hashids('cofinder');
+    $id = $hashids->decrypt_hex($qr);
+    
+    $qrLogin = QrLogin::model()->findByPk($id);
+    if (!$qrLogin || $qrLogin->user_id){
+      $this->render('//site/message',array("title"=>Yii::t('msg','Problem scaning code'),"content"=>Yii::t('msg','3Something went wrong while scaning the code!<br /> Please refresh the page and rescan the code.')));
       return;
     }
     // check validity of token (5min)
-    $td = timeDifference(time(), $qr->create_at,'minutes_total');
+    $td = timeDifference(time(), $qrLogin->create_at,'minutes_total');
     if ($td >= 5){
       $this->render('//site/message',array('title'=>Yii::t('msg','Code expired'),"content"=>Yii::t('msg','The code has expired!<br /> Please refresh the page and rescan the code.')));
       return;
@@ -139,12 +168,14 @@ class QrController extends Controller
         if ($identity->authenticate()){
           $user = User::model()->findByAttributes(array('email'=>$model->username));
           
+          //qr code set
           $code = UserModule::encrypting(microtime().$model->username);
           $user->qrcode = $code; //set code
           $user->save();
           
-          $qr->user_id = $user->id;
-          $qr->save();
+          //user
+          $qrLogin->user_id = $user->id;
+          $qrLogin->save();
           
           Yii::app()->request->cookies['mblg'] = new CHttpCookie('mblg', $code, 
                             array(//'domain'=>'.cofinder.eu',
@@ -161,16 +192,5 @@ class QrController extends Controller
     
     $this->render('login',array("model"=>$model));
 	}
-  
-  
-  private function log($action, $user_id = null){
-    $log = new ActionLog();
-    $log->action = $action;
-    $log->controller = 'qr';
-    $log->ipaddress = $_SERVER['REMOTE_ADDR'];
-    $log->user_id = $user_id;
-    $log->logtime = date("Y-m-d H:i:s");
-    $log->save();
-  }
   
 }

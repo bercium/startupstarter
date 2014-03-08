@@ -64,7 +64,7 @@ class User extends BaseUser
 			array('superuser', 'in', 'range'=>array(0,1)),
       array('create_at', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
       array('lastvisit_at', 'default', 'value' => '0000-00-00 00:00:00', 'setOnEmpty' => true, 'on' => 'insert'),
-      array('activkey, superuser, status, surname, address, avatar_link, language_id, newsletter', 'default', 'setOnEmpty' => true, 'value' => null),
+      array('activkey, superuser, status, surname, address, avatar_link, language_id, newsletter,qrcode', 'default', 'setOnEmpty' => true, 'value' => null),
       array('invitations', 'default', 'setOnEmpty' => true, 'value' => '0'),
 			array('password, email, create_at, name', 'required'),
 			array('superuser, status, language_id, newsletter, invitations', 'numerical', 'integerOnly'=>true),
@@ -126,7 +126,8 @@ class User extends BaseUser
 			'newsletter' => Yii::t('app', 'Newsletter'),
       'invitations' => Yii::t('app', 'Invitations'),
 			'bio' => Yii::t('app', 'Personal pitch'),
-      'vanityURL' => Yii::t('app', 'Public name'),        
+      'vanityURL' => Yii::t('app', 'Public name'),
+      'qrcode' => null,
 		);
 
     
@@ -215,6 +216,7 @@ class User extends BaseUser
         $criteria->compare('language_id', $this->language_id);
         $criteria->compare('newsletter', $this->newsletter);
         $criteria->compare('invitations', $this->newsletter);
+        $criteria->compare('qrcode', $this->qrcode);
         
 
         return new CActiveDataProvider(get_class($this), array(

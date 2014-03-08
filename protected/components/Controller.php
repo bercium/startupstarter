@@ -154,14 +154,29 @@ class Controller extends CController
    * log all user actions
    */
   protected function afterAction($action){
-    if (Yii::app()->user->isGuest) $id = 'NULL';
+    if (Yii::app()->user->isGuest) $id = null;
     else $id = "'".Yii::app()->user->id."'";
     
     if (!(($this->getId() == 'qr') && ($this->getAction()->getId() == 'validate'))){
-      $sql = 'INSERT INTO action_log VALUES (\'NULL\','.$id.',\''.$_SERVER['REMOTE_ADDR'].'\',\''.date("Y-m-d H:i:s").'\',\''.$this->getId().'\',\''.$this->getAction()->getId().'\',\''.'\')';
-      $command = Yii::app()->db->createCommand($sql);
-      $command->execute();
+      $this->log($this->getId(), $this->getAction()->getId(), $id);
     }
   }
+  
+  
+  /**
+   * log actions
+   */
+  protected function log($controller, $action, $user_id = null, $details = null){
+    $log = new ActionLog();
+    $log->action = $action;
+    $log->controller = $controller;
+    $log->ipaddress = $_SERVER['REMOTE_ADDR'];
+    $log->user_id = $user_id;
+    $log->logtime = date("Y-m-d H:i:s");
+    $log->details = $details;
+    $log->save();
+  }
+  
+  
 
 }

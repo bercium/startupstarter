@@ -57,7 +57,7 @@ abstract class BaseUserEdit extends GxActiveRecord {
 			array('email, password, activkey, name, surname, address, avatar_link', 'length', 'max'=>128),
 			array('lastvisit_at, bio', 'safe'),
 			array('vanityURL', 'unique', 'message' => Yii::t('msg',"This public name is already taken.")),
-			array('activkey, lastvisit_at, superuser, status, surname, address, avatar_link, language_id, newsletter, vanityURL, bio', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('activkey, lastvisit_at, superuser, status, surname, address, avatar_link, language_id, newsletter, vanityURL, bio, qrcode', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('id, email, password, activkey, create_at, lastvisit_at, superuser, status, name, surname, address, bio, avatar_link, language_id, newsletter', 'safe', 'on'=>'search'),
 		);
 	}
@@ -100,7 +100,8 @@ abstract class BaseUserEdit extends GxActiveRecord {
 			'clickUsers1' => null,
 			'userLinks' => null,
 			'userMatches' => null,
-		);
+      'qrcode' => null,
+    );
 	}
 
 	public function search() {
@@ -122,6 +123,7 @@ abstract class BaseUserEdit extends GxActiveRecord {
 		$criteria->compare('language_id', $this->language_id);
 		$criteria->compare('newsletter', $this->newsletter);
 		$criteria->compare('vanityURL', $this->vanityURL);
+    $criteria->compare('qrcode', $this->qrcode);
     
 
 		return new CActiveDataProvider($this, array(

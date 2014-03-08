@@ -137,13 +137,15 @@ class ProfileController extends GxController {
           if (isset($_POST['UserEdit']['vanityURL'])){
             if (!$allowVanityURL) $_POST['UserEdit']['vanityURL'] = $user->vanityURL;
             else{
-              if (strpos($_POST['UserEdit']['vanityURL'],'.') !== false) $user->addError('vanityURL', Yii::t('msg','Dots "." are not allowed in public name.'));
-              // check validity of vanity URL in projects
-              if ($_POST['UserEdit']['vanityURL'] != $user->vanityURL){
-                $ideaURL = Idea::model()->findByAttributes(array('vanityURL'=>$_POST['UserEdit']['vanityURL']));
-                if ($ideaURL){
-                  //echo "b";
-                  $user->addError('vanityURL', Yii::t('msg',"This custom URL already exists."));
+              if ($_POST['UserEdit']['vanityURL'] != null){
+                if (strpos($_POST['UserEdit']['vanityURL'],'.') !== false) $user->addError('vanityURL', Yii::t('msg','Dots "." are not allowed in public name.'));
+                // check validity of vanity URL in projects
+                if ($_POST['UserEdit']['vanityURL'] != $user->vanityURL){
+                  $ideaURL = Idea::model()->findByAttributes(array('vanityURL'=>$_POST['UserEdit']['vanityURL']));
+                  if ($ideaURL){
+                    //echo "b";
+                    $user->addError('vanityURL', Yii::t('msg',"This custom URL already exists."));
+                  }
                 }
               }
             }
@@ -321,19 +323,24 @@ class ProfileController extends GxController {
         
         if (!$allowVanityURL) $_POST['UserEdit']['vanityURL'] = $user->vanityURL;
         else{
-          if (strpos($_POST['UserEdit']['vanityURL'],'.') !== false) $user->addError('vanityURL', Yii::t('msg','Dots "." are not allowed in public name.'));
-          // check validity of vanity URL in projects
-          if ($_POST['UserEdit']['vanityURL'] != $user->vanityURL){
-            $ideaURL = Idea::model()->findByAttributes(array('vanityURL'=>$_POST['UserEdit']['vanityURL']));
-            if ($ideaURL){
-              //echo "b";
-              $user->addError('vanityURL', Yii::t('msg',"This custom URL already exists."));
+          if ($_POST['UserEdit']['vanityURL'] != null){
+            if (strpos($_POST['UserEdit']['vanityURL'],'.') !== false) $user->addError('vanityURL', Yii::t('msg','Dots "." are not allowed in public name.'));
+            // check validity of vanity URL in projects
+            if ($_POST['UserEdit']['vanityURL'] != $user->vanityURL){
+              $ideaURL = Idea::model()->findByAttributes(array('vanityURL'=>$_POST['UserEdit']['vanityURL']));
+              if ($ideaURL){
+                //echo "b";
+                $user->addError('vanityURL', Yii::t('msg',"This custom URL already exists."));
+              }
             }
           }
         }
 
-        
 				$user->setAttributes($_POST['UserEdit']);
+        
+        if (isset($_POST['UserEdit']['qrcodepair']) && ($_POST['UserEdit']['qrcodepair'] == 0)){
+          $user->qrcode = null;
+        }
         
 				if (!$user->hasErrors() && $user->save()) {
 					if ($user->language_id !== null) {

@@ -131,15 +131,15 @@ function qrLoad(){
   if (qrActive) return;
   $.get("/startupstarter/qr/create?ajax=1", function( id ) {
     qrActive = true;
-    link = 'http://192.168.1.10/startupstarter/qr/scan?id='+id;
-    $(".login-qrcode" ).html('<hr>'+Yii.t('msg','Scan with phone to login')+'<br /><img src="https://chart.googleapis.com/chart?cht=qr&chld=M|0&chs=400&chl='+link+'">');
+    link = 'http://192.168.1.10/startupstarter/qr/scan?qr='+id;
+    $(".login-qrcode" ).html('<hr><p>'+Yii.t('msg','Scan with phone to login')+'</p><img src="https://chart.googleapis.com/chart?cht=qr&chld=M|0&chs=300&chl='+link+'">');
     $(".login-qrcode" ).everyTime('1s',function(i){qrCheck(id);},0);
   });
 }
 
 function qrCheck(id){
-  $.get("/startupstarter/qr/validate?ajax=1&id="+id, function( data ) {
-    if (data) location.reload();
+  $.get("/startupstarter/qr/validate?ajax=1&qr="+id, function( data ) {
+    if (data == true) location.reload();
   });
 }
 
