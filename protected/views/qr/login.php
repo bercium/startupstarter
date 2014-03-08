@@ -6,6 +6,14 @@
 
 	<?php echo CHtml::errorSummary($model,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
 	
+<p>
+  <?php echo Yii::t('msg','You need to write your credentials only once. '); ?>
+  <br />
+  <strong>
+  <?php echo Yii::t('msg','Next time you will be loged in automaticaly!'); ?>
+  </strong>
+</p>
+
   <?php echo CHtml::label(Yii::t('app','Email'),'LoginForm_email'); ?>
 	<?php echo CHtml::activeTextField($model, 'username') ?>
 

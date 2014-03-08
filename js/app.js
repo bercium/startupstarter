@@ -132,7 +132,7 @@ function qrLoad(){
   $.get("/startupstarter/qr/create?ajax=1", function( id ) {
     qrActive = true;
     link = 'http://192.168.1.10/startupstarter/qr/scan?qr='+id;
-    $(".login-qrcode" ).html('<hr><p>'+Yii.t('msg','Scan with phone to login')+'</p><img src="https://chart.googleapis.com/chart?cht=qr&chld=M|0&chs=300&chl='+link+'">');
+    $(".login-qrcode" ).html('<hr><p>'+Yii.t('msg','Scan QR code with phone to login')+'</p><img src="https://chart.googleapis.com/chart?cht=qr&chld=M|0&chs=300&chl='+link+'" title="QR code login" alt="QR code login" style="opacity:0.8">');
     $(".login-qrcode" ).everyTime('1s',function(i){qrCheck(id);},0);
   });
 }

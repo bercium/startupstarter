@@ -94,7 +94,7 @@ class QrController extends Controller
     $qrLogin = QrLogin::model()->findByPk($id);
     
     if (!$qrLogin || $qrLogin->user_id){
-      $this->render('//site/message',array("title"=>Yii::t('msg','Problem scaning code'),"content"=>Yii::t('msg','1Something went wrong while scaning the code!<br /> Please refresh the page and rescan the code.')));
+      $this->render('//site/message',array("title"=>Yii::t('msg','Problem scaning code'),"content"=>Yii::t('msg','Something went wrong while scaning the code!<br /> Please refresh the page and rescan the code.')));
       return;
     }
 
@@ -121,7 +121,8 @@ class QrController extends Controller
         }else{
           // no user
           unset(Yii::app()->request->cookies['mblg']);
-          $this->render('//site/message',array("title"=>Yii::t('msg','Problem scaning code'),"content"=>Yii::t('msg','2Something went wrong while scaning the code!<br /> Please refresh the page and rescan the code.')));
+          $this->redirect(Yii::app()->createUrl("qr/login",array("qr"=>$qr)));
+          //$this->render('//site/message',array("title"=>Yii::t('msg','Problem scaning code'),"content"=>Yii::t('msg','Something went wrong while scaning the code!<br /> Please refresh the page and rescan the code.')));
         }
         return;
       }
