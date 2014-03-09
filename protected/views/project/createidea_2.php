@@ -4,7 +4,7 @@ $this->pageTitle = Yii::t('app', 'Create - step 2');
   $baseUrl = Yii::app()->baseUrl; 
     $cs = Yii::app()->getClientScript();
   
-    $cs->registerCssFile($baseUrl.'/css/tagmanager.css'.getVersionID());
+    $cs->registerCssFile($baseUrl.'/css/tagmanager.css');
     $cs->registerScriptFile($baseUrl.'/js/tagmanager.js');
 ?>
 <script>
