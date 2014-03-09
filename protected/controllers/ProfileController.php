@@ -133,7 +133,7 @@ class ProfileController extends GxController {
 
         
         //user skills
-        if (isset($_POST['hidden-skill'])) CSkills::saveSkills($_POST['hidden-skill'],$user_id);
+        if (isset($_POST['hidden-skill'])) CSkills::saveSkills($_POST['hidden-skill'],$match->id);
 
         // user model
 				if (isset($_POST['UserEdit'])) {
@@ -158,7 +158,7 @@ class ProfileController extends GxController {
 					$user->setAttributes($_POST['UserEdit']);
 					//$user->avatar_link = '';
 
-					if ($_POST['UserEdit']['avatar_link']) {
+					if (isset($_POST['UserEdit']['avatar_link'])) {
 						$filename = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . Yii::app()->params['tempFolder'] . $_POST['UserEdit']['avatar_link'];
 
 						// if we need to create avatar image

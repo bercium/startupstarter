@@ -55,6 +55,7 @@ abstract class BaseUserEdit extends GxActiveRecord {
 			array('name', 'required'),
 			array('superuser, status, language_id, newsletter', 'numerical', 'integerOnly'=>true),
 			array('email, password, activkey, name, surname, address, avatar_link', 'length', 'max'=>128),
+			array('personal_achievement', 'length', 'max'=>140),
 			array('lastvisit_at, bio', 'safe'),
 			array('vanityURL', 'unique', 'message' => Yii::t('msg',"This public name is already taken.")),
 			array('activkey, lastvisit_at, superuser, status, surname, address, avatar_link, language_id, newsletter, vanityURL, bio', 'default', 'setOnEmpty' => true, 'value' => null),
@@ -100,6 +101,7 @@ abstract class BaseUserEdit extends GxActiveRecord {
 			'clickUsers1' => null,
 			'userLinks' => null,
 			'userMatches' => null,
+      'personal_achievement' => Yii::t('app', 'Biggest accomplishment'), 
 		);
 	}
 
@@ -122,7 +124,7 @@ abstract class BaseUserEdit extends GxActiveRecord {
 		$criteria->compare('language_id', $this->language_id);
 		$criteria->compare('newsletter', $this->newsletter);
 		$criteria->compare('vanityURL', $this->vanityURL);
-    
+		$criteria->compare('personal_achievement', $this->personal_achievement);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
