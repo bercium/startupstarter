@@ -22,7 +22,7 @@
  * @property Language $language
  * @property Idea $idea
  */
-abstract class BaseIdeaTranslation extends GxActiveRecord {
+abstract class BaseIdeaTranslationStory extends GxActiveRecord {
 
 	public static function model($className=__CLASS__) {
 		return parent::model($className);	
@@ -42,7 +42,7 @@ abstract class BaseIdeaTranslation extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('language_id, title, pitch', 'required'),
+			array('language_id, description, description_public', 'required'),
 			array('language_id, description_public, deleted', 'numerical', 'integerOnly'=>true),
 			array('idea_id', 'length', 'max'=>8),
 			array('tweetpitch', 'length', 'max'=>140),

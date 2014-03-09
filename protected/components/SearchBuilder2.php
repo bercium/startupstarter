@@ -345,6 +345,7 @@ class SearchBuilder2 {
 				"LEFT JOIN `idea` AS i ON i.id = im.idea_id ".
 				"WHERE m.available = :value ".
 				"AND m.user_id IS NULL ".
+				"AND i.deleted = 0 ".
 				$where." ".
 				"GROUP BY im.idea_id";
 		return $sql;
@@ -360,6 +361,7 @@ class SearchBuilder2 {
 				"LEFT JOIN `idea` AS i ON i.id = im.idea_id ".
 				"WHERE c.name LIKE :value ".
 				"AND m.user_id IS NULL ".
+				"AND i.deleted = 0 ".
 				$where." ".
 				"GROUP BY im.idea_id";
 		return $sql;
@@ -375,6 +377,7 @@ class SearchBuilder2 {
 				"LEFT JOIN `idea` AS i ON i.id = im.idea_id ".
 				"WHERE c.collab_id = :value ".
 				"AND m.user_id IS NULL ".
+				"AND i.deleted = 0 ".
 				$where." ".
 				"GROUP BY im.idea_id";
 		return $sql;
@@ -392,6 +395,7 @@ class SearchBuilder2 {
 				"LEFT JOIN `idea` AS i ON i.id = im.idea_id ".
 				"WHERE ti.translation LIKE :value ".
 				"AND m.user_id IS NULL ".
+				"AND i.deleted = 0 ".
 				$where." ".
 				"GROUP BY im.idea_id";
 		return $sql;
@@ -408,6 +412,7 @@ class SearchBuilder2 {
 				"LEFT JOIN `idea` AS i ON i.id = im.idea_id ".
 				"WHERE ind.name LIKE :value ".
 				"AND m.user_id IS NULL ".
+				"AND i.deleted = 0 ".
 				$where." ".
 				"GROUP BY im.idea_id";
 		return $sql;
@@ -419,6 +424,7 @@ class SearchBuilder2 {
 		$sql=	"SELECT i.id AS id ".
 				"FROM `idea` AS i ".
 				"WHERE i.id > 0 ".
+				"AND i.deleted = 0 ".
 				$where." ".
 				"ORDER BY i.time_registered DESC";
 		return $sql;
@@ -435,6 +441,7 @@ class SearchBuilder2 {
 				"LEFT JOIN `idea` AS i ON i.id = im.idea_id ".
 				"WHERE s.name LIKE :value ".
 				"AND m.user_id IS NULL ".
+				"AND i.deleted = 0 ".
 				$where." ".
 				"GROUP BY im.idea_id";
 		return $sql;
@@ -446,6 +453,7 @@ class SearchBuilder2 {
 		$sql=	"SELECT i.id AS id ".
 				"FROM `idea` AS i ".
 				"WHERE i.status_id = :value ". 
+				"AND i.deleted = 0 ".
 				$where;
 		return $sql;
 

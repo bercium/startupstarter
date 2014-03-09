@@ -26,3 +26,5 @@ protected/config/local-db.php
 protected/config/local-path.php
 protected/config/local-mail.php
 protected/config/local-console-request.php
+
+protected/config/main.php
