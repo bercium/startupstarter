@@ -26,7 +26,7 @@
 
       <?php echo CHtml::activeLabelEx($user,'personal_achievement'); ?>
       <span class="description"><?php echo Yii::t('msg','Tell others your biggest accomplishment in 140 charachters or less.'); ?></span>
-      <?php echo CHtml::activeTextArea($user, 'personal_achievement', array("maxlength"=>140)); ?>
+      <?php echo CHtml::activeTextArea($user, 'personal_achievement', array("maxlength"=>140,"limitchars"=>140)); ?>
     
       <br />
     

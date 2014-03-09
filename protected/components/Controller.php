@@ -58,6 +58,7 @@ class Controller extends CController
     $cs->registerScriptFile($baseUrl.'/js/jquery.timers.min.js');
     $cs->registerScriptFile($baseUrl.'/js/jquery.slimscroll.min.js');
     $cs->registerScriptFile($baseUrl.'/js/jquery.scrolldepth.min.js'); //scroll tracker
+    $cs->registerScriptFile($baseUrl.'/js/jquery.jqEasyCharCounter.min.js'); //scroll tracker
  
     //heatmap tracking on production only
     if (!Yii::app()->user->isAdmin() && !YII_DEBUG && !YII_TESTING) $cs->registerScriptFile('/js/camsession.js');  

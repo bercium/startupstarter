@@ -121,6 +121,14 @@ $(function() {
   userTiming: false,
   pixelDepth: false }*/
   
+  $('[limitchars]').each(function(){
+    $(this).jqEasyCounter({
+        'maxChars': $(this).attr('limitchars'),
+        'maxCharsWarning': ($(this).attr('limitchars') - 10)
+    });
+  });
+  
+  
 })(jQuery, this);
 
 

@@ -22,7 +22,11 @@
 
   <p>
 
-    THANKS
+    <?php echo Yii::t('msg','Thank you! We will check your registration and will get back to you as soon as possible.') ?>
+    <br />
+    <strong>
+    <?php echo Yii::t('msg','When we aprove your profile we will send you an email.') ?>
+    </strong>
 
    </p>
 
