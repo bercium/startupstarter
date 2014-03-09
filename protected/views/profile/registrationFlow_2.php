@@ -22,10 +22,6 @@
   </ul>
 
 <hr>
-<br />
-
-
-<br />
 
 
   <?php echo CHtml::beginForm(Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>3)),'post',array('class'=>"custom",'id'=>'after_register_form')); ?>

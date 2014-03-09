@@ -131,7 +131,12 @@ class ProfileController extends GxController {
         // set only if has invited at least 3 other people
         $allowVanityURL = ($us && (/*($user->vanityURL != '') || */($us->invites_send > 2)));
 
-				if (isset($_POST['UserEdit']) && isset($_POST['UserMatch'])) {
+        
+        //user skills
+        if (isset($_POST['hidden-skill'])) CSkills::saveSkills($_POST['hidden-skill'],$user_id);
+
+        // user model
+				if (isset($_POST['UserEdit'])) {
          
           //VANITY URL
           if (isset($_POST['UserEdit']['vanityURL'])){
@@ -149,9 +154,6 @@ class ProfileController extends GxController {
             }
           }// end vanity url check
           
-          
-          //user skills
-          if (isset($_POST['hidden-skill'])) CSkills::saveSkills($_POST['hidden-skill'],$user_id);
           
 					$user->setAttributes($_POST['UserEdit']);
 					//$user->avatar_link = '';
@@ -201,37 +203,30 @@ class ProfileController extends GxController {
           }
           
 					if (!$user->hasErrors() && $user->save()) {
-
 						$_POST['UserMatch']['user_id'] = $user_id;
-						$match->setAttributes($_POST['UserMatch']);
             
-            if (!empty($_POST['UserMatch']['city'])){
-              $city = City::model()->findByAttributes(array('name'=>$_POST['UserMatch']['city']));
-              if ($city) $match->city_id = $city->id;
-              else{
-                $city = new City();
-                $city->name = $_POST['UserMatch']['city'];
-                $city->save();
-                $match->city_id = $city->id;
-              }
-            }else $match->city_id = null;
-
-						if ($match->save()) {
-              $c = new Completeness();
-              $c->setPercentage($user_id);
-							setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
-							/* if (Yii::app()->getRequest()->getIsAjaxRequest())
-							  Yii::app()->end();
-							  else
-							  $this->redirect(array('profile/')); */
-						}
+            $c = new Completeness();
+            $c->setPercentage($user_id);
+            setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
 					}
 				}
         
+        // user match save
         if (isset($_POST['UserMatch'])) {
           $match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
           $match_id = $match->id;
           $match->setAttributes($_POST['UserMatch']);
+          
+          if (!empty($_POST['UserMatch']['city'])){
+            $city = City::model()->findByAttributes(array('name'=>$_POST['UserMatch']['city']));
+            if ($city) $match->city_id = $city->id;
+            else{
+              $city = new City();
+              $city->name = $_POST['UserMatch']['city'];
+              $city->save();
+              $match->city_id = $city->id;
+            }
+          }else $match->city_id = null;          
           
           UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
           $c = 0;
