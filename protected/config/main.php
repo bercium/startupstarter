@@ -6,7 +6,7 @@ require(dirname(__FILE__).DIRECTORY_SEPARATOR.'constants.php');
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
-return array(
+$a = array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Cofinder',
   'sourceLanguage'=>'en',
@@ -131,13 +131,11 @@ return array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		),*/
 		// uncomment the following to use a MySQL database
-		'db' => array_merge(require(dirname(__FILE__) . '/local-db.php'),
-												array(
-															'enableProfiling'=>YII_DEBUG,
-															'enableParamLogging'=>YII_DEBUG,
-                              'initSQLs'=>array("set time_zone='+00:00';"),
-														)
-												),
+		'db' => array(
+                  'enableProfiling'=>YII_DEBUG,
+                  'enableParamLogging'=>YII_DEBUG,
+                  'initSQLs'=>array("set time_zone='+00:00';"),
+            ),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
@@ -220,3 +218,7 @@ return array(
     'dbbackup'=>'protected/data/backup/',
 	),
 );
+
+$b = require(dirname(__FILE__) . '/local-main.php');
+
+return array_merge_recursive_distinct($a,$b);

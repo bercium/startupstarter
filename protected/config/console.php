@@ -1,9 +1,10 @@
 <?php
+require(dirname(__FILE__).DIRECTORY_SEPARATOR.'../components/functions/global.php');
 require(dirname(__FILE__).DIRECTORY_SEPARATOR.'constants.php');
 
 // This is the configuration for yiic console application.
 // Any writable CConsoleApplication properties can be configured here.
-return array(
+$a = array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Cofinder console application',
 
@@ -50,14 +51,18 @@ return array(
   ),
 	// application components
 	'components'=>array(
-    'request' => require(dirname(__FILE__) . '/local-console-request.php'),
+    //'request' => require(dirname(__FILE__) . '/local-console-request.php'),
       
 		/*'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		),*/
 		// uncomment the following to use a MySQL database
 		
-    'db' => require(dirname(__FILE__) . '/local-db.php'),
+    'db' => array(
+                  'enableProfiling'=>YII_DEBUG,
+                  'enableParamLogging'=>YII_DEBUG,
+                  'initSQLs'=>array("set time_zone='+00:00';"),
+            ),
 		
 		'log'=>array(
 			'class'=>'CLogRouter',
@@ -70,6 +75,17 @@ return array(
 			),
 		),
 
+    'cache' => array (
+      'class' => 'CDummyCache', //system.caching.CMemCache
+      //'class' => 'CApcCache', //system.caching.CMemCache
+      //'class' => 'CMemCache',
+      /*'servers'=>array(
+          array(
+              'host'=>'localhost',
+              'port'=>11211,
+              ),
+          ),*/
+    ),      
     'mail' => array(
         'class' => 'ext.mail.YiiMail',
         'transportType' => 'php',
@@ -89,12 +105,17 @@ return array(
     'version'=>require(dirname(__FILE__) . '/version.php'),
 		'adminEmail'=>array('no-reply@cofinder.eu'=>'Cofinder'), //!!! must decide if usefull seperate mail
     'noreplyEmail'=>array('no-reply@cofinder.eu'=>'Cofinder'),
+    'teamEmail'=>array('team@cofinder.eu'=>'Cofinder'),
       
     'tempFolder'=>'temp/',
     'avatarFolder'=>'uploads/avatars/',
-    'ideaGalleryFolder'=>'uploads/ideagalleries/',
+    'projectGalleryFolder'=>'uploads/project_gallery/', //project ID as subfolder
     'mapsFolder'=>'uploads/maps/',
     'iconsFolder'=>'uploads/icons/',
     'dbbackup'=>'protected/data/backup/',
 	),    
 );
+
+$b = require(dirname(__FILE__) . '/local-console.php');
+
+return array_merge_recursive_distinct($a,$b);
