@@ -44,28 +44,46 @@
         
       <?php } ?>
         
-        <div class="row collapse">
-    <div class="small-5 columns">
-      <span class="prefix">www.cofinder.eu/</span>
+    <div class="row collapse">
+      <div class="small-5 columns">
+        <span class="prefix">www.cofinder.eu/</span>
+      </div>
+      <div class="small-7 columns">
+        <?php if (!$allowVanityURL) {
+           echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary readonly",
+                                                                "disabled"=>true,
+                                                                "title"=>Yii::t('app','Invite at least 3 people'),
+                                                                "data-tooltip"=>'',
+                                                                "placeholder"=>substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")))); 
+          }else{ 
+            echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary","placeholder"=>  str_replace(".", "", substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")) ) )); 
+          }?>
+      </div>
+        <?php /*if (!$allowVanityURL){ ?>
+          <div class="small-2 columns">
+            <a data-dropdown="drop-invitation-msg" href="#" class="postfix button radius">Invite</a>
+          </div>
+        <?php } */ ?>
     </div>
-    <div class="small-7 columns">
-      <?php if (!$allowVanityURL) {
-         echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary readonly",
-                                                              "disabled"=>true,
-                                                              "title"=>Yii::t('app','Invite at least 3 people'),
-                                                              "data-tooltip"=>'',
-                                                              "placeholder"=>substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")))); 
-        }else{ 
-          echo CHtml::activeTextField($user,"vanityURL", array("class"=>"small secondary","placeholder"=>  str_replace(".", "", substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")) ) )); 
-        }?>
-    </div>        
-      <?php /*if (!$allowVanityURL){ ?>
-        <div class="small-2 columns">
-          <a data-dropdown="drop-invitation-msg" href="#" class="postfix button radius">Invite</a>
-        </div>
-      <?php } */ ?>
+    
+    <br />
+    <label for="UserEdit_qrcodepair"><?php echo Yii::t('app',"Account paired with phone"); ?>
+    <?php if ($user->qrcode){ ?>
+    </label>
+    <div class="switch small round" style="width:120px">
+      <input id="newsletter_0" name="UserEdit[qrcodepair]" type="radio" value="0" <?php if (!$user->qrcode) echo 'checked="checked"' ?>>
+      <label for="qrcodepair_0" onclick=""><?php echo Yii::t('app','Unpair');?></label>
+
+      <input id="newsletter_1" name="UserEdit[qrcodepair]" type="radio" value="1" <?php if ($user->qrcode) echo 'checked="checked"' ?>>
+      <label for="qrcodepair_1" onclick=""><?php echo Yii::t('app','Paired');?></label>
+      <span></span>
     </div>
-        
+    
+    <?php }else{ ?>
+      <span class="label radius" data-tooltip title="<?php echo Yii::t('msg','Logout and scan QR code on next login to pair your phone!'); ?>"><?php echo Yii::t('app','Not paired'); ?></span>
+      </label>
+      <br />
+    <?php } ?>
       <?php /* echo CHtml::label(Yii::t("app","First page intro"),"fpi"); ?>
       <div class="switch small round small-4 large-3">
         <input id="fpi_0" name="UserEdit[fpi]" type="radio" value="0" <?php if (!$fpi) echo 'checked="checked"' ?>>
@@ -76,6 +94,7 @@
         <span></span>
       </div> <?php */ ?>
     
+      <br />
       <?php echo CHtml::submitButton(Yii::t("app","Save"),
               array('class'=>"button small success radius")
           ); ?>

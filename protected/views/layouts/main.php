@@ -154,7 +154,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
                 <?php } ?>
               <?php }else{ ?>
                 <li>
-                  <a href="#" data-dropdown="drop-login"><?php echo Yii::t('app','Login'); ?></a>
+                  <a href="#" data-dropdown="drop-login" onclick="qrLoad();"><?php echo Yii::t('app','Login'); ?></a>
                 </li>
               <?php  ?><li class="divider"></li>
                 <li>
@@ -291,6 +291,9 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
       <small><?php echo CHtml::link(Yii::t("app","Lost Password?"),Yii::app()->getModule('user')->recoveryUrl); ?></small>
 
   <?php echo CHtml::endForm(); ?>
+  </div>
+  <div class="login-qrcode hide-for-small">
+    <?php echo Yii::t('msg','Loading QR code login...'); ?>
   </div>
 </div>
 

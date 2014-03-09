@@ -9,6 +9,8 @@ class UserIdentity extends CUserIdentity
 {
 	private $_id;
   private $email;
+  public $qrcode;
+  
   const ERROR_EMAIL_INVALID=3;
 	const ERROR_STATUS_NOTACTIV=4;
 	const ERROR_STATUS_BAN=5;
@@ -28,7 +30,15 @@ class UserIdentity extends CUserIdentity
 
     if($user===null)
       $this->errorCode=self::ERROR_EMAIL_INVALID;
-      
+    else if ($this->qrcode){
+      if ($this->password != $user->password){
+        $this->errorCode=self::ERROR_PASSWORD_INVALID;
+      }else{
+        $this->_id=$user->id;
+        $this->email=$user->email;
+        $this->errorCode=self::ERROR_NONE;        
+      }
+    }
 		else if(!Yii::app()->getModule('user')->validate($this->password,$user->password))
 			$this->errorCode=self::ERROR_PASSWORD_INVALID;
 		else if($user->status==0&&Yii::app()->getModule('user')->loginNotActiv==false)
