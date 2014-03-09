@@ -101,6 +101,7 @@ abstract class BaseUserEdit extends GxActiveRecord {
 			'clickUsers1' => null,
 			'userLinks' => null,
 			'userMatches' => null,
+      'qrcode' => null,
       'personal_achievement' => Yii::t('app', 'Biggest accomplishment'), 
 		);
 	}
@@ -125,6 +126,7 @@ abstract class BaseUserEdit extends GxActiveRecord {
 		$criteria->compare('newsletter', $this->newsletter);
 		$criteria->compare('vanityURL', $this->vanityURL);
 		$criteria->compare('personal_achievement', $this->personal_achievement);
+    $criteria->compare('qrcode', $this->qrcode);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
