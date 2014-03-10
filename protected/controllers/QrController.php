@@ -44,6 +44,8 @@ class QrController extends Controller
     $qrLogin->save();
     
     $hashids = new Hashids('cofinder');
+    
+    //echo Yii::app()->createAbsoluteUrl("/qr/scan",array("qr"=>$qrLogin->id));
     echo $hashids->encrypt_hex($qrLogin->id);
     Yii::app()->end();
 	}
