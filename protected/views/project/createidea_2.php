@@ -13,52 +13,72 @@ $this->pageTitle = Yii::t('app', 'Create - step 2');
     var inviteMember_url = '<?php echo Yii::app()->createUrl("project/suggestMember",array("ajax"=>1)) ?>';
 </script>
 
-<?php if(isset($idea_id) && $idea->deleted == 2){ ?>
-<a class="button tiny" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 2, 'publish'=>1)); ?>><?php echo Yii::t('app', 'Publish'); ?></a>
-<?php } elseif(isset($idea_id) && $idea->deleted == 0){ ?>
-<a class="button tiny" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 2, 'publish'=>0)); ?>><?php echo Yii::t('app', 'Unpublish'); ?></a>
-<?php } ?>
+<div class="mb40 row pb0">
+     
+    <div class="stageflow" style="">
+        <div class="large-12">
+           
+            <ul class="button-group mb0">
+            <li><a class="button small mb0" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 1)); ?>><?php echo Yii::t('app', 'Presentation'); ?></a></li>
+            <li><a class="button small mb0 before-selected" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 2)); ?>><?php echo Yii::t('app', 'Story'); ?></a></li>
+            <li><a class="button small mb0 selected" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 3)); ?>><?php echo Yii::t('app', 'Team'); ?></a></li>
+            <li><a  class="button small mb0" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 4)); ?>><?php echo Yii::t('app',"You are done!");?></a></li>
+            </ul>  
+
+ 
+
+
+      </div>
+    </div>
+    
+</div>
+
+
 
 <div class="row">
-    <div class="columns edit-header">
-        <h3><?php if (!isset($candidate)) {
+    <div class="large-centered large-10 columns edit-header">
+        
+        <h3 ><?php if (!isset($candidate)) {
                 echo Yii::t('app', 'Open positions');
             } else echo Yii::t('app', 'New positions');?>
         </h3>
-      <ul class="button-group radius right mt10">
-         <li><a class="button tiny secondary" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 1)); ?>>1.<?php echo Yii::t('app', 'Presentation'); ?></a></li>
-         <li><a class="button tiny secondary" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 2)); ?>>2.<?php echo Yii::t('app', 'Story'); ?></a></li>
-         <li><a class="button tiny " href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 3)); ?>>3.<?php echo Yii::t('app', 'Team'); ?></a></li>
-        <li><a  class="button tiny secondary" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 4)); ?>>4. <?php echo Yii::t('app',"You are done!");?></a></li>
-      </ul>
+        
+      
     </div>
-    <div class="columns panel edit-content">
-        <div class="row">
-            <div class="left mb20">
-                <?php if (!isset($candidate)) { ?>
-                    <a class="small button abtn secondary radius" style="margin-bottom:0;"
-                       href="<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 3, 'candidate' => 'new')); ?>">
-                        <?php echo Yii::t('app', 'Add new') ?>
-                        <span class="icon-plus"></span>
-                    </a>
-                <?php } ?>
-            </div>
-        </div>
+    <div class="large-centered large-10 columns panel edit-content">
+        <div class="large-centered large-10 columns">
+            <div class="row">
+                <div class="" style="text-align:center;">
+                    <?php if (!isset($candidate)) { ?>
 
-        <?php if (isset($candidate) && isset($match)) {
-            $this->renderPartial('_formteam', array(
-                'ideadata' => $ideadata,
-                'idea_id' => $idea_id,
-                'candidate' => $candidate,
-                'collabprefs' => $collabprefs,
-                'match' => $match,
-                'buttons' => 'create'));
-        } else {
-            $this->renderPartial('_formteam', array(
-                'ideadata' => $ideadata,
-                'idea_id' => $idea_id,
-                'buttons' => 'create'));
-        }?>
+                    <p><?php echo yii::t('msg','Post an open position for you project. Tell us who are you looking for.') ?></p>
+                    
+                    
+                        <a class="button large-6 mb40 abtn radius" style="margin-bottom:0;"
+                           href="<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 3, 'candidate' => 'new')); ?>">
+                            
+                            <span class="icon-plus"></span> <?php echo Yii::t('app', 'Add new position') ?>
+                            
+                        </a>
+                    <?php } ?>
+                </div>
+            </div>
+
+            <?php if (isset($candidate) && isset($match)) {
+                $this->renderPartial('_formteam', array(
+                    'ideadata' => $ideadata,
+                    'idea_id' => $idea_id,
+                    'candidate' => $candidate,
+                    'collabprefs' => $collabprefs,
+                    'match' => $match,
+                    'buttons' => 'create'));
+            } else {
+                $this->renderPartial('_formteam', array(
+                    'ideadata' => $ideadata,
+                    'idea_id' => $idea_id,
+                    'buttons' => 'create'));
+            }?>
+        </div>
     </div>
 
     <?php
