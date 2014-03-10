@@ -815,6 +815,11 @@ ul, ol {
 	font-size: 0.8em !important;
 }
 
+.f-normal {
+	font-size: 1em !important;
+}
+
+
 .f-medium {
 	font-size: 1.375em !important; 
 }
