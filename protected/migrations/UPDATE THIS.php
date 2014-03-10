@@ -36,3 +36,16 @@ ALTER TABLE  `user_skill` CHANGE  `skillset_id`  `skillset_id` SMALLINT( 2 ) UNS
 ALTER TABLE  `industry` ADD  `count` INT( 11 ) UNSIGNED NULL ;
 
 ALTER TABLE  `user` ADD  `personal_achievement` VARCHAR( 140 ) NULL DEFAULT NULL AFTER  `bio` ;
+
+CREATE TABLE IF NOT EXISTS `qr_login` (
+        `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+        `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        `scan_at` timestamp NULL DEFAULT NULL,
+        `user_id` int(10) unsigned DEFAULT NULL,
+        PRIMARY KEY (`id`),
+        KEY `user_id` (`user_id`)
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+      
+ALTER TABLE `qr_login` ADD CONSTRAINT `qr_login_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `user` ADD `qrcode` VARCHAR( 128 ) NULL DEFAULT NULL AFTER `activkey`;
