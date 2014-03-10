@@ -6,11 +6,14 @@ $cs->registerScriptFile($baseUrl . '/js/ckeditor/ckeditor.js', CClientScript::PO
 
 echo CHtml::beginForm('', 'post', array('class' => "custom formidea"));
 
-echo CHtml::activeLabelEx($translation, 'description'); ?>
+ ?>
+
+<p class=""><?php echo yii::t('msg','Tell us what is your project about. What problems are you solving and how you plan to solve them.'); ?></p> 
 
 <span class="description">
 
 <?php echo CHtml::activeTextArea($translation, "description", array('class' => 'lin-edit ckeditor')); ?>
+
     <br/>
     <!--    --><?php //echo CHtml::activeLabelEx($translation, 'description_public'); ?>
     <!--    <div class="switch small round" style="text-align: center; width:120px;">-->

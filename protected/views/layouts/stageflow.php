@@ -1,12 +1,7 @@
-<?php
-$this->pageTitle = Yii::t('app', 'Create - step 1');
-?>
-<script>
-    var skillSuggest_url = '<?php echo Yii::app()->createUrl("profile/suggestSkill",array("ajax"=>1)) ?>';
-</script>
+<?php /* @var $this Controller */ ?>
+<?php $this->beginContent('//layouts/main'); ?>
 
-
-  <?php if(isset($idea_id)){ ?>
+ <?php if(isset($idea_id)){ ?>
         <div class="mb40 row pb0">     
             <div class="stageflow" style="">
                 <div class="large-12">
@@ -37,25 +32,16 @@ $this->pageTitle = Yii::t('app', 'Create - step 1');
         <?php } ?>
 
 
+<div class="row header-margin mb40">
+	<div class="large-10 small-12 columns large-centered">
+	<div class="columns edit-header">
+		<h1><?php echo $this->pageTitle; ?></h1>
+	</div>
+  <div class="columns panel edit-content">
+  	
+    <?php echo $content; ?>
+  </div>
+  </div>
+</div>
 
-<div class="row createidea">
-    <div class="columns edit-header">
-        <div class="large-centered large-10 columns align-center"><h3>
-            <?php echo Yii::t('app', 'Project presentation'); ?>
-        </h3>
-        </div>
-
-      
-    </div>
-    <div class="columns panel edit-content">
-       <div class="large-10 large-centered columns">
-
-        <?php
-        $this->renderPartial('_formidea', array(
-            'idea' => $idea,
-            'language' => $language,
-            'translation' => $translation,
-            'buttons' => 'create'));
-        ?>
-        </div>
-    </div>
+<?php $this->endContent(); ?>

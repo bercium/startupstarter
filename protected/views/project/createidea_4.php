@@ -6,6 +6,22 @@ $this->pageTitle = Yii::t('app', 'Edit - step 2');
   var inviteMember_url = '<?php echo Yii::app()->createUrl("project/suggestUser",array("ajax"=>1)) ?>'; 
 </script>
 
+<div class="mb40 row pb0">
+     
+    <div class="stageflow" style="">
+        <div class="large-12">
+           
+            <ul class="button-group mb0">
+            <li><a class="button small mb0" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 1)); ?>><?php echo Yii::t('app', 'Presentation'); ?></a></li>
+            <li><a class="button small mb0" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 2)); ?>><?php echo Yii::t('app', 'Story'); ?></a></li>
+            <li><a class="button small mb0 before-selected" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 3)); ?>><?php echo Yii::t('app', 'Team'); ?></a></li>
+            <li><a  class="button small selected mb0" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 4)); ?>><?php echo Yii::t('app',"You are done!");?></a></li>
+            </ul>            
+      </div>
+    </div>
+    
+</div>
+
 <?php if(isset($idea_id) && $idea->deleted == 2){ ?>
 <a class="button tiny" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 4, 'publish'=>1)); ?>><?php echo Yii::t('app', 'Publish'); ?></a>
 <?php } elseif(isset($idea_id) && $idea->deleted == 0){ ?>
@@ -18,12 +34,7 @@ $this->pageTitle = Yii::t('app', 'Edit - step 2');
             <?php echo Yii::t('app', "You are done!"); ?>
         </h3>
 
-        <ul class="button-group radius right mt10">
-            <li><a class="button tiny secondary" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 1)); ?>>1. <?php echo Yii::t('app', 'Presentation'); ?></a></li>
-            <li><a class="button tiny secondary" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 2)); ?>>2. <?php echo Yii::t('app', 'Story'); ?></a></li>
-            <li><a class="button tiny secondary" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 3)); ?>>3. <?php echo Yii::t('app', 'Team'); ?></a></li>
-            <li><a class="button tiny" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 4)); ?>>4. <?php echo Yii::t('app', "You are done!"); ?></a></li>
-        </ul>
+       
     </div>
     <div class="columns panel edit-content">
         <?php

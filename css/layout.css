@@ -12,7 +12,7 @@
 */
 
 body {
-	background: #eee;
+	background: #e9e7e7;
 		height: 100%;
 }
 
@@ -823,6 +823,9 @@ ul, ol {
 	font-size: 1.6875em !important; 
 }
 
+.align-center {
+	text-align: center !important;
+}
 
 .status-high.icon-circle {
 	font-size: 0.6em;
@@ -2040,12 +2043,73 @@ label{
   $ MODULES
    ========================================================================== */
 
+   /****** @ stageflow ******/
+
+    .stageflow {
+   	background: url(../images/stageflow/background.png) top right repeat-x;
+   	
+   	height: 40px;
+   	border-radius: 4px;
+   	
+   	border: 1px solid #ddd;
+   }
+
+   .stageflow .button a {
+
+   }
+
+   .stageflow .button {
+   		border: none; 
+   		
+   		background: url(../images/stageflow/next.png) top right no-repeat;
+   		padding-left: 20px;
+   		padding-right:35px;
+   		height: 38px;	
+   		padding-top: 12px;
+   		color:#222;
+   	}
+
+   	.stageflow .button:active {
+   		box-shadow: none;
+   	}
+
+   	.stageflow .button:hover {
+   		background: none;
+   		background: url(../images/stageflow/next.png) top right no-repeat;
+
+   	}
+
+   	   .stageflow .before-selected.button {   	
+   	background: url(../images/stageflow/before-selected-next.png) top right no-repeat;   	
+   	color: #222 !important;
+   }
+
+
+
+   .stageflow .selected.button {   	
+   	background: url(../images/stageflow/selected-next.png) top right no-repeat;
+   	background-color: #89B561;
+   	color: #fff !important;
+   }
+
+
 	/****** @ panel-top ******/
 
 	.panel-top {   
     background: #F9F9F7;  
     margin-top: 0;   
     padding: 1.25em;
+}
+
+	/****** @ panel-absolute ******/
+
+	.fixed-top {   
+    width: 100%;
+    left: 0;
+    right: 0;
+    position: fixed;
+    top:46px;
+    z-index: 1000;
 }
 
 	
@@ -2084,6 +2148,11 @@ label{
      .bg-color-3 {
     	background: #fff !important;
     }
+
+   	.bg-color-4 {
+    	background: #D0D0D0 !important;
+    }
+    
 
 
   
