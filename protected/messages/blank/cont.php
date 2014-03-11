@@ -20,7 +20,7 @@ return array (
   'After I opened a new position for my project I immediately got contacted by interesting people.' => '',
   'Any claim relating to Cofinder\'s web site shall be governed by the laws of the State of Slovenia without regard to its conflict of law provisions.' => '',
   'Any of the information we collect from you may be used in one of the following ways: ' => '',
-  'As a yung startup we were looking for specific type of profesionals. We were able to quickly find them with the help of Cofinder.' => '',
+  'As a young startup we were looking for specific type of profesionals. We were able to find them quickly with the help of Cofinder.' => '',
   'Boštjan from Studio 404' => '',
   'By accessing this website, you agree to be bound by its Terms and Conditions of Use, all applicable laws and regulations and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this website. The materials contained in it are protected by applicable copyright and trade mark law.' => '',
   'By using our site, you consent to our online privacy policy.' => '',
