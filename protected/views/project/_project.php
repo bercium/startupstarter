@@ -94,7 +94,15 @@
           
           <section>
             <?php if(isset($idea['candidate'])) $cd = count($idea['candidate']); else $cd = 0; ?>
-            <p class="title" data-section-title style="border-right: none; width:50%  "><a href="#panel2"><?php echo Yii::t('app','{n} open position|{n} open positions',array($cd)); ?></a></p>
+            
+            <p class="title" data-section-title style="border-right: none; width:50%  ">
+              <a href="#panel2">
+              <?php if (count($idea['candidate']) > 0){ 
+                 echo Yii::t('app','{n} open position|{n} open positions',array($cd));
+                 } else { echo Yii::t('app','No positions',array($cd));
+               }; ?>
+            </a></p>
+
               <div class="content" data-section-content>
                 <div class="idea-skills <?php if ($hasImg) echo "slimscrollSmall"; else echo "slimscrollBig"; ?>">
                   
@@ -139,7 +147,9 @@
                             <a href="<?php echo Yii::app()->createUrl("project",array("id"=>$idea['id'])); ?>"><?php echo Yii::t('app','Not defined any skills') ?></a>
                         <?php
                     }
-                  }
+                  } else { ?>
+                    <p class="description f-normal"><?php echo Yii::t('app','Currently no positions opened'); ?></p>
+                  <?php }
                   ?> 
                   
                 </div>

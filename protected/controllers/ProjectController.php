@@ -289,7 +289,7 @@ class ProjectController extends GxController {
 			$collabprefs = new SqlBuilder();
 			$filter['match_id'] = $_GET['candidate'];
 			$collabprefs = $collabprefs->load_array('collabpref', $filter);
-			print_r($collabprefs);
+			//print_r($collabprefs);
 		}
 
 		//assign changes to currently edited candidate

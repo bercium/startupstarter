@@ -178,7 +178,11 @@ foreach ($idea['member'] as $member) {
 
                     <h2 class="l-iblock mt0 pt0">
                         <a id="candidates" class="anchor-link"></a>
-                        <?php echo Yii::t('app', 'Looking for {n} candidate|Looking for {n} candidates', array(count($idea['candidate']))); ?>
+                        <?php if (count($idea['candidate']) > 0){
+                        echo Yii::t('app', 'Looking for {n} candidate|Looking for {n} candidates', array(count($idea['candidate']))); 
+                         } else {   
+                         echo Yii::t('app', 'Currently no positions opened'); 
+                          };?>
                     </h2>
 
                     <?php if (count($idea['candidate']) > 0){ ?>

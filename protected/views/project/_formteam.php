@@ -50,7 +50,7 @@
     <?php 
     $skillList = '';
     if(isset($ideadata['candidate'][$_GET['candidate']]['skill'])){
-      foreach (isset($ideadata['candidate'][$_GET['candidate']]['skill']) as $skill){
+      foreach ($ideadata['candidate'][$_GET['candidate']]['skill'] as $skill){
           $skillList .= $skill['skill'].', ';
         }}
     //hidden-skill
