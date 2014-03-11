@@ -4,9 +4,10 @@
 <?php
           
 if (isset($this->stages) && ($this->stages) && ($this->stages != array())){ ?>
-<div class="mb40 row pb0">
-    <div class="stageflow" style="">
-        <div class="large-12">
+<div class="mt40 row pb0 ">
+   
+    <div class="large-10 large-centered columns">
+         <div class="stageflow">
             <ul class="button-group mb0">
               <?php
               $step = 1;
@@ -32,7 +33,7 @@ if (isset($this->stages) && ($this->stages) && ($this->stages != array())){ ?>
                   $required = $required || $stage['required'];
                 }                
                 ?>
-                <li><a class="button small <?php echo $css; ?>" <?php if ($allowURL) echo 'href="'.$stage['url'].'"'; ?>><?php echo $stage['text']; ?></a></li>
+                <li><a class="button small <?php echo $css; ?>" <?php if ($allowURL) echo 'href="'.$stage['url'].'"'; ?>><?php echo $stage['title']; ?></a></li>
               <?php } ?>
             </ul>
         </div>
@@ -41,7 +42,7 @@ if (isset($this->stages) && ($this->stages) && ($this->stages != array())){ ?>
 <?php } ?>
 
 
-<div class="row header-margin mb40">
+<div class="row <?php if (isset($this->stages) && ($this->stages) && ($this->stages != array())) echo "mt10"; else echo "mt40"; ?> mb40">
 	<div class="large-10 small-12 columns large-centered">
 	<div class="columns edit-header">
 		<h1><?php echo $this->pageTitle; ?></h1>

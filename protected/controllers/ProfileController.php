@@ -263,9 +263,9 @@ class ProfileController extends GxController {
           
           
           $this->stages = array(
-            array('text'=>Yii::t('app','Personal'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>1))),
-            array('text'=>Yii::t('app','My profile'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>2))),
-            array('text'=>Yii::t('app','About me'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>3))),
+            array('title'=>Yii::t('app','Personal'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>1))),
+            array('title'=>Yii::t('app','My profile'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>2))),
+            array('title'=>Yii::t('app','About me'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>3))),
           );
           
           $this->layout="//layouts/stageflow";
