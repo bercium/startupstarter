@@ -24,6 +24,7 @@
   'No more results!' => 'Ni več zadetkov!',
   'Oops, nothing found!' => 'Ups, nič ni bilo najdeno!',
   'Page' => 'Stran',
+  'QR code login is safer and faster way to login. First time we will pair your phone with your profile. You will then be able to login without the need of writing your email and password. <br />Advisable in cyber cafes where you don\'t know if they are tracking your key strokes.' => 'Prijava s QR kodo je hitrejša in varnejša. Pri prvi prijavi bomo povezali vaš telefon in profil, nato pa se boste lahko prijavljali brez uporabe uporabniškega imena in gesla. <br />Tak način prijave priporočamo predvsem v internet kafejih, saj ne morete vedeti ali tisti računalniki beležijo tipke in posledično vaše geslo.',
   'Scan QR code with phone to login' => 'Za prijavo poskeniraj QR kodo s telefonom',
   'The files are being uploaded, if you leave now the upload will be cancelled.' => 'Če boste zapustili stran bo prenos datotek preklican.',
   'Upload a file' => 'Posnemi datoteko',
