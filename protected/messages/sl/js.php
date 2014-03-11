@@ -24,6 +24,7 @@
   'No more results!' => 'Ni več zadetkov!',
   'Oops, nothing found!' => 'Ups, nič ni bilo najdeno!',
   'Page' => 'Stran',
+  'Scan QR code with phone to login' => 'Za prijavo poskeniraj QR kodo s telefonom',
   'The files are being uploaded, if you leave now the upload will be cancelled.' => 'Če boste zapustili stran bo prenos datotek preklican.',
   'Upload a file' => 'Posnemi datoteko',
   '{file} has invalid extension. Only {extensions} are allowed.' => 'Datoteka {file} ima napano končnico. Le sledeče končnice so dovoljene  {extensions}.',

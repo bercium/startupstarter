@@ -17,10 +17,21 @@
 <?php echo CHtml::hiddenField('codelist',$_GET['SifTranslate']['codelist']); ?>
 <?php if (isset($_GET['key'])) echo CHtml::hiddenField('key',$_GET['key']); ?>
 <?php 
+$bs = true;
 foreach ($trans as $id => $row){
-  echo "<p>".CHtml::label(strtr($row['eng'],Array("<"=>"&lt;","&"=>"&amp;"))."",'Translations_'.$id);
+  
   $class = "error";
-  if ($row['trans']) $class="success";
+  if ($row['trans']){
+    if ($bs) {
+      $bs = false;
+     
+      echo CHtml::submitButton(Yii::t("app","Save"),array("class"=>"button small success radius"));
+       echo "<hr>";
+    }
+    
+    $class="success";
+  }
+  echo "<p>".CHtml::label(strtr($row['eng'],Array("<"=>"&lt;","&"=>"&amp;"))."",'Translations_'.$id);
   echo CHtml::textArea('Translations['.$id.']',$row['trans'],array("class"=>$class,"onchange"=>"$(this).removeClass()"))."</p>";
 } ?>
 <?php echo CHtml::submitButton(Yii::t("app","Save"),array("class"=>"button small success radius")); ?>

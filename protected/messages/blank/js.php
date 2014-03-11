@@ -24,6 +24,7 @@ return array (
   'No more results!' => '',
   'Oops, nothing found!' => '',
   'Page' => '',
+  'Scan QR code with phone to login' => '',
   'The files are being uploaded, if you leave now the upload will be cancelled.' => '',
   'Upload a file' => '',
   '{file} has invalid extension. Only {extensions} are allowed.' => '',

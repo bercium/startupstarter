@@ -1,5 +1,5 @@
 <?php 
-  $this->pageTitle = Yii::t('app', 'Thanks! Now show off yourself!');
+  $this->pageTitle = Yii::t('app', 'Confirmation pending');
 ?>
 
 <script>

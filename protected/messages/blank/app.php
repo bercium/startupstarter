@@ -399,7 +399,7 @@ return array (
   'Terms of service' => '',
   'Terms of service and privacy policy' => '',
   'Thank you for applying, you are awesome' => '',
-  'Thanks! Now show off yourself!' => '',
+  'Confirmation pending' => '',
   'Time' => '',
   'Time Clicked' => '',
   'Time Open' => '',

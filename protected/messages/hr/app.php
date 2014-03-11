@@ -399,7 +399,7 @@ return array (
   'Terms of service' => 'Uvjeti usluga',
   'Terms of service and privacy policy' => 'Uvjeti usluga i polica privatnosti',
   'Thank you for applying, you are awesome' => 'Hvala što ste se prijavili. Zakon ste!',
-  'Thanks! Now show off yourself!' => '',
+  'Confirmation pending' => '',
   'Time' => 'Vrijeme',
   'Time Clicked' => '',
   'Time Open' => '',

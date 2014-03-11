@@ -17,7 +17,6 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  '3Something went wrong while scaning the code!<br /> Please refresh the page and rescan the code.' => '@@@@',
   '<strong>Invite 3 people</strong> to enable your own personal URL.' => '@@@@',
   'A full name will give you more credibility.' => '@@@@',
   'Add more skills under different industry.' => '@@@@',
@@ -161,7 +160,6 @@ return array (
   'Request invitation' => '@@@@',
   'Resource of skills & interesting projects' => '@@@@',
   'Retype password is incorrect.' => '@@@@',
-  'Scan QR code with phone to login' => '',
   'Search for designers' => '@@@@',
   'Search for people who can help you develop your business.' => '@@@@',
   'Select group which represents skills above the closest.' => '@@@@',
