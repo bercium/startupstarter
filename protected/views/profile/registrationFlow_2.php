@@ -1,5 +1,5 @@
 <?php 
-  $this->pageTitle = Yii::t('app', 'Thanks! Now show off yourself!');
+  $this->pageTitle = Yii::t('app', 'What do you know and how you want to cooperate');
   $baseUrl = Yii::app()->baseUrl; 
     $cs = Yii::app()->getClientScript();
 
@@ -29,7 +29,7 @@
     ?>
     
     <label for="skill">
-    <?php echo Yii::t('app','What are you good at');  ?> 
+    <?php echo Yii::t('app','What are you good at');  ?> *
     </label>
     <span class="description">
       <?php echo Yii::t('msg','We know you have some awesome skills so why not show them to the others. Add all the things you are really good at and do not limit yourself by writing only formal education or job specific subjects.'); ?>
@@ -37,11 +37,14 @@
     <input type="text" name="skill" placeholder="<?php echo Yii::t('app','short skill tags');  ?>" value="<?php echo $skillList; ?>" class="tm-input skill"/>
     <br />    
     
+    <br />
   <?php echo CHtml::activeLabelEx($match,'available'); ?>
   <span class="description"><?php echo Yii::t('msg','Select how much time you have to work on projects.'); ?></span>
     
   <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listDataEx(Available::model()->findAllTranslated(),"id","name"), array('empty' => '&nbsp;','style'=>'display:none')); ?>
 
+  
+  <br /><br />
     <?php echo "<label>".Yii::t('app','Collaboration preferences')."</label>"; ?>
 
     <span class="description">

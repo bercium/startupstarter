@@ -1,5 +1,5 @@
 <?php 
-  $this->pageTitle = Yii::t('app', 'Thanks! Now show off yourself!');
+  $this->pageTitle = Yii::t('app', 'Show off for others to see');
 ?>
 
 <script>
@@ -14,13 +14,13 @@
   <p>
 
       <?php echo CHtml::activeLabelEx($user,'personal_achievement'); ?>
-      <span class="description"><?php echo Yii::t('msg','Tell others your biggest accomplishment in 140 charachters or less.'); ?></span>
+      <span class="description"><?php echo Yii::t('msg','Tell us your biggest accomplishment in 140 charachters or less.'); ?></span>
       <?php echo CHtml::activeTextArea($user, 'personal_achievement', array("maxlength"=>140,"limitchars"=>140)); ?>
     
       <br />
     
       <?php echo CHtml::activeLabelEx($user,'bio'); ?>
-      <span class="description"><?php echo Yii::t('msg','Tell people something interesting about yourself.'); ?></span>
+      <span class="description"><?php echo Yii::t('msg','Write something others find interesting about you.'); ?></span>
       
       <?php echo CHtml::activeTextArea($user, 'bio', array()); ?>
 
