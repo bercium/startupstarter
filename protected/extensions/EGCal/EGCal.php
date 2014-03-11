@@ -45,6 +45,8 @@ class EGCal
 	// CURL Headers
 	private $headers;
 	
+	// Connection Status
+	private $anonymous;
 	/**
 	 *  Constructor. Called on new GCal(). Sets up initial connection
 	 *
@@ -73,7 +75,14 @@ class EGCal
 		$this->level = $level;
 		
 		// Perform the connection
-		$this->connected = $this->connect($username, $password);
+    if ($username == ''){
+      $this->connected = true;
+      $this->anonymous = true;
+			$this->setHeaders();
+    }else{
+      $this->anonymous = false;
+      $this->connected = $this->connect($username, $password);
+    }
 				
 	}
 	
@@ -130,6 +139,12 @@ class EGCal
 	 **/
 	private function setHeaders($ifMatch = FALSE, $contentLength=NULL)
 	{
+    if ($this->anonymous)
+		$this->headers = array(
+			    "GData-Version: 2.6",
+			    'Content-Type: application/json',
+			);
+    else
 		$this->headers = array(
 			    "Authorization: GoogleLogin auth=" . $this->auth,
 			    "GData-Version: 2.6",
@@ -215,10 +230,12 @@ class EGCal
 				$calendar_id = $options['calendar_id'];
 				
 				// Build the Calendar URL
-				$url = "https://www.google.com/calendar/feeds/$calendar_id/private/full?orderby=starttime&sortorder=$order&singleevents=true&start-min=$min&start-max=$max&max-results=$limit&alt=jsonc";
+        $type = 'private';
+        if ($this->anonymous) $type = 'public';
+				$url = "https://www.google.com/calendar/feeds/$calendar_id/$type/full?orderby=starttime&sortorder=$order&singleevents=true&start-min=$min&start-max=$max&max-results=$limit&alt=jsonc";
 				
 				// Load the CURL Library
-				Yii::import('application.extensions.GCal.Curl');
+				Yii::import('application.extensions.EGCal.Curl');
 				$curl = new Curl($url);
 								
 				// Set the headers
@@ -252,9 +269,9 @@ class EGCal
 							'end' => $item['when'][0]['end'],
 							'title' => $item['title'],
               'location' => $item['location'],
-              'description' => $item['description'],
+              'description' => $item['details'],
               'created' => $item['created'],
-              //'alldata' => $item;
+              //'alldata' => $item,
 							//'location' => $item['location']
 						);
 						$results['events'][] = $tmp;

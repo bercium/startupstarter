@@ -596,10 +596,10 @@ EOD;
     /*echo "<pre>";
     print_r($events);
     echo "</pre>";*/
-    if (Yii::app()->user->isGuest){
+    /*if (Yii::app()->user->isGuest){
       $register = '<a href="'.Yii::app()->createUrl("user/registration").'" class="button small radius secondary ml10 mb0">'.Yii::t('app','register').'</a>';    
       setFlash("discoverPerson", Yii::t('msg','To see all events please login or {register}',array('{register}'=>$register)), "alert", false);
-    }
+    }*/
     $this->render("calendar",array("events"=>$events));
   }
   

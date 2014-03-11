@@ -58,6 +58,8 @@ $(document).ready(function() {
           $('#drop-cal-info-title').html(event.title);
           $('#drop-cal-info-content').html(event.content);
           $('#drop-cal-info-link').attr('href',event.link);
+          if (event.link == '') $('#drop-cal-info-link').hide();
+          else $('#drop-cal-info-link').show();
           $('#drop-cal-info-location').html(event.location);
           
           
