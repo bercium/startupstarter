@@ -92,15 +92,41 @@ class StatisticController extends Controller
     
     $stat = array();
     $allMsg = 0;
+    $stat_usr = array();
+    $stat_idea = array();
     foreach ($result as $row){
+      if (!$row['idea_to_id']){
+        if (isset($stat_usr[$row['user_from_id']."-".$row['user_to_id']]))
+           $stat_usr[$row['user_from_id']."-".$row['user_to_id']] += $row['c'];
+        else if (isset($stat_usr[$row['user_to_id']."-".$row['user_from_id']]))
+           $stat_usr[$row['user_to_id']."-".$row['user_from_id']] += $row['c'];
+        else $stat_usr[$row['user_from_id']."-".$row['user_to_id']] = $row['c'];
+      }else{
+        if (!$row['user_to_id']){
+          if (isset($stat_idea["i-".$row['user_from_id']."-".$row['idea_to_id']]))
+             $stat_idea["i-".$row['user_from_id']."-".$row['idea_to_id']] += $row['c'];
+          else $stat_idea["i-".$row['user_from_id']."-".$row['idea_to_id']] = $row['c'];
+        }else{
+          if (isset($stat_idea["i-".$row['user_to_id']."-".$row['idea_to_id']]))
+             $stat_idea["i-".$row['user_to_id']."-".$row['idea_to_id']] += $row['c'];
+          else $stat_idea["i-".$row['user_to_id']."-".$row['idea_to_id']] = $row['c'];
+        }
+      }
+      /*
       if (isset($stat[$row['user_from_id']."-".$row['user_to_id']."-".$row['idea_to_id']]))
          $stat[$row['user_from_id']."-".$row['user_to_id']."-".$row['idea_to_id']] += $row['c'];
       else if (isset($stat[$row['user_to_id']."-".$row['user_from_id']."-".$row['idea_to_id']]))
          $stat[$row['user_to_id']."-".$row['user_from_id']."-".$row['idea_to_id']] += $row['c'];
       else $stat[$row['user_from_id']."-".$row['user_to_id']."-".$row['idea_to_id']] = $row['c'];
+      
+       */
       $allMsg += $row['c'];
     }
+    
+    $stat = array_merge($stat_usr,$stat_idea);
     sort($stat);
+    sort($stat_usr);
+    sort($stat_idea);
     
     $msgs_bydate = Yii::app()->db->createCommand('SELECT time_sent, COUNT(*) As c FROM message GROUP BY DATE(time_sent)')->queryAll();
     //$stat
@@ -115,7 +141,8 @@ class StatisticController extends Controller
     }
     
     $this->render('usr_com',array('pairs'=>count($stat),'all'=>$allMsg,'max'=>max($stat),
-                  'activeUsers'=>$activeUsers,'allUsers'=>$allUsers,'usersCanSendMsg'=>$usersCanSendMsg,"stat"=>$stat,
+                  'activeUsers'=>$activeUsers,'allUsers'=>$allUsers,'usersCanSendMsg'=>$usersCanSendMsg,
+                  "stat"=>$stat, "stat_usr"=>$stat_usr, "stat_idea"=>$stat_idea,
                   'msgs_bydate'=>$msgs_bydate,"msgs_read"=>$msgs_read));
  	}  
 	
