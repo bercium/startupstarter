@@ -23,6 +23,112 @@ class GeneralCommand extends CConsoleCommand{
     return json_decode($result);
   }
   
+  /**
+   * search for city and country from location
+   */
+  function getCityAndCountry($location){
+    if ($location == '') return array('city'=>'', 'country'=>'');
+    
+    $e = Event::model()->findByAttributes(array("location"=>$location));
+    if ($e){
+      if ($e->country && $e->city) return array('city'=>$e->city, 'country'=>$e->country);
+    }
+    
+    $location = str_ireplace("zda", "", $location);
+    
+    $url = 'https://maps.googleapis.com/maps/api/geocode/json?address='.urlencode($location).'&sensor=false';
+    $httpClient = new elHttpClient();
+    $httpClient->setUserAgent("ff3");
+    $httpClient->setHeaders(array("Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"));
+    $htmlDataObject = $httpClient->get($url);
+    $result = $htmlDataObject->httpBody;
+    
+    $result = json_decode($result);
+    
+    $country = '';
+    $city = '';
+    
+    if ($result->status == 'OK'){
+      if (isset($result->results[0]->address_components)){
+        $components = $result->results[0]->address_components;
+        foreach ($components as $component){
+          if ($component->types[0] == 'country'){
+            $country = $component->long_name;
+          }
+          //if ($component->types[0] == 'postal_town'){
+          if ($component->types[0] == 'locality'){
+            $city = $component->long_name;
+          }
+        }
+      }
+    }else{
+      return array('city'=>'', 'country'=>'');
+      //die(print_r($result,true));
+    }
+    
+    //die($city."-".$country." | ".print_r($result,true));
+    return array('city'=>$city, 'country'=>$country);
+  }
+  
+  
+  /**
+   * check if event exits end if not save it
+   */
+  function saveEventToDb($event){
+    // TODO: get city and country
+    
+    if ($event['start']) $event['start'] = date('Y-m-d H:i:s',strtotime($event['start']));
+    if ($event['end']) $event['end'] = date('Y-m-d H:i:s',strtotime($event['end']));
+    
+    $e = Event::model()->findByAttributes(array("title"=>$event['title'],"start"=>$event['start']));    
+    
+    // check if exist in DB
+    if ($e){
+      $old_val = (!empty($e->content)) + (!empty($e->location)) + (!empty($e->link));
+      $new_val = (!empty($event['content'])) + (!empty($event['location'])) + (!empty($event['link']));      
+      // our events have priority or if new event has more variables :) or if the same source (might be updated)
+      if ((($e->source != 'http://www.cofinder.eu') && (($event['source'] == 'http://www.cofinder.eu') || ($old_val < $new_val)) )
+           || ($e->source == $event['source'])){
+        $e->title = $event['title'];
+        $e->start = $event['start'];
+        $e->end = $event['end'];
+        if ($event['allday']) $e->all_day = 1;
+        else $e->all_day = 0;
+        if (isset($event['content'])) $e->content = $event['content'];
+        if (isset($event['link'])) $e->link = $event['link'];
+        if (isset($event['location'])){
+          $e->location = $event['location'];
+          $cityCountry = $this->getCityAndCountry($event['location']);
+          $e->city = $cityCountry['city'];
+          $e->country = $cityCountry['country'];
+        }
+        if (isset($event['source'])) $e->source = $event['source'];
+        if (isset($event['color'])) $e->color = $event['color'];
+        if (!$e->save()) die(print_r($e->errors));
+      }
+    }else{
+      $e = new Event();
+      $e->title = $event['title'];
+      $e->start = $event['start'];
+      $e->end = $event['end'];
+      if ($event['allday']) $e->all_day = 1;
+      else $e->all_day = 0;
+      if (isset($event['content'])) $e->content = $event['content'];
+      if (isset($event['link'])) $e->link = $event['link'];
+      if (isset($event['location'])){
+        $e->location = $event['location'];
+        $cityCountry = $this->getCityAndCountry($event['location']);
+        $e->city = $cityCountry['city'];
+        $e->country = $cityCountry['country'];
+      }
+      if (isset($event['source'])) $e->source = $event['source'];
+      if (isset($event['color'])) $e->color = $event['color'];
+      //$e->city = $event['title'];
+      //$e->country = $event['title'];
+      $e->save();
+    }
+  }
+  
   
   /**
    * which event to push
@@ -66,6 +172,7 @@ class GeneralCommand extends CConsoleCommand{
       
       $event_tmp['source'] = "http://www.startup.si/sl-si/EventList";
       
+      $this->saveEventToDb($event_tmp);
       //remove duplicates
       $key = $event_tmp['title'].$event_tmp['start'];
       if (isset($eventKeys[$key])){
@@ -95,6 +202,7 @@ class GeneralCommand extends CConsoleCommand{
       
       $event_tmp['source'] = "http://www.spiritslovenia.si/dogodki";
       
+      $this->saveEventToDb($event_tmp);
       //remove duplicates
       $key = $event_tmp['title'].$event_tmp['start'];
       if (isset($eventKeys[$key])){
@@ -124,6 +232,7 @@ class GeneralCommand extends CConsoleCommand{
       
       $event_tmp['source'] = "http://www.tp-lj.si/dogodki";
 
+      $this->saveEventToDb($event_tmp);
       //remove duplicates
       $key = $event_tmp['title'].$event_tmp['start'];
       if (isset($eventKeys[$key])){
@@ -160,6 +269,7 @@ class GeneralCommand extends CConsoleCommand{
       
       $event_tmp['source'] = "http://www.racunalniske-novice.com/dogodki/";
       
+      $this->saveEventToDb($event_tmp);
       //remove duplicates
       $key = $event_tmp['title'].$event_tmp['start'];
       if (isset($eventKeys[$key])){
@@ -195,6 +305,7 @@ class GeneralCommand extends CConsoleCommand{
       
       $event_tmp['source'] = "http://www.racunalniske-novice.com/dogodki/";
       
+      $this->saveEventToDb($event_tmp);
       //remove duplicates
       $key = $event_tmp['title'].$event_tmp['start'];
       if (isset($eventKeys[$key])){
@@ -268,7 +379,7 @@ class GeneralCommand extends CConsoleCommand{
 
         $event_tmp['source'] = "http://www.cofinder.eu";
         
-
+        $this->saveEventToDb($event_tmp);
         //remove duplicates
         $key = $event_tmp['title'].$event_tmp['start'];
         if (isset($eventKeys[$key])){

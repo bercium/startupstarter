@@ -27,7 +27,7 @@ class SiteController extends Controller
 			array('allow', // allow all users to perform actions
         'actions'=>array('index','error','logout','about','terms','notify','notifyFacebook','suggestCountry',
                          'suggestSkill','suggestCity','unbsucribeFromNews','cookies','sitemap','startupEvents',
-                         'applyForEvent','vote','clearNotif'),
+                         'applyForEvent','vote','clearNotif','suggestEventCityCountry'),
 				'users'=>array('*'),
 			),
 			/*array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -571,7 +571,7 @@ EOD;
     $filename = "calendar.json";
     $folder = Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['tempFolder'];
       
-    if (!file_exists($folder.$filename) || YII_DEBUG){
+    if (YII_DEBUG){
     //if (true){    
       $controller = 'general';
       $action = 'loadCalendars';
@@ -587,11 +587,11 @@ EOD;
       //ob_start();
       $runner->run($args);
     }
-    
-    if (file_exists($folder.$filename)){
-      $content = file_get_contents($folder.$filename);
-      $events = json_decode($content, true);
-    }
+
+    $filter = '';
+    if (!empty($_GET['filter'])){
+      $events = Event::model()->findAll("start >= :start AND (city LIKE :filter OR country LIKE :filter)",array(":start"=>date("Y-m-1"),':filter'=>$_GET['filter']));
+    }else $events = Event::model()->findAll("start >= :start ",array(":start"=>date("Y-m-1")));
     
     /*echo "<pre>";
     print_r($events);
@@ -601,6 +601,39 @@ EOD;
       setFlash("discoverPerson", Yii::t('msg','To see all events please login or {register}',array('{register}'=>$register)), "alert", false);
     }*/
     $this->render("calendar",array("events"=>$events));
+  }
+  
+  /**
+   * 
+   */
+  public function actionSuggestEventCityCountry($term){
+    
+    if (!$term){
+			$response = array("data" => null,
+								"status" => 1,
+								"message" => Yii::t('msg', "No search query."));
+		}else{
+      $e = Event::model()->findAll(array('group'=>'city','condition'=>"city LIKE :term",'params'=>array(":term"=>"%".$term."%")));
+
+      $data = array();
+      if ($e){
+        foreach ($e as $cc){
+          $data[] = $cc->city."\n";
+        }
+      }
+      $e = Event::model()->findAll(array('group'=>'country','condition'=>"country LIKE :term",'params'=>array(":term"=>"%".$term."%")));
+      if ($e){
+        foreach ($e as $cc){
+          $data[] = $cc->country."\n";
+        }
+      }
+			
+			$response = array("data" => $data,
+								"status" => 0,
+								"message" => '');
+		}
+		echo json_encode($response);
+		Yii::app()->end();
   }
   
   /**
