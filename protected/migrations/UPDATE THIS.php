@@ -49,3 +49,19 @@ CREATE TABLE IF NOT EXISTS `qr_login` (
 ALTER TABLE `qr_login` ADD CONSTRAINT `qr_login_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `user` ADD `qrcode` VARCHAR( 128 ) NULL DEFAULT NULL AFTER `activkey`;
+
+CREATE TABLE IF NOT EXISTS `event` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `end` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `all_day` tinyint(1) NOT NULL,
+  `content` varchar(500) DEFAULT NULL,
+  `link` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `source` varchar(128) DEFAULT NULL,
+  `color` varchar(50) DEFAULT NULL,
+  `city` varchar(128) DEFAULT NULL,
+  `country` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
