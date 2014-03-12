@@ -137,16 +137,17 @@ function qrLoad(){
   //alert('d');
 //  $.get(Yii.app.createUrl("profile/suggestSkil",{ajax:1,term:'ski'}), function( data ) {
   if (qrActive) return;
-  $.get("/startupstarter/qr/create?ajax=1", function( id ) {
+  $.get(fullURL+"/qr/create?ajax=1", function( id ) {
     qrActive = true;
-    link = 'http://192.168.1.10/startupstarter/qr/scan?qr='+id;
-    $(".login-qrcode" ).html('<hr><p>'+Yii.t('msg','Scan QR code with phone to login')+'</p><img src="https://chart.googleapis.com/chart?cht=qr&chld=M|0&chs=300&chl='+link+'" title="QR code login" alt="QR code login" style="opacity:0.8">');
+    link = 'http://'+document.domain+fullURL+'/qr/scan?qr='+id;
+    qrtitle = Yii.t('js',"QR code login is safer and faster way to login. First time we will pair your phone with your profile. You will then be able to login without the need of writing your email and password. <br />Advisable in cyber cafes where you don't know if they are tracking your key strokes.");
+    $(".login-qrcode" ).html('<hr><p>'+Yii.t('js','Scan QR code with phone to login')+'</p><img src="https://chart.googleapis.com/chart?cht=qr&chld=M|0&chs=300&chl='+link+'" data-tooltip class="tip-top" title="'+qrtitle+'" alt="'+qrtitle+'" style="opacity:0.8">');
     $(".login-qrcode" ).everyTime('1s',function(i){qrCheck(id);},0);
   });
 }
 
 function qrCheck(id){
-  $.get("/startupstarter/qr/validate?ajax=1&qr="+id, function( data ) {
+  $.get(fullURL+"/qr/validate?ajax=1&qr="+id, function( data ) {
     if (data == true) location.reload();
   });
 }

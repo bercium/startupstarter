@@ -44,6 +44,8 @@ class QrController extends Controller
     $qrLogin->save();
     
     $hashids = new Hashids('cofinder');
+    
+    //echo Yii::app()->createAbsoluteUrl("/qr/scan",array("qr"=>$qrLogin->id));
     echo $hashids->encrypt_hex($qrLogin->id);
     Yii::app()->end();
 	}
@@ -148,7 +150,7 @@ class QrController extends Controller
     
     $qrLogin = QrLogin::model()->findByPk($id);
     if (!$qrLogin || $qrLogin->user_id){
-      $this->render('//site/message',array("title"=>Yii::t('msg','Problem scaning code'),"content"=>Yii::t('msg','3Something went wrong while scaning the code!<br /> Please refresh the page and rescan the code.')));
+      $this->render('//site/message',array("title"=>Yii::t('msg','Problem scaning code'),"content"=>Yii::t('msg','Something went wrong while scaning the code!<br /> Please refresh the page and rescan the code.')));
       return;
     }
     // check validity of token (5min)

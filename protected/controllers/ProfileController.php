@@ -3,6 +3,7 @@
 class ProfileController extends GxController {
 
   public $layout="//layouts/edit";
+  public $stages = array();
 
 	/**
 	 * @return array action filters
@@ -259,6 +260,15 @@ class ProfileController extends GxController {
 				$sqlbuilder = new SqlBuilder;
         
 				if (Yii::app()->user->isGuest){
+          
+          
+          $this->stages = array(
+            array('title'=>Yii::t('app','Personal'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>1))),
+            array('title'=>Yii::t('app','My profile'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>2))),
+            array('title'=>Yii::t('app','About me'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>3))),
+          );
+          
+          $this->layout="//layouts/stageflow";
           $data['user'] = $sqlbuilder->load_array("regflow", $filter);
           if (isset($_GET['step'])){
             $this->render('registrationFlow_'.$_GET['step'], array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link));

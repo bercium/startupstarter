@@ -15,6 +15,7 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
 
   echo "<script>";
   echo "var seio=".(Yii::app()->user->isGuest ? '0':'1').";";
+  echo "var seio=1;";
   echo " var events = [";
   $count_events = 0;
   if (count($events) > 0)
@@ -22,7 +23,7 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
     echo "{";
     echo "id: ".$count_events.",";
     echo "className:'secalendar-".$count_events."',";
-    echo "title: '".stripslashes($event["title"])."',";
+    echo "title: '".addslashes($event["title"])."',";
     echo "start: '".(strtotime($event["start"])-1*60*60)."',";
     if ($event["end"] > '') echo "end: '".(strtotime($event["end"])-6*60*60)."',";
     else $event["end"] = $event["start"];
@@ -37,7 +38,7 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
       echo "gcal: '".date("Ymd",strtotime($event["start"]))."T".date("Hi",strtotime($event["start"])-3600)."00Z/"
                     .date("Ymd",strtotime($event["end"]))."T".date("Hi",strtotime($event["end"])-3600)."00Z',";
     }
-    echo "content: '".stripslashes($event["content"])."',";
+    echo "content: '".addslashes($event["content"])."',";
     echo "link: '".($event["link"])."',"; 
     if (isset($event["color"])){
       if ($event["color"] == 'blue') echo "color:'#4469A6',";
@@ -57,7 +58,7 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
         <span class="icon-calendar"></span>
       </a>
     </div>
-    <h4 id="drop-cal-info-title"></h4>
+    <h3 id="drop-cal-info-title"></h3>
     <small>
       <div id="drop-cal-info-location"class="mb8 meta" style="font-weight: bold;"></div>
       <p id="drop-cal-info-content"></p>
@@ -69,7 +70,7 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
 <div class="row about mt40">
   <div class="columns">
     <div class="columns main ball wrapped-content">
-      <h2><?php echo Yii::t('app','Calendar of startup events'); ?></h2>
+      <h2><?php echo Yii::t('app','Calendar of upcoming startup events'); ?></h2>
       
       <div id='loading' style='display:none'>loading...</div>
       <div id='calendar'></div>

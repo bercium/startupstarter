@@ -24,6 +24,8 @@ return array (
   'No more results!' => '',
   'Oops, nothing found!' => '',
   'Page' => '',
+  'QR code login is safer and faster way to login. First time we will pair your phone with your profile. You will then be able to login without the need of writing your email and password. <br />Advisable in cyber cafes where you don\'t know if they are tracking your key strokes.' => '',
+  'Scan QR code with phone to login' => '',
   'The files are being uploaded, if you leave now the upload will be cancelled.' => '',
   'Upload a file' => '',
   '{file} has invalid extension. Only {extensions} are allowed.' => '',

@@ -1,38 +1,48 @@
 <?php /* @var $this Controller */ ?>
 <?php $this->beginContent('//layouts/main'); ?>
 
- <?php if(isset($idea_id)){ ?>
-        <div class="mb40 row pb0">     
-            <div class="stageflow" style="">
-                <div class="large-12">
-                    <ul class="button-group mb0">
-                        <li><a class="button small selected" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 1)); ?>><?php echo Yii::t('app', 'Presentation'); ?></a></li>
-                        <li><a class="button small" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 2)); ?>><?php echo Yii::t('app', 'Story'); ?></a></li>
-                        <li><a class="button small" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 3)); ?>><?php echo Yii::t('app', 'Team'); ?></a></li>
-                        <li><a class="button small" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 2)); ?>><?php echo Yii::t('app', "You are done!"); ?></a></li>
-                    </ul>
-                </div>
-            </div>
+<?php
+          
+if (isset($this->stages) && ($this->stages) && ($this->stages != array())){ ?>
+<div class="mt40 row pb0 ">
+   
+    <div class="large-10 large-centered columns">
+         <div class="stageflow">
+            <ul class="button-group mb0">
+              <?php
+              $step = 1;
+              if (isset($_GET['step'])) $step = $_GET['step'];
+              $c = 0;
+              $required = false;
+              foreach ($this->stages as $stage){
+                $c++;
+                $css = '';
+                
+                $allowURL = true;
+                if (empty($stage['url'])) $allowURL = false;
 
+                // if curent step mark
+                if ($c == $step){
+                  $css = 'selected';
+                  $allowURL = false;
+                }else if ($c == $step-1) $css = 'before-selected';
+
+                $allowURL = $allowURL && (!$required); // if one is required don't allow links forward
+                // check if next round items should be required
+                if (($c >= $step) && isset($stage['required'])){
+                  $required = $required || $stage['required'];
+                }                
+                ?>
+                <li><a class="button small <?php echo $css; ?>" <?php if ($allowURL) echo 'href="'.$stage['url'].'"'; ?>><?php echo $stage['title']; ?></a></li>
+              <?php } ?>
+            </ul>
         </div>
-
-        <?php } else { ?>
-        <div class="mb40 row pb0">     
-            <div class="stageflow" style="">
-                <div class="large-12">
-                    <ul class="button-group mb0">
-                        <li><a class="button small selected"><?php echo Yii::t('app', 'Presentation'); ?></a></li>
-                        <li><a class="button small"><?php echo Yii::t('app', 'Story'); ?></a></li>
-                        <li><a class="button small"><?php echo Yii::t('app', 'Team'); ?></a></li>
-                        <li><a class="button small"><?php echo Yii::t('app', "You are done!"); ?></a></li>
-                    </ul>
-             </div>
-            </div>
-        </div>
-        <?php } ?>
+    </div>
+</div>
+<?php } ?>
 
 
-<div class="row header-margin mb40">
+<div class="row <?php if (isset($this->stages) && ($this->stages) && ($this->stages != array())) echo "mt10"; else echo "mt40"; ?> mb40">
 	<div class="large-10 small-12 columns large-centered">
 	<div class="columns edit-header">
 		<h1><?php echo $this->pageTitle; ?></h1>

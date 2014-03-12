@@ -23,6 +23,18 @@ class GeneralCommand extends CConsoleCommand{
     return json_decode($result);
   }
   
+  
+  /**
+   * which event to push
+   */
+  function compareEvents($old, $new){
+    $old_val = (!empty($old['content'])) + (!empty($old['location'])) + (!empty($old['link']));
+    $new_val = (!empty($new['content'])) + (!empty($new['location'])) + (!empty($new['link']));
+    
+    if ($old_val > $new_val) return $old;
+    else return $new;
+  }
+  
   /**
    * restoring DB
    */
@@ -32,6 +44,7 @@ class GeneralCommand extends CConsoleCommand{
     $apiKey = "7dMKDBf9TiWohXjN/uofMZfZ9tubpjPME/iTMgNHYw6LCNq4fweTErAOVE/Q8samc5W2fBFSNXzlUjHGkkzFXQ==";
 
     $events = array();
+    $eventKeys = array();
     $i = 0;
     
     // Query for tile startup.si
@@ -43,7 +56,7 @@ class GeneralCommand extends CConsoleCommand{
     foreach ($result->results as $event){
       //$event_tmp['id'] = $i++;
       $event_tmp['title'] = $event->title;
-      $event_tmp['content'] = $event->content;
+      $event_tmp['content'] = str_replace("\n", "<br />", $event->content);
       $event_tmp['location'] = substr($event->location,0,  strpos($event->location, " [ "));
       $event_tmp['link'] = $event->link;
       
@@ -53,7 +66,14 @@ class GeneralCommand extends CConsoleCommand{
       
       $event_tmp['source'] = "http://www.startup.si/sl-si/EventList";
       
-      $events[] = $event_tmp;
+      //remove duplicates
+      $key = $event_tmp['title'].$event_tmp['start'];
+      if (isset($eventKeys[$key])){
+        $events[$eventKeys[$key]] = $this->compareEvents($eventKeys[$key], $event_tmp);
+      }else{
+        $eventKeys[$key] = count($events);
+        $events[] = $event_tmp;
+      }
     }
 
     // Query for tile spiritslovenia
@@ -65,7 +85,7 @@ class GeneralCommand extends CConsoleCommand{
     foreach ($result->results as $event){
       //$event_tmp['id'] = $i++;
       $event_tmp['title'] = $event->title;
-      $event_tmp['content'] = $event->content;
+      $event_tmp['content'] = str_replace("\n", "<br />", $event->content);
       $event_tmp['location'] = $event->location;
       $event_tmp['link'] = $event->link;
 
@@ -75,7 +95,14 @@ class GeneralCommand extends CConsoleCommand{
       
       $event_tmp['source'] = "http://www.spiritslovenia.si/dogodki";
       
-      $events[] = $event_tmp;
+      //remove duplicates
+      $key = $event_tmp['title'].$event_tmp['start'];
+      if (isset($eventKeys[$key])){
+        $events[$eventKeys[$key]] = $this->compareEvents($eventKeys[$key], $event_tmp);
+      }else{
+        $eventKeys[$key] = count($events);
+        $events[] = $event_tmp;
+      }
     }
     
     $event = array();
@@ -87,7 +114,7 @@ class GeneralCommand extends CConsoleCommand{
     foreach ($result->results as $event){
       //$event_tmp['id'] = $i++;
       $event_tmp['title'] = $event->title;
-      $event_tmp['content'] = '';//$event->content;  //problem s contentom
+      $event_tmp['content'] = str_replace("\n", "<br />", $event->content);  //problem s contentom
       $event_tmp['location'] = '';//$event->location; // ni lokacije
       $event_tmp['link'] = $event->link;
 
@@ -96,8 +123,15 @@ class GeneralCommand extends CConsoleCommand{
       $event_tmp['allday'] = false;
       
       $event_tmp['source'] = "http://www.tp-lj.si/dogodki";
-      
-      $events[] = $event_tmp;
+
+      //remove duplicates
+      $key = $event_tmp['title'].$event_tmp['start'];
+      if (isset($eventKeys[$key])){
+        $events[$eventKeys[$key]] = $this->compareEvents($eventKeys[$key], $event_tmp);
+      }else{
+        $eventKeys[$key] = count($events);
+        $events[] = $event_tmp;
+      }
     }
     
 
@@ -110,7 +144,7 @@ class GeneralCommand extends CConsoleCommand{
     foreach ($result->results as $event){
       //$event_tmp['id'] = $i++;
       $event_tmp['title'] = $event->title;
-      $event_tmp['content'] = $event->content;  //problem s contentom
+      $event_tmp['content'] = str_replace("\n", "<br />", $event->content);  //problem s contentom
       if (isset($event->link)) $event_tmp['link'] = $event->link;
       else $event_tmp['link'] = '';
       
@@ -126,7 +160,14 @@ class GeneralCommand extends CConsoleCommand{
       
       $event_tmp['source'] = "http://www.racunalniske-novice.com/dogodki/";
       
-      $events[] = $event_tmp;
+      //remove duplicates
+      $key = $event_tmp['title'].$event_tmp['start'];
+      if (isset($eventKeys[$key])){
+        $events[$eventKeys[$key]] = $this->compareEvents($eventKeys[$key], $event_tmp);
+      }else{
+        $eventKeys[$key] = count($events);
+        $events[] = $event_tmp;
+      }
     }
     
     //$events = array();
@@ -138,7 +179,7 @@ class GeneralCommand extends CConsoleCommand{
     foreach ($result->results as $event){
       //$event_tmp['id'] = $i++;
       $event_tmp['title'] = $event->title;
-      $event_tmp['content'] = $event->content;  //problem s contentom
+      $event_tmp['content'] = str_replace("\n", "<br />", $event->content);  //problem s contentom
       if (isset($event->link)) $event_tmp['link'] = $event->link;
       else $event_tmp['link'] = '';
       
@@ -154,13 +195,95 @@ class GeneralCommand extends CConsoleCommand{
       
       $event_tmp['source'] = "http://www.racunalniske-novice.com/dogodki/";
       
-      $events[] = $event_tmp;
-    }    
+      //remove duplicates
+      $key = $event_tmp['title'].$event_tmp['start'];
+      if (isset($eventKeys[$key])){
+        $events[$eventKeys[$key]] = $this->compareEvents($eventKeys[$key], $event_tmp);
+      }else{
+        $eventKeys[$key] = count($events);
+        $events[] = $event_tmp;
+      }
+    }
+    
+    
+    // OUR GOOGLE CALENDAR
+    Yii::import('application.extensions.EGCal.EGCal');
+    $cal = new EGCal('', ''); // public calendar
+    
+    $response = $cal->find(
+        array(
+            //'min'=>date('c', strtotime(date("d.m.Y"))),
+            //'max'=>date('c', strtotime(date("d.m.Y"))),
+            'min'=>date("Y-m-1").'T00:00:00+00:00',
+            'max'=>date("Y-m-d",strtotime(date("Y-m-1"))+60*60*24*92).'T23:59:00+00:00', //3 months
+            'limit'=>50,
+            'order'=>'a',
+            'calendar_id'=>'1b6ekrafhb0l2mrq86pq5fdov8@group.calendar.google.com',
+            //'calendar_id'=>'occfrr8e7rtdo46b8k0ibhndtg%40group.calendar.google.com',  // internet week
+        )
+    );
+    
+    // our google calendar
+    if (isset($response['events'])){
+      foreach ($response['events'] as $event){
+        $content = $event['description'];
+        
+        // set color from content
+        $event_tmp['color'] = "";
+        if (strpos($content,"#red")){
+          $content = str_replace("#red", "", $content);
+          $event_tmp['color'] = "red";
+        }
+        if (strpos($content,"#blue")){
+          $content = str_replace("#blue", "", $content);
+          $event_tmp['color'] = "blue";
+        }
+        if (strpos($content,"#green")) $content = str_replace("#green", "", $content); // just fallback
+        
+        $link = '';
+        // set links from content
+        if (strpos($content,"#link:")){
+          if (strpos($content,"\n",strpos($content,"#link:")) === false){
+            $link = substr($content, strpos($content,"#link:"), strlen($content));
+          }else $link = substr($content, strpos($content,"#link:"), strpos($content,"\n",strpos($content,"#link:")));
+          $content = str_replace($link, "", $content);
+          $link = trim(str_replace("#link:", "", $link));
+        }
+
+        $event_tmp['title'] = $event['title'];
+        $event_tmp['content'] = str_replace("\n", "<br />", trim($content));
+        $event_tmp['location'] = $event['location'];
+        $event_tmp['link'] = $link;
+
+        $start = strtotime($event["start"])+1*60*60;
+        $end = strtotime($event["end"])+1*60*60;
+        
+        $event_tmp['start'] = date("c",$start);
+        $event_tmp['end'] = date("c",$end);
+
+        $event_tmp['allday'] = false;
+        if (timeDifference($start, $end, "days_total") >= 1){
+          $event_tmp['allday'] = true;
+        }
+
+        $event_tmp['source'] = "http://www.cofinder.eu";
+        
+
+        //remove duplicates
+        $key = $event_tmp['title'].$event_tmp['start'];
+        if (isset($eventKeys[$key])){
+          $events[$eventKeys[$key]] = $event_tmp; // override with our event :)
+        }else{
+          $eventKeys[$key] = count($events);
+          $events[] = $event_tmp;
+        }
+      }
+    }
     
     
     //CF event
       //$event_tmp['id'] = $i++;
-      $event_tmp['title'] = "Sestavi svojo ekipo";
+      /*$event_tmp['title'] = "Sestavi svojo ekipo";
       $event_tmp['content'] = 'Prekipevaš od poslovnih idej in iščeš soustanovitelja ali pa imaš pa željo po nečem novem; pridružiti se super projektu. Pridi na dogodek in spoznal boš cel kup zanimivih ljudi in slišal nore ideje.';
       $event_tmp['location'] = 'Hekovnik, Teslova ulica 30, Ljubljana';//$event->location; // ni lokacije
       $event_tmp['link'] = "http://www.cofinder.eu/events/sestavi-svojo-ekipo/";
@@ -172,7 +295,7 @@ class GeneralCommand extends CConsoleCommand{
       
       $event_tmp['source'] = "http://www.cofinder.eu";
       
-      $events[] = $event_tmp;
+      $events[] = $event_tmp;*/
     
     // write events
     $filename = "calendar.json";

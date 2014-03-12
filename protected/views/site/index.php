@@ -249,7 +249,7 @@
       <li>  
         <div class="columns pt0 pb0 mt10 large-8 large-centered">
           <span class="icon-quote-left large"></span>
-          <?php echo Yii::t('cont','As a yung startup we were looking for specific type of profesionals. We were able to quickly find them with the help of Cofinder.'); ?>
+          <?php echo Yii::t('cont','As a young startup we were looking for specific type of profesionals. We were able to find them quickly with the help of Cofinder.'); ?>
           <span class="icon-quote-right large"></span
           <br />
           <span class="mt40 right l-iblock" >

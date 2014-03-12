@@ -1,5 +1,5 @@
 <?php 
-  $this->pageTitle = Yii::t('app', 'Thanks! Now show off yourself!');
+  $this->pageTitle = Yii::t('app', 'Tell us a bit about yourself');
 ?>
 
 <script>
@@ -17,18 +17,9 @@
   <strong>
     <?php echo Yii::t('msg','Let\'s see how dedicated you are.'); ?>
   </strong>
-    
+    <hr>
 </p>
 
-  <ul class="button-group radius left">
-    <?php $step = 1; if (isset($_GET['step'])) $step = $_GET['step']; ?>
-    <li><a class="button tiny <?php if ($step != 1) echo "secondary"; ?>" href="<?php echo Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>1)); ?>">1. <?php echo Yii::t('app','Personal'); ?></a></li>
-    <li><a class="button tiny <?php if ($step != 2) echo "secondary"; ?>" href="<?php echo Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>2)); ?>">2. <?php echo Yii::t('app','Skills'); ?></a></li>
-    <li><a class="button tiny <?php if ($step != 3) echo "secondary"; ?>" href="<?php echo Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>3)); ?>">3. <?php echo Yii::t('app','Finish'); ?></a></li>
-  </ul>
-
-<hr>
-<br />
 
   <?php echo CHtml::beginForm(Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>2)),'post',array('class'=>"custom",'id'=>'after_register_form')); ?>
   
@@ -79,18 +70,18 @@
       <?php echo CHtml::activeHiddenField($user,'avatar_link'); ?>
       </div>
       <div class="large-7 left columns">
-
+        <br />
       <?php //if (!$user->surname){ ?>
       <?php echo CHtml::activeLabelEx($user,'name'); ?>
       <?php echo CHtml::activeTextField($user,"name", array('maxlength' => 128)); ?>
       <?php //} ?>
-        
+        <br />
       <?php echo CHtml::activeLabelEx($user,'surname'); ?>
       <?php echo CHtml::activeTextField($user,"surname", array('maxlength' => 128)); ?>        
-        
+        <br />
       <?php echo CHtml::activeLabelEx($match,'country_id'); ?>
       <?php echo CHtml::activedropDownList($match, 'country_id', GxHtml::listDataEx(Country::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
-
+        <br /><br />
       <?php echo CHtml::activeLabelEx($match,'city'); ?>
       <?php echo CHtml::activeTextField($match, 'city', array("class"=>"city")); ?>
 
