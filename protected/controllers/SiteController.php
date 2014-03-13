@@ -571,7 +571,7 @@ EOD;
     $filename = "calendar.json";
     $folder = Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['tempFolder'];
       
-    if (YII_DEBUG){
+   /* if (YII_DEBUG){
     //if (true){    
       $controller = 'general';
       $action = 'loadCalendars';
@@ -586,7 +586,7 @@ EOD;
       //$args = array_merge(array("yiic"), $args);
       //ob_start();
       $runner->run($args);
-    }
+    }*/
 
     $filter = '';
     if (!empty($_GET['filter'])){
@@ -613,18 +613,26 @@ EOD;
 								"status" => 1,
 								"message" => Yii::t('msg', "No search query."));
 		}else{
-      $e = Event::model()->findAll(array('group'=>'city','condition'=>"city LIKE :term",'params'=>array(":term"=>"%".$term."%")));
+      
+      $result = Yii::app()->db->createCommand('SELECT COUNT(*) AS c, country, city FROM event '
+                                            . 'WHERE city LIKE '."'%".$term."%'".' AND start >= CURDATE() '
+                                            . 'GROUP BY city',array(":term"=>"%".$term."%"))->queryAll();
+
+      //$e = Event::model()->findAll(array('select'=>'COUNT(*) AS c, country, city','group'=>'city','condition'=>"city LIKE :term",'params'=>array(":term"=>"%".$term."%")));
 
       $data = array();
-      if ($e){
-        foreach ($e as $cc){
-          $data[] = $cc->city."\n";
+      if ($result){
+        foreach ($result as $cc){
+          $data[] = array('value'=>$cc['city'],'count'=>$cc['c']);
         }
       }
-      $e = Event::model()->findAll(array('group'=>'country','condition'=>"country LIKE :term",'params'=>array(":term"=>"%".$term."%")));
-      if ($e){
-        foreach ($e as $cc){
-          $data[] = $cc->country."\n";
+      
+      $result = Yii::app()->db->createCommand('SELECT COUNT(*) AS c, country, city FROM event '
+                                      . 'WHERE country LIKE '."'%".$term."%'".' AND start >= CURDATE() '
+                                      . 'GROUP BY country',array(":term"=>"%".$term."%"))->queryAll();
+      if ($result){
+        foreach ($result as $cc){
+          $data[] = array('value'=>$cc['country'],'count'=>$cc['c']);
         }
       }
 			

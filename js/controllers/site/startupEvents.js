@@ -116,6 +116,12 @@ $(document).ready(function() {
           //tagApi.tagsManager("pushTag", ui.item.value);
           return false;
         }
-      });    
+      })
+     .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+      return $( "<li>" )
+        .append( "<a>" + item.value + ' (' + item.count + ")</a>" )
+        //.append( "<a>" + item.skill + "<br><small>" + item.skillset + "</small></a>" )
+        .appendTo( ul );
+    };    
 
 });
