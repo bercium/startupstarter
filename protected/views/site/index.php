@@ -71,11 +71,18 @@
           <div class="small-12">
 
             <div class="pall125em radius-all whats-new radius fancy-border">
-              <h2 ><?php echo Yii::t('app', 'Invite friends'); ?></h2>
-              <p>
-                <?php echo Yii::t('msg', 'Invite team members and friends to Cofinder'); ?>
-              </p>
-              <a href="<?php echo Yii::app()->createUrl("profile"); ?>" trk="index_click_invite" data-dropdown="drop-invitation-msg" class="button success radius small small-12"><?php echo Yii::t('msg', 'Invite to Cofinder'); ?></a>
+              <?php if ($event['today']){ ?>
+                <h2 ><?php echo Yii::t('app', 'What is happening'); ?></h2>
+                <p>
+                  <?php echo trim_text($event['today']->title, 80); ?>
+                </p>
+              <?php }else{ ?>
+                <h2 ><?php echo Yii::t('app', 'Upcoming event'); ?></h2>
+                <p>
+                  <?php echo trim_text($event['next']->title, 80); ?>
+                </p>
+              <?php } ?>
+              <a href="<?php echo Yii::app()->createUrl("site/startupEvents"); ?>" trk="index_click_events" class="button radius small small-12"><?php echo Yii::t('app', 'View more events'); ?></a>
             </div>
             
           </div>
@@ -97,8 +104,6 @@
         </li>
 			</ul>
 
-
-			
 			
 		</div>
 	</div>

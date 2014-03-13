@@ -19,25 +19,25 @@
     
       <div class="section-container sidebar accordion edit-content edit-content-bottom" data-section>
         <section class="section <?php echo isMenuItemActive('index'); ?>">
-          <p class="title"><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><span class="icon-user"></span><?php echo Yii::t('app','Edit profile'); ?></a></p>
+          <p class="title"><a trk="navigation_sidebar_editProfile" href="<?php echo Yii::app()->createUrl("profile"); ?>"><span class="icon-user"></span><?php echo Yii::t('app','Edit profile'); ?></a></p>
         </section>
         <section class="section <?php echo isMenuItemActive(array("create","projects","edit")); ?>">
           <p class="title">
-            <a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>"><span class="icon-lightbulb"></span>
+            <a trk="navigation_sidebar_myProjects" href="<?php echo Yii::app()->createUrl("profile/projects"); ?>"><span class="icon-lightbulb"></span>
               <?php echo Yii::t('app','My projects'); ?>
             </a>
           </p>
         </section>
         <section class="section <?php echo isMenuItemActive("account"); ?>">
-          <p class="title"><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><span class="icon-wrench"></span><?php echo Yii::t('app','Settings'); ?></a></p>
+          <p class="title"><a trk="navigation_sidebar_settings"href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><span class="icon-wrench"></span><?php echo Yii::t('app','Settings'); ?></a></p>
         </section>
         <section class="section <?php echo isMenuItemActive("message"); ?>">
-          <p class="title"><a href="<?php echo Yii::app()->createUrl("message/view"); ?>"><span class="icon-envelope icon-awesome"></span><?php echo Yii::t('app','Message history'); ?></a></p>
+          <p class="title"><a trk="navigation_sidebar_messageHistory" href="<?php echo Yii::app()->createUrl("message/view"); ?>"><span class="icon-envelope icon-awesome"></span><?php echo Yii::t('app','Message history'); ?></a></p>
         </section>
         
         <?php //if(Yii::app()->user->isAdmin()){ ?>
         <section class="section <?php echo isMenuItemActive("notification"); ?>">
-          <p class="title"><a href="<?php echo Yii::app()->createUrl("profile/notification"); ?>"><span class="icon-flag"></span><?php echo Yii::t('app','Notifications'); ?></a></p>
+          <p class="title"><a trk="navigation_sidebar_notifications" href="<?php echo Yii::app()->createUrl("profile/notification"); ?>"><span class="icon-flag"></span><?php echo Yii::t('app','Notifications'); ?></a></p>
         </section><?php //} ?>
       </div>
 

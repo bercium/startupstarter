@@ -147,8 +147,13 @@ class SiteController extends Controller
       $ideaType = Yii::t('app', "Recent projects");
       if (!Yii::app()->user->isGuest) $ideaType .= ' <a href="?suggested=1" trk="project_switch_suggested" class="button radius tiny">'.Yii::t('app', "Switch to suggested").'</a>';        
     }
+    
+    $eventsToday = Event::model()->find("CURDATE() BETWEEN DATE(start) AND date(end)");
+    $eventsNext = false;
+    if (!$eventsToday) $eventsNext = Event::model()->find("CURDATE() > start");
+    $event = array('today'=>$eventsToday,'next'=>$eventsNext);
 
-		$this->render('index', array('data' => $data, "maxPageIdea"=>$maxPageIdea, "maxPagePerson"=>$maxPagePerson, "ideaType"=>$ideaType, "userType"=>$userType));
+		$this->render('index', array('data' => $data, 'event'=>$event, "maxPageIdea"=>$maxPageIdea, "maxPagePerson"=>$maxPagePerson, "ideaType"=>$ideaType, "userType"=>$userType));
 	}
 
 	public function actionAbout()

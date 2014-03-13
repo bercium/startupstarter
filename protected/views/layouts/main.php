@@ -71,7 +71,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
             <!-- Title Area -->
              <li class="name ">
                <div class="hide-for-small">
-								 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
+								 <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" trk="navigation_topMenu_logo">
 									<img class="logo ml10" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title.png"  width="216" height="42" />
 								 
                  </a>
@@ -81,7 +81,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
                 <div class="show-for-small">
                 <div class="left l-iblock">
                 <div>
-                <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
+                <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" trk="navigation_topMenu_logo">
                 <img class="ml10" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-title-mobile.png"  width="216" height="42"  />
                 </a>
                 </div>
@@ -111,7 +111,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
               <li class="divider"></li>
               <?php if (!Yii::app()->user->isGuest){ ?>
               <li class="has-dropdown minwidth20">
-                <a href="<?php echo Yii::app()->createUrl("person",array('id'=>Yii::app()->user->id)); ?>" >
+                <a href="<?php echo Yii::app()->createUrl("person",array('id'=>Yii::app()->user->id)); ?>"  trk="navigation_topMenu_viewMyProfile">
                   <div class="">
                   <?php $this->widget('ext.ProfileInfo.WProfileInfo'); ?>
                   </div>                  
@@ -119,13 +119,13 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
                  </a>
 
                 <ul class="dropdown">
-                  <li><a href="<?php echo Yii::app()->createUrl("profile"); ?>"><?php echo Yii::t('app','Edit profile'); ?><span class="icon-user"></span></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>"><?php echo Yii::t('app','My projects'); ?><span class="icon-lightbulb"></span></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("project/create"); ?>"><?php echo Yii::t('app','Create a new project'); ?><span class="icon-plus"></span></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("message"); ?>"><?php echo Yii::t('app','Message history'); ?><span class="icon-envelope"></span></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>"><?php echo Yii::t('app','Settings'); ?><span class="icon-wrench"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("profile"); ?>" trk="navigation_top_editProfile"><?php echo Yii::t('app','Edit profile'); ?><span class="icon-user"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>" trk="navigation_top_myProjects"><?php echo Yii::t('app','My projects'); ?><span class="icon-lightbulb"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("project/create"); ?>" trk="navigation_top_createProject"><?php echo Yii::t('app','Create a new project'); ?><span class="icon-plus"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("message"); ?>" trk="navigation_top_messageHistory"><?php echo Yii::t('app','Message history'); ?><span class="icon-envelope"></span></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>" trk="navigation_top_settings"><?php echo Yii::t('app','Settings'); ?><span class="icon-wrench"></span></a></li>
                   
-                  <li><a class="altli" href="<?php echo Yii::app()->createUrl(Yii::app()->getModule('user')->logoutUrl[0]); ?>"><?php echo Yii::t('app','Logout'); ?></a></li>
+                  <li><a class="altli" trk="navigation_top_logout" href="<?php echo Yii::app()->createUrl(Yii::app()->getModule('user')->logoutUrl[0]); ?>"><?php echo Yii::t('app','Logout'); ?></a></li>
                 </ul>
 
               </li>
@@ -154,18 +154,18 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
                 <?php } ?>
               <?php }else{ ?>
                 <li>
-                  <a href="#" data-dropdown="drop-login" onclick="qrLoad();"><?php echo Yii::t('app','Login'); ?></a>
+                  <a href="#" data-dropdown="drop-login" trk="navigation_topMenu_login" onclick="qrLoad();"><?php echo Yii::t('app','Login'); ?></a>
                 </li>
               <?php  ?><li class="divider"></li>
                 <li>
-                  <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>"><?php echo Yii::t('app','Register'); ?></a>
+                  <a href="<?php echo Yii::app()->createUrl("user/registration"); ?>" trk="navigation_topMenu_register"><?php echo Yii::t('app','Register'); ?></a>
                 </li>
                
                <?php  ?>
               <?php } ?>
               <li class="divider"></li>
               <li class="desc">
-                <a href="#" data-dropdown="langselect" title="<?php echo Yii::t('msg','Select page language'); ?>"><?php echo Yii::app()->getLanguage(); ?>
+                <a href="#" data-dropdown="langselect" trk="navigation_topMenu_language" title="<?php echo Yii::t('msg','Select page language'); ?>"><?php echo Yii::app()->getLanguage(); ?>
                 <br /><small>language</small>
                 </a>
               </li>
@@ -176,19 +176,19 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
               
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","person"); ?> desc">
-                <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" trk="topMenu_click_personDiscover" title="<?php echo Yii::t('app','Find talent for your project'); ?>" >
+                <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" trk="navigation_topMenu_personDiscover" title="<?php echo Yii::t('app','Find talent for your project'); ?>" >
                   <?php echo Yii::t('app','Find {bs}talent{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("discover","project"); ?> desc">
-                <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" trk="topMenu_click_projectDiscover" title="<?php echo Yii::t('app','Discover interesting projects'); ?>" >
+                <a href="<?php echo Yii::app()->createUrl("project/discover"); ?>" trk="navigation_topMenu_click_projectDiscover" title="<?php echo Yii::t('app','Discover interesting projects'); ?>" >
                   <?php echo Yii::t('app','Discover {bs}projects{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
               </li>
               <li class="divider"></li>
               <li class="<?php echo isMenuItemActive("startupEvents","site"); ?>">
-                <a href="<?php echo Yii::app()->createUrl("site/startupEvents"); ?>" trk="topMenu_click_startupEvents" title="<?php echo Yii::t('app','List of startup events'); ?>" >
+                <a href="<?php echo Yii::app()->createUrl("site/startupEvents"); ?>" trk="navigation_topMenu_startupEvents" title="<?php echo Yii::t('app','List of startup events'); ?>" >
                   <?php echo Yii::t('app','Events'); ?>
                 </a>
               </li>
@@ -200,7 +200,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
               <?php */ ?>
 
               <li class="<?php echo isMenuItemActive("about"); ?> desc">
-                <a href="<?php echo Yii::app()->createUrl("site/about"); ?>" title="<?php echo Yii::t('app','What is Cofinder and who is behind it'); ?>">
+                <a href="<?php echo Yii::app()->createUrl("site/about"); ?>"  trk="navigation_topMenu_about" title="<?php echo Yii::t('app','What is Cofinder and who is behind it'); ?>">
                 <?php echo Yii::t('app','What is {bs}cofinder{be}',array("{bs}"=>"<br /><small>","{be}"=>"</small>")); ?>
                 </a>
                 
@@ -327,24 +327,24 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
     <div class="row">
       <div class="large-4 push-8 columns">
         <ul class="social-links">
-          <li><a href="https://www.facebook.com/cofinder.eu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-facebook.png" width="32" height="32"></a></li>
-          <li><a href="https://www.linkedin.com/company/cofinder" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-linkedin.png" width="32" height="32"></a></li>
-          <li><a href="https://plus.google.com/+CofinderEu" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-gplus.png" width="32" height="32"></a></li>
+          <li><a href="https://www.facebook.com/cofinder.eu" trk="navigation_bottom_facebook" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-facebook.png" width="32" height="32"></a></li>
+          <li><a href="https://www.linkedin.com/company/cofinder" trk="navigation_bottom_linkedin" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-linkedin.png" width="32" height="32"></a></li>
+          <li><a href="https://plus.google.com/+CofinderEu" trk="navigation_bottom_googleplus" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/bottom-gplus.png" width="32" height="32"></a></li>
         </ul>
         
         
       </div>
        <div class="large-8 pull-4 columns"  style="background: #333">
 
-         <a href="<?php echo Yii::app()->createUrl("site/index"); ?>" >
+         <a href="<?php echo Yii::app()->createUrl("site/index"); ?>"  trk="navigation_bottom_logo">
            <img class="logo-mini mb20" alt="cofinder" title="cofinder" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo-mini.png"  width="180" height="35" />
          </a>
          <ul class="footer-links">
           <?php /* ?><li><a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo Yii::t('app','Our team'); ?></a></li> <?php */ ?>
-          <li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>"><?php echo Yii::t('app','About'); ?></a></li>
-          <li><a href="#" onclick="contact(this);"><?php echo Yii::t('app','Contact'); ?></a></li>
-          <li><a href="<?php echo Yii::app()->createUrl("site/terms"); ?>"><?php echo Yii::t('app','Terms of service'); ?></a></li>
-          <li><a href="<?php echo Yii::app()->createUrl("site/cookies"); ?>"><?php echo Yii::t('app','Cookies'); ?></a></li>
+          <li><a href="<?php echo Yii::app()->createUrl("site/about"); ?>" trk="navigation_bottom_about"><?php echo Yii::t('app','About'); ?></a></li>
+          <li><a href="#" onclick="contact(this);" trk="navigation_bottom_contact"><?php echo Yii::t('app','Contact'); ?></a></li>
+          <li><a href="<?php echo Yii::app()->createUrl("site/terms"); ?>" trk="navigation_bottom_terms"><?php echo Yii::t('app','Terms of service'); ?></a></li>
+          <li><a href="<?php echo Yii::app()->createUrl("site/cookies"); ?>" trk="navigation_bottom_cookies"><?php echo Yii::t('app','Cookies'); ?></a></li>
         </ul>
       </div>
       

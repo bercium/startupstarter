@@ -10,26 +10,26 @@
 		
 		<ul class="right l-inline pagination hide-for-small">
 			<?php if ($page > 1){ ?>
-			<li class="arrow"><a class="button small secondary radius" href="#" onclick="recentUsersPage('<?php echo Yii::app()->createUrl("person/discover",array("id"=>$page-1)); ?>'); return false;"><span class="icon-angle-left"></span></a></li>
+			<li class="arrow"><a trk="person_recent_prev" class="button small secondary radius" href="#" onclick="recentUsersPage('<?php echo Yii::app()->createUrl("person/discover",array("id"=>$page-1)); ?>'); return false;"><span class="icon-angle-left"></span></a></li>
 			<?php }else{ ?>
       <li class="arrow unavailable"><a class="button small secondary radius disabled "><span class="icon-angle-left"></span>
 </a></li>
 			<?php } ?>
 			
 			<?php if ($page < $maxPage){ ?>
-			<li class="arrow"><a class="button small secondary radius" href="#" onclick="recentUsersPage('<?php echo Yii::app()->createUrl("person/discover",array("id"=>$page+1)); ?>'); return false;"><span class="icon-angle-right"></span>
+			<li class="arrow"><a trk="person_recent_next" class="button small secondary radius" href="#" onclick="recentUsersPage('<?php echo Yii::app()->createUrl("person/discover",array("id"=>$page+1)); ?>'); return false;"><span class="icon-angle-right"></span>
 </a></li>
 			<?php }else{ ?>
       <li class="arrow unavailable"><a class="button small secondary radius disabled"><span class="icon-angle-right"></span>
 </a></li>
 			<?php } ?>
-			<li><a href="<?php echo Yii::app()->createUrl("person/discover"); ?>"  class="right button radius small secondary radius"><?php echo Yii::t('app','show all'); ?></a></li>
+			<li><a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" trk="person_recent_showAll" class="right button radius small secondary radius"><?php echo Yii::t('app','show all'); ?></a></li>
 		</ul>
 		
 	</div>
 
 	<small class="show-for-small">
-		<a href="<?php echo Yii::app()->createUrl("person/discover"); ?>"  class="button large secondary expand secondary"><?php echo Yii::t('app','show all'); ?></a>
+		<a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" trk="person_recent_showAll" class="button large secondary expand secondary"><?php echo Yii::t('app','show all'); ?></a>
 	</small>
 
   <?php }else{ ?>

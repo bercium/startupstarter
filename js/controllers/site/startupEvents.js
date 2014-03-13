@@ -62,7 +62,7 @@ $(document).ready(function() {
           else $('#drop-cal-info-link').show();
           $('#drop-cal-info-location').html(event.location);
           
-          gase("calendar-infoClick-"+event.id);
+          gase("calendar_infoClick_"+event.id);
           
           var link = 'http://www.google.com/calendar/event?action=TEMPLATE'
           link += '&text='+event.title;
