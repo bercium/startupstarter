@@ -77,6 +77,45 @@ $(document).ready(function() {
     });
     
     
-    
+    var cache = {};
+    if ($('#filter').length != 0)
+    $( "#filter" )
+      // don't navigate away from the field on tab when selecting an item
+      .bind( "keydown", function( event ) {
+        if ( event.keyCode === $.ui.keyCode.TAB &&
+            $( this ).data( "ui-autocomplete" ).menu.active ) {
+          event.preventDefault();
+        }
+      })
+			.autocomplete({
+				delay:300,
+				minLength: 2,
+        source: function( request, response ) {
+					
+          //var term = extractLast( request.term );
+          var term = request.term;
+          if ( term in cache ) {
+            response( cache[ term ] );
+            return;
+          }
+          
+          //Yii.app().createUrl("profile/suggestSkill",{ajax:1})
+          $.getJSON( cityCountrySuggest_url, { term: term }, function( data, status, xhr ) {
+            if (data.status == 0){
+              cache[ term ] = data.data;
+              response( data.data );
+            }else alert(data.message);
+          });
+        },
+        focus: function( event, ui ) {
+          this.value = ui.item.value;
+          return false;
+        },
+        select: function( event, ui ) {
+          this.value = ui.item.value;
+          //tagApi.tagsManager("pushTag", ui.item.value);
+          return false;
+        }
+      });    
 
 });

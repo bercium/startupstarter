@@ -14,12 +14,24 @@
     if (isset($chatLen[$val])) $chatLen[$val]++;
     else $chatLen[$val] = 1;
   }
+  $chatLenUsr = array();
+  foreach ($stat_usr as $key => $val){
+    if (isset($chatLenUsr[$val])) $chatLenUsr[$val]++;
+    else $chatLenUsr[$val] = 1;
+  }
+  $chatLenIdea = array();
+  foreach ($stat_idea as $key => $val){
+    if (isset($chatLenIdea[$val])) $chatLenIdea[$val]++;
+    else $chatLenIdea[$val] = 1;
+  }
   ?>
 
 <script type="text/javascript">
    function drawCharts(){
      drawTimeline();
      drawMsgLength();
+     //drawUsrMsgLength();
+     //drawIdeaMsgLength();
      msgsRead();
    }
    
@@ -43,6 +55,46 @@
     chart.draw(data, options);
   }
   
+  
+  function drawUsrMsgLength() {
+    var data = google.visualization.arrayToDataTable([
+      ['Conversation lenght', 'Pairs'],
+      <?php 
+      foreach ($chatLenUsr as $key => $val){
+        echo "['".$key."', ".$val."],";
+      }
+      ?>          
+    ]);
+
+    var options = {
+      title: 'Length of user comunication pairs',
+      hAxis: {title: 'Pairs', titleTextStyle: {color: 'red'}}
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart_usr_div'));
+    chart.draw(data, options);
+  }
+  
+
+  function drawIdeaMsgLength() {
+    var data = google.visualization.arrayToDataTable([
+      ['Conversation lenght', 'Pairs'],
+      <?php 
+      foreach ($chatLenIdea as $key => $val){
+        echo "['".$key."', ".$val."],";
+      }
+      ?>          
+    ]);
+
+    var options = {
+      title: 'Length of idea comunication pairs',
+      hAxis: {title: 'Pairs', titleTextStyle: {color: 'red'}}
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart_idea_div'));
+    chart.draw(data, options);
+  }
+
   function msgsRead(){
     
     
@@ -74,7 +126,7 @@
        dataTable.addRows([
          <?php 
          foreach ($msgs_bydate as $msg){
-          echo "[ new Date(".date("Y,m,d",strtotime($msg['time_sent']))."), ".$msg['c']."],";
+          echo "[ new Date(".date("Y,",strtotime($msg['time_sent'])).(date("m",strtotime($msg['time_sent']))-1).date(",d",strtotime($msg['time_sent']))."), ".$msg['c']."],";
          } ?>
         ]);
 
@@ -107,7 +159,10 @@
 
   
 <div id="chart_div" style="width: 600px; height: 500px;"></div>
-
+<?php /* ?>
+<div id="chart_usr_div" style="width: 600px; height: 500px;"></div>
+<div id="chart_idea_div" style="width: 600px; height: 500px;"></div>
+<?php */ ?>
 <div id="chart_read_div" style="width: 600px; height: 500px;"></div>
   
 <div id="calendar_basic" style="width: 1000px; height: 350px;"></div>
