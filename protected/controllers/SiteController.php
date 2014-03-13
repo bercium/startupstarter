@@ -147,8 +147,13 @@ class SiteController extends Controller
       $ideaType = Yii::t('app', "Recent projects");
       if (!Yii::app()->user->isGuest) $ideaType .= ' <a href="?suggested=1" trk="project_switch_suggested" class="button radius tiny">'.Yii::t('app', "Switch to suggested").'</a>';        
     }
+    
+    $eventsToday = Event::model()->find("CURDATE() BETWEEN DATE(start) AND date(end)");
+    $eventsNext = false;
+    if (!$eventsToday) $eventsNext = Event::model()->find("CURDATE() > start");
+    $event = array('today'=>$eventsToday,'next'=>$eventsNext);
 
-		$this->render('index', array('data' => $data, "maxPageIdea"=>$maxPageIdea, "maxPagePerson"=>$maxPagePerson, "ideaType"=>$ideaType, "userType"=>$userType));
+		$this->render('index', array('data' => $data, 'event'=>$event, "maxPageIdea"=>$maxPageIdea, "maxPagePerson"=>$maxPagePerson, "ideaType"=>$ideaType, "userType"=>$userType));
 	}
 
 	public function actionAbout()
@@ -571,7 +576,7 @@ EOD;
     $filename = "calendar.json";
     $folder = Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['tempFolder'];
       
-    if (YII_DEBUG){
+   /* if (YII_DEBUG){
     //if (true){    
       $controller = 'general';
       $action = 'loadCalendars';
@@ -586,13 +591,15 @@ EOD;
       //$args = array_merge(array("yiic"), $args);
       //ob_start();
       $runner->run($args);
-    }
+    }*/
 
     $filter = '';
     if (!empty($_GET['filter'])){
       $events = Event::model()->findAll("start >= :start AND (city LIKE :filter OR country LIKE :filter)",array(":start"=>date("Y-m-1"),':filter'=>$_GET['filter']));
     }else $events = Event::model()->findAll("start >= :start ",array(":start"=>date("Y-m-1")));
     
+    
+    $eventsToday = Event::model()->findAll("CURDATE() BETWEEN DATE(start) AND date(end)  ");
     /*echo "<pre>";
     print_r($events);
     echo "</pre>";*/
@@ -600,7 +607,7 @@ EOD;
       $register = '<a href="'.Yii::app()->createUrl("user/registration").'" class="button small radius secondary ml10 mb0">'.Yii::t('app','register').'</a>';    
       setFlash("discoverPerson", Yii::t('msg','To see all events please login or {register}',array('{register}'=>$register)), "alert", false);
     }*/
-    $this->render("calendar",array("events"=>$events));
+    $this->render("calendar",array("events"=>$events,"eventsToday"=>$eventsToday));
   }
   
   /**
@@ -613,18 +620,26 @@ EOD;
 								"status" => 1,
 								"message" => Yii::t('msg', "No search query."));
 		}else{
-      $e = Event::model()->findAll(array('group'=>'city','condition'=>"city LIKE :term",'params'=>array(":term"=>"%".$term."%")));
+      
+      $result = Yii::app()->db->createCommand('SELECT COUNT(*) AS c, country, city FROM event '
+                                            . 'WHERE city LIKE '."'%".$term."%'".' AND start >= CURDATE() '
+                                            . 'GROUP BY city',array(":term"=>"%".$term."%"))->queryAll();
+
+      //$e = Event::model()->findAll(array('select'=>'COUNT(*) AS c, country, city','group'=>'city','condition'=>"city LIKE :term",'params'=>array(":term"=>"%".$term."%")));
 
       $data = array();
-      if ($e){
-        foreach ($e as $cc){
-          $data[] = $cc->city."\n";
+      if ($result){
+        foreach ($result as $cc){
+          $data[] = array('value'=>$cc['city'],'count'=>$cc['c']);
         }
       }
-      $e = Event::model()->findAll(array('group'=>'country','condition'=>"country LIKE :term",'params'=>array(":term"=>"%".$term."%")));
-      if ($e){
-        foreach ($e as $cc){
-          $data[] = $cc->country."\n";
+      
+      $result = Yii::app()->db->createCommand('SELECT COUNT(*) AS c, country, city FROM event '
+                                      . 'WHERE country LIKE '."'%".$term."%'".' AND start >= CURDATE() '
+                                      . 'GROUP BY country',array(":term"=>"%".$term."%"))->queryAll();
+      if ($result){
+        foreach ($result as $cc){
+          $data[] = array('value'=>$cc['country'],'count'=>$cc['c']);
         }
       }
 			

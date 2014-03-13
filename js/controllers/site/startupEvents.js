@@ -62,6 +62,7 @@ $(document).ready(function() {
           else $('#drop-cal-info-link').show();
           $('#drop-cal-info-location').html(event.location);
           
+          gase("calendar_infoClick_"+event.id);
           
           var link = 'http://www.google.com/calendar/event?action=TEMPLATE'
           link += '&text='+event.title;
@@ -116,6 +117,12 @@ $(document).ready(function() {
           //tagApi.tagsManager("pushTag", ui.item.value);
           return false;
         }
-      });    
+      })
+     .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+      return $( "<li>" )
+        .append( "<a>" + item.value + ' (' + item.count + ")</a>" )
+        //.append( "<a>" + item.skill + "<br><small>" + item.skillset + "</small></a>" )
+        .appendTo( ul );
+    };    
 
 });
