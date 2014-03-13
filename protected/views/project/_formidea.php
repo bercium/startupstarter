@@ -13,11 +13,16 @@ $cs->registerScriptFile($baseUrl . '/js/ckeditor/ckeditor.js', CClientScript::PO
 <?php echo CHtml::errorSummary($idea, "<div data-alert class='alert-box radius alert'>", '</div>'); ?>
 <?php echo CHtml::errorSummary($translation, "<div data-alert class='alert-box radius alert'>", '</div>'); ?>
 
-<?php echo CHtml::activeLabelEx($translation, 'language_id'); ?>
-    <span class="description">
-      <?php echo Yii::t('msg', 'Choose the language you want to write your idea in. Later you can add more translations for the same idea'); ?>
-    </span>
 
+  
+<div class="large-6 columns">
+  <?php echo CHtml::activeLabelEx($translation, 'language_id'); ?>
+    <span class="description l-iblock">
+      <?php echo Yii::t('msg', 'I will write in language:'); ?>
+    </span>
+ </div>
+
+<div class="large-6 columns">
 <?php
 $lang = Language::Model()->findByAttributes(array('language_code' => Yii::app()->language));
 $lang = $lang->id;
@@ -25,6 +30,8 @@ $lang = $lang->id;
 
 <?php echo CHtml::activedropDownList($translation, 'language_id', GxHtml::listDataEx(Language::model()->findAllAttributes(array("id", "native_name"), true, array('order' => 'FIELD(id, ' . $lang . ', 40) DESC')), "id", "native_name"), array('style' => 'display:none')); ?>
 
+
+</div>
 <?php echo CHtml::activeLabelEx($idea, 'status_id'); ?>
     <span class="description">
       <?php echo Yii::t('msg', 'Status of the project.'); ?>

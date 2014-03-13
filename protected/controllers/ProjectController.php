@@ -156,6 +156,8 @@ class ProjectController extends GxController {
     }
 
 	public function actionEdit($id, $step = 1){
+		$this->layout="//layouts/stageflow";
+
 		//1. korak - splošni podatki
 		//ID prebrat iz sešna, če je že, naloadat podatke, drugače nič
 		//naloadat modele
