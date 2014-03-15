@@ -14,60 +14,60 @@ $cs->registerScriptFile($baseUrl . '/js/ckeditor/ckeditor.js', CClientScript::PO
 <?php echo CHtml::errorSummary($translation, "<div data-alert class='alert-box radius alert'>", '</div>'); ?>
 
 
-  
+
 <div class="large-6 columns">
-  <?php echo CHtml::activeLabelEx($translation, 'language_id'); ?>
+    <?php echo CHtml::activeLabelEx($translation, 'language_id'); ?>
     <span class="description l-iblock">
       <?php echo Yii::t('msg', 'I will write in language:'); ?>
     </span>
- </div>
+</div>
 
 <div class="large-6 columns">
-<?php
-$lang = Language::Model()->findByAttributes(array('language_code' => Yii::app()->language));
-$lang = $lang->id;
-?>
+    <?php
+    $lang = Language::Model()->findByAttributes(array('language_code' => Yii::app()->language));
+    $lang = $lang->id;
+    ?>
 
-<?php echo CHtml::activedropDownList($translation, 'language_id', GxHtml::listDataEx(Language::model()->findAllAttributes(array("id", "native_name"), true, array('order' => 'FIELD(id, ' . $lang . ', 40) DESC')), "id", "native_name"), array('style' => 'display:none')); ?>
+    <?php echo CHtml::activedropDownList($translation, 'language_id', GxHtml::listDataEx(Language::model()->findAllAttributes(array("id", "native_name"), true, array('order' => 'FIELD(id, ' . $lang . ', 40) DESC')), "id", "native_name"), array('style' => 'display:none')); ?>
 
 
 </div>
 <?php echo CHtml::activeLabelEx($idea, 'status_id'); ?>
-    <span class="description">
+<span class="description">
       <?php echo Yii::t('msg', 'Status of the project.'); ?>
      </span>
 <?php echo CHtml::activedropDownList($idea, 'status_id', GxHtml::listData(IdeaStatus::model()->findAllTranslated(), 'id', 'name'), array('empty' => '&nbsp;', 'style' => 'display: none;')); ?>
 
 
 <?php echo CHtml::activeLabelEx($translation, 'title'); ?>
-    <span class="description">
+<span class="description">
       <?php echo Yii::t('msg', 'What do you call it? Write one or two words, please. You can always change it later.'); ?>
     </span>
 <?php echo CHtml::activeTextField($translation, "title", array('maxlength' => 128)); ?>
 
 <?php echo CHtml::activeLabelEx($translation, 'pitch'); ?>
-    <span class="description">
+<span class="description">
         <?php echo Yii::t('msg', 'This is your pitch. Be brief and to the point.'); ?>
     </span>
-<?php echo CHtml::activeTextArea($translation, "pitch"); ?>
-<br />
-<br />
-    <div class="lin-trigger panel">
-        <?php echo CHtml::activeLabelEx($idea, 'website'); ?>
-        <div class="lin-hidden">
-            <?php echo CHtml::activeTextField($idea, "website", array('maxlength' => 128, 'class' => 'lin-edit')); ?>
-        </div>
+<?php echo CHtml::activeTextArea($translation, "pitch", array("maxlength"=>140,"limitchars"=>140)); ?>
+<br/>
+<br/>
+<div class="lin-trigger panel">
+    <?php echo CHtml::activeLabelEx($idea, 'website'); ?>
+    <div class="lin-hidden">
+        <?php echo CHtml::activeTextField($idea, "website", array('maxlength' => 128, 'class' => 'lin-edit')); ?>
     </div>
+</div>
 
-    <div class="lin-trigger panel">
-        <?php echo CHtml::activeLabelEx($idea, 'video_link'); ?>
-        <div class="lin-hidden">
+<div class="lin-trigger panel">
+    <?php echo CHtml::activeLabelEx($idea, 'video_link'); ?>
+    <div class="lin-hidden">
      <span class="description">
       <?php echo Yii::t('msg', 'Link of the project\'s video presentation.'); ?>
      </span>
-            <?php echo CHtml::activeTextField($idea, "video_link", array('maxlength' => 128, 'class' => 'lin-edit')); ?>
-        </div>
+        <?php echo CHtml::activeTextField($idea, "video_link", array('maxlength' => 128, 'class' => 'lin-edit')); ?>
     </div>
+</div>
 
 <?php /* ?>
       <div class="large-4 small-4 columns">
@@ -113,10 +113,8 @@ $lang = $lang->id;
       <input name="IdeaGallery[url]" id="IdeaImage_avatar_link" type="hidden" value="<?php echo $ideagallery;?>" />
       </div><?php */
 ?>
-    </div>
+</div>
 
-
-    <hr>
 <?php echo CHtml::submitButton(Yii::t("app", "Next >>"),
     array('class' => "button large success radius right")
 ); ?>
