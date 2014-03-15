@@ -96,6 +96,8 @@ $lang = $lang->id;
             <input name="IdeaGallery[url]" id="IdeaImage_avatar_link" type="hidden" value="<?php echo $ideagallery; ?>"/>
         </div>
 
+        <br style="clear: both"/>
+
     <div class="lin-trigger panel">
         <?php echo CHtml::activeLabelEx($idea, 'website'); ?>
         <div class="lin-hidden">
