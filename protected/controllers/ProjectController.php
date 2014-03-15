@@ -982,4 +982,28 @@ class ProjectController extends GxController {
 		Yii::app()->end();
 	}
 
+  public function actionSuggestMember($term){
+    
+    $dataReader = User::model()->findAll("(name LIKE :name OR surname LIKE :name) AND status = 1", array(":name"=>"%".$term."%"));
+
+    if ($dataReader){
+      foreach ($dataReader as $row){
+        $avatar = avatar_image($row->avatar_link,$row->id,60);
+        $data[] = array("fullname"=>$row->name." ".$row->surname,
+                        "user_id"=>$row->id,
+                        //"img"=>avatar_image($row->avatar_link,$row->id),
+                        "img"=>$avatar,
+                        );
+      }
+    }
+    
+    $response = array("data" => $data,
+												"status" => 0,
+												"message" => '');
+		
+		echo json_encode($response);
+		Yii::app()->end();
+  }
+
+
 }
