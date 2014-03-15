@@ -55,6 +55,8 @@ $this->pageTitle = Yii::t('app', 'Create - step 1');
             'idea' => $idea,
             'language' => $language,
             'translation' => $translation,
+            'ideagallery' => $ideagallery,
+            'idea_id' => $idea_id,
             'buttons' => 'create'));
         ?>
         </div>
