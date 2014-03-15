@@ -21,26 +21,30 @@ $this->pageTitle = Yii::t('app', 'Edit - step 2');
     
 </div>
 
-<?php if(isset($idea_id) && $idea->deleted == 2){ ?>
-<a class="button tiny" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 4, 'publish'=>1)); ?>><?php echo Yii::t('app', 'Publish'); ?></a>
-<?php } elseif(isset($idea_id) && $idea->deleted == 0){ ?>
-<a class="button tiny" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 4, 'publish'=>0)); ?>><?php echo Yii::t('app', 'Unpublish'); ?></a>
-<?php } ?>
-
 <div class="row createidea">
     <div class="columns edit-header">
         <h3>
             <?php echo Yii::t('app', "You are done!"); ?>
         </h3>
-
-       
     </div>
     <div class="columns panel edit-content">
+
+        <div class="clearfix">
+            <?php if(isset($idea_id) && $idea->deleted == 2){ ?>
+                <a style="width: 100%" class="button large success radius right" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 4, 'publish'=>1)); ?>><?php echo Yii::t('app', 'Publish'); ?></a>
+            <?php } elseif(isset($idea_id) && $idea->deleted == 0){ ?>
+                <a style="width: 100%" class="button large alert radius right" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 4, 'publish'=>0)); ?>><?php echo Yii::t('app', 'Unpublish'); ?></a>
+            <?php } ?>
+        </div>
+        <br style="clear: both" />
+
         <?php
         $this->renderPartial('_formmembers', array(
             'ideadata' => $ideadata,
             'invitees' => $invites['data']));
         ?>
+
+        <hr>
 
         <?php
         $this->renderPartial('_addlink', array(
