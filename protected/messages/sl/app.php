@@ -405,7 +405,7 @@
   'Time Open' => 'Čas odpiranja',
   'Time Send' => 'Čas pošiljanja',
   'Time Sent' => 'Čas pošiljanja',
-  'Title' => 'Naziv',
+  'Title' => 'Naslov',
   'Tracking Code' => 'Koda sledenja',
   'Translate project' => 'Prevedi projekt',
   'Translation' => 'Prevod',
