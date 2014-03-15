@@ -498,6 +498,7 @@
   '{n} month ago|{n} months ago' => '',
   '{n} month|{n} months' => '',
   '{n} open position|{n} open positions' => '',
+  'Open positions' => 'Slobodna radna mjesta',
   '{n} open|{n} opened' => '{n} otvoren|{n} otvorena|{n} otvorenih',
   '{n} second ago|{n} seconds ago' => '',
   '{n} second|{n} seconds' => '',

@@ -498,6 +498,7 @@
   '{n} month ago|{n} months ago' => 'pred {n} mesecem|pred {n} mesecema|pred {n} meseci',
   '{n} month|{n} months' => '{n} mesec|{n} meseca|{n} meseci|{n} mesecev',
   '{n} open position|{n} open positions' => '{n} odprta pozicija|{n} odprti poziciji|{n} odprte pozicije|{n} odprtih pozicij',
+  'Open positions' => 'Odprte pozicije',
   '{n} open|{n} opened' => '{n} odprt|{n} odprta|{n} odprti|{n} odprtih',
   '{n} second ago|{n} seconds ago' => 'pred {n} sekundo|pred {n} sekundama|pred {n} sekundami',
   '{n} second|{n} seconds' => '{n} sekunda|{n} sekundi|{n} sekunde|{n} sekund',
