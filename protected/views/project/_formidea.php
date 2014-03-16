@@ -18,7 +18,7 @@ $cs->registerScriptFile($baseUrl . '/js/ckeditor/ckeditor.js', CClientScript::PO
 <div class="large-6 columns">
     <?php echo CHtml::activeLabelEx($translation, 'language_id'); ?>
     <span class="description l-iblock">
-      <?php echo Yii::t('msg', 'I will write in language:'); ?>
+      <?php echo Yii::t('msg', 'I will write in language'); ?>
     </span>
 </div>
 

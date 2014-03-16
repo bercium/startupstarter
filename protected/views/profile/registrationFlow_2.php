@@ -62,7 +62,7 @@
 <div class="row pt40 pb40 btop">
   <div class="large-4 columns">
   
-  <label class=""><?php echo Yii::t('msg','Availability'); ?></label>
+  <label class=""><?php echo Yii::t('app','Availability'); ?></label>
   </div>
     <div class="large-8 columns">
   <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listDataEx(Available::model()->findAllTranslated(),"id","name"), array('empty' => '&nbsp;','style'=>'display:none')); ?>
@@ -89,10 +89,10 @@
        <?php 
        switch ($colabpref['collab_id']){
          case 1:echo '<div class="pb30">' .  Yii::t('msg','Will work for payment') . '</div>'; break;
-         case 2:echo '<div class="pb30">' .  Yii::t('msg','Will work for a share in a company' . '</div>'); break;
-         case 3:echo '<div class="pb30">' .  Yii::t('msg','Want to work or invest equally' . '</div>'); break;
-         case 4:echo '<div class="pb30">' .  Yii::t('msg','Want to invest in interesting projects only' . '</div>'); break;
-         case 5:echo '<div class="pb30">' .  Yii::t('msg','Just want to help' . '</div>'); break;
+         case 2:echo '<div class="pb30">' .  Yii::t('msg','Will work for a share in a company'). '</div>'; break;
+         case 3:echo '<div class="pb30">' .  Yii::t('msg','Want to work or invest equally'). '</div>'; break;
+         case 4:echo '<div class="pb30">' .  Yii::t('msg','Want to invest in interesting projects only'). '</div>'; break;
+         case 5:echo '<div class="pb30">' .  Yii::t('msg','Just want to help') . '</div>'; break;
        }
         ?>
     </span>
