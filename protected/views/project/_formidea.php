@@ -159,7 +159,6 @@ $cs->registerScriptFile($baseUrl . '/js/ckeditor/ckeditor.js', CClientScript::PO
       <input name="IdeaGallery[url]" id="IdeaImage_avatar_link" type="hidden" value="<?php echo $ideagallery;?>" />
       </div><?php */
 ?>
-</div>
 
 <?php echo CHtml::submitButton(Yii::t("app", "Next >>"),
     array('class' => "button large success radius right")

@@ -4,6 +4,7 @@ class ProjectController extends GxController {
 
 //	public $data = array();
 	public $layout="//layouts/view";
+  public $stages = array();
 	
 	/**
 	 * @return array action filters
@@ -88,6 +89,17 @@ class ProjectController extends GxController {
 
     public function actionCreate(){
 
+		$this->layout="//layouts/stageflow";
+
+		//1. korak - splošni podatki
+		//ID prebrat iz sešna, če je že, naloadat podatke, drugače nič
+		//naloadat modele
+		//naloadat view
+    $this->stages = array(
+        array('title'=>Yii::t('app','STEP 1'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("step"=>1))),
+        array('title'=>Yii::t('app','STEP 2'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("step"=>2))),
+        array('title'=>Yii::t('app','STEP XX'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("step"=>3))),
+    );
         $idea = new Idea;
         $translation = new IdeaTranslation;
         $member = new IdeaMember;
@@ -171,6 +183,11 @@ class ProjectController extends GxController {
 		//ID prebrat iz sešna, če je že, naloadat podatke, drugače nič
 		//naloadat modele
 		//naloadat view
+    $this->stages = array(
+        array('title'=>Yii::t('app','STEP 1'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("step"=>1))),
+        array('title'=>Yii::t('app','STEP 2'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("step"=>2))),
+        array('title'=>Yii::t('app','STEP XX'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("step"=>3))),
+    );
 
         //insert/edit priviledges
         $hasPriviledges = true;
