@@ -11,11 +11,13 @@
 
 <p>
 
-  <?php echo Yii::t('msg','We are really happy you have decided to join our community. We strive to offer high quality profiles and project. This is why we decide on per person basis if we approve your registration or not.'); ?>
+  <?php echo Yii::t('msg','We are really happy you have decided to join our community. '
+          . 'We strive to offer high quality profiles and project. '
+          . 'This is why we decide on per person basis if we approve your registration or not.'); ?>
   
   <br /><br />
   <strong>
-    <?php echo Yii::t('msg','Let\'s see how dedicated you are.'); ?>
+    <?php echo Yii::t('msg','Fill out your profile over XXX% to get instant access.'); ?>
   </strong>
     <hr>
 </p>
