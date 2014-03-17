@@ -113,7 +113,7 @@ function idea_image($filename, $ideaID = false, $thumb = 30){
   }
   
   $ideaID = ($ideaID % 4); // 3 different default avatars
-  return Yii::app()->getBaseUrl(true)."/images/dummy-avatar-".$ideaID.".png";
+  return Yii::app()->getBaseUrl(true)."/images/dummy-idea.png";
 //  return Yii::app()->request->baseUrl."/images/dummy-avatar-".$userID.".png";
 }
 
