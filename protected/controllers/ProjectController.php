@@ -95,11 +95,14 @@ class ProjectController extends GxController {
 		//ID prebrat iz sešna, če je že, naloadat podatke, drugače nič
 		//naloadat modele
 		//naloadat view
-    $this->stages = array(
-        array('title'=>Yii::t('app','STEP 1'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("step"=>1))),
-        array('title'=>Yii::t('app','STEP 2'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("step"=>2))),
-        array('title'=>Yii::t('app','STEP XX'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("step"=>3))),
-    );
+	    $this->stages = array(
+	        array('title'=>Yii::t('app','STEP 1'),'url'=>'#'),
+	        array('title'=>Yii::t('app','STEP 2'),'url'=>'#'),
+	        array('title'=>Yii::t('app','STEP 3'),'url'=>'#'),
+	        array('title'=>Yii::t('app','STEP 4'),'url'=>'#'),
+
+	    );
+
         $idea = new Idea;
         $translation = new IdeaTranslation;
         $member = new IdeaMember;
@@ -183,11 +186,12 @@ class ProjectController extends GxController {
 		//ID prebrat iz sešna, če je že, naloadat podatke, drugače nič
 		//naloadat modele
 		//naloadat view
-    $this->stages = array(
-        array('title'=>Yii::t('app','STEP 1'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("step"=>1))),
-        array('title'=>Yii::t('app','STEP 2'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("step"=>2))),
-        array('title'=>Yii::t('app','STEP XX'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("step"=>3))),
-    );
+	    $this->stages = array(
+	        array('title'=>Yii::t('app','STEP 1'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 1))),
+	        array('title'=>Yii::t('app','STEP 2'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 2))),
+	        array('title'=>Yii::t('app','STEP 3'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 3))),
+	        array('title'=>Yii::t('app','STEP 4'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 4))),
+	    );
 
         //insert/edit priviledges
         $hasPriviledges = true;
@@ -460,6 +464,7 @@ class ProjectController extends GxController {
         $data['idea'] = $sqlbuilder->load_array("idea", $filter, "member");
 
         //invites
+        //include winvitation here
         $user = User::model()->findByPk(Yii::app()->user->id);
         $invites['data'] = Invite::model()->findAllByAttributes(array("idea_id"=>$id,"sender_id"=>Yii::app()->user->id),'NOT ISNULL(idea_id)');
 	    $invites['count'] = $user->invitations;
