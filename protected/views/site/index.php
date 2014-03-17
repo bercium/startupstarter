@@ -77,11 +77,13 @@
                 <p>
                   <?php echo trim_text($event['today']->title, 80); ?>
                 </p>
-              <?php }else{ ?>
+              <?php }elseif($event['next']){ ?>
                 <h2 ><?php echo Yii::t('app', 'Upcoming event'); ?></h2>
                 <p>
                   <?php echo trim_text($event['next']->title, 80); ?>
                 </p>
+              <?php } else { ?>
+              <h2><?php echo Yii::t('app', 'Currently no events'); ?></h2>
               <?php } ?>
               <a href="<?php echo Yii::app()->createUrl("site/startupEvents"); ?>" trk="index_click_events" class="button radius small small-12"><?php echo Yii::t('app', 'View more events'); ?></a>
             </div>
