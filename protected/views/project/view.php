@@ -292,7 +292,7 @@ foreach ($idea['member'] as $member) {
         <div class="radius panel">
             <div class="large-12">
                 <center>
-                          <a trk="project_view_newPosition" class="button radius small-12 mb0 large-11" href="<?php echo Yii::app()->createUrl("project/edit", array("id" => $idea['id'],"candidate"=>"new")); ?>#link_position">
+                          <a trk="project_view_newPosition" class="button radius small-12 mb0 large-11" href="<?php echo Yii::app()->createUrl('project/edit',array('id'=>$idea['id'],'step'=>3,'candidate'=>'new')); ?>">
                             <?php echo Yii::t('app', 'Add more positions') ?>
                           </a>
                 </center>
