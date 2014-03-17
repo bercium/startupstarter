@@ -47,7 +47,7 @@ abstract class BaseEvent extends GxActiveRecord {
       array('all_day', 'default', 'value' => 0, 'setOnEmpty' => true, 'on' => 'insert'),
 			array('all_day', 'numerical', 'integerOnly'=>true),
 			array('title, link, location', 'length', 'max'=>255),
-			array('content', 'length', 'max'=>500),
+			array('content', 'length', 'max'=>1500),
 			array('source, city, country', 'length', 'max'=>128),
 			array('color', 'length', 'max'=>50),
 			array('end', 'safe'),

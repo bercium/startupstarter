@@ -462,7 +462,7 @@ class SiteController extends Controller
     </url>
     <url>
       <loc>http://www.cofinder.eu/site/startupEvents</loc>
-      <changefreq>monthly</changefreq>
+      <changefreq>daily</changefreq>
       <priority>0.60</priority>
     </url>
     <url>
@@ -576,7 +576,8 @@ EOD;
     $filename = "calendar.json";
     $folder = Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['tempFolder'];
       
-   /* if (YII_DEBUG){
+   /* 
+   if (YII_DEBUG){
     //if (true){    
       $controller = 'general';
       $action = 'loadCalendars';
@@ -591,7 +592,7 @@ EOD;
       //$args = array_merge(array("yiic"), $args);
       //ob_start();
       $runner->run($args);
-    }*/
+    }//*/
 
     $filter = '';
     if (!empty($_GET['filter'])){

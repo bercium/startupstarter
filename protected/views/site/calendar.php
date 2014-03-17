@@ -39,7 +39,7 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
       echo "gcal: '".date("Ymd",strtotime($event->start))."T".date("Hi",strtotime($event->start)-3600)."00Z/"
                     .date("Ymd",strtotime($event->end))."T".date("Hi",strtotime($event->end)-3600)."00Z',";
     }
-    echo "content: '".addslashes($event->content)."',";
+    echo "content: '".addslashes(urlToLink($event->content))."',";
     echo "link: '".($event->link)."',"; 
     if (isset($event->color)){
       if ($event->color == 'blue') echo "color:'#4469A6',";
