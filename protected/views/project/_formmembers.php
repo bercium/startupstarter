@@ -9,7 +9,7 @@ if (is_array($ideadata['member'])) {
             <div class="edit-floater">
 
                 <?php  if (($member['type_id'] != 1)) {
-                    echo CHtml::link(Yii::t("app", "Remove"), Yii::app()->createUrl('/project/deleteMember', array('id' => $id, 'user_id' => $member['id'])),
+                    echo CHtml::link(Yii::t("app", "Remove"), Yii::app()->createUrl('/project/deleteMember', array('id' => $ideadata['id'], 'user_id' => $member['id'])),
                         array('class' => "button tiny alert radius",
                             'confirm' => Yii::t("msg", "You are about to remove this member!") . "\n" . Yii::t("msg", "Are you sure?"),
                             'onclick' => "$(document).stopPropagation();",
