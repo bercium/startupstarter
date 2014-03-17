@@ -116,14 +116,21 @@
       <div class="columns panel edit-content">
         <?php foreach ($chatList['messages'] as $msg){ ?>
         
+          <div class="meta mb5">
+            <small>
+              <?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($msg['time']),"medium","short"); ?>
+              <span class="right">
+                <?php if ($msg['read_time']) echo Yii::t('app','viewed {datetime}',array("{datetime}"=>Yii::app()->dateFormatter->formatDateTime(strtotime($msg['read_time']),"medium","short"))); /*else echo Yii::t('app','unread'); */ ?>
+              </span>
+            </small>
+          </div>
+          
+          <div class="mb10">
           <a href="<?php echo Yii::app()->createURL('person',array('id'=>$msg['from_id'])); ?>">
             <img class="th th-small" class="left" src="<?php echo avatar_image($msg['avatar_link'], $msg['from_id'], false); ?>" />
             <h3 class="mb0"><?php echo $msg['from']; ?>
-              <small class="right">
-                <?php if ($msg['read_time']) echo Yii::t('app','viewed {datetime}',array("{datetime}"=>Yii::app()->dateFormatter->formatDateTime(strtotime($msg['read_time']),"medium","short"))); /*else echo Yii::t('app','unread'); */ ?>
-              </small>
               <span class=' icon-arrow-right f-small'></span>
-              <font style="color:#89B561">
+              <font style="color:#A6A6A6">
               <?php 
                 if ($msg['to']) echo " ".$msg['to'];
                 else echo " ".$msg['cc'];
@@ -132,17 +139,17 @@
             </h3>
             <small class="meta">
             <?php 
-              if ($msg['to'] && $msg['cc']) echo " cc ".$msg['cc'];
+              if ($msg['to'] && $msg['cc']) echo " cc: ".$msg['cc'];
               else echo '<br />';
             ?>
             </small>
           </a>
-
+          </div>
+            
           <?php if (($msg['from_id'] != Yii::app()->user->id) && ($group == 'project')){ ?>
             <a class="button radius right secondary small" href="#" data-dropdown="drop-msg" data-tooltip title="<?php echo Yii::t('msg',"Send private message to user and project team members"); ?>" trk="contact_history_reply" onclick="setReplyID('<?php echo $msg['from_id']; ?>','<?php echo $id; ?>');"><?php echo Yii::t('app',"Reply"); ?></a>
           <?php } ?>
             
-          <span class="description mt10"><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($msg['time']),"medium","short"); ?></span><br />
 
           <p><?php echo $msg['content']; ?></p>
           <hr>
