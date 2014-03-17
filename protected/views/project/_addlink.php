@@ -1,3 +1,7 @@
+<?php echo '<b>' . Yii::t('app', "Add links") . '</b>'; ?>
+<br style="clear: both"/>
+<br style="clear: both"/>
+
 <a class="button radius small left" href="#"
    onclick="$('.addLinks').toggle(); return false;"><?php echo Yii::t('app', "Custom links"); ?>
     <span class="icon-plus"></span>
@@ -27,9 +31,9 @@
         <?php echo $form->textField($link, 'url'); ?>
 
         <?php echo CHtml::submitButton(Yii::t("app", "Add link"),
-                array('class' => "button small success radius",
-                    'onclick' => 'addLink(\'' . Yii::app()->createUrl("project/addLink/" . $idea_id) . '\');')
-            );
+            array('class' => "button small success radius",
+                'onclick' => 'addLink(\'' . Yii::app()->createUrl("project/addLink/" . $idea_id) . '\');')
+        );
         ?>
 
         <?php $this->endWidget(); ?>
@@ -39,7 +43,8 @@
 </p>
 <div class="linkList">
     <?php if (isset($links) && is_array($links)) {
-        foreach ($links as $url => $title) { ?>
+        foreach ($links as $url => $title) {
+            ?>
             <div data-alert class="alert-box radius secondary" id="link_div_<?php echo $url; ?>">
                 <img src="<?php echo getLinkIcon($url); ?>">
                 <?php echo $title; ?>: <a href="<?php echo add_http($url); ?>" target="_blank"><?php echo $url; ?></a>
@@ -49,6 +54,7 @@
                     echo Yii::app()->createUrl("project/sDeleteLink");
                 } ?>')">&times;</a>
             </div>
-        <?php }
+        <?php
+        }
     } ?>
 </div>

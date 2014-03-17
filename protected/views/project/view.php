@@ -180,9 +180,9 @@ foreach ($idea['member'] as $member) {
                         <a id="candidates" class="anchor-link"></a>
                         <?php if (count($idea['candidate']) > 0){
                         echo Yii::t('app', 'Looking for {n} candidate|Looking for {n} candidates', array(count($idea['candidate']))); 
-                         } else {   
-                         echo Yii::t('app', 'Currently no positions opened'); 
-                          };?>
+                         } else {  ?>  
+                         <h2 class="meta f-italic align-center"> <?php echo Yii::t('app', 'Currently no positions opened'); ?></h2>
+                          <?php };?>
                     </h2>
 
                     <?php if (count($idea['candidate']) > 0){ ?>

@@ -403,8 +403,17 @@ a:hover, a:focus { color: #3c76d6; }
   background: #F9F9F7;
   border: 1px solid #ddd;
   
- 
 }
+
+
+/* Label Styles */
+label {
+  font-size: 0.8em;
+  color: #4d4d4d;
+  cursor: pointer;
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.2em; }
 
 
 

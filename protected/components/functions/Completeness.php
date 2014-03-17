@@ -66,6 +66,16 @@ class Completeness{
 
       $this->details[] = array(
             "group"=>Yii::t('app',"Personal information"),
+            "name"=>Yii::t('app',"Biggest accomplishment"),
+            "value"=>"",
+            "hint"=>Yii::t('msg',"Tell us your biggest accomplishment in 140 charachters or less."),
+            "action"=>Yii::app()->createUrl("profile")."#link_personal",
+            "active"=>($user->personal_achievement != ''),
+            "weight"=>10,
+            );
+      
+      $this->details[] = array(
+            "group"=>Yii::t('app',"Personal information"),
             "name"=>Yii::t('app',"Personal pitch"),
             "value"=>"",
             "hint"=>Yii::t('msg',"Tell others something interesting about yourself."),

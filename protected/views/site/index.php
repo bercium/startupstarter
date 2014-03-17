@@ -59,6 +59,7 @@
               <h2><?php echo Yii::t('app', 'Project images'); ?></h2>
               <p>
                 <?php echo Yii::t('msg', 'Projects now have images. Please contact us to get more information on how to add it to your project.'); ?>
+                <a class="" href="mailto:info@cofinder.eu?Subject:DSodkspdo" >text</a>
               </p>
               <?php /* ?><a href="<?php echo Yii::app()->createUrl("project/create"); ?>" trk="index_click_createProject" class="button small  radius small-12" ><?php echo Yii::t('app','Create your project'); ?> </a>
                 <?php */ ?>

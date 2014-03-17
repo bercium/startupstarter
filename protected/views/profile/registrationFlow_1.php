@@ -1,5 +1,5 @@
 <?php 
-  $this->pageTitle = Yii::t('app', 'Tell us a bit about yourself');
+  $this->pageTitle = Yii::t('app', 'Your personal information');
 ?>
 
 <script>
@@ -9,7 +9,21 @@
 </script>
 
 
-<p>
+<?php 
+  if ($perc < PROFILE_COMPLETENESS_MIN) $percClass = 'alert';
+  else if ($perc < PROFILE_COMPLETENESS_OK) $percClass = '';
+  else $percClass = 'success';
+?>
+<div class="right mb10" style="width:100px;" data-tooltip title="<?php echo Yii::t('app','Completed {perc}%',array('{perc}'=>$perc)); ?>">
+  <div class="progress <?php echo $percClass; ?> round" style="height:10px;">
+    <span class="meter" style="width:<?php echo $perc; ?>%;">
+    </span>
+  </div>
+</div>
+
+<br />
+
+<p class="meta f-small">
 
   <?php echo Yii::t('msg','We are really happy you have decided to join our community. '
           . 'We strive to offer high quality profiles and project. '
@@ -95,8 +109,6 @@
    </div>
 <?php echo CHtml::endForm(); ?>		
     
-
-    <?php echo CHtml::button(Yii::t("app","Next >>"),
-      array('class'=>"button success radius right",'onclick'=>"$('#after_register_form').submit();")
-      ); ?>
+<a class="button success radius right" trk="registration_save_step1" onclick="$('#after_register_form').submit();" ><?php echo Yii::t("app","Next");?><span class="icon-angle-right f-medium ml10"></span></a>
+    
 
