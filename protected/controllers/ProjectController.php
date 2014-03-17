@@ -699,7 +699,7 @@ class ProjectController extends GxController {
 			$_POST = $post;
 		}
 
-		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
+		$idea = Idea::Model()->findByAttributes( array( 'id' => $id ) );
 
 		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
 		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $idea->id,'type_id'=>1));
@@ -749,7 +749,7 @@ class ProjectController extends GxController {
 
 	public function actionDeleteLink($id) {
 
-		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
+		$idea = Idea::Model()->findByAttributes( array( 'id' => $id ) );
 
 		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
 		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $idea->id,'type_id'=>1));
