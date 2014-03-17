@@ -96,12 +96,12 @@ class ProjectController extends GxController {
 		//naloadat modele
 		//naloadat view
 	    $this->stages = array(
-	        array('title'=>Yii::t('app','STEP 1'),'url'=>'#'),
-	        array('title'=>Yii::t('app','STEP 2'),'url'=>'#'),
-	        array('title'=>Yii::t('app','STEP 3'),'url'=>'#'),
-	        array('title'=>Yii::t('app','STEP 4'),'url'=>'#'),
-
+	        array('title'=>Yii::t('app','STEP 1'),'url'=>'#','required'=>true),
+	        array('title'=>Yii::t('app','STEP 2'),'url'=>''),
+	        array('title'=>Yii::t('app','STEP 3'),'url'=>''),
+	        array('title'=>Yii::t('app','STEP 4'),'url'=>''),
 	    );
+
 
         $idea = new Idea;
         $translation = new IdeaTranslation;
