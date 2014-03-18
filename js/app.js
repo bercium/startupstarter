@@ -1,16 +1,12 @@
-// if cookie alert is visible set margin to intro h1
-$(function() {
-  if ($('.cc-cookies').length > 0) { 
-      $('.intro h1').css('margin-top','50px');
-  }
-});
-
-
 
 ;(function ($, window, undefined) {
   $(document).foundation();
   
 
+  if ($('.cc-cookies').length > 0) { 
+      $('.intro h1').css('margin-top','50px');
+  }
+  
 //.parallax(xPosition, speedFactor, outerHeight) options:
 	//xPosition - Horizontal position of the element
 	//inertia - speed to move relative to vertical scroll. Example: 0.1 is one tenth the speed of scrolling, 2 is twice the speed of scrolling
@@ -129,7 +125,22 @@ $(function() {
   });
   
   
+  // hide top bar
+  if(typeof hideTopBar != 'undefined') {
+    $('.top-bar-holder').css({ opacity: 0 });
+    $(document).scrollTop(45);
+  }
+  
 })(jQuery, this);
+
+var scrollFirsttime = 0;
+
+$(window).scroll(function () {
+  if (!$('.top-bar-holder').is(":animated") && $('.top-bar-holder').css("opacity") == 0 && (scrollFirsttime)) {
+     $('.top-bar-holder').animate({ opacity: 1 }, "slow");
+  }
+  if ($(document).scrollTop() == 45) scrollFirsttime = 1;
+});
 
 
 var qrActive = false;

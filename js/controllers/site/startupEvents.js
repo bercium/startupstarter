@@ -115,6 +115,7 @@ $(document).ready(function() {
         select: function( event, ui ) {
           this.value = ui.item.value;
           //tagApi.tagsManager("pushTag", ui.item.value);
+          $('#form_filter_cc').submit();
           return false;
         }
       })

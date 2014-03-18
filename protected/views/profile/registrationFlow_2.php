@@ -90,7 +90,7 @@
        switch ($colabpref['collab_id']){
          case 1:echo '<div class="pb30">' .  Yii::t('msg','Will work for payment') . '</div>'; break;
          case 2:echo '<div class="pb30">' .  Yii::t('msg','Will work for a share in a company'). '</div>'; break;
-         case 3:echo '<div class="pb30">' .  Yii::t('msg','Want to work or invest equally'). '</div>'; break;
+         case 3:echo '<div class="pb30">' .  Yii::t('msg','Want to work and invest equally'). '</div>'; break;
          case 4:echo '<div class="pb30">' .  Yii::t('msg','Want to invest in interesting projects only'). '</div>'; break;
          case 5:echo '<div class="pb30">' .  Yii::t('msg','Just want to help') . '</div>'; break;
        }

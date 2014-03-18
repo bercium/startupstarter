@@ -73,7 +73,7 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
       <h1><?php echo Yii::t('app','Calendar of upcoming startup events'); ?></h1>
       
       <br />
-      <?php echo CHtml::beginForm(Yii::app()->createUrl("site/startupEvents"),'get',array('class'=>"custom")); ?>
+      <?php echo CHtml::beginForm(Yii::app()->createUrl("site/startupEvents"),'get',array('class'=>"custom","id"=>'form_filter_cc')); ?>
       <label for="filter"><?php echo Yii::t('app','Filter by city or country'); ?></label>
       <div class="row">
           <div class="columns large-4">
