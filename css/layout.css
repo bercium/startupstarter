@@ -113,13 +113,12 @@ background: url(../images/custom_bg.jpg) center center no-repeat;
 
 .intro h1,
 .intro h2 {
-  color:#444 !important;
+  //color:#444 !important;
 }
 
 .intro .big-text {
 	 font-size:3.5em;
-	 line-height: 140%;
-	 color:#666;     
+	 line-height: 140%;   
 }
 
 
@@ -128,17 +127,19 @@ background: url(../images/custom_bg.jpg) center center no-repeat;
 	font-size: 3em;	
 }
 
-.intro .big-text .alt-1 {
-	font-weight: bold;
+
+
+.page-title {
+	color: #777;
+	line-height: 90%;
+}
+
+.page-title div{
+  font-weight: bold;
 	line-height: 90%;
 	color:#555;
   text-transform: uppercase;
-}
-
-
-.intro .big-text .alt-2 {
-	color: #777;
-	line-height: 90%;
+  margin-top: 10px;
 }
 
 
@@ -162,7 +163,9 @@ font-weight: bold; text-transform: uppercase; margin-bottom:0;
 
 
 .intro .alt-5 {
-	font-size:1.6em; color: #689142; text-align: center;
+	font-size:1.6em; 
+  color: #444; 
+  text-align: center;
 }
 
 .intro .call-to { 
