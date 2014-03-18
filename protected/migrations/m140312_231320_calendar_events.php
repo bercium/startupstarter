@@ -11,7 +11,7 @@ class m140312_231320_calendar_events extends CDbMigration
         `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         `end` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
         `all_day` tinyint(1) NOT NULL,
-        `content` varchar(500) DEFAULT NULL,
+        `content` varchar(1500) DEFAULT NULL,
         `link` varchar(255) DEFAULT NULL,
         `location` varchar(255) DEFAULT NULL,
         `source` varchar(128) DEFAULT NULL,

@@ -48,7 +48,7 @@
 			
 
 			
-			<h1 class="mt10 mb10"><?php echo Yii::t('app','What is new'); ?></h1>
+			<h1 class="mt40 mb10"><?php //echo Yii::t('app','What is new'); ?></h1>
 			<?php $this->widget('ext.Invitation.WInvitation'); ?> 
 
 			<ul class="large-block-grid-3">
@@ -56,11 +56,12 @@
           <div class="small-12">
             
             <div class="pall125em radius-all  whats-new radius fancy-border" style="min-height:203px;">
-              <h2><?php echo Yii::t('app', 'Project images'); ?></h2>
+              <h2><?php echo Yii::t('app', 'Suggested results'); ?></h2>
               <p>
-                <?php echo Yii::t('msg', 'Projects now have images. Please contact us to get more information on how to add it to your project.'); ?>
-                <a class="" href="mailto:info@cofinder.eu?Subject:DSodkspdo" >text</a>
+                <?php echo Yii::t('msg', 'We now give you suggestions based on your profile.'); ?>
               </p>
+                <a class="button radius small small-12" trk="index_click_suggested" href="?suggested=1">Switch to suggested</a>
+              
               <?php /* ?><a href="<?php echo Yii::app()->createUrl("project/create"); ?>" trk="index_click_createProject" class="button small  radius small-12" ><?php echo Yii::t('app','Create your project'); ?> </a>
                 <?php */ ?>
             </div>
@@ -71,7 +72,7 @@
         <li>
           <div class="small-12">
 
-            <div class="pall125em radius-all whats-new radius fancy-border">
+            <div class="pall125em radius-all whats-new radius fancy-border" style="min-height:203px;">
               <?php if ($event['today']){ ?>
                 <h2 ><?php echo Yii::t('app', 'What is happening'); ?></h2>
                 <p>
@@ -94,13 +95,13 @@
         <li>
           <div class="small-12">
 
-            <div class="pall125em radius-all  whats-new radius fancy-border">
+            <div class="pall125em radius-all  whats-new radius fancy-border" style="min-height:203px;">
               <h2><?php echo Yii::t('app','Public profile'); ?></h2>
               <p>
               <?php echo Yii::t('msg','Get your own personal url on Cofinder'); ?>
               </p>
 
-              <a href="<?php echo Yii::app()->createUrl("profile/account"); ?>" trk="index_click_vanityURL" class="button success small radius small-12">www.cofinder.eu/ <?php echo str_replace(".", "", substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")) ); ?></a>
+              <a href="<?php echo Yii::app()->createUrl("profile/account"); ?>" trk="index_click_vanityURL" class="button success small radius small-12 mt20">www.cofinder.eu/ <?php echo str_replace(".", "", substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")) ); ?></a>
 
             </div>
           </div>
@@ -137,7 +138,7 @@
      
         <a href="<?php echo Yii::app()->createUrl("person/discover"); ?>" trk="index_click_findCofounder" class="button radius success" ><?php echo Yii::t('app','Find a cofounder'); ?></a> 
         <span style="margin:0 13px 0 13px;"> <?php echo Yii::t('app','or'); ?> </span>
-        <a href="<?php echo Yii::app()->createUrl("project/create"); ?>" trk="index_click_createProject" class="button radius" style="margin-right: 0;" ><?php echo Yii::t('app','Create your project'); ?> </a>
+        <a href="<?php echo Yii::app()->createUrl("project/create"); ?>" trk="index_click_createProject" class="button radius secondary" style="margin-right: 0;" ><?php echo Yii::t('app','Create your project'); ?> </a>
         
 
       
@@ -155,23 +156,23 @@
 					
 			<div  class="columns large-8 mb0 pl20">
 				<div class="ml40">
-					<div class="large-12 columns">				 	
-					 	<h2 class="big-text mt20 mb0"><span class="alt-1"><?php echo Yii::t('msg','Work for a Startup'); ?></span></h2>
-					 	<h2 class="big-text mb40 mt0"><span class="alt-2"><?php echo Yii::t('msg','or find a cofounder'); ?></span></h2>
-					 	<h2 class="mb60"><span class="alt-3"><?php echo Yii::t('msg','Resource of skills & interesting projects'); ?></span></h2>
+					<div class="large-12 columns">
+					 	<h2 class="big-text mt20 mb0 text-center"><span class="alt-2"><?php echo Yii::t('msg','Helping you assemble'); ?></span></h2>
+					 	<h2 class="big-text mb20 mt20 text-center"><span class="alt-1"><?php echo Yii::t('msg','a team'); ?></span></h2>
+					 	<h2 class="mb60"><span class="alt-3"><?php echo Yii::t('msg','20 cofunders connected'); ?></span></h2>
 					</div>	
 				 	<div class="large-6 columns">	 							
 						<span class="icon-rocket left mr15 mt5"></span>
-						<h2 class="alt-4">Startups</h2>					
+						<h2 class="alt-4"><?php echo Yii::t('app','Startups'); ?></h2>					
 						<h3 class="call-to mb20"><?php echo Yii::t('msg','Find a talent'); ?></h3>
-						<p><?php echo Yii::t('msg','Share what you\'re working on<br />Find people with the right skills'); ?></p>	 				
+						<p><?php echo Yii::t('msg','Pitch your project and<br />find the right people'); ?></p>	 				
 					</div>
 					<div class="large-6 columns"> 					
 						<!-- Content if guest -->
 						<span class="icon-user left mr15 mt5"></span>
-						<h2 class="alt-4">Individuals</h2>						
+						<h2 class="alt-4"><?php echo Yii::t('app','Individuals'); ?></h2>						
 						<h3 class="call-to mb20"><?php echo Yii::t('msg','Join a project'); ?></h3>
-						<p><?php echo Yii::t('msg','Tell us what you\'re good at<br />Get invited to startup'); ?></p>					
+						<p><?php echo Yii::t('msg','Tell us what your skills are<br />and join a startup'); ?></p>					
 					</div>
 				</div>
 			</div>
@@ -180,9 +181,9 @@
 				<img class="mt10 ml50 hide-for-small" src='<?php echo Yii::app()->request->baseUrl; ?>/images/logo-big.png'>
 				<div class="small-12 large-12 columns">
         <h2 class="alt-5" ><?php echo Yii::t('msg','Sign up for Cofinder'); ?></h2>
-				<p><?php echo Yii::t('msg','Create your account, tell us about yourself and start exploring'); ?></p>	
+				<p><?php //echo Yii::t('msg','Create your account, tell us about yourself and start exploring'); ?></p>	
         <a class="button radius large large-12 mb0" href="<?php echo Yii::app()->createUrl("user/registration"); ?>"><?php echo Yii::t('app','Start here'); ?></a>
-				<p class="description small-8 small-centered large-12"><?php echo Yii::t('msg','Already have an account?'); ?> <a href="#" data-dropdown="drop-login"><?php echo Yii::t('app','Login here'); ?>.</a></p>		
+				<p class="description small-8 small-centered large-12"><?php echo Yii::t('msg','Already have an account?'); ?> <a href="#" data-dropdown="drop-login"><?php echo Yii::t('app','Login here'); ?></a></p>		
         </div>       
 			</div>
 
