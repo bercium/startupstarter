@@ -32,7 +32,10 @@
             <h5><?php echo Yii::t('app', 'Invited to the project'); ?></h5>
             <p>
                 <?php foreach ($invitees as $row) { ?>
-                    <?php echo $row->email; ?>,
+                    <?php
+                    if (isset($row->receiverId)){
+                       echo $row->receiverId->name." ".$row->receiverId->surname;
+                    }else  echo $row->email; ?>,
                 <?php } ?>
             </p>
         <?php
