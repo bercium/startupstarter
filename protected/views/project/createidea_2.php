@@ -23,7 +23,7 @@ if (!isset($candidate)) {
                 <div class="" style="text-align:center;">
                     <?php if (!isset($candidate)) { ?>
 
-                    <p><?php echo yii::t('msg','Post an open position for you project. Tell us who are you looking for.') ?></p>
+                    <p class="meta f-small"><?php echo yii::t('msg','Post an open position for you project. Tell us who are you looking for.') ?></p>
                     
                     
                         <a class="button large-6 mb40 abtn radius" style="margin-bottom:0;"

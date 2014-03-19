@@ -1970,7 +1970,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444', endCol
 	margin-top: 50px;
 	margin-bottom: 10px;
 	font-weight: bold;
-	text-transform: uppercase;
+	
 }
 .formidea label:first-child {
 	margin-top: 0px;
@@ -2061,7 +2061,6 @@ label{
 	}
 
 
-
 /* ==========================================================================
   $ MODULES
    ========================================================================== */
@@ -2096,11 +2095,13 @@ label{
    		box-shadow: none;
    	}
 
-   	.stageflow .button:hover {
+
+   	.stageflow .button:hover, .stageflow .button:active, .stageflow .button:focus  {
    		background: none;
    		background: url(../images/stageflow/next.png) top right no-repeat;
 
    	}
+
 
    	   .stageflow .before-selected.button {   	
    	background: url(../images/stageflow/before-selected-next.png) top right no-repeat;   	
