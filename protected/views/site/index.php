@@ -56,11 +56,11 @@
           <div class="small-12">
             
             <div class="pall125em radius-all  whats-new radius fancy-border" style="min-height:203px;">
-              <h2><?php echo Yii::t('app', 'Suggested results'); ?></h2>
+              <h2><?php echo Yii::t('app', 'Tailored results'); ?></h2>
               <p>
                 <?php echo Yii::t('msg', 'We now give you suggestions based on your profile.'); ?>
               </p>
-                <a class=" radius small small-12" trk="index_click_suggested" href="?suggested=1">Switch to suggested</a>
+                <a class=" radius small small-12" trk="index_click_suggested" href="?suggested=1"><?php echo Yii::t('app','Switch to suggested'); ?></a>
               
               <?php /* ?><a href="<?php echo Yii::app()->createUrl("project/create"); ?>" trk="index_click_createProject" class="button small  radius small-12" ><?php echo Yii::t('app','Create your project'); ?> </a>
                 <?php */ ?>
@@ -87,7 +87,7 @@
               <h2><?php echo Yii::t('app', 'Currently no events'); ?></h2>
               <?php } ?> 
               <br />
-              <a href="<?php echo Yii::app()->createUrl("site/startupEvents"); ?>" trk="index_click_events" class=" radius small small-12"><?php echo Yii::t('app', 'View more events'); ?></a>
+              <a href="<?php echo Yii::app()->createUrl("site/startupEvents"); ?>" trk="index_click_events" class=" radius small small-12"><?php echo Yii::t('app', 'Find your local events'); ?></a>
             </div>
             
           </div>
@@ -160,23 +160,23 @@
 		<div class="row">
 					
 			<div  class="columns large-8 mb0 pl20">
-				<div class="ml40">
+				<div class="">
 					<div class="large-12 columns">
-					 	<h1 class="big-text mb40 mt20 text-center page-title"><?php echo Yii::t('msg','Helping you assemble <div>a team</div>'); ?></h2>
-					 	<h2 class="mb60"><span class="alt-3"><?php echo Yii::t('msg','20 cofunders connected'); ?></span></h2>
+					 	<h1 class="big-text mb40 mt20 text-center page-title"><?php echo Yii::t('msg','Helping you assemble <div>a startup team</div>'); ?></h2>
+					 	<h2 class="mb60"><span class="alt-3" style="width:100%"><?php echo Yii::t('msg','+70 projects looking for a cofounder'); ?></span></h2>
 					</div>	
-				 	<div class="large-6 columns">	 							
+				 	<div class="large-6 columns">
 						<span class="icon-rocket left mr15 mt5"></span>
 						<h2 class="alt-4"><?php echo Yii::t('app','Startups'); ?></h2>					
-						<h3 class="call-to mb20"><?php echo Yii::t('msg','Find a talent'); ?></h3>
-						<p><?php echo Yii::t('msg','Pitch your project and<br />find the right people'); ?></p>	 				
+						<h3 class="call-to mb20"><?php echo Yii::t('msg','Find talent'); ?></h3>
+						<p><?php echo Yii::t('msg','Pitch your project and find the right people'); ?></p>	 				
 					</div>
-					<div class="large-6 columns"> 					
+					<div class="large-6 columns">
 						<!-- Content if guest -->
 						<span class="icon-user left mr15 mt5"></span>
 						<h2 class="alt-4"><?php echo Yii::t('app','Individuals'); ?></h2>						
 						<h3 class="call-to mb20"><?php echo Yii::t('msg','Join a project'); ?></h3>
-						<p><?php echo Yii::t('msg','Tell us what your skills are<br />and join a startup'); ?></p>					
+						<p><?php echo Yii::t('msg','Show off your skills and join a startup'); ?></p>					
 					</div>
 				</div>
 			</div>

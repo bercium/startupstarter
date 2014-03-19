@@ -95,11 +95,13 @@ class ProjectController extends GxController {
 		//ID prebrat iz sešna, če je že, naloadat podatke, drugače nič
 		//naloadat modele
 		//naloadat view
+		//naloadat view
 	    $this->stages = array(
-	        array('title'=>Yii::t('app','STEP 1'),'url'=>'#','required'=>true),
-	        array('title'=>Yii::t('app','STEP 2'),'url'=>''),
-	        array('title'=>Yii::t('app','STEP 3'),'url'=>''),
-	        array('title'=>Yii::t('app','STEP 4'),'url'=>''),
+	        array('title'=>Yii::t('app','Basic info'),'url'=>''),
+	        array('title'=>Yii::t('app','Story'),'url'=>''),
+	        array('title'=>Yii::t('app','Open positions'),'url'=>''),
+	        array('title'=>Yii::t('app','Links'),'url'=>''),	        
+          array('title'=>Yii::t('app','Finish'),'url'=>''),
 	    );
 
 

@@ -1,5 +1,5 @@
 <?php 
-  $this->pageTitle = Yii::t('app', 'Show off for others to see');
+  $this->pageTitle = Yii::t('app', 'Tell others a bit about yourself');
 ?>
 
 <script>
@@ -33,7 +33,7 @@
       <br />
     
       <?php echo CHtml::activeLabelEx($user,'bio'); ?>
-      <span class="description"><?php echo Yii::t('msg','Write something others find interesting about you.'); ?></span>
+      <span class="description"><?php echo Yii::t('msg','Tell people why they should start a business with you.'); ?></span>
       
       <?php echo CHtml::activeTextArea($user, 'bio', array()); ?>
 
