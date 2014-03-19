@@ -1,27 +1,50 @@
     
     <?php if(isset($candidate)){ ?>
-    <p>
+    <p class="f-small meta">
       <?php echo Yii::t('msg',"Fill out as many fields as possible to describe your perfect candidate. If you are not sure or you do not need some information, leave them blank.") ?>
     </p>
-    
-    <?php if($candidate != 'new' && $candidate != '' && is_numeric($candidate)){
-        echo CHtml::beginForm(Yii::app()->createUrl('project/edit',array('id'=>$idea_id,'step'=>3,'candidate'=>$candidate)),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
-      } else {
-        echo CHtml::beginForm(Yii::app()->createUrl('project/edit',array('id'=>$idea_id,'step'=>3,'candidate'=>'new')),'post',array('class'=>"custom large-6",'id'=>'candidate_form'));
-      } ?>
-      
-    <p>      
-    <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
-    
-    <?php echo CHtml::activeLabelEx($match,'available'); ?>
-    <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listData(Available::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
-    
-    <?php echo "<label>".Yii::t('app','Collaboration preferences')."</label>"; ?>
 
+ <?php if($candidate != 'new' && $candidate != '' && is_numeric($candidate)){
+      echo CHtml::beginForm(Yii::app()->createUrl('project/edit',array('id'=>$idea_id,'step'=>3,'candidate'=>$candidate)),'post',array('class'=>"custom",'id'=>'candidate_form'));
+    } else {
+      echo CHtml::beginForm(Yii::app()->createUrl('project/edit',array('id'=>$idea_id,'step'=>3,'candidate'=>'new')),'post',array('class'=>"custom",'id'=>'candidate_form'));
+    } ?>
+
+<div class="row  pt40 pb40 btop">
+
+  <div class="large-4 columns">   
+  
+ 
+    
+       
+  <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
+  <div class="mt10"><?php echo CHtml::activeLabelEx($match,'available'); ?></div>
+  </div> 
+
+  <div class="large-8 columns">
+  
+  <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listData(Available::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+   </div> 
+
+</div>
+
+<div class="row  pt40 pb40 btop">
+
+  <div class="large-4 columns">
+
+    <?php echo "<label>".Yii::t('app','Collaboration preferences')."</label>"; ?>
     <span class="description">
        <?php echo Yii::t('msg','What kind of Collaboration do you prefer when working on a project? Paid work - get paid for your work, Sweat equity - work for a share in a company, Equal investors - invest an equal sum of money, Sole investor – be the only investor, Volunteer - just want to help'); ?>
     </span>
-      
+
+  </div>
+
+   
+
+  <div class="large-8 columns">
+   
+  
+
     <?php if(isset($collabprefs)){
       foreach ($collabprefs as $collabpref){ ?>
         <label for="CollabPref_<?php echo $collabpref['collab_id']; ?>"><?php echo CHtml::checkBox('CollabPref['.$collabpref['collab_id'].']',$collabpref['active'],array('style'=>'display:none')); ?>
@@ -30,22 +53,27 @@
       }
 
     } ?>
-    <br />
-      <?php echo CHtml::activeLabelEx($match,'country_id'); ?>
-      <?php echo CHtml::activedropDownList($match, 'country_id', GxHtml::listDataEx(Country::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?>
-
-      <?php echo CHtml::activeLabelEx($match,'city'); ?>
-      <?php echo CHtml::activeTextField($match, 'city', array("class"=>"city")); ?>    
     
-
-    <?php /* extra data ?>
-    <?php echo Yii::t('app','Extra information'); ?>
-    <span class="general foundicon-flag" data-tooltip title="<?php echo Yii::t('msg',"Add some extra information, such as what can you offer..."); ?>"></span>
-    
-    <?php echo CHtml::textArea("extraInformation"); ?>
-    <?php //*/ ?> 
           
-    </p> 
+    
+
+    </div> 
+
+</div>
+
+<div class="row pt40 pb40 btop">
+
+<div class="large-4 columns">
+  <a id="link_skills" class="anchor-link"></a>
+    <label for="skill">
+    <?php echo Yii::t('app','Skills');  ?> 
+    </label>
+    <span class="description">
+      <?php echo Yii::t('msg','Name a skill your candidate should posses. You can write multiple skills for the same industry separating them with commas.'); ?>
+    </span>
+</div>
+
+<div class="large-8 columns">
 
     <?php 
     $skillList = '';
@@ -56,15 +84,41 @@
     //hidden-skill
     ?>
     
-    <a id="link_skills" class="anchor-link"></a>
-    <label for="skill">
-    <?php echo Yii::t('app','Skills');  ?> 
-    </label>
-    <span class="description">
-      <?php echo Yii::t('msg','Name a skill your candidate should posses. You can write multiple skills for the same industry separating them with commas.'); ?>
-    </span>
+    
     <input type="text" name="skill" placeholder="<?php echo Yii::t('app','short skill tags');  ?>" value="<?php echo $skillList; ?>" class="tm-input skill"/>
-    <br />
+
+</div>    
+
+</div>
+
+
+<div class="row pt40 pb40 btop">
+
+  <div class="large-4 columns"><?php echo CHtml::activeLabelEx($match,'city'); ?></div>
+<div class="large-8 columns"><?php echo CHtml::activeTextField($match, 'city', array("class"=>"city")); ?>    </div>
+
+<div class="large-4 columns"><?php echo CHtml::activeLabelEx($match,'country_id'); ?></div>
+<div class="large-8 columns"><?php echo CHtml::activedropDownList($match, 'country_id', GxHtml::listDataEx(Country::model()->findAllAttributes(null, true)), array('empty' => '&nbsp;','style'=>'display:none')); ?></div>
+
+
+
+
+      
+      
+    
+
+    <?php /* extra data ?>
+    <?php echo Yii::t('app','Extra information'); ?>
+    <span class="general foundicon-flag" data-tooltip title="<?php echo Yii::t('msg',"Add some extra information, such as what can you offer..."); ?>"></span>
+    
+    <?php echo CHtml::textArea("extraInformation"); ?>
+    <?php //*/ ?>
+
+
+</div>
+
+
+
 
       <?php echo CHtml::endForm(); ?>  
 
