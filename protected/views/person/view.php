@@ -326,6 +326,11 @@ else {
 
 
   <div class="large-8 main columns">
+    <?php if ($user['personal_achievement']){ ?>
+    <div class="panel radius inside-panel">
+      <?php echo $user['personal_achievement']; ?>
+    </div>
+    <?php } ?>
     
         <div class="panel radius">
 
@@ -499,7 +504,7 @@ else {
            <a  href="http://twitter.com/share?text=<?php echo $summary; ?>" trk="social_twitter_share_person" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
              <img  src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-tw.jpg"  width="30">
            </a>
-          
+          &nbsp;
             <a href="https://plus.google.com/share?url=<?php echo $url; ?>&title=<?php echo $title; ?>&summary=<?php echo $summary; ?>" trk="social_plus_share_person" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
               <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/social-big-gp.jpg" width="30">
             </a>

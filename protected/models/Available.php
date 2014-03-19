@@ -21,7 +21,7 @@ class Available extends BaseAvailable
 			$result = array();
 			// does not use original values if not translated
 			foreach ($trans as $row){
-        if ($uninterested && $row->row_id > 1) $result[] = array("id"=>$row->row_id,"name"=>$row->translation);
+        if ($uninterested && ($row->row_id > 1 || $uninterested)) $result[] = array("id"=>$row->row_id,"name"=>$row->translation);
 			}
 			return $result;
 			//return Translation::model()->findAll($criteria);
