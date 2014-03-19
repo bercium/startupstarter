@@ -30,8 +30,8 @@
    function drawCharts(){
      drawTimeline();
      drawMsgLength();
-     //drawUsrMsgLength();
-     //drawIdeaMsgLength();
+     drawUsrMsgLength();
+     drawIdeaMsgLength();
      msgsRead();
    }
    
@@ -159,10 +159,10 @@
 
   
 <div id="chart_div" style="width: 600px; height: 500px;"></div>
-<?php /* ?>
+<?php //* ?>
 <div id="chart_usr_div" style="width: 600px; height: 500px;"></div>
 <div id="chart_idea_div" style="width: 600px; height: 500px;"></div>
-<?php */ ?>
+<?php //*/ ?>
 <div id="chart_read_div" style="width: 600px; height: 500px;"></div>
   
 <div id="calendar_basic" style="width: 1000px; height: 350px;"></div>

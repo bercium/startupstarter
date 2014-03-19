@@ -71,6 +71,57 @@ class GeneralCommand extends CConsoleCommand{
   }
   
   
+  function saveGcal($response, $source){
+ // our google calendar
+    if (isset($response['events'])){
+      foreach ($response['events'] as $event){
+        $content = $event['description'];
+        
+        // set color from content
+        $event_tmp['color'] = "";
+        if (strpos($content,"#red")){
+          $content = str_replace("#red", "", $content);
+          $event_tmp['color'] = "red";
+        }
+        if (strpos($content,"#blue")){
+          $content = str_replace("#blue", "", $content);
+          $event_tmp['color'] = "blue";
+        }
+        if (strpos($content,"#green")) $content = str_replace("#green", "", $content); // just fallback
+        
+        $link = '';
+        // set links from content
+        if (strpos($content,"#link:")){
+          if (strpos($content,"\n",strpos($content,"#link:")) === false){
+            $link = substr($content, strpos($content,"#link:"), strlen($content));
+          }else $link = substr($content, strpos($content,"#link:"), strpos($content,"\n",strpos($content,"#link:")));
+          $content = str_replace($link, "", $content);
+          $link = trim(str_replace("#link:", "", $link));
+        }
+
+        $event_tmp['title'] = $event['title'];
+        $event_tmp['content'] = trim_text(str_replace("\n", "<br />", trim($content)),1500,true,false);
+        $event_tmp['location'] = $event['location'];
+        $event_tmp['link'] = $link;
+
+        $start = strtotime($event["start"])+1*60*60;
+        $end = strtotime($event["end"])+1*60*60;
+        
+        $event_tmp['start'] = date("c",$start);
+        $event_tmp['end'] = date("c",$end);
+
+        $event_tmp['allday'] = false;
+        if (timeDifference($start, $end, "days_total") >= 1){
+          $event_tmp['allday'] = true;
+        }
+
+        $event_tmp['source'] = $source;
+        
+        $this->saveEventToDb($event_tmp);
+      }
+    }    
+  }
+  
   /**
    * check if event exits end if not save it
    */
@@ -125,7 +176,7 @@ class GeneralCommand extends CConsoleCommand{
       if (isset($event['color'])) $e->color = $event['color'];
       //$e->city = $event['title'];
       //$e->country = $event['title'];
-      $e->save();
+      if (!$e->save()) die(print_r($e->errors));
     }
   }
   
@@ -330,66 +381,28 @@ class GeneralCommand extends CConsoleCommand{
             'limit'=>50,
             'order'=>'a',
             'calendar_id'=>'1b6ekrafhb0l2mrq86pq5fdov8@group.calendar.google.com',
-            //'calendar_id'=>'occfrr8e7rtdo46b8k0ibhndtg%40group.calendar.google.com',  // internet week
         )
     );
     
-    // our google calendar
-    if (isset($response['events'])){
-      foreach ($response['events'] as $event){
-        $content = $event['description'];
-        
-        // set color from content
-        $event_tmp['color'] = "";
-        if (strpos($content,"#red")){
-          $content = str_replace("#red", "", $content);
-          $event_tmp['color'] = "red";
-        }
-        if (strpos($content,"#blue")){
-          $content = str_replace("#blue", "", $content);
-          $event_tmp['color'] = "blue";
-        }
-        if (strpos($content,"#green")) $content = str_replace("#green", "", $content); // just fallback
-        
-        $link = '';
-        // set links from content
-        if (strpos($content,"#link:")){
-          if (strpos($content,"\n",strpos($content,"#link:")) === false){
-            $link = substr($content, strpos($content,"#link:"), strlen($content));
-          }else $link = substr($content, strpos($content,"#link:"), strpos($content,"\n",strpos($content,"#link:")));
-          $content = str_replace($link, "", $content);
-          $link = trim(str_replace("#link:", "", $link));
-        }
-
-        $event_tmp['title'] = $event['title'];
-        $event_tmp['content'] = str_replace("\n", "<br />", trim($content));
-        $event_tmp['location'] = $event['location'];
-        $event_tmp['link'] = $link;
-
-        $start = strtotime($event["start"])+1*60*60;
-        $end = strtotime($event["end"])+1*60*60;
-        
-        $event_tmp['start'] = date("c",$start);
-        $event_tmp['end'] = date("c",$end);
-
-        $event_tmp['allday'] = false;
-        if (timeDifference($start, $end, "days_total") >= 1){
-          $event_tmp['allday'] = true;
-        }
-
-        $event_tmp['source'] = "http://www.cofinder.eu";
-        
-        $this->saveEventToDb($event_tmp);
-        //remove duplicates
-        $key = $event_tmp['title'].$event_tmp['start'];
-        if (isset($eventKeys[$key])){
-          $events[$eventKeys[$key]] = $event_tmp; // override with our event :)
-        }else{
-          $eventKeys[$key] = count($events);
-          $events[] = $event_tmp;
-        }
-      }
-    }
+    $this->saveGcal($response, 'http://www.cofinder.eu');
+    
+    
+    // silicon gardens
+    $response = $cal->find(
+        array(
+            //'min'=>date('c', strtotime(date("d.m.Y"))),
+            //'max'=>date('c', strtotime(date("d.m.Y"))),
+            'min'=>date("Y-m-1").'T00:00:00+00:00',
+            'max'=>date("Y-m-d",strtotime(date("Y-m-1"))+60*60*24*92).'T23:59:00+00:00', //3 months
+            'limit'=>50,
+            'order'=>'a',
+            'calendar_id'=>'occfrr8e7rtdo46b8k0ibhndtg%40group.calendar.google.com',  // silicon gardens
+        )
+    );
+    
+    $this->saveGcal($response, 'http://www.silicongardens.si');    
+    
+   
     
     
     //CF event

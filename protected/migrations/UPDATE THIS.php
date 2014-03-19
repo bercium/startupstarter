@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `event` (
   `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `end` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `all_day` tinyint(1) NOT NULL,
-  `content` varchar(500) DEFAULT NULL,
+  `content` varchar(1500) DEFAULT NULL,
   `link` varchar(255) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
   `source` varchar(128) DEFAULT NULL,
@@ -65,3 +65,5 @@ CREATE TABLE IF NOT EXISTS `event` (
   `country` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+ALTER TABLE `event` CHANGE `content` `content` VARCHAR( 1500 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ;

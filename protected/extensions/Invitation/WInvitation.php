@@ -2,6 +2,8 @@
 
 class WInvitation extends CWidget
 {
+
+    public $renderLayout = true;
   
     public function init()
     {
@@ -178,7 +180,9 @@ class WInvitation extends CWidget
 
       }
       
-      $this->render("invite",array("invitations"=>$user->invitations));
+      if($this->renderLayout == true){
+        $this->render("invite",array("invitations"=>$user->invitations));
+      }
       
     }
  

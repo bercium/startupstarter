@@ -25,7 +25,7 @@ if (isset($this->stages) && ($this->stages) && ($this->stages != array())){ ?>
                 if ($c == $step){
                   $css = 'selected';
                   $allowURL = false;
-                }else if ($c == $step-1) $css = 'before-selected';
+                }else if (($c == $step-1) && ($step <= count($this->stages))) $css = 'before-selected';
 
                 $allowURL = $allowURL && (!$required); // if one is required don't allow links forward
                 // check if next round items should be required
@@ -33,7 +33,7 @@ if (isset($this->stages) && ($this->stages) && ($this->stages != array())){ ?>
                   $required = $required || $stage['required'];
                 }                
                 ?>
-                <li><a class="button small <?php echo $css; ?>" <?php if ($allowURL) echo 'href="'.$stage['url'].'"'; ?>><?php echo $stage['title']; ?></a></li>
+                <li><a class="button small <?php echo $css; ?>" trk="stageFlow_step<?php echo $c; ?>" <?php if ($allowURL) echo 'href="'.$stage['url'].'"'; ?>><?php echo $stage['title']; ?></a></li>
               <?php } ?>
             </ul>
         </div>

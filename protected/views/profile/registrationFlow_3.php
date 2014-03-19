@@ -8,6 +8,19 @@
 	var citySuggest_url = '<?php echo Yii::app()->createUrl("site/suggestCity",array("ajax"=>1)) ?>';
 </script>
 
+<?php 
+  if ($perc < PROFILE_COMPLETENESS_MIN) $percClass = 'alert';
+  else if ($perc < PROFILE_COMPLETENESS_OK) $percClass = '';
+  else $percClass = 'success';
+?>
+<div class="right mb10" style="width:100px;" data-tooltip title="<?php echo Yii::t('app','Completed {perc}%',array('{perc}'=>$perc)); ?>">
+  <div class="progress <?php echo $percClass; ?> round" style="height:10px;">
+    <span class="meter" style="width:<?php echo $perc; ?>%;">
+    </span>
+  </div>
+</div>
+
+<br />
 
   <?php echo CHtml::beginForm(Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>4)),'post',array('class'=>"custom",'id'=>'after_register_form')); ?>
   
@@ -29,6 +42,4 @@
 
 <br />    
 
-    <?php echo CHtml::button(Yii::t("app","Finish"),
-      array('class'=>"button success radius right",'onclick'=>"$('#after_register_form').submit();")
-      ); ?>
+  <a class="button success radius right" trk="registration_save_step3" onclick="$('#after_register_form').submit();" ><?php echo Yii::t("app","Finish");?></a>

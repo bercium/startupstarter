@@ -223,25 +223,29 @@ class MessageController extends Controller
     $msgList = array('users'=>null,'projects'=>null);
     $chatList = array('name'=>'','messages');
     foreach ($all_my_msgs as $msg){
-      
+      $cc = '';
       if ($msg->idea_to_id){
         // msg was sent to project
         $ideaTranslation = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$msg->idea_to_id));
         $msgList['projects'][$msg->idea_to_id] = array("id"=>$msg->idea_to_id,
                                     "name"=>trim_text($ideaTranslation->title,40));
+        $cc = trim_text($ideaTranslation->title,40);
         
         if ($id == 0) $id = $msg->idea_to_id;
         if ($group == '') $group = 'project';
         
         if ($group == 'project' && $id == $msg->idea_to_id){
-          
+          if ($msg->userTo) $to = $msg->userTo->name." ".$msg->userTo->surname;
+          else $to = '';
           $chatList['name'] = $ideaTranslation->title;
           $chatList['messages'][] = array("from"=>$msg->userFrom->name." ".$msg->userFrom->surname,
                               "from_id"=>$msg->userFrom->id,
                               "avatar_link"=>$msg->userFrom->avatar_link,
                               "time"=>$msg->time_sent,
                               "content"=>$msg->message,
-                              "read_time"=>$msg->time_viewed);
+                              "read_time"=>$msg->time_viewed,
+                              "to"=>$to,
+                              "cc"=>$cc);
         }
       }//else{
         
@@ -252,7 +256,8 @@ class MessageController extends Controller
           
           if ($id == 0) $id = $msg->user_from_id;
           if ($group == '') $group = 'user';
-          
+          if ($msg->userTo) $to = $msg->userTo->name." ".$msg->userTo->surname;
+          else $to = '';
           if ($group == 'user' && $id == $msg->user_from_id){
             $chatList['name'] = $msg->userFrom->name." ".$msg->userFrom->surname;
             $chatList['messages'][] = array("from"=>$msg->userFrom->name." ".$msg->userFrom->surname,
@@ -260,7 +265,9 @@ class MessageController extends Controller
                                 "avatar_link"=>$msg->userFrom->avatar_link,
                                 "time"=>$msg->time_sent,
                                 "content"=>$msg->message,
-                                "read_time"=>$msg->time_viewed);
+                                "read_time"=>$msg->time_viewed,
+                                "to"=>$to,
+                                "cc"=>$cc);
           }
         }else
           if ($msg->user_to_id){
@@ -270,7 +277,8 @@ class MessageController extends Controller
 
           if ($id == 0) $id = $msg->user_to_id;
           if ($group == '') $group = 'user';
-
+          if ($msg->userTo) $to = $msg->userTo->name." ".$msg->userTo->surname;
+          else $to = '';
           if ($group == 'user' && $id == $msg->user_to_id){
             $chatList['name'] = $msg->userTo->name." ".$msg->userTo->surname;
             $chatList['messages'][] = array("from"=>$msg->userFrom->name." ".$msg->userFrom->surname,
@@ -278,7 +286,9 @@ class MessageController extends Controller
                                 "avatar_link"=>$msg->userFrom->avatar_link,
                                 "time"=>$msg->time_sent,
                                 "content"=>$msg->message,
-                                "read_time"=>$msg->time_viewed);
+                                "read_time"=>$msg->time_viewed,
+                                "to"=>$to,
+                                "cc"=>$cc);
           }
         }
           

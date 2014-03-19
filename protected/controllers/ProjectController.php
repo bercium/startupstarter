@@ -4,6 +4,7 @@ class ProjectController extends GxController {
 
 //	public $data = array();
 	public $layout="//layouts/view";
+  public $stages = array();
 	
 	/**
 	 * @return array action filters
@@ -88,10 +89,33 @@ class ProjectController extends GxController {
 
     public function actionCreate(){
 
+		$this->layout="//layouts/stageflow";
+
+		//1. korak - splošni podatki
+		//ID prebrat iz sešna, če je že, naloadat podatke, drugače nič
+		//naloadat modele
+		//naloadat view
+	    $this->stages = array(
+	        array('title'=>Yii::t('app','STEP 1'),'url'=>'#','required'=>true),
+	        array('title'=>Yii::t('app','STEP 2'),'url'=>''),
+	        array('title'=>Yii::t('app','STEP 3'),'url'=>''),
+	        array('title'=>Yii::t('app','STEP 4'),'url'=>''),
+	    );
+
+
         $idea = new Idea;
         $translation = new IdeaTranslation;
         $member = new IdeaMember;
         $language = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
+
+       	//ideagallery
+       	$ideagallery = '';
+       	if(isset($_SESSION['actionCreateStep1-image_filename'])){
+       		$pathFileName = Yii::app()->params['tempFolder'].$_SESSION['actionCreateStep1-image_filename'];
+       		$filename = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . Yii::app()->params['tempFolder'] . DIRECTORY_SEPARATOR . $_SESSION['actionCreateStep1-image_filename'];
+       		if (file_exists($filename))
+            	$ideagallery = $_SESSION['actionCreateStep1-image_filename'];
+        }
 
         if (isset($_POST['Idea']) AND isset($_POST['IdeaTranslation']))
         {
@@ -152,7 +176,7 @@ class ProjectController extends GxController {
 
         }
 
-        $this->render('createidea_1', array( 'idea' => $idea, 'translation' => $translation, 'language' => $language ));
+        $this->render('createidea_1', array( 'idea' => $idea, 'translation' => $translation, 'language' => $language, 'ideagallery' => $ideagallery, 'idea_id' => 0));
     }
 
 	public function actionEdit($id, $step = 1){
@@ -162,6 +186,12 @@ class ProjectController extends GxController {
 		//ID prebrat iz sešna, če je že, naloadat podatke, drugače nič
 		//naloadat modele
 		//naloadat view
+	    $this->stages = array(
+	        array('title'=>Yii::t('app','STEP 1'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 1))),
+	        array('title'=>Yii::t('app','STEP 2'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 2))),
+	        array('title'=>Yii::t('app','STEP 3'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 3))),
+	        array('title'=>Yii::t('app','STEP 4'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 4))),
+	    );
 
         //insert/edit priviledges
         $hasPriviledges = true;
@@ -209,6 +239,9 @@ class ProjectController extends GxController {
 
     public function actionEditStep1($id){
 
+    	//session ideda id set for image upload
+        $_SESSION['actionEditStep4-idea_id'] = $id;
+
         $idea = Idea::Model()->findByAttributes(array('id' => $id));
         $translation = IdeaTranslation::Model()->findByAttributes(array('idea_id' => $id));
 		$language = Language::Model()->findByAttributes( array( 'language_code' => Yii::app()->language ) );
@@ -230,7 +263,15 @@ class ProjectController extends GxController {
 			}
 		}
 
-		$this->render('createidea_1', array( 'idea' => $idea, 'idea_id' => $id, 'translation' => $translation, 'language' => $language ));
+		//ideagallery
+        $pathFileName = Yii::app()->params['projectGalleryFolder'].$idea['id']."/main.jpg";
+        if (file_exists($pathFileName)){
+            $ideagallery = $pathFileName;
+        } else {
+            $ideagallery = '';
+        }
+
+		$this->render('createidea_1', array( 'idea' => $idea, 'idea_id' => $id, 'translation' => $translation, 'language' => $language, 'ideagallery' => $ideagallery));
 
 	}
 
@@ -238,6 +279,12 @@ class ProjectController extends GxController {
 
         $idea = Idea::Model()->findByAttributes(array('id' => $id));
         $translation = IdeaTranslationStory::Model()->findByAttributes(array('idea_id' => $id));
+
+        //image handler
+        if(isset($_SESSION['actionCreateStep1-image_filename'])){
+        	$this->uploadToGallery($id, $_SESSION['actionCreateStep1-image_filename'], 1);
+        	unset($_SESSION['actionCreateStep1-image_filename']);
+        }
 
         if (isset($_POST['IdeaTranslationStory']))
         {
@@ -407,8 +454,6 @@ class ProjectController extends GxController {
     }
 
     public function actionEditStep4($id){
-        //session ideda id set for image upload
-        $_SESSION['actionEditStep4-idea_id'] = $id;
 
         //idea object
         $idea = Idea::Model()->findByAttributes(array('id' => $id));
@@ -419,6 +464,7 @@ class ProjectController extends GxController {
         $data['idea'] = $sqlbuilder->load_array("idea", $filter, "member");
 
         //invites
+        $this->widget('ext.Invitation.WInvitation', array('renderLayout'=>false));
         $user = User::model()->findByPk(Yii::app()->user->id);
         $invites['data'] = Invite::model()->findAllByAttributes(array("idea_id"=>$id,"sender_id"=>Yii::app()->user->id),'NOT ISNULL(idea_id)');
 	    $invites['count'] = $user->invitations;
@@ -434,15 +480,7 @@ class ProjectController extends GxController {
             $links[$value['url']] = $value['title'];
         }
 
-        $pathFileName = Yii::app()->params['projectGalleryFolder'].$idea['id']."/main.jpg";
-        if (file_exists($pathFileName)){
-            $ideagallery = $pathFileName;
-        } else {
-            $ideagallery = '';
-        }
-
-
-        $this->render('createidea_4', array( 'idea' => $idea, 'idea_id' => $id, 'link' => $link, 'links' => $links, 'ideagallery' => $ideagallery, 'ideadata' => $data['idea'], 'invites' => $invites ));
+        $this->render('createidea_4', array( 'idea' => $idea, 'idea_id' => $id, 'link' => $link, 'links' => $links, 'ideadata' => $data['idea'], 'invites' => $invites ));
     }
 
 	public function addKeywords($idea_id, $language_id, $keywords){
@@ -661,7 +699,7 @@ class ProjectController extends GxController {
 			$_POST = $post;
 		}
 
-		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
+		$idea = Idea::Model()->findByAttributes( array( 'id' => $id ) );
 
 		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
 		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $idea->id,'type_id'=>1));
@@ -711,7 +749,7 @@ class ProjectController extends GxController {
 
 	public function actionDeleteLink($id) {
 
-		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
+		$idea = Idea::Model()->findByAttributes( array( 'id' => $id ) );
 
 		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
 		$hasPriviledges = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $idea->id,'type_id'=>1));
@@ -760,7 +798,12 @@ class ProjectController extends GxController {
 		$result = $uploader->handleUpload($folder);
 
         //add to galler as main image for cover project profile
-        $result['filename'] = $this->uploadToGallery($_SESSION['actionEditStep4-idea_id'], $result['filename'], 1).'main.jpg';
+        if(isset($_SESSION['actionEditStep1-idea_id'])){
+        	$result['filename'] = $this->uploadToGallery($_SESSION['actionEditStep1-idea_id'], $result['filename'], 1).'main.jpg';
+        } else {
+        	$_SESSION['actionCreateStep1-image_filename'] = $result['filename'];
+        	$result['filename'] = DIRECTORY_SEPARATOR . Yii::app()->params['tempFolder'] . DIRECTORY_SEPARATOR . $result['filename'];
+        }
 
         //json data
         $return = json_encode($result);
@@ -960,5 +1003,29 @@ class ProjectController extends GxController {
 		echo json_encode($response);
 		Yii::app()->end();
 	}
+
+  public function actionSuggestMember($term){
+    
+    $dataReader = User::model()->findAll("(name LIKE :name OR surname LIKE :name) AND status = 1", array(":name"=>"%".$term."%"));
+
+    if ($dataReader){
+      foreach ($dataReader as $row){
+        $avatar = avatar_image($row->avatar_link,$row->id,60);
+        $data[] = array("fullname"=>$row->name." ".$row->surname,
+                        "user_id"=>$row->id,
+                        //"img"=>avatar_image($row->avatar_link,$row->id),
+                        "img"=>$avatar,
+                        );
+      }
+    }
+    
+    $response = array("data" => $data,
+												"status" => 0,
+												"message" => '');
+		
+		echo json_encode($response);
+		Yii::app()->end();
+  }
+
 
 }

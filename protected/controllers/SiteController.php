@@ -148,9 +148,20 @@ class SiteController extends Controller
       if (!Yii::app()->user->isGuest) $ideaType .= ' <a href="?suggested=1" trk="project_switch_suggested" class="button radius tiny">'.Yii::t('app', "Switch to suggested").'</a>';        
     }
     
-    $eventsToday = Event::model()->find("CURDATE() BETWEEN DATE(start) AND date(end)");
+    // get today or next few events
+    $eventsToday = Event::model()->findAll("CURDATE() BETWEEN DATE(start) AND date(end)");
     $eventsNext = false;
-    if (!$eventsToday) $eventsNext = Event::model()->find("CURDATE() > start");
+    if (!$eventsToday){
+      $eventsNext = Event::model()->findAll(array('condition'=>"CURDATE() > start",'limit'=>5));
+      if ($eventsNext){
+        shuffle($eventsNext);
+        $eventsNext = $eventsNext[0];
+      }
+    }
+    else{
+      shuffle($eventsToday);
+      $eventsToday = $eventsToday[0];
+    }
     $event = array('today'=>$eventsToday,'next'=>$eventsNext);
 
 		$this->render('index', array('data' => $data, 'event'=>$event, "maxPageIdea"=>$maxPageIdea, "maxPagePerson"=>$maxPagePerson, "ideaType"=>$ideaType, "userType"=>$userType));
@@ -462,7 +473,7 @@ class SiteController extends Controller
     </url>
     <url>
       <loc>http://www.cofinder.eu/site/startupEvents</loc>
-      <changefreq>monthly</changefreq>
+      <changefreq>daily</changefreq>
       <priority>0.60</priority>
     </url>
     <url>
@@ -576,7 +587,8 @@ EOD;
     $filename = "calendar.json";
     $folder = Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['tempFolder'];
       
-   /* if (YII_DEBUG){
+   /* 
+   if (YII_DEBUG){
     //if (true){    
       $controller = 'general';
       $action = 'loadCalendars';
@@ -591,7 +603,7 @@ EOD;
       //$args = array_merge(array("yiic"), $args);
       //ob_start();
       $runner->run($args);
-    }*/
+    }//*/
 
     $filter = '';
     if (!empty($_GET['filter'])){

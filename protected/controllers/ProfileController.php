@@ -229,11 +229,11 @@ class ProfileController extends GxController {
               $city->save();
               $match->city_id = $city->id;
             }
-          }else $match->city_id = null;          
+          }else if (isset($_POST['UserMatch']['city'])) $match->city_id = null;
           
-          UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
           $c = 0;
           if (isset($_POST['CollabPref'])){
+            UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
             $c = count($_POST['CollabPref']);
             foreach ($_POST['CollabPref'] as $collab => $collab_name){
               $user_collabpref = new UserCollabpref;
@@ -268,11 +268,14 @@ class ProfileController extends GxController {
             array('title'=>Yii::t('app','About me'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>3))),
           );
           
+          $c = new Completeness();
+          $perc = $c->getPercentage($user_id);
+          
           $this->layout="//layouts/stageflow";
           $data['user'] = $sqlbuilder->load_array("regflow", $filter);
           if (isset($_GET['step'])){
-            $this->render('registrationFlow_'.$_GET['step'], array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link));
-          }else $this->render('registrationFlow_1', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link));
+            $this->render('registrationFlow_'.$_GET['step'], array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link,'perc'=>$perc));
+          }else $this->render('registrationFlow_1', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link,'perc'=>$perc));
         }
         else {
           $data['user'] = $sqlbuilder->load_array("user", $filter, "collabpref,link,idea,member,skill,industry");

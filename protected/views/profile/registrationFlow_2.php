@@ -1,5 +1,5 @@
 <?php 
-  $this->pageTitle = Yii::t('app', '');
+  $this->pageTitle = Yii::t('app', 'Skills & preferences');
   $baseUrl = Yii::app()->baseUrl; 
     $cs = Yii::app()->getClientScript();
 
@@ -13,6 +13,19 @@
 	var citySuggest_url = '<?php echo Yii::app()->createUrl("site/suggestCity",array("ajax"=>1)) ?>';
 </script>
 
+<?php 
+  if ($perc < PROFILE_COMPLETENESS_MIN) $percClass = 'alert';
+  else if ($perc < PROFILE_COMPLETENESS_OK) $percClass = '';
+  else $percClass = 'success';
+?>
+<div class="right mb10" style="width:100px;" data-tooltip title="<?php echo Yii::t('app','Completed {perc}%',array('{perc}'=>$perc)); ?>">
+  <div class="progress <?php echo $percClass; ?> round" style="height:10px;">
+    <span class="meter" style="width:<?php echo $perc; ?>%;">
+    </span>
+  </div>
+</div>
+
+<br />
 
   <?php echo CHtml::beginForm(Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>3)),'post',array('class'=>"custom",'id'=>'after_register_form')); ?>
   
@@ -49,7 +62,7 @@
 <div class="row pt40 pb40 btop">
   <div class="large-4 columns">
   
-  <label class=""><?php echo Yii::t('msg','Availability'); ?></label>
+  <label class=""><?php echo Yii::t('app','Availability'); ?></label>
   </div>
     <div class="large-8 columns">
   <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listDataEx(Available::model()->findAllTranslated(),"id","name"), array('empty' => '&nbsp;','style'=>'display:none')); ?>
@@ -76,10 +89,10 @@
        <?php 
        switch ($colabpref['collab_id']){
          case 1:echo '<div class="pb30">' .  Yii::t('msg','Will work for payment') . '</div>'; break;
-         case 2:echo '<div class="pb30">' .  Yii::t('msg','Will work for a share in a company' . '</div>'); break;
-         case 3:echo '<div class="pb30">' .  Yii::t('msg','Want to work or invest equally' . '</div>'); break;
-         case 4:echo '<div class="pb30">' .  Yii::t('msg','Want to invest in interesting projects only' . '</div>'); break;
-         case 5:echo '<div class="pb30">' .  Yii::t('msg','Just want to help' . '</div>'); break;
+         case 2:echo '<div class="pb30">' .  Yii::t('msg','Will work for a share in a company'). '</div>'; break;
+         case 3:echo '<div class="pb30">' .  Yii::t('msg','Want to work or invest equally'). '</div>'; break;
+         case 4:echo '<div class="pb30">' .  Yii::t('msg','Want to invest in interesting projects only'). '</div>'; break;
+         case 5:echo '<div class="pb30">' .  Yii::t('msg','Just want to help') . '</div>'; break;
        }
         ?>
     </span>
@@ -96,4 +109,4 @@
 <?php echo CHtml::endForm(); ?>		
     
   
-  <a class="button success radius right" onclick="$('#after_register_form').submit();" ><?php echo Yii::t("app","Next");?><span class="icon-angle-right f-medium ml10"></span></a>
+  <a class="button success radius right" trk="registration_save_step2" onclick="$('#after_register_form').submit();" ><?php echo Yii::t("app","Next");?><span class="icon-angle-right f-medium ml10"></span></a>
