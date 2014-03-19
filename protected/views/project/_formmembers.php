@@ -1,44 +1,69 @@
 
-<?php echo CHtml::beginForm('', 'post', array("class" => "custom large-6")); ?>
 
-<?php echo CHtml::label(Yii::t('app', 'Invite member of this project'), 'message'); ?>
-    <span class="description">
-        <?php echo CHtml::label(Yii::t('msg', 'Write an email or search by name for team member you wish to add. He will be visible as a part of a team.'), 'message'); ?>
-      </span>
-    <div class="row collapse">
-        <div class="small-9 columns">
-            <?php echo CHtml::textField('invite-email', '', array('class' => 'invite-member-email')); ?>
-            <?php echo CHtml::hiddenField('invite-idea', $ideadata['id']); ?>
-            <?php echo CHtml::hiddenField('invite-user-id', ''); ?>
-        </div>
-        <div class="small-3 columns">
-            <?php echo CHtml::submitButton(Yii::t("app", "Invite"), array("class" => "postfix button radius")); ?>
-        </div>
+
+<div class="row pt40 pb40">
+    <?php echo CHtml::beginForm('', 'post', array("class" => "custom")); ?>
+    <div class="large-4 columns">
+        
+            
+        <?php echo CHtml::label(Yii::t('app', 'Invite member of this project'), 'message'); ?>
+        
+        
+        <span class="description"><?php echo Yii::t('msg', 'Write an email or search by name for team member you wish to add. He will be visible as a part of a team.'); ?></span>
+        
+        
     </div>
 
-<?php echo CHtml::endForm(); ?>
+    <div class="large-8 columns">
+        <div class="row collapse">
+            <div class="small-9 columns">
+                <?php echo CHtml::textField('invite-email', '', array('class' => 'invite-member-email')); ?>
+                <?php echo CHtml::hiddenField('invite-idea', $ideadata['id']); ?>
+                <?php echo CHtml::hiddenField('invite-user-id', ''); ?>
+            </div>
+            <div class="small-3 columns">
+                <?php echo CHtml::submitButton(Yii::t("app", "Invite"), array("class" => "postfix button radius")); ?>
+            </div>
+        </div>
 
-<?php if ($invitees) { ?>
-    <h5><?php echo Yii::t('app', 'Invited to the project'); ?></h5>
-    <p>
-        <?php foreach ($invitees as $row) { ?>
-            <?php echo $row->email; ?>,
-        <?php } ?>
-    </p>
-<?php
-}
-//}
-?>
+                <?php echo CHtml::endForm(); ?>
+
+            <?php if ($invitees) { ?>
+            <h5><?php echo Yii::t('app', 'Invited to the project'); ?></h5>
+            <p>
+                <?php foreach ($invitees as $row) { ?>
+                    <?php echo $row->email; ?>,
+                <?php } ?>
+            </p>
+        <?php
+        }
+        //}
+        ?>
+      
+    </div>
+
+
     
-    <hr>
+</div>
+
+
+
+<div class="row pt40 pb40 btop">
+
+
+
+
 
 <?php
 if (is_array($ideadata['member'])) {
-    echo '<div class="mb10"><b>' . Yii::t('app', 'Project members') . '</b></div>';
+    echo '<div class="large-4 columns"><label>' . Yii::t('app', 'Project members') . '</label></div>'; ?>
+
+    <div class="large-8 columns">
+    <?php 
     foreach ($ideadata['member'] AS $key => $member) {
         //if ($member['type_id'] != 1) continue;
         ?>
-        <div class="panel">
+        <div class="panel radius">
 
             <div class="edit-floater">
 
@@ -58,9 +83,9 @@ if (is_array($ideadata['member'])) {
 
         </div>
     <?php
-    }
-}
-?>
+    } ?>
+</div>
+<?php } ?>
 <?php /* ?>
 <span class="description">
   <?php echo Yii::t('msg','In private beta member invitations are disabled.'); ?>
@@ -68,3 +93,5 @@ if (is_array($ideadata['member'])) {
 ?>
 <?php //if ($invitations && Yii::app()->user->isAdmin()){ ?>
 
+
+</div>
