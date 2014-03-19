@@ -9,7 +9,7 @@ echo CHtml::beginForm('', 'post', array('class' => "custom formidea"));
 
  ?>
 
-<p class=""><?php echo yii::t('msg','Tell us what is your project about. What problems are you solving and how you plan to solve them.'); ?></p> 
+<p class="meta f-small"><?php echo yii::t('msg','Tell us what is your project about. What problems are you solving and how you plan to solve them.'); ?></p> 
 
 <span class="description">
 

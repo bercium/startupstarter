@@ -160,7 +160,7 @@
 		<div class="row">
 					
 			<div  class="columns large-8 mb0 pl20">
-				<div class="ml40">
+				<div class="">
 					<div class="large-12 columns">
 					 	<h1 class="big-text mb40 mt20 text-center page-title"><?php echo Yii::t('msg','Helping you assemble <div>a team</div>'); ?></h2>
 					 	<h2 class="mb60"><span class="alt-3"><?php echo Yii::t('msg','20 cofunders connected'); ?></span></h2>

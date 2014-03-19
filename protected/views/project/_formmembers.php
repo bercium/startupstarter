@@ -26,7 +26,7 @@
             </div>
         </div>
 
-                <?php echo CHtml::endForm(); ?>
+    <?php echo CHtml::endForm(); ?>
 
             <?php if ($invitees) { ?>
             <h5><?php echo Yii::t('app', 'Invited to the project'); ?></h5>
