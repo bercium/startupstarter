@@ -34,7 +34,7 @@
   <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
 
   <p class="meta f-small">
-      <?php echo Yii::t('msg','We know you have some awesome skills so why not show them to the others. Add all the things you are really good at and do not limit yourself by writing only formal education or job specific subjects.'); ?>
+      <?php echo Yii::t('msg','We know you have some awesome skills so why not show them to others. Add all the things you are really good at and do not limit yourself by writing only formal education or job specific subjects.'); ?>
   </p>
 
 

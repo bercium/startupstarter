@@ -426,12 +426,12 @@ function writeFlashes(){
 }
 
 
-function absoluteURL(){
-  $host = require(dirname(__FILE__) . '/../config/local-console-request.php');
+/*function absoluteURL(){
+  //$host = require(dirname(__FILE__) . '/../config/local-console-request.php');
   
   //echo $host;
-  return $host['hostInfo'];
-}
+  return  Yii::app()->request->hostInfo;
+}*/
 
 /**
  * shorten available from fulltime (40h / week) => fulltime, with a hint how many hours per week
