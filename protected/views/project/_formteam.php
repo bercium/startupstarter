@@ -1,4 +1,3 @@
-    
     <?php if(isset($candidate)){ ?>
     <p class="f-small meta">
       <?php echo Yii::t('msg',"Fill out as many fields as possible to describe your perfect candidate. If you are not sure or you do not need some information, leave them blank.") ?>
@@ -66,13 +65,11 @@
     </span>
 
   </div>
-
    
 
   <div class="large-8 columns">
    
   
-
     <?php if(isset($collabprefs)){
       foreach ($collabprefs as $collabpref){ ?>
         <label for="CollabPref_<?php echo $collabpref['collab_id']; ?>"><?php echo CHtml::checkBox('CollabPref['.$collabpref['collab_id'].']',$collabpref['active'],array('style'=>'display:none')); ?>
@@ -91,10 +88,7 @@
          <?php
       }
 
-    } ?>
-    
-          
-    
+    } ?>   
 
     </div> 
 
