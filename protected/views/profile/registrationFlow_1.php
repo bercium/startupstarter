@@ -41,7 +41,7 @@
   
   
   <div class="row">
-      <div class="large-4 right columns">
+      <div class="large-4 small-10 right columns mr30 mt15">
       <?php 
        //echo Yii::app()->getBaseUrl(true)."/".Yii::app()->params['tempFolder'];
          //echo "<img class='avatar' src='".avatar_image($user->avatar_link, $user->id)."'>";

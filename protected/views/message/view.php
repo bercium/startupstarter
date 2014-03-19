@@ -1,8 +1,10 @@
 <?php // ckeditor files
- $baseUrl = Yii::app()->baseUrl; 
-    $cs = Yii::app()->getClientScript();    
-    $cs->registerScriptFile($baseUrl.'/js/ckeditor/ckeditor.js',CClientScript::POS_HEAD);
+$this->title = Yii::t('app','Message history');
+ //$baseUrl = Yii::app()->baseUrl; 
+    //$cs = Yii::app()->getClientScript();    
+    //$cs->registerScriptFile($baseUrl.'/js/ckeditor/ckeditor.js',CClientScript::POS_HEAD);
     ?>
+<script type="text/javascript" src="<?php echo Yii::app()->baseUrl.'/js/ckeditor/ckeditor.js'; ?>"></script>
 
 <div id="drop-msg" class="f-dropdown content medium" data-dropdown-content>
   <div class="contact-form">

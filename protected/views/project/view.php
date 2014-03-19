@@ -1,8 +1,9 @@
 <?php // ckeditor files
 $baseUrl = Yii::app()->baseUrl;
 $cs = Yii::app()->getClientScript();
-$cs->registerScriptFile($baseUrl . '/js/ckeditor/ckeditor.js', CClientScript::POS_HEAD);
+//$cs->registerScriptFile($baseUrl . '/js/ckeditor/ckeditor.js', CClientScript::POS_HEAD);
 ?>
+<script type="text/javascript" src="<?php echo Yii::app()->baseUrl.'/js/ckeditor/ckeditor.js'; ?>"></script>
 
 <?php
 $idea = $data['idea'];
@@ -313,7 +314,7 @@ foreach ($idea['member'] as $member) {
             <?php } ?>
 
         <div class="panel">
-            <?php
+            <?php /*
             if (isset($idea['gallery'])) {
                 //cover photo is first
                 //edit the following line to get a thumbnail out. i have predicted thumbnails of 30, 60, 150px. replace the thumbnail_size with those numbers
@@ -333,7 +334,7 @@ foreach ($idea['member'] as $member) {
                     <?php
                     }
                 }
-            }
+            }*/
             ?>
 
 
