@@ -505,7 +505,7 @@ class GeneralCommand extends CConsoleCommand{
           else
           $content_self .= ", ki išče ".$openPositions." oseb za sodelovanje";
             
-          $content_self .= "'. Več o projektu na ".absoluteURL().'/project/view?id='.$idea->id;
+          $content_self .= "'. Več o projektu na ".Yii::app()->request->hostInfo.'/project/view?id='.$idea->id;
           break;
         }
         else{
@@ -521,7 +521,7 @@ class GeneralCommand extends CConsoleCommand{
           else
           $content_self .= ", ki išče ".$openPositions." oseb za sodelovanje";
           
-          $content_self .= "'. Več o projektu na ".absoluteURL().'/project/view?id='.$idea->id."<br />";
+          $content_self .= "'. Več o projektu na ".Yii::app()->request->hostInfo.'/project/view?id='.$idea->id."<br />";
         }
         
         if ($i > 4) break;

@@ -101,7 +101,7 @@ class ProjectController extends GxController {
 	        array('title'=>Yii::t('app','Story'),'url'=>''),
 	        array('title'=>Yii::t('app','Open positions'),'url'=>''),
 	        array('title'=>Yii::t('app','Links'),'url'=>''),	        
-          array('title'=>Yii::t('app','Finish'),'url'=>''),
+          array('title'=>Yii::t('app','Team'),'url'=>''),
 	    );
 
 
@@ -193,7 +193,7 @@ class ProjectController extends GxController {
 	        array('title'=>Yii::t('app','Story'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 2))),
 	        array('title'=>Yii::t('app','Open positions'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 3))),
 	        array('title'=>Yii::t('app','Links'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 4))),	        
-          array('title'=>Yii::t('app','Finish'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 5))),
+          array('title'=>Yii::t('app','Team'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 5))),
 	    );
 
         //insert/edit priviledges

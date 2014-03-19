@@ -75,8 +75,8 @@ class MailerCommand extends CConsoleCommand{
       $ml->user_to_id = $user->id;
       $ml->save();
     
-      //$activation_url = '<a href="'.absoluteURL()."/user/registration?id=".$user->key.'">Register here</a>';
-      $activation_url = mailButton("Register here", absoluteURL()."/user/registration?id=".$user->key,'success',$mailTracking,'register-button');
+      //$activation_url = '<a href="'.Yii::app()->request->hostInfo."/user/registration?id=".$user->key.'">Register here</a>';
+      $activation_url = mailButton("Register here", Yii::app()->request->hostInfo."/user/registration?id=".$user->key,'success',$mailTracking,'register-button');
       $content = "This is just a friendly reminder to activate your account on Cofinder.
                   </br><br>
                   Cofinder is a web platform through which you can share your ideas with the like minded entrepreneurs, search for people to join your project or join an interesting project yourself.

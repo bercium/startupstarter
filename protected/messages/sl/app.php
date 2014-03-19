@@ -144,7 +144,7 @@ return array (
   'Find talent for your project' => 'Poišči talent za svoj projekt',
   'Find your local events' => 'Najdi dogodke blizu tebe',
   'Find {bs}talent{be}' => 'Najdi {bs}talent{be}',
-  'Finish' => 'Zaključi',
+  'Finish' => '',
   'First name' => 'Ime',
   'First page intro' => 'Predstavitev na prvi strani',
   'Found projects' => 'Najdeni projekti',
