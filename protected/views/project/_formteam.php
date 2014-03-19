@@ -10,66 +10,17 @@
       echo CHtml::beginForm(Yii::app()->createUrl('project/edit',array('id'=>$idea_id,'step'=>3,'candidate'=>'new')),'post',array('class'=>"custom",'id'=>'candidate_form'));
     } ?>
 
-<div class="row  pt40 pb40 btop">
-
-  <div class="large-4 columns">   
-  
- 
-    
-       
-  <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
-  <div class="mt10"><?php echo CHtml::activeLabelEx($match,'available'); ?></div>
-  </div> 
-
-  <div class="large-8 columns">
-  
-  <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listData(Available::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
-   </div> 
-
-</div>
-
-<div class="row  pt40 pb40 btop">
-
-  <div class="large-4 columns">
-
-    <?php echo "<label>".Yii::t('app','Collaboration preferences')."</label>"; ?>
-    <span class="description">
-       <?php echo Yii::t('msg','What kind of Collaboration do you prefer when working on a project? Paid work - get paid for your work, Sweat equity - work for a share in a company, Equal investors - invest an equal sum of money, Sole investor – be the only investor, Volunteer - just want to help'); ?>
-    </span>
-
-  </div>
-
-   
-
-  <div class="large-8 columns">
-   
-  
-
-    <?php if(isset($collabprefs)){
-      foreach ($collabprefs as $collabpref){ ?>
-        <label for="CollabPref_<?php echo $collabpref['collab_id']; ?>"><?php echo CHtml::checkBox('CollabPref['.$collabpref['collab_id'].']',$collabpref['active'],array('style'=>'display:none')); ?>
-         <?php echo $collabpref['name'] ?></label>
-         <?php
-      }
-
-    } ?>
-    
-          
-    
-
-    </div> 
-
-</div>
 
 <div class="row pt40 pb40 btop">
 
 <div class="large-4 columns">
   <a id="link_skills" class="anchor-link"></a>
     <label for="skill">
-    <?php echo Yii::t('app','Skills');  ?> 
+    <?php echo Yii::t('msg','What kind of skills should candidate posess?');  ?> 
     </label>
     <span class="description">
-      <?php echo Yii::t('msg','Name a skill your candidate should posses. You can write multiple skills for the same industry separating them with commas.'); ?>
+      <?php // echo Yii::t('app','short skill tags');  ?>
+      <?php //echo Yii::t('msg','Name a skill your candidate should posses. You can write multiple skills for the same industry separating them with commas.'); ?>
     </span>
 </div>
 
@@ -89,7 +40,66 @@
 
 </div>    
 
+</div>    
+    
+<div class="row  pt40 pb40 btop">
+
+  <div class="large-4 columns">
+  <?php echo CHtml::errorSummary($match,"<div data-alert class='alert-box radius alert'>",'</div>'); ?>
+  <div class="mt10"><?php echo CHtml::activeLabelEx($match,'available'); ?></div>
+  </div> 
+
+  <div class="large-8 columns">
+  
+  <?php echo CHtml::activedropDownList($match, 'available', GxHtml::listData(Available::model()->findAllTranslated(),'id','name'), array('empty' => '&nbsp;','style'=>'display:none')); ?>
+   </div> 
+
 </div>
+
+<div class="row  pt40 pb40 btop">
+
+  <div class="large-4 columns">
+
+    <?php echo "<label>".Yii::t('app','Collaboration type of person you are looking for')."</label>"; ?>
+    <span class="description">
+       <?php // echo Yii::t('msg','What kind of Collaboration do you prefer when working on a project? Paid work - get paid for your work, Sweat equity - work for a share in a company, Equal investors - invest an equal sum of money, Sole investor – be the only investor, Volunteer - just want to help'); ?>
+    </span>
+
+  </div>
+
+   
+
+  <div class="large-8 columns">
+   
+  
+
+    <?php if(isset($collabprefs)){
+      foreach ($collabprefs as $collabpref){ ?>
+        <label for="CollabPref_<?php echo $collabpref['collab_id']; ?>"><?php echo CHtml::checkBox('CollabPref['.$collabpref['collab_id'].']',$collabpref['active'],array('style'=>'display:none')); ?>
+         <?php echo $collabpref['name'] ?></label>
+    <span class="description">
+       <?php 
+       switch ($collabpref['collab_id']){
+         case 1:echo '<div class="pb20">' .  Yii::t('msg','Will work for payment') . '</div>'; break;
+         case 2:echo '<div class="pb20">' .  Yii::t('msg','Will work for a share in a company'). '</div>'; break;
+         case 3:echo '<div class="pb20">' .  Yii::t('msg','Want to work and invest equally'). '</div>'; break;
+         case 4:echo '<div class="pb20">' .  Yii::t('msg','Want to invest in interesting projects only'). '</div>'; break;
+         case 5:echo '<div class="pb20">' .  Yii::t('msg','Just want to help') . '</div>'; break;
+       }
+        ?>
+    </span>    
+         <?php
+      }
+
+    } ?>
+    
+          
+    
+
+    </div> 
+
+</div>
+
 
 
 <div class="row pt40 pb40 btop">

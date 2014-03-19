@@ -187,10 +187,11 @@ class ProjectController extends GxController {
 		//naloadat modele
 		//naloadat view
 	    $this->stages = array(
-	        array('title'=>Yii::t('app','STEP 1'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 1))),
-	        array('title'=>Yii::t('app','STEP 2'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 2))),
-	        array('title'=>Yii::t('app','STEP 3'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 3))),
-	        array('title'=>Yii::t('app','STEP 4'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 4))),
+	        array('title'=>Yii::t('app','Basic info'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 1))),
+	        array('title'=>Yii::t('app','Story'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 2))),
+	        array('title'=>Yii::t('app','Open positions'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 3))),
+	        array('title'=>Yii::t('app','Links'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 4))),	        
+          array('title'=>Yii::t('app','Finish'),'url'=>Yii::app()->createUrl('project/edit', array('id'=>$id, 'step' => 5))),
 	    );
 
         //insert/edit priviledges
@@ -232,6 +233,10 @@ class ProjectController extends GxController {
                     //4. korak - dodajanje linkov in slike
                     $this->actionEditStep4($id);
                     break;
+                case 5:
+                    //4. korak - dodajanje linkov in slike
+                    $this->actionEditStep5($id);
+                    break;                  
             }
 
         }
@@ -454,6 +459,51 @@ class ProjectController extends GxController {
     }
 
     public function actionEditStep4($id){
+      
+        //idea object
+        $idea = Idea::Model()->findByAttributes(array('id' => $id));
+        $sqlbuilder = new SqlBuilder();
+
+      if (isset($_POST['Idea']))
+             {
+                 $_POST['Idea']['time_updated'] = date("Y-m-d h:m:s",time());
+                 $idea->setAttributes($_POST['Idea']);
+
+                 
+
+                 //validate models and save idea
+                 if ($idea->save())
+                 {
+                     setFlash('projectMessage', Yii::t('msg',"Project successfully edited."));
+                      $this->redirect(array('project/edit', 'id' => $id, 'step' => 5));
+                  }
+         }        
+
+        //members
+        $filter['idea_id'] = $id;
+        $data['idea'] = $sqlbuilder->load_array("idea", $filter, "member");
+
+        //invites
+        $this->widget('ext.Invitation.WInvitation', array('renderLayout'=>false));
+        $user = User::model()->findByPk(Yii::app()->user->id);
+        $invites['data'] = Invite::model()->findAllByAttributes(array("idea_id"=>$id,"sender_id"=>Yii::app()->user->id),'NOT ISNULL(idea_id)');
+	    $invites['count'] = $user->invitations;
+
+        //links placeholder
+        $link = new IdeaLink;
+        $links = false;
+
+        $sqlbuilder = new SqlBuilder();
+        $filter['idea_id'] = $id;
+        $links_buffer = $sqlbuilder->link('idea', $filter);
+        foreach($links_buffer AS $key => $value){
+            $links[$value['url']] = $value['title'];
+        }
+
+        $this->render('createidea_4', array( 'idea' => $idea, 'idea_id' => $id, 'link' => $link, 'links' => $links, 'ideadata' => $data['idea'], 'invites' => $invites ));
+    }
+    
+    public function actionEditStep5($id){
 
         //idea object
         $idea = Idea::Model()->findByAttributes(array('id' => $id));
@@ -480,8 +530,8 @@ class ProjectController extends GxController {
             $links[$value['url']] = $value['title'];
         }
 
-        $this->render('createidea_4', array( 'idea' => $idea, 'idea_id' => $id, 'link' => $link, 'links' => $links, 'ideadata' => $data['idea'], 'invites' => $invites ));
-    }
+        $this->render('createidea_5', array( 'idea' => $idea, 'idea_id' => $id, 'link' => $link, 'links' => $links, 'ideadata' => $data['idea'], 'invites' => $invites ));
+    }    
 
 	public function addKeywords($idea_id, $language_id, $keywords){
 		Keyword::Model()->deleteAll("keyword.table = :table AND row_id = :row_id", 

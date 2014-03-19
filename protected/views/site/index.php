@@ -60,7 +60,7 @@
               <p>
                 <?php echo Yii::t('msg', 'We now give you suggestions based on your profile.'); ?>
               </p>
-                <a class="button radius small small-12" trk="index_click_suggested" href="?suggested=1">Switch to suggested</a>
+                <a class=" radius small small-12" trk="index_click_suggested" href="?suggested=1">Switch to suggested</a>
               
               <?php /* ?><a href="<?php echo Yii::app()->createUrl("project/create"); ?>" trk="index_click_createProject" class="button small  radius small-12" ><?php echo Yii::t('app','Create your project'); ?> </a>
                 <?php */ ?>
@@ -85,8 +85,9 @@
                 </p>
               <?php } else { ?>
               <h2><?php echo Yii::t('app', 'Currently no events'); ?></h2>
-              <?php } ?>
-              <a href="<?php echo Yii::app()->createUrl("site/startupEvents"); ?>" trk="index_click_events" class="button radius small small-12"><?php echo Yii::t('app', 'View more events'); ?></a>
+              <?php } ?> 
+              <br />
+              <a href="<?php echo Yii::app()->createUrl("site/startupEvents"); ?>" trk="index_click_events" class=" radius small small-12"><?php echo Yii::t('app', 'View more events'); ?></a>
             </div>
             
           </div>
@@ -98,10 +99,10 @@
             <div class="pall125em radius-all  whats-new radius fancy-border" style="min-height:203px;">
               <h2><?php echo Yii::t('app','Public profile'); ?></h2>
               <p>
-              <?php echo Yii::t('msg','Get your own personal url on Cofinder'); ?>
+              <?php echo Yii::t('msg','Get your own personal url on Cofinder'); ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               </p>
 
-              <a href="<?php echo Yii::app()->createUrl("profile/account"); ?>" trk="index_click_vanityURL" class="button success small radius small-12 mt20">www.cofinder.eu/ <?php echo str_replace(".", "", substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")) ); ?></a>
+              <a href="<?php echo Yii::app()->createUrl("profile/account"); ?>" trk="index_click_vanityURL" class=" success small radius small-12">www.cofinder.eu/ <?php echo str_replace(".", "", substr(Yii::app()->user->email, 0, strpos(Yii::app()->user->email,"@")) ); ?></a>
 
             </div>
           </div>
@@ -259,7 +260,21 @@
     	<h2 class=""><?php echo Yii::t('app','What others are saying'); ?></h2>
       
       <ul data-orbit data-options="timer_speed:8000; bullets:false; navigation_arrows:false; resume_on_mouseout:true;">
-      <li>  
+        
+      <li>
+        <div class="columns pt0 pb0 mt10 large-8 large-centered">
+          <span class="icon-quote-left large"></span>
+          <?php echo Yii::t('cont','Cofinder events are a very effective way to get connected to the right people.'); ?>
+
+          <span class="icon-quote-right large"></span
+          <br />
+          <span class="mt40 right l-iblock">
+           <a class="f-bold mt20" href="http://www.cofinder.eu/project/view/35"><?php echo Yii::t('cont','Andraž from 3FS'); ?></a>
+          </span>
+        </div>
+      </li>        
+        
+      <li>
         <div class="columns pt0 pb0 mt10 large-8 large-centered">
           <span class="icon-quote-left large"></span>
           <?php echo Yii::t('cont','As a young startup we were looking for specific type of profesionals. We were able to find them quickly with the help of Cofinder.'); ?>
@@ -283,6 +298,8 @@
           </span>
         </div>
       </li>
+      
+      
       
      </ul>
     </div>  

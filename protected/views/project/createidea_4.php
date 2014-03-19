@@ -1,17 +1,40 @@
 <?php
-$this->pageTitle =  Yii::t('app', "You are done!");
+$this->pageTitle =  Yii::t('app', "Present extra details via links");
 ?>
-<script>
-  var inviteMember_url = '<?php echo Yii::app()->createUrl("project/suggestMember",array("ajax"=>1)) ?>'; 
-</script>
 
-        <?php
-        $this->renderPartial('_formmembers', array(
-            'ideadata' => $ideadata,
-            'invitees' => $invites['data']));
-        ?>
+<?php echo CHtml::beginForm('', 'post', array('class' => "custom formidea","id"=>'form-link-save')); ?>
 
-        <hr>
+<div class="row  pt40 pb40">
+  <div class="large-4 columns">
+     <div class="mt10"><?php echo CHtml::activeLabelEx($idea, 'website'); ?></div>
+  </div>
+
+  <div class="large-8 columns">
+       
+       
+            <?php echo CHtml::activeTextField($idea, "website", array('maxlength' => 128, 'class' => 'lin-edit')); ?>
+        
+    </div>
+</div>        
+
+
+<div class="row  pt40 pb40 btop">
+  <div class="large-4 columns">
+     <?php echo CHtml::activeLabelEx($idea, 'video_link'); ?>
+      <span class="description">
+      <?php echo Yii::t('msg', 'Link of the project\'s video presentation.'); ?>
+     </span>
+  </div>
+
+  <div class="large-8 columns">
+       
+       
+           <?php echo CHtml::activeTextField($idea, "video_link", array('maxlength' => 128, 'class' => 'lin-edit')); ?>
+        
+    </div>
+</div>
+
+<?php echo CHtml::endForm(); ?>
 
         <?php
         $this->renderPartial('_addlink', array(
@@ -20,14 +43,6 @@ $this->pageTitle =  Yii::t('app', "You are done!");
             'idea_id' => $idea_id));
         ?>
 
-        <hr>
-
-        <div class="clearfix">
-            <?php if(isset($idea_id) && $idea->deleted == 2){ ?>
-                <a style="width: 100%" class="button large success radius right" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 4, 'publish'=>1)); ?>><?php echo Yii::t('app', 'Publish'); ?></a>
-            <?php } elseif(isset($idea_id) && $idea->deleted == 0){ ?>
-                <a style="width: 100%" class="button large alert radius right" href=<?php echo Yii::app()->createUrl('project/edit', array('id'=>$idea_id, 'step' => 4, 'publish'=>0)); ?>><?php echo Yii::t('app', 'Unpublish'); ?></a>
-            <?php } ?>
-        </div>
-
-        <br style="clear: both" />
+    <a href="#" onclick="$('#form-link-save').submit()" class="button large success radius right">
+        <?php echo Yii::t("app", "Next >>"); ?>
+    </a>

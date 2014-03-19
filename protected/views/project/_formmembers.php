@@ -1,3 +1,37 @@
+
+<?php echo CHtml::beginForm('', 'post', array("class" => "custom large-6")); ?>
+
+<?php echo CHtml::label(Yii::t('app', 'Invite member of this project'), 'message'); ?>
+    <span class="description">
+        <?php echo CHtml::label(Yii::t('msg', 'Write an email or search by name for team member you wish to add. He will be visible as a part of a team.'), 'message'); ?>
+      </span>
+    <div class="row collapse">
+        <div class="small-9 columns">
+            <?php echo CHtml::textField('invite-email', '', array('class' => 'invite-member-email')); ?>
+            <?php echo CHtml::hiddenField('invite-idea', $ideadata['id']); ?>
+            <?php echo CHtml::hiddenField('invite-user-id', ''); ?>
+        </div>
+        <div class="small-3 columns">
+            <?php echo CHtml::submitButton(Yii::t("app", "Invite"), array("class" => "postfix button radius")); ?>
+        </div>
+    </div>
+
+<?php echo CHtml::endForm(); ?>
+
+<?php if ($invitees) { ?>
+    <h5><?php echo Yii::t('app', 'Invited to the project'); ?></h5>
+    <p>
+        <?php foreach ($invitees as $row) { ?>
+            <?php echo $row->email; ?>,
+        <?php } ?>
+    </p>
+<?php
+}
+//}
+?>
+    
+    <hr>
+
 <?php
 if (is_array($ideadata['member'])) {
     echo '<div class="mb10"><b>' . Yii::t('app', 'Project members') . '</b></div>';
@@ -33,35 +67,4 @@ if (is_array($ideadata['member'])) {
 </span><?php */
 ?>
 <?php //if ($invitations && Yii::app()->user->isAdmin()){ ?>
-    <hr>
 
-<?php echo CHtml::beginForm('', 'post', array("class" => "custom large-6")); ?>
-
-<?php echo CHtml::label(Yii::t('app', 'Invite member of this project'), 'message'); ?>
-    <span class="description">
-        <?php echo CHtml::label(Yii::t('msg', 'Write an email or search by name for team member you wish to add. He will be visible as a part of a team.'), 'message'); ?>
-      </span>
-    <div class="row collapse">
-        <div class="small-9 columns">
-            <?php echo CHtml::textField('invite-email', '', array('class' => 'invite-member-email')); ?>
-            <?php echo CHtml::hiddenField('invite-idea', $ideadata['id']); ?>
-            <?php echo CHtml::hiddenField('invite-user-id', ''); ?>
-        </div>
-        <div class="small-3 columns">
-            <?php echo CHtml::submitButton(Yii::t("app", "Invite"), array("class" => "postfix button radius")); ?>
-        </div>
-    </div>
-
-<?php echo CHtml::endForm(); ?>
-
-<?php if ($invitees) { ?>
-    <h5><?php echo Yii::t('app', 'Invited to the project'); ?></h5>
-    <p>
-        <?php foreach ($invitees as $row) { ?>
-            <?php echo $row->email; ?>,
-        <?php } ?>
-    </p>
-<?php
-}
-//}
-?>

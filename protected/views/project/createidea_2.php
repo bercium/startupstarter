@@ -1,7 +1,7 @@
 <?php
 if (!isset($candidate)) {
-    $this->pageTitle = Yii::t('app', 'Open positions');
-} else $this->pageTitle = Yii::t('app', 'New positions');
+    $this->pageTitle = Yii::t('app', 'Who are you looking for?');
+} else $this->pageTitle = Yii::t('app', 'New position');
             
 
   $baseUrl = Yii::app()->baseUrl; 

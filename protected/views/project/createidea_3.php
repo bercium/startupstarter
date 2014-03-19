@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = Yii::t('app', 'Edit - step 2');
+$this->pageTitle = Yii::t('app', 'Story');
 ?>
 <script>
     var skillSuggest_url = '<?php echo Yii::app()->createUrl("profile/suggestSkill",array("ajax"=>1)) ?>';
