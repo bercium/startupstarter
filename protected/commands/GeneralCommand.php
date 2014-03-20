@@ -155,7 +155,7 @@ class GeneralCommand extends CConsoleCommand{
         }
         if (isset($event['source'])) $e->source = $event['source'];
         if (isset($event['color'])) $e->color = $event['color'];
-        if (!$e->save()) die(print_r($e->errors));
+        if (!$e->save());// die(print_r($e->errors));
       }
     }else{
       $e = new Event();
@@ -176,7 +176,7 @@ class GeneralCommand extends CConsoleCommand{
       if (isset($event['color'])) $e->color = $event['color'];
       //$e->city = $event['title'];
       //$e->country = $event['title'];
-      if (!$e->save()) die(print_r($e->errors));
+      if (!$e->save());// die(print_r($e->errors));
     }
   }
   

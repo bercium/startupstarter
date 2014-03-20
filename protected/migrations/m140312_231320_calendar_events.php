@@ -19,7 +19,9 @@ class m140312_231320_calendar_events extends CDbMigration
         `city` varchar(128) DEFAULT NULL,
         `country` varchar(128) DEFAULT NULL,
         PRIMARY KEY (`id`)
-      ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");    
+      ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;");
+    
+    $this->execute("ALTER TABLE `mail_log` DROP FOREIGN KEY `mail_log_ibfk_1` ;");
 	}
 
 	public function down()
