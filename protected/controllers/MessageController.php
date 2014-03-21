@@ -212,10 +212,11 @@ class MessageController extends Controller
       $where = "(user_to_id = ".$user_id." AND user_from_id = ".$id." AND ISNULL(time_viewed)) ";
       if ($myideaid_update) $where .= " OR (user_from_id = ".$id." AND ISNULL(user_to_id) AND idea_to_id IN (".$myideaid_update.") AND ISNULL(time_viewed)) ";
     }
-    if ($where) $where = " WHERE ".$where;
+    if ($where){ $where = " WHERE ".$where;
     //die("UPDATE message SET time_viewed = '".date('Y-m-d H:i:s')."' WHERE ".$where);
     $command=Yii::app()->db->createCommand("UPDATE message SET time_viewed = '".date('Y-m-d H:i:s')."' ".$where);
     $command->execute();
+    }
     //Message::model()->
     
     $all_my_msgs = Message::model()->findAll('user_from_id = :myid OR user_to_id = :myid '.$myideaid.' ORDER BY time_sent DESC',
