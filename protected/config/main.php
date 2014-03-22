@@ -153,6 +153,19 @@ $a = array(
 				),
         array(
   					'levels'=>'error',
+            'class'=>'CEmailLogRoute',
+            'emails' => array('dev@cofinder.eu'),
+            //'categories' => 'exception.*, system.*',
+            'sentFrom'   => 'system@cofinder.eu',
+            'subject'    => 'Error on production',
+            'utf8' => true,
+            'enabled'=>(!YII_DEBUG && !YII_TESTING),  // send mail only from production
+            //'enabled'=>YII_DEBUG,
+            /*'categories'=>'system.db.*',*/
+            'except'=>'exception.CHttpException.*'
+        ),          
+        array(
+  					'levels'=>'error',
             'class'=>'CFileLogRoute',
             'logFile' => 'application.error.log',
             'enabled'=>!YII_DEBUG,
