@@ -148,7 +148,7 @@ class SqlBuilder {
 			//return specific user's data
 			$sql=	"SELECT m.id AS match_id, ".
 					"u.id AS id, u.email, u.create_at, u.lastvisit_at, u.superuser, u.status, ".
-					"u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, u.bio, ".
+					"u.name, u.surname, u.address, u.avatar_link, u.language_id, u.newsletter, u.bio, u.personal_achievement, ".
 					"l.name AS language, c.name AS country, ci.name AS city, m.country_id, m.city_id, ".
 					"m.available, a.name AS available_name, t.translation AS available_translation FROM ".
 					"`user_match` AS m ".

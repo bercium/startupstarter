@@ -125,7 +125,7 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
       <?php 
             }
           }else{ ?>
-        <div class="panel radius description">test</div>
+        <div class="panel radius description"><?php echo Yii::t('msg','Sorry but we have no events for today in our database.'); ?></div>
       <?php } ?>
       </div>
     </div>

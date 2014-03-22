@@ -1,5 +1,5 @@
 <?php // ckeditor files
-$this->title = Yii::t('app','Message history');
+$this->pageTitle = Yii::t('app','Message history');
  //$baseUrl = Yii::app()->baseUrl; 
     //$cs = Yii::app()->getClientScript();    
     //$cs->registerScriptFile($baseUrl.'/js/ckeditor/ckeditor.js',CClientScript::POS_HEAD);
