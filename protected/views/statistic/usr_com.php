@@ -1,13 +1,17 @@
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
 <?php
 	$this->pageTitle = 'Komunication stats';
   $baseUrl = Yii::app()->baseUrl; 
     $cs = Yii::app()->getClientScript();
-  $cs->registerScript("gcharts",'
-    google.load("visualization", "1.1", {packages:["calendar","corechart"]});
-    google.setOnLoadCallback(drawCharts);
-    ');
-?>
+//    google.load("visualization", "1.1", {packages:["calendar","corechart"]});
 
+    $cs->registerScript("gcharts","
+    google.load('visualization', '1.1', {'packages':['calendar','corechart'], callback: drawCharts});
+
+    //google.setOnLoadCallback(drawCharts);
+    ");
+?>
   <?php 
   $chatLen = array();
   foreach ($stat as $key => $val){
@@ -142,7 +146,7 @@
    }
 </script>
 
-
+<?php //*/ ?>
 
 <p>
   All users: <?php echo $allUsers; ?><br />
