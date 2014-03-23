@@ -729,6 +729,10 @@ table {
 .fc-today { background-color:#f1f6ec; font-weight: bold; }
 .fc-event{ margin-bottom: 2px; cursor: pointer;}
 
+.secalendar-past-event{
+  opacity: 0.5;
+}
+
 /* navigation icons added */
 .nav-icon
 {

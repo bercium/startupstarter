@@ -23,7 +23,9 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
   foreach ($events as $event){
     echo "{";
     echo "id: ".$event->id.",";
-    echo "className:'secalendar-".$event->id."',";
+    if (strtotime($event->end) < time()){
+       echo "className:'secalendar-".$event->id." secalendar-past-event',";
+    }else echo "className:'secalendar-".$event->id."',";
     echo "title: '".addslashes($event->title)."',";
     echo "start: '".(strtotime($event->start)-1*60*60)."',";
     if ($event->end) echo "end: '".(strtotime($event->end)-6*60*60)."',";
