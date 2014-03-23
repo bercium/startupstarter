@@ -99,9 +99,30 @@ class RegistrationController extends Controller
                         $message->to = Yii::app()->params['teamEmail'];
                         $message->from = Yii::app()->params['noreplyEmail'];
                         Yii::app()->mail->send($message);
+                        
+                        $message_notify = new YiiMailMessage;
+                        $message_notify->view = 'system';
+                        $message_notify->subject = 'Registration for Cofinder';
+                        $tc = mailTrackingCode();
+                        $ml = new MailLog();
+                        $ml->tracking_code = mailTrackingCodeDecode($tc);
+                        $ml->type = 'user-register';
+                        $ml->user_to_id = $user->id;
+                        $ml->save();
+                        
+                        $message_notify->setBody(array("content"=>"We are really happy you have decided to join our community. "
+                                . "We strive to offer high quality profiles and project. "
+                                . "This is why we decide on per person basis if we approve your registration or not.<br /><br />"
+                                . "Complete your profile information if you haven't done that already ".  mailButton("Fill my profile", $fix_url, 'success', $tc, 'registration-profile-fix')
+                                ,"tc"=>$tc), 'text/html');
+                        
+                        $message_notify->addTo($model->email);
+                        $message_notify->from = Yii::app()->params['noreplyEmail'];
+                        Yii::app()->mail->send($message_notify);
+                        
                       }else{
                         // if user was invited then allow him to register
-                        $message = new YiiMailMessage;
+                        /*$message = new YiiMailMessage;
                         $message->view = 'system';
                         $message->subject = 'Registration for Cofinder';
                         $tc = mailTrackingCode();
@@ -113,7 +134,7 @@ class RegistrationController extends Controller
                         
                         $message->addTo($model->email);
                         $message->from = Yii::app()->params['noreplyEmail'];
-                        Yii::app()->mail->send($message);
+                        Yii::app()->mail->send($message);*/
 
                         //$invited->delete(); // delete invite (depreched)
                         $invited->key = null;
