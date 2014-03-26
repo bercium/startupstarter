@@ -388,7 +388,7 @@ class GeneralCommand extends CConsoleCommand{
     
     
     // silicon gardens
-    $response = $cal->find(
+    /*$response = $cal->find(
         array(
             //'min'=>date('c', strtotime(date("d.m.Y"))),
             //'max'=>date('c', strtotime(date("d.m.Y"))),
@@ -400,7 +400,7 @@ class GeneralCommand extends CConsoleCommand{
         )
     );
     
-    $this->saveGcal($response, 'http://www.silicongardens.si');    
+    $this->saveGcal($response, 'http://www.silicongardens.si');*/
     
    
     

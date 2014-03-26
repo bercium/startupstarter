@@ -48,6 +48,7 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
       else if ($event->color == 'red') echo "color:'#C64747',";
     }
     echo "location: '".($event->location)."',"; 
+    echo "eventSource: '".($event->source)."',"; 
     echo "},";
     $count_events++;
   }
@@ -67,6 +68,9 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
       <p id="drop-cal-info-content"></p>
     </small>
     <a href="" target="_blank"  trk="calendar_info_eventPage"  class="right button small radius" id="drop-cal-info-link"><?php echo Yii::t('app','Event page'); ?></a>
+    <small>
+      <a href="" target="_blank"  trk="calendar_info_source"  class="left meta" id="drop-cal-info-source" style="position: absolute; bottom:16px;"></a>
+    </small>  
   </div>
 </div>
 
@@ -120,6 +124,11 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
         <a href="#" trk="calendar_today_addToCalendar" class="button radius secondary tiny" target="_blank" data-tooltip title="<?php echo Yii::t('app','Add to Google calendar'); ?>">
           <span class="icon-calendar mr10"></span><?php echo Yii::t('app','Add to calendar') ?>
         </a>
+        
+        <small>
+          <a href="<?php echo $event->source; ?>" target="_blank"  trk="calendar_today_source" class="left meta"><?php echo Yii::t('app','Source').': '.$event->source; ?></a>
+        </small>  
+        
         <hr>
 
       <?php 
