@@ -178,6 +178,7 @@ return array (
   'Skill added.' => 'Znanje uspešno dodano.',
   'Something went wrong while saving your ({email}) in our database.' => 'Nekaj je šlo narobe pri shranjevanju vašega ({email}) v našo podatkovno bazo.',
   'Something went wrong while scaning the code!<br /> Please refresh the page and rescan the code.' => 'Nekaj je šlo narobe pri skeniranju kode! <br /> Prosimo osvežite stran in ponovno poskenirajte kodo.',
+  'Sorry but we have no events for today in our database.' => '',
   'Status of the project.' => 'Status projekta',
   'Subscribe to newsletter and get all important updates.' => 'Prijavite se na novičnik in bodite na tekočem z vsemi pomembnimi novostmi',
   'Success!' => 'Uspelo!',

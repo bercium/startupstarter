@@ -178,6 +178,7 @@ return array (
   'Skill added.' => '@@@@',
   'Something went wrong while saving your ({email}) in our database.' => '@@@@',
   'Something went wrong while scaning the code!<br /> Please refresh the page and rescan the code.' => '@@@@',
+  'Sorry but we have no events for today in our database.' => '',
   'Status of the project.' => '@@@@',
   'Subscribe to newsletter and get all important updates.' => '@@@@',
   'Success!' => '@@@@',

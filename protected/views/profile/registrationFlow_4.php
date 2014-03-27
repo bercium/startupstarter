@@ -12,6 +12,7 @@
   <p>
 
     <?php echo Yii::t('msg','Thank you! We will check your registration and will get back to you as soon as possible.') ?>
+    <?php echo Yii::t('msg','After approval you will be able to add projects.') ?>
     <br />
     <strong>
     <?php echo Yii::t('msg','When we approve your profile we will send you an email.') ?>

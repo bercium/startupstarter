@@ -31,7 +31,7 @@
   
   <br /><br />
   <strong>
-    <?php //echo Yii::t('msg','Fill out your profile over XXX% to get instant access.'); ?>
+    <?php echo Yii::t('msg','Thoroughly fill your profile to expedite your approval.'); ?>
   </strong>
     <hr>
 </p>
