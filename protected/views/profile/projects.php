@@ -18,12 +18,23 @@
                 ?>
                 <div class="columns edit-content middle">
                     <div class="edit-floater">
+                        <?php
+                            if($idea['deleted'] == 2)
+                            {
+                                echo CHtml::link(Yii::t("app", "Publish project"), Yii::app()->createUrl('profile/projects/', array('id' => $idea['id'], 'publish' => 1)),
+                                    array('class' => "button success small radius",
+                                        'onclick' => "$(document).stopPropagation();",
+                                    )
+                                );
+                            }
+                        ?>
 
                         <?php  echo CHtml::link(Yii::t("app", "Edit"), Yii::app()->createUrl('project/edit', array('id' => $idea['id'])),
                             array('class' => "button small radius",
                                 'onclick' => "$(document).stopPropagation();",
                             )
                         );?>
+
                     </div>
 
                     <p class="mt10"><a
@@ -82,6 +93,17 @@
                 <div class="columns edit-content middle">
 
                     <div class="edit-floater">
+
+                        <?php
+                        if($idea['deleted'] == 2)
+                        {
+                            echo CHtml::link(Yii::t("app", "Publish project"), Yii::app()->createUrl('profile/projects/publish/', array('id' => $idea['id'], 'publish' => 1)),
+                                array('class' => "button success small radius",
+                                    'onclick' => "$(document).stopPropagation();",
+                                )
+                            );
+                        }
+                        ?>
 
                         <?php  echo CHtml::link(Yii::t("app", "Edit"), Yii::app()->createUrl('project/edit', array('id' => $idea['id'])),
                             array('class' => "button small radius",

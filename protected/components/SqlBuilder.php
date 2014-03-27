@@ -387,7 +387,7 @@ class SqlBuilder {
 					"AND t.table = 'idea_status' ".
 					"AND t.language_id = {$filter['site_lang']} ".
           
-					"WHERE i.deleted = 0 ".					
+					//"WHERE i.deleted = 0 ".
 					"ORDER BY im.type_id ASC, i.time_registered DESC";
 
 		} elseif( $type == 'idea' ){
