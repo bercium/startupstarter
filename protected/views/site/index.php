@@ -162,7 +162,7 @@
 			<div  class="columns large-8 mb0 pl20">
 				<div class="">
 					<div class="large-12 columns">
-					 	<h1 class="big-text mb40 mt20 text-center page-title"><?php echo Yii::t('msg','Helping you assemble <div>a startup team</div>'); ?></h2>
+					 	<h1 class="big-text mb40 mt20 text-center page-title"><?php echo Yii::t('msg','Helping you assemble <div>a startup team</div>'); ?></h1>
 					 	<h2 class="mb60"><span class="alt-3" style="width:100%"><?php echo Yii::t('msg','+70 projects looking for a cofounder'); ?></span></h2>
 					</div>	
 				 	<div class="large-6 columns">
