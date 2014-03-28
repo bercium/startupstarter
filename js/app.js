@@ -111,7 +111,7 @@
   });
   
   //scroll events
-  $.scrollDepth();
+  //$.scrollDepth();
   /*{
   percentage: false,
   userTiming: false,
