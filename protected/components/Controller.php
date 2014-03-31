@@ -156,10 +156,17 @@ class Controller extends CController
    */
   protected function afterAction($action){
     if (Yii::app()->user->isGuest) $id = null;
-    else $id = "'".Yii::app()->user->id."'";
+    else $id = Yii::app()->user->id;
     
     if (!(($this->getId() == 'qr') && ($this->getAction()->getId() == 'validate'))){
-      $this->log($this->getId(), $this->getAction()->getId(), $id);
+      $details = null;
+      //$_SERVER, $_COOKIE, $_SESSION, $_POST, $_GET
+      if (!empty($_POST) || !empty($_GET)){
+        $details['post'] = $_POST;
+        $details['get'] = $_GET;
+        $details = serialize($details);
+      }
+      $this->log($this->getId(), $this->getAction()->getId(), $id, $details);
     }
   }
   

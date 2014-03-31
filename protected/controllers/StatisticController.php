@@ -34,7 +34,7 @@ class StatisticController extends Controller
 				'users'=>array('@'),
 			),*/
 			array('allow', // allow admin user to perform actions:
-				'actions'=>array('index','userCommunication'),
+				'actions'=>array('index','userCommunication', 'database'),
 				'users'=>Yii::app()->getModule('user')->getAdmins(),
 			),
 			/*array('deny',  // deny all users
@@ -76,6 +76,48 @@ class StatisticController extends Controller
 	public function actionIndex($id = 1){
     $this->render('index');
  	}
+  
+  
+  public function actionDatabase(){
+    
+    $dataProvider = null;
+    $columns = $tableData =  array();
+    
+    if(isset($_POST['dbform'])) {
+      
+      /*
+       select * from information_schema.columns where table_schema = 'cofinder' order by table_name,ordinal_position
+
+       */
+      
+      $tableData = Yii::app()->db->createCommand("select * from information_schema.columns where table_schema = 'slocoworking' order by table_name,ordinal_position")->queryAll();
+      
+      
+      $rawData = Yii::app()->db->createCommand($_POST['dbform']['sql'])->queryAll();
+      
+      if ($rawData){
+        $columns = array_keys($rawData[0]);
+        
+        $id = 'id';
+        if (!isset($columns['id'])) $id = $columns[0];
+        
+        $dataProvider=new CArrayDataProvider($rawData, array(
+            'id'=>$id,
+            'keyField' => $id,
+            /*'sort'=>array(
+                'attributes'=>array(
+                     'id', 'username', 'email',
+                ),
+            ),*/
+            'pagination'=>false
+        ));
+
+        setFlash("dbExecute", "Executing SQL");
+      }
+    }
+    
+    $this->render('dbExecute',array('dataProvider'=>$dataProvider,'columns'=>$columns, 'tableData'=>$tableData));
+  }
   
 	/**
 	 * This is the default 'index' action that is invoked
