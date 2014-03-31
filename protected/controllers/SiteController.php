@@ -35,7 +35,7 @@ class SiteController extends Controller
 				'users'=>array('@'),
 			),*/
 			array('allow', // allow admin user to perform actions:
-				'actions'=>array('list','recalcPerc','setVanityUrl','sqlIndustry'),
+				'actions'=>array('list','recalcPerc','setVanityUrl','sqlIndustry','test'),
 				'users'=>Yii::app()->getModule('user')->getAdmins(),
 			),
 			array('deny',  // deny all users
@@ -791,6 +791,10 @@ EOD;
 			$industry->save();
 		}
 		
+  }
+  
+  public function actionTest(){
+    echo Yii::app()->request->hostInfo;
   }
 	
 }

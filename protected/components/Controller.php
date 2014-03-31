@@ -105,6 +105,11 @@ class Controller extends CController
         ga('send', 'pageview'".$logedin.");
      ");
     
+    $cs->registerScript("scrollDepth","
+      $(function() {
+        $.scrollDepth();
+      });");
+    
     // disable when not needed anymore
     $cs->registerScript("userreport","
         var _urq = _urq || [];

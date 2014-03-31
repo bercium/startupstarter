@@ -426,12 +426,14 @@ function writeFlashes(){
 }
 
 
-/*function absoluteURL(){
+function absoluteURL(){
+  if (YII_TESTING) return 'http://www.cofinder.eu';
+  else return 'http://test.cofinder.eu';
   //$host = require(dirname(__FILE__) . '/../config/local-console-request.php');
   
   //echo $host;
   return  Yii::app()->request->hostInfo;
-}*/
+}
 
 /**
  * shorten available from fulltime (40h / week) => fulltime, with a hint how many hours per week

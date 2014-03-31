@@ -294,6 +294,20 @@ class ProfileController extends GxController {
 
 		if ($user_id > 0) {
 
+            //publish project
+            if(!empty($_GET['publish']) and !empty($_GET['id']))
+            {
+                $idea = Idea::Model()->findByAttributes(array('id' => $_GET['id']));
+                $match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+                $ideaMember = IdeaMember::Model()->findByAttributes(array('type_id' => 1,'match_id' => $match->id, 'idea_id' => $_GET['id']));
+
+                if($idea && $ideaMember){
+                    $idea->deleted = 0;
+                    $idea->save();
+                }
+            }
+
+            //projects sql builder
 			$filter['user_id'] = $user_id;
 			$sqlbuilder = new SqlBuilder;
 			$user = $sqlbuilder->load_array("user", $filter, "collabpref,link,idea,member");
