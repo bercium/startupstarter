@@ -217,6 +217,8 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
                   <?php } ?>
                   <li><a href="<?php echo Yii::app()->createUrl("backendUser/inactive"); ?>"><?php echo Yii::t('app','Inactive users'); ?></a></li>
                   <li><a href="<?php echo Yii::app()->createUrl("statistic"); ?>"><?php echo Yii::t('app','Statistic'); ?></a></li>
+                  <li><a href="<?php echo Yii::app()->createUrl("statistic/database"); ?>"><?php echo Yii::t('app','Database query'); ?></a></li>
+                  
                   <li><a href="<?php echo Yii::app()->createUrl("backendAuditTrail"); ?>"><?php echo Yii::t('app','Logs'); ?></a></li>
                   <li class="has-dropdown">
                      <a href="#"><?php echo Yii::t('app','Mail styles'); ?></a>

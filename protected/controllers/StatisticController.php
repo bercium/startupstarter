@@ -79,44 +79,60 @@ class StatisticController extends Controller
   
   
   public function actionDatabase(){
+    $this->layout = 'none';
+    
+    $model = new DatabaseQueryForm();
     
     $dataProvider = null;
-    $columns = $tableData =  array();
+    $rawData = $columns = $tableData =  array();
     
-    if(isset($_POST['dbform'])) {
+		if(isset($_POST['DatabaseQueryForm'])){
+			$model->attributes=$_POST['DatabaseQueryForm'];
+			if($model->validate()){
       
-      /*
-       select * from information_schema.columns where table_schema = 'cofinder' order by table_name,ordinal_position
+        if ((stripos($model->sql, "delete ") !== false) || (stripos($model->sql, "update ") !== false)){
+          setFlash("dbExecute", "Not allowed to delete or update tables here", 'alert');
+        }else{
+          if (($model->graph && $model->x && $model->y) || (!$model->graph)){
+            $rawData = Yii::app()->db->createCommand($model->sql)->queryAll();
 
-       */
-      
-      $tableData = Yii::app()->db->createCommand("select * from information_schema.columns where table_schema = 'slocoworking' order by table_name,ordinal_position")->queryAll();
-      
-      
-      $rawData = Yii::app()->db->createCommand($_POST['dbform']['sql'])->queryAll();
-      
-      if ($rawData){
-        $columns = array_keys($rawData[0]);
-        
-        $id = 'id';
-        if (!isset($columns['id'])) $id = $columns[0];
-        
-        $dataProvider=new CArrayDataProvider($rawData, array(
-            'id'=>$id,
-            'keyField' => $id,
-            /*'sort'=>array(
-                'attributes'=>array(
-                     'id', 'username', 'email',
-                ),
-            ),*/
-            'pagination'=>false
-        ));
+            if ($rawData){
+              $columns = array_keys($rawData[0]);
 
-        setFlash("dbExecute", "Executing SQL");
-      }
+              $id = 'id';
+              if (!isset($columns['id'])) $id = $columns[0];
+
+              $dataProvider=new CArrayDataProvider($rawData, array(
+                  'id'=>$id,
+                  'keyField' => $id,
+                  /*'sort'=>array(
+                      'attributes'=>array(
+                           'id', 'username', 'email',
+                      ),
+                  ),*/
+                  'pagination'=>false
+              ));
+
+              setFlash("dbExecute", "Executing SQL");
+            }
+          }else{
+            setFlash("dbExecute", "Enter X and Y values for graph", 'alert');
+          }
+        }
+      }else setFlash("dbExecute", "Problem validating request", 'alert');
     }
     
-    $this->render('dbExecute',array('dataProvider'=>$dataProvider,'columns'=>$columns, 'tableData'=>$tableData));
+    
+//    $model = unserialize(file_get_contents('uploads/test.txt'));
+    
+    // show tables and rows
+    /*$result = Yii::app()->db->createCommand("SELECT * FROM information_schema.columns WHERE table_schema = 'slocoworking' ORDER BY table_name,ordinal_position")->queryAll();
+    $tableData = array();
+    foreach ($result as $row){
+      if (isset($tableData[$row['TABLE_NAME']])) $tableData[$row['TABLE_NAME']] .= "<br /> ".$row['COLUMN_NAME'];
+      else $tableData[$row['TABLE_NAME']] = $row['COLUMN_NAME'];
+    }*/
+    $this->render('dbExecute',array('model'=>$model,'dataProvider'=>$dataProvider,'rawData'=>$rawData));
   }
   
 	/**
