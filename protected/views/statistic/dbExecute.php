@@ -290,14 +290,21 @@ if ($model->graph){ ?>
         <div class="columns">  
           <h2></h2>
           <?php 
-          if ($dataProvider){
-            $this->widget('zii.widgets.grid.CGridView', array(
-              'id' => 'backend-user-grid',
-              'dataProvider' => $dataProvider,
-              //'filter' => $model,
-              //'columns' => $columns,
-            ));
+          
 
+          try{
+            
+            if ($dataProvider){
+              $this->widget('zii.widgets.grid.CGridView', array(
+                'id' => 'backend-user-grid',
+                'dataProvider' => $dataProvider,
+                //'filter' => $model,
+                'columns' => array_keys($rawData[0]),
+              ));
+
+            }
+          }catch (Exception $e){
+            echo "Napaka pri prikazu podatkov: ".$e->getMessage();
           }
           ?>
 

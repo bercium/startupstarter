@@ -90,8 +90,10 @@ class StatisticController extends Controller
 			$model->attributes=$_POST['DatabaseQueryForm'];
 			if($model->validate()){
       
-        if ((stripos($model->sql, "delete ") !== false) || (stripos($model->sql, "update ") !== false)){
-          setFlash("dbExecute", "Not allowed to delete or update tables here", 'alert');
+        if ((stripos($model->sql, "delete ") !== false) || (stripos($model->sql, "update ") !== false) ||
+            (stripos($model->sql, "drop ") !== false) || (stripos($model->sql, "empty ") !== false) ||
+            (stripos($model->sql, "truncate ") !== false) || (stripos($model->sql, "empty ") !== false)){
+          setFlash("dbExecute", "Not allowed to change database here", 'alert');
         }else{
           if (($model->graph && $model->x && $model->y) || (!$model->graph)){
             $rawData = Yii::app()->db->createCommand($model->sql)->queryAll();
