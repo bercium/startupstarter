@@ -96,7 +96,13 @@ class StatisticController extends Controller
           setFlash("dbExecute", "Not allowed to change database here", 'alert');
         }else{
           if (($model->graph && $model->x && $model->y) || (!$model->graph)){
-            $rawData = Yii::app()->db->createCommand($model->sql)->queryAll();
+            try {
+              $rawData = Yii::app()->db->createCommand($model->sql)->queryAll();
+            } catch (Exception $exc) {
+              setFlash("dbExecute", "Problem executing SQL statement: ".$exc->getMessage(), 'alert');
+            }
+
+            
 
             if ($rawData){
               $columns = array_keys($rawData[0]);

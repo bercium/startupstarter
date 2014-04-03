@@ -210,6 +210,7 @@ class GeneralCommand extends CConsoleCommand{
     ), $userGuid, $apiKey);
     //var_dump($result);
     
+    if ($result->results)
     foreach ($result->results as $event){
       //$event_tmp['id'] = $i++;
       $event_tmp['title'] = $event->title;
@@ -240,6 +241,7 @@ class GeneralCommand extends CConsoleCommand{
     ), $userGuid, $apiKey);
     //var_dump($result);
 
+    if ($result->results)
     foreach ($result->results as $event){
       //$event_tmp['id'] = $i++;
       $event_tmp['title'] = $event->title;
@@ -270,6 +272,7 @@ class GeneralCommand extends CConsoleCommand{
       "webpage/url" => "http://www.tp-lj.si/dogodki",
     ), $userGuid, $apiKey);
     
+    if ($result->results)
     foreach ($result->results as $event){
       //$event_tmp['id'] = $i++;
       $event_tmp['title'] = $event->title;
@@ -301,6 +304,7 @@ class GeneralCommand extends CConsoleCommand{
       "webpage/url" => "http://www.racunalniske-novice.com/dogodki/",
     ), $userGuid, $apiKey);
     //var_dump($result);
+    if ($result->results)
     foreach ($result->results as $event){
       //$event_tmp['id'] = $i++;
       $event_tmp['title'] = $event->title;
@@ -337,6 +341,7 @@ class GeneralCommand extends CConsoleCommand{
       "webpage/url" => "http://www.racunalniske-novice.com/dogodki/iskalnik/?em/listaj-arhiv/1/",
     ), $userGuid, $apiKey);
     //var_dump($result);
+    if ($result->results)
     foreach ($result->results as $event){
       //$event_tmp['id'] = $i++;
       $event_tmp['title'] = $event->title;

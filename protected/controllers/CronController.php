@@ -79,8 +79,12 @@ class CronController extends Controller
    */
   public function actionNotifyToFillProfile(){
     if (date("W") % 2 == 0) echo $this->consoleCommand('mailer','notifyHiddenProfiles');
+    echo $this->consoleCommand('mailer','notifyUnExeptedProfiles');
   }
   
+  public function actionNotifyUnExeptedProfiles(){
+    echo $this->consoleCommand('mailer','notifyUnExeptedProfiles');
+  }  
   /**
    * 
    */
