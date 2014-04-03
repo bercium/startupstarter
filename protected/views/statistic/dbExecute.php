@@ -35,7 +35,7 @@
 
         <div class="row">
           <div class="columns large-6 description">
-            <?php echo CHtml::beginForm('','post',array("class"=>"custom")); ?>
+            <?php echo CHtml::beginForm(Yii::app()->createUrl('statistic/database'),'post',array("class"=>"custom","id"=>"form_db_execute")); ?>
 
              <p>
                 <?php echo CHtml::label(Yii::t('app','Title for saving'),'DatabaseQueryForm_title'); ?>
@@ -107,6 +107,15 @@
 
             <p>
             <?php echo CHtml::submitButton("Execute",array("class"=>"button radius success")); ?>
+            
+              
+            <?php echo CHtml::hiddenField("action",''); ?>
+            <a href="#" class="button radius success right ml10 small" onclick="$('#action').val('save'); $('#form_db_execute').submit();">Save</a>
+            <?php if ($loadID){ 
+              echo CHtml::hiddenField("load",$loadID); ?>
+            <a href="#" class="button radius right small" onclick="$('#action').val('modify'); $('#form_db_execute').submit();">Modify</a>
+            <?php } ?>
+            
             <?php echo CHtml::endForm(); ?>
             </p>
           </div>

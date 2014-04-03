@@ -217,7 +217,18 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
                   <?php } ?>
                   <li><a href="<?php echo Yii::app()->createUrl("backendUser/inactive"); ?>"><?php echo Yii::t('app','Inactive users'); ?></a></li>
                   <li><a href="<?php echo Yii::app()->createUrl("statistic"); ?>"><?php echo Yii::t('app','Statistic'); ?></a></li>
-                  <li><a href="<?php echo Yii::app()->createUrl("statistic/database"); ?>"><?php echo Yii::t('app','Database query'); ?></a></li>
+                  <li <?php if ($this->dbQueries) echo 'class="has-dropdown"'; ?>>
+                    <a href="<?php echo Yii::app()->createUrl("statistic/database"); ?>" >
+                      <?php echo Yii::t('app','Database query'); ?>
+                    </a>
+                    <?php if ($this->dbQueries){ ?>
+                    <ul class="dropdown">
+                      <?php foreach ($this->dbQueries as $row) { ?>
+                        <li><a href="<?php echo Yii::app()->createUrl("statistic/database",array('load'=>$row->id)); ?>"><?php echo $row->title; ?></a></li>
+                      <?php } ?>
+                    </ul>
+                    <?php } ?>
+                  </li>
                   
                   <li><a href="<?php echo Yii::app()->createUrl("backendAuditTrail"); ?>"><?php echo Yii::t('app','Logs'); ?></a></li>
                   <li class="has-dropdown">

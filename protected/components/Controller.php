@@ -16,6 +16,8 @@ class Controller extends CController
 	public $menu=array();
 	
 	public $pageDesc = '';
+  
+  public $dbQueries = null;
 	
 	/**
 	 * @var array the breadcrumbs of the current page. The value of this property will
@@ -123,7 +125,12 @@ class Controller extends CController
         
     
     // startup scripts
-    $cs->registerScriptFile($baseUrl.'/js/app.js');  
+    $cs->registerScriptFile($baseUrl.'/js/app.js');
+    
+    
+    if (Yii::app()->user->isAdmin()){
+      $this->dbQueries = DbQuery::model()->findAll();
+    }    
 
     parent::init();
   }

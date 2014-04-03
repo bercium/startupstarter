@@ -86,6 +86,11 @@ class StatisticController extends Controller
     $dataProvider = null;
     $rawData = $columns = $tableData =  array();
     
+    $loadID = null;
+    if (isset($_GET['load'])) $loadID = $_GET['load'];
+    if (isset($_POST['load'])) $loadID = $_POST['load'];
+    
+    
 		if(isset($_POST['DatabaseQueryForm'])){
 			$model->attributes=$_POST['DatabaseQueryForm'];
 			if($model->validate()){
@@ -101,8 +106,6 @@ class StatisticController extends Controller
             } catch (Exception $exc) {
               setFlash("dbExecute", "Problem executing SQL statement: ".$exc->getMessage(), 'alert');
             }
-
-            
 
             if ($rawData){
               $columns = array_keys($rawData[0]);
@@ -120,14 +123,43 @@ class StatisticController extends Controller
                   ),*/
                   'pagination'=>false
               ));
-
-              setFlash("dbExecute", "Executing SQL");
+              
+              if (!empty($_POST['action'])){
+                if ($model->title){
+                  if ($_POST['action'] == 'save'){
+                    $dbquery = new DbQuery();
+                    $dbquery->title = $model->title;
+                    $dbquery->model = serialize($model);
+                    $dbquery->time_created = date('c');
+                    $dbquery->save();
+                    setFlash("dbExecute", "SQL Saved");
+                    $loadID = $dbquery->id;
+                  }
+                  if (($_POST['action'] == 'modify') && ($loadID)){
+                    $dbquery = DbQuery::model()->findByPk($loadID);
+                    $dbquery->title = $model->title;
+                    $dbquery->model = serialize($model);
+                    $dbquery->save();
+                    setFlash("dbExecute", "SQL Saved");
+                  }
+                }else{
+                  setFlash("dbExecute", "When saving SQL you must specify title",'alert');
+                }
+              }else{
+                setFlash("dbExecute", "Executing SQL");
+                $loadID = '';
+              }
             }
           }else{
             setFlash("dbExecute", "Enter X and Y values for graph", 'alert');
           }
         }
       }else setFlash("dbExecute", "Problem validating request", 'alert');
+    }else{
+      if ($loadID){
+        $dbquery = DbQuery::model()->findByPk($loadID);
+        $model = unserialize($dbquery->model);
+      }
     }
     
     
@@ -140,7 +172,7 @@ class StatisticController extends Controller
       if (isset($tableData[$row['TABLE_NAME']])) $tableData[$row['TABLE_NAME']] .= "<br /> ".$row['COLUMN_NAME'];
       else $tableData[$row['TABLE_NAME']] = $row['COLUMN_NAME'];
     }*/
-    $this->render('dbExecute',array('model'=>$model,'dataProvider'=>$dataProvider,'rawData'=>$rawData));
+    $this->render('dbExecute',array('model'=>$model,'dataProvider'=>$dataProvider,'rawData'=>$rawData,'loadID'=>$loadID));
   }
   
 	/**
