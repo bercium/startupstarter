@@ -1,9 +1,7 @@
 <?php
 $this->pageTitle = Yii::t('app', 'Registration');
 
-if (isset($_GET['event'])) unset($_GET['event']);
-
-if (isset($_GET['event'])) $this->pageTitle .= " - ".$_GET['event'];
+if (isset($event)) $this->pageTitle .= " - ".$event->title;
 ?>
 
 <?php if(Yii::app()->user->hasFlash('registration')):
@@ -19,34 +17,38 @@ if (isset($_GET['event'])) $this->pageTitle .= " - ".$_GET['event'];
 	<p class="note"><?php echo Yii::t('msg','Fields with <span class="required">*</span> are required.'); ?></p>
 	
 	<?php */ //echo $form->errorSummary(array($model,$profile)); ?>
-<?php if (isset($_GET['event'])){  ?>
-<div class="right panel radius large-5 small-12">
-  <p><?php echo Yii::t('msg','Cofinder members login to apply for this event'); ?></p>
-  <a href="#" onclick="$('#UserLogin_redirect').val('<?php echo Yii::app()->createUrl('site/applyForEvent',array("event"=>$_GET['event'])); ?>')" data-dropdown="drop-login" class="button small radius small-12"><?php echo Yii::t('app','Login here'); ?></a>
+<?php if (isset($event)){  ?>
+<div class="large-12">
+  <h3>
+  <?php echo Yii::t('msg','Event description'); ?>
+  </h3>
+  <p>
+    <?php echo $event->content; ?>
+  </p>
+  <br />
+  <h3>
+  <?php echo Yii::t('msg','Cofinder members login to register for this event'); ?>
+  </h3>
+  <a href="#" onclick="$('#UserLogin_redirect').val('<?php echo Yii::app()->createUrl('event/signup',array("id"=>Yii::app()->session['event'])); ?>')" data-dropdown="drop-login" class="button small radius large-6">
+  <?php echo Yii::t('app','Login to register'); ?>
+  </a>
 </div>
+
+<hr class="mb4">
+<div class="text-center mb20 meta" style="margin-top: -12px">
+  <strong>
+  <?php echo Yii::t('msg','OR'); ?>
+  </strong>
+</div>
+
+<h3>
+  <?php echo Yii::t('msg','New members register here'); ?>
+</h3>
+<br />
+
 <?php } ?>
 	<div>
   <p class="large-6">
-  <?php if (isset($_GET['event'])){ ?>
-    
-    <p>
-      <?php echo CHtml::label(Yii::t('app','Do you wish to')." *",false); ?>
-        <label for="p1">
-          <?php echo CHtml::radioButton('RegistrationForm[present]',(isset($_POST['RegistrationForm']['present']) && ($_POST['RegistrationForm']['present'] == 'Pitch your idea/project')),array("value"=>"Pitch your idea/project","id"=>"p1"))." ".Yii::t('app','Pitch your idea/project'); ?>
-        </label>
-        <label for="p2">
-        <?php echo CHtml::radioButton('RegistrationForm[present]',(isset($_POST['RegistrationForm']['present']) && ($_POST['RegistrationForm']['present'] == 'Join interesting idea/project')),array("value"=>"Join interesting idea/project","id"=>"p2"))." ".Yii::t('app','Join interesting idea/project');  ?>
-        </label>
-        <br />
-        <?php echo CHtml::label(Yii::t('app','Have you ever been a cofounder?')." *",false); ?>
-        <label for="c1">
-        <?php echo CHtml::radioButton('RegistrationForm[cofounder]',(isset($_POST['RegistrationForm']['cofounder']) && ($_POST['RegistrationForm']['cofounder'] == 'yes')),array("value"=>"yes","id"=>"c1"))." ".Yii::t('app','Yes'); ?>
-        </label>
-        <label for="c2">
-        <?php echo CHtml::radioButton('RegistrationForm[cofounder]',(isset($_POST['RegistrationForm']['cofounder']) && ($_POST['RegistrationForm']['cofounder'] == 'no')),array("value"=>"no","id"=>"c2"))." ".Yii::t('app','No');  ?>
-        </label>
-     </p>   
-  <?php } ?>
     
 	<?php echo $form->labelEx($model,'name'); ?>
 	<?php echo $form->textField($model,'name'); ?>

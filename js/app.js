@@ -148,6 +148,7 @@ function qrLoad(){
   //alert('d');
 //  $.get(Yii.app.createUrl("profile/suggestSkil",{ajax:1,term:'ski'}), function( data ) {
   if (qrActive) return;
+  $(".login-qrcode" ).html(Yii.t('js','Loading QR code login...'));
   $.get(fullURL+"/qr/create?ajax=1", function( id ) {
     qrActive = true;
     link = 'http://'+document.domain+fullURL+'/qr/scan?qr='+id;

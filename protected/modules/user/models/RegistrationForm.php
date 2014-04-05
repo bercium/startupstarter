@@ -20,7 +20,7 @@ class RegistrationForm extends User {
 			array('password', 'length', 'max'=>128, 'min' => 6,'message' => Yii::t('msg',"Incorrect password (minimal length 6 symbols).")),
 			array('email', 'email'),
 			//array('username', 'unique', 'message' => Yii::t('msg',"This user's name already exists.")),
-			array('email', 'unique', 'message' => Yii::t('msg',"This user's email address already exists.")),
+			array('email', 'unique', 'message' => Yii::t('msg',"User with this email is allready registered here. Try loging in.")),
 			//array('verifyPassword', 'compare', 'compareAttribute'=>'password', 'message' => Yii::t('msg',"Retype password is incorrect.")),
 			//array('username', 'match', 'pattern' => '/^[A-Za-z0-9_]+$/u','message' => Yii::t('msg',"Incorrect symbols (A-z0-9).")),
       //array('vanityURL','unique'),

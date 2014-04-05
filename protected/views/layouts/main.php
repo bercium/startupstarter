@@ -295,7 +295,7 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
   <?php echo CHtml::endForm(); ?>
   </div>
   <div class="login-qrcode hide-for-small">
-    <?php echo Yii::t('msg','Loading QR code login...'); ?>
+    <?php // echo Yii::t('msg','Loading QR code login...'); ?>
   </div>
 </div>
 

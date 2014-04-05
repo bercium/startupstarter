@@ -31,9 +31,20 @@ class RegistrationController extends Controller
             echo UActiveForm::validate(array($model));
             Yii::app()->end();
         }*/
+        $event = null;
+        if (isset($_GET['event'])){
+          Yii::app()->session['event'] = $_GET['event'];
+          $event = Event::model()->findByPk($_GET['event']);
+        }
         
         if (Yii::app()->user->id) {
-            $this->redirect(Yii::app()->createUrl('profile'));
+          if (isset($_GET['event'])){
+            $this->redirect(Yii::app()->createUrl('event/signup',array("id"=>Yii::app()->session['event'])));
+            Yii::app()->end();
+          }
+
+          $this->redirect(Yii::app()->createUrl('profile'));
+          Yii::app()->end();
         } else {
             $invited = null;
             if ($id != ''){
@@ -44,16 +55,15 @@ class RegistrationController extends Controller
             if(isset($_POST['RegistrationForm'])) {
                 $model->attributes=$_POST['RegistrationForm'];
                 //$profile->attributes=((isset($_POST['Profile'])?$_POST['Profile']:array()));
-                $isOK = (isset($_GET['event']) && isset($_POST['RegistrationForm']['cofounder']) && isset($_POST['RegistrationForm']['present'])) || !isset($_GET['event']);
-                if (!$isOK) setFlash ('fields_problem', Yii::t('msg','Please fill all fields!'), 'alert');
-                if($model->validate()/*&&$profile->validate()*/ && $isOK)
+                
+                if($model->validate()/*&&$profile->validate()*/)
                 {
                     $soucePassword = $model->password;
                     $model->password=UserModule::createHash($model->password);
                     $model->activkey=UserModule::encrypting(microtime().$model->password);
                     $model->verifyPassword=$model->password;
                     $model->superuser=0; //not admin
-                    $model->status=(($invited)?User::STATUS_ACTIVE:User::STATUS_NOACTIVE);
+                    $model->status=(($invited || ($event)) ? User::STATUS_ACTIVE:User::STATUS_NOACTIVE);
                     $model->name = trim($model->name);
                     $model->surname = trim($model->surname);
                     
@@ -167,34 +177,12 @@ class RegistrationController extends Controller
 
                       // if someone is coming to an event
                       if (isset($_GET['event'])){
-                        $userTag = new UserTag();
-                        $userTag->user_id = $model->id;
-                        $userTag->tag = $_GET['event'];
-                        $userTag->content = $_POST['RegistrationForm']['present']." is cofounder ".$_POST['RegistrationForm']['cofounder'];
-                        $userTag->save();
-                        
-                        $message = new YiiMailMessage;
-                        $message->view = 'system';
-                        $message->subject = "Nov uporabnik (".$model->name." ".$model->surname.") prijavljen na dogodek ".$_GET['event'];
-                        // nam sporočilo o registraciji z mailom
-                        $message->setBody(array("content"=>'Uporabnik '.$model->name." ".$model->surname.' se je pravkar prijavil na dogodek.<br />
-                                                    Njegov email: '.$model->email.'<br />'.
-                                                    'Rad bi: '.$_POST['RegistrationForm']['present'].'<br />'.
-                                                    'Je že kdaj bil ustanovitelj: '.$_POST['RegistrationForm']['cofounder'].'<br />'
-                                                ), 'text/html');
-                        
-                        $message->addTo("cofinder@hekovnik.si");
-                        $message->from = Yii::app()->params['noreplyEmail'];
-                        Yii::app()->mail->send($message);                        
-                        
-                        $this->render('/user/message',array('title'=>Yii::t('msg','Thank you for applying to this event'),
-                                        'content'=>Yii::t('msg','We need to confirm your application and will get back to you with further instructions.')));
-
-                        return;
-
+                        $this->redirect(Yii::app()->createUrl('event/signup',array("id"=>Yii::app()->session['event'])));
+                        Yii::app()->end();
                       }else{
                         if ($id == '' || $invited == null){
                             $this->redirect(Yii::app()->createUrl("profile/registrationFlow",array("key"=>substr($model->activkey,0, 10),"email"=>$model->email)));
+                            Yii::app()->end();
                         }
                         else{ 
                            $this->render('/user/message',array('title'=>Yii::t('app','Registration finished'),
@@ -205,30 +193,6 @@ class RegistrationController extends Controller
                         }
                       }
 
-                      //$this->render('/user/message',array('title'=>Yii::t('app','Registration'),"content"=>Yii::t('msg','Thank you for your registration. Please check your email.')));
-
-                        /*if (Yii::app()->controller->module->sendActivationMail) {
-                             $activation_url = $this->createAbsoluteUrl('/user/activation/activation',array("activkey" => $model->activkey, "email" => $model->email));
-                            UserModule::sendMail($model->email,Yii::t('msg',"You registered from {site_name}",array('{site_name}'=>Yii::app()->name)),Yii::t('msg',"To activate you account please go to {activation_url}",array('{activation_url}'=>$activation_url)));
-                        }*/
-                        /*
-                        if ((Yii::app()->controller->module->loginNotActiv||(Yii::app()->controller->module->activeAfterRegister&&Yii::app()->controller->module->sendActivationMail==false))&&Yii::app()->controller->module->autoLogin) {
-                                $identity=new UserIdentity($model->email,$soucePassword);
-                                $identity->authenticate();
-                                Yii::app()->user->login($identity,0);
-                                $this->redirect(Yii::app()->controller->module->returnUrl);
-                        } else {
-                            if (!Yii::app()->controller->module->activeAfterRegister&&!Yii::app()->controller->module->sendActivationMail) {
-                                setFlash('registration',Yii::t('msg',"Thank you for your registration. Contact Admin to activate your account."));
-                            } elseif(Yii::app()->controller->module->activeAfterRegister&&Yii::app()->controller->module->sendActivationMail==false) {
-                                setFlash('registration',Yii::t('msg',"Thank you for your registration. Please {login}.",array('{login}'=>CHtml::link(Yii::t('app','Login'),Yii::app()->controller->module->loginUrl))));
-                            } elseif(Yii::app()->controller->module->loginNotActiv) {
-                                setFlash('registration',Yii::t('msg',"Thank you for your registration. Please check your email or login."));
-                            } else {
-                                setFlash('registration',Yii::t('msg',"Thank you for your registration. Please check your email."));
-                            }
-                            $this->refresh();
-                        }*/
 
                     }else{
                       $model->password = $soucePassword;
@@ -239,7 +203,7 @@ class RegistrationController extends Controller
               $model->tos = true;
             }
 
-            $this->render('/user/registration',array('model'=>$model));
+            $this->render('/user/registration',array('model'=>$model,'event'=>$event));
             
         }
 	}
