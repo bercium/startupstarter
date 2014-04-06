@@ -53,13 +53,6 @@ $this->pageTitle = Yii::t('app','Apply for event'). ' - ' . $title;
 	    } ?>
 	</div>
 
-    <div class="row collapse">
-    	<?php echo CHtml::label(Yii::t('app','Were you referred? Please tell us who referred you'),false); ?>
-        <div class="small-12 columns">
-            <?php echo CHtml::textField('referrer-email', '', array('class' => 'invite-member-email')); ?>
-            <?php echo CHtml::hiddenField('referrer-user-id', ''); ?>
-        </div>
-    </div>
  </p>
  
 <br />
