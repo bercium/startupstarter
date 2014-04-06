@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-$this->pageTitle = Yii::t('app','Apply for event') . ' - ' . $title;
+$this->pageTitle = Yii::t('app','Payment');
 ?>
 
 <?php echo CHtml::label(Yii::t('app','Registration fee for this event costs ')." *",false); ?>
