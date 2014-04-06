@@ -20,7 +20,7 @@ if (isset($event)) $this->pageTitle .= " - ".$event->title;
 <?php if (isset($event)){  ?>
 <div class="large-12">
   <h3>
-  <?php echo Yii::t('msg','Event description'); ?>
+  <?php echo Yii::t('app','Event description'); ?>
   </h3>
   <p>
     <?php echo $event->content; ?>
@@ -37,7 +37,7 @@ if (isset($event)) $this->pageTitle .= " - ".$event->title;
 <hr class="mb4">
 <div class="text-center mb20 meta" style="margin-top: -12px">
   <strong>
-  <?php echo Yii::t('msg','OR'); ?>
+  <?php echo Yii::t('app','OR'); ?>
   </strong>
 </div>
 

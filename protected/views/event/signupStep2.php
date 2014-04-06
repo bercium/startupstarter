@@ -8,7 +8,7 @@
 $this->pageTitle = Yii::t('app','Payment');
 ?>
 
-<?php echo CHtml::label(Yii::t('app','Registration fee for this event costs ')." *",false); ?>
+<?php echo CHtml::label(Yii::t('msg','Registration fee for this event costs ')." *",false); ?>
 <br/>
 <h2><?php echo $payment;?>€</h2><br/>
 <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
