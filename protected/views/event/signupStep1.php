@@ -44,10 +44,10 @@ $this->pageTitle = Yii::t('app','Apply for event'). ' - ' . $title;
 		    </label>
 	    <?php } ?>
 
-	    <br />
 	</div>
 
 	<div id="survey" <?php echo (!isset($_POST['Event']['present']) || $_POST['Event']['present'] == '0') ? 'style="display: none"' : ''; ?>>
+		<hr/>
 	    <?php  if($surveyid > 0){
 	    			$this->renderPartial('_survey'.$surveyid);
 	    } ?>
