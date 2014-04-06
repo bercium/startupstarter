@@ -30,32 +30,32 @@ $this->pageTitle = Yii::t('app','Apply for event'). ' - ' . $title;
     <label for="s00" onClick='project_select_show()'>
     <?php echo CHtml::radioButton('Event[present]',(isset($_POST['Event']['present']) && ($_POST['Event']['present'] == '1')),array("value"=>"1","id"=>"s00"))." ".Yii::t('app','Pitch your idea/project');  ?>
     </label>
-
-    <div id="project_select" <?php echo (!isset($_POST['Event']['present']) || $_POST['Event']['present'] == '0') ? 'style="display: none"' : ''; ?>>
-	    <a href="<?php echo Yii::app()->createUrl('project/create'); ?>" class="button small success radius right">
-	        <?php echo Yii::t("app", "Create a new project"); ?>
-	    </a>
+ </p>
+ 
+    <div id="project_select" class="mb20" <?php echo (!isset($_POST['Event']['present']) || $_POST['Event']['present'] == '0') ? 'style="display: none"' : ''; ?>>
 
 	    <?php echo CHtml::label(Yii::t('app','Select the project you wish to present'),false); ?>
 
 	    <?php
       if ($ideas)
       foreach($ideas as $key => $value){ ?>
-		    <label for="s<?php echo $value['id'];?>">
+		    <label for="s<?php echo $value['id'];?>" style="font-weight: normal;">
 		    <?php echo CHtml::radioButton('Event[project]',(isset($_POST['Event']['project']) && ($_POST['Event']['project'] == $value['id'])),array("value"=>$value['id'],"id"=>"s".$value['id']))." ".$value['title']; ?>
 		    </label>
 	    <?php } ?>
-
+      
+ 	    <a href="<?php echo Yii::app()->createUrl('project/create'); ?>" class="button small success radius right">
+	        <?php echo Yii::t("app", "Create a new project"); ?>
+	    </a>
 	</div>
 
-	<div id="survey" <?php echo (!isset($_POST['Event']['present']) || $_POST['Event']['present'] == '0') ? 'style="display: none"' : ''; ?>>
+	<div id="survey" class="mt20" <?php echo (!isset($_POST['Event']['present']) || $_POST['Event']['present'] == '0') ? 'style="display: none"' : ''; ?>>
 		<hr/>
 	    <?php  if($surveyid > 0){
 	    			$this->renderPartial('_survey'.$surveyid);
 	    } ?>
 	</div>
 
- </p>
  
 <br />
 
