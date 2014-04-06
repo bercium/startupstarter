@@ -268,6 +268,10 @@ class EventController extends GxController
 		    );
 		}
 
+		//send confirmation emails
+		$this->afterRegistrationEmail($id);
+
+		//flow
 		$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id));
 		if($signup){
 			$payment = false;
@@ -390,6 +394,13 @@ class EventController extends GxController
 	private function afterRegistrationEmail($id){
 		$user = UserEdit::Model()->findByAttributes(array('id' => Yii::app()->user->id));
 		$event = Event::Model()->findByAttributes(array('id' => $id));
+		$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id));
+
+		if($signup->idea_id > 0){
+			$text = "predstavil idejo (ID = ".$signup->idea_id.")";
+		} else {
+			$text = "pridružil se zanimivemu projektu";
+		}
 
 		// nam sporočilo o registraciji z mailom
 		$message = new YiiMailMessage;
@@ -397,7 +408,7 @@ class EventController extends GxController
 		$message->subject = "Dogodek: " .$event->title. " (".$user->name." ".$user->surname.")";
 		$message->setBody(array("content"=>'Uporabnik '.$user->name." ".$user->surname.' se je pravkar prijavil na dogodek.<br />
 		Njegov email: '.$user->email.'<br />'.
-		'Rad bi: '.$_POST['RegistrationForm']['present'].'<br />'
+		'Rad bi '.$text.'.<br />'
 		), 'text/html');
 		                        
 		$message->setTo("team@cofinder.eu");
