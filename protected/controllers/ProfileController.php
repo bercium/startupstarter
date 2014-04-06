@@ -1105,7 +1105,12 @@ class ProfileController extends GxController {
         $perc = $c->getPercentage($user_id);
 
         $this->layout="//layouts/stageflow";
-        $data['user'] = $sqlbuilder->load_array("regflow", $filter);
+        if($user->status == 0){
+        	$data['user'] = $sqlbuilder->load_array("regflow", $filter);
+        } else {
+        	$data['user'] = $sqlbuilder->load_array("user", $filter);
+        }
+        
         if (isset($_GET['step'])){
           // if event registration redirect back to event
           if (($_GET['step'] == 4) && (isset(Yii::app()->session['event']))){
