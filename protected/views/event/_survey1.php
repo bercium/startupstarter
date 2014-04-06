@@ -1,5 +1,6 @@
 <?php
-//Rename _survey1.php to _survey{$event_id}.php
+//Rename _survey1.php to _survey$event_id.php
+?>
 
   <p>
     <?php echo CHtml::label("1. Do you:", false); ?>
