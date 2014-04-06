@@ -368,7 +368,7 @@ class EventController extends GxController
 			$message = new YiiMailMessage;
 			$message->view = 'system';
 			$message->subject = "Event payment went wrong";
-			$message->setBody(array("content"=>'Uporabnik '.$user->name." ".$user->surname.' je poskusil plačati prijavnino na dogodek (ID = '.$id.')<br />'.$res;
+			$message->setBody(array("content"=>'Uporabnik '.$user->name." ".$user->surname.' je poskusil plačati prijavnino na dogodek (ID = '.$id.')<br />'.$res
 			), 'text/html');
 			                        
 			$message->setTo("team@cofinder.eu");
