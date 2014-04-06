@@ -38,7 +38,9 @@ $this->pageTitle = Yii::t('app','Apply for event'). ' - ' . $title;
 
 	    <?php echo CHtml::label(Yii::t('app','Select the project you wish to present'),false); ?>
 
-	    <?php foreach($ideas as $key => $value){ ?>
+	    <?php
+      if ($ideas)
+      foreach($ideas as $key => $value){ ?>
 		    <label for="s<?php echo $value['id'];?>">
 		    <?php echo CHtml::radioButton('Event[project]',(isset($_POST['Event']['project']) && ($_POST['Event']['project'] == $value['id'])),array("value"=>$value['id'],"id"=>"s".$value['id']))." ".$value['title']; ?>
 		    </label>
@@ -52,7 +54,7 @@ $this->pageTitle = Yii::t('app','Apply for event'). ' - ' . $title;
 	    			$this->renderPartial('_survey'.$surveyid);
 	    } ?>
 	</div>
-
+<?php /* ?>
     <div class="row collapse">
     	<?php echo CHtml::label(Yii::t('app','Were you referred? Please tell us who referred you'),false); ?>
         <div class="small-12 columns">
@@ -60,6 +62,7 @@ $this->pageTitle = Yii::t('app','Apply for event'). ' - ' . $title;
             <?php echo CHtml::hiddenField('referrer-user-id', ''); ?>
         </div>
     </div>
+<?php */ ?>
  </p>
  
 <br />

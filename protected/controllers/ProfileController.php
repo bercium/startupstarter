@@ -925,13 +925,27 @@ class ProfileController extends GxController {
       $this->render('/site/message',array('title'=>Yii::t('app','Registration finished'),"content"=>Yii::t('msg','Thank you for your registration.')));
       return;
     }
+    
+    if (Yii::app()->user->isGuest && isset($_GET['key']) && isset($_GET['email']) && !empty($_GET['key']) && !empty($_GET['email'])){
+      $user_register = User::model()->notsafe()->findByAttributes(array('email'=>$_GET['email']));    
+      if ((substr($user_register->activkey, 0, 10) !== $_GET['key']) /*|| ($user_register->status != 0)*/){
+        $this->render('/site/message',array('title'=>Yii::t('app','Registration finished'),"content"=>Yii::t('msg','Thank you for your registration.')));
+        return;
+      }
+      $user_id = $user_register->id;
+    }else $user_id = Yii::app()->user->id;
+    
+
+	  $user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
+      
+     /* 
 //      $this->redirect(Yii::app()->createUrl("user/login"));
     $user = User::model()->notsafe()->findByAttributes(array('email'=>$_GET['email']));
-    if ((substr($user->activkey, 0, 10) !== $_GET['key']) || 
-        ($user->status != 0)){      
+    if ((substr($user->activkey, 0, 10) !== $_GET['key'])
+        /*|| ($user->status != 0)* /){
       $this->render('/site/message',array('title'=>Yii::t('app','Registration finished'),"content"=>Yii::t('msg','Thank you for your registration.')));
       return;
-    }
+    }*/
     
     if ($user){
     //mark user but not as member yet
@@ -945,8 +959,6 @@ class ProfileController extends GxController {
     }
     
 
-
-			$user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
 			if ($user) {
 				$oldImg = $user->avatar_link;
 				$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));

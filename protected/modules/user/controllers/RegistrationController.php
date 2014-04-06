@@ -177,6 +177,11 @@ class RegistrationController extends Controller
 
                       // if someone is coming to an event
                       if (isset($_GET['event'])){
+                        // auto login
+                        $identity=new UserIdentity($model->email,$soucePassword);
+                        $identity->authenticate();
+                        Yii::app()->user->login($identity,Yii::app()->controller->module->rememberMeTime);
+                        
                         $this->redirect(Yii::app()->createUrl('event/signup',array("id"=>Yii::app()->session['event'])));
                         Yii::app()->end();
                       }else{

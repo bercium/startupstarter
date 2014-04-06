@@ -81,7 +81,9 @@
     <span class="description">
        
     </span>
-  <?php foreach ($data['user']['collabpref'] as $colabpref){ ?>
+  <?php 
+  if ($data['user']['collabpref'])
+  foreach ($data['user']['collabpref'] as $colabpref){ ?>
     <label for="CollabPref_<?php echo $colabpref['collab_id']; ?>">
      <?php echo CHtml::checkBox('CollabPref['.$colabpref['collab_id'].']',$colabpref['active'],array('style'=>'display:none')); ?>
      <?php echo $colabpref['name'] ?></label>
