@@ -226,6 +226,7 @@ $a = array(
     'tempFolder'=>'temp/',
     'avatarFolder'=>'uploads/avatars/',
     'projectGalleryFolder'=>'uploads/project_gallery/', //project ID as subfolder
+    'surveyFolder'=>'protected/views/event/', //_survey$event_id.php as filename
     'mapsFolder'=>'uploads/maps/',
     'iconsFolder'=>'uploads/icons/',
     'dbbackup'=>'protected/data/backup/',

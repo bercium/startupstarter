@@ -47,6 +47,7 @@ return array (
   'All Day' => 'Cel dan',
   'Already opened positions' => 'Pozicije na voljo',
   'Application strings' => 'Application strings',
+  'Apply for event' => 'Prijavi se na dogodek',
   'Apply for event - "Sestavi svojo ekipo"' => 'Prijavi se na dogodek - "Sestavi svojo ekipo"',
   'Apply now' => 'Prijavi se zdaj',
   'Are you sure?' => 'Ali ste prepričani?',

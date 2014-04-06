@@ -209,6 +209,10 @@ class ProjectController extends GxController {
             	$idea = Idea::Model()->findByAttributes(array('id' => $id));
             	$idea->deleted = 0;
             	$idea->save();
+
+            	if(isset($_SESSION['event'])){
+            		$this->redirect(Yii::app()->createUrl('event/signup',array("id"=>$_SESSION['event'])));
+            	}
             } elseif(isset($_GET['publish']) && $_GET['publish'] == 0) {
             	$idea = Idea::Model()->findByAttributes(array('id' => $id));
             	$idea->deleted = 2;
