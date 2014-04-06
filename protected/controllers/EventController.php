@@ -87,8 +87,10 @@ class EventController extends GxController
 				}
 				$signup->user_id = Yii::app()->user->id;
 				$signup->event_id = $id;
-				if(isset($_POST['Event']['project'])){
+				if(isset($_POST['Event']['project']) && $_POST['Event']['present'] == 1){
 					$signup->idea_id = $_POST['Event']['project'];
+				} else {
+					$signup->idea_id = NULL;
 				}
 
 				//prepare to save survey
