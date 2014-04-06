@@ -46,23 +46,15 @@ $this->pageTitle = Yii::t('app','Apply for event'). ' - ' . $title;
 		    </label>
 	    <?php } ?>
 
-	    <br />
 	</div>
 
 	<div id="survey" <?php echo (!isset($_POST['Event']['present']) || $_POST['Event']['present'] == '0') ? 'style="display: none"' : ''; ?>>
+		<hr/>
 	    <?php  if($surveyid > 0){
 	    			$this->renderPartial('_survey'.$surveyid);
 	    } ?>
 	</div>
-<?php /* ?>
-    <div class="row collapse">
-    	<?php echo CHtml::label(Yii::t('app','Were you referred? Please tell us who referred you'),false); ?>
-        <div class="small-12 columns">
-            <?php echo CHtml::textField('referrer-email', '', array('class' => 'invite-member-email')); ?>
-            <?php echo CHtml::hiddenField('referrer-user-id', ''); ?>
-        </div>
-    </div>
-<?php */ ?>
+
  </p>
  
 <br />
