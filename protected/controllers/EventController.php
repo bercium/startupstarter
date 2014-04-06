@@ -180,6 +180,28 @@ class EventController extends GxController
 		    );
 		}
 
+		//paypal integration
+		$event = EventCofinder::Model()->findByAttributes(array('event_id' => $id));
+		$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id));
+
+		if(isset($_GET['tx']) && $event && $signup){
+			if($return_array = $this->validatePayment($id)){
+				$payment_success = false;
+
+				if($signup->idea_id > 0){
+					if($return_array['payment_gross'] == $event->price_idea) $payment_success = true;
+				} else {
+					if($return_array['payment_gross'] == $event->price_person) $payment_success = true;
+				}
+
+				if($payment_success = true){
+					$signup->payment = $return_array['payment_gross'];
+					$signup->save();
+				}
+			}
+		}
+
+		//flow
 		$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id));
 		if($signup){
 			//user has signed up
@@ -273,6 +295,90 @@ class EventController extends GxController
 			$this->redirect(Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>1)));
 		}
 
+	}
+
+	private function validatePayment($id){
+
+		$user = UserEdit::Model()->findByAttributes(array('id' => Yii::app()->user->id));
+		$event = Event::Model()->findByAttributes(array('id' => $id));
+		$event_extended = Event::Model()->findByAttributes(array('event_id' => $id));
+
+		// read the post from PayPal system and add 'cmd'
+	  $req = 'cmd=_notify-synch';
+	 
+	  $tx_token = $_GET['tx'];
+	  $auth_token = "<your identity token>";
+	  $req .= "&tx=$tx_token&at=$auth_token";
+	 
+	  // post back to PayPal system to validate
+	  $header = "POST /cgi-bin/webscr HTTP/1.0\r\n";
+	  $header .= "Host: http://www.sandbox.paypal.com\r\n";
+	  //$header .= "Host: http://www.paypal.com\r\n";
+	  $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
+	  $header .= "Content-Length: " . strlen($req) . "\r\n\r\n";
+	 
+	  // url for paypal sandbox
+	  $fp = fsockopen ('ssl://www.sandbox.paypal.com', 443, $errno, $errstr, 30);   
+	 
+	  // url for payal
+	  // $fp = fsockopen ('www.paypal.com', 80, $errno, $errstr, 30);
+	  // If possible, securely post back to paypal using HTTPS
+	  // Your PHP server will need to be SSL enabled
+	  // $fp = fsockopen ('ssl://www.paypal.com', 443, $errno, $errstr, 30);
+	 
+	  if (!$fp) {
+	    // HTTP ERROR
+	  } else {
+	    fputs ($fp, $header . $req);
+	    // read the body data
+	    $res = '';
+	    $headerdone = false;
+	    while (!feof($fp)) {
+	      $line = fgets ($fp, 1024);
+	      if (strcmp($line, "\r\n") == 0) {
+	        // read the header
+	        $headerdone = true;
+	      }
+	      else if ($headerdone) {
+	        // header has been read. now read the contents
+	        $res .= $line;
+	      }
+	    }
+	 
+	    // parse the data
+	    $lines = explode("\n", $res);
+	    $keyarray = array();
+	    if (strcmp ($lines[0], "SUCCESS") == 0) {
+	      for ($i=1; $i<count($lines);$i++){
+	        list($key,$val) = explode("=", $lines[$i]);
+	        $keyarray[urldecode($key)] = urldecode($val);
+	      }
+	      // check the payment_status is Completed
+	      // check that txn_id has not been previously processed
+	      // check that receiver_email is your Primary PayPal email
+	      // check that payment_amount/payment_currency are correct
+	      // process payment
+	 	
+	      return($keyarray);
+	    }
+	    else if (strcmp ($lines[0], "FAIL") == 0) {
+	      // log for manual investigation
+
+			// nam sporočilo o failu
+			$message = new YiiMailMessage;
+			$message->view = 'system';
+			$message->subject = "Event payment went wrong";
+			$message->setBody(array("content"=>'Uporabnik '.$user->name." ".$user->surname.' je poskusil plačati prijavnino na dogodek (ID = '.$id.')<br />'.$res;
+			), 'text/html');
+			                        
+			$message->setTo("team@cofinder.eu");
+			$message->from = Yii::app()->params['noreplyEmail'];
+			Yii::app()->mail->send($message);
+
+	    	return false;
+	    }
+	  }
+	  fclose ($fp);
 	}
 
 	private function afterRegistrationEmail($id){
