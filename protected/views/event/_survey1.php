@@ -12,6 +12,7 @@
     <label for="p2">
     <?php echo CHtml::radioButton('Survey[follow_lean_principles]',(isset($_POST['Survey']['follow_lean_principles']) && ($_POST['Survey']['follow_lean_principles'] == '0')),array("value"=>"0","id"=>"p2"))." ".Yii::t('app','No'); ?>
     </label>
+    <br/>
 
     <?php echo CHtml::label("b) have you defined your market", false); ?>      
     <label for="p3">
@@ -20,6 +21,7 @@
     <label for="p4">
     <?php echo CHtml::radioButton('Survey[defined_market]',(isset($_POST['Survey']['defined_market']) && ($_POST['Survey']['defined_market'] == '0')),array("value"=>"0","id"=>"p4"))." ".Yii::t('app','No'); ?>
     </label>
+    <br/>
 
     <?php echo CHtml::label("c) have you already segmented your customers", false); ?>
     <label for="p5">
@@ -28,6 +30,7 @@
     <label for="p6">
     <?php echo CHtml::radioButton('Survey[segmented_customers]',(isset($_POST['Survey']['segmented_customers']) && ($_POST['Survey']['segmented_customers'] == '0')),array("value"=>"0","id"=>"p6"))." ".Yii::t('app','No'); ?>
     </label>
+    <br/>
 
     <?php echo CHtml::label("d) have you done any customer interviews yet", false); ?>
     <label for="p7">
