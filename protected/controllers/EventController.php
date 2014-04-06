@@ -275,6 +275,36 @@ class EventController extends GxController
 
 	}
 
+	private function afterRegistrationEmail($id){
+		$user = UserEdit::Model()->findByAttributes(array('id' => Yii::app()->user->id));
+		$event = Event::Model()->findByAttributes(array('id' => $id));
+
+		// nam sporočilo o registraciji z mailom
+		$message = new YiiMailMessage;
+		$message->view = 'system';
+		$message->subject = "Dogodek: " .$event->title. " (".$user->name." ".$user->surname.")";
+		$message->setBody(array("content"=>'Uporabnik '.$user->name." ".$user->surname.' se je pravkar prijavil na dogodek.<br />
+		Njegov email: '.$user->email.'<br />'.
+		'Rad bi: '.$_POST['RegistrationForm']['present'].'<br />'
+		), 'text/html');
+		                        
+		$message->setTo("team@cofinder.eu");
+		$message->from = Yii::app()->params['noreplyEmail'];
+		Yii::app()->mail->send($message);
+
+		// njemu sporočilo o uspešni registraciji in plačilu (opcijsko)
+		$message = new YiiMailMessage;
+		$message->view = 'system';
+		$message->subject = "Dogodek ".$event->title. ": prijava je bila uspešna";
+		$message->setBody(array("content"=>'Pozdravljeni! Uspešno ste se prijavili na dogodek '.$event->title.'<br />
+		Hvala za prijavo, se vidimo na dogodku! Lp, ekipa Cofinder'
+		), 'text/html');
+		                        
+		$message->setTo($user->email);
+		$message->from = Yii::app()->params['noreplyEmail'];
+		Yii::app()->mail->send($message);
+	}
+
 	public function actionSuggestReferrer($term){
 	    
 	    $dataReader = User::model()->findAll("(name LIKE :name OR surname LIKE :name) AND status = 1", array(":name"=>"%".$term."%"));
