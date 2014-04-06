@@ -39,6 +39,10 @@ class EventController extends GxController
 	public function actionSignup($id, $step = 1)
 	{
 
+		if(Yii::app()->user->isGuest){
+			$this->redirect(Yii::app()->createUrl('user/registration',array("event"=>$id)));
+		}
+
 	    switch($step){
             case 1:
                 //1. korak - event questions
