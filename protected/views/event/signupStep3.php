@@ -15,5 +15,4 @@ echo CHtml::label(Yii::t('app',"You've been successfully signed up for the event
 
 <?php if($payment){
   echo "<br/>".CHtml::label(Yii::t('app','Thank you for your payment. Your transaction has been completed, and a receipt for your purchase has been emailed to you. You may log into your account at www.paypal.com to view details of this transaction.'),false);
-  echo "http://bit.ly/1igkQBe";
   } ?>
