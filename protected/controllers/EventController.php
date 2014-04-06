@@ -402,7 +402,7 @@ class EventController extends GxController
 		$message = new YiiMailMessage;
 		$message->view = 'system';
 		$message->subject = "Dogodek ".$event->title. ": prijava je bila uspešna";
-		$message->setBody(array("content"=>'Pozdravljeni! Uspešno ste se prijavili na dogodek '.$event->title.'<br />
+		$message->setBody(array("content"=>'Pozdravljeni! Uspešno ste se prijavili na dogodek '.$event->title.'.<br />
 		Hvala za prijavo, se vidimo na dogodku! Lp, ekipa Cofinder'
 		), 'text/html');
 		                        
