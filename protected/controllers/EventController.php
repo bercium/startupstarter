@@ -68,12 +68,12 @@ class EventController extends GxController
 		    $this->stages = array(
 		        array('title'=>Yii::t('app','Event survey'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>1))),
 		        array('title'=>Yii::t('app','Payment'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>2))),
-		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3))),
+		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3)),'required'=>'true'),
 		    );
 		} else {
 		    $this->stages = array(
 		        array('title'=>Yii::t('app','Event survey'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>1))),
-		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3))),
+		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3)),'required'=>'true'),
 		    );
 		}
 
@@ -177,12 +177,12 @@ class EventController extends GxController
 		    $this->stages = array(
 		        array('title'=>Yii::t('app','Event survey'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>1))),
 		        array('title'=>Yii::t('app','Payment'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>2))),
-		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3))),
+		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3)),'required'=>'true'),
 		    );
 		} else {
 		    $this->stages = array(
 		        array('title'=>Yii::t('app','Event survey'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>1))),
-		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3))),
+		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3)),'required'=>'true'),
 		    );
 		}
 
@@ -259,17 +259,14 @@ class EventController extends GxController
 		    $this->stages = array(
 		        array('title'=>Yii::t('app','Event survey'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>1))),
 		        array('title'=>Yii::t('app','Payment'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>2))),
-		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3))),
+		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3)),'required'=>'true'),
 		    );
 		} else {
 		    $this->stages = array(
 		        array('title'=>Yii::t('app','Event survey'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>1))),
-		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3))),
+		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3)),'required'=>'true'),
 		    );
 		}
-
-		//send confirmation emails
-		$this->afterRegistrationEmail($id);
 
 		//flow
 		$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id));
@@ -295,6 +292,9 @@ class EventController extends GxController
 			}
 
 			//this is either an external event, or the user has paid
+
+			//send confirmation emails
+			$this->afterRegistrationEmail($id);
 
 			//event title
 		    $event = Event::Model()->findByAttributes(array('id' => $id));
@@ -397,7 +397,7 @@ class EventController extends GxController
 		$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id));
 
 		if($signup->idea_id > 0){
-			$text = "predstavil idejo (ID = ".$signup->idea_id.")";
+			$text = "predstavil idejo ".createUrlAbsolute('project',array("id"=>$signup->idea_id));
 		} else {
 			$text = "pridružil se zanimivemu projektu";
 		}
@@ -419,8 +419,8 @@ class EventController extends GxController
 		$message = new YiiMailMessage;
 		$message->view = 'system';
 		$message->subject = "Dogodek ".$event->title. ": prijava je bila uspešna";
-		$message->setBody(array("content"=>'Pozdravljeni! Uspešno ste se prijavili na dogodek '.$event->title.'.<br />
-		Hvala za prijavo, se vidimo na dogodku! Lp, ekipa Cofinder'
+		$message->setBody(array("content"=>'Pozdravljeni!<br /><br />Uspešno ste se prijavili na dogodek '.$event->title.'.<br />
+		Hvala za prijavo, se vidimo na dogodku!<br /><br />Lp, ekipa Cofinder'
 		), 'text/html');
 		                        
 		$message->setTo($user->email);
