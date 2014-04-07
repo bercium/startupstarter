@@ -174,7 +174,7 @@ class MailerCommand extends CConsoleCommand{
       $email = $stat->user->email;
       $message->subject = $stat->user->name." your profile is moments away from approval";
 
-      $content = "We couldn't approve your profile since you haven't provided enough information."
+      $content = "We couldn't approve your profile  just yet since you haven't provided enough information."
               . "Fill your profile and we will revisit your application.".
               mailButton("Do it now", 'http://www.cofinder.eu/profile/registrationFlow?key='.substr($stat->user->activkey,0, 10).'&email='.$stat->user->email,'success',$mailTracking,'fill-up-button');
 
