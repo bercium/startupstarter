@@ -32,7 +32,7 @@ class ProjectController extends GxController {
 			),
 	    array('allow',
 		        'actions'=>array('create','edit','leaveIdea','deleteIdea','addMember','deleteMember','sAddSkill','sDeleteSkill',
-                             'sAddLink','sDeleteLink', 'addLink','deleteLink', 'translate','deleteTranslation','suggestMember'),
+                             'sAddLink','sDeleteLink', 'addLink','deleteLink', 'translate','deleteTranslation','suggestMember','upload'),
 		        'users'=>array("@"),
 		    ),
 			array('allow', 
