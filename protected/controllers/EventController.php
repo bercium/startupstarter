@@ -397,7 +397,7 @@ class EventController extends GxController
 		$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id));
 
 		if($signup->idea_id > 0){
-			$text = "predstavil idejo ".createUrlAbsolute('project',array("id"=>$signup->idea_id));
+			$text = "predstavil idejo ".Yii::app()->createAbsoluteUrl('project',array("id"=>$signup->idea_id));
 		} else {
 			$text = "pridružil se zanimivemu projektu";
 		}
