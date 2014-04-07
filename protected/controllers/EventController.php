@@ -66,14 +66,14 @@ class EventController extends GxController
 		$event = EventCofinder::Model()->findByAttributes(array('event_id' => $id));
 		if($event && ($event->price_idea > 0 || $event->price_person > 0)){
 		    $this->stages = array(
-		        array('title'=>Yii::t('app','Event survey'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>1))),
-		        array('title'=>Yii::t('app','Payment'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>2))),
-		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3)),'required'=>'true'),
+		        array('title'=>Yii::t('app','Event survey'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>1)),'required'=>true),
+		        array('title'=>Yii::t('app','Payment'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>2)),'required'=>true),
+		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3))),
 		    );
 		} else {
 		    $this->stages = array(
-		        array('title'=>Yii::t('app','Event survey'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>1))),
-		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3)),'required'=>'true'),
+		        array('title'=>Yii::t('app','Event survey'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>1)),'required'=>true),
+		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3))),
 		    );
 		}
 
@@ -175,14 +175,14 @@ class EventController extends GxController
 		$event = EventCofinder::Model()->findByAttributes(array('event_id' => $id));
 		if($event && ($event->price_idea > 0 || $event->price_person > 0)){
 		    $this->stages = array(
-		        array('title'=>Yii::t('app','Event survey'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>1))),
-		        array('title'=>Yii::t('app','Payment'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>2))),
-		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3)),'required'=>'true'),
+		        array('title'=>Yii::t('app','Event survey'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>1)),'required'=>true),
+		        array('title'=>Yii::t('app','Payment'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>2)),'required'=>true),
+		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3))),
 		    );
 		} else {
 		    $this->stages = array(
-		        array('title'=>Yii::t('app','Event survey'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>1))),
-		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3)),'required'=>'true'),
+		        array('title'=>Yii::t('app','Event survey'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>1)),'required'=>true),
+		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3))),
 		    );
 		}
 
@@ -200,7 +200,7 @@ class EventController extends GxController
 					if($return_array['payment_gross'] == $event->price_person) $payment_success = true;
 				}
 
-				if($payment_success = true){
+				if($payment_success == true){
 					$signup->payment = $return_array['payment_gross'];
 					$signup->save();
 				}
@@ -257,14 +257,14 @@ class EventController extends GxController
 		$event = EventCofinder::Model()->findByAttributes(array('event_id' => $id));
 		if($event && ($event->price_idea > 0 || $event->price_person > 0)){
 		    $this->stages = array(
-		        array('title'=>Yii::t('app','Event survey'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>1))),
-		        array('title'=>Yii::t('app','Payment'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>2))),
-		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3)),'required'=>'true'),
+		        array('title'=>Yii::t('app','Event survey'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>1)),'required'=>true),
+		        array('title'=>Yii::t('app','Payment'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>2)),'required'=>true),
+		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3))),
 		    );
 		} else {
 		    $this->stages = array(
-		        array('title'=>Yii::t('app','Event survey'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>1))),
-		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3)),'required'=>'true'),
+		        array('title'=>Yii::t('app','Event survey'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>1)),'required'=>true),
+		        array('title'=>Yii::t('app','Finished'),'url'=>Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>3))),
 		    );
 		}
 
@@ -280,13 +280,13 @@ class EventController extends GxController
 					//user has registered a project for the event
 					if($event->price_idea > $signup->payment){
 						//the event is not free and the user hasn't paid yet
-						$this->redirect(Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>2)));
+						//$this->redirect(Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>2)));
 					} else { $payment = true; }
 				} else {
 					//user has registered to meet a team
 					if($event->price_person > $signup->payment){
 						//the event is not free and the user hasn't paid yet
-						$this->redirect(Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>2)));
+						//$this->redirect(Yii::app()->createUrl('event/signup',array("id"=>$id,"step"=>2)));
 					} else { $payment = true; }
 				}
 			}
@@ -317,7 +317,7 @@ class EventController extends GxController
 	  $req = 'cmd=_notify-synch';
 	 
 	  $tx_token = $_GET['tx'];
-	  $auth_token = "<your identity token>";
+	  $auth_token = "lTQqpUHOsXyc-8IMzFwohLvmN8cyUw0cARqnfMB64pxuz91iEIny8WbyHVS";
 	  $req .= "&tx=$tx_token&at=$auth_token";
 	 
 	  // post back to PayPal system to validate
