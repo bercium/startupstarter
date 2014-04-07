@@ -85,7 +85,181 @@ class ProfileController extends GxController {
 
 		echo $return; // it's array
 	}
+  
+  
+  
+  private function saveSettings($user_id){
 
+
+			$user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
+			if ($user) {
+				$oldImg = $user->avatar_link;
+				$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
+        
+        // VANITY URL
+        $us = UserStat::model()->findByAttributes(array("user_id"=>$user_id));
+        // set only if has invited at least 3 other people
+        $allowVanityURL = ($us && (/*($user->vanityURL != '') || */($us->invites_send > 2)));
+
+        
+        //user skills
+        if (isset($_POST['hidden-skill'])) CSkills::saveSkills($_POST['hidden-skill'],$match->id);
+
+        // user model
+				if (isset($_POST['UserEdit'])) {
+         
+          //VANITY URL
+          if (isset($_POST['UserEdit']['vanityURL'])){
+            if (!$allowVanityURL) $_POST['UserEdit']['vanityURL'] = $user->vanityURL;
+            else{
+              if ($_POST['UserEdit']['vanityURL'] != null){
+                if (strpos($_POST['UserEdit']['vanityURL'],'.') !== false) $user->addError('vanityURL', Yii::t('msg','Dots "." are not allowed in public name.'));
+                // check validity of vanity URL in projects
+                if ($_POST['UserEdit']['vanityURL'] != $user->vanityURL){
+                  $ideaURL = Idea::model()->findByAttributes(array('vanityURL'=>$_POST['UserEdit']['vanityURL']));
+                  if ($ideaURL){
+                    //echo "b";
+                    $user->addError('vanityURL', Yii::t('msg',"This custom URL already exists."));
+                  }
+                }
+              }
+            }
+          }// end vanity url check
+          
+          
+					$user->setAttributes($_POST['UserEdit']);
+					//$user->avatar_link = '';
+
+					if (isset($_POST['UserEdit']['avatar_link'])) {
+						$filename = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . Yii::app()->params['tempFolder'] . $_POST['UserEdit']['avatar_link'];
+
+						// if we need to create avatar image
+						if (is_file($filename)) {
+							$newFilePath = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . Yii::app()->params['avatarFolder'];
+							//$newFilePath = Yii::app()->params['avatarFolder'];
+							if (!is_dir($newFilePath)) {
+								mkdir($newFilePath, 0777, true);
+								//chmod( $newFilePath, 0777 );
+							}
+							$newFileName = str_replace(".", "", microtime(true)) . "." . pathinfo($filename, PATHINFO_EXTENSION);
+
+							if (rename($filename, $newFilePath . $newFileName)) {
+								// make a thumbnail for avatar
+								Yii::import("ext.EPhpThumb.EPhpThumb");
+								$thumb = new EPhpThumb();
+								$thumb->init(); //this is needed
+								$thumb->create($newFilePath . $newFileName)
+												->resize(30, 30)
+												->save($newFilePath . "thumb_30_" . $newFileName);
+								$thumb->create($newFilePath . $newFileName)
+												->resize(60, 60)
+												->save($newFilePath . "thumb_60_" . $newFileName);
+
+								// save avatar link
+								$user->avatar_link = $newFileName;
+
+								// remove old avatar
+								if ($oldImg && ($oldImg != $newFileName)) {
+									@unlink($newFilePath . $oldImg);
+									@unlink($newFilePath . "thumb_30_" . $oldImg);
+									@unlink($newFilePath . "thumb_60_" . $oldImg);
+								}
+							}else
+								$user->avatar_link = '';
+						}
+					}// end post check 
+
+          if (!$user->hasErrors()){
+    				$user->validate();
+  					$match->validate();
+          }
+          
+					if (!$user->hasErrors() && $user->save()) {
+						$_POST['UserMatch']['user_id'] = $user_id;
+            
+            $c = new Completeness();
+            $c->setPercentage($user_id);
+            setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
+					}
+				}
+        
+        // user match save
+        if (isset($_POST['UserMatch'])) {
+          $match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
+          $match_id = $match->id;
+          $match->setAttributes($_POST['UserMatch']);
+          
+          if (!empty($_POST['UserMatch']['city'])){
+            $city = City::model()->findByAttributes(array('name'=>$_POST['UserMatch']['city']));
+            if ($city) $match->city_id = $city->id;
+            else{
+              $city = new City();
+              $city->name = $_POST['UserMatch']['city'];
+              $city->save();
+              $match->city_id = $city->id;
+            }
+          }else if (isset($_POST['UserMatch']['city'])) $match->city_id = null;
+          
+          $c = 0;
+          if (isset($_POST['CollabPref'])){
+            UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
+            $c = count($_POST['CollabPref']);
+            foreach ($_POST['CollabPref'] as $collab => $collab_name){
+              $user_collabpref = new UserCollabpref;
+              $user_collabpref->match_id = $match_id;
+              $user_collabpref->collab_id = $collab;
+              if ($user_collabpref->save()) $c--;
+            }
+          }
+          
+          if (($c == 0) && ($match->save())) {
+            //if (Yii::app()->user->isGuest) 
+            setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
+            //else setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
+            $c = new Completeness();
+            $c->setPercentage($user_id);
+          }else{
+            setFlash('profileMessage', Yii::t('msg',"Unable to save profile details."),'alert');
+          }
+          
+        }
+
+        $link = new UserLink;
+				$filter['user_id'] = $user_id;
+				$sqlbuilder = new SqlBuilder;
+        
+				if (Yii::app()->user->isGuest){
+          
+          
+          $this->stages = array(
+            array('title'=>Yii::t('app','Profile'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>1))),
+            array('title'=>Yii::t('app','Skills & preferences'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>2))),
+            array('title'=>Yii::t('app','About me'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>3))),
+          );
+          
+          $c = new Completeness();
+          $perc = $c->getPercentage($user_id);
+          
+          $this->layout="//layouts/stageflow";
+          $data['user'] = $sqlbuilder->load_array("regflow", $filter);
+          if (isset($_GET['step'])){
+            $this->render('registrationFlow_'.$_GET['step'], array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link,'perc'=>$perc));
+          }else $this->render('registrationFlow_1', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link,'perc'=>$perc));
+        }
+        else {
+          $data['user'] = $sqlbuilder->load_array("user", $filter, "collabpref,link,idea,member,skill,industry");
+          $this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea'], "allowVanityURL"=>$allowVanityURL));
+        }
+
+        //if (Yii::app()->user->isGuest) $this->render('registrationFlow', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link));
+        //else $this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea']));
+			}    
+  }
+  
+  
+  /**
+   * 
+   */
 	public function actionIndex() {
 
 		/*echo 'Links: <br/><br/>
@@ -259,28 +433,8 @@ class ProfileController extends GxController {
 				$filter['user_id'] = $user_id;
 				$sqlbuilder = new SqlBuilder;
         
-				if (Yii::app()->user->isGuest){
-          
-          
-          $this->stages = array(
-            array('title'=>Yii::t('app','Profile'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>1))),
-            array('title'=>Yii::t('app','Skills & preferences'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>2))),
-            array('title'=>Yii::t('app','About me'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>3))),
-          );
-          
-          $c = new Completeness();
-          $perc = $c->getPercentage($user_id);
-          
-          $this->layout="//layouts/stageflow";
-          $data['user'] = $sqlbuilder->load_array("regflow", $filter);
-          if (isset($_GET['step'])){
-            $this->render('registrationFlow_'.$_GET['step'], array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link,'perc'=>$perc));
-          }else $this->render('registrationFlow_1', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link,'perc'=>$perc));
-        }
-        else {
-          $data['user'] = $sqlbuilder->load_array("user", $filter, "collabpref,link,idea,member,skill,industry");
-          $this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea'], "allowVanityURL"=>$allowVanityURL));
-        }
+        $data['user'] = $sqlbuilder->load_array("user", $filter, "collabpref,link,idea,member,skill,industry");
+        $this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea'], "allowVanityURL"=>$allowVanityURL));
 
         //if (Yii::app()->user->isGuest) $this->render('registrationFlow', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link));
         //else $this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea']));
@@ -288,6 +442,10 @@ class ProfileController extends GxController {
 		}
 	}
 
+  
+  /**
+   * 
+   */
 	public function actionProjects() {
 
 		$user_id = Yii::app()->user->id;
@@ -318,6 +476,10 @@ class ProfileController extends GxController {
 		}
 	}
 
+  
+  /**
+   * 
+   */
 	public function actionAccount() {
 
 		//email
@@ -600,6 +762,9 @@ class ProfileController extends GxController {
 		}
 	}
 
+  /**
+   * 
+   */
 	public function actionDeleteSkill() {
 	    if (Yii::app()->user->isGuest && isset($_GET['key']) && isset($_GET['email']) && !empty($_GET['key']) && !empty($_GET['email'])){
 	      	$user_register = User::model()->notsafe()->findByAttributes(array('email'=>$_GET['email']));    
@@ -671,6 +836,9 @@ class ProfileController extends GxController {
 			Yii::app()->end();
 	}	
 	
+  /**
+   * 
+   */
 	public function actionAddLink() {
 
 		$user_id = Yii::app()->user->id;
@@ -751,19 +919,33 @@ class ProfileController extends GxController {
     
     $this->layout="//layouts/card";
     
-    if (!Yii::app()->user->isGuest) $this->redirect(array('profile/'));
+    //if (!Yii::app()->user->isGuest && isset($_get['event'])) $this->redirect(array('event/'));
     
     if (!isset($_GET['key']) || !isset($_GET['email']) || empty($_GET['key']) || empty($_GET['email'])){
-      $this->render('/site/message',array('title'=>Yii::t('app','Registration finished'),"content"=>Yii::t('msg','Thank you for your registration. Please check your email for confirmation code.')));
+      $this->render('/site/message',array('title'=>Yii::t('app','Registration finished'),"content"=>Yii::t('msg','Thank you for your registration.')));
       return;
     }
+    
+    if (Yii::app()->user->isGuest && isset($_GET['key']) && isset($_GET['email']) && !empty($_GET['key']) && !empty($_GET['email'])){
+      $user_register = User::model()->notsafe()->findByAttributes(array('email'=>$_GET['email']));    
+      if ((substr($user_register->activkey, 0, 10) !== $_GET['key']) /*|| ($user_register->status != 0)*/){
+        $this->render('/site/message',array('title'=>Yii::t('app','Registration finished'),"content"=>Yii::t('msg','Thank you for your registration.')));
+        return;
+      }
+      $user_id = $user_register->id;
+    }else $user_id = Yii::app()->user->id;
+    
+
+	  $user = UserEdit::Model()->findByAttributes(array('id' => $user_id));
+      
+     /* 
 //      $this->redirect(Yii::app()->createUrl("user/login"));
     $user = User::model()->notsafe()->findByAttributes(array('email'=>$_GET['email']));
-    if ((substr($user->activkey, 0, 10) !== $_GET['key']) || 
-        ($user->status != 0)){      
-      $this->render('/site/message',array('title'=>Yii::t('app','Registration finished'),"content"=>Yii::t('msg','Thank you for your registration. Please check your email for confirmation code.')));
+    if ((substr($user->activkey, 0, 10) !== $_GET['key'])
+        /*|| ($user->status != 0)* /){
+      $this->render('/site/message',array('title'=>Yii::t('app','Registration finished'),"content"=>Yii::t('msg','Thank you for your registration.')));
       return;
-    }
+    }*/
     
     if ($user){
     //mark user but not as member yet
@@ -775,8 +957,174 @@ class ProfileController extends GxController {
      $cs = Yii::app()->getClientScript();
      $cs->registerScript("ganalyticsregister","ga('send', 'event', 'registration', 'mark_user',{'dimension1':'".$uid."',})");      
     }
+    
 
-    $this->actionIndex();
+			if ($user) {
+				$oldImg = $user->avatar_link;
+				$match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
+        
+        // VANITY URL
+        $us = UserStat::model()->findByAttributes(array("user_id"=>$user_id));
+        // set only if has invited at least 3 other people
+        $allowVanityURL = ($us && (/*($user->vanityURL != '') || */($us->invites_send > 2)));
+
+        
+        //user skills
+        if (isset($_POST['hidden-skill'])) CSkills::saveSkills($_POST['hidden-skill'],$match->id);
+
+        // user model
+				if (isset($_POST['UserEdit'])) {
+         
+          //VANITY URL
+          if (isset($_POST['UserEdit']['vanityURL'])){
+            if (!$allowVanityURL) $_POST['UserEdit']['vanityURL'] = $user->vanityURL;
+            else{
+              if ($_POST['UserEdit']['vanityURL'] != null){
+                if (strpos($_POST['UserEdit']['vanityURL'],'.') !== false) $user->addError('vanityURL', Yii::t('msg','Dots "." are not allowed in public name.'));
+                // check validity of vanity URL in projects
+                if ($_POST['UserEdit']['vanityURL'] != $user->vanityURL){
+                  $ideaURL = Idea::model()->findByAttributes(array('vanityURL'=>$_POST['UserEdit']['vanityURL']));
+                  if ($ideaURL){
+                    //echo "b";
+                    $user->addError('vanityURL', Yii::t('msg',"This custom URL already exists."));
+                  }
+                }
+              }
+            }
+          }// end vanity url check
+          
+          
+					$user->setAttributes($_POST['UserEdit']);
+					//$user->avatar_link = '';
+
+					if (isset($_POST['UserEdit']['avatar_link'])) {
+						$filename = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . Yii::app()->params['tempFolder'] . $_POST['UserEdit']['avatar_link'];
+
+						// if we need to create avatar image
+						if (is_file($filename)) {
+							$newFilePath = Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . Yii::app()->params['avatarFolder'];
+							//$newFilePath = Yii::app()->params['avatarFolder'];
+							if (!is_dir($newFilePath)) {
+								mkdir($newFilePath, 0777, true);
+								//chmod( $newFilePath, 0777 );
+							}
+							$newFileName = str_replace(".", "", microtime(true)) . "." . pathinfo($filename, PATHINFO_EXTENSION);
+
+							if (rename($filename, $newFilePath . $newFileName)) {
+								// make a thumbnail for avatar
+								Yii::import("ext.EPhpThumb.EPhpThumb");
+								$thumb = new EPhpThumb();
+								$thumb->init(); //this is needed
+								$thumb->create($newFilePath . $newFileName)
+												->resize(30, 30)
+												->save($newFilePath . "thumb_30_" . $newFileName);
+								$thumb->create($newFilePath . $newFileName)
+												->resize(60, 60)
+												->save($newFilePath . "thumb_60_" . $newFileName);
+
+								// save avatar link
+								$user->avatar_link = $newFileName;
+
+								// remove old avatar
+								if ($oldImg && ($oldImg != $newFileName)) {
+									@unlink($newFilePath . $oldImg);
+									@unlink($newFilePath . "thumb_30_" . $oldImg);
+									@unlink($newFilePath . "thumb_60_" . $oldImg);
+								}
+							}else
+								$user->avatar_link = '';
+						}
+					}// end post check 
+
+          if (!$user->hasErrors()){
+    				$user->validate();
+  					$match->validate();
+          }
+          
+					if (!$user->hasErrors() && $user->save()) {
+						$_POST['UserMatch']['user_id'] = $user_id;
+            
+            $c = new Completeness();
+            $c->setPercentage($user_id);
+            setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
+					}
+				}
+        
+        // user match save
+        if (isset($_POST['UserMatch'])) {
+          $match = UserMatch::Model()->findByAttributes(array('user_id' => $user_id));
+          $match_id = $match->id;
+          $match->setAttributes($_POST['UserMatch']);
+          
+          if (!empty($_POST['UserMatch']['city'])){
+            $city = City::model()->findByAttributes(array('name'=>$_POST['UserMatch']['city']));
+            if ($city) $match->city_id = $city->id;
+            else{
+              $city = new City();
+              $city->name = $_POST['UserMatch']['city'];
+              $city->save();
+              $match->city_id = $city->id;
+            }
+          }else if (isset($_POST['UserMatch']['city'])) $match->city_id = null;
+          
+          $c = 0;
+          if (isset($_POST['CollabPref'])){
+            UserCollabpref::Model()->deleteAll("match_id = :match_id", array(':match_id' => $match_id));
+            $c = count($_POST['CollabPref']);
+            foreach ($_POST['CollabPref'] as $collab => $collab_name){
+              $user_collabpref = new UserCollabpref;
+              $user_collabpref->match_id = $match_id;
+              $user_collabpref->collab_id = $collab;
+              if ($user_collabpref->save()) $c--;
+            }
+          }
+          
+          if (($c == 0) && ($match->save())) {
+            //if (Yii::app()->user->isGuest) 
+            setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
+            //else setFlash('profileMessage', Yii::t('msg',"Profile details saved."));
+            $c = new Completeness();
+            $c->setPercentage($user_id);
+          }else{
+            setFlash('profileMessage', Yii::t('msg',"Unable to save profile details."),'alert');
+          }
+          
+        }
+
+        $link = new UserLink;
+				$filter['user_id'] = $user_id;
+				$sqlbuilder = new SqlBuilder;
+        
+        $this->stages = array(
+          array('title'=>Yii::t('app','Profile'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>1))),
+          array('title'=>Yii::t('app','Skills & preferences'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>2))),
+          array('title'=>Yii::t('app','About me'),'url'=>Yii::app()->createUrl('/profile/registrationFlow',array("key"=>$_GET['key'],"email"=>$_GET['email'],"step"=>3))),
+        );
+        
+        $c = new Completeness();
+        $perc = $c->getPercentage($user_id);
+
+        $this->layout="//layouts/stageflow";
+        if($user->status == 0){
+        	$data['user'] = $sqlbuilder->load_array("regflow", $filter);
+        } else {
+        	$data['user'] = $sqlbuilder->load_array("user", $filter);
+        }
+        
+        if (isset($_GET['step'])){
+          // if event registration redirect back to event
+          if (($_GET['step'] == 4) && (isset(Yii::app()->session['event']))){
+            $this->redirect(Yii::app()->createUrl('event/signup',array("id"=>Yii::app()->session['event'],"step"=>2)));
+            Yii::app()->end();
+          }
+            
+          $this->render('registrationFlow_'.$_GET['step'], array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link,'perc'=>$perc));
+        }else $this->render('registrationFlow_1', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link,'perc'=>$perc));
+
+        //if (Yii::app()->user->isGuest) $this->render('registrationFlow', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link));
+        //else $this->render('profile', array('user' => $user, 'match' => $match, 'data' => $data, 'link' => $link, 'ideas'=>$data['user']['idea']));
+			}    
+
   }
   
   
