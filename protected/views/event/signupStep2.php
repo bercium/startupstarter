@@ -13,7 +13,7 @@ $this->pageTitle = Yii::t('app','Payment');
 <h2><?php echo $payment;?>€</h2><br/>
 <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
   <input type="hidden" name="cmd" value="_xclick" />
-  <input type="hidden" name="business" value="blaz.be@gmail.com" />
+  <input type="hidden" name="business" value="tomaz@boundbreaker.org" />
   <input type="hidden" name="undefined_quantity" value="1" />
   <input type="hidden" name="item_name" value="Event - <?php echo $title; ?>" />
   <input type="hidden" name="item_number" value="Event<?php echo $id; ?>" />
@@ -25,7 +25,7 @@ $this->pageTitle = Yii::t('app','Payment');
   <input type="hidden" name="currency_code" value="EUR" />
   <input type="hidden" name="lc" value="EU" />
   <input type="hidden" name="bn" value="PP-BuyNowBF" />
-  <input type="hidden" name="return" value="http://cofinder.eu/event/signup/<?php echo $id; ?>?step=2" />
+  <input type="hidden" name="return" value="http://test.cofinder.eu/event/signup/<?php echo $id; ?>?step=3" />
   <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_buynow_SM.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!" />
   <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
 </form>
