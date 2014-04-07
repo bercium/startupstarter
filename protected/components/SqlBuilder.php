@@ -387,8 +387,14 @@ class SqlBuilder {
 					"AND t.table = 'idea_status' ".
 					"AND t.language_id = {$filter['site_lang']} ".
           
-					"WHERE i.deleted = 0 ".					
-					"ORDER BY im.type_id ASC, i.time_registered DESC";
+					"WHERE i.deleted = 0 ";
+
+					$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+					if($match->id == $filter['match_id'] || Yii::app()->user->isAdmin()){
+						$sql.=" OR i.deleted = 2 ";
+					}
+
+					$sql.="ORDER BY im.type_id ASC, i.time_registered DESC";
 
 		} elseif( $type == 'idea' ){
 			$sql=	"SELECT i.*, ist.name AS status, t.translation AS status_translation FROM ".
@@ -401,8 +407,16 @@ class SqlBuilder {
 					"ON ist.id = t.row_id ".
 					"AND t.table = 'idea_status' ".
 					"AND t.language_id = {$filter['site_lang']} ".
-
 					"WHERE i.id = '{$filter['idea_id']}' ";
+
+					$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+					$ideamember = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $filter['idea_id']));
+
+					if($ideamember || Yii::app()->user->isAdmin()){
+						$sql.=" AND (i.deleted = 2 OR i.deleted = 0)";
+					} else {
+						$sql.=" AND i.deleted = 0";
+					}
 
 		} elseif( $type == 'search' ){
 			$sql =	"SELECT i.*, ist.name AS status, t.translation AS status_translation FROM ".
