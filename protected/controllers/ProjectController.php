@@ -304,6 +304,7 @@ class ProjectController extends GxController {
 
             //translation data
             $translation->setAttributes($_POST['IdeaTranslationStory']);
+            $translation->description_public = 1;
 
             //validate models and save idea
             if ($translation->save() && $idea->save())
@@ -660,7 +661,7 @@ class ProjectController extends GxController {
 	}
 */
 	public function actionDeleteIdea($id) {
-		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
+		$idea = Idea::Model()->findByAttributes( array( 'id' => $id ) );
 		
 		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
 
