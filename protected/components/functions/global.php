@@ -426,9 +426,9 @@ function writeFlashes(){
 }
 
 
-function absoluteURL(){
-  if (YII_TESTING) return 'http://www.cofinder.eu';
-  else return 'http://test.cofinder.eu';
+function absoluteURL($url = ''){
+  if (!YII_TESTING) return 'http://www.cofinder.eu'.$url;
+  else return 'http://test.cofinder.eu'.$url;
   //$host = require(dirname(__FILE__) . '/../config/local-console-request.php');
   
   //echo $host;

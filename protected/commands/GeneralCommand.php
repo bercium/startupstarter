@@ -226,13 +226,13 @@ class GeneralCommand extends CConsoleCommand{
       
       $this->saveEventToDb($event_tmp);
       //remove duplicates
-      $key = $event_tmp['title'].$event_tmp['start'];
+      /*$key = $event_tmp['title'].$event_tmp['start'];
       if (isset($eventKeys[$key])){
         $events[$eventKeys[$key]] = $this->compareEvents($eventKeys[$key], $event_tmp);
       }else{
         $eventKeys[$key] = count($events);
         $events[] = $event_tmp;
-      }
+      }*/
     }
 
     // Query for tile spiritslovenia
@@ -257,13 +257,13 @@ class GeneralCommand extends CConsoleCommand{
       
       $this->saveEventToDb($event_tmp);
       //remove duplicates
-      $key = $event_tmp['title'].$event_tmp['start'];
+      /*$key = $event_tmp['title'].$event_tmp['start'];
       if (isset($eventKeys[$key])){
         $events[$eventKeys[$key]] = $this->compareEvents($eventKeys[$key], $event_tmp);
       }else{
         $eventKeys[$key] = count($events);
         $events[] = $event_tmp;
-      }
+      }*/
     }
     
     $event = array();
@@ -288,13 +288,13 @@ class GeneralCommand extends CConsoleCommand{
 
       $this->saveEventToDb($event_tmp);
       //remove duplicates
-      $key = $event_tmp['title'].$event_tmp['start'];
+      /*$key = $event_tmp['title'].$event_tmp['start'];
       if (isset($eventKeys[$key])){
         $events[$eventKeys[$key]] = $this->compareEvents($eventKeys[$key], $event_tmp);
       }else{
         $eventKeys[$key] = count($events);
         $events[] = $event_tmp;
-      }
+      }*/
     }
     
 
@@ -326,13 +326,13 @@ class GeneralCommand extends CConsoleCommand{
       
       $this->saveEventToDb($event_tmp);
       //remove duplicates
-      $key = $event_tmp['title'].$event_tmp['start'];
+      /*$key = $event_tmp['title'].$event_tmp['start'];
       if (isset($eventKeys[$key])){
         $events[$eventKeys[$key]] = $this->compareEvents($eventKeys[$key], $event_tmp);
       }else{
         $eventKeys[$key] = count($events);
         $events[] = $event_tmp;
-      }
+      }*/
     }
     
     //$events = array();
@@ -363,13 +363,13 @@ class GeneralCommand extends CConsoleCommand{
       
       $this->saveEventToDb($event_tmp);
       //remove duplicates
-      $key = $event_tmp['title'].$event_tmp['start'];
+      /*$key = $event_tmp['title'].$event_tmp['start'];
       if (isset($eventKeys[$key])){
         $events[$eventKeys[$key]] = $this->compareEvents($eventKeys[$key], $event_tmp);
       }else{
         $eventKeys[$key] = count($events);
         $events[] = $event_tmp;
-      }
+      }*/
     }
     
     
@@ -427,14 +427,14 @@ class GeneralCommand extends CConsoleCommand{
       $events[] = $event_tmp;*/
     
     // write events
-    $filename = "calendar.json";
+   /* $filename = "calendar.json";
     $folder = Yii::app()->basePath.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR.Yii::app()->params['tempFolder'];
 
  		if (!is_dir($folder)) {
 			mkdir($folder, 0777, true);
 		}
 
-    file_put_contents($folder.$filename, json_encode($events));
+    file_put_contents($folder.$filename, json_encode($events));*/
     
     return 1;
 	}

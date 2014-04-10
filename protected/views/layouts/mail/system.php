@@ -234,13 +234,13 @@
 																		<a style="color: #333; text-decoration: none;" href="<?php if (!empty($tc)) echo mailLinkTracking($tc,"http://www.cofinder.eu/site/terms#privacy","privacy"); else echo "http://www.cofinder.eu/site/terms#privacy"; ?>">Privacy</a>
 															              <?php if (isset($email) || isset($activkey)){ ?> |
 															              <a style="color: #333; text-decoration: none;" href="<?php
-                                              $link = Yii::app()->request->hostInfo; ?>/site/unbsucribeFromNews?<?php if (isset($email)) echo "email=".$email; else echo "id=".$activkey; ;
+                                              $link = absoluteURL(); ?>/site/unbsucribeFromNews?<?php if (isset($email)) echo "email=".$email; else echo "id=".$activkey; ;
                                               if (!empty($tc)) echo mailLinkTracking($tc,$link,"unsubscribe"); else echo $link; 
                                               ?>">Unsubscribe</a>
 															              <?php } ?>
 																</p>
                                                               <?php if (!empty($tc)){ ?>
-                                                                <img src="<?php echo Yii::app()->request->hostInfo.'/track/mailOpen?tc='.$tc; ?>">
+                                                                <img src="<?php echo absoluteURL().'/track/mailOpen?tc='.$tc; ?>">
                                                               <?php } ?>
                                                         	</center>
                                                             </div>

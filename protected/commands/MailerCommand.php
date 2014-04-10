@@ -110,7 +110,9 @@ class MailerCommand extends CConsoleCommand{
     foreach ($hidden as $stat){
       //set mail tracking
       if ($stat->user->status == 0) continue; // skip non active users
-      if ($stat->user->lastvisit_at < strtotime('-2 month')) continue; // skip users who haven't been on our platform for more than 2 moths
+      if (strtotime($stat->user->lastvisit_at) < strtotime('-2 month')) continue; // skip users who haven't been on our platform for more than 2 moths
+      
+      //echo $stat->user->email." - ".$stat->user->name." your profile is not visible!";
       
       $mailTracking = mailTrackingCode($stat->user->id);
       $ml = new MailLog();
@@ -120,11 +122,11 @@ class MailerCommand extends CConsoleCommand{
       $ml->save();
       
       $email = $stat->user->email;
-      $message->subject = $stat->user->name." your profile is not visible!";
+      $message->subject = $stat->user->name." your Cofinder profile is not visible!";
       
       $content = 'Your profile on Cofinder is not visible due to lack of information you provided. 
                   If you wish to be found we suggest you take a few minutes and '.
-              mailButton("fill it up", 'http://www.cofinder.eu/profile','success',$mailTracking,'fill-up-button');
+              mailButton("fill it up", absoluteURL('/profile'),'success',$mailTracking,'fill-up-button');
       
       $message->setBody(array("content"=>$content,"email"=>$email,"tc"=>$mailTracking), 'text/html');
       $message->setTo($email);
@@ -158,6 +160,7 @@ class MailerCommand extends CConsoleCommand{
           (($create_at >= strtotime('-8 week')) && ($create_at < strtotime('-7 week'))) )
          ) continue;
       
+      //echo $stat->user->email." - ".$stat->user->name." your Cofinder profile is moments away from approval!";
 
       //echo "SEND: ".$stat->user->name." - ".$stat->user->email.": ".$stat->user->create_at." (".$stat->completeness.")<br />\n";
       //echo 'http://www.cofinder.eu/profile/registrationFlow?key='.substr($stat->user->activkey,0, 10).'&email='.$stat->user->email;
@@ -172,11 +175,11 @@ class MailerCommand extends CConsoleCommand{
       $ml->save();
 
       $email = $stat->user->email;
-      $message->subject = $stat->user->name." your profile is moments away from approval";
+      $message->subject = $stat->user->name." your Cofinder profile is moments away from approval";
 
       $content = "We couldn't approve your profile  just yet since you haven't provided enough information."
               . "Fill your profile and we will revisit your application.".
-              mailButton("Do it now", 'http://www.cofinder.eu/profile/registrationFlow?key='.substr($stat->user->activkey,0, 10).'&email='.$stat->user->email,'success',$mailTracking,'fill-up-button');
+              mailButton("Do it now", absoluteURL().'/profile/registrationFlow?key='.substr($stat->user->activkey,0, 10).'&email='.$stat->user->email,'success',$mailTracking,'fill-up-button');
 
       $message->setBody(array("content"=>$content,"email"=>$email,"tc"=>$mailTracking), 'text/html');
       $message->setTo($email);
