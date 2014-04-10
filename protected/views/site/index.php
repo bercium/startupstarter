@@ -22,8 +22,11 @@
 </div>
 <?php } */ ?>
 
+    
+    <?php if (!Yii::app()->user->isGuest){  ?>
 
-<?php /* ?>
+
+<?php //* ?>
 <div class="m-event">
 <?php $imeEventa = 'Sestavi svojo ekipo';?>
 
@@ -31,7 +34,7 @@
 	<div class="row">
 		<div class="columns large-12 mb10">
 			<center>			
-			<a href="http://www.cofinder.eu/events/sestavi-svojo-ekipo"><img class="" src='<?php echo Yii::app()->request->baseUrl; ?>/images/sestavi-svojo-ekipo-cofinder-event.png'></a>
+			<a href="http://www.cofinder.eu/events/internet-of-things" trk="index_event_iot"><img class="" src='<?php echo Yii::app()->request->baseUrl; ?>/images/internet-of-things-cofinder-event.png'></a>
 
 			</center>
 		</div>
@@ -39,8 +42,6 @@
 	</div>
 </div>
 <?php //*/ ?>
-    
-    <?php if (!Yii::app()->user->isGuest){  ?>
 
 <div class="intro mb0 pt0 bb-strong" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
 	<div  class="row">
@@ -155,7 +156,10 @@
   var hideTopBar = true;
 </script>
 
-	<div class="intro pb10 bb-strong pt60" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
+ <?php /* ?>	<div class="intro pb10 bb-strong pt60" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
+ <?php */?>
+
+	<div class="intro intro-logout mb0 bb-strong pt60" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
 		
 		<div class="row">
 					
@@ -228,6 +232,25 @@
     <?php */ ?>
 	</div>
 	</div>
+
+
+
+<?php //* ?>
+<div class="m-event mb40">
+<?php $imeEventa = 'Sestavi svojo ekipo';?>
+
+	
+	<div class="row">
+		<div class="columns large-12 mb10">
+			<center>			
+			<a href="http://www.cofinder.eu/events/internet-of-things" trk="index_event_iot"><img class="" src='<?php echo Yii::app()->request->baseUrl; ?>/images/internet-of-things-cofinder-event.png'></a>
+
+			</center>
+		</div>
+
+	</div>
+</div>
+<?php //*/ ?>
 	<?php } ?>
     
   

@@ -51,6 +51,8 @@
 	//var skillSuggest_url = 'profile/suggestSkill';
 	
   $(function() {
+    
+    if ($('.intro-logout').height() < $("html").height()) $('.intro-logout').height($("html").height()-45);
 		
     if ($('.city').length != 0)
     $( ".city" )
