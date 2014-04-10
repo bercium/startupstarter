@@ -214,7 +214,7 @@ class GeneralCommand extends CConsoleCommand{
     foreach ($result->results as $event){
       //$event_tmp['id'] = $i++;
       $event_tmp['title'] = $event->title;
-      $event_tmp['content'] = str_replace("\n", "<br />", $event->content);
+      if (isset($event->content)) $event_tmp['content'] = str_replace("\n", "<br />", $event->content);
       $event_tmp['location'] = substr($event->location,0,  strpos($event->location, " [ "));
       $event_tmp['link'] = $event->link;
       
@@ -245,7 +245,7 @@ class GeneralCommand extends CConsoleCommand{
     foreach ($result->results as $event){
       //$event_tmp['id'] = $i++;
       $event_tmp['title'] = $event->title;
-      $event_tmp['content'] = str_replace("\n", "<br />", $event->content);
+      if (isset($event->content)) $event_tmp['content'] = str_replace("\n", "<br />", $event->content);
       $event_tmp['location'] = $event->location;
       $event_tmp['link'] = $event->link;
 
@@ -276,7 +276,7 @@ class GeneralCommand extends CConsoleCommand{
     foreach ($result->results as $event){
       //$event_tmp['id'] = $i++;
       $event_tmp['title'] = $event->title;
-      $event_tmp['content'] = str_replace("\n", "<br />", $event->content);  //problem s contentom
+      if (isset($event->content)) $event_tmp['content'] = str_replace("\n", "<br />", $event->content);  //problem s contentom
       $event_tmp['location'] = '';//$event->location; // ni lokacije
       $event_tmp['link'] = $event->link;
 
@@ -308,7 +308,7 @@ class GeneralCommand extends CConsoleCommand{
     foreach ($result->results as $event){
       //$event_tmp['id'] = $i++;
       $event_tmp['title'] = $event->title;
-      $event_tmp['content'] = str_replace("\n", "<br />", $event->content);  //problem s contentom
+      if (isset($event->content)) $event_tmp['content'] = str_replace("\n", "<br />", $event->content);  //problem s contentom
       if (isset($event->link)) $event_tmp['link'] = $event->link;
       else $event_tmp['link'] = '';
       
@@ -345,7 +345,7 @@ class GeneralCommand extends CConsoleCommand{
     foreach ($result->results as $event){
       //$event_tmp['id'] = $i++;
       $event_tmp['title'] = $event->title;
-      $event_tmp['content'] = str_replace("\n", "<br />", $event->content);  //problem s contentom
+      if (isset($event->content)) $event_tmp['content'] = str_replace("\n", "<br />", $event->content);  //problem s contentom
       if (isset($event->link)) $event_tmp['link'] = $event->link;
       else $event_tmp['link'] = '';
       
