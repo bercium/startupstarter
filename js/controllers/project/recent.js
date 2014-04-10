@@ -9,7 +9,7 @@
 			bufferPx:200,
 			prefill:true,
       loading:{
-        img: "../images/ajax-loader.gif",
+        img: fullURL+"/images/ajax-loader.gif",
         msgText: Yii.t('js','Loading...'),
         finishedMsg: Yii.t('js','No more results!'),
         finished:addPageToList
