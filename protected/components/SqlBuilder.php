@@ -194,9 +194,17 @@ class SqlBuilder {
 			        "LEFT JOIN `user_stat` AS us ".
 			        "ON u.id = us.user_id ".
 
-					"WHERE m.user_id > 0 AND u.status = 1 AND us.completeness >= ".PROFILE_COMPLETENESS_MIN." ".
-					"ORDER BY u.create_at DESC ".
+					"WHERE m.user_id > 0 AND u.status = 1 AND us.completeness >= ".PROFILE_COMPLETENESS_MIN." ";
+
+					//set exclude users where query
+					if(isset($filter['exclude'])){
+						$sql.= " AND u.id != " . implode($filter['exclude'], " AND u.id != ")." ";
+					}
+
+			$sql.= 	"ORDER BY u.create_at DESC ".
 					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". $filter['per_page'];
+
+					echo $sql;
 
 		} elseif( $type == 'member' ) {
 			//return members of an idea
@@ -367,8 +375,14 @@ class SqlBuilder {
 					"AND t.table = 'idea_status' ".
 					"AND t.language_id = {$filter['site_lang']} ".
 
-					"WHERE i.deleted = 0 ".
-					"ORDER BY i.time_updated DESC ".
+					"WHERE i.deleted = 0 ";
+
+			//set exclude ideas where query
+			if(isset($filter['exclude'])){
+				$sql.= " AND i.id != " . implode($filter['exclude'], " AND i.id != ")." ";
+			}
+
+			$sql.= 	"ORDER BY i.time_updated DESC ".
 					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". ($filter['per_page']);
 
 		} elseif( $type == 'user' ) {
@@ -741,4 +755,23 @@ class SqlBuilder {
 		
 		return $array;
 	}
+/*
+	public function events($filter){
+
+		$sql=		"SELECT ig.* FROM ".
+					"`idea_gallery` AS ig ".
+					"WHERE ig.idea_id = '{$filter['idea_id']}' ".
+					"ORDER BY ig.cover DESC";
+
+		$connection=Yii::app()->db;
+		$command=$connection->createCommand($sql);
+		$dataReader=$command->query();
+		$array = array();
+
+		while(($row=$dataReader->read())!==false) {
+			$array[] = $row;
+		}
+
+		return $array;
+	}*/
 }
