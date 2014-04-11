@@ -983,14 +983,14 @@ class ProjectController extends GxController {
 		    else $filter['per_page'] = 6;
 
     		$filter['recent'] = 'recent';
-    		$filter['where'] = "AND i.time_updated > ".(time() - 3600 * 24 * 14);
+    		$filter['where'] = "AND i.time_updated > FROM_UNIXTIME(".(time() - 3600 * 24 * 14).")";
     		$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skill,industry");
     		$ideaType = Yii::t('app', "Suggested projects");
     		
 			//if there's not plenty of results...
 			if($search['count'] < 3){
-			 	$filter['where'] = "AND i.time_updated > ".(time() - 3600 * 24 * 31);
-				$search = $sqlbuilder->load_array("search_users", $filter, "translation,member,candidate,skill,industry");
+			 	$filter['where'] = "AND i.time_updated > FROM_UNIXTIME(".(time() - 3600 * 24 * 31).")";
+				$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skill,industry");
 				if($search['count'] < 3){
 		  			$search['results'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skill,industry");
 					$search['count'] = $count = $sqlbuilder->load_array("count_ideas", $filter);

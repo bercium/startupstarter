@@ -166,13 +166,13 @@ class PersonController extends GxController {
 		    else $filter['per_page'] = 9;
 
 		 	$filter['recent'] = 'recent';
-		 	$filter['where'] = "AND u.create_at > ".(time() - 3600 * 24 * 14);
+		 	$filter['where'] = "AND u.create_at > FROM_UNIXTIME(".(time() - 3600 * 24 * 14).")";
 			$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skill,industry");
 			$userType = Yii::t('app', "Suggested users");
 
 			//if there's not plenty of results...
 			if($search['count'] < 3){
-			 	$filter['where'] = "AND u.create_at > ".(time() - 3600 * 24 * 31);
+			 	$filter['where'] = "AND u.create_at > FROM_UNIXTIME(".(time() - 3600 * 24 * 31).")";
 				$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skill,industry");
 				if($search['count'] < 3){
 					$search['results'] = $sqlbuilder->load_array("recent_users", $filter, "num_of_ideas,skill,industry");
