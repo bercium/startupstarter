@@ -204,7 +204,7 @@ class SqlBuilder {
 			$sql.= 	"ORDER BY u.create_at DESC ".
 					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". $filter['per_page'];
 
-					echo $sql;
+					//echo $sql;
 
 		} elseif( $type == 'member' ) {
 			//return members of an idea
