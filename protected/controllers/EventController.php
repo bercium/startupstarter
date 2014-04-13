@@ -88,6 +88,7 @@ class EventController extends GxController
 				$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id));
 				if(!$signup){
 					$signup = new EventSignup;
+          $this->afterRegistrationEmail($id);
 				}
 				$signup->user_id = Yii::app()->user->id;
 				$signup->event_id = $id;
