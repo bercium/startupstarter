@@ -755,13 +755,12 @@ class SqlBuilder {
 		
 		return $array;
 	}
-/*
+
 	public function events($filter){
 
-		$sql=		"SELECT ig.* FROM ".
-					"`idea_gallery` AS ig ".
-					"WHERE ig.idea_id = '{$filter['idea_id']}' ".
-					"ORDER BY ig.cover DESC";
+		$sql=		"SELECT e.title, e.start, e.end, s.idea_id FROM ".
+					"event AS e LEFT JOIN event_signup AS s ON e.id = s.event_id ".
+					"WHERE s.user_id = {$filter['user_id']} AND canceled = 0 ORDER BY e.start ASC";
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
@@ -773,5 +772,5 @@ class SqlBuilder {
 		}
 
 		return $array;
-	}*/
+	}
 }

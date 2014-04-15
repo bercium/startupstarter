@@ -23,7 +23,7 @@ class EventController extends GxController
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'signup' actions
-        		'actions'=>array("signup", "suggestReferrer"),
+        		'actions'=>array("signup", "suggestReferrer", "index"),
 				'users'=>array('*'),
 			),
 			array('allow', // allow admins only
@@ -34,6 +34,33 @@ class EventController extends GxController
 				'users'=>array('*'),
 			),
 		);
+	}
+
+	public function actionIndex($step = 1)
+	{	
+		
+		$this->layout="//layouts/stageflow";
+
+		//list of events user's signed up to
+		$filter['user_id'] = Yii::app()->user->id;
+		$events = new SqlBuilder;
+		$events = $sqlbuilder->events($filter);
+
+		//list of events user's signed up to in stages module
+		if($filter['user_id'] > 0 && count($events) > 0){
+
+			$i = 0;
+			foreach($events AS $event){
+				$i++;
+				$stages_events[]['title'] = $event['title']
+			}
+			
+		    $this->stages = array(
+		        array('title'=>$title,'url'=>Yii::app()->createUrl('event',array("step"=>$id))),
+		    );
+		} else {
+			$this->redirect(Yii::app()->createUrl('site/startupEvents'));
+		}
 	}
 
 	public function actionSignup($id, $step = 1)
@@ -85,7 +112,7 @@ class EventController extends GxController
 			if($_POST['Event']['present'] == 0 || ($_POST['Event']['present'] == 1 && isset($_POST['Event']['project']) && $_POST['Event']['project'] > 0)){
 
 				//prepare to save signup
-				$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id));
+				$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id, 'canceled' => 0));
 				if(!$signup){
 					$signup = new EventSignup;
 				}
@@ -129,7 +156,7 @@ class EventController extends GxController
 	    }
 
 	    //is this edit?
-	    $signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id));
+	    $signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id, 'canceled' => 0));
 	    if($signup && !isset($_POST['Event'])){
 		    if($signup->idea_id == 0){
 		    	$_POST['Event']['present'] = 0;
@@ -188,7 +215,7 @@ class EventController extends GxController
 
 		//paypal integration
 		$event = EventCofinder::Model()->findByAttributes(array('event_id' => $id));
-		$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id));
+		$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id, 'canceled' => 0));
 
 		if(isset($_GET['tx']) && $event && $signup){
 			if($return_array = $this->validatePayment($id)){
@@ -208,7 +235,7 @@ class EventController extends GxController
 		}
 
 		//flow
-		$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id));
+		$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id, 'canceled' => 0));
 		if($signup){
 			//user has signed up
 			$event = EventCofinder::Model()->findByAttributes(array('event_id' => $id));
@@ -269,7 +296,7 @@ class EventController extends GxController
 		}
 
 		//flow
-		$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id));
+		$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id, 'canceled' => 0));
 		if($signup){
 			$payment = false;
 			//user has signed up
@@ -394,7 +421,7 @@ class EventController extends GxController
 	private function afterRegistrationEmail($id){
 		$user = UserEdit::Model()->findByAttributes(array('id' => Yii::app()->user->id));
 		$event = Event::Model()->findByAttributes(array('id' => $id));
-		$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id));
+		$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id, 'canceled' => 0));
 
 		if($signup->idea_id > 0){
 			$text = "predstavil idejo ".Yii::app()->createAbsoluteUrl('project',array("id"=>$signup->idea_id));

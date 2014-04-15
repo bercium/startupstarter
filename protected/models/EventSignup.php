@@ -43,7 +43,7 @@ class EventSignup extends CActiveRecord
 			array('user_id, idea_id, referrer_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, event_id, user_id, time, idea_id, payment, survey, referrer_id', 'safe', 'on'=>'search'),
+			array('id, event_id, user_id, time, idea_id, payment, survey, referrer_id, canceled', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -76,6 +76,7 @@ class EventSignup extends CActiveRecord
 			'payment' => 'Payment',
 			'survey' => 'Survey',
 			'referrer_id' => 'Referrer',
+			'canceled' => 'Canceled',
 		);
 	}
 
@@ -105,6 +106,7 @@ class EventSignup extends CActiveRecord
 		$criteria->compare('payment',$this->payment);
 		$criteria->compare('survey',$this->survey,true);
 		$criteria->compare('referrer_id',$this->referrer_id,true);
+		$criteria->compare('canceled',$this->canceled,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
