@@ -38,22 +38,42 @@ class MailerCommand extends CConsoleCommand{
    */
 	public function actionMonthly(){
     return 0;
-    
     $message = new YiiMailMessage;
-    //$message->view = 'newsletter';
-    $message->setBody('En testni mail', 'text/html');
-    $message->subject = "subject";
+    $message->view = 'system';
+    $message->from = Yii::app()->params['noreplyEmail'];
+    
+    // send newsletter to all in waiting list
+    $invites = Invite::model()->findAll("NOT ISNULL(`key`)");
+    foreach ($invites as $user){
+      
+      $create_at = strtotime($stat->time_invited);
+      if ($create_at < strtotime('-8 week') || $create_at >= strtotime('-1 day')) continue;     
+      if (!
+          (($create_at >= strtotime('-1 week')) || 
+          (($create_at >= strtotime('-4 week')) && ($create_at < strtotime('-3 week'))) || 
+          (($create_at >= strtotime('-8 week')) && ($create_at < strtotime('-7 week'))) )
+         ) continue;      
+      
+      //set mail tracking
+      $mailTracking = mailTrackingCode($user->id);
+      $ml = new MailLog();
+      $ml->tracking_code = mailTrackingCodeDecode($mailTracking);
+      $ml->type = 'invitation-reminder';
+      $ml->user_to_id = $user->id;
+      $ml->save();
 
-    // get all users
-    $criteria = new CDbCriteria();
-    $criteria->condition = 'newsletter=1'; // new
-    $users = User::model()->findAll($criteria);
-    foreach ($users as $user){
-      $message->addBcc($user->email);
+      $message->subject = "Cofinder invitation reminder";
+      
+      $content = "This is just a friendly reminder to activate your account on Cofinder.
+                  </br><br>
+                  Cofinder is a web platform through which you can share your ideas with the like minded entrepreneurs, search for people to join your project or join an interesting project yourself.
+                  <br /><br />If we got your attention you can !";
+      
+      $message->setBody(array("content"=>$content,"email"=>$user->email,"tc"=>$mailTracking), 'text/html');
+      $message->setTo($user->email);
+      Yii::app()->mail->send($message);
     }
-
-    $message->from = Yii::app()->params['adminEmail'];
-    Yii::app()->mail->send($message);
+    return 0;
 	}
   
   
