@@ -86,9 +86,10 @@ class EventController extends GxController
 
 				//prepare to save signup
 				$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id));
+        $new = false;
 				if(!$signup){
 					$signup = new EventSignup;
-          $this->afterRegistrationEmail($id);
+          $new = true;
 				}
 				$signup->user_id = Yii::app()->user->id;
 				$signup->event_id = $id;
@@ -106,6 +107,7 @@ class EventController extends GxController
 
 				//save
 				if($signup->save()){
+          if ($new) $this->afterRegistrationEmail($id);
 					//redirect...
 					$comp = new Completeness();
 			      	$perc = $comp->getPercentage();
@@ -397,7 +399,7 @@ class EventController extends GxController
 		$event = Event::Model()->findByAttributes(array('id' => $id));
 		$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id));
 
-		if($signup->idea_id > 0){
+		if(isset($signup->idea_id) && $signup->idea_id > 0){
 			$text = "predstavil idejo ".Yii::app()->createAbsoluteUrl('project',array("id"=>$signup->idea_id));
 		} else {
 			$text = "pridružil se zanimivemu projektu";
