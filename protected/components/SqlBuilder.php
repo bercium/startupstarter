@@ -773,4 +773,25 @@ class SqlBuilder {
 
 		return $array;
 	}
+
+	public function events_signups($filter){
+		$sql=		"SELECT e.title, e.start, e.end, s.idea_id FROM ".
+					"event AS e LEFT JOIN event_signup AS s ON e.id = s.event_id ".
+					"WHERE e.start > Us.user_id = {$filter['user_id']} AND canceled = 0 ORDER BY e.start ASC";
+
+		$connection=Yii::app()->db;
+		$command=$connection->createCommand($sql);
+		$dataReader=$command->query();
+		$array = array();
+
+		while(($row=$dataReader->read())!==false) {
+			$array[] = $row;
+		}
+
+		return $array;
+	}
+
+	public function events_ideas($filter){
+		
+	}
 }

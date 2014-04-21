@@ -36,7 +36,7 @@ class EventController extends GxController
 		);
 	}
 
-	public function actionIndex($step = 1)
+	public function actionIndex($id)
 	{	
 		
 		$this->layout="//layouts/stageflow";
