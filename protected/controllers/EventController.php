@@ -38,8 +38,6 @@ class EventController extends GxController
 
 	public function actionIndex($id)
 	{	
-		
-		$this->layout="//layouts/stageflow";
 
 		//list of events user's signed up to
 		$filter['user_id'] = Yii::app()->user->id;
@@ -47,17 +45,9 @@ class EventController extends GxController
 		$events = $sqlbuilder->events($filter);
 
 		//list of events user's signed up to in stages module
-		if($filter['user_id'] > 0 && count($events) > 0){
+		if($filter['user_id'] > 0 && count($events[$id]) > 0){
 
-			$i = 0;
-			foreach($events AS $event){
-				$i++;
-				$stages_events[]['title'] = $event['title']
-			}
 			
-		    $this->stages = array(
-		        array('title'=>$title,'url'=>Yii::app()->createUrl('event',array("step"=>$id))),
-		    );
 		} else {
 			$this->redirect(Yii::app()->createUrl('site/startupEvents'));
 		}

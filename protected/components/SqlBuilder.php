@@ -758,9 +758,11 @@ class SqlBuilder {
 
 	public function events($filter){
 
-		$sql=		"SELECT e.title, e.start, e.end, s.idea_id FROM ".
+		$sql=		"SELECT e.id, e.title, e.start, e.end, c.price_person, c.price_idea FROM ".
 					"event AS e LEFT JOIN event_signup AS s ON e.id = s.event_id ".
-					"WHERE s.user_id = {$filter['user_id']} AND canceled = 0 ORDER BY e.start ASC";
+					"LEFT JOIN event_cofinder AS c ON e.id = c.event_id ".
+					"WHERE s.user_id = {$filter['user_id']} AND canceled = 0 ".
+					"AND e.start > ".time()." ORDER BY e.start ASC";
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
@@ -768,16 +770,26 @@ class SqlBuilder {
 		$array = array();
 
 		while(($row=$dataReader->read())!==false) {
+			if($row['price_person'] == NULL) $row['price_person'] = 0;
+			if($row['price_idea'] == NULL) $row['price_idea'] = 0;
+
+			$filter['event_id'] = $row['id'];
+			$filter['price_person'] = $row['price_person'];
+			$filter['price_idea'] = $row['price_idea'];
+
+			$row['people'] = $this->event_people( $filter );
+			$row['ideas'] = $this->event_ideas( $filter );
 			$array[] = $row;
 		}
 
 		return $array;
 	}
 
-	public function events_signups($filter){
-		$sql=		"SELECT e.title, e.start, e.end, s.idea_id FROM ".
-					"event AS e LEFT JOIN event_signup AS s ON e.id = s.event_id ".
-					"WHERE e.start > Us.user_id = {$filter['user_id']} AND canceled = 0 ORDER BY e.start ASC";
+	public function event_people($filter){
+		$sql=		"SELECT s.user_id AS id, s.payment FROM ".
+					"event_signup AS s ".
+					"WHERE s.event_id = {$filter['event_id']} ".
+					"AND idea_id = NULL AND canceled = 0";
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
@@ -785,13 +797,33 @@ class SqlBuilder {
 		$array = array();
 
 		while(($row=$dataReader->read())!==false) {
-			$array[] = $row;
+			//did he pay?
+			if($filter['price_idea'] == $row['payment']){
+				$array[] = $row;
+			}
 		}
 
 		return $array;
 	}
 
 	public function events_ideas($filter){
-		
+		$sql=		"SELECT s.idea_id AS id FROM ".
+					"event_signup AS s ".
+					"WHERE s.event_id = {$filter['event_id']} ".
+					"AND idea_id > 0 AND canceled = 0";
+
+		$connection=Yii::app()->db;
+		$command=$connection->createCommand($sql);
+		$dataReader=$command->query();
+		$array = array();
+
+		while(($row=$dataReader->read())!==false) {
+			//did he pay?
+			if($filter['price_person'] == $row['payment']){
+				$array[] = $row;
+			}
+		}
+
+		return $array;
 	}
 }
