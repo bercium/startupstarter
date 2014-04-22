@@ -98,7 +98,7 @@
        <div class="card-person-footer">
           <div class="left">
             <small class="meta">
-            <?php if ($user['num_of_ideas']) { ?>
+            <?php if (isset($user['num_of_ideas']) && $user['num_of_ideas']) { ?>
               <?php echo Yii::t('app','Working on {n} project|Working on {n} projects',array($user['num_of_ideas'])) ?>
             <?php } ?>
             </small>

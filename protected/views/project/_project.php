@@ -97,7 +97,7 @@
             
             <p class="title" data-section-title style="border-right: none; width:50%  ">
               <a href="#panel2">
-              <?php if (count($idea['candidate']) > 0){ 
+              <?php if (isset($idea['candidate']) && count($idea['candidate']) > 0){ 
                  echo Yii::t('app','{n} open position|{n} open positions',array($cd));
                  } else { echo Yii::t('app','No positions',array($cd));
                }; ?>

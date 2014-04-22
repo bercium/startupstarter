@@ -30,7 +30,6 @@ $this->pageTitle = Yii::t('app','Payment');
   <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
 </form>
 
-
 <br />
 <?php 
   echo "<h3>".Yii::t('msg',"Most shares on Twitter will get you on this event for FREE!")."</h3>"; 

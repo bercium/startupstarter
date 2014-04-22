@@ -284,6 +284,7 @@ return array (
   'You are about to remove this candidate!' => 'S tem dejanjem boste odstranili tega kandidata',
   'You are about to remove this member!' => 'S tem dejanjem boste odstranili tega člana',
   'You are about to remove your invitation!' => 'S tem dejanjem boste odstranili svoje povabilo',
+  'You are about to unsubscribe from this event!' => 'Odjavili se boste od dogodka!',
   'You can change your settings regarding the use of cookies on our website at any time by clicking on this button' => 'Svoje nastavitve glede uporabe piškotkov na naši strani lahko spremenite kadarkoli s klikom na ta gumb',
   'You can invite only users in the system to join projects.' => 'Samo uporabnike, ki so že v sistemu, lahko povabiš, da se pridružijo projektom.',
   'You get invitations after you complete your profile!' => 'Povabila dobite ko izpolnete profil!',

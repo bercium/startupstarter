@@ -30,14 +30,3 @@ ALTER TABLE `event_signup`
   ADD CONSTRAINT `event_signup_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE  `event_signup` CHANGE  `idea_id`  `idea_id` INT( 11 ) UNSIGNED NULL DEFAULT NULL ;
-
-
-ALTER TABLE  `event_signup` ADD FOREIGN KEY (  `referrer_id` ) REFERENCES  `user` (
-`id`
-) ON DELETE CASCADE ON UPDATE CASCADE ;
-
-ALTER TABLE  `event_signup` CHANGE  `referrer_id`  `referrer_id` INT( 11 ) UNSIGNED NULL DEFAULT NULL ;
-
-ALTER TABLE  `event_signup` ADD FOREIGN KEY (  `referrer_id` ) REFERENCES  `user` (
-`id`
-) ON DELETE CASCADE ON UPDATE CASCADE ;

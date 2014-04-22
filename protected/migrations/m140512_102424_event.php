@@ -37,20 +37,6 @@ $this->execute("ALTER TABLE `event_signup`
   ADD CONSTRAINT `event_signup_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;");
 
 $this->execute("ALTER TABLE  `event_signup` CHANGE  `idea_id`  `idea_id` INT( 11 ) UNSIGNED NULL DEFAULT NULL ;");
-
-$this->execute("ALTER TABLE  `event_signup` ADD  `referrer_id` INT( 11 ) UNSIGNED NOT NULL ,
-ADD INDEX (  `referrer_id` ) ;");
-
-$this->execute("ALTER TABLE  `event_signup` ADD FOREIGN KEY (  `referrer_id` ) REFERENCES  `cofinder`.`user` (
-`id`
-) ON DELETE CASCADE ON UPDATE CASCADE ;");
-
-$this->execute("ALTER TABLE  `event_signup` CHANGE  `referrer_id`  `referrer_id` INT( 11 ) UNSIGNED NULL DEFAULT NULL ;");
-
-$this->execute("ALTER TABLE  `event_signup` ADD FOREIGN KEY (  `referrer_id` ) REFERENCES  `cofinder`.`user` (
-`id`
-) ON DELETE CASCADE ON UPDATE CASCADE ;");
-
 	}
 
 	public function down()

@@ -119,12 +119,26 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
                  </a>
 
                 <ul class="dropdown">
+                  <?php 
+                    //list of events user's signed up to
+                    $filter['user_id'] = Yii::app()->user->id;
+                    $events = new SqlBuilder;
+                    $events = $events->events($filter);
+
+                    if($filter['user_id'] > 0 && count($events) > 0){
+                      foreach($events AS $event){
+                        ?>
+                                <li><a href="<?php echo Yii::app()->createUrl("event/view", array('id' => $event['id'])); ?>"><?php echo Yii::t('app','Event') . " " . $event['title']; ?></a></li>
+                        <?php
+                      }
+                    }
+                  ?>
+
                   <li><a href="<?php echo Yii::app()->createUrl("profile"); ?>" trk="navigation_top_editProfile"><?php echo Yii::t('app','Edit profile'); ?><span class="icon-user"></span></a></li>
                   <li><a href="<?php echo Yii::app()->createUrl("profile/projects"); ?>" trk="navigation_top_myProjects"><?php echo Yii::t('app','My projects'); ?><span class="icon-lightbulb"></span></a></li>
                   <li><a href="<?php echo Yii::app()->createUrl("project/create"); ?>" trk="navigation_top_createProject"><?php echo Yii::t('app','Create a new project'); ?><span class="icon-plus"></span></a></li>
                   <li><a href="<?php echo Yii::app()->createUrl("message"); ?>" trk="navigation_top_messageHistory"><?php echo Yii::t('app','Message history'); ?><span class="icon-envelope"></span></a></li>
                   <li><a href="<?php echo Yii::app()->createUrl("profile/account"); ?>" trk="navigation_top_settings"><?php echo Yii::t('app','Settings'); ?><span class="icon-wrench"></span></a></li>
-                  
                   <li><a class="altli" trk="navigation_top_logout" href="<?php echo Yii::app()->createUrl(Yii::app()->getModule('user')->logoutUrl[0]); ?>"><?php echo Yii::t('app','Logout'); ?></a></li>
                 </ul>
 
