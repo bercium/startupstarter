@@ -23,7 +23,7 @@ class EventController extends GxController
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'signup' actions
-        		'actions'=>array("signup", "suggestReferrer", "index"),
+        		'actions'=>array("signup", "suggestReferrer", "view"),
 				'users'=>array('*'),
 			),
 			array('allow', // allow admins only
@@ -36,18 +36,27 @@ class EventController extends GxController
 		);
 	}
 
-	public function actionIndex($id)
+	public function actionView($id)
 	{	
+
+		if(isset($_GET['unsubscribe']) && $_GET['unsubscribe'] == true){
+			if($signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id, 'canceled' => 0))){
+				$signup->canceled = 1;
+				$signup->save();
+			}
+		}
 
 		//list of events user's signed up to
 		$filter['user_id'] = Yii::app()->user->id;
+		if(Yii::app()->user->isAdmin()){
+			$filter['admin_event_id'] = $id;
+		}
 		$events = new SqlBuilder;
-		$events = $sqlbuilder->events($filter);
+		$events = $events->events($filter);
 
 		//list of events user's signed up to in stages module
-		if($filter['user_id'] > 0 && count($events[$id]) > 0){
-
-			
+		if($filter['user_id'] > 0 && isset($events[$id]) && count($events[$id]) > 0){
+			$this->render('index', array('event'=>$events[$id]));
 		} else {
 			$this->redirect(Yii::app()->createUrl('site/startupEvents'));
 		}
