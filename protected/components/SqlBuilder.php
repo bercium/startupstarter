@@ -831,10 +831,22 @@ class SqlBuilder {
 	}
 
 	public function event_ideas($filter){
-		$sql=		"SELECT s.idea_id AS id, s.payment FROM ".
-					"event_signup AS s ".
-					"WHERE s.event_id = {$filter['event_id']} ".
-					"AND s.idea_id > 0 AND s.canceled = 0";
+		if(isset($filter['idea_tag'])){
+			$sql=		"SELECT s.idea_id AS id, s.payment FROM ".
+						"event_signup AS s LEFT JOIN ".
+						"idea_member AS m ON (s.idea_id = m.idea_id) ".
+						"LEFT JOIN user_match AS u ON u.user_id = m.user_id ".
+						"LEFT JOIN user_tag AS t ON t.user_id = m.user_id "
+						"WHERE s.event_id = {$filter['event_id']} ".
+						"AND s.idea_id > 0 AND s.canceled = 0 ".
+						"AND m.type_id = 1 AND t.tag = '{$filter['idea_tag']}'";
+		} else {
+			$sql=		"SELECT s.idea_id AS id, s.payment FROM ".
+			"event_signup AS s ".
+			"WHERE s.event_id = {$filter['event_id']} ".
+			"AND s.idea_id > 0 AND s.canceled = 0";
+		}
+
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);

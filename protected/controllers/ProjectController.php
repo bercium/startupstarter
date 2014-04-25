@@ -924,7 +924,7 @@ class ProjectController extends GxController {
 		$filter = array( 'idea_id' => $id);
 
 		$this->render('embed', array('idea' => $sqlbuilder->load_array("idea", $filter)));
-  }  
+  }
   
 
   public function actionDiscover($id = 1){
@@ -1084,5 +1084,14 @@ class ProjectController extends GxController {
 		Yii::app()->end();
   }
 
+  public function actionReturnIdeaList($event_id, $tag){
+
+	$sqlbuilder = new SqlBuilder;
+	$filter['idea_tag'] = $tag;
+	$filter['event_id'] = $event_id;
+	
+  	echo json_encode($sqlbuilder->event_ideas($filter));
+	Yii::app()->end();
+  }
 
 }

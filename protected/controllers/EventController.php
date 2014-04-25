@@ -67,10 +67,26 @@ class EventController extends GxController
 
 		if(Yii::app()->user->isGuest){
 			$this->redirect(Yii::app()->createUrl('user/registration',array("event"=>$id)));
+		} else {
+			if(isset($_SESSION['event_idea_tag']) && Yii::app()->user->id > 0){
+				//save tag to user_tag, for ideas coming from outside
+				$user_tag = UserTag::Model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'tag' => $_SESSION['event_idea_tag']));
+				if(!$user_tag){
+					$user_tag = new UserTag;
+					$user_tag->user_id = Yii::app()->user->id;
+					$user_tag->tag = $_SESSION['event_idea_tag'];
+
+					//save
+					$user_tag->save();
+				}
+			}
 		}
 
 	    switch($step){
             case 1:
+            	if(isset($_GET['tag'])){
+            		$_SESSION['event_idea_tag'] = $_GET['tag'];
+            	}
                 //1. korak - event questions
                 $this->actionSignupStep1($id);
                 break;
