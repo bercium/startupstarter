@@ -64,10 +64,15 @@ class EventController extends GxController
 
 	public function actionSignup($id, $step = 1)
 	{
+		//lepagesta implementation
+        if(isset($_GET['tag'])){
+    		$_SESSION['event_idea_tag'] = $_GET['tag'];
+    	}
 
 		if(Yii::app()->user->isGuest){
 			$this->redirect(Yii::app()->createUrl('user/registration',array("event"=>$id)));
 		} else {
+			//lepagesta implementation
 			if(isset($_SESSION['event_idea_tag']) && Yii::app()->user->id > 0){
 				//save tag to user_tag, for ideas coming from outside
 				$user_tag = UserTag::Model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'tag' => $_SESSION['event_idea_tag']));
@@ -84,9 +89,6 @@ class EventController extends GxController
 
 	    switch($step){
             case 1:
-            	if(isset($_GET['tag'])){
-            		$_SESSION['event_idea_tag'] = $_GET['tag'];
-            	}
                 //1. korak - event questions
                 $this->actionSignupStep1($id);
                 break;

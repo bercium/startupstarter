@@ -1085,7 +1085,7 @@ class ProjectController extends GxController {
   }
 
   public function actionReturnIdeaList($event_id, $tag){
-
+  	//lepagesta implementation
 	$sqlbuilder = new SqlBuilder;
 	$filter['idea_tag'] = $tag;
 	$filter['event_id'] = $event_id;

@@ -841,6 +841,7 @@ class SqlBuilder {
 
 	public function event_ideas($filter){
 		if(isset($filter['idea_tag'])){
+			//lepagesta implementation
 			$sql=		"SELECT s.idea_id AS id FROM ".
 						"user_tag AS t LEFT JOIN ".
 						"event_signup AS s ON t.user_id = s.user_id ".
