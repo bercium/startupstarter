@@ -31,6 +31,7 @@ $this->pageTitle = Yii::t('app','Payment');
 </form>
 
 <br />
+OPOMBA: Možno je plačati tudi z nakazilom na TRR, vendar pa je v tem primeru zaradi višjih stroškov organizacije cena za posameznika 7 EUR, za ekipo pa 25 EUR. V primeru, da vam plačilo z nakazilom na TRR bolj ustreza, nas prosim kontaktirajte na <a href="mailto:info@cofinder.eu">info@cofinder.eu</a>. Se vidimo kmalu!<br/>
 <?php 
   echo "<h3>".Yii::t('msg',"Most shares on Twitter will get you on this event for FREE!")."</h3>"; 
 ?>

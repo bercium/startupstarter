@@ -1,4 +1,4 @@
-<?php if ($user) $this->renderPartial('//project/_idea', array('idea' => $idea));  ?>
+<?php $this->renderPartial('//project/_project', array('idea' => $idea));  ?>
 
 <?php /* ?>
  

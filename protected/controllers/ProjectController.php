@@ -27,7 +27,7 @@ class ProjectController extends GxController {
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 //        'actions'=>array("view","discover","embed"),
-        'actions'=>array("view","embed","discover"),
+        'actions'=>array("view","embed","discover","returnIdeaList"),
 				'users'=>array('*'),
 			),
 	    array('allow',
@@ -36,7 +36,7 @@ class ProjectController extends GxController {
 		        'users'=>array("@"),
 		    ),
 			array('allow', 
-        'actions'=>array("recent"),  // remove after demo
+        'actions'=>array("recent", "returnIdeaList"),  // remove after demo
 				'users'=>array('@'),
 			),
 			array('allow', // allow admins only
@@ -1090,7 +1090,8 @@ class ProjectController extends GxController {
 	$filter['idea_tag'] = $tag;
 	$filter['event_id'] = $event_id;
 	
-  	echo json_encode($sqlbuilder->event_ideas($filter));
+	$filter['array'] = $sqlbuilder->event_ideas($filter);
+  	echo serialize($sqlbuilder->load_array('array_ideas', $filter, "translation,translation_other,link,member,gallery,candidate,skill,industry,collabpref"));
 	Yii::app()->end();
   }
 

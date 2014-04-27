@@ -432,8 +432,11 @@ class SqlBuilder {
 					"AND t.language_id = {$filter['site_lang']} ".
 					"WHERE i.id = '{$filter['idea_id']}' ";
 
-					$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
-					$ideamember = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $filter['idea_id']));
+					$ideamember = false;
+					if(Yii::app()->user->id){
+						$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+						$ideamember = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $filter['idea_id']));
+					}
 
 					if($ideamember || Yii::app()->user->isAdmin()){
 						$sql.=" AND (i.deleted = 2 OR i.deleted = 0)";
@@ -523,6 +526,12 @@ class SqlBuilder {
 			if(strpos($structure, 'gallery') !== false){
 				$row['gallery'] = $this->gallery( $filter );
 			}
+
+			//cover photo
+			$pathFileName = Yii::app()->params['projectGalleryFolder'].$row['id']."/main.jpg";
+        	if (file_exists($pathFileName)){
+            	$row['photo'] = $pathFileName;
+            }
 
 			//add number of clicks
 			if($filter['action'] == ('user' || 'idea')){
@@ -832,14 +841,12 @@ class SqlBuilder {
 
 	public function event_ideas($filter){
 		if(isset($filter['idea_tag'])){
-			$sql=		"SELECT s.idea_id AS id, s.payment FROM ".
-						"event_signup AS s LEFT JOIN ".
-						"idea_member AS m ON (s.idea_id = m.idea_id) ".
-						"LEFT JOIN user_match AS u ON u.user_id = m.user_id ".
-						"LEFT JOIN user_tag AS t ON t.user_id = m.user_id "
+			$sql=		"SELECT s.idea_id AS id FROM ".
+						"user_tag AS t LEFT JOIN ".
+						"event_signup AS s ON t.user_id = s.user_id ".
 						"WHERE s.event_id = {$filter['event_id']} ".
 						"AND s.idea_id > 0 AND s.canceled = 0 ".
-						"AND m.type_id = 1 AND t.tag = '{$filter['idea_tag']}'";
+						"AND t.tag = '{$filter['idea_tag']}'";
 		} else {
 			$sql=		"SELECT s.idea_id AS id, s.payment FROM ".
 			"event_signup AS s ".
