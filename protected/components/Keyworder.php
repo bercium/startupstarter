@@ -11,7 +11,7 @@ class Keyworder {
 		foreach($array AS $key => &$value){
 			$value = $this->clean($value);
 		}
-		
+
 		return $array;
 	}
 

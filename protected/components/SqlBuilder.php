@@ -74,6 +74,17 @@ class SqlBuilder {
 		        return $this->user("recent", $filter, array(), $structure);
 		        break;
 
+		    //insert array and build results
+		    case "array_ideas":
+		    	$search = $this->idea("search", $filter, $filter['array'], $structure);
+		    	return $search;
+		        break;
+
+		    case "array_users":
+		    	$search = $this->user("search", $filter, $filter['array'], $structure);
+		    	return $search;
+		        break;
+
 		    //search
 		    case "search_ideas":
 		   		$search = new SearchBuilder2;
@@ -203,8 +214,6 @@ class SqlBuilder {
 
 			$sql.= 	"ORDER BY u.create_at DESC ".
 					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". $filter['per_page'];
-
-					//echo $sql;
 
 		} elseif( $type == 'member' ) {
 			//return members of an idea
@@ -423,8 +432,11 @@ class SqlBuilder {
 					"AND t.language_id = {$filter['site_lang']} ".
 					"WHERE i.id = '{$filter['idea_id']}' ";
 
-					$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
-					$ideamember = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $filter['idea_id']));
+					$ideamember = false;
+					if(Yii::app()->user->id){
+						$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
+						$ideamember = IdeaMember::Model()->findByAttributes(array('match_id' => $match->id, 'idea_id' => $filter['idea_id']));
+					}
 
 					if($ideamember || Yii::app()->user->isAdmin()){
 						$sql.=" AND (i.deleted = 2 OR i.deleted = 0)";
@@ -514,6 +526,12 @@ class SqlBuilder {
 			if(strpos($structure, 'gallery') !== false){
 				$row['gallery'] = $this->gallery( $filter );
 			}
+
+			//cover photo
+			$pathFileName = Yii::app()->params['projectGalleryFolder'].$row['id']."/main.jpg";
+        	if (file_exists($pathFileName)){
+            	$row['photo'] = $pathFileName;
+            }
 
 			//add number of clicks
 			if($filter['action'] == ('user' || 'idea')){
@@ -755,13 +773,23 @@ class SqlBuilder {
 		
 		return $array;
 	}
-/*
+
 	public function events($filter){
 
-		$sql=		"SELECT ig.* FROM ".
-					"`idea_gallery` AS ig ".
-					"WHERE ig.idea_id = '{$filter['idea_id']}' ".
-					"ORDER BY ig.cover DESC";
+		if(isset($filter['admin_event_id']) && $filter['admin_event_id'] > 0){
+			$sql=		"SELECT e.id, e.title, e.start, e.end, c.price_person, c.price_idea, s.user_id, s.payment, s.idea_id FROM ".
+						"event AS e LEFT JOIN event_signup AS s ON ".
+						"(e.id = s.event_id AND s.canceled = 0 AND s.user_id = {$filter['user_id']}) ".
+						"LEFT JOIN event_cofinder AS c ON e.id = c.event_id ".
+						"WHERE e.id = {$filter['admin_event_id']}";
+		} else {
+			$sql=		"SELECT e.id, e.title, e.start, e.end, c.price_person, c.price_idea, s.user_id, s.payment, s.idea_id FROM ".
+						"event AS e LEFT JOIN event_signup AS s ON e.id = s.event_id ".
+						"LEFT JOIN event_cofinder AS c ON e.id = c.event_id ".
+						"WHERE s.user_id = {$filter['user_id']} AND s.canceled = 0 ".
+						"AND e.start > FROM_UNIXTIME(UNIX_TIMESTAMP()) ORDER BY e.start ASC";
+		}
+
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
@@ -769,9 +797,75 @@ class SqlBuilder {
 		$array = array();
 
 		while(($row=$dataReader->read())!==false) {
-			$array[] = $row;
+			if($row['price_person'] == NULL) $row['price_person'] = 0;
+			if($row['price_idea'] == NULL) $row['price_idea'] = 0;
+
+			$filter['event_id'] = $row['id'];
+			$filter['price_person'] = $row['price_person'];
+			$filter['price_idea'] = $row['price_idea'];
+
+			$filter['array'] = $this->event_ideas( $filter );
+			//print_r($filter['array']);
+			if(count($filter['array']))	$row['ideas'] = $this->load_array("array_ideas", $filter);
+			//if(isset($row['ideas'])) print_r($row['ideas']);
+
+			$filter['array'] = $this->event_people( $filter );
+			//print_r($filter['array']);
+			if(count($filter['array']))	$row['people'] = $this->load_array("array_users", $filter);
+			//if(isset($row['people'])) print_r($row['people']);
+
+			$array[$row['id']] = $row;
 		}
 
 		return $array;
-	}*/
+	}
+
+	public function event_people($filter){
+		$sql=		"SELECT m.id AS id, s.payment FROM ".
+					"event_signup AS s LEFT JOIN user_match AS m ON m.user_id = s.user_id ".
+					"WHERE s.event_id = {$filter['event_id']} ".
+					"AND s.idea_id IS NULL AND s.canceled = 0";
+
+		$connection=Yii::app()->db;
+		$command=$connection->createCommand($sql);
+		$dataReader=$command->query();
+		$array = array();
+
+		while(($row=$dataReader->read())!==false) {
+			//did he pay?
+				$array[] = $row;
+		}
+
+		return $array;
+	}
+
+	public function event_ideas($filter){
+		if(isset($filter['idea_tag'])){
+			//lepagesta implementation
+			$sql=		"SELECT s.idea_id AS id FROM ".
+						"user_tag AS t LEFT JOIN ".
+						"event_signup AS s ON t.user_id = s.user_id ".
+						"WHERE s.event_id = {$filter['event_id']} ".
+						"AND s.idea_id > 0 AND s.canceled = 0 ".
+						"AND t.tag = '{$filter['idea_tag']}'";
+		} else {
+			$sql=		"SELECT s.idea_id AS id, s.payment FROM ".
+			"event_signup AS s ".
+			"WHERE s.event_id = {$filter['event_id']} ".
+			"AND s.idea_id > 0 AND s.canceled = 0";
+		}
+
+
+		$connection=Yii::app()->db;
+		$command=$connection->createCommand($sql);
+		$dataReader=$command->query();
+		$array = array();
+
+		while(($row=$dataReader->read())!==false) {
+			//did he pay?
+				$array[] = $row;
+		}
+
+		return $array;
+	}
 }

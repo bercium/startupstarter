@@ -27,7 +27,7 @@ class ProjectController extends GxController {
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 //        'actions'=>array("view","discover","embed"),
-        'actions'=>array("view","embed","discover"),
+        'actions'=>array("view","embed","discover","returnIdeaList"),
 				'users'=>array('*'),
 			),
 	    array('allow',
@@ -36,7 +36,7 @@ class ProjectController extends GxController {
 		        'users'=>array("@"),
 		    ),
 			array('allow', 
-        'actions'=>array("recent"),  // remove after demo
+        'actions'=>array("recent", "returnIdeaList"),  // remove after demo
 				'users'=>array('@'),
 			),
 			array('allow', // allow admins only
@@ -924,7 +924,7 @@ class ProjectController extends GxController {
 		$filter = array( 'idea_id' => $id);
 
 		$this->render('embed', array('idea' => $sqlbuilder->load_array("idea", $filter)));
-  }  
+  }
   
 
   public function actionDiscover($id = 1){
@@ -1084,5 +1084,15 @@ class ProjectController extends GxController {
 		Yii::app()->end();
   }
 
+  public function actionReturnIdeaList($event_id, $tag){
+  	//lepagesta implementation
+	$sqlbuilder = new SqlBuilder;
+	$filter['idea_tag'] = $tag;
+	$filter['event_id'] = $event_id;
+	
+	$filter['array'] = $sqlbuilder->event_ideas($filter);
+  	echo serialize($sqlbuilder->load_array('array_ideas', $filter, "translation,translation_other,link,member,gallery,candidate,skill,industry,collabpref"));
+	Yii::app()->end();
+  }
 
 }
