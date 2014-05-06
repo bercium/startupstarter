@@ -235,7 +235,7 @@ class EventController extends GxController
 		//paypal integration
 		$event = EventCofinder::Model()->findByAttributes(array('event_id' => $id));
 		$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id, 'canceled' => 0));
-
+    $new = false;
 		if(isset($_GET['tx']) && $event && $signup){
 			if($return_array = $this->validatePayment($id)){
 				$payment_success = false;
