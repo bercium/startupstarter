@@ -454,10 +454,15 @@ class SqlBuilder {
 					"LEFT JOIN `translation` AS t ".
 					"ON ist.id = t.row_id ".
 					"AND t.table = 'idea_status' ".
-					"AND t.language_id = {$filter['site_lang']} ".
+					"AND t.language_id = {$filter['site_lang']} ";
 
-					"WHERE i.deleted = 0 ".
-					"AND ist.id = i.status_id ".
+			if(Yii::app()->user->isAdmin()){
+				$sql.="WHERE (i.deleted = 2 OR i.deleted = 0) ";
+			} else {
+				$sql.="WHERE i.deleted = 0 ";
+			}
+
+			$sql.=	"AND ist.id = i.status_id ".
 					"AND ( ";
 
 			$keys = array();
@@ -811,7 +816,7 @@ class SqlBuilder {
 
 			$filter['array'] = $this->event_people( $filter );
 			//print_r($filter['array']);
-			if(count($filter['array']))	$row['people'] = $this->load_array("array_users", $filter);
+			if(count($filter['array']))	$row['people'] = $this->load_array("array_users", $filter, "collabpref,link,skill,industry,num_of_ideas,");
 			//if(isset($row['people'])) print_r($row['people']);
 
 			$array[$row['id']] = $row;
