@@ -169,7 +169,7 @@ class SiteController extends Controller
 
 	public function actionAbout()
 	{
-    $this->layout="//layouts/none";
+    	$this->layout="//layouts/none";
 		$sqlbuilder = new SqlBuilder;
 		$filter = array( 'idea_id' => 1); // our idea ID
 		$filter['lang'] = Yii::app()->language;

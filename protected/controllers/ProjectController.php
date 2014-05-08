@@ -27,7 +27,7 @@ class ProjectController extends GxController {
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 //        'actions'=>array("view","discover","embed"),
-        'actions'=>array("view","embed","discover"),
+        'actions'=>array("view","embed","discover","returnIdeaList"),
 				'users'=>array('*'),
 			),
 	    array('allow',
@@ -36,7 +36,7 @@ class ProjectController extends GxController {
 		        'users'=>array("@"),
 		    ),
 			array('allow', 
-        'actions'=>array("recent"),  // remove after demo
+        'actions'=>array("recent", "returnIdeaList"),  // remove after demo
 				'users'=>array('@'),
 			),
 			array('allow', // allow admins only
@@ -304,6 +304,7 @@ class ProjectController extends GxController {
 
             //translation data
             $translation->setAttributes($_POST['IdeaTranslationStory']);
+            $translation->description_public = 1;
 
             //validate models and save idea
             if ($translation->save() && $idea->save())
@@ -660,7 +661,7 @@ class ProjectController extends GxController {
 	}
 */
 	public function actionDeleteIdea($id) {
-		$idea = Idea::Model()->findByAttributes( array( 'id' => $id, 'deleted' => 0 ) );
+		$idea = Idea::Model()->findByAttributes( array( 'id' => $id ) );
 		
 		$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
 
@@ -923,7 +924,7 @@ class ProjectController extends GxController {
 		$filter = array( 'idea_id' => $id);
 
 		$this->render('embed', array('idea' => $sqlbuilder->load_array("idea", $filter)));
-  }  
+  }
   
 
   public function actionDiscover($id = 1){
@@ -982,14 +983,14 @@ class ProjectController extends GxController {
 		    else $filter['per_page'] = 6;
 
     		$filter['recent'] = 'recent';
-    		$filter['where'] = "AND i.time_updated > ".(time() - 3600 * 24 * 14);
+    		$filter['where'] = "AND i.time_updated > FROM_UNIXTIME(".(time() - 3600 * 24 * 14).")";
     		$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skill,industry");
     		$ideaType = Yii::t('app', "Suggested projects");
     		
 			//if there's not plenty of results...
 			if($search['count'] < 3){
-			 	$filter['where'] = "AND i.time_updated > ".(time() - 3600 * 24 * 31);
-				$search = $sqlbuilder->load_array("search_users", $filter, "translation,member,candidate,skill,industry");
+			 	$filter['where'] = "AND i.time_updated > FROM_UNIXTIME(".(time() - 3600 * 24 * 31).")";
+				$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skill,industry");
 				if($search['count'] < 3){
 		  			$search['results'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skill,industry");
 					$search['count'] = $count = $sqlbuilder->load_array("count_ideas", $filter);
@@ -1083,5 +1084,15 @@ class ProjectController extends GxController {
 		Yii::app()->end();
   }
 
+  public function actionReturnIdeaList($event_id, $tag){
+  	//lepagesta implementation
+	$sqlbuilder = new SqlBuilder;
+	$filter['idea_tag'] = $tag;
+	$filter['event_id'] = $event_id;
+	
+	$filter['array'] = $sqlbuilder->event_ideas($filter);
+  	echo serialize($sqlbuilder->load_array('array_ideas', $filter, "translation,translation_other,link,member,gallery,candidate,skill,industry,collabpref"));
+	Yii::app()->end();
+  }
 
 }

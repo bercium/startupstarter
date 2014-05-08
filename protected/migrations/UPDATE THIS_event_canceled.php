@@ -1,0 +1,1 @@
+ALTER TABLE  `event_signup` ADD  `canceled` TINYINT UNSIGNED NULL DEFAULT  '0';

@@ -40,10 +40,10 @@ class EventSignup extends CActiveRecord
 			array('event_id, user_id', 'required'),
 			array('payment', 'numerical', 'integerOnly'=>true),
 			array('event_id', 'length', 'max'=>10),
-			array('user_id, idea_id, referrer_id', 'length', 'max'=>11),
+			array('user_id, idea_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, event_id, user_id, time, idea_id, payment, survey, referrer_id', 'safe', 'on'=>'search'),
+			array('id, event_id, user_id, time, idea_id, payment, survey, canceled', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,7 +55,6 @@ class EventSignup extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'referrer' => array(self::BELONGS_TO, 'User', 'referrer_id'),
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 			'idea' => array(self::BELONGS_TO, 'Idea', 'idea_id'),
@@ -75,7 +74,7 @@ class EventSignup extends CActiveRecord
 			'idea_id' => 'Idea',
 			'payment' => 'Payment',
 			'survey' => 'Survey',
-			'referrer_id' => 'Referrer',
+			'canceled' => 'Canceled',
 		);
 	}
 
@@ -104,7 +103,7 @@ class EventSignup extends CActiveRecord
 		$criteria->compare('idea_id',$this->idea_id,true);
 		$criteria->compare('payment',$this->payment);
 		$criteria->compare('survey',$this->survey,true);
-		$criteria->compare('referrer_id',$this->referrer_id,true);
+		$criteria->compare('canceled',$this->canceled,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

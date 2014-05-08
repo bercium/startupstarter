@@ -8,10 +8,20 @@ class FilterFromProfile {
 		$user_id = array( 'user_id' => $user_id);
     
 		if($type == 'userByProject'){
-			$data = $sqlbuilder->load_array("user", $user_id, "idea,candidate,collabpref,skill,industry");
+			$data = $sqlbuilder->load_array("user", $user_id, "idea,member,candidate,collabpref,skill,industry");
 
 			//don't show me
-			$filter['exclude'][] = $user_id['user_id'];
+			$filter['exclude'][$user_id['user_id']] = $user_id['user_id'];
+			//don't show people from my projects
+			if(isset($data['idea']) && count($data['idea'] > 0)){
+			foreach($data['idea'] AS $key => $idea){
+				if(isset($idea['member']) && count($idea['member']) > 0){
+				foreach($idea['member'] AS $key1 => $member){
+					$filter['exclude'][$member['id']] = $member['id'];
+				}
+				}
+			}
+			}
 
 			//search user's ideas and generate candidate profile
 			if(isset($data['idea']) && count($data['idea'] > 0)){

@@ -37,9 +37,9 @@ class StatisticController extends Controller
 				'actions'=>array('index','userCommunication', 'database'),
 				'users'=>Yii::app()->getModule('user')->getAdmins(),
 			),
-			/*array('deny',  // deny all users
+			array('deny',  // deny all users
 				'users'=>array('*'),
-			),*/
+			),
 		);
 	}
   

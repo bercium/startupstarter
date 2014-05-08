@@ -98,7 +98,8 @@ $cs = Yii::app()->getClientScript();
                     <div class="avatar-loading"><span class="qq-upload-spinner"></span></div>
                     <img class="avatar" src="' . idea_image($ideagallery, $idea_id, false) . '" >
                 <div class=" button disabled secondary radius small avatar-change">' . Yii::t('app', 'Add cover image') . ' <span class="icon-upload"></div>
-                </div>' .
+                  
+                </div><div class="mt10 description">'.Yii::t('app','Size of a cover photo is 305x120 pixels').'</div>'.
                   '<div class="qq-upload-list" style="display:none"></div>' .
                   '</div>',
               'sizeLimit' => 4 * 1024 * 1024, // maximum file size in bytes
