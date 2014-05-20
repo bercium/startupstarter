@@ -51,7 +51,16 @@ class BackendMapController extends Controller
 	}
   
 	public function actionIndex(){
-		$sql = "SELECT co.name AS country, ci.name AS city, COUNT(m.id) AS count ".
+		//cross check location & country + city for missing items
+		$sql = "SELECT co.name AS country, ci.name AS city, COUNT(m.id) AS count, ".
+		"FROM `user_match` AS m LEFT JOIN `country` AS co ON co.id = m.country_id ".
+		"LEFT JOIN `city` AS ci ON ci.id = m.city_id ".
+		"WHERE m.user_id > 0 AND (co.name IS NOT NULL OR ci.name IS NOT NULL) GROUP BY co.name, ci.name";
+
+		//run geocoding & save to db
+
+		//load country & city + location
+		$sql = "SELECT co.name AS country, ci.name AS city, COUNT(m.id) AS count, ".
 		"FROM `user_match` AS m LEFT JOIN `country` AS co ON co.id = m.country_id ".
 		"LEFT JOIN `city` AS ci ON ci.id = m.city_id WHERE m.user_id > 0 AND (co.name IS NOT NULL OR ci.name IS NOT NULL) GROUP BY co.name, ci.name";
 

@@ -26,10 +26,12 @@
         var locations = [
         <?php
           foreach($data AS $row){
-            if($row['city']){
-              echo "['{$row['city']}, {$row['country']}', '{$row['count']}'],";
-            } else {
+            if(strlen($row['city']) > 0 && !strlen($row['country'])){
+              echo "['{$row['city']}', '{$row['count']}'],";
+            } elseif(strlen($row['country']) > 0 && !strlen($row['city'])){
               echo "['{$row['country']}', '{$row['count']}'],";
+            } elseif(strlen($row['country']) > 0 && strlen($row['city']) > 0){
+              echo "['{$row['city']}, {$row['country']}', '{$row['count']}'],";
             }
           }
         ?>
