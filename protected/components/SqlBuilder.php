@@ -63,7 +63,7 @@ class SqlBuilder {
 		unset($filter['regflow']);
 
 	//ARE WE ON A SUBDOMAIN? TAG SYSTEM INTEGRATION
-		$GLOBALS['tag'][] = 'lepagesta';
+		//$GLOBALS['tag'][] = 'lepagesta';
 
 		//recent_ - these are directly accessed (just integrate TAG filtering in WHERE)
 		//array_ - these are accessed when exactly ??? - almost never (leave for now)
