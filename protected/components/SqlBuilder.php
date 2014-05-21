@@ -62,6 +62,20 @@ class SqlBuilder {
 	//UNSET VARIABLES
 		unset($filter['regflow']);
 
+	//ARE WE ON A SUBDOMAIN? TAG SYSTEM INTEGRATION
+		//recent_ - these are directly accessed (just integrate TAG filtering in WHERE)
+		//array_ - these are accessed when exactly ??? - almost never (leave for now)
+		//search_ - these are accessed when searching with parameters 
+
+		//IS TAG AN ORGANIZATION?
+			//recent_ - these are directly accessed (just integrate TAG filtering in WHERE)
+				//(array_ - these are accessed when exactly ??? - almost never (leave for now))
+			//search_ - these are accessed when searching with parameters (just integrate TAG filtering in WHERE - searchbuilder)
+		//IS THIS A FREEFLOATING TAG?
+			//recent_ - these are directly accessed (how to exclude those that don't match the tag? - run search by tag terms, and do an include injection here)
+				//(array_ - these are accessed when exactly ??? - almost never (leave for now))
+			//search_ - these are accessed when searching with parameters (change weights where search term matches TAG - searchbuilder)
+
 	//WHICH ACTION IS PERFORMED?
 		switch ($action) {
 
