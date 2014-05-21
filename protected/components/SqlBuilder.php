@@ -63,6 +63,8 @@ class SqlBuilder {
 		unset($filter['regflow']);
 
 	//ARE WE ON A SUBDOMAIN? TAG SYSTEM INTEGRATION
+		$GLOBALS['tag'][] = 'lepagesta';
+
 		//recent_ - these are directly accessed (just integrate TAG filtering in WHERE)
 		//array_ - these are accessed when exactly ??? - almost never (leave for now)
 		//search_ - these are accessed when searching with parameters 
@@ -71,10 +73,6 @@ class SqlBuilder {
 			//recent_ - these are directly accessed (just integrate TAG filtering in WHERE)
 				//(array_ - these are accessed when exactly ??? - almost never (leave for now))
 			//search_ - these are accessed when searching with parameters (just integrate TAG filtering in WHERE - searchbuilder)
-		//IS THIS A FREEFLOATING TAG?
-			//recent_ - these are directly accessed (how to exclude those that don't match the tag? - run search by tag terms, and do an include injection here)
-				//(array_ - these are accessed when exactly ??? - almost never (leave for now))
-			//search_ - these are accessed when searching with parameters (change weights where search term matches TAG - searchbuilder)
 
 	//WHICH ACTION IS PERFORMED?
 		switch ($action) {
@@ -217,14 +215,27 @@ class SqlBuilder {
 					"AND t.language_id = {$filter['site_lang']} ".
                   
 			        "LEFT JOIN `user_stat` AS us ".
-			        "ON u.id = us.user_id ".
+			        "ON u.id = us.user_id ";
 
-					"WHERE m.user_id > 0 AND u.status = 1 AND us.completeness >= ".PROFILE_COMPLETENESS_MIN." ";
+			//active tag filter?
+			if(isset($GLOBALS['tag']) AND is_array($GLOBALS['tag'])){
+			$sql.=	"LEFT JOIN `tag_user` AS utag ".
+			        "ON u.id = utag.user_id ".
+			        "LEFT JOIN `tag` AS tag ".
+			        "ON utag.tag_id = tag.id ";
+			}
 
-					//set exclude users where query
-					if(isset($filter['exclude'])){
-						$sql.= " AND u.id != " . implode($filter['exclude'], " AND u.id != ")." ";
-					}
+			$sql.=	"WHERE m.user_id > 0 AND u.status = 1 AND us.completeness >= ".PROFILE_COMPLETENESS_MIN." ";
+
+			//active tag filter?
+			if(isset($GLOBALS['tag']) AND is_array($GLOBALS['tag'])){
+			$sql.=	" AND (tag.name = '" . implode($GLOBALS['tag'], "' AND tag.name = '")."')  ";
+			}
+
+			//set exclude users where query
+			if(isset($filter['exclude'])){
+			$sql.= 	" AND u.id != " . implode($filter['exclude'], " AND u.id != ")." ";
+			}
 
 			$sql.= 	"ORDER BY u.create_at DESC ".
 					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". $filter['per_page'];
@@ -297,10 +308,24 @@ class SqlBuilder {
 					"LEFT JOIN `translation` AS t ".
 					"ON a.id = t.row_id ".
 					"AND t.table = 'available' ".
-					"AND t.language_id = {$filter['site_lang']} ".
+					"AND t.language_id = {$filter['site_lang']} ";
 
-					"WHERE m.user_id > 0  AND u.status = 1 ".
-					"AND ( ";
+			//active tag filter?
+			if(isset($GLOBALS['tag']) AND is_array($GLOBALS['tag'])){
+			$sql.=	"LEFT JOIN `tag_user` AS utag ".
+			        "ON u.id = utag.user_id ".
+			        "LEFT JOIN `tag` AS tag ".
+			        "ON utag.tag_id = tag.id ";
+			}
+
+			$sql.=	"WHERE m.user_id > 0  AND u.status = 1 ";
+
+			//active tag filter?
+			if(isset($GLOBALS['tag']) AND is_array($GLOBALS['tag'])){
+			$sql.=	" AND (tag.name = '" . implode($GLOBALS['tag'], "' AND tag.name = '")."')  ";
+			}
+
+			$sql.=	"AND ( ";
 
 			$keys = array();
 			$condition = array();
@@ -396,9 +421,22 @@ class SqlBuilder {
 					"LEFT JOIN `translation` AS t ".
 					"ON ist.id = t.row_id ".
 					"AND t.table = 'idea_status' ".
-					"AND t.language_id = {$filter['site_lang']} ".
+					"AND t.language_id = {$filter['site_lang']} ";
 
-					"WHERE i.deleted = 0 ";
+			//active tag filter?
+			if(isset($GLOBALS['tag']) AND is_array($GLOBALS['tag'])){
+			$sql.=	"LEFT JOIN `tag_idea` AS itag ".
+			        "ON i.id = itag.idea_id ".
+			        "LEFT JOIN `tag` AS tag ".
+			        "ON itag.tag_id = tag.id ";
+			}
+
+			$sql.=	"WHERE i.deleted = 0 ";
+
+			//active tag filter?
+			if(isset($GLOBALS['tag']) AND is_array($GLOBALS['tag'])){
+			$sql.=	" AND (tag.name = '" . implode($GLOBALS['tag'], "' AND tag.name = '")."')  ";
+			}
 
 			//set exclude ideas where query
 			if(isset($filter['exclude'])){
@@ -468,11 +506,25 @@ class SqlBuilder {
 					"LEFT JOIN `translation` AS t ".
 					"ON ist.id = t.row_id ".
 					"AND t.table = 'idea_status' ".
-					"AND t.language_id = {$filter['site_lang']} ".
+					"AND t.language_id = {$filter['site_lang']} ";
 
-					"WHERE i.deleted = 0 ".
-					"AND ist.id = i.status_id ".
-					"AND ( ";
+			//active tag filter?
+			if(isset($GLOBALS['tag']) AND is_array($GLOBALS['tag'])){
+			$sql.=	"LEFT JOIN `tag_idea` AS itag ".
+			        "ON i.id = itag.idea_id ".
+			        "LEFT JOIN `tag` AS tag ".
+			        "ON itag.tag_id = tag.id ";
+			}
+
+			$sql.=	"WHERE i.deleted = 0 ".
+					"AND ist.id = i.status_id ";
+
+			//active tag filter?
+			if(isset($GLOBALS['tag']) AND is_array($GLOBALS['tag'])){
+			$sql.=	" AND (tag.name = '" . implode($GLOBALS['tag'], "' AND tag.name = '")."')  ";
+			}
+
+			$sql.=	"AND ( ";
 
 			$keys = array();
 			$condition = array();

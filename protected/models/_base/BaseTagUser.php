@@ -42,10 +42,10 @@ abstract class BaseTagUser extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('tag_id, user_id, added_by, added_time, revoked_by', 'required'),
+			array('tag_id, user_id, added_by, added_time', 'required'),
 			array('tag_id, user_id, added_by, revoked_by', 'length', 'max'=>11),
 			array('revoked_time', 'safe'),
-			array('revoked_time', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('revoked_by, revoked_time', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('id, tag_id, user_id, added_by, added_time, revoked_by, revoked_time', 'safe', 'on'=>'search'),
 		);
 	}
