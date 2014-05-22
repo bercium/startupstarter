@@ -476,7 +476,7 @@ class GeneralCommand extends CConsoleCommand{
    */
   public function actionDailyProjectsPost(){
     
-    $projects = Idea::model()->findAll('time_registered >= DATE_ADD(CURDATE(), INTERVAL -1 DAY);');
+    $projects = Idea::model()->findAll('time_registered >= DATE_ADD(CURDATE(), INTERVAL -1 DAY); AND deleted == 0');
     
     if ($projects){
       $message_ifttt = new YiiMailMessage;

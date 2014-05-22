@@ -36,7 +36,7 @@ class MailerCommand extends CConsoleCommand{
   /**
    * generates monthly reports for users that want them
    */
-	public function actionMonthly(){
+	public function actionSuggestions(){
     return 0;
     $message = new YiiMailMessage;
     $message->view = 'system';
