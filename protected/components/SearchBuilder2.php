@@ -56,6 +56,10 @@ class SearchBuilder2 {
 
 		if($type == 'user'){
 
+			//set include users where query
+			if(isset($filter['include'])){
+				$where.= " AND (u.id = " . implode($filter['include'], " OR u.id = ").") ";
+			}
 			//set exclude users where query
 			if(isset($filter['exclude'])){
 				$where.= " AND u.id != " . implode($filter['exclude'], " AND u.id != ");
@@ -81,6 +85,10 @@ class SearchBuilder2 {
 
 		} elseif( $type == 'idea' ){
 
+			//set include ideas where query
+			if(isset($filter['include'])){
+				$where.= " AND (i.id = " . implode($filter['include'], " OR i.id = ").") ";
+			}
 			//set exclude ideas where query
 			if(isset($filter['exclude'])){
 				$where.= " AND i.id != " . implode($filter['exclude'], " AND i.id != ");
