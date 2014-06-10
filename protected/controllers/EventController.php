@@ -23,8 +23,12 @@ class EventController extends GxController
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'signup' actions
-        		'actions'=>array("signup", "suggestReferrer", "view"),
+        		'actions'=>array("survey"),
 				'users'=>array('*'),
+			),
+			array('allow', // allow authenticated user to perform 'signup' actions
+        		'actions'=>array("signup", "suggestReferrer", "view"),
+				'users'=>array('@'),
 			),
 			array('allow', // allow admins only
         		'actions'=>array("show"),  // remove after demo
@@ -55,13 +59,25 @@ class EventController extends GxController
 		$events = $events->events($filter);
 
 		//list of events user's signed up to in stages module
-		if($filter['user_id'] > 0 && isset($events[$id]) && count($events[$id]) > 0){
+		//if($filter['user_id'] > 0 && isset($events[$id]) && count($events[$id]) > 0){
 			$this->render('index', array('event'=>$events[$id]));
-		} else {
+		/*} else {
 			$this->redirect(Yii::app()->createUrl('site/startupEvents'));
-		}
+		}*/
 	}
 
+  
+	public function actionSurvey($id)
+	{	
+    $code = 'IOT';
+    if (!Yii::app()->user->isGuest){
+      $hashids = new Hashids('cofinder');
+      $code = $hashids->encrypt(Yii::app()->user->id);
+    }
+    
+    if ($id == 111)	$this->redirect("https://docs.google.com/forms/d/1_efwhCPl7pogAkcjhkBENmvStbxxPOC5Djwyn15GN_U/viewform?entry.600929608=".$code."&entry.1465877792&entry.778104975&entry.316917890&entry.318542958&entry.414414609&entry.718833714");
+	}  
+  
 	public function actionSignup($id, $step = 1)
 	{
 		//lepagesta implementation
@@ -132,7 +148,7 @@ class EventController extends GxController
 				$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id, 'canceled' => 0));
 				if(!$signup){
 					$signup = new EventSignup;
-          $this->afterRegistrationEmail($id);
+          $new = true;
 				}
 				$signup->user_id = Yii::app()->user->id;
 				$signup->event_id = $id;
@@ -150,6 +166,7 @@ class EventController extends GxController
 
 				//save
 				if($signup->save()){
+          if ($new) $this->afterRegistrationEmail($id);
 					//redirect...
 					$comp = new Completeness();
 			      	$perc = $comp->getPercentage();
@@ -234,7 +251,7 @@ class EventController extends GxController
 		//paypal integration
 		$event = EventCofinder::Model()->findByAttributes(array('event_id' => $id));
 		$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id, 'canceled' => 0));
-
+    $new = false;
 		if(isset($_GET['tx']) && $event && $signup){
 			if($return_array = $this->validatePayment($id)){
 				$payment_success = false;
@@ -441,7 +458,7 @@ class EventController extends GxController
 		$event = Event::Model()->findByAttributes(array('id' => $id));
 		$signup = EventSignup::Model()->findByAttributes(array('event_id' => $id, 'user_id' => Yii::app()->user->id, 'canceled' => 0));
 
-		if($signup->idea_id > 0){
+		if(isset($signup->idea_id) && $signup->idea_id > 0){
 			$text = "predstavil idejo ".Yii::app()->createAbsoluteUrl('project',array("id"=>$signup->idea_id));
 		} else {
 			$text = "pridružil se zanimivemu projektu";
