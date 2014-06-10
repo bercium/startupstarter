@@ -1,6 +1,6 @@
 <?php
 
-class m140312_231320_calendar_events extends CDbMigration
+class m142014_102014_event_canceled extends CDbMigration
 {
 	public function up()
 	{
