@@ -69,7 +69,7 @@ class Controller extends CController
     //$cs->registerCoreScript($baseUrl.'autocomplete');
             
     //$cs->registerScriptFile($baseUrl.'/js/jquery.parallax-1.1.3.js');
-   
+    $uid_google = "'cofinder.eu'";
     $logedin = "";
     if (!Yii::app()->user->isGuest){
       //include_once("protected/helpers/Hashids.php");
@@ -92,6 +92,7 @@ class Controller extends CController
                     'metric1':'".$perc."',
                     'metric2':'".$personProjects."',
        */
+      $uid_google = "{ 'userId': '".$uid."' }";
       $user->lastvisit_at = date('Y-m-d H:i:s');
       $user->save();
     }
@@ -103,10 +104,12 @@ class Controller extends CController
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-45467622-1', 'cofinder.eu');
+        ga('create', 'UA-45467622-1', ".$uid_google.");
+        ga('require', 'displayfeatures');
+        
         ga('send', 'pageview'".$logedin.");
      ");
-    
+    //ga('require', 'linkid', 'linkid.js');
     $cs->registerScript("scrollDepth","
       $(function() {
         $.scrollDepth();

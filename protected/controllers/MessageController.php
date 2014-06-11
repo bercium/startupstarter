@@ -114,9 +114,10 @@ class MessageController extends Controller
         $receiver = User::model()->findByPk($_POST['user']);
         
         $message_self->subject = "Message send to ".$receiver->name." ".$receiver->surname;
-        $content_self = "You have sent this message trough Cofinder to ".$receiver->name." ".$receiver->surname.
-                   $wrapperStart .$_POST['message'].$wrapperEnd
-                  .mailButton('View his profile', Yii::app()->createAbsoluteUrl('/person/view',array('id'=>$receiver->id))).' <br />';
+        $content_self = "You have sent this message trough Cofinder to ".
+                  mailButton( $receiver->name." ".$receiver->surname, Yii::app()->createAbsoluteUrl('/person/view',array('id'=>$receiver->id)), 'link', $mailTrackingTo,'user-profile-button').
+                  $wrapperStart .$_POST['message'].$wrapperEnd.
+                  mailButton('View his profile', Yii::app()->createAbsoluteUrl('/person/view',array('id'=>$receiver->id))).' <br />';
                    
       }
 

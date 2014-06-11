@@ -34,6 +34,52 @@ class MailerCommand extends CConsoleCommand{
 	}
   
   /**
+   * notify all users that haven't been active for a while
+   */
+  public function actionNoActivity(){
+    $message = new YiiMailMessage;
+    $message->view = 'system';
+    $message->from = Yii::app()->params['noreplyEmail'];    
+    
+    $users = User::model()->findAll("(lastvisit_at + INTERVAL 2 MONTH) < CURDATE()");
+    foreach ($users as $user){
+      $lastvisit_at = strtotime($user->lastvisit_at);
+
+      if ($lastvisit_at < strtotime('-1 year')) continue;     // we give up after a year
+      //if ($lastvisit_at > strtotime('-2 month')) continue;    // don't notify before inactive for 2 months
+ 
+      if (!
+          (($lastvisit_at >= strtotime('-3 month')) || 
+          (($lastvisit_at >= strtotime('-7 month')) && ($lastvisit_at < strtotime('-6 month'))) || 
+          (($lastvisit_at >= strtotime('-12 month')) && ($lastvisit_at < strtotime('-11 month'))) )
+         ) continue;
+      
+//set mail tracking
+      $mailTracking = mailTrackingCode($user->id);
+      $ml = new MailLog();
+      $ml->tracking_code = mailTrackingCodeDecode($mailTracking);
+      $ml->type = 'no-activity-reminder';
+      $ml->user_to_id = $user->id;
+      $ml->save();
+    
+      $message->subject = $user->name." did you forget about us?";
+      
+      //$activation_url = '<a href="'.absoluteURL()."/user/registration?id=".$user->key.'">Register here</a>';
+      //
+      //$activation_url = mailButton("Register here", absoluteURL()."/user/registration?id=".$user->key,'success',$mailTracking,'register-button');
+      $content = "Since your last visit we got some awesome new ".mailButton('projects', absoluteURL().'/project/discover','link', $mailTracking,'projects-button')." and interesting ".
+                  mailButton('people', absoluteURL().'/person/discover','link', $mailTracking,'people-button')." signup at Cofinder.
+                  <br /><br />
+                  Why don't you check them out on ".mailButton('Cofinder', 'http://www.cofinder.eu','success', $mailTracking,'cofinder-button');
+      
+      $message->setBody(array("content"=>$content,"email"=>$user->email,"tc"=>$mailTracking), 'text/html');
+      $message->setTo($user->email);
+      Yii::app()->mail->send($message);
+    }
+  }
+  
+  
+  /**
    * generates monthly reports for users that want them
    */
 	public function actionSuggestions(){
@@ -58,14 +104,14 @@ class MailerCommand extends CConsoleCommand{
       $mailTracking = mailTrackingCode($user->id);
       $ml = new MailLog();
       $ml->tracking_code = mailTrackingCodeDecode($mailTracking);
-      $ml->type = 'invitation-reminder';
+      $ml->type = 'suggestion-created';
       $ml->user_to_id = $user->id;
       $ml->save();
 
-      $message->subject = "Cofinder invitation reminder";
+      $message->subject = "We are happy to see you interested in Cofinder";  // 11.6. title change
       
       $content = "This is just a friendly reminder to activate your account on Cofinder.
-                  </br><br>
+                  <br /><br />
                   Cofinder is a web platform through which you can share your ideas with the like minded entrepreneurs, search for people to join your project or join an interesting project yourself.
                   <br /><br />If we got your attention you can !";
       
@@ -76,19 +122,68 @@ class MailerCommand extends CConsoleCommand{
     return 0;
 	}
   
+  public function actionNotifyUnreadMsg(){
+    $message = new YiiMailMessage;
+    $message->view = 'system';
+    
+    $message->from = Yii::app()->params['noreplyEmail'];
+    
+    // send newsletter to all in waiting list
+    $unreadMails = MailLog::model()->findAll("type LIKE 'user-message' AND ISNULL(time_open)");
+    $unreadMails = Notification::model()->findAll("viewed = 0 AND type = 1");
+    $users = array();
+    foreach ($unreadMails as $mailLog){
+      
+      $create_at = strtotime($mailLog->user->lastvisit_at);
+      if ($create_at < strtotime('-2 month')) continue; // older than 4 months don't notify
+      
+      if (!isset($users[$mailLog->user_id])){
+        $users[$mailLog->user_id]['count'] = 1;
+        $users[$mailLog->user_id]['email'] = $mailLog->user->email;
+        $users[$mailLog->user_id]['name'] = $mailLog->user->name;
+      }else $users[$mailLog->user_id]['count']++;
+    }
+    
+    // notify all that have missing messages
+    foreach ($users as $key => $user){
+      //set mail tracking
+      $mailTracking = mailTrackingCode($key);
+      $ml = new MailLog();
+      $ml->tracking_code = mailTrackingCodeDecode($mailTracking);
+      $ml->type = 'message-reminder';
+      $ml->user_to_id = $key;
+      $ml->save();
+    
+      if ($user['count'] == 1) $message->subject = $user['name']." you have 1 unread message";
+      else $message->subject = $user['name']." you have ".$user['count']." unread messages";
+      
+      //$activation_url = '<a href="'.absoluteURL()."/user/registration?id=".$user->key.'">Register here</a>';
+      $content = "Hi ".$user['name'].", you have some unread messages waiting for you on Cofinder.
+                  <br />
+                  People will take you more seriously if you reply as soon as possible. ".mailButton("Read them now", absoluteURL()."/message",'success',$mailTracking,'message-button');
+      
+      $message->setBody(array("content"=>$content,"email"=>$user['email'],"tc"=>$mailTracking), 'text/html');
+      //$message->setTo($user['email']);
+      $message->setTo('bercium@gmail.com');
+      Yii::app()->mail->send($message);
+      break;
+    }
+    
+    return 0;
+  }
   
   // do this every first wednesday of month
   public function actionNotifyToJoin(){
     $message = new YiiMailMessage;
     $message->view = 'system';
-    $message->subject = "Cofinder invitation reminder";
+    $message->subject = "We are happy to see you soon on Cofinder";  // 11.6. title change
     $message->from = Yii::app()->params['noreplyEmail'];
     
     // send newsletter to all in waiting list
     $invites = Invite::model()->findAll("NOT ISNULL(`key`)");
     foreach ($invites as $user){
       
-      $create_at = strtotime($stat->time_invited);
+      $create_at = strtotime($user->time_invited);
       if ($create_at < strtotime('-8 week') || $create_at >= strtotime('-1 day')) continue;     
       if (!
           (($create_at >= strtotime('-1 week')) || 
@@ -107,7 +202,7 @@ class MailerCommand extends CConsoleCommand{
       //$activation_url = '<a href="'.absoluteURL()."/user/registration?id=".$user->key.'">Register here</a>';
       $activation_url = mailButton("Register here", absoluteURL()."/user/registration?id=".$user->key,'success',$mailTracking,'register-button');
       $content = "This is just a friendly reminder to activate your account on Cofinder.
-                  </br><br>
+                  <br /><br />
                   Cofinder is a web platform through which you can share your ideas with the like minded entrepreneurs, search for people to join your project or join an interesting project yourself.
                   <br /><br />If we got your attention you can ".$activation_url."!";
       
@@ -132,17 +227,18 @@ class MailerCommand extends CConsoleCommand{
       if ($stat->user->status == 0) continue; // skip non active users
       if (strtotime($stat->user->lastvisit_at) < strtotime('-2 month')) continue; // skip users who haven't been on our platform for more than 2 moths
       
-      //echo $stat->user->email." - ".$stat->user->name." your profile is not visible!";
+      //echo $stat->user->email." - ".$stat->user->name." ".$stat->user->surname." ".$stat->user->lastvisit_at." your profile is not visible!";
+      //continue;
       
       $mailTracking = mailTrackingCode($stat->user->id);
       $ml = new MailLog();
       $ml->tracking_code = mailTrackingCodeDecode($mailTracking);
-      $ml->type = 'invitation-reminder';
+      $ml->type = 'hidden-profiles';
       $ml->user_to_id = $stat->user->id;
       $ml->save();
       
       $email = $stat->user->email;
-      $message->subject = $stat->user->name." your Cofinder profile is not visible!";
+      $message->subject = $stat->user->name." your Cofinder profile is hidden!";
       
       $content = 'Your profile on Cofinder is not visible due to lack of information you provided. 
                   If you wish to be found we suggest you take a few minutes and '.
@@ -195,10 +291,10 @@ class MailerCommand extends CConsoleCommand{
       $ml->save();
 
       $email = $stat->user->email;
-      $message->subject = $stat->user->name." your Cofinder profile is moments away from approval";
+      $message->subject = $stat->user->name." your Cofinder account almost approved"; // 11.6. title change
 
-      $content = "We couldn't approve your profile  just yet since you haven't provided enough information."
-              . "Fill your profile and we will revisit your application.".
+      $content = "We couldn't approve your profile just yet since you haven't provided enough information."
+              . "Please fill your profile and we will revisit your application.".
               mailButton("Do it now", absoluteURL().'/profile/registrationFlow?key='.substr($stat->user->activkey,0, 10).'&email='.$stat->user->email,'success',$mailTracking,'fill-up-button');
 
       $message->setBody(array("content"=>$content,"email"=>$email,"tc"=>$mailTracking), 'text/html');
