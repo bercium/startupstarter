@@ -27,7 +27,7 @@ class Controller extends CController
 	public $breadcrumbs=array();
   
   public function init(){
-    $subdomain = current(explode('.', $domain));
+    $subdomain = current(explode('.', $_SERVER["SERVER_NAME"]));
     if ($subdomain != 'www' || $subdomain != 'test') $GLOBALS['tag'] = array($subdomain);
 
     Yii::import('ext.LangPick.ELangPick'); 

@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `db_query` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-ALTER TABLE `idea_translation` CHANGE `description_public` `description_public` TINYINT( 1 ) NOT NULL DEFAULT '1'
+ALTER TABLE `idea_translation` CHANGE `description_public` `description_public` TINYINT( 1 ) NOT NULL DEFAULT '1';
 
 CREATE TABLE IF NOT EXISTS `event_cofinder` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS `event_cofinder` (
   KEY `event_id` (`event_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-ALTER TABLE `event_cofinder`
-  ADD CONSTRAINT `event_cofinder_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+#ALTER TABLE `event_cofinder`
+#  ADD CONSTRAINT `event_cofinder_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE IF NOT EXISTS `event_signup` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -35,24 +35,21 @@ CREATE TABLE IF NOT EXISTS `event_signup` (
 
 ALTER TABLE  `event_signup` ADD  `survey` TEXT NOT NULL ;
 
-ALTER TABLE `event_signup`
-  ADD CONSTRAINT `event_signup_ibfk_3` FOREIGN KEY (`idea_id`) REFERENCES `idea` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `event_signup_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `event_signup_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+#ALTER TABLE `event_signup`
+#  ADD CONSTRAINT `event_signup_ibfk_3` FOREIGN KEY (`idea_id`) REFERENCES `idea` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+#  ADD CONSTRAINT `event_signup_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+#  ADD CONSTRAINT `event_signup_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE  `event_signup` CHANGE  `idea_id`  `idea_id` INT( 11 ) UNSIGNED NULL DEFAULT NULL ;
 
 
-ALTER TABLE  `event_signup` ADD FOREIGN KEY (  `referrer_id` ) REFERENCES  `user` (
-`id`
-) ON DELETE CASCADE ON UPDATE CASCADE ;
+#ALTER TABLE  `event_signup` CHANGE  `referrer_id`  `referrer_id` INT( 11 ) UNSIGNED NULL DEFAULT NULL ;
 
-ALTER TABLE  `event_signup` CHANGE  `referrer_id`  `referrer_id` INT( 11 ) UNSIGNED NULL DEFAULT NULL ;
+#ALTER TABLE  `event_signup` ADD FOREIGN KEY (  `referrer_id` ) REFERENCES  `user` (
+#`id`
+#) ON DELETE CASCADE ON UPDATE CASCADE ;
 
-ALTER TABLE  `event_signup` ADD FOREIGN KEY (  `referrer_id` ) REFERENCES  `user` (
-`id`
-) ON DELETE CASCADE ON UPDATE CASCADE ;
-
+ALTER TABLE  `event_signup` ADD  `canceled` TINYINT UNSIGNED NULL DEFAULT  '0';
 #TAG
 
 CREATE TABLE IF NOT EXISTS `tag` (
