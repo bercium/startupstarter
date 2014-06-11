@@ -98,7 +98,7 @@ class MailerCommand extends CConsoleCommand{
           (($create_at >= strtotime('-1 week')) || 
           (($create_at >= strtotime('-4 week')) && ($create_at < strtotime('-3 week'))) || 
           (($create_at >= strtotime('-8 week')) && ($create_at < strtotime('-7 week'))) )
-         ) continue;      
+         ) continue;
       
       //set mail tracking
       $mailTracking = mailTrackingCode($user->id);
@@ -163,10 +163,10 @@ class MailerCommand extends CConsoleCommand{
                   People will take you more seriously if you reply as soon as possible. ".mailButton("Read them now", absoluteURL()."/message",'success',$mailTracking,'message-button');
       
       $message->setBody(array("content"=>$content,"email"=>$user['email'],"tc"=>$mailTracking), 'text/html');
-      //$message->setTo($user['email']);
-      $message->setTo('bercium@gmail.com');
+      $message->setTo($user['email']);
+      //$message->setTo('bercium@gmail.com');
       Yii::app()->mail->send($message);
-      break;
+      //break;
     }
     
     return 0;
