@@ -139,7 +139,12 @@
        var options = {
          title: "Conversation timeline",
          height: 350,
-         calendar: { cellSize: 10 }
+         calendar: { cellSize: 10 },
+         noDataPattern: {
+           backgroundColor: '#BBBBBB',
+           color: '#BBBBBB'
+         }
+
        };
 
        chart.draw(dataTable, options);
