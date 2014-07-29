@@ -175,6 +175,7 @@ class PersonController extends GxController {
 			 	$filter['where'] = "AND u.create_at > FROM_UNIXTIME(".(time() - 3600 * 24 * 31).")";
 				$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skill,industry");
 				if($search['count'] < 3){
+					unset($filter['where']);
 					$search['results'] = $sqlbuilder->load_array("recent_users", $filter, "num_of_ideas,skill,industry");
 					$search['count'] = $sqlbuilder->load_array("count_users", $filter);
 					$userType = Yii::t('app', "Recent users");

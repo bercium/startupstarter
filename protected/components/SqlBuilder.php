@@ -64,6 +64,8 @@ class SqlBuilder {
 
 	//ARE WE ON A SUBDOMAIN? TAG SYSTEM INTEGRATION
 		//$GLOBALS['tag'][] = 'lepagesta';
+		if(isset($GLOBALS['tag'])){ $GLOBALS['tag'] = array_diff($GLOBALS['tag'], array('localhost')); }
+		if(isset($GLOBALS['tag']) && count($GLOBALS['tag']) == 0){ unset($GLOBALS['tag']); }
 
 		//recent_ - these are directly accessed (just integrate TAG filtering in WHERE)
 		//array_ - these are accessed when exactly ??? - almost never (leave for now)
@@ -218,7 +220,7 @@ class SqlBuilder {
 			        "ON u.id = us.user_id ";
 
 			//active tag filter?
-			if(isset($GLOBALS['tag']) AND is_array($GLOBALS['tag'])){
+			if(isset($GLOBALS['tag']) AND is_array($GLOBALS['tag']) AND count($GLOBALS['tag']) > 0){
 			$sql.=	"LEFT JOIN `tag_user` AS utag ".
 			        "ON u.id = utag.user_id ".
 			        "LEFT JOIN `tag` AS tag ".
@@ -228,7 +230,7 @@ class SqlBuilder {
 			$sql.=	"WHERE m.user_id > 0 AND u.status = 1 AND us.completeness >= ".PROFILE_COMPLETENESS_MIN." ";
 
 			//active tag filter?
-			if(isset($GLOBALS['tag']) AND is_array($GLOBALS['tag'])){
+			if(isset($GLOBALS['tag']) AND is_array($GLOBALS['tag']) AND count($GLOBALS['tag']) > 0){
 			$sql.=	" AND (tag.name = '" . implode($GLOBALS['tag'], "' AND tag.name = '")."')  ";
 			}
 
@@ -239,7 +241,7 @@ class SqlBuilder {
 
 			$sql.= 	"ORDER BY u.create_at DESC ".
 					"LIMIT ". ($filter['page'] - 1) * $filter['per_page'] .", ". $filter['per_page'];
-
+					
 		} elseif( $type == 'member' ) {
 			//return members of an idea
 			$sql=	"SELECT m.id AS match_id, im.type_id, mt.name AS type, ".
@@ -311,7 +313,7 @@ class SqlBuilder {
 					"AND t.language_id = {$filter['site_lang']} ";
 
 			//active tag filter?
-			if(isset($GLOBALS['tag']) AND is_array($GLOBALS['tag'])){
+			if(isset($GLOBALS['tag']) AND is_array($GLOBALS['tag']) AND count($GLOBALS['tag']) > 0){
 			$sql.=	"LEFT JOIN `tag_user` AS utag ".
 			        "ON u.id = utag.user_id ".
 			        "LEFT JOIN `tag` AS tag ".
@@ -321,7 +323,7 @@ class SqlBuilder {
 			$sql.=	"WHERE m.user_id > 0  AND u.status = 1 ";
 
 			//active tag filter?
-			if(isset($GLOBALS['tag']) AND is_array($GLOBALS['tag'])){
+			if(isset($GLOBALS['tag']) AND is_array($GLOBALS['tag']) AND count($GLOBALS['tag']) > 0){
 			$sql.=	" AND (tag.name = '" . implode($GLOBALS['tag'], "' AND tag.name = '")."')  ";
 			}
 
@@ -516,8 +518,13 @@ class SqlBuilder {
 			        "ON itag.tag_id = tag.id ";
 			}
 
-			$sql.=	"WHERE i.deleted = 0 ".
-					"AND ist.id = i.status_id ";
+			if(Yii::app()->user->isAdmin()){
+				$sql.="WHERE (i.deleted = 2 OR i.deleted = 0) ";
+			} else {
+				$sql.="WHERE i.deleted = 0 ";
+			}
+
+			$sql.=	"AND ist.id = i.status_id ";
 
 			//active tag filter?
 			if(isset($GLOBALS['tag']) AND is_array($GLOBALS['tag'])){
@@ -877,7 +884,7 @@ class SqlBuilder {
 
 			$filter['array'] = $this->event_people( $filter );
 			//print_r($filter['array']);
-			if(count($filter['array']))	$row['people'] = $this->load_array("array_users", $filter);
+			if(count($filter['array']))	$row['people'] = $this->load_array("array_users", $filter, "collabpref,link,skill,industry,num_of_ideas,");
 			//if(isset($row['people'])) print_r($row['people']);
 
 			$array[$row['id']] = $row;

@@ -26,7 +26,7 @@
     <?php if (!Yii::app()->user->isGuest){  ?>
 
 
-<?php //* ?>
+<?php /*
 <div class="m-event">
 <?php $imeEventa = 'Sestavi svojo ekipo';?>
 
@@ -41,7 +41,7 @@
 
 	</div>
 </div>
-<?php //*/ ?>
+*/ ?>
 
 <div class="intro mb0 pt0 bb-strong" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
 	<div  class="row">

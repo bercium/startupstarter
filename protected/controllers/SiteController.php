@@ -97,6 +97,7 @@ class SiteController extends Controller
 			 	$filter['where'] = "AND u.create_at > ".(time() - 3600 * 24 * 31);
 				$search = $sqlbuilder->load_array("search_users", $filter, "num_of_ideas,skill,industy");
 				if($search['count'] < 3){
+					unset($filter['where']);
 					$search['results'] = $sqlbuilder->load_array("recent_users", $filter, "num_of_ideas,skill,industry");
 					$search['count'] = $sqlbuilder->load_array("count_users", $filter);
 					$userType = Yii::t('app', "No suggested users showing recent");
@@ -121,6 +122,8 @@ class SiteController extends Controller
 			 	$filter['where'] = "AND i.time_updated > ".(time() - 3600 * 24 * 31);
 				$search = $sqlbuilder->load_array("search_users", $filter, "translation,member,candidate,skill,industry");
 				if($search['count'] < 3){
+					unset($filter['where']);
+					unset($filter['exclude']);
 		  			$search['results'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skill,industry");
 					$search['count'] = $count = $sqlbuilder->load_array("count_ideas", $filter);
 					$ideaType = Yii::t('app', "No suggested projects showing recent");

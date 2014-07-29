@@ -992,6 +992,7 @@ class ProjectController extends GxController {
 			 	$filter['where'] = "AND i.time_updated > FROM_UNIXTIME(".(time() - 3600 * 24 * 31).")";
 				$search = $sqlbuilder->load_array("search_ideas", $filter, "translation,member,candidate,skill,industry");
 				if($search['count'] < 3){
+					unset($filter['where']);
 		  			$search['results'] = $sqlbuilder->load_array("recent_ideas", $filter, "translation,member,candidate,skill,industry");
 					$search['count'] = $count = $sqlbuilder->load_array("count_ideas", $filter);
 					$ideaType = Yii::t('app', "Recent projects");
