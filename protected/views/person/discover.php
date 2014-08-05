@@ -47,7 +47,7 @@
     	<div class="columns">
 	    <a class="button small radius secondary" href="#" style="margin-top:15px;" onclick="$('#searchpanel').slideToggle(400,function(){$(this).css('overflow','inherit')}); return false;"><?php echo Yii::t('app','More options'); ?></a>
 	    </div>
-		</div>
+	</div>
   </div>
 
 	<div id="searchpanel" class="searchpanel" <?php if (!$filter->checkSearchForm()) echo "style='display:none'"; ?> >
