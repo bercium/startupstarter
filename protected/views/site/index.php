@@ -167,7 +167,7 @@
 				<div class="">
 					<div class="large-12 columns">
 					 	<h1 class="big-text mb40 mt20 text-center page-title"><?php echo Yii::t('msg','Helping you assemble <div>a startup team</div>'); ?></h1>
-					 	<h2 class="mb60"><span class="alt-3" style="width:100%"><?php echo Yii::t('msg','+70 projects looking for a cofounder'); ?></span></h2>
+					 	<h2 class="mb60"><span class="alt-3" style="width:100%"><?php echo Yii::t('msg','{n}+ projects looking for a cofounder',array("{n}"=>$numOfProjects)); ?></span></h2>
 					</div>	
 				 	<div class="large-6 columns">
 						<span class="icon-rocket left mr15 mt5"></span>

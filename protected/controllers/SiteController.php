@@ -166,8 +166,11 @@ class SiteController extends Controller
       $eventsToday = $eventsToday[0];
     }
     $event = array('today'=>$eventsToday,'next'=>$eventsNext);
-
-		$this->render('index', array('data' => $data, 'event'=>$event, "maxPageIdea"=>$maxPageIdea, "maxPagePerson"=>$maxPagePerson, "ideaType"=>$ideaType, "userType"=>$userType));
+    
+    $projects = count(Idea::model()->findAllByAttributes(array('deleted'=>0)));
+    $projects = round($projects / 50)*50;
+    
+		$this->render('index', array('data' => $data, 'event'=>$event, "maxPageIdea"=>$maxPageIdea, "maxPagePerson"=>$maxPagePerson, "ideaType"=>$ideaType, "userType"=>$userType, "numOfProjects"=>$projects));
 	}
 
 	public function actionAbout()
