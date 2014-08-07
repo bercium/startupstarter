@@ -364,7 +364,6 @@ div[onclick].card-person-title, div[onclick].m-card-title{
 
 .card-content .meta_tags .label {
 	padding: 3px;
-  overflow: hidden;
 }
 
 
@@ -409,7 +408,7 @@ margin-bottom: 2px;
 
 .card-person .card-content {
 	position: relative;
-	
+	overflow: hidden;
 	
 }
 
