@@ -84,8 +84,26 @@ class BackendMapController extends Controller
 					$location_array[] = $row['country'];
 				}
 				$address = urlencode(implode(',', $location_array));
-				if($json = file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?address={$address}&sensor=false")){
-					$data = json_decode($json);
+
+				$httpClient = new elHttpClient();
+				$httpClient->setUserAgent("ff3");
+				$httpClient->setHeaders(array("Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"));
+
+				if($htmlData = $httpClient->get("http://maps.googleapis.com/maps/api/geocode/json?address={$address}&sensor=false")){
+					//gitftp inštaleri model BOM DRUGIČ OK?
+					//function getGMap($country = '', $city = '', $addr = ''){
+					//$httpClient = new elHttpClient();
+					//$httpClient->setUserAgent("ff3");
+				    //$httpClient->setHeaders(array("Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"));
+				    //$htmlDataObject = $httpClient->get("maps.googleapis.com"); ISTA KOT 2 KASNEJE
+				    //$URL = str_replace(" ", "%20", $URL); //tega nerabiš zaradi lepih podatkov
+				    //$htmlDataObject = $httpClient->get($URL);
+			    	//$htmlData = $htmlDataObject->httpBody;
+
+			    	//ADMIN site/link POLINKAJ ŠIT -> za vse bazične funkcije tutoriale spisat
+			    	//
+
+					$data = json_decode($htmlData);
 
 					//insert location to db
 			      	$location = new Location;
