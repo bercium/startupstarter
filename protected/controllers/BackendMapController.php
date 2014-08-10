@@ -90,7 +90,6 @@ class BackendMapController extends Controller
 				$httpClient->setHeaders(array("Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"));
 
 				if($htmlData = $httpClient->get("http://maps.googleapis.com/maps/api/geocode/json?address={$address}&sensor=false")){
-					//gitftp inštaleri model BOM DRUGIČ OK?
 					//function getGMap($country = '', $city = '', $addr = ''){
 					//$httpClient = new elHttpClient();
 					//$httpClient->setUserAgent("ff3");
