@@ -39,13 +39,13 @@ class WInvitation extends CWidget
                 $invitation->receiver_id = $invitee->id;
 
                 if ($invitation->save()){
-                  Notifications::setNotification($user->id,Notifications::NOTIFY_PROJECT_INVITE);
+                  Notifications::setNotification($invitation->receiver_id,Notifications::NOTIFY_PROJECT_INVITE);
 
                   $mailTracking = mailTrackingCode();
                   $ml = new MailLog();
                   $ml->tracking_code = mailTrackingCodeDecode($mailTracking);
                   $ml->type = 'project-invite';
-                  $ml->user_to_id = $user->id;
+                  $ml->user_to_id = $invitation->receiver_id;
                   $ml->save();                  
       
                   $idea = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$invitation->idea_id),array('order' => 'FIELD(language_id, 40) DESC'));
