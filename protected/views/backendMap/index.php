@@ -17,6 +17,13 @@
         } ?>
           
       ];
+      <?php /* ?>
+      var CountryData = [
+        <?php foreach($countries AS $row){
+          echo "[{$row['lat']}, {$row['lng']}, '{$row['name']} ({$row['count']})'], ";
+        } ?>
+      ];
+      <?php */ ?>
        
       function initialize()
       {
@@ -34,7 +41,6 @@
               var marker = new google.maps.Marker({
                   position: latlng,
                   map: map,
-                  //animation: google.maps.Animation.DROP,
                   title: p[2]
               });
            
@@ -43,27 +49,6 @@
                   infowindow.open(map, this);
               });
           }
-          
-          
-          /*for (var i in CountryData)
-          {
-              var p = CountryData[i];
-              var latlng = new google.maps.LatLng(p[0], p[1]);
-              bounds.extend(latlng);
-               
-              var marker = new google.maps.Marker({
-                  position: latlng,
-                  map: map,
-                  //animation: google.maps.Animation.DROP,
-                  icon:'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-                  title: p[2]
-              });
-           
-              google.maps.event.addListener(marker, 'click', function() {
-                  infowindow.setContent(this.title);
-                  infowindow.open(map, this);
-              });
-          }*/
            
           map.fitBounds(bounds);
       }
