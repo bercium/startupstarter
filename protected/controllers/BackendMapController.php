@@ -114,6 +114,8 @@ class BackendMapController extends Controller
 				//}
 			}
 
+      if (empty($row['lat']) || empty($row['lng'])) continue;
+      
 			//build name
 			$location_array = array();
 			if(strlen($row['city']) > 0){
@@ -127,7 +129,7 @@ class BackendMapController extends Controller
 		}
     
     $arrayCountry = array();
-    /*
+    
     
     // get data for countries only
     $sql = "SELECT co.id AS country_id, co.name AS country, COUNT(m.id) AS count
@@ -155,11 +157,13 @@ class BackendMapController extends Controller
         $row['lng'] = $latlong['lng'];
 				//}
 			}
+      
+      if (empty($row['lat']) || empty($row['lng'])) continue;
 
 			$row['name'] = $row['country'];
 			$arrayCountry[] = $row;
 		}
-    */
+    
 
     $this->render('index', array('data' => $arrayCountryCity, "map_countries"=>$arrayCountry));
  	}
