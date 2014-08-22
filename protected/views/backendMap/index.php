@@ -40,7 +40,7 @@
               var marker = new google.maps.Marker({
                   position: latlng,
                   map: map,
-                  animation: google.maps.Animation.DROP,
+                  //animation: google.maps.Animation.DROP,
                   title: p[2]
               });
            
@@ -60,7 +60,7 @@
               var marker = new google.maps.Marker({
                   position: latlng,
                   map: map,
-                  animation: google.maps.Animation.DROP,
+                  //animation: google.maps.Animation.DROP,
                   icon:'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
                   title: p[2]
               });
