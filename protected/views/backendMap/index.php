@@ -17,13 +17,13 @@
         } ?>
           
       ];
-      <?php /* ?>
+      <?php //* ?>
       var CountryData = [
         <?php foreach($map_countries AS $row){
           echo "[{$row['lat']}, {$row['lng']}, '{$row['name']} ({$row['count']})'], ";
         } ?>
       ];
-      <?php */ ?>
+      <?php //*/ ?>
        
       function initialize()
       {
@@ -50,7 +50,7 @@
               });
           }
           
-          /*for (var i in LocationData)
+          for (var i in LocationData)
           {
               var p = LocationData[i];
               var latlng = new google.maps.LatLng(p[0], p[1]);
@@ -67,7 +67,7 @@
                   infowindow.setContent(this.title);
                   infowindow.open(map, this);
               });
-          }*/
+          }
            
           map.fitBounds(bounds);
       }
