@@ -44,10 +44,10 @@
                   title: p[2]
               });
            
-              google.maps.event.addListener(marker, 'click', function() {
+              /*google.maps.event.addListener(marker, 'click', function() {
                   infowindow.setContent(this.title);
                   infowindow.open(map, this);
-              });
+              });*/
           }
           
           /*for (var i in LocationData)
