@@ -51,9 +51,9 @@
               });
           }
           
-          for (var i in LocationData)
+          for (var i in CountryData)
           {
-              var p = LocationData[i];
+              var p = CountryData[i];
               var latlng = new google.maps.LatLng(p[0], p[1]);
               bounds.extend(latlng);
                
