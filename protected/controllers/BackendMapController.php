@@ -164,8 +164,9 @@ class BackendMapController extends Controller
 			$arrayCountry[] = $row;
 		}
     
+    
 
-    $this->render('index', array('data' => $arrayCountryCity, "map_countries"=>$arrayCountry));
+    $this->render('index', array('data' => $arrayCountryCity, "map_countries"=>$arrayCountry, "country"=>isset($_GET['country'])));
  	}
 	
 }

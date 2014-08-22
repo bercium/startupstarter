@@ -31,7 +31,8 @@
               new google.maps.Map(document.getElementById('map-canvas'));
           var bounds = new google.maps.LatLngBounds();
           var infowindow = new google.maps.InfoWindow();
-           
+          
+          <?php if (!$country){ ?>
           for (var i in LocationData)
           {
               var p = LocationData[i];
@@ -50,7 +51,7 @@
                   infowindow.open(map, this);
               });
           }
-          
+          <?php }else{ ?>
           for (var i in CountryData)
           {
               var p = CountryData[i];
@@ -71,7 +72,7 @@
                   infowindow.open(map, this);
               });
           }
-           
+          <?php } ?>
           map.fitBounds(bounds);
       }
        
