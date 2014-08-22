@@ -17,12 +17,6 @@
         } ?>
           
       ];
-      var CountryData = [
-        <?php foreach($countries AS $row){
-          echo "[{$row['lat']}, {$row['lng']}, '{$row['name']} ({$row['count']})'], ";
-        } ?>
-          
-      ];
        
       function initialize()
       {
