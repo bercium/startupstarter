@@ -51,7 +51,7 @@
           }
           
           
-          for (var i in CountryData)
+          /*for (var i in CountryData)
           {
               var p = CountryData[i];
               var latlng = new google.maps.LatLng(p[0], p[1]);
@@ -69,7 +69,7 @@
                   infowindow.setContent(this.title);
                   infowindow.open(map, this);
               });
-          }          
+          }*/
            
           map.fitBounds(bounds);
       }
