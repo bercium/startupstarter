@@ -49,6 +49,25 @@
                   infowindow.open(map, this);
               });
           }
+          
+          /*for (var i in LocationData)
+          {
+              var p = LocationData[i];
+              var latlng = new google.maps.LatLng(p[0], p[1]);
+              bounds.extend(latlng);
+               
+              var marker = new google.maps.Marker({
+                  position: latlng,
+                  map: map,
+                  icon:'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                  title: p[2]
+              });
+           
+              google.maps.event.addListener(marker, 'click', function() {
+                  infowindow.setContent(this.title);
+                  infowindow.open(map, this);
+              });
+          }*/
            
           map.fitBounds(bounds);
       }
