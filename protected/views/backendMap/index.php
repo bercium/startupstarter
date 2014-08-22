@@ -60,7 +60,7 @@
               var marker = new google.maps.Marker({
                   position: latlng,
                   map: map,
-                  animation: google.maps.Animation.BOUNCE,
+                  //animation: google.maps.Animation.BOUNCE,
 
                   icon:'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
                   title: p[2]
