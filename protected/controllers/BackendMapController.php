@@ -99,7 +99,7 @@ class BackendMapController extends Controller
 			$location = Location::model()->findByAttributes(array('country_id'=>$row['country_id'],'city_id'=>$row['city_id']));
 			if($location){
         $row['lat'] = $location->lat;
-        $row['lat'] = $location->lng;
+        $row['lng'] = $location->lng;
 				if($row['count'] != $location->count){
 					//location has been geocoded and saved to db already. update location's count
 					$location->count = $row['count'];
@@ -145,7 +145,7 @@ class BackendMapController extends Controller
 			$location = Location::model()->findByAttributes(array('country_id'=>$row['country_id'],'city_id'=>null));
 			if($location){
         $row['lat'] = $location->lat;
-        $row['lat'] = $location->lng;
+        $row['lng'] = $location->lng;
       }else{
         $latlong = $this->getLocation($row['country'], null, $row['count'], $row['country_id'], null);
         
