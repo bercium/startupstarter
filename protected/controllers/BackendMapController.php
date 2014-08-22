@@ -55,8 +55,8 @@ class BackendMapController extends Controller
   /**
    * 
    */
-  private function getLocation($country, $city, $count){
-    $address = urlencode(implode(',', $location_array));
+  private function getLocation($country, $city, $count, $country_id, $city_id){
+    $address = urlencode($city.','.$country);
 
     $httpClient = new elHttpClient();
     $httpClient->setUserAgent("ff3");
@@ -69,11 +69,11 @@ class BackendMapController extends Controller
 
     //insert location to db
     $location = new Location;
-    $location->country_id = $row['country_id'];
-    $location->city_id = $row['city_id'];
+    $location->country_id = $country_id;
+    $location->city_id = $city_id;
     $location->lat = $data->results['0']->geometry->location->lat;
     $location->lng = $data->results['0']->geometry->location->lng;
-    $location->count = $row['count'];
+    $location->count = $count;
 
     $location->save();
 
@@ -105,7 +105,7 @@ class BackendMapController extends Controller
 				}
 			} else {
         
-        $latlong = $this->getLocation($row['country'], $row['city'], $row['count']);
+        $latlong = $this->getLocation($row['country'], $row['city'], $row['count'], $row['country_id'], $row['city_id']);
         
         $row['lat'] = $latlong['lat'];
         $row['lng'] = $latlong['lng'];
@@ -142,19 +142,14 @@ class BackendMapController extends Controller
 
 			$location = Location::model()->findByAttributes(array('country_id'=>$row['country_id'],'city_id'=>null));
 			if(!$location){
-        $latlong = $this->getLocation($row['country'], null, $row['count']);
+        $latlong = $this->getLocation($row['country'], null, $row['count'], $row['country_id'], null);
         
         $row['lat'] = $latlong['lat'];
         $row['lng'] = $latlong['lng'];
 				//}
 			}
 
-			//build name
-			$location_array = array();
-			if(strlen($row['country']) > 0){
-				$location_array[] = $row['country'];
-			}
-			$row['name'] = implode(', ', $location_array);
+			$row['name'] = $row['country'];
 			$arrayCountry[] = $row;
 		}    
 
