@@ -19,7 +19,7 @@
       ];
       <?php /* ?>
       var CountryData = [
-        <?php foreach($countries AS $row){
+        <?php foreach($map_countries AS $row){
           echo "[{$row['lat']}, {$row['lng']}, '{$row['name']} ({$row['count']})'], ";
         } ?>
       ];
