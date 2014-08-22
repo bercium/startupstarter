@@ -52,72 +52,67 @@ class BackendMapController extends Controller
 		);
 	}
   
+  /**
+   * 
+   */
+  private function getLocation($country, $city, $count, $country_id, $city_id){
+    $address = urlencode($city.','.$country);
+
+    $httpClient = new elHttpClient();
+    $httpClient->setUserAgent("ff3");
+    $httpClient->setHeaders(array("Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"));
+
+    $htmlDataObject = $httpClient->get("http://maps.googleapis.com/maps/api/geocode/json?address={$address}&sensor=false");
+
+
+    $data = json_decode($htmlDataObject->httpBody);
+
+    //insert location to db
+    $location = new Location;
+    $location->country_id = $country_id;
+    $location->city_id = $city_id;
+    $location->lat = $data->results['0']->geometry->location->lat;
+    $location->lng = $data->results['0']->geometry->location->lng;
+    $location->count = $count;
+
+    $location->save();
+
+    return array("lat"=>$data->results['0']->geometry->location->lat, "lng"=>$data->results['0']->geometry->location->lng);
+  }
+  
 	public function actionIndex(){
 		//cross check location & country + city for missing items
-		$sql = "SELECT co.id AS country_id, co.name AS country, ci.id AS city_id, ci.name AS city, COUNT(m.id) AS count ".
-		"FROM `user_match` AS m LEFT JOIN `country` AS co ON co.id = m.country_id ".
-		"LEFT JOIN `city` AS ci ON ci.id = m.city_id ".
-		"WHERE m.user_id > 0 AND (co.name IS NOT NULL OR ci.name IS NOT NULL) GROUP BY co.name, ci.name ".
-		"ORDER BY count DESC";
+		$sql = "SELECT co.id AS country_id, co.name AS country, ci.id AS city_id, ci.name AS city, COUNT(m.id) AS count
+            FROM `user_match` AS m 
+            LEFT JOIN `country` AS co ON co.id = m.country_id
+            LEFT JOIN `city` AS ci ON ci.id = m.city_id
+            WHERE m.user_id > 0 AND (co.name IS NOT NULL OR ci.name IS NOT NULL) GROUP BY co.name, ci.name
+            ORDER BY count DESC";
 
 		$connection=Yii::app()->db;
 		$command=$connection->createCommand($sql);
 		$dataReader=$command->query();
-		$array = array();
+		$arrayCountryCity = array();
 
 		while(($row=$dataReader->read())!==false) {
 
 			$location = Location::model()->findByAttributes(array('country_id'=>$row['country_id'],'city_id'=>$row['city_id']));
 			if($location){
+        $row['lat'] = $location->lat;
+        $row['lng'] = $location->lng;
 				if($row['count'] != $location->count){
 					//location has been geocoded and saved to db already. update location's count
 					$location->count = $row['count'];
 					$location->save();
 				}
 			} else {
-				//run geocoding
-				$location_array = array();
-				if(strlen($row['city']) > 0){
-					$location_array[] = $row['city'];
-				}
-				if(strlen($row['country']) > 0){
-					$location_array[] = $row['country'];
-				}
-				$address = urlencode(implode(',', $location_array));
-
-				$httpClient = new elHttpClient();
-				$httpClient->setUserAgent("ff3");
-				$httpClient->setHeaders(array("Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"));
-
-				//if(
-        $htmlDataObject = $httpClient->get("http://maps.googleapis.com/maps/api/geocode/json?address={$address}&sensor=false");//){
-					//function getGMap($country = '', $city = '', $addr = ''){
-					//$httpClient = new elHttpClient();
-					//$httpClient->setUserAgent("ff3");
-				    //$httpClient->setHeaders(array("Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"));
-				    //$htmlDataObject = $httpClient->get("maps.googleapis.com"); ISTA KOT 2 KASNEJE
-				    //$URL = str_replace(" ", "%20", $URL); //tega nerabiš zaradi lepih podatkov
-				    //$htmlDataObject = $httpClient->get($URL);
-			    	//$htmlData = $htmlDataObject->httpBody;
-
-			    	//ADMIN site/link POLINKAJ ŠIT -> za vse bazične funkcije tutoriale spisat
-
-					$data = json_decode($htmlDataObject->httpBody);
-
-					//insert location to db
-          $location = new Location;
-          $location->country_id = $row['country_id'];
-          $location->city_id = $row['city_id'];
-          $location->lat = $data->results['0']->geometry->location->lat;
-          $location->lng = $data->results['0']->geometry->location->lng;
-          $location->count = $row['count'];
-          
-					$location->save();
+        
+        $latlong = $this->getLocation($row['country'], $row['city'], $row['count'], $row['country_id'], $row['city_id']);
+        
+        $row['lat'] = $latlong['lat'];
+        $row['lng'] = $latlong['lng'];
 				//}
 			}
-
-			$row['lat'] = $location->lat;
-			$row['lng'] = $location->lng;
 
 			//build name
 			$location_array = array();
@@ -128,10 +123,45 @@ class BackendMapController extends Controller
 				$location_array[] = $row['country'];
 			}
 			$row['name'] = implode(', ', $location_array);
-			$array[] = $row;
+			$arrayCountryCity[] = $row;
 		}
+    
+    $arrayCountry = array();
+    /*
+    
+    // get data for countries only
+    $sql = "SELECT co.id AS country_id, co.name AS country, COUNT(m.id) AS count
+            FROM `user_match` AS m 
+            LEFT JOIN `country` AS co ON co.id = m.country_id
+            WHERE m.user_id > 0 AND co.name IS NOT NULL 
+            GROUP BY co.name
+            ORDER BY count DESC";
 
-    	$this->render('index', array('data' => $array));
+		$connection=Yii::app()->db;
+		$command=$connection->createCommand($sql);
+		$dataReader=$command->query();
+		$arrayCountry = array();
+
+		while(($row=$dataReader->read())!==false) {
+
+			$location = Location::model()->findByAttributes(array('country_id'=>$row['country_id'],'city_id'=>null));
+			if($location){
+        $row['lat'] = $location->lat;
+        $row['lng'] = $location->lng;
+      }else{
+        $latlong = $this->getLocation($row['country'], null, $row['count'], $row['country_id'], null);
+        
+        $row['lat'] = $latlong['lat'];
+        $row['lng'] = $latlong['lng'];
+				//}
+			}
+
+			$row['name'] = $row['country'];
+			$arrayCountry[] = $row;
+		}
+    */
+
+    $this->render('index', array('data' => $arrayCountryCity, "map_countries"=>$arrayCountry));
  	}
 	
 }
