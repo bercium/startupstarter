@@ -126,6 +126,8 @@ class BackendMapController extends Controller
 			$arrayCountryCity[] = $row;
 		}
     
+    $arrayCountry = array();
+    /*
     
     // get data for countries only
     $sql = "SELECT co.id AS country_id, co.name AS country, COUNT(m.id) AS count
@@ -156,9 +158,10 @@ class BackendMapController extends Controller
 
 			$row['name'] = $row['country'];
 			$arrayCountry[] = $row;
-		}    
+		}
+    */
 
-    $this->render('index', array('data' => $arrayCountryCity, "countries"=>$arrayCountry));
+    $this->render('index', array('data' => $arrayCountryCity, "map_countries"=>$arrayCountry));
  	}
 	
 }
