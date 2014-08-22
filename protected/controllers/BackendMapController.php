@@ -89,7 +89,8 @@ class BackendMapController extends Controller
 				$httpClient->setUserAgent("ff3");
 				$httpClient->setHeaders(array("Accept"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"));
 
-				if($htmlData = $httpClient->get("http://maps.googleapis.com/maps/api/geocode/json?address={$address}&sensor=false")){
+				//if(
+        $htmlDataObject = $httpClient->get("http://maps.googleapis.com/maps/api/geocode/json?address={$address}&sensor=false");//){
 					//function getGMap($country = '', $city = '', $addr = ''){
 					//$httpClient = new elHttpClient();
 					//$httpClient->setUserAgent("ff3");
@@ -100,9 +101,8 @@ class BackendMapController extends Controller
 			    	//$htmlData = $htmlDataObject->httpBody;
 
 			    	//ADMIN site/link POLINKAJ ŠIT -> za vse bazične funkcije tutoriale spisat
-			    	//
 
-					$data = json_decode($htmlData);
+					$data = json_decode($htmlDataObject->httpBody);
 
 					//insert location to db
 			      	$location = new Location;
@@ -112,7 +112,7 @@ class BackendMapController extends Controller
 			      	$location->lng = $data->results['0']->geometry->location->lng;
 			      	$location->count = $row['count'];
 					$location->save();
-				}
+				//}
 			}
 
 			$row['lat'] = $location->lat;
