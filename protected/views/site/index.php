@@ -41,7 +41,11 @@
 
 	</div>
 </div>
-*/ ?>
+*/ 
+if($tag->name == 'lepagesta'){
+//if($tag != NULL && strlen($tag->title) > 0 && strlen($tag->description) > 0){
+  //SHOW TAG CONTENT IF LEPAGESTA (REMAKE SOON)
+?>
 
 <div class="intro mb0 pt0 bb-strong" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
 	<div  class="row">
@@ -53,6 +57,72 @@
 			<?php $this->widget('ext.Invitation.WInvitation'); ?> 
 
 			<ul class="large-block-grid-3">
+        <li>
+          <div class="small-12">
+            
+            <div class="pall125em radius-all  whats-new radius fancy-border" style="min-height:203px;">
+                <h2 >Kaj je "lepa gesta"? Ti povej</h2>
+                <p>
+                  Staljeno sredico oblikujemo iz dobrih dejanj vaših projektov. Definicijo bomo poslali v singularnost, da se zlije z vesoljem.
+                </p>
+
+              <?php /* ?><a href="<?php echo Yii::app()->createUrl("project/create"); ?>" trk="index_click_createProject" class="button small  radius small-12" ><?php echo Yii::t('app','Create your project'); ?> </a>
+                <?php */ ?>
+            </div>
+              
+          </div>
+        </li>
+            
+        <li>
+          <div class="small-12">
+
+            <div class="pall125em radius-all whats-new radius fancy-border" style="min-height:203px;">
+              <h2>Naredi lepo gesto</h2>
+              <p>
+                Prispevaj svetu svojo energijo, znanja in ideje z dobrim namenom, s svojim projektom ali s pomočjo že obstoječemu.
+              </p>
+              <br/>
+                <a class=" radius small small-12" trk="index_click_suggested" href="<?php echo Yii::app()->createUrl("project/create"); ?>">Prijavi projekt v mrežo</a>
+              
+            </div>
+            
+          </div>
+        </li>
+
+        <li>
+          <div class="small-12">
+
+            <div class="pall125em radius-all  whats-new radius fancy-border" style="min-height:203px;">
+              <h2>Lepe geste sem pa tja</h2>
+              <p>
+              Mreža pomaga pri dobrem namenu. Iskanje ekipe, financiranja, pro-bono marketing, freelance dela, izobraževanja.
+              </p>
+              <br/>
+                <a class=" radius small small-12" href="<?php echo Yii::app()->createUrl("project/create"); ?>">Prijavi podporno storitev v mrežo</a>
+
+            </div>
+          </div>
+        </li>
+			</ul>
+
+			
+		</div>
+	</div>
+</div>
+<?php } else { 
+  //SHOW COFINDER NEWS BOXES ?>
+
+
+<div class="intro mb0 pt0 bb-strong" <?php // if (isset($_GET['SearchForm'])) echo "style='display:none'"; ?>>
+  <div  class="row">
+    <div class="mb0 pb10 pt20 columns ">
+      
+
+      
+      <h1 class="mt40 mb10"><?php //echo Yii::t('app','What is new'); ?></h1>
+      <?php $this->widget('ext.Invitation.WInvitation'); ?> 
+
+      <ul class="large-block-grid-3">
         <li>
           <div class="small-12">
             
@@ -108,12 +178,13 @@
             </div>
           </div>
         </li>
-			</ul>
+      </ul>
 
-			
-		</div>
-	</div>
+      
+    </div>
+  </div>
 </div>
+<?php } ?>
 
 
 <div class="panel-top hide-for-small bb-strong">
