@@ -169,8 +169,16 @@ class SiteController extends Controller
     
     $projects = count(Idea::model()->findAllByAttributes(array('deleted'=>0)));
     $projects = round($projects / 50)*50;
+
+    //idea tag data
+	$tag = NULL;
+	if(isset($GLOBALS['tag'])){ $GLOBALS['tag'] = array_diff($GLOBALS['tag'], array('localhost')); }
+	if(isset($GLOBALS['tag']) && count($GLOBALS['tag']) == 0){ unset($GLOBALS['tag']); }
+    if(isset($GLOBALS['tag'])){
+		$tag = Tag::Model()->findByAttributes( array( 'name' => 'lepagesta' ) ); //for now
+    }
     
-		$this->render('index', array('data' => $data, 'event'=>$event, "maxPageIdea"=>$maxPageIdea, "maxPagePerson"=>$maxPagePerson, "ideaType"=>$ideaType, "userType"=>$userType, "numOfProjects"=>$projects));
+		$this->render('index', array('data' => $data, 'event'=>$event, "maxPageIdea"=>$maxPageIdea, "maxPagePerson"=>$maxPagePerson, "ideaType"=>$ideaType, "userType"=>$userType, "numOfProjects"=>$projects, "tag"=>$tag));
 	}
 
 	public function actionAbout()

@@ -148,6 +148,24 @@ class ProjectController extends GxController {
                 //idea translation data
                 $translation->idea_id = $idea->id;
 
+                //idea tag data
+				if(isset($GLOBALS['tag'])){ $GLOBALS['tag'] = array_diff($GLOBALS['tag'], array('localhost')); }
+				if(isset($GLOBALS['tag']) && count($GLOBALS['tag']) == 0){ unset($GLOBALS['tag']); }
+                if(isset($GLOBALS['tag'])){
+            		$tag = Tag::Model()->findByAttributes( array( 'name' => 'lepagesta' ) ); //for now
+            		if(!$tag){
+            			$tag = new Tag;
+            			$tag->name = 'lepagesta';
+            			$tag->save();
+            		}
+            		$idea_tag = new TagIdea;
+            		$idea_tag->tag_id = $tag->id;
+            		$idea_tag->idea_id = $idea->id;
+            		$idea_tag->added_by = $user_id;
+            		$idea_tag->added_time = time();
+            		$idea_tag->save();
+                }
+
                 if ($translation->save() && $member->save()){
                     //go to step 2
                     setFlash('projectMessage', Yii::t('msg',"Project successfully saved."));
