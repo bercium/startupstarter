@@ -61,10 +61,12 @@ if($tag->name == 'lepagesta'){
           <div class="small-12">
             
             <div class="pall125em radius-all  whats-new radius fancy-border" style="min-height:203px;">
-                <h2 >Kaj je "lepa gesta"? Ti povej</h2>
+                <h2>Kaj je "lepa gesta"?</h2>
                 <p>
-                  Staljeno sredico oblikujemo iz dobrih dejanj vaših projektov. Definicijo bomo poslali v singularnost, da se zlije z vesoljem.
+                  Staljeno sredico oblikujemo iz vaših lepih gest. Definicijo bomo poslali v črno luknjo, da se zlije z vesoljem.
                 </p>
+                <br/>
+                  <a class=" radius small small-12" trk="index_click_suggested" href="http://lepagesta.org">lepagesta.org</a>
 
               <?php /* ?><a href="<?php echo Yii::app()->createUrl("project/create"); ?>" trk="index_click_createProject" class="button small  radius small-12" ><?php echo Yii::t('app','Create your project'); ?> </a>
                 <?php */ ?>
@@ -82,7 +84,7 @@ if($tag->name == 'lepagesta'){
                 Prispevaj svetu svojo energijo, znanja in ideje z dobrim namenom, s svojim projektom ali s pomočjo že obstoječemu.
               </p>
               <br/>
-                <a class=" radius small small-12" trk="index_click_suggested" href="<?php echo Yii::app()->createUrl("project/create"); ?>">Prijavi projekt v mrežo</a>
+                <a class=" radius small small-12" trk="index_click_suggested" href="<?php echo Yii::app()->createUrl("project/create"); ?>">Prijavi projekt in ti povej</a>
               
             </div>
             
