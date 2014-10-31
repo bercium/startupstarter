@@ -437,7 +437,7 @@ class EventController extends GxController
 	      // log for manual investigation
 
 			// nam sporočilo o failu
-			$message = new YiiMailMessage;
+/*			$message = new YiiMailMessage;
 			$message->view = 'system';
 			$message->subject = "Event payment went wrong";
 			$message->setBody(array("content"=>'Uporabnik '.$user->name." ".$user->surname.' je poskusil plačati prijavnino na dogodek (ID = '.$id.')<br />'.$res
@@ -446,7 +446,7 @@ class EventController extends GxController
 			$message->setTo("team@cofinder.eu");
 			$message->from = Yii::app()->params['noreplyEmail'];
 			Yii::app()->mail->send($message);
-
+*/
 	    	return false;
 	    }
 	  }
