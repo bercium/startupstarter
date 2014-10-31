@@ -42,6 +42,12 @@ Ideje:<br/>
 <a href="<?php echo Yii::app()->createUrl("backendIdeaTranslation"); ?>">Ideas Translations</a><br />
 <a href="<?php echo Yii::app()->createUrl("backendIdeaMember"); ?>">Ideas Members</a><br />
 
+<br />
+Events:<br/>
+<a href="<?php echo Yii::app()->createUrl("backendEvent"); ?>">Event</a><br />
+<a href="<?php echo Yii::app()->createUrl("backendEventCofinder"); ?>">Event Cofinder</a><br />
+<a href="<?php echo Yii::app()->createUrl("backendEventSignup"); ?>">Event Signup</a><br />
+
 <br/>
 
 <a href="<?php echo Yii::app()->createUrl("site/recalcPerc"); ?>">Calculate percentage</a><br />

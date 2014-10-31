@@ -474,7 +474,7 @@ class EventController extends GxController
 		), 'text/html');
 		                        
 		$message->setTo("team@cofinder.eu");
-    if ($id == 111) $message->setTo("cofinder@hekovnik.com");
+    if ($id == (111 || 112)) $message->setTo("cofinder@hekovnik.com");
 		$message->from = Yii::app()->params['noreplyEmail'];
 		Yii::app()->mail->send($message);
 
