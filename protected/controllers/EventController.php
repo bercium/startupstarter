@@ -473,8 +473,9 @@ class EventController extends GxController
 		'Rad bi '.$text.'.<br />'
 		), 'text/html');
 		                        
-		$message->setTo("team@cofinder.eu");
+		
     if ($id == (111 || 112)) $message->setTo("cofinder@hekovnik.com");
+    else $message->setTo("team@cofinder.eu");
 		$message->from = Yii::app()->params['noreplyEmail'];
 		Yii::app()->mail->send($message);
 
