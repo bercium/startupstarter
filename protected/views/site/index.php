@@ -35,7 +35,7 @@
 			<a href="http://www.cofinder.eu/events/sestavi-svojo-ekipo-3" trk="index_event_sse3"><img alt="Sestavi svojo ekipo 3" title="Sestavi svojo ekipo 3" class="" src='<?php echo Yii::app()->request->baseUrl; ?>/images/sestavi-svojo-ekipo-3-cofinder-event.png'></a>
 
 			</center>
-		</div>
+		</div> 
 
 	</div>
 </div>
