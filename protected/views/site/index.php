@@ -26,22 +26,20 @@
     <?php if (!Yii::app()->user->isGuest){  ?>
 
 
-<?php /* ?>
+<?php //* ?>
 <div class="m-event">
-<?php $imeEventa = 'Sestavi svojo ekipo';?>
-
 	
 	<div class="row">
 		<div class="columns large-12 mb10">
 			<center>			
-			<a href="http://www.cofinder.eu/events/internet-of-things" trk="index_event_iot"><img class="" src='<?php echo Yii::app()->request->baseUrl; ?>/images/internet-of-things-cofinder-event.png'></a>
+			<a href="http://www.cofinder.eu/events/sestavi-svojo-ekipo-3" trk="index_event_sse3"><img alt="Sestavi svojo ekipo 3" title="Sestavi svojo ekipo 3" class="" src='<?php echo Yii::app()->request->baseUrl; ?>/images/sestavi-svojo-ekipo-3-cofinder-event.png'></a>
 
 			</center>
-		</div>
+		</div> 
 
 	</div>
 </div>
-*/ 
+<?php //*/ 
 if($tag->name == 'lepagesta'){
 //if($tag != NULL && strlen($tag->title) > 0 && strlen($tag->description) > 0){
   //SHOW TAG CONTENT IF LEPAGESTA (REMAKE SOON)
@@ -308,15 +306,13 @@ if($tag->name == 'lepagesta'){
 
 
 
-<?php /* ?>
+<?php //* ?>
 <div class="m-event mb40">
-<?php $imeEventa = 'Sestavi svojo ekipo';?>
-
 	
 	<div class="row">
 		<div class="columns large-12 mb10">
 			<center>			
-			<a href="http://www.cofinder.eu/events/internet-of-things" trk="index_event_iot"><img class="" src='<?php echo Yii::app()->request->baseUrl; ?>/images/internet-of-things-cofinder-event.png'></a>
+			<a href="http://www.cofinder.eu/events/sestavi-svojo-ekipo-3" trk="index_event_sse3"><img alt="Sestavi svojo ekipo 3" title="Sestavi svojo ekipo 3" class="" src='<?php echo Yii::app()->request->baseUrl; ?>/images/sestavi-svojo-ekipo-3-cofinder-event.png'></a>
 
 			</center>
 		</div>
