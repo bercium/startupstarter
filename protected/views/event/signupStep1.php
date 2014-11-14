@@ -57,6 +57,11 @@ $this->pageTitle = Yii::t('app','Apply for event'). ' - ' . $title;
 	</div>
 
  
+ <p>
+    <?php echo CHtml::label("Where did you hear about us", false); ?>
+    <?php echo CHtml::textField('Survey[hear_about]', (isset($_POST['Survey']['hear_about']) ? $_POST['Survey']['hear_about'] : '')); ?>
+ </p>
+ 
 <br />
 
 <?php echo CHtml::submitButton(Yii::t('app',"Apply now"),array("class"=>"button radius success")); ?>
