@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 $this->pageTitle = Yii::t('app','Apply for event'). ' - ' . $title;
-$_POST['Survey']['hear_about'] = 0;
+$_POST['Event']['present'] = 0;
 ?>
 <?php echo CHtml::beginForm('','post',array("class"=>"custom large-7")); ?>
 
