@@ -6,6 +6,7 @@
  * and open the template in the editor.
  */
 $this->pageTitle = Yii::t('app','Apply for event'). ' - ' . $title;
+$_POST['Survey']['hear_about'] = 0;
 ?>
 <?php echo CHtml::beginForm('','post',array("class"=>"custom large-7")); ?>
 
@@ -27,9 +28,10 @@ $this->pageTitle = Yii::t('app','Apply for event'). ' - ' . $title;
     <label for="s0" onClick='project_select_hide()'>
     <?php echo CHtml::radioButton('Event[present]',(isset($_POST['Event']['present']) && ($_POST['Event']['present'] == '0')),array("value"=>"0","id"=>"s0"))." ".Yii::t('app','Join interesting idea/project');  ?>
     </label>
+    <?php /* ?>
     <label for="s00" onClick='project_select_show()'>
     <?php echo CHtml::radioButton('Event[present]',(isset($_POST['Event']['present']) && ($_POST['Event']['present'] == '1')),array("value"=>"1","id"=>"s00"))." ".Yii::t('app','Pitch your idea/project');  ?>
-    </label>
+    </label><?php */ ?>
  </p>
  
     <div id="project_select" class="mb20" <?php echo (!isset($_POST['Event']['present']) || $_POST['Event']['present'] == '0') ? 'style="display: none"' : ''; ?>>
