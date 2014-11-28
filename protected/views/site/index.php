@@ -26,7 +26,7 @@
     <?php if (!Yii::app()->user->isGuest){  ?>
 
 
-<?php //* ?>
+<?php /* ?>
 <div class="m-event">
 	
 	<div class="row">
@@ -306,7 +306,7 @@ if($tag->name == 'lepagesta'){
 
 
 
-<?php //* ?>
+<?php /* ?>
 <div class="m-event mb40">
 	
 	<div class="row">
