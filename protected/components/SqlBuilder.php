@@ -855,6 +855,12 @@ class SqlBuilder {
 						"(e.id = s.event_id AND s.canceled = 0 AND s.user_id = {$filter['user_id']}) ".
 						"LEFT JOIN event_cofinder AS c ON e.id = c.event_id ".
 						"WHERE e.id = {$filter['admin_event_id']}";
+		} elseif(isset($filter['all_events'])){ 
+			$sql=		"SELECT e.id, e.title, e.start, e.end, c.price_person, c.price_idea, s.user_id, s.payment, s.idea_id FROM ".
+						"event AS e LEFT JOIN event_signup AS s ON e.id = s.event_id ".
+						"LEFT JOIN event_cofinder AS c ON e.id = c.event_id ".
+						"WHERE s.user_id = {$filter['user_id']} AND s.canceled = 0 ".
+						"ORDER BY e.start ASC";
 		} else {
 			$sql=		"SELECT e.id, e.title, e.start, e.end, c.price_person, c.price_idea, s.user_id, s.payment, s.idea_id FROM ".
 						"event AS e LEFT JOIN event_signup AS s ON e.id = s.event_id ".
