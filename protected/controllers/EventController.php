@@ -55,6 +55,7 @@ class EventController extends GxController
 		if(Yii::app()->user->isAdmin()){
 			$filter['admin_event_id'] = $id;
 		}
+		$filter['all_events'] = true;
 		$events = new SqlBuilder;
 		$events = $events->events($filter);
 
@@ -473,9 +474,8 @@ class EventController extends GxController
 		'Rad bi '.$text.'.<br />'
 		), 'text/html');
 		                        
-		
-    if ($id == (111 || 112)) $message->setTo("cofinder@hekovnik.com");
-    else $message->setTo("team@cofinder.eu");
+		$message->setTo("team@cofinder.eu");
+    if ($id == (111 || 253)) $message->setTo("cofinder@hekovnik.com");
 		$message->from = Yii::app()->params['noreplyEmail'];
 		Yii::app()->mail->send($message);
 
