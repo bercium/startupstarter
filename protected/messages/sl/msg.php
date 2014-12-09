@@ -125,7 +125,7 @@ return array (
   'Not really needed but it will make you look more serious' => 'Ni zahtevano, vendar boste s tem izpadli bolj resni.',
   'Now fill your profile to become visible.' => 'Sedaj pa izpolnite profil, da boste postali vidni.',
   'Old Password is incorrect.' => 'Staro geslo je nepravilno.',
-  'Only recent three results are shown!<br />To get full functionality please login or {register}' => 'Prikaže se le zadnje tri rezultete! <br />Prijavite se če želite upoarabljati to funkcionalnost.',
+  'Only recent three results are shown!<br />To get full functionality please login or {register}' => 'Prikazani so le zadnji trije rezulteti! <br />Če želite videti vse, vas prosimo, da se prijavite.',
   'Only write the skills within the same industry. Later you can add more of them under the different industry.' => 'Navedite samo znanja v tej specifični panogi. Kasneje lahko dodate novo panogo in tam navedete preostala znanja.',
   'Oops! This person does not exist.' => 'Oops! Ta oseba ne obstaja.',
   'Oops! This project does not exist.' => 'Oops! Ta projekt ne obstaja.',

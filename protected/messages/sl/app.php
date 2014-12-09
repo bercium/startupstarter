@@ -129,7 +129,7 @@ return array (
   'Email' => 'Email',
   'Employees' => 'Zaposleni',
   'End' => 'Konec',
-  'Engineers' => 'Inžinirji',
+  'Engineers' => 'Inženirji',
   'Error' => 'Napaka',
   'Event description' => 'Opis dogodka',
   'Event page' => 'Stran za dogodek',
