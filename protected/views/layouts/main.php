@@ -206,6 +206,12 @@ if (!isset($this->justContent) || !$this->justContent) $notifications = Notifica
                   <?php echo Yii::t('app','Events'); ?>
                 </a>
               </li>
+              <li class="divider"></li>
+              <li class="">
+                <a target="_blank" href="<?php echo "http://www.cofinder.eu/blog" ?>" trk="navigation_topMenu_blog" title="<?php echo Yii::t('app','How to search for a cofounder'); ?>" >
+                  <?php echo Yii::t('app','Blog'); ?>
+                </a>
+              </li>
                <li class="divider"></li>            
               <?php /* ?><li class="<?php echo isMenuItemActive("team"); ?>">
                 <a href="<?php echo Yii::app()->createUrl("site/team"); ?>"><?php echo Yii::t('app','Our team'); ?></a>
