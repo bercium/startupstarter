@@ -486,6 +486,11 @@ class SiteController extends Controller
       <priority>0.90</priority>
     </url>
     <url>
+      <loc>http://www.cofinder.eu/blog</loc>
+      <changefreq>weekly</changefreq>
+      <priority>0.90</priority>
+    </url>
+    <url>
       <loc>http://www.cofinder.eu/site/startupEvents</loc>
       <changefreq>daily</changefreq>
       <priority>0.60</priority>
