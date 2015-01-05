@@ -41,7 +41,7 @@ class MailerCommand extends CConsoleCommand{
     $message->view = 'system';
     $message->from = Yii::app()->params['noreplyEmail'];    
     
-    $users = User::model()->findAll("(lastvisit_at + INTERVAL 2 MONTH) < CURDATE()");
+    $users = User::model()->findAll("(lastvisit_at + INTERVAL 2 MONTH) < CURDATE() AND newsletter=1");
     foreach ($users as $user){
       $lastvisit_at = strtotime($user->lastvisit_at);
 
@@ -265,7 +265,8 @@ class MailerCommand extends CConsoleCommand{
     foreach ($hidden as $stat){
       //set mail tracking
       if ($stat->user->status != 0) continue; // skip active users
-      if ($stat->user->lastvisit_at != '0000-00-00 00:00:00') continue; // skip users who have allready canceled their account
+      if ($stat->user->newsletter == 0) continue; // skip those who unsubscribed
+      if ($stat->user->lastvisit_at != '0000-00-00 00:00:00') continue; // skip users who have already canceled their account
       
       //echo $stat->user->name." - ".$stat->user->email.": ".$stat->user->create_at." (".date('c',strtotime('-4 week'))."     ".date('c',strtotime('-3 week')).")<br />\n";
       $create_at = strtotime($stat->user->create_at);
