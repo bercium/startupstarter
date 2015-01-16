@@ -631,6 +631,8 @@ EOD;
     
     
     $eventsToday = Event::model()->findAll("CURDATE() BETWEEN DATE(start) AND date(end)  ");
+    
+    if (!$eventsToday) $eventsUpcoming = Event::model()->findAll("start BETWEEN CURDATE() AND :end ",array(":end"=>date("Y-m-d",strtotime("+1 week")) ));
     /*echo "<pre>";
     print_r($events);
     echo "</pre>";*/
@@ -638,7 +640,7 @@ EOD;
       $register = '<a href="'.Yii::app()->createUrl("user/registration").'" class="button small radius secondary ml10 mb0">'.Yii::t('app','register').'</a>';    
       setFlash("discoverPerson", Yii::t('msg','To see all events please login or {register}',array('{register}'=>$register)), "alert", false);
     }*/
-    $this->render("calendar",array("events"=>$events,"eventsToday"=>$eventsToday));
+    $this->render("calendar",array("events"=>$events,"eventsToday"=>$eventsToday,"eventsUpcoming"=>$eventsUpcoming));
   }
   
   /**

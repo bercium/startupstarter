@@ -104,16 +104,26 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
 
 <div class="row">
     <div class="columns main ball wrapped-content">
+    <?php if ($eventsToday){ ?>          
       <h1><?php echo Yii::t('app','What is happening today'); ?></h1>
+    <?php }else{ if ($eventsUpcoming){ ?>
+      <h1><?php echo Yii::t('app','What is happening in the upcoming days'); ?></h1>
+    <?php }else { ?>
+      <h1><?php echo Yii::t('app','No upcoming events'); ?></h1>
+    <?php } ?>
       
+      
+     <?php if ($eventsToday || $eventsUpcoming){ 
+         
+         if ($eventsToday) $allEvents = $eventsToday;
+         else $allEvents = $eventsUpcoming;
+     
+        ?> 
       <div class="columns large-7">
       <?php 
-        if ($eventsToday){
-          foreach ($eventsToday as $event){
+          foreach ($allEvents as $event){
       ?>
-        <h3 class="f-" style="text-transform:none">
-
-          <?php echo $event->title; ?></h3>
+        <h2 class="f-" style="text-transform:none"><?php echo $event->title; ?></h2>
         <small>
           <div class="mb8 meta" style="font-weight: bold;" data-tooltip title="<img src='<?php echo getGMap($event->country,$event->city,''); ?>'>" ><?php echo $event->location; ?></div>
           <p><?php echo $event->content; ?></p>
@@ -131,11 +141,10 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
         
         <hr>
 
-      <?php 
-            }
-          }else{ ?>
-        <div class="panel radius description"><?php echo Yii::t('msg','Sorry but we have no events for today in our database.'); ?></div>
       <?php } ?>
       </div>
+      
+      <?php } ?>
+      
     </div>
 </div>
