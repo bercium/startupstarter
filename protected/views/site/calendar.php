@@ -125,7 +125,7 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
       ?>
         <h2 class="f-" style="text-transform:none"><?php echo $event->title; ?></h2>
         <small>
-          <div class="mb8 meta" style="font-weight: bold;" data-tooltip title="<img src='<?php echo getGMap($event->country,$event->city,''); ?>'>" ><?php echo $event->location; ?></div>
+          <div><?php echo $event->start; ?> </div><div class="mb8 meta left" style="font-weight: bold;" data-tooltip title="<img src='<?php echo getGMap($event->country,$event->city,''); ?>'>" ><?php echo $event->location; ?></div>
           <p><?php echo $event->content; ?></p>
         </small>
         <?php if ($event->link){ ?>
@@ -135,10 +135,11 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
           <span class="icon-calendar mr10"></span><?php echo Yii::t('app','Add to calendar') ?>
         </a>
         
+        <div>
         <small>
-          <a href="<?php echo $event->source; ?>" target="_blank"  trk="calendar_today_source" class="left meta"><?php echo Yii::t('app','Source').': '.$event->source; ?></a>
+          <a href="<?php echo $event->source; ?>" target="_blank"  trk="calendar_today_source" class="meta"><?php echo Yii::t('app','Source').': '.$event->source; ?></a>
         </small>  
-        
+        </div>
         <hr>
 
       <?php } ?>
