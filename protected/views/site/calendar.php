@@ -125,7 +125,10 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
       ?>
         <h2 class="f-" style="text-transform:none"><?php echo $event->title; ?></h2>
         <small>
-          <div><?php echo $event->start; ?> </div><div class="mb8 meta left" style="font-weight: bold;" data-tooltip title="<img src='<?php echo getGMap($event->country,$event->city,''); ?>'>" ><?php echo $event->location; ?></div>
+          <div><?php echo Yii::app()->dateFormatter->formatDateTime(strtotime($event->start), "medium", null); ?> 
+              <span class="mb8 meta left" style="font-weight: bold;" data-tooltip title="<img src='<?php echo getGMap($event->country,$event->city,''); ?>'>" ><?php echo $event->location; ?>
+              </span>
+          </div>
           <p><?php echo $event->content; ?></p>
         </small>
         <?php if ($event->link){ ?>
