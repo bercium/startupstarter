@@ -106,7 +106,7 @@ $cs->registerScriptFile($baseUrl.'/js/fullcalendar/fullcalendar.min.js');
     <div class="columns main ball wrapped-content">
     <?php if ($eventsToday){ ?>          
       <h1><?php echo Yii::t('app','What is happening today'); ?></h1>
-    <?php }else{ if ($eventsUpcoming){ ?>
+    <?php }elseif ($eventsUpcoming){ ?>
       <h1><?php echo Yii::t('app','What is happening in the upcoming days'); ?></h1>
     <?php }else { ?>
       <h1><?php echo Yii::t('app','No upcoming events'); ?></h1>
