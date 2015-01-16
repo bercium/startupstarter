@@ -630,7 +630,7 @@ EOD;
     }else $events = Event::model()->findAll("start >= :start ",array(":start"=>date("Y-m-1")));
     
     
-    $eventsToday = Event::model()->findAll("CURDATE() BETWEEN DATE(start) AND date(end)  ");
+    $eventsToday = Event::model()->findAll("CURDATE() BETWEEN DATE(start) AND date(end)");
     
     if (!$eventsToday) $eventsUpcoming = Event::model()->findAll("start BETWEEN CURDATE() AND :end ",array(":end"=>date("Y-m-d",strtotime("+1 week")) ));
     /*echo "<pre>";
