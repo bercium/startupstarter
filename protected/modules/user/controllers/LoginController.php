@@ -41,8 +41,8 @@ class LoginController extends Controller
               "Last visit"=>$lastVisit->lastvisit_at,
               "Profile completeness"=>$com->getPercentage(),
               "Newsletter"=>$lastVisit->newsletter,
-              "\$city"=>$lastVisit->UserMatch->City->name,
-              "\$country"=>$lastVisit->UserMatch->Country->name,
+              "\$city"=>$lastVisit->userMatches->city->name,
+              "\$country"=>$lastVisit->userMatches->country->name,
             ));
             
           //echo Yii::app()->request->urlReferrer;
