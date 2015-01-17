@@ -467,10 +467,9 @@ class SqlBuilder {
 					"WHERE i.deleted = 0 ";
 
 					$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
-                    var_dump(Yii::app()->user);
-					/*if($match->id == $filter['match_id'] || (isset( Yii::app()->user) && Yii::app()->user->isAdmin() ) ){
+					if($match->id == $filter['match_id'] /*|| (isset( Yii::app()->user) && Yii::app()->user->isAdmin() ) */){
 						$sql.=" OR i.deleted = 2 ";
-					}*/
+					}
                     
 
 					$sql.="ORDER BY im.type_id ASC, i.time_registered DESC";
