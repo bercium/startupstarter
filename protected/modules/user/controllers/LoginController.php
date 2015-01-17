@@ -26,7 +26,6 @@ class LoginController extends Controller
           //Yii::app()->setLanguage();  // set language from user settings
           
           $lastVisit = User::model()->findByPk(Yii::app()->user->id);
-          Yii::app()->getClientScript()->registerScript("mixpanel.identify('".Yii::app()->user->id."');");
 
             // MIXPANEL
             Yii::app()->getClientScript()->registerScript("mixpanellogin",'mixpanel.register({"Profile completeness":"'.$com->getPercentage().'",'

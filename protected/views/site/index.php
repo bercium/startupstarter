@@ -40,7 +40,7 @@
 	</div>
 </div>
 <?php //*/ 
-if($tag->name == 'lepagesta'){
+if(isset($tag->name) && $tag->name == 'lepagesta'){
 //if($tag != NULL && strlen($tag->title) > 0 && strlen($tag->description) > 0){
   //SHOW TAG CONTENT IF LEPAGESTA (REMAKE SOON)
 ?>
