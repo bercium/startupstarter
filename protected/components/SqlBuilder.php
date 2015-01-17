@@ -467,8 +467,7 @@ class SqlBuilder {
 					"WHERE i.deleted = 0 ";
 
 					$match = UserMatch::Model()->findByAttributes(array('user_id' => Yii::app()->user->id));
-                    if ($match)
-					if($match->id == $filter['match_id'] || (isset(Yii::app()->user->isAdmin()) && Yii::app()->user->isAdmin() ) ){
+					if($match->id == $filter['match_id'] || ( Yii::app()->user->isAdmin() ) ){
 						$sql.=" OR i.deleted = 2 ";
 					}
 
