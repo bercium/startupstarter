@@ -358,7 +358,7 @@ if(isset($tag->name) && $tag->name == 'lepagesta'){
           <span class="icon-quote-left large"></span>
           <?php echo Yii::t('cont','Cofinder events are a very effective way to get connected to the right people.'); ?>
 
-          <span class="icon-quote-right large"></span
+          <span class="icon-quote-right large"></span>
           <br />
           <span class="mt40 right l-iblock">
            <a class="f-bold mt20" href="http://www.cofinder.eu/project/view/35"><?php echo Yii::t('cont','Andraž from 3FS'); ?></a>
@@ -370,7 +370,7 @@ if(isset($tag->name) && $tag->name == 'lepagesta'){
         <div class="columns pt0 pb0 mt10 large-8 large-centered">
           <span class="icon-quote-left large"></span>
           <?php echo Yii::t('cont','As a young startup we were looking for specific type of profesionals. We were able to find them quickly with the help of Cofinder.'); ?>
-          <span class="icon-quote-right large"></span
+          <span class="icon-quote-right large"></span>
           <br />
           <span class="mt40 right l-iblock" >
            <a class="f-bold mt20" href="http://www.cofinder.eu/project/view/9"><?php echo Yii::t('cont','Peter from Biometrics'); ?></a>
@@ -383,7 +383,7 @@ if(isset($tag->name) && $tag->name == 'lepagesta'){
           <span class="icon-quote-left large"></span>
           <?php echo Yii::t('cont','After I opened a new position for my project I immediately got contacted by interesting people.'); ?>
           
-          <span class="icon-quote-right large"></span
+          <span class="icon-quote-right large"></span>
           <br />
           <span class="mt40 right l-iblock">
            <a class="f-bold mt20" href="http://www.cofinder.eu/project/view/32"><?php echo Yii::t('cont','Boštjan from Studio 404'); ?></a>
