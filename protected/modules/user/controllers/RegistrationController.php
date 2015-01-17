@@ -181,6 +181,7 @@ class RegistrationController extends Controller
                             "\$email"=>$model->email,
                             "\$first_name"=>$model->name,
                             "\$last_name"=>$model->surname,
+                            "\$name"=>$user->name.''.$user->surname,
                             "\$created"=>date("Y-m-d"),
                             "Invited"=>($invited != null),
                           ));

@@ -44,6 +44,7 @@ class LoginController extends Controller
               "Newsletter"=>$user->newsletter,
               "\$firstname"=>$user->name,
               "\$lastname"=>$user->surname,
+              "\$name"=>$user->name.''.$user->surname,
               "\$city"=>$user->userMatches[0]->city->name,
               "\$country"=>$user->userMatches[0]->country->name,
               "\$country_code"=>$user->userMatches[0]->country->country_code,
