@@ -9,7 +9,7 @@
 /* @var $this SiteController */
 $user = $data['user'];
 $this->pageTitle = $user['name'] . " " . $user['surname'];
-if ($user['bio']) $this->pageDesc = trim_text(strip_tags($user['bio']), 150);
+if ($user['bio']) $this->pageDesc = htmlentities (trim_text(strip_tags($user['bio']), 150));
 else {
   // create automatic personal description if bio is empty
   $this->pageDesc = Yii::t('app',"I'm {name}",array('{name}'=>$user['name'] . " " . $user['surname']));

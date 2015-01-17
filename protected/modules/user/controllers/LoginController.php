@@ -25,6 +25,18 @@ class LoginController extends Controller
 
           //Yii::app()->setLanguage();  // set language from user settings
           
+          $lastVisit = User::model()->findByPk(Yii::app()->user->id);
+          Yii::app()->getClientScript()->registerScript("mixpanel.identify('".Yii::app()->user->id."');");
+
+            // MIXPANEL
+            Yii::app()->getClientScript()->registerScript('mixpanel.register({"Profile completeness":"'.$com->getPercentage().'",'
+                  . '"Newsletter":"'.$lastVisit->newsletter.'" });');
+            Yii::app()->getClientScript()->registerScript('mixpanel.people.set({ "Last visit": "'.$lastVisit->lastvisit_at.'",'
+                  . '"Profile completeness":"'.$com->getPercentage().'",'
+                  . '"Newsletter":"'.$lastVisit->newsletter.'" });');
+            //$cs->registerScript('mixpanel.track("Signup");');
+             Yii::app()->getClientScript()->registerScript("mixpanel.identify('".$model->email."');");          
+          
           //echo Yii::app()->request->urlReferrer;
           //die ("|".empty($_POST['UserLogin']['redirect'])."|".$_POST['UserLogin']['redirect']."|".($_POST['UserLogin']['redirect'] == '')."|".isset($_POST['UserLogin']['redirect'])."|");
           if (!empty($_POST['UserLogin']['redirect'])){

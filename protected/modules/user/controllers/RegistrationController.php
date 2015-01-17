@@ -173,7 +173,19 @@ class RegistrationController extends Controller
                       $baseUrl = Yii::app()->baseUrl; 
                       $cs = Yii::app()->getClientScript();
                       $cs->registerScript("ganalyticsregister","ga('send', 'event', 'registration', 'mark_user',{'dimension1':'".$uid."',})");
-
+                      
+                      // MIXPANEL
+                      Yii::app()->getClientScript()->registerScript("mixpanel.register_once({'Account Created Date': '".date("Y-m-d")."'});");
+                      Yii::app()->getClientScript()->registerScript("mixpanel.register({'Email': '".$model->email."',
+                                                                    'Account Created Date': '".date("Y-m-d")."',
+                                                                    'Invited': '".($invited != null)."'});");
+                      Yii::app()->getClientScript()->registerScript("mixpanel.people.set({'\$email': '".$model->email."',
+                                                                    '\$first_name': '".$model->name."',
+                                                                    '\$last_name': '".$model->surname."',
+                                                                    '\$created': '".date("Y-m-d")."',
+                                                                    'Invited': '".($invited != null)."'});");
+                      Yii::app()->getClientScript()->registerScript('mixpanel.track("Signup");');
+                      Yii::app()->getClientScript()->registerScript("mixpanel.alias('".$model->email."');");
 
                       // if someone is coming to an event
                       if (isset($_GET['event'])){
