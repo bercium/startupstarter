@@ -137,8 +137,6 @@ class Controller extends CController
 for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
 mixpanel.init("'.$mp_id.'");',CClientScript::POS_HEAD);
     
-    $cs->registerScript("mixpaneltracke","mixpanel.track('test');");
-    
     // startup scripts
     $cs->registerScriptFile($baseUrl.'/js/app.js');
     
