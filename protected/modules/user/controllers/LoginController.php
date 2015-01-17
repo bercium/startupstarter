@@ -25,7 +25,7 @@ class LoginController extends Controller
 
           //Yii::app()->setLanguage();  // set language from user settings
           
-          $lastVisit = User::model()->findByPk(Yii::app()->user->id);
+          $user = User::model()->findByPk(Yii::app()->user->id);
 
             // MIXPANEL
            /* Yii::app()->getClientScript()->registerScript("mixpanellogin",'mixpanel.register({"Profile completeness":"'.$com->getPercentage().'",'
@@ -36,13 +36,14 @@ class LoginController extends Controller
                    . 'mixpanel.identify("'.$model->email.'");');  
           */
 //          $this->mp->registerOnce
-          $this->mp->registerAll(array("Profile completeness"=>$com->getPercentage(), "Newsletter"=>$lastVisit->newsletter));
+          //$um = UserMatch::model()->findAllByAttributes("")
+          $this->mp->registerAll(array("Profile completeness"=>$com->getPercentage(), "Newsletter"=>$user->newsletter));
           $this->mp->people->set($model->email, array(
-              "Last visit"=>$lastVisit->lastvisit_at,
+              "Last visit"=>$user->lastvisit_at,
               "Profile completeness"=>$com->getPercentage(),
-              "Newsletter"=>$lastVisit->newsletter,
-              "\$city"=>$lastVisit->userMatches->city->name,
-              "\$country"=>$lastVisit->userMatches->country->name,
+              "Newsletter"=>$user->newsletter,
+              "\$city"=>$user->userMatches[0]->city->name,
+              "\$country"=>$user->userMatches[0]->country->name,
             ));
             
           //echo Yii::app()->request->urlReferrer;
