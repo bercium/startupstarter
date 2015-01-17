@@ -42,6 +42,8 @@ class LoginController extends Controller
               "Last visit"=>$user->lastvisit_at,
               "Profile completeness"=>$com->getPercentage(),
               "Newsletter"=>$user->newsletter,
+              "\$firstname"=>$user->name,
+              "\$lastname"=>$user->surname,
               "\$city"=>$user->userMatches[0]->city->name,
               "\$country"=>$user->userMatches[0]->country->name,
               "\$country_code"=>$user->userMatches[0]->country->country_code,
