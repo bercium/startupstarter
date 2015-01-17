@@ -177,7 +177,7 @@ class RegistrationController extends Controller
                       
                         $this->mp->registerOnce("Account Created Date",date("Y-m-d"));
                         $this->mp->registerAll(array("Email"=>$model->email, "Invited"=>($invited != null),'Account Created Date'=>date("Y-m-d") ));
-                        $mp->people->set($model->email, array(
+                        $this->mp->people->set($model->email, array(
                             "\$email"=>$model->email,
                             "\$first_name"=>$model->name,
                             "\$last_name"=>$model->surname,

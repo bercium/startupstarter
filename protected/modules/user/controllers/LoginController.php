@@ -37,7 +37,7 @@ class LoginController extends Controller
           */
 //          $this->mp->registerOnce
           $this->mp->registerAll(array("Profile completeness"=>$com->getPercentage(), "Newsletter"=>$lastVisit->newsletter));
-          $mp->people->set($model->email, array(
+          $this->mp->people->set($model->email, array(
               "Last visit"=>$lastVisit->lastvisit_at,
               "Profile completeness"=>$com->getPercentage(),
               "Newsletter"=>$lastVisit->newsletter
