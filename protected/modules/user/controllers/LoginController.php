@@ -40,7 +40,9 @@ class LoginController extends Controller
           $this->mp->people->set($model->email, array(
               "Last visit"=>$lastVisit->lastvisit_at,
               "Profile completeness"=>$com->getPercentage(),
-              "Newsletter"=>$lastVisit->newsletter
+              "Newsletter"=>$lastVisit->newsletter,
+              "\$city"=>$lastVisit->UserMatch->City->name,
+              "\$country"=>$lastVisit->UserMatch->Country->name,
             ));
             
           //echo Yii::app()->request->urlReferrer;
