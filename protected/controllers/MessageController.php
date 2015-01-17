@@ -104,7 +104,7 @@ class MessageController extends Controller
         
         $project = IdeaTranslation::model()->findByAttributes(array("idea_id"=>$_POST['project']));
         
-        Yii::app()->getClientScript()->registerScript('mixpanel.track("Message send to project", {"to":"'.$project->title.'"});');
+        Yii::app()->getClientScript()->registerScript("mixpanelmsg",'mixpanel.track("Message send to project", {"to":"'.$project->title.'"});');
         
         $message_self->subject = "Message send to project";
         $content_self = "You have sent this message trough Cofinder to ".$project->title.  
@@ -134,7 +134,7 @@ class MessageController extends Controller
       $message->from = Yii::app()->params['adminEmail'];
       Yii::app()->mail->send($message);
       
-      Yii::app()->getClientScript()->registerScript('mixpanel.track("Message send to person", {"to":"'.$receiver->email.'"});');
+      Yii::app()->getClientScript()->registerScript("mixpanelmsg",'mixpanel.track("Message send to person", {"to":"'.$receiver->email.'"});');
       
       if (isset($_POST['notify_me']) && $_POST['notify_me'] = 1){
         $message_self->view = 'system';

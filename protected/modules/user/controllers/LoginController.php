@@ -29,13 +29,12 @@ class LoginController extends Controller
           Yii::app()->getClientScript()->registerScript("mixpanel.identify('".Yii::app()->user->id."');");
 
             // MIXPANEL
-            Yii::app()->getClientScript()->registerScript('mixpanel.register({"Profile completeness":"'.$com->getPercentage().'",'
-                  . '"Newsletter":"'.$lastVisit->newsletter.'" });');
-            Yii::app()->getClientScript()->registerScript('mixpanel.people.set({ "Last visit": "'.$lastVisit->lastvisit_at.'",'
+            Yii::app()->getClientScript()->registerScript("mixpanellogin",'mixpanel.register({"Profile completeness":"'.$com->getPercentage().'",'
+                  . '"Newsletter":"'.$lastVisit->newsletter.'" });'
+                  . 'mixpanel.people.set({ "Last visit": "'.$lastVisit->lastvisit_at.'",'
                   . '"Profile completeness":"'.$com->getPercentage().'",'
-                  . '"Newsletter":"'.$lastVisit->newsletter.'" });');
-            //$cs->registerScript('mixpanel.track("Signup");');
-             Yii::app()->getClientScript()->registerScript("mixpanel.identify('".$model->email."');");          
+                  . '"Newsletter":"'.$lastVisit->newsletter.'" });'
+                   . 'mixpanel.identify("'.$model->email.'");');  
           
           //echo Yii::app()->request->urlReferrer;
           //die ("|".empty($_POST['UserLogin']['redirect'])."|".$_POST['UserLogin']['redirect']."|".($_POST['UserLogin']['redirect'] == '')."|".isset($_POST['UserLogin']['redirect'])."|");
