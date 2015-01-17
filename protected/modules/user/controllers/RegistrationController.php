@@ -174,8 +174,20 @@ class RegistrationController extends Controller
                       $cs = Yii::app()->getClientScript();
                       $cs->registerScript("ganalyticsregister","ga('send', 'event', 'registration', 'mark_user',{'dimension1':'".$uid."',})");
                       
+                      
+                        $this->mp->registerOnce("Account Created Date",date("Y-m-d"));
+                        $this->mp->registerAll(array("Email"=>$model->email, "Invited"=>($invited != null),'Account Created Date'=>date("Y-m-d") ));
+                        $mp->people->set($model->email, array(
+                            "\$email"=>$model->email,
+                            "\$first_name"=>$model->name,
+                            "\$last_name"=>$model->surname,
+                            "\$created"=>date("Y-m-d"),
+                            "Invited"=>($invited != null),
+                          ));
+                        $this->mp->track("Signup");
+                      
                       // MIXPANEL
-                      Yii::app()->getClientScript()->registerScript("mixpanelregister","mixpanel.register_once({'Account Created Date': '".date("Y-m-d")."'});
+                      /*Yii::app()->getClientScript()->registerScript("mixpanelregister","mixpanel.register_once({'Account Created Date': '".date("Y-m-d")."'});
                           
                                                                     mixpanel.register({'Email': '".$model->email."',
                                                                     'Account Created Date': '".date("Y-m-d")."',
@@ -186,7 +198,7 @@ class RegistrationController extends Controller
                                                                     '\$created': '".date("Y-m-d")."',
                                                                     'Invited': '".($invited != null)."'});
                                                                   mixpanel.track('Signup');
-                                                                  mixpanel.alias('".$model->email."');");
+                                                                  mixpanel.alias('".$model->email."');");*/
 
                       // if someone is coming to an event
                       if (isset($_GET['event'])){

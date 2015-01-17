@@ -36,6 +36,7 @@ $a = array(
     'ext.mail.YiiMailMessage', // mail system
     'ext.tinymce.*', //tiny mce
     'ext.JsTrans.*',  // js translate class
+    'ext.Mixpanel.*',
 	),
 
 	'modules'=>array(

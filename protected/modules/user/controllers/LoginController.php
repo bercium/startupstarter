@@ -28,13 +28,21 @@ class LoginController extends Controller
           $lastVisit = User::model()->findByPk(Yii::app()->user->id);
 
             // MIXPANEL
-            Yii::app()->getClientScript()->registerScript("mixpanellogin",'mixpanel.register({"Profile completeness":"'.$com->getPercentage().'",'
+           /* Yii::app()->getClientScript()->registerScript("mixpanellogin",'mixpanel.register({"Profile completeness":"'.$com->getPercentage().'",'
                   . '"Newsletter":"'.$lastVisit->newsletter.'" });'
                   . 'mixpanel.people.set({ "Last visit": "'.$lastVisit->lastvisit_at.'",'
                   . '"Profile completeness":"'.$com->getPercentage().'",'
                   . '"Newsletter":"'.$lastVisit->newsletter.'" });'
                    . 'mixpanel.identify("'.$model->email.'");');  
-          
+          */
+//          $this->mp->registerOnce
+          $this->mp->registerAll(array("Profile completeness"=>$com->getPercentage(), "Newsletter"=>$lastVisit->newsletter));
+          $mp->people->set($model->email, array(
+              "Last visit"=>$lastVisit->lastvisit_at,
+              "Profile completeness"=>$com->getPercentage(),
+              "Newsletter"=>$lastVisit->newsletter
+            ));
+            
           //echo Yii::app()->request->urlReferrer;
           //die ("|".empty($_POST['UserLogin']['redirect'])."|".$_POST['UserLogin']['redirect']."|".($_POST['UserLogin']['redirect'] == '')."|".isset($_POST['UserLogin']['redirect'])."|");
           if (!empty($_POST['UserLogin']['redirect'])){

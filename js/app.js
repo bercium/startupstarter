@@ -145,6 +145,7 @@ $(window).scroll(function () {
 
 var qrActive = false;
 function qrLoad(){
+  return;
   //alert('d');
 //  $.get(Yii.app.createUrl("profile/suggestSkil",{ajax:1,term:'ski'}), function( data ) {
   if (qrActive) return;
