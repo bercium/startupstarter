@@ -463,6 +463,8 @@ class SiteController extends Controller
     Yii::app()->clientScript->reset();
     $this->layout = 'blank'; // template blank
     
+    $curdate = date('Y-m-d');
+    
     $sitemapResponse=<<<EOD
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
@@ -474,56 +476,67 @@ class SiteController extends Controller
       <loc>http://www.cofinder.eu/</loc>
       <changefreq>daily</changefreq>
       <priority>0.90</priority>
+       <lastmod>$curdate</lastmod>
     </url>
     <url>
       <loc>http://www.cofinder.eu/person/discover</loc>
       <changefreq>daily</changefreq>
       <priority>0.90</priority>
+      <lastmod>$curdate</lastmod>
     </url>
     <url>
       <loc>http://www.cofinder.eu/project/discover</loc>
       <changefreq>daily</changefreq>
       <priority>0.90</priority>
+      <lastmod>$curdate</lastmod>
     </url>
     <url>
       <loc>http://www.cofinder.eu/blog</loc>
       <changefreq>weekly</changefreq>
       <priority>0.90</priority>
+      <lastmod>$curdate</lastmod>
     </url>
     <url>
       <loc>http://www.cofinder.eu/site/startupEvents</loc>
       <changefreq>daily</changefreq>
       <priority>0.60</priority>
+      <lastmod>$curdate</lastmod>
     </url>
     <url>
       <loc>http://www.cofinder.eu/site/about</loc>
       <changefreq>monthly</changefreq>
       <priority>0.60</priority>
+      <lastmod>$curdate</lastmod>
     </url>
     <url>
       <loc>http://www.cofinder.eu/user/registration</loc>
       <changefreq>monthly</changefreq>
       <priority>0.30</priority>
+      <lastmod>$curdate</lastmod>
     </url>
     <url>
       <loc>http://www.cofinder.eu/user/login</loc>
       <changefreq>yearly</changefreq>
       <priority>0.30</priority>
+      <lastmod>$curdate</lastmod>
     </url>
     <url>
       <loc>http://www.cofinder.eu/user/recovery</loc>
       <changefreq>yearly</changefreq>
       <priority>0.20</priority>
+      <lastmod>$curdate</lastmod>
     </url>
     <url>
       <loc>http://www.cofinder.eu/site/terms</loc>
       <changefreq>monthly</changefreq>
       <priority>0.40</priority>
+      <lastmod>$curdate</lastmod>
     </url>
     <url>
       <loc>http://www.cofinder.eu/site/cookies</loc>
       <changefreq>monthly</changefreq>
       <priority>0.40</priority>
+      <lastmod>$curdate</lastmod>
     </url>
     
 EOD;
@@ -547,6 +560,7 @@ EOD;
         <loc>".Yii::app()->createAbsoluteUrl('person',array("id"=>$user['id']))."</loc>
         <changefreq>weekly</changefreq>
         <priority>0.".$priority."</priority>
+        <lastmod>".$curdate."</lastmod>
       </url>";
     }
     
@@ -567,6 +581,7 @@ EOD;
           <loc>".Yii::app()->createAbsoluteUrl('project',$ar)."</loc>
           <changefreq>weekly</changefreq>
           <priority>0.".$priority."</priority>
+          <lastmod>".$curdate."</lastmod>
         </url>";
       }
     }    
