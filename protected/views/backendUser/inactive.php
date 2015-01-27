@@ -15,7 +15,7 @@
      echo ")";
    }
    echo "<br />";
-   echo Yii::app()->createAbsoluteUrl("/profile/registrationFlow",array("key"=>substr($user->activkey,0, 10),"email"=>$user->email));
+   echo "<small>".Yii::app()->createAbsoluteUrl("/profile/registrationFlow",array("key"=>substr($user->activkey,0, 10),"email"=>$user->email))."</small>";
    echo "<br />";
    echo "<br />";
    
