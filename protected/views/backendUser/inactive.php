@@ -9,7 +9,7 @@
    ?> </a> <?php
 
    if (isset($user->userStat)) echo " ".$user->userStat->completeness."%";
-   echo " - http://cofinder.eu/user/registration?id=".$user->key;
+   //echo " - http://cofinder.eu/user/registration?id=".$user->key;
    if (isset($user->userTag)){
      echo " (";
      foreach ($user->userTag as $tag)  echo " ".$tag->tag.", ";
