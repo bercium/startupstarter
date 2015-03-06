@@ -532,7 +532,8 @@ function shortenAvailable($value, $justValue = false, $justHint = false){
    */
   function mailLinkTracking($id,$link,$name){
     if ($id == '') return $link;
-    return Yii::app()->createAbsoluteUrl("track/ml",array("tc"=>$id,"l"=>$link,"ln"=>$name));
+    return "http://www.cofinder.eu/track/ml?tc=".$id."&l=".urlencode($link)."&ln=".$name;
+    //return Yii::app()->createAbsoluteUrl("track/ml",array("tc"=>$id,"l"=>$link,"ln"=>$name));
   }
 
   /**
