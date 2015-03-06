@@ -177,7 +177,10 @@
 																		<a style="color: #333; text-decoration: none;" href="http://www.cofinder.eu/site/terms">Terms</a> |
 																		<a style="color: #333; text-decoration: none;" href="http://www.cofinder.eu/site/terms#privacy">Privacy</a>
 															              <?php if (isset($email) || isset($activkey)){ ?> |
-															              <a style="color: #333; text-decoration: none;" href="<?php echo absoluteURL(); ?>/site/unbsucribeFromNews?<?php if (isset($email)) echo "email=".$email; else echo "id=".$activkey; ?>">Unsubscribe</a>
+															              <a style="color: #333; text-decoration: none;" href="<?php 
+                                              $link = absoluteURL().'/site/unbsucribeFromNews?'; if (isset($email)) $link .= "email=".$email; else $link .= "id=".$activkey; 
+                                              if (!empty($tc)) echo mailLinkTracking($tc,$link,"unsubscribe"); else echo $link; 
+                                              ?>">Unsubscribe</a>
 															              <?php } ?>
 																</p>                                                                   
                                                         	</center>

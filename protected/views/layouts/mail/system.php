@@ -233,10 +233,10 @@
 																		<a style="color: #333; text-decoration: none;" href="<?php if (!empty($tc)) echo mailLinkTracking($tc,"http://www.cofinder.eu/site/terms","terms"); else echo "http://www.cofinder.eu/site/terms"; ?>">Terms</a> |
 																		<a style="color: #333; text-decoration: none;" href="<?php if (!empty($tc)) echo mailLinkTracking($tc,"http://www.cofinder.eu/site/terms#privacy","privacy"); else echo "http://www.cofinder.eu/site/terms#privacy"; ?>">Privacy</a>
 															              <?php if (isset($email) || isset($activkey)){ ?> |
-															              <a style="color: #333; text-decoration: none;" href="<?php
-                                              $link = absoluteURL(); ?>/site/unbsucribeFromNews?<?php if (isset($email)) echo "email=".$email; else echo "id=".$activkey; ;
-                                              if (!empty($tc)) echo mailLinkTracking($tc,$link,"unsubscribe"); else echo $link; 
-                                              ?>">Unsubscribe</a>
+                                                                            <a style="color: #333; text-decoration: none;" href="<?php
+                                                                            $link = absoluteURL().'/site/unbsucribeFromNews?'; if (isset($email)) $link .= "email=".$email; else $link .= "id=".$activkey; 
+                                                                            if (!empty($tc)) echo mailLinkTracking($tc,$link,"unsubscribe"); else echo $link; 
+                                                                            ?>">Unsubscribe</a>
 															              <?php } ?>
 																</p>
                                                               <?php if (!empty($tc)){ ?>
