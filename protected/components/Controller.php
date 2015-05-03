@@ -110,7 +110,7 @@ class Controller extends CController
 
         ga('create', 'UA-45467622-1', ".$uid_google.");
         ga('require', 'displayfeatures');
-        
+        ga('require', 'linkid', 'linkid.js');
         ga('send', 'pageview'".$logedin.");
      ");
     //ga('require', 'linkid', 'linkid.js');
