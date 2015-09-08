@@ -129,7 +129,8 @@ class CronController extends Controller
       
       $message->setBody(array("content"=>$content,"email"=>$email,"tc"=>$mailTracking), 'text/html');
       $message->setTo($email);
-      Yii::app()->mail->send($message);
+      echo $message;
+      //Yii::app()->mail->send($message);
 
       Notifications::setNotification($stat->user_id,Notifications::NOTIFY_INVISIBLE);
       return;
