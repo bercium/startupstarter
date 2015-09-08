@@ -139,7 +139,7 @@ class CronController extends Controller
 
       $email = $stat->user->email;
       $email = 'bercium@gmail.com';
-      $message->subject = $stat->user->name." your Cofinder account almost approved"; // 11.6. title change
+      $message->subject = $stat->user->name." your Cofinder account is almost approved"; // 11.6. title change
 
       $content = "We couldn't approve your profile just yet since you haven't provided enough information."
               . "Please fill your profile and we will revisit your application.".
@@ -147,7 +147,7 @@ class CronController extends Controller
 
       $message->setBody(array("content"=>$content,"email"=>$email,"tc"=>$mailTracking), 'text/html');
       $message->setTo($email);
-      //Yii::app()->mail->send($message);
+      Yii::app()->mail->send($message);
       return;
       Notifications::setNotification($stat->user_id,Notifications::NOTIFY_INVISIBLE);      
 
