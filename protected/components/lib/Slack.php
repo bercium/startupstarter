@@ -15,6 +15,7 @@ class Slack
                 "icon_emoji"    =>  $icon
             ));
 	
+        var_dump($data);
 	// You can get your webhook endpoint from your Slack settings
         $ch = curl_init("https://cofinder.slack.com/services/hooks/slackbot?token=UdtpiGlSqC5VcjSm2O0xotwV");
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
