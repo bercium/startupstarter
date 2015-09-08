@@ -98,7 +98,43 @@ class CronController extends Controller
    * test 
    */
   public function actionNotifyTest(){
-    echo $this->consoleCommand('mailer','notifyHiddenProfiles');
+    $message = new YiiMailMessage;
+    $message->view = 'system';
+    $message->from = Yii::app()->params['noreplyEmail'];
+    
+    // send newsletter to all in waiting list
+    $hidden = UserStat::model()->findAll("completeness < :comp",array(":comp"=>PROFILE_COMPLETENESS_MIN));
+    foreach ($hidden as $stat){
+      //set mail tracking
+      if ($stat->user->status == 0) continue; // skip non active users
+      if (strtotime($stat->user->lastvisit_at) < strtotime('-2 month')) continue; // skip users who haven't been on our platform for more than 2 moths
+      
+      //echo $stat->user->email." - ".$stat->user->name." ".$stat->user->surname." ".$stat->user->lastvisit_at." your profile is not visible!";
+      //continue;
+      
+      $mailTracking = mailTrackingCode($stat->user->id);
+      $ml = new MailLog();
+      $ml->tracking_code = mailTrackingCodeDecode($mailTracking);
+      $ml->type = 'hidden-profiles';
+      $ml->user_to_id = $stat->user->id;
+      $ml->save();
+      
+      $email = $stat->user->email;
+      $email = 'bercium@gmail.com';
+      $message->subject = $stat->user->name." your Cofinder profile is hidden!";
+      
+      $content = 'Your profile on Cofinder is not visible due to lack of information you provided. 
+                  If you wish to be found we suggest you take a few minutes and '.
+              mailButton("fill it up", absoluteURL('/profile'),'success',$mailTracking,'fill-up-button');
+      
+      $message->setBody(array("content"=>$content,"email"=>$email,"tc"=>$mailTracking), 'text/html');
+      $message->setTo($email);
+      Yii::app()->mail->send($message);
+
+      Notifications::setNotification($stat->user_id,Notifications::NOTIFY_INVISIBLE);
+      return;
+    }
+    return 0;
   }
 
 
