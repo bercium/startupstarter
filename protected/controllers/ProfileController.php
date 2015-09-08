@@ -546,6 +546,7 @@ class ProfileController extends GxController {
 				}
 			} else
 			if (isset($_POST['deactivate_account']) && ($_POST['deactivate_account'] == 1)) {
+                Slack::message("USER >> Account deactivation: ".$user->email);
 				$user->status = 0;
 				if ($user->save())
 					$this->redirect(array('user/logout'));

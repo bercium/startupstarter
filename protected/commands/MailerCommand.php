@@ -42,6 +42,7 @@ class MailerCommand extends CConsoleCommand{
     $message->from = Yii::app()->params['noreplyEmail'];    
     
     $users = User::model()->findAll("(lastvisit_at + INTERVAL 2 MONTH) < CURDATE() AND newsletter=1");
+    $c = 0;
     foreach ($users as $user){
       $lastvisit_at = strtotime($user->lastvisit_at);
 
@@ -75,7 +76,10 @@ class MailerCommand extends CConsoleCommand{
       $message->setBody(array("content"=>$content,"email"=>$user->email,"tc"=>$mailTracking), 'text/html');
       $message->setTo($user->email);
       Yii::app()->mail->send($message);
+      $c++;
     }
+    
+    Slack::message("CRON >> No activity reminders: ".$c);
   }
   
   
@@ -132,6 +136,7 @@ class MailerCommand extends CConsoleCommand{
     $unreadMails = MailLog::model()->findAll("type LIKE 'user-message' AND ISNULL(time_open)");
     $unreadMails = Notification::model()->findAll("viewed = 0 AND type = 1");
     $users = array();
+    
     foreach ($unreadMails as $mailLog){
       
       $create_at = strtotime($mailLog->user->lastvisit_at);
@@ -143,7 +148,7 @@ class MailerCommand extends CConsoleCommand{
         $users[$mailLog->user_id]['name'] = $mailLog->user->name;
       }else $users[$mailLog->user_id]['count']++;
     }
-    
+    $c=0;
     // notify all that have missing messages
     foreach ($users as $key => $user){
       //set mail tracking
@@ -167,7 +172,9 @@ class MailerCommand extends CConsoleCommand{
       //$message->setTo('bercium@gmail.com');
       Yii::app()->mail->send($message);
       //break;
+      $c++;
     }
+    Slack::message("CRON >> Unread msg notifications: ".$c);
     
     return 0;
   }
@@ -181,6 +188,7 @@ class MailerCommand extends CConsoleCommand{
     
     // send newsletter to all in waiting list
     $invites = Invite::model()->findAll("NOT ISNULL(`key`)");
+    $c = 0;
     foreach ($invites as $user){
       
       $create_at = strtotime($user->time_invited);
@@ -209,7 +217,9 @@ class MailerCommand extends CConsoleCommand{
       $message->setBody(array("content"=>$content,"email"=>$user->email,"tc"=>$mailTracking), 'text/html');
       $message->setTo($user->email);
       Yii::app()->mail->send($message);
+      $c++;
     }
+    Slack::message("CRON >> Invite to join reminders: ".$c);
     return 0;
   }
   
@@ -222,6 +232,7 @@ class MailerCommand extends CConsoleCommand{
     
     // send newsletter to all in waiting list
     $hidden = UserStat::model()->findAll("completeness < :comp",array(":comp"=>PROFILE_COMPLETENESS_MIN));
+    $c = 0;
     foreach ($hidden as $stat){
       //set mail tracking
       if ($stat->user->status == 0) continue; // skip non active users
@@ -249,7 +260,9 @@ class MailerCommand extends CConsoleCommand{
       Yii::app()->mail->send($message);
 
       Notifications::setNotification($stat->user_id,Notifications::NOTIFY_INVISIBLE);
+      $c++;
     }
+    Slack::message("CRON >> Hidden profiles: ".$c);
     return 0;
   }
   
@@ -262,6 +275,7 @@ class MailerCommand extends CConsoleCommand{
     // send newsletter to all in waiting list
     $hidden = UserStat::model()->findAll("completeness < :comp",array(":comp"=>PROFILE_COMPLETENESS_MIN));
 
+    $c = 0;
     foreach ($hidden as $stat){
       //set mail tracking
       if ($stat->user->status != 0) continue; // skip active users
@@ -303,7 +317,9 @@ class MailerCommand extends CConsoleCommand{
       Yii::app()->mail->send($message);
 
       Notifications::setNotification($stat->user_id,Notifications::NOTIFY_INVISIBLE);
+      $c++;
     }
+    Slack::message("CRON >> UnExcepted profiles: ".$c);
     return 0;
   }  
   

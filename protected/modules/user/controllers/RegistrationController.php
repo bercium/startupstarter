@@ -130,6 +130,8 @@ class RegistrationController extends Controller
                         $message_notify->from = Yii::app()->params['noreplyEmail'];
                         Yii::app()->mail->send($message_notify);
                         
+                        Slack::message("USER >> New user registered: ".$model->email);
+                        
                       }else{
                         // if user was invited then allow him to register
                         /*$message = new YiiMailMessage;
@@ -163,6 +165,7 @@ class RegistrationController extends Controller
                         $identity=new UserIdentity($model->email,$soucePassword);
                         $identity->authenticate();
                         Yii::app()->user->login($identity,Yii::app()->controller->module->rememberMeTime);
+                        Slack::message("USER >> New invitation registered: ".$model->email);
                       }
                       
                      //mark user but not as member yet
