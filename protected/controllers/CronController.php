@@ -98,7 +98,57 @@ class CronController extends Controller
    * test 
    */
   public function actionNotifyTest(){
-    echo $this->consoleCommand('mailer','notifyUnExeptedProfiles');
+      $message = new YiiMailMessage;
+    $message->view = 'system';
+    $message->from = Yii::app()->params['noreplyEmail'];
+    
+    // send newsletter to all in waiting list
+    $hidden = UserStat::model()->findAll("completeness < :comp",array(":comp"=>PROFILE_COMPLETENESS_MIN));
+
+    foreach ($hidden as $stat){
+      //set mail tracking
+      if ($stat->user->status != 0) continue; // skip active users
+      if ($stat->user->newsletter == 0) continue; // skip those who unsubscribed
+      if ($stat->user->lastvisit_at != '0000-00-00 00:00:00') continue; // skip users who have already canceled their account
+      
+      //echo $stat->user->name." - ".$stat->user->email.": ".$stat->user->create_at." (".date('c',strtotime('-4 week'))."     ".date('c',strtotime('-3 week')).")<br />\n";
+      $create_at = strtotime($stat->user->create_at);
+      /*if ($create_at < strtotime('-8 week') || $create_at >= strtotime('-1 day')) continue;      
+      if (!
+          (($create_at >= strtotime('-1 week')) || 
+          (($create_at >= strtotime('-4 week')) && ($create_at < strtotime('-3 week'))) || 
+          (($create_at >= strtotime('-8 week')) && ($create_at < strtotime('-7 week'))) )
+         ) continue;*/
+      
+      //echo $stat->user->email." - ".$stat->user->name." your Cofinder profile is moments away from approval!";
+
+      //echo "SEND: ".$stat->user->name." - ".$stat->user->email.": ".$stat->user->create_at." (".$stat->completeness.")<br />\n";
+      //echo 'http://www.cofinder.eu/profile/registrationFlow?key='.substr($stat->user->activkey,0, 10).'&email='.$stat->user->email;
+
+      //continue;
+      //set mail tracking
+      $mailTracking = mailTrackingCode($stat->user->id);
+      $ml = new MailLog();
+      $ml->tracking_code = mailTrackingCodeDecode($mailTracking);
+      $ml->type = 'registration-flow-reminder';
+      $ml->user_to_id = $stat->user->id;
+      $ml->save();
+
+      $email = $stat->user->email;
+      $message->subject = $stat->user->name." your Cofinder account is almost approved"; // 11.6. title change
+
+      $content = "We couldn't approve your profile just yet since you haven't provided enough information."
+              . "Please fill your profile and we will revisit your application.".
+              mailButton("Do it now", absoluteURL().'/profile/registrationFlow?key='.substr($stat->user->activkey,0, 10).'&email='.$stat->user->email,'success',$mailTracking,'fill-up-button');
+
+      $message->setBody(array("content"=>$content,"email"=>$email,"tc"=>$mailTracking), 'text/html');
+      $message->setTo($email);
+      Yii::app()->mail->send($message);
+      
+      echo $stat->user->email."<br />";
+      Notifications::setNotification($stat->user_id,Notifications::NOTIFY_INVISIBLE);
+    }
+    //echo $this->consoleCommand('mailer','notifyUnExeptedProfiles');
   }
 
 

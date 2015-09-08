@@ -292,7 +292,6 @@ class MailerCommand extends CConsoleCommand{
       $ml->save();
 
       $email = $stat->user->email;
-      $email = 'bercium@gmail.com';
       $message->subject = $stat->user->name." your Cofinder account is almost approved"; // 11.6. title change
 
       $content = "We couldn't approve your profile just yet since you haven't provided enough information."
@@ -304,7 +303,6 @@ class MailerCommand extends CConsoleCommand{
       Yii::app()->mail->send($message);
 
       Notifications::setNotification($stat->user_id,Notifications::NOTIFY_INVISIBLE);
-      return 0;
     }
     return 0;
   }  
