@@ -98,7 +98,7 @@ class CronController extends Controller
    * test 
    */
   public function actionNotifyTest(){
-    //echo $this->consoleCommand('mailer','notifyHiddenProfiles');
+    echo $this->consoleCommand('mailer','notifyHiddenProfiles');
   }
 
 
