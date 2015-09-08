@@ -98,7 +98,7 @@ class CronController extends Controller
    * test 
    */
   public function actionNotifyTest(){
-      Slack::message("test");Slack::message("test",':heart:');
+     var_dump(Slack::message("test"));
     //echo $this->consoleCommand('mailer','notifyUnExeptedProfiles');
   }
 
