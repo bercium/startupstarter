@@ -238,7 +238,6 @@ class MailerCommand extends CConsoleCommand{
       $ml->save();
       
       $email = $stat->user->email;
-      $email = 'bercium@gmail.com';
       $message->subject = $stat->user->name." your Cofinder profile is hidden!";
       
       $content = 'Your profile on Cofinder is not visible due to lack of information you provided. 
@@ -250,7 +249,6 @@ class MailerCommand extends CConsoleCommand{
       Yii::app()->mail->send($message);
 
       Notifications::setNotification($stat->user_id,Notifications::NOTIFY_INVISIBLE);
-      return;
     }
     return 0;
   }
@@ -294,7 +292,7 @@ class MailerCommand extends CConsoleCommand{
       $ml->save();
 
       $email = $stat->user->email;
-      $message->subject = $stat->user->name." your Cofinder account almost approved"; // 11.6. title change
+      $message->subject = $stat->user->name." your Cofinder account is almost approved"; // 11.6. title change
 
       $content = "We couldn't approve your profile just yet since you haven't provided enough information."
               . "Please fill your profile and we will revisit your application.".
@@ -302,7 +300,7 @@ class MailerCommand extends CConsoleCommand{
 
       $message->setBody(array("content"=>$content,"email"=>$email,"tc"=>$mailTracking), 'text/html');
       $message->setTo($email);
-      //Yii::app()->mail->send($message);
+      Yii::app()->mail->send($message);
 
       Notifications::setNotification($stat->user_id,Notifications::NOTIFY_INVISIBLE);
 
