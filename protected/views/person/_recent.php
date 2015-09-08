@@ -39,7 +39,7 @@
 		<ul class="pagination hide-for-small">
       <li class="arrow unavailable"><a trk="disabled_click_personBack" class="button small secondary disabled" data-tooltip title="<?php echo Yii::t('msg','Please login to use this functionality!'); ?>"><span class="icon-angle-left"></span>
       </a></li>
-    <li><?php echo (round($maxPage*3/50)*50); ?>+</li>
+    <li><?php echo (round($maxPage*5/50)*50); ?>+</li>
       <li class="arrow unavailable"><a trk="disabled_click_personForward" class="button small secondary disabled" data-tooltip title="<?php echo Yii::t('msg','Please login to use this functionality!'); ?>"><span class="icon-angle-right"></span>
       </a></li>
 		</ul>
