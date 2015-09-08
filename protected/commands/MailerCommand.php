@@ -270,12 +270,12 @@ class MailerCommand extends CConsoleCommand{
       
       //echo $stat->user->name." - ".$stat->user->email.": ".$stat->user->create_at." (".date('c',strtotime('-4 week'))."     ".date('c',strtotime('-3 week')).")<br />\n";
       $create_at = strtotime($stat->user->create_at);
-      if ($create_at < strtotime('-8 week') || $create_at >= strtotime('-1 day')) continue;      
+      /*if ($create_at < strtotime('-8 week') || $create_at >= strtotime('-1 day')) continue;      
       if (!
           (($create_at >= strtotime('-1 week')) || 
           (($create_at >= strtotime('-4 week')) && ($create_at < strtotime('-3 week'))) || 
           (($create_at >= strtotime('-8 week')) && ($create_at < strtotime('-7 week'))) )
-         ) continue;
+         ) continue;*/
       
       //echo $stat->user->email." - ".$stat->user->name." your Cofinder profile is moments away from approval!";
 
