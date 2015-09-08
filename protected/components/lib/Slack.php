@@ -9,9 +9,8 @@ class Slack
 {
   
     public static function message($message, $icon = "", $room = "activity") {
-        $room = ($room) ? $room : "engineering";
         $data = "payload=" . json_encode(array(
-                "channel"       =>  "#{$room}",
+                "channel"       =>  "#".$room,
                 "text"          =>  $message,
                 "icon_emoji"    =>  $icon
             ));
