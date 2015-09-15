@@ -1,5 +1,5 @@
 <?php
-
+defined('YII_TESTING') or define('YII_TESTING',false); //for console purposes
 
 /**
  * append this string to files that you wish to force refresh during version changes

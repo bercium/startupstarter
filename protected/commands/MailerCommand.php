@@ -134,9 +134,9 @@ class MailerCommand extends CConsoleCommand{
     
     // send newsletter to all in waiting list
     $unreadMails = MailLog::model()->findAll("type LIKE 'user-message' AND ISNULL(time_open)");
-    $unreadMails = Notification::model()->findAll("viewed = 0 AND type = 1");
+    $unreadMails = Notification::model()->bynotifyat()->findAll("viewed = 0 AND type = 1");
     $users = array();
-    
+    $last_date = '';
     foreach ($unreadMails as $mailLog){
       
       $create_at = strtotime($mailLog->user->lastvisit_at);
@@ -147,10 +147,21 @@ class MailerCommand extends CConsoleCommand{
         $users[$mailLog->user_id]['email'] = $mailLog->user->email;
         $users[$mailLog->user_id]['name'] = $mailLog->user->name;
       }else $users[$mailLog->user_id]['count']++;
+      $users[$mailLog->user_id]['date'] = $mailLog->notify_at;
     }
     $c=0;
     // notify all that have missing messages
     foreach ($users as $key => $user){
+      
+      $last_msg = date("Y-m-d H",strtotime($user['date']));
+      
+      if ( !($last_msg == date("Y-m-d H",strtotime('-2 hour')) || $last_msg == date("Y-m-d H",strtotime('-1 day')) || 
+          $last_msg == date("Y-m-d H",strtotime('-3 days')) || $last_msg == date("Y-m-d H",strtotime('-8 days')) || 
+          $last_msg == date("Y-m-d H",strtotime('-2 weeks')) || $last_msg == date("Y-m-d H",strtotime('-3 weeks')) || 
+          $last_msg == date("Y-m-d H",strtotime('-4 weeks')) || $last_msg == date("Y-m-d H",strtotime('-5 weeks')) ||
+          $last_msg == date("Y-m-d H",strtotime('-7 weeks'))) ) continue;
+      
+          
       //set mail tracking
       $mailTracking = mailTrackingCode($key);
       $ml = new MailLog();
@@ -236,7 +247,7 @@ class MailerCommand extends CConsoleCommand{
     foreach ($hidden as $stat){
       //set mail tracking
       if ($stat->user->status == 0) continue; // skip non active users
-      if (strtotime($stat->user->lastvisit_at) < strtotime('-2 month')) continue; // skip users who haven't been on our platform for more than 2 moths
+      if (strtotime($stat->user->lastvisit_at) < strtotime('-2 month')) continue; // skip users who haven't been on our platform for more than 2 months
       
       //echo $stat->user->email." - ".$stat->user->name." ".$stat->user->surname." ".$stat->user->lastvisit_at." your profile is not visible!";
       //continue;
@@ -283,14 +294,18 @@ class MailerCommand extends CConsoleCommand{
       if ($stat->user->lastvisit_at != '0000-00-00 00:00:00') continue; // skip users who have already canceled their account
       
       //echo $stat->user->name." - ".$stat->user->email.": ".$stat->user->create_at." (".date('c',strtotime('-4 week'))."     ".date('c',strtotime('-3 week')).")<br />\n";
-      $create_at = strtotime($stat->user->create_at);
-      if ($create_at < strtotime('-8 week') || $create_at >= strtotime('-1 day')) continue;      
+      $create_at = date("Y-m-d H",strtotime($stat->user->create_at));
+      //$create_at_hour = date("Y-m-d H",strtotime($stat->user->create_at));
+      /*if ($create_at < strtotime('-8 week') || $create_at >= strtotime('-1 day')) continue;      
       if (!
           (($create_at >= strtotime('-1 week')) || 
           (($create_at >= strtotime('-4 week')) && ($create_at < strtotime('-3 week'))) || 
           (($create_at >= strtotime('-8 week')) && ($create_at < strtotime('-7 week'))) )
-         ) continue;
-      
+         ) continue;*/
+      if ( !($create_at == date("Y-m-d H",strtotime('-2 hour')) || $create_at == date("Y-m-d H",strtotime('-1 day')) || 
+          $create_at == date("Y-m-d H",strtotime('-3 days')) || $create_at == date("Y-m-d H",strtotime('-8 days')) || 
+          $create_at == date("Y-m-d H",strtotime('-14 day')) || $create_at == date("Y-m-d H",strtotime('-21 day')) || 
+          $create_at == date("Y-m-d H",strtotime('-28 day'))) ) continue;
       //echo $stat->user->email." - ".$stat->user->name." your Cofinder profile is moments away from approval!";
 
       //echo "SEND: ".$stat->user->name." - ".$stat->user->email.": ".$stat->user->create_at." (".$stat->completeness.")<br />\n";

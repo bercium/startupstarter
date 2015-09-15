@@ -130,7 +130,7 @@ class RegistrationController extends Controller
                         $message_notify->from = Yii::app()->params['noreplyEmail'];
                         Yii::app()->mail->send($message_notify);
                         
-                        Slack::message("USER >> New user registered: ".$model->email);
+                        Slack::message("USER >> New user registered: ".$model->email." view here: ".$this->createAbsoluteUrl("/person/view",array("id"=>$model->id)));
                         
                       }else{
                         // if user was invited then allow him to register

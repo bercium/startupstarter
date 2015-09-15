@@ -81,4 +81,10 @@ abstract class BaseNotification extends GxActiveRecord {
 			'criteria' => $criteria,
 		));
 	}
+    
+    public function scopes() {
+        return array(
+            'bynotifyat' => array('order' => 'notify_at'),
+        );
+    }
 }

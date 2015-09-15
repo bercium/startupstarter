@@ -14,6 +14,7 @@ $a = array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+        'application.components.lib.*',
     'ext.giix-components.*', // giix components
     'application.extensions.auditTrail.models.AuditTrail', // system for loging models
     'application.modules.user.models.*',  // yii-user login system

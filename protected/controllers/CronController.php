@@ -77,14 +77,22 @@ class CronController extends Controller
       echo $this->consoleCommand('mailer','notifyHiddenProfiles');
       echo $this->consoleCommand('mailer','notifyToJoin');
     }
-    echo $this->consoleCommand('mailer','notifyUnExeptedProfiles');
+    //echo $this->consoleCommand('mailer','notifyUnExeptedProfiles');
   }
   
   /**
    * notify on mondaydailyProjectsPost
    */  
   public function actionNotifyOnMonday(){
+    //echo $this->consoleCommand('mailer','notifyUnreadMsg');
+  }
+  
+    /**
+   * all hidden profiles will be notified every second week
+   */
+  public function actionNotifyHourly(){
     echo $this->consoleCommand('mailer','notifyUnreadMsg');
+    echo $this->consoleCommand('mailer','notifyUnExeptedProfiles');
   }
   
   /**
