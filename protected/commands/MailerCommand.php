@@ -185,7 +185,7 @@ class MailerCommand extends CConsoleCommand{
       //break;
       $c++;
     }
-    Slack::message("CRON >> Unread msg notifications: ".$c);
+    if ($c > 0) Slack::message("CRON >> Unread msg notifications: ".$c);
     
     return 0;
   }
@@ -334,7 +334,7 @@ class MailerCommand extends CConsoleCommand{
       Notifications::setNotification($stat->user_id,Notifications::NOTIFY_INVISIBLE);
       $c++;
     }
-    Slack::message("CRON >> UnExcepted profiles: ".$c);
+    if ($c > 0) Slack::message("CRON >> UnExcepted profiles: ".$c);
     return 0;
   }  
   
