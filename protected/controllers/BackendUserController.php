@@ -102,7 +102,7 @@ class BackendUserController extends GxController {
   
   public function actionInactive() {
     $this->layout="//layouts/card";
-    $users = User::model()->findAllByAttributes(array("status"=>0,"lastvisit_at"=>'0000-00-00 00:00:00'),array('order'=>'creat_at DESC'));
+    $users = User::model()->findAllByAttributes(array("status"=>0,"lastvisit_at"=>'0000-00-00 00:00:00'),array('order'=>'create_at DESC'));
     $this->render('inactive',array("users"=>$users));
   }
 
