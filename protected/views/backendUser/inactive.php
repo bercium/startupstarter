@@ -9,11 +9,12 @@
    ?> </a> <?php
 
    if (isset($user->userStat)) echo " ".$user->userStat->completeness."%";
-   if (isset($user->userTag)){
+   /*if (isset($user->userTag)){
      echo " (";
      foreach ($user->userTag as $tag)  echo " ".$tag->tag.", ";
      echo ")";
-   }
+   }*/
+   echo "(".$user->create_at.")";
    echo "<br />";
    echo "<small>".Yii::app()->createAbsoluteUrl("/profile/registrationFlow",array("key"=>substr($user->activkey,0, 10),"email"=>$user->email))."</small>";
    echo "<br />";
